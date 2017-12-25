@@ -1,15 +1,11 @@
 #!/bin/sh
+set -efu
+cd "$(dirname "$0")/.." || exit 1
 
-set -e
+echo "### Evaluating all profiles ###"
+echo
 
-cd "$(dirname "$0")/.."
-
+# shellcheck disable=SC2044
 for profile in $(find . -name default.nix); do
-  echo evaluating $profile >&2
-
-  nix-build '<nixpkgs/nixos>' \
-    -I nixos-config=tests/eval-test.nix \
-    -I nixos-hardware-profile=$profile \
-    -A system \
-    --dry-run
+  ./tests/eval-one.sh "$profile"
 done
