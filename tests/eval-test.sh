@@ -1,6 +1,6 @@
 #!/bin/sh
 set -efu
-cd "$(dirname "$0")/.." || exit 1
+cd "$(dirname "$0")/.."
 
 echo "### Evaluating all profiles ###"
 echo
