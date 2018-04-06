@@ -12,6 +12,17 @@ enable ThinkPad X220 profile, your ~imports~ in ~/etc/nixos/configuration.nix~
 should look like:
 
   : imports = [ <nixos-hardware/lenovo/thinkpad/x220> ./hardware-configuration.nix ];
+  
+Starting with nix 2.0 it is also possible to use `builtins.fetchGit` to fetch this repository:
+
+  : imports = [
+  :  (builtins.fetchGit { 
+  :    url = "https://github.com/NixOS/nixos-hardware";
+  :    # revision here is optional, if not given, nix will fetch updates automatically
+  :    rev = "a5fa2cc1ae6a1002962cf71fc23fbd533db412be";
+  :   } + "/lenovo/thinkpad/x250")
+  :  ./hardware-configuration.nix
+  : ];
 
 ** Profiles
 
