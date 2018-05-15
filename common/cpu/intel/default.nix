@@ -2,7 +2,7 @@
 
 {
   hardware.cpu.intel.updateMicrocode = lib.mkDefault true;
-  services.xserver.videoDrivers = [ "intel" ];
+  services.xserver.videoDrivers = [ "modesetting" ];
 
   hardware.opengl.extraPackages = with pkgs; [
     vaapiIntel
