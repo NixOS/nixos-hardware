@@ -2,6 +2,8 @@ NixOS profiles covering hardware quirks.
 
 ** Setup
 
+*** Using channels
+
 Add and update ~nixos-hardware~ channel:
 
   : $ sudo nix-channel --add https://github.com/NixOS/nixos-hardware/archive/master.tar.gz nixos-hardware
@@ -12,6 +14,19 @@ enable ThinkPad X220 profile, your ~imports~ in ~/etc/nixos/configuration.nix~
 should look like:
 
   : imports = [ <nixos-hardware/lenovo/thinkpad/x220> ./hardware-configuration.nix ];
+
+New updates to the expressions here will be fetched when you update the channel.
+
+*** Using fetchgit
+
+If you are using nix 2.0, you can fetch the git repository directly:
+
+  : imports = 
+  :   let nixos-hardware = builtins.fetchgit { url = "https://github.com/NixOS/nixos-hardware.git"; ref = "master"; }; 
+  :   in [ "${nixos-harware}/lenovo/thinkpad/x220" ];
+
+Unlike the channel, this will update the git repository on a rebuild. However, 
+you can easily pin to a particular revision if you desire more stability.
 
 ** Profiles
 
