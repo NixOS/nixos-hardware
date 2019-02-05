@@ -4,18 +4,15 @@
   imports = [ ../. ];
 
   # Current solution to avoid black screen on boot is to set
-  # PCI registers with GRUB: https://askubuntu.com/a/613573
-  boot.loader.efi.canTouchEfiVariables = lib.mkDefault true;
-  boot.loader.grub = {
-    enabe = true;
-    efiSupport = true;
-    device = lib.mkDefault "nodev";
-    extraConfig = lib.mkDefault ''
-      insmod setpci;
-      setpci -s "00:17.0" 3e.b=8;
-      setpci -s "02:00.0" 04.b=7;
-    '';
-  };
+  # PCI registers of PCIe bridge and display: https://askubuntu.com/a/613573
+  boot.initrd.preDeviceCommands = ''
+    setpci -s "00:17.0" 3e.b=8;
+    setpci -s "02:00.0" 04.b=7;
+  '';
+  
+  boot.initrd.extraUtilsCommands = ''
+    cp -v ${pkgs.pciutils}/bin/setpci $out/bin
+  '';
 
   # Requires nixpkgs.config.allowUnfree = true;
   services.xserver.videoDrivers = [ "nvidiaLegacy340" ];
