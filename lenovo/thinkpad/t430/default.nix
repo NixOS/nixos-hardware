@@ -3,7 +3,6 @@
 {
   imports = [
     ../.
-    ../../../common/cpu/intel
   ];
 
   boot = {

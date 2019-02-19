@@ -4,8 +4,9 @@
   imports = [
     ../.
     ../tp-smapi.nix
-    ../../../common/cpu/intel
   ];
+  # doesn't support acpi_call
+  boot.acpi_call.enable = false;
 
   boot = {
     # TODO: this configuration seems to be very aggressive.

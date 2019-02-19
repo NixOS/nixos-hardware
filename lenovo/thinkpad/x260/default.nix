@@ -1,8 +1,6 @@
 {
   imports = [
     ../.
-    ../../../common/cpu/intel
-    ../../../common/pc/laptop/acpi_call.nix
   ];
 
   # https://wiki.archlinux.org/index.php/TLP#Btrfs
