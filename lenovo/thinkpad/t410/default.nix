@@ -5,10 +5,11 @@
     ../.
     ../tp-smapi.nix
   ];
-  # doesn't support acpi_call
-  boot.acpi_call.enable = false;
 
   boot = {
+    # doesn't support acpi_call
+    acpi_call.enable = false;
+
     # TODO: this configuration seems to be very aggressive.
     # Ask @peti if it's stable or not.
     kernelParams = [
