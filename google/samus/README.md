@@ -16,7 +16,7 @@ For step 3, https://mrchromebox.tech/#fwscript, has the needed instructions.
 
 ##Install
 
-Currently, only the touchpad driver made for Samus is incluced. Will later include hidpi settings and such.
+Currently, only the touchpad driver made for Samus is included. Will later include hidpi settings and such.
 
 The touchpad driver included here is configured specifically for Samus and is much better than the synaptics driver that the NixOS manual recommends.
 
