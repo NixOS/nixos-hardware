@@ -35,4 +35,8 @@ imports =
   ./modules
   ];
 
-DO NOT include "services.xserver.libinput.enable = true;" in your configuration.nix file.
+DO NOT include "services.xserver.libinput.enable = true;" in your configuration.nix file. Doing so will let libinput override cmt.
+
+##Current issues
+
+Desktop Environments don't recognize xinput so you will have to manually edit the config file if you want to adjust acceleration, etc.

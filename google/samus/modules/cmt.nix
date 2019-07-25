@@ -2,12 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.hardware.samus.cmt;
-in
-
 {
-  options.hardware.samus.cmt = {
+  options.services.xserver.cmt = {
     enable = mkEnableOption "Use Chrome Multitouch input (cmt)";
   };
 
