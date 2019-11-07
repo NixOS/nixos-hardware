@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../../../common/cpu/intel/kaby-lake
+    ../../../common/cpu/intel
     ../../../common/pc/laptop
     ../../../common/pc/laptop/acpi_call.nix
   ];
@@ -12,8 +12,6 @@
 
   # touchpad goes over i2c
   boot.blacklistedKernelModules = [ "psmouse" ];
-
-  services.throttled.enable = lib.mkDefault true;
 
   # This will save you money and possibly your life!
   services.thermald.enable = true;
