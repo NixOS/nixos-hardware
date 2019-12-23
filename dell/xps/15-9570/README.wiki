@@ -1,0 +1,36 @@
+= Dell XPS 15 9570 =
+
+== Tested Hardware ==
+
+* CPU: Intel(R) Core(TM) i7-8750H CPU @ 2.20GHz
+* RAM: 32 GB
+* HDD: 256 GiB SSD
+* Screen: 15" 4k (3840✕2160)
+* Graphics: NVIDIA Corporation GP107M, with Intel Graphics too.
+* Input: Touchscreen and trackpad.
+
+
+== Firmware Configuration ==
+
+Not much tweaking of NixOS itself was needed. But we currently cannot automate the firmware setup, so this must be done by hand.
+
+=== Before installation ===
+
+These settings are needed both for booting the final install, and installer itself. Therefore, they must be done first.
+
+* ''Disable Secure Boot (but keep UEFI Boot).'' Thankfully doing so is as easy as changing any other simple setting.
+
+* ''Disable Intel hardware RAID and use AHCI instead.'' Intel doesn't seem to provide a working linux driver for this.  (If you just have SSD it's pointless and just slows things down needlessly anyways.)
+
+
+=== After installation ===
+
+* ''Add systemd-boot to UEFI boot list.'' The (uneditable anyways) settings mapping drive UUIDs to HD* work fine.
+
+=== Optional ===
+
+* ''Update BIOS.'' According to Reddit, this helps with battery life.
+
+* ''Update Intel's Thunderbolt firmware.'' Without this, the Thunderbolt port will only work as power source, and not transfer data.
+
+=== Troubleshooting ===
