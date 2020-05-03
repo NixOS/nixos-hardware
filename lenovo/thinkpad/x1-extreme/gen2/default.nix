@@ -5,6 +5,7 @@ with lib;
 {
   imports = [
     ../.
+    ../../../../common/pc/display/hidpi.nix
   ];
 
   # Fixes an issue with incorrect battery reporting. See
