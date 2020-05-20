@@ -74,6 +74,7 @@ See code for all available configurations.
 | Apple MacBook Air 6,X             | `<nixos-hardware/apple/macbook-air/6>`             |
 | [Apple MacBook Pro 10,1][]        | `<nixos-hardware/apple/macbook-pro/10-1>`          |
 | Apple MacBook Pro 12,1            | `<nixos-hardware/apple/macbook-pro/12-1>`          |
+| Asus TUF FX504GD                  | `<nixos-hardware/asus/fx504gd>`                    |
 | BeagleBoard PocketBeagle          | `<nixos-hardware/beagleboard/pocketbeagle>`        |
 | Dell Latitude 3480                | `<nixos-hardware/dell/latitude/3480>`              |
 | [Dell XPS E7240][]                | `<nixos-hardware/dell/e7240>`                      |
@@ -128,6 +129,7 @@ See code for all available configurations.
 | [Tuxedo InfinityBook v4][]        | `<nixos-hardware/tuxedo/infinitybook/v4>`          |
 
 [Acer Aspire 4810T]: acer/aspire/4810t
+[Asus TUF FX504GD]: asus/fx504gd
 [Apple MacBook Pro 10,1]: apple/macbook-pro/10-1
 [Dell XPS E7240]: dell/e7240
 [Dell XPS 13 7390]: dell/xps/13-7390
