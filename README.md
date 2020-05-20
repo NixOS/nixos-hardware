@@ -1,6 +1,8 @@
-NixOS profiles covering hardware quirks.
+NixOS profiles to optimize settings for different hardware.
 
 ## Setup
+
+### Using channels
 
 Add and update `nixos-hardware` channel:
 
@@ -20,7 +22,46 @@ imports = [
 ];
 ```
 
-## Incomplete list of Profiles
+New updates to the expressions here will be fetched when you update the channel.
+
+## Using nix flakes support
+
+There is also experimental flake support. In your `/etc/nixos/flake.nix` add the following:
+
+```nix
+{
+  description = "NixOS configuration with flakes";
+  inputs.nixos-hardware.url = github:NixOS/nixos-hardware/master;
+
+  outputs = { self, nixpkgs, nixos-hardware }: {
+    # replace <your-hostname> with your actual hostname
+    nixosConfigurations.<your-hostname> = nixpkgs.lib.nixosSystem {
+      # ...
+      modules = [
+        # ...
+        # add your model from this list: https://github.com/NixOS/nixos-hardware/blob/flakes/flake.nix
+        nixos-hardware.nixosModules.dell-xps-13-9380
+      ];
+    };
+  };
+}
+```
+
+
+### Using fetchgit
+
+You can fetch the git repository directly:
+
+```nix
+imports = [ 
+  "${builtins.fetchgit { url = "https://github.com/NixOS/nixos-hardware.git"; }}/lenovo/thinkpad/x220"
+];
+```
+
+Unlike the channel, this will update the git repository on a rebuild. However, 
+you can easily pin to a particular revision if you desire more stability.
+
+## List of Profiles
 
 See code for all available configurations.
 
@@ -33,10 +74,12 @@ See code for all available configurations.
 | Apple MacBook Air 6,X             | `<nixos-hardware/apple/macbook-air/6>`             |
 | [Apple MacBook Pro 10,1][]        | `<nixos-hardware/apple/macbook-pro/10-1>`          |
 | Apple MacBook Pro 12,1            | `<nixos-hardware/apple/macbook-pro/12-1>`          |
+| Asus TUF FX504GD                  | `<nixos-hardware/asus/fx504gd>`                    |
 | BeagleBoard PocketBeagle          | `<nixos-hardware/beagleboard/pocketbeagle>`        |
 | Dell Latitude 3480                | `<nixos-hardware/dell/latitude/3480>`              |
 | [Dell XPS E7240][]                | `<nixos-hardware/dell/e7240>`                      |
 | [Dell XPS 13 7390][]              | `<nixos-hardware/dell/xps/13-7390>`                |
+| [Dell XPS 13 9343][]              | `<nixos-hardware/dell/xps/13-9343>`                |
 | [Dell XPS 13 9360][]              | `<nixos-hardware/dell/xps/13-9360>`                |
 | [Dell XPS 13 9370][]              | `<nixos-hardware/dell/xps/13-9370>`                |
 | [Dell XPS 13 9380][]              | `<nixos-hardware/dell/xps/13-9380>`                |
@@ -45,6 +88,8 @@ See code for all available configurations.
 | [Dell XPS 15 9560][]              | `<nixos-hardware/dell/xps/15-9560>`                |
 | [Dell XPS 15 9560, intel only][]  | `<nixos-hardware/dell/xps/15-9560/intel>`          |
 | [Dell XPS 15 9560, nvidia only][] | `<nixos-hardware/dell/xps/15-9560/nvidia>`         |
+| [Dell XPS 15 9500][]              | `<nixos-hardware/dell/xps/15-9500>`                |
+| [Dell XPS 15 9500, nvidia][]      | `<nixos-hardware/dell/xps/15-9500/nvidia>`         |
 | [Google Pixelbook][]              | `<nixos-hardware/google/pixelbook>`                |
 | [Inverse Path USB armory][]       | `<nixos-hardware/inversepath/usbarmory>`           |
 | Lenovo IdeaPad Z510               | `<nixos-hardware/lenovo/ideapad/z510>`             |
@@ -84,9 +129,11 @@ See code for all available configurations.
 | [Tuxedo InfinityBook v4][]        | `<nixos-hardware/tuxedo/infinitybook/v4>`          |
 
 [Acer Aspire 4810T]: acer/aspire/4810t
+[Asus TUF FX504GD]: asus/fx504gd
 [Apple MacBook Pro 10,1]: apple/macbook-pro/10-1
 [Dell XPS E7240]: dell/e7240
 [Dell XPS 13 7390]: dell/xps/13-7390
+[Dell XPS 13 9343]: dell/xps/13-9343
 [Dell XPS 13 9360]: dell/xps/13-9360
 [Dell XPS 13 9370]: dell/xps/13-9370
 [Dell XPS 13 9380]: dell/xps/13-9380
@@ -104,7 +151,7 @@ See code for all available configurations.
 [Raspberry Pi 2]: raspberry-pi/2
 [Samsung Series 9 NP900X3C]: samsung/np900x3c
 [Purism Librem 13v3]: purism/librem/13v3
-[Purism Librem 13v5]: purism/librem/13v5
+[Purism Librem 15v5]: purism/librem/15v5
 [Toshiba Chromebook 2 `swanky`]: toshiba/swanky
 [Tuxedo InfinityBook v4]: nixos-hardware/tuxedo/infinitybook/v4
 
