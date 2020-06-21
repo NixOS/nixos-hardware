@@ -1,4 +1,4 @@
-NixOS profiles covering hardware quirks.
+NixOS profiles to optimize settings for different hardware.
 
 ## Setup
 
