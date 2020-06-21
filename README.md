@@ -104,7 +104,7 @@ See code for all available configurations.
 [Raspberry Pi 2]: raspberry-pi/2
 [Samsung Series 9 NP900X3C]: samsung/np900x3c
 [Purism Librem 13v3]: purism/librem/13v3
-[Purism Librem 13v5]: purism/librem/13v5
+[Purism Librem 15v5]: purism/librem/15v5
 [Toshiba Chromebook 2 `swanky`]: toshiba/swanky
 [Tuxedo InfinityBook v4]: nixos-hardware/tuxedo/infinitybook/v4
 
