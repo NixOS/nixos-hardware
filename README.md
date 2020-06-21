@@ -20,7 +20,7 @@ imports = [
 ];
 ```
 
-## Incomplete list of Profiles
+## List of Profiles
 
 See code for all available configurations.
 
