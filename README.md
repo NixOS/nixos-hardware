@@ -37,6 +37,7 @@ See code for all available configurations.
 | Dell Latitude 3480                | `<nixos-hardware/dell/latitude/3480>`              |
 | [Dell XPS E7240][]                | `<nixos-hardware/dell/e7240>`                      |
 | [Dell XPS 13 7390][]              | `<nixos-hardware/dell/xps/13-7390>`                |
+| [Dell XPS 13 9343][]              | `<nixos-hardware/dell/xps/13-9343>`                |
 | [Dell XPS 13 9360][]              | `<nixos-hardware/dell/xps/13-9360>`                |
 | [Dell XPS 13 9370][]              | `<nixos-hardware/dell/xps/13-9370>`                |
 | [Dell XPS 13 9380][]              | `<nixos-hardware/dell/xps/13-9380>`                |
@@ -87,6 +88,7 @@ See code for all available configurations.
 [Apple MacBook Pro 10,1]: apple/macbook-pro/10-1
 [Dell XPS E7240]: dell/e7240
 [Dell XPS 13 7390]: dell/xps/13-7390
+[Dell XPS 13 9343]: dell/xps/13-9343
 [Dell XPS 13 9360]: dell/xps/13-9360
 [Dell XPS 13 9370]: dell/xps/13-9370
 [Dell XPS 13 9380]: dell/xps/13-9380
