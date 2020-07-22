@@ -1,0 +1,14 @@
+= Dell XPS 15 9550 =
+
+== Tested Hardware ==
+
+* CPU: Intel(R) Core(TM) i7-10875H CPU @ 2.30GHz
+* RAM: 64 GB
+* HDD: 1 TiB SSD
+* Screen: 15" 4k (3840✕2160)
+* Graphics: NVIDIA Corporation TU117M [GeForce GTX 1650 Ti Mobile], with Intel Graphics too.
+* Input: Touchscreen and trackpad.
+
+== Notes ==
+
+Also tested with Dell WD19TB Thunderbolt Dock.
