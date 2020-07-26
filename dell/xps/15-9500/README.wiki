@@ -12,3 +12,11 @@
 == Notes ==
 
 Also tested with Dell WD19TB Thunderbolt Dock.
+
+== NVIDIA Offload ==
+
+In order to run a program on the NVIDIA gpu, you can use the `nvidia-offload` function, for example:
+```
+nvidia-offload `nix-shell -p glxinfo --run 'glxgears'`
+```
+This is a short bash script that sets the proper environment variables and calls your command.
