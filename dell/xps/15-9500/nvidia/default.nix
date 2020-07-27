@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 {
   imports = [
-    ../xps-common.nix
+    ../default.nix
     ../../../../common/gpu/nvidia.nix
   ];
 
