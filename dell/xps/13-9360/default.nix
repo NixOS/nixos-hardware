@@ -1,14 +1,10 @@
 { lib, pkgs, ... }:
 
-# TODO: move to general HiDPI profile
-# 4K screen, use bigger console font
-# i18n.consoleFont deprecated in >=20.03, choose option based on OS version
-lib.recursiveUpdate
-(if lib.versionAtLeast (lib.versions.majorMinor lib.version) "20.03" then {
-  console.font = lib.mkDefault "latarcyrheb-sun32";
-} else {
-  i18n.consoleFont = lib.mkDefault "latarcyrheb-sun32";
-}) {
+{
+  # 4K screen, use bigger console font
+  # i18n.consoleFont deprecated and obsolete in >=20.03
+  # hardware-configuration.nix generates console.font
+  i18n.consoleFont = lib.mkIf (lib.versionOlder (lib.versions.majorMinor lib.version) "20.03") (lib.mkDefault "latarcyrheb-sun32");
   imports = [
     ../../../common/cpu/intel/kaby-lake
     ../../../common/pc/laptop
