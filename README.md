@@ -126,6 +126,8 @@ See code for all available configurations.
 | [Purism Librem 15v3][]            | `<nixos-hardware/purism/librem/15v3>`              |
 | Supermicro A1SRi-2758F            | `<nixos-hardware/supermicro/a1sri-2758f>`          |
 | Supermicro X10SLL-F               | `<nixos-hardware/supermicro/x10sll-f>`             |
+| [System76 (generic)][]            | `<nixos-hardware/system76>`                        |
+| [System76 Darter Pro 6][]         | `<nixos-hardware/system76/darp6>`                  |
 | [Toshiba Chromebook 2 `swanky`][] | `<nixos-hardware/toshiba/swanky>`                  |
 | [Tuxedo InfinityBook v4][]        | `<nixos-hardware/tuxedo/infinitybook/v4>`          |
 
@@ -151,6 +153,8 @@ See code for all available configurations.
 [Microsoft Surface Pro 3]: microsoft/surface-pro/3
 [Raspberry Pi 2]: raspberry-pi/2
 [Samsung Series 9 NP900X3C]: samsung/np900x3c
+[System76 (generic)]: system76
+[System76 Darter Pro 6]: system76/darp6
 [Purism Librem 13v3]: purism/librem/13v3
 [Purism Librem 15v5]: purism/librem/15v5
 [Toshiba Chromebook 2 `swanky`]: toshiba/swanky
