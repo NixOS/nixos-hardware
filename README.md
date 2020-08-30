@@ -77,6 +77,7 @@ See code for all available configurations.
 | Asus TUF FX504GD                  | `<nixos-hardware/asus/fx504gd>`                    |
 | BeagleBoard PocketBeagle          | `<nixos-hardware/beagleboard/pocketbeagle>`        |
 | Dell Latitude 3480                | `<nixos-hardware/dell/latitude/3480>`              |
+| Dell Precision 5530               | `<nixos-hardware/dell/precision/5530>`             |
 | [Dell XPS E7240][]                | `<nixos-hardware/dell/e7240>`                      |
 | [Dell XPS 13 7390][]              | `<nixos-hardware/dell/xps/13-7390>`                |
 | [Dell XPS 13 9343][]              | `<nixos-hardware/dell/xps/13-9343>`                |
