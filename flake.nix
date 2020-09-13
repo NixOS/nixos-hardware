@@ -62,6 +62,18 @@
       supermicro-x10sll-f = import ./supermicro/x10sll-f;
       thoshiba-swanky = import ./toshiba/swanky;
       tuxedo-infinitybook-v4 = import ./tuxedo/infinitybook/v4;
+      common-cpu-amd = import ./common/cpu/amd;
+      common-cpu-intel = import ./common/cpu/intel;
+      common-cpu-intel-kaby-lake = import ./common/cpu/intel/kaby-lake;
+      common-cpu-intel-sandy-bridge = import ./common/cpu/intel/sandy-bridge;
+      common-gpu-nvidia = import ./common/gpu/nvidia.nix;
+      common-pc-hdd = import ./common/pc/hdd;
+      common-pc-laptop-hdd = import ./common/pc/laptop/hdd;
+      common-pc-laptop-ssd = import ./common/pc/ssd;
+      common-pc-laptop-acpi_call = import ./common/pc/laptop/acpi_call.nix;
+      common-pc-laptop = import ./common/pc/laptop;
+      common-pc-ssd = import ./common/pc/ssd;
+      common-pc = import ./common/pc;
     };
   };
 }
