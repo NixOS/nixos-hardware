@@ -94,6 +94,7 @@ See code for all available configurations.
 | [Google Pixelbook][]              | `<nixos-hardware/google/pixelbook>`                |
 | [Inverse Path USB armory][]       | `<nixos-hardware/inversepath/usbarmory>`           |
 | Lenovo IdeaPad Z510               | `<nixos-hardware/lenovo/ideapad/z510>`             |
+| Lenovo ThinkPad E470              | `<nixos-hardware/lenovo/thinkpad/e470>`
 | Lenovo ThinkPad E495              | `<nixos-hardware/lenovo/thinkpad/e495>`            |
 | Lenovo ThinkPad L13               | `<nixos-hardware/lenovo/thinkpad/l13>`             |
 | Lenovo ThinkPad P53               | `<nixos-hardware/lenovo/thinkpad/p53>`             |

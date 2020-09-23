@@ -3,7 +3,7 @@
 {
   imports = [
     ../.
-    ../../../common/cpu/intel
+    ../../../common/cpu/intel/kaby-lake
   ];
 
   # see https://github.com/NixOS/nixpkgs/issues/69289
