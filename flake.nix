@@ -53,6 +53,7 @@
       lenovo-thinkpad-x1-7th-gen = import ./lenovo/thinkpad/x1/7th-gen;
       lenovo-thinkpad-x1-extreme = import ./lenovo/thinkpad/x1-extreme;
       microsoft-surface-pro-3 = import ./microsoft/surface-pro/3;
+      mnt-reform-nitrogen8m = import ./mnt/reform2-nitrogen8m;
       pcengines-apu = import ./pcengines/apu;
       raspberry-pi-2 = import ./raspberry-pi/2;
       samsung-np900x3c = import ./samsung/np900x3c;

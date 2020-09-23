@@ -119,6 +119,7 @@ See code for all available configurations.
 | [Lenovo ThinkPad X1 (7th Gen)][]  | `<nixos-hardware/lenovo/thinkpad/x1/7th-gen>`      |
 | Lenovo ThinkPad X1 Extreme Gen 2  | `<nixos-hardware/lenovo/thinkpad/x1-extreme/gen2>` |
 | [Microsoft Surface Pro 3][]       | `<nixos-hardware/microsoft/surface-pro/3>`         |
+| MNT Reform (i.MX8MQ)              | `<nixos-hardware/mnt/reform2-nitrogen8m>`          |
 | PC Engines APU                    | `<nixos-hardware/pcengines/apu>`                   |
 | [Raspberry Pi 2][]                | `<nixos-hardware/raspberry-pi/2>`                  |
 | [Samsung Series 9 NP900X3C][]     | `<nixos-hardware/samsung/np900x3c>`                |
