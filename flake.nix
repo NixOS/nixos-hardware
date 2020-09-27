@@ -28,6 +28,7 @@
       google-pixelbook = import ./google/pixelbook;
       inversepath-usbarmory = import ./inversepath/usbarmory;
       lenovo-ideapad-z510 = import ./lenovo/ideapad/z510;
+      lenovo-thinkpad-e470 = import ./lenovo/thinkpad/e470;
       lenovo-thinkpad-e495 = import ./lenovo/thinkpad/e495;
       lenovo-thinkpad-l13 = import ./lenovo/thinkpad/l13;
       lenovo-thinkpad-p53 = import ./lenovo/thinkpad/p53;

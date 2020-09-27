@@ -160,5 +160,5 @@ See code for all available configurations.
 ## How to contribute a new device profile
 
 1. Add your device profile expression in the appropriate directory
-2. Link it in the table in README.md
+2. Link it in the table in README.md and in flake.nix
 3. Run ./tests/run.py to test it. The test script script will parse all the profiles from the README.md
