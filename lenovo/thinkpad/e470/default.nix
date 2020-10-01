@@ -15,5 +15,5 @@
     nvidiaBusId = lib.mkDefault "PCI:1:0:0";
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "5.6") pkgs.linuxPackages_latest;
 }
