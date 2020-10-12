@@ -94,6 +94,7 @@ See code for all available configurations.
 | [Google Pixelbook][]              | `<nixos-hardware/google/pixelbook>`                |
 | [Inverse Path USB armory][]       | `<nixos-hardware/inversepath/usbarmory>`           |
 | Lenovo IdeaPad Z510               | `<nixos-hardware/lenovo/ideapad/z510>`             |
+| Lenovo ThinkPad E470              | `<nixos-hardware/lenovo/thinkpad/e470>`
 | Lenovo ThinkPad E495              | `<nixos-hardware/lenovo/thinkpad/e495>`            |
 | Lenovo ThinkPad L13               | `<nixos-hardware/lenovo/thinkpad/l13>`             |
 | Lenovo ThinkPad P53               | `<nixos-hardware/lenovo/thinkpad/p53>`             |
@@ -159,5 +160,5 @@ See code for all available configurations.
 ## How to contribute a new device profile
 
 1. Add your device profile expression in the appropriate directory
-2. Link it in the table in README.md
+2. Link it in the table in README.md and in flake.nix
 3. Run ./tests/run.py to test it. The test script script will parse all the profiles from the README.md
