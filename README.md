@@ -48,13 +48,13 @@ There is also experimental flake support. In your `/etc/nixos/flake.nix` add the
 ```
 
 
-### Using fetchgit
+### Using fetchGit
 
 You can fetch the git repository directly:
 
 ```nix
 imports = [ 
-  "${builtins.fetchgit { url = "https://github.com/NixOS/nixos-hardware.git"; }}/lenovo/thinkpad/x220"
+  "${builtins.fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; }}/lenovo/thinkpad/x220"
 ];
 ```
 
