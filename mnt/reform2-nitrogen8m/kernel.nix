@@ -3,8 +3,8 @@
 let
   systemImageSrc = fetchgit {
     url = "https://source.mntmn.com/MNT/reform-system-image.git";
-    rev = "f34c9d93cef73c50979c1f45c68b8de961faceb5";
-    sha256 = "0a1gjnvb078q7f76rppidxc1sb4hb33wbxpzzs85il8i9n2nc56x";
+    rev = "ef6bae4def9ef08ee388254abf4f1839d44c07a1";
+    sha256 = "03nnwjzm8a0bk821p6sfscd04x3jgj29l16ccdkg10xcv2g2z5s8";
   } + "/reform2-imx8mq";
 in lib.overrideDerivation (buildLinux (args // {
   inherit (linux) src version;

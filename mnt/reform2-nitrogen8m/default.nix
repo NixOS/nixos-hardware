@@ -45,12 +45,6 @@
     ];
   };
 
-  services.udev.extraRules =
-    # Use the battery-backed RTC on the motherboard as the system clock
-    ''
-      KERNEL=="rtc1", SUBSYSTEM=="rtc", ATTR{name}=="rtc-pcf8523*", SYMLINK="rtc"
-    '';
-
   system.activationScripts.asound = ''
     if [ ! -e "/var/lib/alsa/asound.state" ]; then
       mkdir -p /var/lib/alsa
