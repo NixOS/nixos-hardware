@@ -34,6 +34,7 @@
       lenovo-thinkpad-l14-intel = import ./lenovo/thinkpad/l14/intel;
       lenovo-thinkpad-l14-amd = import ./lenovo/thinkpad/l14/amd;
       lenovo-thinkpad-p53 = import ./lenovo/thinkpad/p53;
+      lenovo-thinkpad-t14s = import ./lenovo/thinkpad/t14s;
       lenovo-thinkpad-t410 = import ./lenovo/thinkpad/t410;
       lenovo-thinkpad-t420 = import ./lenovo/thinkpad/t420;
       lenovo-thinkpad-t430 = import ./lenovo/thinkpad/t430;
