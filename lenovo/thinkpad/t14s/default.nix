@@ -3,7 +3,6 @@
 {
   imports = [
     ../.
-    ../../../common/cpu/amd
     ../../../common/pc/laptop/acpi_call.nix
   ];
 
