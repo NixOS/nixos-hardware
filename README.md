@@ -100,6 +100,7 @@ See code for all available configurations.
 | Lenovo ThinkPad L14 (Intel)       | `<nixos-hardware/lenovo/thinkpad/l14/intel>        |
 | Lenovo ThinkPad L14 (AMD)         | `<nixos-hardware/lenovo/thinkpad/l14/amd>          |
 | Lenovo ThinkPad P53               | `<nixos-hardware/lenovo/thinkpad/p53>`             |
+| Lenovo ThinkPad T14s              | `<nixos-hardware/lenovo/thinkpad/t14s>`            |
 | Lenovo ThinkPad T410              | `<nixos-hardware/lenovo/thinkpad/t410>`            |
 | Lenovo ThinkPad T420              | `<nixos-hardware/lenovo/thinkpad/t420>`            |
 | Lenovo ThinkPad T430              | `<nixos-hardware/lenovo/thinkpad/t430>`            |
