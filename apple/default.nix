@@ -2,6 +2,7 @@
 
 {
   boot.kernelParams = [
+    "hid_apple.swap_opt_cmd=1"
     "hid_apple.iso_layout=0"
   ];
 
