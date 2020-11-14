@@ -5,9 +5,18 @@
     ../../../common/pc/laptop
   ];
 
-  # Necessary for audio.
-  # https://bbs.archlinux.org/viewtopic.php?pid=1933548#p1933548
-  hardware.firmware = [ pkgs.sof-firmware ];
+  # TODO: upstream to NixOS/nixpkgs
+  nixpkgs.overlays = [(final: previous: {
+    qca6390-firmware = final.callPackage ./qca6390-firmware.nix {};
+  })];
+
+  hardware.firmware = lib.mkBefore [
+    # Necessary for audio.
+    # https://bbs.archlinux.org/viewtopic.php?pid=1933548#p1933548
+    pkgs.sof-firmware
+    # Firmware for the AX500 (wi-fi & bluetooth chip).
+    pkgs.qca6390-firmware
+  ];
 
   # Confirmed necessary to get audio working as of 2020-11-13:
   # https://bbs.archlinux.org/viewtopic.php?pid=1933643#p1933643
