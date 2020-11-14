@@ -6,7 +6,7 @@
   ];
 
   # Necessary for audio.
-  # https://bbs.archlinux.org/viewtopic.php?pid=1933643#p1933643
+  # https://bbs.archlinux.org/viewtopic.php?pid=1933548#p1933548
   hardware.firmware = [ pkgs.sof-firmware ];
 
   # Confirmed necessary to get audio working as of 2020-11-13:
@@ -14,6 +14,10 @@
   boot.extraModprobeConfig = ''
     options snd-intel-dspcfg dsp_driver=1
   '';
+
+  # Touchpad goes over i2c.
+  # Without this we get errors in dmesg on boot and hangs when shutting down.
+  boot.blacklistedKernelModules = [ "psmouse" ];
 
   # TODO: Remove this once landed in kernel.
   # Apply kernel patch for xps 9310 wifi bug.
