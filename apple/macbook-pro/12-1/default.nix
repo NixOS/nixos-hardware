@@ -8,12 +8,13 @@
   ];
 
   powerManagement = {
-    # enable gradually increasing/decreasing CPU frequency, rather than using
+    # Enable gradually increasing/decreasing CPU frequency, rather than using
     # "powersave", which would keep CPU frequency at 0.8GHz.
     cpuFreqGovernor = lib.mkDefault "conservative";
 
     # brcmfmac being loaded during hibernation would not let a successful resume
-    # https://bugzilla.kernel.org/show_bug.cgi?id=101681#c116
+    # https://bugzilla.kernel.org/show_bug.cgi?id=101681#c116.
+    # Also brcmfmac could randomly crash on resume from sleep.
     powerUpCommands = lib.mkBefore "${pkgs.kmod}/bin/modprobe brcmfmac";
     powerDownCommands = lib.mkBefore "${pkgs.kmod}/bin/rmmod brcmfmac";
   };
