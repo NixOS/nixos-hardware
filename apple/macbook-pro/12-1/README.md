@@ -2,7 +2,8 @@
 
 ## Wireless won't get reconnected after resume/hibernate
 
-As an example similar code could be used to restart wireless interface:
+The wifi driver is unloaded before suspend/hibernate to workaround driver issues.
+This means it might be required to restart your wifi deamon i.e. wpa_supplicant:
 
 ```nix
 powerManagement.powerUpCommands = ''
