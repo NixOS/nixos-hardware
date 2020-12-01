@@ -76,6 +76,7 @@ See code for all available configurations.
 | Apple MacBook Pro 12,1            | `<nixos-hardware/apple/macbook-pro/12-1>`          |
 | Asus TUF FX504GD                  | `<nixos-hardware/asus/fx504gd>`                    |
 | BeagleBoard PocketBeagle          | `<nixos-hardware/beagleboard/pocketbeagle>`        |
+| [Dell G3 3779][]                  | `<nixos-hardware/dell/g3/3779>`                    |
 | Dell Latitude 3480                | `<nixos-hardware/dell/latitude/3480>`              |
 | Dell Precision 5530               | `<nixos-hardware/dell/precision/5530>`             |
 | [Dell XPS E7240][]                | `<nixos-hardware/dell/e7240>`                      |
@@ -139,6 +140,7 @@ See code for all available configurations.
 [Acer Aspire 4810T]: acer/aspire/4810t
 [Asus TUF FX504GD]: asus/fx504gd
 [Apple MacBook Pro 10,1]: apple/macbook-pro/10-1
+[Dell G3 3779]: dell/g3/3779
 [Dell XPS E7240]: dell/e7240
 [Dell XPS 13 7390]: dell/xps/13-7390
 [Dell XPS 13 9343]: dell/xps/13-9343
