@@ -11,9 +11,6 @@
   })];
 
   hardware.firmware = lib.mkBefore [
-    # Necessary for audio.
-    # https://bbs.archlinux.org/viewtopic.php?pid=1933548#p1933548
-    pkgs.sof-firmware
     # Firmware for the AX500 (wi-fi & bluetooth chip).
     pkgs.qca6390-firmware
   ];
