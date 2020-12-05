@@ -1,7 +1,7 @@
 { lib, pkgs, ... }: {
   imports = [ ../../../common/cpu/intel ../../../common/pc/laptop ];
 
-  # Includes the Wi-Fi (and likely Bluetooth) firmware for the QCA6390.
+  # Includes the Wi-Fi and Bluetooth firmware for the QCA6390.
   hardware.enableRedistributableFirmware = true;
 
   # Wi-Fi currently requires a specific set of patches to function.
@@ -224,7 +224,27 @@
               sha256 = "0zhzjyym42r3rjwh55vk6p423lhz7555mb7xjqk63lczrsc221nm";
             };
           }
+
+          # Extra config required for Bluetooth.
+          # NOTE: Should consider upstreaming this to the default nix config.
+          # Especially the `SERIAL_DEV_BUS` and `SERIAL_DEV_CTRL_TTYPORT`
+          # options, as these are the recommended defaults.
+          {
+            name = "enable-qca6390-bluetooth";
+            patch = null;
+            extraConfig = ''
+              BT_QCA m
+              BT_HCIUART m
+              BT_HCIUART_QCA y
+              BT_HCIUART_SERDEV y
+              SERIAL_DEV_BUS y
+              SERIAL_DEV_CTRL_TTYPORT y
+            '';
+          }
         ];
+
+        # Enable some extra kernel modules for QCA6390 bluetooth.
+        kernelModules = [ "btqca" "hci_qca" "hci_uart" ];
       } // (args.argsOverride or { }));
     linux_patched = pkgs.callPackage linux_patched_pkg { };
   in pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_patched);
