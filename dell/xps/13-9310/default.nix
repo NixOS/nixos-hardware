@@ -211,6 +211,15 @@
               sha256 = "0p1663w0lik44gwyfzmxxiwnc3s9n3p46aappla8pbfk9wdgw86d";
             };
           }
+
+          # Patch for crash by w1nk.
+          {
+            name = "w1nk-irq-lock-patch";
+            patch = pkgs.fetchpatch {
+              url = "https://raw.githubusercontent.com/w1nk/ath11k-debug/master/one-irq-manage.patch";
+              sha256 = "011db3h10smqy0ni0qr9mkyhykf1f3yq6yym6ysbb7jr7l51q0n9";
+            };
+          }
         ];
       } // (args.argsOverride or { }));
     linux_patched = pkgs.callPackage linux_patched_pkg { };
