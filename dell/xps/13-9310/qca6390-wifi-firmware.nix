@@ -3,7 +3,7 @@
 { stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
-  name = "${target}-firmware-${version}";
+  name = "${target}-wifi-firmware-${version}";
   version = "${branch}-00042";
   branch = "master";
   target = "QCA6390";

@@ -7,12 +7,12 @@
 
   # TODO: upstream to NixOS/nixpkgs
   nixpkgs.overlays = [(final: previous: {
-    qca6390-firmware = final.callPackage ./qca6390-firmware.nix {};
+    qca6390-wifi-firmware = final.callPackage ./qca6390-wifi-firmware.nix {};
   })];
 
   hardware.firmware = lib.mkBefore [
     # Firmware for the AX500 (wi-fi & bluetooth chip).
-    pkgs.qca6390-firmware
+    pkgs.qca6390-wifi-firmware
   ];
 
   # The QCA6390 driver currently requires a specific version of the kernel
@@ -212,13 +212,21 @@
             };
           }
 
-          # Patch for crash by w1nk.
+          # Extra patches by wink.
           {
+            # Improves some cases in which races could occur.
             name = "w1nk-irq-lock-patch";
             patch = pkgs.fetchpatch {
               url = "https://raw.githubusercontent.com/w1nk/ath11k-debug/master/one-irq-manage.patch";
               sha256 = "011db3h10smqy0ni0qr9mkyhykf1f3yq6yym6ysbb7jr7l51q0n9";
             };
+          }
+          {
+            # System crashes appear to have been caused by MHI state transitions to M2 state.
+            # Currently under investigation.
+            # http://lists.infradead.org/pipermail/ath11k/2020-December/000876.html
+            name = "w1nk-disable-mhi-m2-transition";
+            patch = ./disable-mhi-m2.patch;
           }
         ];
       } // (args.argsOverride or { }));
