@@ -1,10 +1,6 @@
 { lib, pkgs, ... }:
 
 {
-  # 4K screen, use bigger console font
-  # i18n.consoleFont deprecated and obsolete in >=20.03
-  # hardware-configuration.nix generates console.font
-  i18n.consoleFont = lib.mkIf (lib.versionOlder (lib.versions.majorMinor lib.version) "20.03") (lib.mkDefault "latarcyrheb-sun32");
   imports = [
     ../../../common/cpu/intel/kaby-lake
     ../../../common/pc/laptop
