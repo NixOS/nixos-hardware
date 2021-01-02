@@ -1,0 +1,12 @@
+* TODO Download code from github.com/linux-surface/ instead of building it in
+  - Would it make sense to use git subrepo?
+** TODO Download github.com/linux-surface/linux-surface kernel patches
+** TODO Download github.com/linux-surface/surface-ipts-firmware
+*** TODO Should we build this?
+** TODO Download github.com/linux-surface/surface-control
+** TODO Download github.com/linux-surface/surface-dtx-daemon
+* TODO Remove firmware files
+  - Looks like the ath10k files aren't needed, any more
+* TODO Patch kernel using downloaded files
+* TODO Patch and rebuild libwacom
+  - github.com/linux-surface/libwacom-surface
