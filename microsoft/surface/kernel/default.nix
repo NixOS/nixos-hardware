@@ -1,165 +1,9 @@
 { config, lib, pkgs, ... }:
 let
+  repos = (pkgs.callPackage ./repos.nix {});
+  # TODO: Can I append the path ./patches instead of a string?
+  patches = repos.linux-surface + "/patches";
   kernelVersions = {
-
-        # {
-        #   name = "ms-surface/0000-";
-        #   patch = ./5.3/0000-.patch;
-        # }
-
-    # 19.03 doesn't have these separate versions:
-    # TODO: Use explicit Linux versions, instead of leveraging NixOS:
-
-    # linux_5_1 = {
-    #   kernelPackages = pkgs.linuxPackages_5_1;
-    #   kernelPatches = [
-    #     {
-    #       name = "ms-surface/0001-surface-acpi";
-    #       patch = ./5.1/0001-surface-acpi.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0002-suspend";
-    #       patch = ./5.1/0002-suspend.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0003-buttons";
-    #       patch = ./5.1/0003-buttons.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0004-cameras";
-    #       patch = ./5.1/0004-cameras.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0005-ipts";
-    #       patch = ./5.1/0005-ipts.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0006-hid";
-    #       patch = ./5.1/0006-hid.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0007-sdcard-reader";
-    #       patch = ./5.1/0007-sdcard-reader.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0008-wifi";
-    #       patch = ./5.1/0008-wifi.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0009-surface3-power";
-    #       patch = ./5.1/0009-surface3-power.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0010-mwlwifi";
-    #       patch = ./5.1/0010-mwlwifi.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0011-surface-lte";
-    #       patch = ./5.1/0011-surface-lte.patch;
-    #     }
-    #   ];
-    # };
-
-    # linux_5_2 = {
-    #   kernelPackages = pkgs.linuxPackages_5_2;
-    #   kernelPatches = [
-    #     {
-    #       name = "ms-surface/0001-surface-acpi";
-    #       patch = ./5.2/0001-surface-acpi.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0002-suspend";
-    #       patch = ./5.2/0002-suspend.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0003-buttons";
-    #       patch = ./5.2/0003-buttons.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0004-cameras";
-    #       patch = ./5.2/0004-cameras.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0005-ipts";
-    #       patch = ./5.2/0005-ipts.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0006-hid";
-    #       patch = ./5.2/0006-hid.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0007-sdcard-reader";
-    #       patch = ./5.2/0007-sdcard-reader.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0008-wifi";
-    #       patch = ./5.2/0008-wifi.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0009-surface3-power";
-    #       patch = ./5.2/0009-surface3-power.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0010-mwlwifi";
-    #       patch = ./5.2/0010-mwlwifi.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0011-surface-lte";
-    #       patch = ./5.2/0011-surface-lte.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0012-surfacebook2-dgpu";
-    #       patch = ./5.2/0012-surfacebook2-dgpu.patch;
-    #     }
-    #   ];
-    # };
-
-    # linux_5_3 = {
-    #   kernelPackages = pkgs.linuxPackages_5_3;
-    #   kernelPatches = [
-    #     {
-    #       name = "ms-surface/0001-surface-acpi";
-    #       patch = ./5.3/0001-surface-acpi.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0002-buttons";
-    #       patch = ./5.3/0002-buttons.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0003-hid";
-    #       patch = ./5.3/0003-hid.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0004-surface3-power";
-    #       patch = ./5.3/0004-surface3-power.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0005-surface-lte";
-    #       patch = ./5.3/0005-surface-lte.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0006-wifi";
-    #       patch = ./5.3/0006-wifi.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0007-legacy-i915";
-    #       patch = ./5.3/0007-legacy-i915.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0008-ipts";
-    #       patch = ./5.3/0008-ipts.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0009-ioremap_uc";
-    #       patch = ./5.3/0009-ioremap_uc.patch;
-    #     }
-    #     {
-    #       name = "ms-surface/0010-surface3-spi-dma";
-    #       patch = ./5.3/0010-surface3-spi-dma.patch;
-    #     }
-    #   ];
-    # };
-
     linux_5_4_7 = {
       kernelPackages = (with pkgs;
         recurseIntoAttrs (
@@ -605,8 +449,103 @@ let
         # }
       ];
     };
+
+    linux_5_10_4 = {
+      kernelPackages = (with pkgs;
+        recurseIntoAttrs (
+          linuxPackagesFor (
+            callPackage ./linux-5.10.4.nix {
+              kernelPatches = [
+                # kernelPatches.bridge_stp_helper
+                # kernelPatches.request_key_helper
+                # kernelPatches.export_kernel_fpu_functions
+              ];
+            }
+          )
+        )
+      );
+
+      kernelPatches = [
+        {
+          name = "microsoft-surface-config";
+          patch = null;
+          extraConfig = ''
+            #
+            # Surface Aggregator Module
+            #
+            # required for SURFACE_HOTPLUG:
+            GPIO_SYSFS y
+            SURFACE_AGGREGATOR m
+            SURFACE_AGGREGATOR_ERROR_INJECTION n
+            SURFACE_AGGREGATOR_BUS y
+            SURFACE_AGGREGATOR_CDEV m
+            SURFACE_AGGREGATOR_REGISTRY m
+            SURFACE_ACPI_NOTIFY m
+            SURFACE_BATTERY m
+            SURFACE_DTX m
+            SURFACE_HID m
+            SURFACE_HOTPLUG m
+            SURFACE_PERFMODE m
+
+            #
+            # IPTS touchscreen
+            #
+            # This only enables the user interface for IPTS data.
+            # For the touchscreen to work, you need to install iptsd.
+            #
+            MISC_IPTS m
+
+            #
+            # Other Drivers
+            #
+            INPUT_SOC_BUTTON_ARRAY m
+            SURFACE_3_BUTTON m
+            SURFACE_3_POWER_OPREGION m
+            SURFACE_PRO3_BUTTON m
+            SURFACE_GPE m
+            SURFACE_BOOK1_DGPU_SWITCH m
+          '';
+        }
+        {
+          name = "ms-surface/0001-surface3-oemb";
+          patch = patches + "/5.10/0001-surface3-oemb.patch";
+        }
+        {
+          name = "ms-surface/0002-wifi";
+          patch = patches + "/5.10/0002-wifi.patch";
+        }
+        {
+          name = "ms-surface/0003-ipts";
+          patch = patches + "/5.10/0003-ipts.patch";
+        }
+        {
+          name = "ms-surface/0004-surface-gpe";
+          patch = patches + "/5.10/0004-surface-gpe.patch";
+        }
+        {
+          name = "ms-surface/0005-surface-sam-over-hid";
+          patch = patches + "/5.10/0005-surface-sam-over-hid.patch";
+        }
+        {
+          name = "ms-surface/0006-surface-sam";
+          patch = patches + "/5.10/0006-surface-sam.patch";
+        }
+        {
+          name = "ms-surface/0007-surface-hotplug";
+          patch = patches + "/5.10/0007-surface-hotplug.patch";
+        }
+        {
+          name = "ms-surface/0008-surface-typecover";
+          patch = patches + "/5.10/0008-surface-typecover.patch";
+        }
+        {
+          name = "ms-surface/0009-cameras";
+          patch = patches + "/5.10/0009-cameras.patch";
+        }
+      ];
+    };
   };
 in {
-  boot.kernelPackages = kernelVersions.linux_5_9_2.kernelPackages;
-  boot.kernelPatches = kernelVersions.linux_5_9_2.kernelPatches;
+  boot.kernelPackages = kernelVersions.linux_5_10_4.kernelPackages;
+  boot.kernelPatches = kernelVersions.linux_5_10_4.kernelPatches;
 }
