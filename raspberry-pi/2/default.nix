@@ -1,8 +1,5 @@
 { lib, pkgs, ...}:
 
-let
-  hasConsoleExtraTTYs = lib.versionAtLeast (lib.versions.majorMinor lib.version) "21.03";
-in
 {
   boot = {
     consoleLogLevel = lib.mkDefault 7;
@@ -21,10 +18,7 @@ in
         version = lib.mkDefault 2;
       };
     };
-    extraTTYs = lib.mkIf (!hasConsoleExtraTTYs) [ "ttyAMA0" ];
   };
-
-  console.extraTTYs = lib.mkIf hasConsoleExtraTTYs [ "ttyAMA0" ];
 
   nix.buildCores = 4;
 
