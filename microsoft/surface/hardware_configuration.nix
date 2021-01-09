@@ -11,8 +11,7 @@
 
   boot.kernelParams = [ "mem_sleep_default=deep" ];
 
-  # TLP is known to cause problems on Surface unless correctly configured.
-  # See: https://github.com/linux-surface/linux-surface/blob/master/README.md
+  # NOTE: Check the README before enabling TLP:
   services.tlp.enable = lib.mkDefault false;
 
   hardware.sensor.iio.enable = lib.mkDefault true;
