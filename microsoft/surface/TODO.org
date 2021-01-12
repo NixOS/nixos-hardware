@@ -10,7 +10,7 @@
 ** DONE Create derivative for `ipts` firmware
    - [X] Download github.com/linux-surface/surface-ipts-firmware firmware
    - [X] Install the binaries
-** TODO Remove `ipts` firmware derivative
+** DONE Remove `ipts` firmware derivative
    - This is only needed on the 4.19 kernel
 ** TODO Investigate problem with ath10k wifi firmware on Surface Go
 *** TODO README entry explaining problem(s) with nonfree firmware on Surface Go
