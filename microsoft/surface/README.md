@@ -19,9 +19,12 @@ to be maintained in this repo.
 
 ### IPTS
 
+IPTS is used on most of the Surface range, except for Surface Go and Surface Laptop 3 (AMD version).
+
 The firmware files from the [surface-ipts-firmware repo](https://github.com/linux-surface/surface-ipts-firmware.git)
-are needed to properly use the touchscreen device.
-On kernel 5.4 or newer you may also need the user-space `iptsd` daemon.
+are only needed on kernel 4.19.
+
+On kernel 5.4 or newer you may also need the user-space `iptsd` daemon (below).
 
 ### WiFi
 
