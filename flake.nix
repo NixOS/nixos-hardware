@@ -8,8 +8,8 @@
       apple-macbook-air-3 = import ./apple/macbook-air/3;
       apple-macbook-air-4 = import apple/macbook-air/4;
       apple-macbook-air-6 = import apple/macbook-air/6;
-      apple-macbook-air-10-1 = import ./apple/macbook-pro/10-1;
-      apple-macbook-air-12-1 = import ./apple/macbook-pro/12-1;
+      apple-macbook-pro-10-1 = import ./apple/macbook-pro/10-1;
+      apple-macbook-pro-12-1 = import ./apple/macbook-pro/12-1;
       beagleboard-pocketbeagle = import ./beagleboard/pocketbeagle;
       dell-g3-3779 = import ./dell/g3/3779;
       dell-latitude-3480 = import ./dell/latitude/3480;
