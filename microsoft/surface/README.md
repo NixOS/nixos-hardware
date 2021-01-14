@@ -15,6 +15,9 @@ The kernel-specific derivations are under the `kernel/` sub-directory.
 In order to simplify maintenance of the Nix code, only the most-recent kernel patch-set is expected
 to be maintained in this repo.
 
+_*NOTE:*_Some built-in Kernel config items need to be set, that aren't set by default:
+- https://github.com/linux-surface/surface-aggregator-module/wiki/Testing-and-Installing
+
 ## Firmware, Drivers and Support Tools
 
 ### IPTS

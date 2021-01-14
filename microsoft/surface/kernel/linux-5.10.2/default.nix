@@ -22,6 +22,13 @@ let
           SURFACE_PERFMODE m
 
           #
+          # These built-in modules are required for the Surface Aggregator Module
+          # See: https://github.com/linux-surface/surface-aggregator-module/wiki/Testing-and-Installing
+          #
+          SERIAL_DEV_BUS y
+          SERIAL_DEV_CTRL_TTYPORT y
+
+          #
           # Surface Hotplug
           #
           SURFACE_HOTPLUG m
