@@ -40,6 +40,7 @@ for the HID / input sub-system.
 
 - https://github.com/linux-surface/iptsd
 - https://github.com/linux-surface/intel-precise-touch
+  - _*NOTE:*_ The patches from this repo are included in the above kernel patches, already.
 
 ### DTX, `surface-control`
 
