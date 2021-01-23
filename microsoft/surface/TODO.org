@@ -31,6 +31,7 @@
    - [ ] Enable via systemd
 ** TODO Create derivative to patch and rebuild libwacom
    - github.com/linux-surface/libwacom-surface
+   - The plan is to do this in a separate PR against `nixpkgs` instead of `nixos-hardware`
 ** TODO Create derivative to install `surface-control`
    - Download github.com/linux-surface/surface-control
 ** TODO Create derivative to install `surface-dtx-daemon`
