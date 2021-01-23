@@ -1,0 +1,38 @@
+* Kernel Patching
+** DONE Create derivative to patch kernel 5.10.2
+   - Latest from linux-surface
+   - [X] Download github.com/linux-surface/linux-surface kernel patches
+   - [X] Build kernel using downloaded patches
+** TODO Create a function for selecting preferred kernel
+** DONE Fix how Keyboard & Trackpad are not being enabled on SL3
+   - https://github.com/linux-surface/surface-aggregator-module/wiki/Testing-and-Installing
+* Firmware
+** DONE Remove old firmware binaries
+   - Looks like the ath10k files aren't needed, any more
+** DONE Create derivative for `ipts` firmware
+   - [X] Download github.com/linux-surface/surface-ipts-firmware firmware
+   - [X] Install the binaries
+** DONE Remove `ipts` firmware derivative
+   - This is only needed on the 4.19 kernel
+** TODO Investigate problem with ath10k wifi firmware on Surface Go
+*** TODO README entry explaining problem(s) with nonfree firmware on Surface Go
+*** TODO Create derivative for `ath10k` firmware on Surface Go
+    - [X] Download github.com/kvalo/ath10k-firmware ?
+    - [X] Download kernel.org linux-firmware?
+    - [ ] Download `board.bin` from Killer Networks?
+    - [ ] Install ath10k firmware fix for Surface Go
+      - `board-2.bin` needs to be removed / replaced with `board.bin`
+* Support Tools
+** TODO Incorporate @hpfr's function(s) from this commit:
+   - https://github.com/hpfr/system/commit/03fa1b0a83f8a336e812910d0d50f5247a8a630c
+** TODO Create derivative for `iptsd` touch-screen daemon
+   - [ ] Download
+   - [ ] Install binary
+   - [ ] Enable via systemd
+** TODO Create derivative to patch and rebuild libwacom
+   - github.com/linux-surface/libwacom-surface
+   - The plan is to do this in a separate PR against `nixpkgs` instead of `nixos-hardware`
+** TODO Create derivative to install `surface-control`
+   - Download github.com/linux-surface/surface-control
+** TODO Create derivative to install `surface-dtx-daemon`
+   - Download github.com/linux-surface/surface-dtx-daemon
