@@ -20,23 +20,21 @@ _*NOTE:*_Some built-in Kernel config items need to be set, that aren't set by de
 
 ## Firmware, Drivers and Support Tools
 
-### IPTS
-
-IPTS is used on most of the Surface range, except for Surface Go and Surface Laptop 3 (AMD version).
-
-The firmware files from the [surface-ipts-firmware repo](https://github.com/linux-surface/surface-ipts-firmware.git)
-are only needed on kernel 4.19.
-
-On kernel 5.4 or newer you may also need the user-space `iptsd` daemon (below).
-
 ### WiFi
 
 For the Surface Go, please see the "Issues" sections below.
 
-### IPTSD
+### IPTS
 
-The `iptsd` daemon works with the `intel-precise-touch` driver to convert raw touch data into events
-for the HID / input sub-system.
+IPTS is used on most of the Surface range, except for Surface Go and Surface Laptop 3 (AMD version).
+
+Older kernels used specialised firmware which used a method that's no longer supported by the
+more-recent kernels.
+
+Newer kernels use the kernel-space `intel-precise-touch` driver and user-space `ipstd` daemon.
+
+The `iptsd` daemon works with the `intel-precise-touch` driver to convert raw touch data from the
+kernel-space driver into events for the HID / input sub-system.
 
 - https://github.com/linux-surface/iptsd
 - https://github.com/linux-surface/intel-precise-touch
