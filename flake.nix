@@ -61,6 +61,7 @@
       lenovo-thinkpad-x1-6th-gen = import ./lenovo/thinkpad/x1/6th-gen;
       lenovo-thinkpad-x1-7th-gen = import ./lenovo/thinkpad/x1/7th-gen;
       lenovo-thinkpad-x1-extreme = import ./lenovo/thinkpad/x1-extreme;
+      microsoft-surface = import ./microsoft/surface;
       microsoft-surface-pro-3 = import ./microsoft/surface-pro/3;
       pcengines-apu = import ./pcengines/apu;
       raspberry-pi-2 = import ./raspberry-pi/2;
