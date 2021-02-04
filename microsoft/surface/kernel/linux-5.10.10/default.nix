@@ -44,7 +44,8 @@ let
           #
           # Cameras: IPU3
           #
-          VIDEO_IPU3_IMGU m
+          ## Not yet supported in the patches?
+          # VIDEO_IPU3_IMGU m
           VIDEO_IPU3_CIO2 m
           CIO2_BRIDGE y
           INT3472 m
@@ -53,7 +54,8 @@ let
           # Cameras: Sensor drivers
           #
           VIDEO_OV5693 m
-          VIDEO_OV8865 m
+          ## Not yet supported in the patches?
+          # VIDEO_OV8865 m
 
           #
           # ALS Sensor for Surface Book 3, Surface Laptop 3, Surface Pro 7
