@@ -53,12 +53,12 @@ There is also experimental flake support. In your `/etc/nixos/flake.nix` add the
 You can fetch the git repository directly:
 
 ```nix
-imports = [ 
+imports = [
   "${builtins.fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; }}/lenovo/thinkpad/x220"
 ];
 ```
 
-Unlike the channel, this will update the git repository on a rebuild. However, 
+Unlike the channel, this will update the git repository on a rebuild. However,
 you can easily pin to a particular revision if you desire more stability.
 
 ## List of Profiles
@@ -116,6 +116,7 @@ See code for all available configurations.
 | Lenovo ThinkPad T480s             | `<nixos-hardware/lenovo/thinkpad/t480s>`           |
 | Lenovo ThinkPad T490              | `<nixos-hardware/lenovo/thinkpad/t490>`            |
 | Lenovo ThinkPad T495              | `<nixos-hardware/lenovo/thinkpad/t495>`            |
+| Lenovo ThinkPad X113 Yoga         | `<nixos-hardware/lenovo/thinkpad/x13-yoga>`        |
 | Lenovo ThinkPad X140e             | `<nixos-hardware/lenovo/thinkpad/x140e>`           |
 | Lenovo ThinkPad X220              | `<nixos-hardware/lenovo/thinkpad/x220>`            |
 | Lenovo ThinkPad X230              | `<nixos-hardware/lenovo/thinkpad/x230>`            |
@@ -156,6 +157,7 @@ See code for all available configurations.
 [Inverse Path USB armory]: inversepath/usbarmory
 [Lenovo ThinkPad X1 (6th Gen)]: lenovo/thinkpad/x1/6th-gen
 [Lenovo ThinkPad X1 (7th Gen)]: lenovo/thinkpad/x1/7th-gen
+[Lenovo ThinkPad X13 Yoga]: lenovo/thinkpad/x13-yoga
 [Lenovo ThinkPad X260]: lenovo/thinkpad/x260
 [Microsoft Surface Pro 3]: microsoft/surface-pro/3
 [Raspberry Pi 2]: raspberry-pi/2
