@@ -1,4 +1,4 @@
-{stdenv, pkgs, firmwareLinuxNonfree, ...}:
+{stdenv, lib, pkgs, firmwareLinuxNonfree, ...}:
 let
   repos = (pkgs.callPackage ../repos.nix {});
   ath10k = ./ath10k;
@@ -11,7 +11,6 @@ firmwareLinuxNonfree.overrideAttrs (old: rec {
     ath10k
   ];
   sourceRoot = firmwareLinuxNonfree.src;
-  priority = 1;
 
   dontMakeSourcesWritable = true;
   postInstall = ''
@@ -25,4 +24,10 @@ firmwareLinuxNonfree.overrideAttrs (old: rec {
   '';
 
   outputHash = "1nc56qii96dfvxnv3ad3lxz2rzyqcbldk0h9rbm3l2pgamkvj8dw";
+
+  meta = with lib; {
+    description = "Standard binary firmware collection, adjusted with the Surface Go WiFi firmware";
+    platforms = platforms.linux;
+    priority = 5;
+  };
 })
