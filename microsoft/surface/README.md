@@ -64,6 +64,8 @@ You will see messages like "Can't ping firmware" *TODO - Copy messages from cons
 The most effective fix to-date is to remove the `board-2.bin` file or replace it with a copy of the
 `board.bin` file.
 
+For more details, see: https://github.com/linux-surface/linux-surface/wiki/Surface-Go#wifi-firmware
+
 References:
 - https://github.com/jakeday/linux-surface/issues/441
 - https://www.reddit.com/r/SurfaceLinux/comments/e8quqg/surface_go_official_wifi_fix/
