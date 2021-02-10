@@ -87,6 +87,7 @@ See code for all available configurations.
 | [Dell XPS 13 9380][]              | `<nixos-hardware/dell/xps/13-9380>`                |
 | [Dell XPS 15 7590][]              | `<nixos-hardware/dell/xps/15-7590>`                |
 | [Dell XPS 15 9550][]              | `<nixos-hardware/dell/xps/15-9550>`                |
+| [Dell XPS 15 9550, nvidia][]      | `<nixos-hardware/dell/xps/15-9550/nvidia>`         |
 | [Dell XPS 15 9560][]              | `<nixos-hardware/dell/xps/15-9560>`                |
 | [Dell XPS 15 9560, intel only][]  | `<nixos-hardware/dell/xps/15-9560/intel>`          |
 | [Dell XPS 15 9560, nvidia only][] | `<nixos-hardware/dell/xps/15-9560/nvidia>`         |
