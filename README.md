@@ -74,6 +74,7 @@ See code for all available configurations.
 | Apple MacBook Air 6,X             | `<nixos-hardware/apple/macbook-air/6>`             |
 | [Apple MacBook Pro 10,1][]        | `<nixos-hardware/apple/macbook-pro/10-1>`          |
 | Apple MacBook Pro 12,1            | `<nixos-hardware/apple/macbook-pro/12-1>`          |
+| Apple MacBook Pro 15,1            | `<nixos-hardware/apple/macbook-pro/15-1>`          |
 | Asus TUF FX504GD                  | `<nixos-hardware/asus/fx504gd>`                    |
 | BeagleBoard PocketBeagle          | `<nixos-hardware/beagleboard/pocketbeagle>`        |
 | [Dell G3 3779][]                  | `<nixos-hardware/dell/g3/3779>`                    |
