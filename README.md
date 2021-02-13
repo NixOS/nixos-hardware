@@ -39,7 +39,7 @@ There is also experimental flake support. In your `/etc/nixos/flake.nix` add the
       # ...
       modules = [
         # ...
-        # add your model from this list: https://github.com/NixOS/nixos-hardware/blob/flakes/flake.nix
+        # add your model from this list: https://github.com/NixOS/nixos-hardware/blob/master/flake.nix
         nixos-hardware.nixosModules.dell-xps-13-9380
       ];
     };
