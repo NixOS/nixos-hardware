@@ -22,6 +22,7 @@
       dell-xps-13-9380 = import ./dell/xps/13-9380;
       dell-xps-15-7590 = import ./dell/xps/15-7590;
       dell-xps-15-9550 = import ./dell/xps/15-9550;
+      dell-xps-15-9550-nvidia = import ./dell/xps/15-9550/nvidia;
       dell-xps-15-9560 = import ./dell/xps/15-9560;
       dell-xps-15-9560-intel = import ./dell/xps/15-9560/intel;
       dell-xps-15-9560-nvidia = import ./dell/xps/15-9560/nvidia;
@@ -61,6 +62,7 @@
       lenovo-thinkpad-x1-6th-gen = import ./lenovo/thinkpad/x1/6th-gen;
       lenovo-thinkpad-x1-7th-gen = import ./lenovo/thinkpad/x1/7th-gen;
       lenovo-thinkpad-x1-extreme = import ./lenovo/thinkpad/x1-extreme;
+      lenovo-thinkpad-x13-yoga = import ./lenovo/thinkpad/x13-yoga;
       microsoft-surface = import ./microsoft/surface;
       microsoft-surface-pro-3 = import ./microsoft/surface-pro/3;
       pcengines-apu = import ./pcengines/apu;
