@@ -14,5 +14,9 @@ in
     hardware.firmware = [
       (pkgs.callPackage ./ath10k.nix {})
     ];
+
+    boot.extraModprobeConfig = lib.mkDefault ''
+      options ath10k_core skip_otp=Y
+    '';
   };
 }
