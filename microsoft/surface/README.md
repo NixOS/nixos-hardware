@@ -64,9 +64,16 @@ You will see messages like "Can't ping firmware".
 The most effective fix to-date is to remove the `board-2.bin` file or replace it with a copy of the
 `board.bin` file.
 
+The derivative in `firmware/surface-go/ath10k/` can configure this, if you set the option
+`config.hardware.microsoft-surface.firmware.surface-go-ath10k.enable` to `true`.
+
+Note that this is slightly destructive, as it deletes all the `board.bin` and `board-2.bin` files
+for the `ath10k` QCA6174 device, and replaces them with KillerNetworking's version.
+This is the only way (currently) to force the driver to use the new firmware.
+
 For more details, see: https://github.com/linux-surface/linux-surface/wiki/Surface-Go#wifi-firmware
 
-Note that there was an attempt to get this firmware incorporated into the aggregate `board-2.bin`,
+There was an attempt to get this firmware incorporated into the aggregate `board-2.bin`,
 but (as of this writing) the request appears to have been ignored:
 - https://github.com/linux-surface/linux-surface/issues/41
 
