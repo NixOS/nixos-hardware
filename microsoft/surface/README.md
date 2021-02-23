@@ -59,12 +59,16 @@ See: https://github.com/linux-surface/linux-surface/blob/master/README.md
 
 On the Surface Go, the standard firmware from the official Linux Firmware repo has issues with the
 `ath10k` QCA6174 Wifi device.
-You will see messages like "Can't ping firmware" *TODO - Copy messages from console*
+You will see messages like "Can't ping firmware".
 
 The most effective fix to-date is to remove the `board-2.bin` file or replace it with a copy of the
 `board.bin` file.
 
 For more details, see: https://github.com/linux-surface/linux-surface/wiki/Surface-Go#wifi-firmware
+
+Note that there was an attempt to get this firmware incorporated into the aggregate `board-2.bin`,
+but (as of this writing) the request appears to have been ignored:
+- https://github.com/linux-surface/linux-surface/issues/41
 
 References:
 - https://github.com/jakeday/linux-surface/issues/441
