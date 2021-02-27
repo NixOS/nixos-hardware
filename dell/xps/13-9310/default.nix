@@ -249,12 +249,6 @@
     linux_patched = pkgs.callPackage linux_patched_pkg { };
   in pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_patched);
 
-  # Confirmed necessary to get audio working as of 2020-11-13:
-  # https://bbs.archlinux.org/viewtopic.php?pid=1933643#p1933643
-  boot.extraModprobeConfig = ''
-    options snd-intel-dspcfg dsp_driver=1
-  '';
-
   # Touchpad goes over i2c.
   # Without this we get errors in dmesg on boot and hangs when shutting down.
   boot.blacklistedKernelModules = [ "psmouse" ];
