@@ -8,7 +8,7 @@ firmwareLinuxNonfree.overrideAttrs (old: rec {
   pname = "microsoft-surface-go-firmware-linux-nonfree";
   srcs = [
     firmwareLinuxNonfree.src
-    ath10k
+    killernetworking_firmware
   ];
   sourceRoot = firmwareLinuxNonfree.src;
 
