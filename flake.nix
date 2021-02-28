@@ -80,6 +80,7 @@
       common-cpu-intel-kaby-lake = import ./common/cpu/intel/kaby-lake;
       common-cpu-intel-sandy-bridge = import ./common/cpu/intel/sandy-bridge;
       common-gpu-nvidia = import ./common/gpu/nvidia.nix;
+      common-gpu-nvidia-disable = import ./common/gpu/nvidia-disable.nix;
       common-pc-hdd = import ./common/pc/hdd;
       common-pc-laptop-hdd = import ./common/pc/laptop/hdd;
       common-pc-laptop-ssd = import ./common/pc/ssd;
