@@ -1,8 +1,8 @@
 {stdenv, lib, pkgs, firmwareLinuxNonfree, ...}:
 let
   repos = (pkgs.callPackage ../repos.nix {});
-  killernetworking_firmware = ./K1535_Debian;
-  # killernetworking_firmware = repos.ath10k-firmware;
+  # killernetworking_firmware = ./K1535_Debian;
+  killernetworking_firmware = repos.ath10k-firmware + "/K1535_Debian";
 in
 firmwareLinuxNonfree.overrideAttrs (old: rec {
   pname = "microsoft-surface-go-firmware-linux-nonfree";
