@@ -5,14 +5,14 @@ in
 {
   options = {
     hardware.microsoft-surface.firmware.surface-go-ath10k = {
-      enable = lib.mkEnableOption ''Use the "board.bin" firmware for ath10k-based WiFi on Surface Go.'';
+      replace = lib.mkEnableOption ''Use the "board.bin" firmware for ath10k-based WiFi on Surface Go.'';
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.replace {
     hardware.enableAllFirmware = true;
     hardware.firmware = [
-      (pkgs.callPackage ./ath10k.nix {})
+      (pkgs.callPackage ./ath10k-replace.nix {})
     ];
 
     boot.extraModprobeConfig = lib.mkDefault ''

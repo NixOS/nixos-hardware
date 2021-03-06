@@ -15,7 +15,7 @@ The kernel-specific derivations are under the `kernel/` sub-directory.
 In order to simplify maintenance of the Nix code, only the most-recent kernel patch-set is expected
 to be maintained in this repo.
 
-_*NOTE:*_Some built-in Kernel config items need to be set, that aren't set by default:
+_*NOTE:*_ Some built-in Kernel config items need to be set, that aren't set by default:
 - https://github.com/linux-surface/surface-aggregator-module/wiki/Testing-and-Installing
 
 ## Firmware, Drivers and Support Tools
@@ -65,15 +65,19 @@ The most effective fix to-date is to remove the `board-2.bin` file or replace it
 `board.bin` file.
 
 The derivative in `firmware/surface-go/ath10k/` can configure this, if you set the option
-`config.hardware.microsoft-surface.firmware.surface-go-ath10k.enable` to `true`.
+`config.hardware.microsoft-surface.firmware.surface-go-ath10k.replace` to `true`.
 
-Note that this is slightly destructive, as it deletes all the `board.bin` and `board-2.bin` files
-for the `ath10k` QCA6174 device, and replaces them with KillerNetworking's version.
+_*NOTE:*_ This is destructive, as it deletes all the `board.bin` and `board-2.bin` files for the
+`ath10k` QCA6174 device, and replaces them with KillerNetworking's version.
 This is the only way (currently) to force the driver to use the new firmware.
 
 For more details, see: https://github.com/linux-surface/linux-surface/wiki/Surface-Go#wifi-firmware
 
-There was an attempt to get this firmware incorporated into the aggregate `board-2.bin`,
+_*NOTE:*_ There's some work to patch the kernel to make it easier to override which firmware file
+to use for QCA6174, which would obviate this more-destructuve approach:
+- https://github.com/linux-surface/kernel/commit/22ef83836c4aa89e9eb98de9b47ed24b6c2a1d45
+
+_*NOTE:*_ There was an attempt to get this firmware incorporated into the aggregate `board-2.bin`,
 but (as of this writing) the request appears to have been ignored:
 - https://github.com/linux-surface/linux-surface/issues/41
 
