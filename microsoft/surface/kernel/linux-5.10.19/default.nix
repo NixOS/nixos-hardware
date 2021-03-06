@@ -1,10 +1,9 @@
 { config, lib, pkgs, ... }:
 let
   repos = (pkgs.callPackage ../../repos.nix {});
-  # TODO: Can I append the path ./patches instead of a string?
   patches = repos.linux-surface + "/patches";
   surface_kernelPatches = [
-    { name = "microsoft-surface-patches-linux-5.10.2";
+    { name = "microsoft-surface-patches-linux-5.10.19";
       patch = null;
       extraConfig = ''
           #
@@ -44,8 +43,8 @@ let
           #
           # Cameras: IPU3
           #
-          ## TODO: Fix for kernel 5.10.2:
-          ##VIDEO_IPU3_IMGU m
+          ## Not yet supported in the patches?
+          # VIDEO_IPU3_IMGU m
           VIDEO_IPU3_CIO2 m
           CIO2_BRIDGE y
           INT3472 m
@@ -54,8 +53,13 @@ let
           # Cameras: Sensor drivers
           #
           VIDEO_OV5693 m
-          ## TODO: Fix for kernel 5.10.2:
-          ##VIDEO_OV8865 m
+          ## Not yet supported in the patches?
+          # VIDEO_OV8865 m
+
+          #
+          # ALS Sensor for Surface Book 3, Surface Laptop 3, Surface Pro 7
+          #
+          APDS9960 m
 
           #
           # Other Drivers
@@ -101,12 +105,16 @@ let
       patch = patches + "/5.10/0008-surface-typecover.patch";
     }
     {
-      name = "ms-surface/0009-cameras";
-      patch = patches + "/5.10/0009-cameras.patch";
+      name = "ms-surface/0009-surface-sensors";
+      patch = patches + "/5.10/0009-surface-sensors.patch";
+    }
+    {
+      name = "ms-surface/0010-cameras";
+      patch = patches + "/5.10/0010-cameras.patch";
     }
   ];
 in (with pkgs; recurseIntoAttrs (linuxPackagesFor (
-     callPackage ./linux-5.10.2.nix {
+     callPackage ./linux-5.10.19.nix {
        kernelPatches = surface_kernelPatches;
      }
    )))

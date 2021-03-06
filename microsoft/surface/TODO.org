@@ -3,9 +3,10 @@
    - Latest from linux-surface
    - [X] Download github.com/linux-surface/linux-surface kernel patches
    - [X] Build kernel using downloaded patches
-** TODO Create a function for selecting preferred kernel
+** CANCELLED Create a function for selecting preferred kernel
 ** DONE Fix how Keyboard & Trackpad are not being enabled on SL3
    - https://github.com/linux-surface/surface-aggregator-module/wiki/Testing-and-Installing
+** DOING Update to kernel 5.10.19
 * Firmware
 ** DONE Remove old firmware binaries
    - Looks like the ath10k files aren't needed, any more
