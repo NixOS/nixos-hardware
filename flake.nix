@@ -16,6 +16,7 @@
       dell-precision-5530 = import ./dell/precision/5530;
       dell-e7240 = import ./dell/e7240;
       dell-xps-13-7390 = import ./dell/xps/13-7390;
+      dell-xps-13-9310 = import ./dell/xps/13-9310;
       dell-xps-13-9343 = import ./dell/xps/13-9343;
       dell-xps-13-9360 = import ./dell/xps/13-9360;
       dell-xps-13-9370 = import ./dell/xps/13-9370;
@@ -79,6 +80,7 @@
       common-cpu-intel-kaby-lake = import ./common/cpu/intel/kaby-lake;
       common-cpu-intel-sandy-bridge = import ./common/cpu/intel/sandy-bridge;
       common-gpu-nvidia = import ./common/gpu/nvidia.nix;
+      common-gpu-nvidia-disable = import ./common/gpu/nvidia-disable.nix;
       common-pc-hdd = import ./common/pc/hdd;
       common-pc-laptop-hdd = import ./common/pc/laptop/hdd;
       common-pc-laptop-ssd = import ./common/pc/ssd;
