@@ -2,8 +2,8 @@
 {
   linux-surface = fetchgit {
     url="https://github.com/linux-surface/linux-surface.git";
-    rev="2b6d2db5bfc7b678c37badc80e0a223bf89b5ef7";
-    sha256="03qlwxijznmk043zcpwl1yc56zhrlwdaw8k1cymb8zrxfpgw0r14";
+    rev="f8fab978a480a4ed57e9ebb6928683b2e443c1c5";
+    sha256="0zwybprwjckpapxm6gxzh6hwdd1w91g5sjxn6z52zlvvjpkmw959";
   };
 
   ath10k-firmware = fetchgit {
