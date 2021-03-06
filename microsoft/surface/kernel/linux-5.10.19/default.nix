@@ -14,11 +14,16 @@ let
           SURFACE_AGGREGATOR_BUS y
           SURFACE_AGGREGATOR_CDEV m
           SURFACE_AGGREGATOR_REGISTRY m
+
           SURFACE_ACPI_NOTIFY m
-          SURFACE_BATTERY m
           SURFACE_DTX m
-          SURFACE_HID m
           SURFACE_PERFMODE m
+
+          SURFACE_HID m
+          SURFACE_KBD m
+
+          BATTERY_SURFACE m
+          CHARGER_SURFACE m
 
           #
           # These built-in modules are required for the Surface Aggregator Module
@@ -43,17 +48,15 @@ let
           #
           # Cameras: IPU3
           #
-          ## Not yet supported in the patches?
           # VIDEO_IPU3_IMGU m
           VIDEO_IPU3_CIO2 m
           CIO2_BRIDGE y
-          INT3472 m
+          INTEL_SKL_INT3472 m
 
           #
           # Cameras: Sensor drivers
           #
           VIDEO_OV5693 m
-          ## Not yet supported in the patches?
           # VIDEO_OV8865 m
 
           #
