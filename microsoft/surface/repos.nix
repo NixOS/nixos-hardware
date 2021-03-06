@@ -19,7 +19,7 @@
   };
 
   surface-go-ath10k-firmware_backup = fetchgit {
-    url="git@github.com:mexisme/linux-surface_ath10k-firmware.git";
+    url="https://github.com/mexisme/linux-surface_ath10k-firmware.git";
     rev="74e5409e699383d6ca2bc4da4a8433d16f3850b1";
     sha256="169vgvxpgad9anmchs22fj5qm6ahzjfdnwhd8pc280q705vx6pjk";
   };
