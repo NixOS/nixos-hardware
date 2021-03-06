@@ -48,6 +48,7 @@ let
           #
           # Cameras: IPU3
           #
+          ## Not yet supported in the patches
           # VIDEO_IPU3_IMGU m
           VIDEO_IPU3_CIO2 m
           CIO2_BRIDGE y
@@ -57,6 +58,7 @@ let
           # Cameras: Sensor drivers
           #
           VIDEO_OV5693 m
+          ## Not yet supported in the patches
           # VIDEO_OV8865 m
 
           #
