@@ -2,7 +2,7 @@
 {
   imports = [
     ./kernel
-    ./firmware
     ./hardware_configuration.nix
+    ./firmware/surface-go/ath10k
   ];
 }
