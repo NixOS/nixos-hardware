@@ -3,9 +3,13 @@
    - Latest from linux-surface
    - [X] Download github.com/linux-surface/linux-surface kernel patches
    - [X] Build kernel using downloaded patches
-** TODO Create a function for selecting preferred kernel
+** CANCELLED Create a function for selecting preferred kernel
 ** DONE Fix how Keyboard & Trackpad are not being enabled on SL3
    - https://github.com/linux-surface/surface-aggregator-module/wiki/Testing-and-Installing
+** DONE Update to kernel 5.10.19
+:LOGBOOK:
+- State "DONE"       from "DOING"      [2021-03-06 Sat 20:55]
+:END:
 * Firmware
 ** DONE Remove old firmware binaries
    - Looks like the ath10k files aren't needed, any more
@@ -14,14 +18,27 @@
    - [X] Install the binaries
 ** DONE Remove `ipts` firmware derivative
    - This is only needed on the 4.19 kernel
-** TODO Investigate problem with ath10k wifi firmware on Surface Go
-*** TODO README entry explaining problem(s) with nonfree firmware on Surface Go
-*** TODO Create derivative for `ath10k` firmware on Surface Go
+** DONE Investigate problem with ath10k wifi firmware on Surface Go
+:LOGBOOK:
+- State "DOING"      from "TODO"       [2021-02-09 Tue 17:19]
+- State "DONE"       from "DOING"      [2021-03-06 Sat 15:27]
+:END:
+*** DONE README entry explaining problem(s) with nonfree firmware on Surface Go
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2021-02-09 Tue 17:17]
+:END:
+*** DONE Create derivative for `ath10k` firmware on Surface Go
+:LOGBOOK:
+- State "DOING"      from "TODO"       [2021-02-09 Tue 17:18]
+:END:
     - [X] Download github.com/kvalo/ath10k-firmware ?
     - [X] Download kernel.org linux-firmware?
-    - [ ] Download `board.bin` from Killer Networks?
-    - [ ] Install ath10k firmware fix for Surface Go
+    - [X] Download `board.bin` from Killer Networks?
+    - [X] Install ath10k firmware fix for Surface Go
       - `board-2.bin` needs to be removed / replaced with `board.bin`
+    - [X] Add a config option for enabling the Surface Go Firmware
+    - [-] Replace the vendorised `board.bin` with a `fetchurl`
+      - Getting HTTP 406 when using `fetchurl` or `nix-prefetch-url` that has to be diagnosed
 * Support Tools
 ** TODO Incorporate @hpfr's function(s) from this commit:
    - https://github.com/hpfr/system/commit/03fa1b0a83f8a336e812910d0d50f5247a8a630c
