@@ -1,5 +1,4 @@
 { lib, config, pkgs, ... }:
-
 {
   imports = [
     ../.
@@ -16,4 +15,10 @@
   #        - Load custom Radeon firmware for Macbook Pro / Kernel & Hardware / Arch Linux Forums https://bbs.archlinux.org/viewtopic.php?pid=1810437#p1810437
   #        - https://discourse.nixos.org/t/trying-to-include-custom-firmware-but-it-doesnt-appear-under-run-current-system/3044
   boot.kernelParams = ["nomodeset"];
+ 
+      boot.kernelPatches = [
+        { name = "radeon-vbios-from-dump";
+          patch = ./radeon_bios.patch ;
+        }
+      ];
 }
