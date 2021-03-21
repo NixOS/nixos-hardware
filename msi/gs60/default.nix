@@ -15,16 +15,6 @@
       options ath10k_core skip_otp=y
     '';
 
-    initrd = {
-      availableKernelModules = [
-        "ahci"
-        "ehci_pci"
-        "rtsx_pci_sdmmc"
-        "sd_mod"
-        "usb_storage"
-        "xhci_pci"
-      ];
-    };
   };
 
   # Laptop can't correctly suspend if wlan is active
