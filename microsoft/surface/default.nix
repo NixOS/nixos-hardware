@@ -1,5 +1,6 @@
 { config, lib, pkgs, ... }: {
-  imports = [ ./kernel ./firmware ./hardware_configuration.nix ];
+  imports =
+    [ ./kernel ./hardware_configuration.nix ./firmware/surface-go/ath10k ];
 
   environment.systemPackages = with pkgs; [ surface-control ];
   users.groups.surface-control = { };
