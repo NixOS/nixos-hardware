@@ -69,6 +69,8 @@
       pcengines-apu = import ./pcengines/apu;
       raspberry-pi-2 = import ./raspberry-pi/2;
       samsung-np900x3c = import ./samsung/np900x3c;
+      system76 = import ./system76;
+      system76-darp6 = import ./system76/darp6;
       purism-librem-13v3 = import ./purism/librem/13v3;
       purism-librem-15v3 = import ./purism/librem/15v3;
       supermicro-a1sri-2758f = import ./supermicro/a1sri-2758f;
