@@ -42,7 +42,11 @@ kernel-space driver into events for the HID / input sub-system.
 
 ### DTX, `surface-control`
 
-*TODO*
+#### surface-control
+
+For controlling the performance modes and other aspects of the device, the [`surface-control`](https://github.com/linux-surface/surface-control) tool is included.
+
+To be able to control the performance mode without using `sudo`, add your user to the `surface-control` group.
 
 # ToDo's Not Done
 
