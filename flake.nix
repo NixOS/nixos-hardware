@@ -60,6 +60,7 @@
       lenovo-thinkpad-x260 = import ./lenovo/thinkpad/x260;
       lenovo-thinkpad-x270 = import ./lenovo/thinkpad/x270;
       lenovo-thinkpad-x280 = import ./lenovo/thinkpad/x280;
+      lenovo-thinkpad-x1 = import ./lenovo/thinkpad/x1;
       lenovo-thinkpad-x1-6th-gen = import ./lenovo/thinkpad/x1/6th-gen;
       lenovo-thinkpad-x1-7th-gen = import ./lenovo/thinkpad/x1/7th-gen;
       lenovo-thinkpad-x1-extreme = import ./lenovo/thinkpad/x1-extreme;
