@@ -85,6 +85,9 @@
       common-cpu-intel-sandy-bridge = import ./common/cpu/intel/sandy-bridge;
       common-gpu-nvidia = import ./common/gpu/nvidia.nix;
       common-gpu-nvidia-disable = import ./common/gpu/nvidia-disable.nix;
+      common-gpu-amd = import ./common/gpu/amd;
+      common-gpu-amd-sea-islands = import ./common/gpu/amd/sea-islands;
+      common-gpu-amd-southern-islands = import ./common/gpu/amd/southern-islands;
       common-pc-hdd = import ./common/pc/hdd;
       common-pc-laptop-hdd = import ./common/pc/laptop/hdd;
       common-pc-laptop-ssd = import ./common/pc/ssd;
