@@ -121,6 +121,7 @@ See code for all available configurations.
 | Lenovo ThinkPad T495              | `<nixos-hardware/lenovo/thinkpad/t495>`            |
 | Lenovo ThinkPad X113 Yoga         | `<nixos-hardware/lenovo/thinkpad/x13-yoga>`        |
 | Lenovo ThinkPad X140e             | `<nixos-hardware/lenovo/thinkpad/x140e>`           |
+| Lenovo ThinkPad X200s             | `<nixos-hardware/lenovo/thinkpad/x200s>`           |
 | Lenovo ThinkPad X220              | `<nixos-hardware/lenovo/thinkpad/x220>`            |
 | Lenovo ThinkPad X230              | `<nixos-hardware/lenovo/thinkpad/x230>`            |
 | Lenovo ThinkPad X250              | `<nixos-hardware/lenovo/thinkpad/x250>`            |
