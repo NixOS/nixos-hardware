@@ -1,13 +1,5 @@
 { lib, ... }:
-# Earlier font-size setup.
-# Virtual console options were renamed in 20.03; use the right option depending
-# on the OS version; keep this here at least until 20.03 is stable.
-lib.recursiveUpdate
-(if lib.versionAtLeast (lib.versions.majorMinor lib.version) "20.03" then {
-  console.earlySetup = true;
-} else {
-  boot.earlyVconsoleSetup = true;
-}) {
+{
   imports = [
     ../../../common/cpu/intel
     ../../../common/pc/laptop
