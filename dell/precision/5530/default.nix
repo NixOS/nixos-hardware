@@ -15,7 +15,6 @@
     "nouveau.modeset=0"
     "pcie_aspm=force"
     "drm.vblankoffdelay=1"
-    "scsi_mod.use_blk_mq=1"
     "nouveau.runpm=0"
     "mem_sleep_default=deep"
     # fix flicker
