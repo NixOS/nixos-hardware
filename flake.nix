@@ -67,6 +67,7 @@
       lenovo-thinkpad-x1-7th-gen = import ./lenovo/thinkpad/x1/7th-gen;
       lenovo-thinkpad-x1-extreme = import ./lenovo/thinkpad/x1-extreme;
       lenovo-thinkpad-x1-extreme-gen2 = import ./lenovo/thinkpad/x1-extreme/gen2;
+      lenovo-thinkpad-x13 = import ./lenovo/thinkpad/x13;
       lenovo-thinkpad-x13-yoga = import ./lenovo/thinkpad/x13-yoga;
       microsoft-surface = import ./microsoft/surface;
       microsoft-surface-pro-3 = import ./microsoft/surface-pro/3;

@@ -131,6 +131,7 @@ See code for all available configurations.
 | [Lenovo ThinkPad X1 (6th Gen)][]  | `<nixos-hardware/lenovo/thinkpad/x1/6th-gen>`      |
 | [Lenovo ThinkPad X1 (7th Gen)][]  | `<nixos-hardware/lenovo/thinkpad/x1/7th-gen>`      |
 | Lenovo ThinkPad X1 Extreme Gen 2  | `<nixos-hardware/lenovo/thinkpad/x1-extreme/gen2>` |
+| [Lenovo ThinkPad X13][]           | `<nixos-hardware/lenovo/thinkpad/x13`              |
 | [Microsoft Surface Range][]       | `<nixos-hardware/microsoft/surface>`               |
 | [Microsoft Surface Pro 3][]       | `<nixos-hardware/microsoft/surface-pro/3>`         |
 | [MSI GS60 2QE][]                  | `<nixos-hardware/msi/gs60>`                        |
@@ -166,6 +167,7 @@ See code for all available configurations.
 [Inverse Path USB armory]: inversepath/usbarmory
 [Lenovo ThinkPad X1 (6th Gen)]: lenovo/thinkpad/x1/6th-gen
 [Lenovo ThinkPad X1 (7th Gen)]: lenovo/thinkpad/x1/7th-gen
+[Lenovo ThinkPad X13]: lenovo/thinkpad/x13
 [Lenovo ThinkPad X13 Yoga]: lenovo/thinkpad/x13-yoga
 [Lenovo ThinkPad X260]: lenovo/thinkpad/x260
 [Microsoft Surface Pro 3]: microsoft/surface-pro/3
