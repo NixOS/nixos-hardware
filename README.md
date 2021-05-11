@@ -94,6 +94,7 @@ See code for all available configurations.
 | [Dell XPS 15 9560, nvidia only][] | `<nixos-hardware/dell/xps/15-9560/nvidia>`         |
 | [Dell XPS 15 9500][]              | `<nixos-hardware/dell/xps/15-9500>`                |
 | [Dell XPS 15 9500, nvidia][]      | `<nixos-hardware/dell/xps/15-9500/nvidia>`         |
+| FriendlyARM NanoPC-T4             | `<nixos-hardware/friendlyarm/nanopc-t4>`           |
 | [Google Pixelbook][]              | `<nixos-hardware/google/pixelbook>`                |
 | [Inverse Path USB armory][]       | `<nixos-hardware/inversepath/usbarmory>`           |
 | Lenovo IdeaPad Z510               | `<nixos-hardware/lenovo/ideapad/z510>`             |
@@ -113,7 +114,7 @@ See code for all available configurations.
 | Lenovo ThinkPad T440s             | `<nixos-hardware/lenovo/thinkpad/t440s>`           |
 | Lenovo ThinkPad T440p             | `<nixos-hardware/lenovo/thinkpad/t440p>`           |
 | Lenovo ThinkPad T450s             | `<nixos-hardware/lenovo/thinkpad/t450s>`           |
-| Lenovo ThinkPad T460              | `<nixos-hardware/lenovo/thinkpad/t460>`           |
+| Lenovo ThinkPad T460              | `<nixos-hardware/lenovo/thinkpad/t460>`            |
 | Lenovo ThinkPad T460s             | `<nixos-hardware/lenovo/thinkpad/t460s>`           |
 | Lenovo ThinkPad T470s             | `<nixos-hardware/lenovo/thinkpad/t470s>`           |
 | Lenovo ThinkPad T480s             | `<nixos-hardware/lenovo/thinkpad/t480s>`           |
