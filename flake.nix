@@ -73,6 +73,7 @@
       microsoft-surface-pro-3 = import ./microsoft/surface-pro/3;
       pcengines-apu = import ./pcengines/apu;
       raspberry-pi-2 = import ./raspberry-pi/2;
+      raspberry-pi-4 = import ./raspberry-pi/4;
       samsung-np900x3c = import ./samsung/np900x3c;
       system76 = import ./system76;
       system76-darp6 = import ./system76/darp6;

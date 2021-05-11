@@ -137,6 +137,7 @@ See code for all available configurations.
 | [MSI GS60 2QE][]                  | `<nixos-hardware/msi/gs60>`                        |
 | PC Engines APU                    | `<nixos-hardware/pcengines/apu>`                   |
 | [Raspberry Pi 2][]                | `<nixos-hardware/raspberry-pi/2>`                  |
+| [Raspberry Pi 4][]                | `<nixos-hardware/raspberry-pi/4>`                  |
 | [Samsung Series 9 NP900X3C][]     | `<nixos-hardware/samsung/np900x3c>`                |
 | [Purism Librem 13v3][]            | `<nixos-hardware/purism/librem/13v3>`              |
 | [Purism Librem 15v3][]            | `<nixos-hardware/purism/librem/15v3>`              |
