@@ -1,10 +1,10 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, modulesPath, ... }:
 
 {
   imports = [
     ../.
     ../../../common/pc/laptop/ssd
-    <nixpkgs/nixos/modules/hardware/network/broadcom-43xx.nix>
+    "${modulesPath}/hardware/network/broadcom-43xx.nix"
   ];
 
   powerManagement = {
