@@ -95,6 +95,7 @@ See code for all available configurations.
 | [Dell XPS 15 9500][]              | `<nixos-hardware/dell/xps/15-9500>`                |
 | [Dell XPS 15 9500, nvidia][]      | `<nixos-hardware/dell/xps/15-9500/nvidia>`         |
 | [Google Pixelbook][]              | `<nixos-hardware/google/pixelbook>`                |
+| [GPD MicroPC][]                   | `<nixos-hardware/gpd/micropc>`                     |
 | [Inverse Path USB armory][]       | `<nixos-hardware/inversepath/usbarmory>`           |
 | Lenovo IdeaPad Z510               | `<nixos-hardware/lenovo/ideapad/z510>`             |
 | Lenovo ThinkPad E470              | `<nixos-hardware/lenovo/thinkpad/e470>`            |
@@ -164,6 +165,7 @@ See code for all available configurations.
 [Dell XPS 15 9560, intel only]: dell/xps/15-9560/intel
 [Dell XPS 15 9560, nvidia only]: dell/xps/15-9560/nvidia
 [Google Pixelbook]: google/pixelbook
+[GPD MicroPC]: gpd/micropc
 [Inverse Path USB armory]: inversepath/usbarmory
 [Lenovo ThinkPad X1 (6th Gen)]: lenovo/thinkpad/x1/6th-gen
 [Lenovo ThinkPad X1 (7th Gen)]: lenovo/thinkpad/x1/7th-gen
