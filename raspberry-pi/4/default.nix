@@ -6,16 +6,8 @@
     initrd.availableKernelModules = [ "usbhid" "usb_storage" "vc4" ];
 
     loader = {
-      raspberryPi = {
-        enable = true;
-        version = 4;
-        firmwareConfig = ''
-          dtparam=audio=on 
-          gpu_mem=192
-        '';
-      };
-      grub.enable = false;
-      generic-extlinux-compatible.enable = true;
+      grub.enable = lib.mkDefault false;
+      generic-extlinux-compatible.enable = lib.mkDefault true;
     };
   };
 
@@ -23,5 +15,4 @@
 
   # Required for the Wireless firmware
   hardware.enableRedistributableFirmware = true;
-
 }
