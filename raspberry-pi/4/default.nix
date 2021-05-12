@@ -11,7 +11,6 @@
     };
   };
 
-  nix.buildCores = 4;
 
   # Required for the Wireless firmware
   hardware.enableRedistributableFirmware = true;
