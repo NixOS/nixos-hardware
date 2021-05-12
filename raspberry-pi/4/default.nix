@@ -5,9 +5,6 @@
     kernelPackages = lib.mkDefault pkgs.linuxPackages_rpi4;
     initrd.availableKernelModules = [ "usbhid" "usb_storage" "vc4" ];
 
-    # Needed for 4K displays
-    kernelParams = [ "cma=128M" ];
-
     loader = {
       raspberryPi = {
         enable = true;
