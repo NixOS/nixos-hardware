@@ -1,6 +1,10 @@
 { lib, pkgs, ...}:
 
 {
+  imports = [
+    ./modesetting.nix
+  ];
+
   boot = {
     kernelPackages = lib.mkDefault pkgs.linuxPackages_rpi4;
     initrd.availableKernelModules = [ "usbhid" "usb_storage" "vc4" ];
