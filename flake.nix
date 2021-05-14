@@ -30,6 +30,7 @@
       dell-xps-15-9500 = import ./dell/xps/15-9500;
       dell-xps-15-9500-nvidia = import ./dell/xps/15-9500/nvidia;
       google-pixelbook = import ./google/pixelbook;
+      gpd-micropc = import ./gpd/micropc;
       inversepath-usbarmory = import ./inversepath/usbarmory;
       lenovo-ideapad-z510 = import ./lenovo/ideapad/z510;
       lenovo-thinkpad-e470 = import ./lenovo/thinkpad/e470;
