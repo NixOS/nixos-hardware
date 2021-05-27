@@ -15,6 +15,7 @@
     };
   };
 
+  hardware.deviceTree.filter = "bcm2711-rpi-*.dtb";
 
   # Required for the Wireless firmware
   hardware.enableRedistributableFirmware = true;
