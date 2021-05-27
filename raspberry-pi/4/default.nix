@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./dwc2.nix
     ./modesetting.nix
   ];
 
