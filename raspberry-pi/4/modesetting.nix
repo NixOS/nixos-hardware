@@ -29,7 +29,6 @@ in
   config = lib.mkIf cfg.enable {
     # Configure for modesetting in the device tree
     hardware.deviceTree = {
-      filter = "bcm2711-rpi-*.dtb";
       overlays = [
         # Equivalent to:
         # https://github.com/raspberrypi/linux/blob/rpi-5.10.y/arch/arm/boot/dts/overlays/cma-overlay.dts
