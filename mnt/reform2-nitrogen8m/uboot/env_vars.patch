@@ -1,0 +1,57 @@
+commit 32ba0e0bf12827a67959f435e457fb4594a6708f
+Author: Emery Hemingway <ehmry@posteo.net>
+Date:   Mon Jul 27 10:18:38 2020 +0200
+
+    reform: set envvars for booting NixOS
+
+diff --git a/board/boundary/nitrogen8m_som/nitrogen8m_som.c b/board/boundary/nitrogen8m_som/nitrogen8m_som.c
+index d4d866001d..d1fac5934f 100644
+--- a/board/boundary/nitrogen8m_som/nitrogen8m_som.c
++++ b/board/boundary/nitrogen8m_som/nitrogen8m_som.c
+@@ -322,17 +322,13 @@ void init_usb_clk(int usbno);
+ 
+ static void set_env_vars(void)
+ {
+-	printf("set_env_vars()");
+-	env_set("board", "MNT Reform 2.0"); // "nitrogen8m_som");
++#ifdef CONFIG_ENV_VARS_UBOOT_RUNTIME_CONFIG
++	if (!env_get("board"))
++		env_set("board", "imx8mq-mnt-reform2");
+ 	env_set("soc", "imx8mq");
+ 	env_set("imx_cpu", get_imx_type((get_cpu_rev() & 0xFF000) >> 12));
+ 	env_set("uboot_defconfig", CONFIG_DEFCONFIG);
+-
+-	// MNT Reform 2
+-	env_set("fdt_addr", "0x50000000");
+-	env_set("bootargs", "noinitrd root=/dev/mmcblk1p1 rootwait rw console=ttymxc0,115200 console=tty1 cma=512M no_console_suspend pci=nomsi");
+-	env_set("bootcmd", "ext4load mmc 1 ${loadaddr} /Image; ext4load mmc 1 ${fdt_addr} /imx8mq-mnt-reform2.dtb; booti ${loadaddr} - ${fdt_addr}");
+-	env_set("bootdelay", "1");
++#endif
+ }
+ 
+ void board_set_default_env(void)
+diff --git a/include/configs/nitrogen8m_som.h b/include/configs/nitrogen8m_som.h
+index 3ada3900db..548e7cd71c 100644
+--- a/include/configs/nitrogen8m_som.h
++++ b/include/configs/nitrogen8m_som.h
+@@ -208,7 +208,7 @@
+ #define SYS_AUXCORE_BOOTDATA_DDR	0x80000000
+ #define SYS_AUXCORE_BOOTDATA_TCM	0x007E0000
+ 
+-/*#define CONFIG_EXTRA_ENV_SETTINGS             \
++#define CONFIG_EXTRA_ENV_SETTINGS             \
+ 	"console=" BD_CONSOLE "\0" \
+ 	"env_dev=" __stringify(CONFIG_SYS_MMC_ENV_DEV) "\0" \
+ 	"env_part=" __stringify(CONFIG_SYS_MMC_ENV_PART) "\0" \
+@@ -247,7 +247,10 @@
+ 		"setenv ipaddr 10.0.0.2; " \
+ 		"setenv netmask 255.255.255.0; " \
+ 		"setenv serverip 10.0.0.1;\0" \
+-    BOOTENV*/
++    BOOTENV \
++	"kernel_addr_r=" __stringify(CONFIG_LOADADDR) "\0" \
++	"ramdisk_addr_r=0x44480000\0" \
++	"fdt_addr_r=0x43000000\0"
+ 
+ /*
+  * PCI express
