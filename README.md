@@ -104,6 +104,8 @@ See code for all available configurations.
 | Lenovo ThinkPad L13               | `<nixos-hardware/lenovo/thinkpad/l13>`             |
 | Lenovo ThinkPad L14 (Intel)       | `<nixos-hardware/lenovo/thinkpad/l14/intel>        |
 | Lenovo ThinkPad L14 (AMD)         | `<nixos-hardware/lenovo/thinkpad/l14/amd>          |
+| Lenovo ThinkPad P1								| `<nixos-hardware/lenovo/thinkpad/p1/>`             |
+| Lenovo ThinkPad P1 Gen 3          | `<nixos-hardware/lenovo/thinkpad/p1/3th-gen/>`     |
 | Lenovo ThinkPad P53               | `<nixos-hardware/lenovo/thinkpad/p53>`             |
 | Lenovo ThinkPad T14               | `<nixos-hardware/lenovo/thinkpad/t14>`             |
 | Lenovo ThinkPad T14 AMD Gen 1     | `<nixos-hardware/lenovo/thinkpad/t14/amd/gen1>`    |
@@ -170,6 +172,8 @@ See code for all available configurations.
 [Google Pixelbook]: google/pixelbook
 [GPD MicroPC]: gpd/micropc
 [Inverse Path USB armory]: inversepath/usbarmory
+[Lenovo ThinkPad P1]: lenovo/thinkpad/p1
+[Lenovo ThinkPad P1 (3th Gen)]: lenovo/thinkpad/p1/3th-gen
 [Lenovo ThinkPad X1 (6th Gen)]: lenovo/thinkpad/x1/6th-gen
 [Lenovo ThinkPad X1 (7th Gen)]: lenovo/thinkpad/x1/7th-gen
 [Lenovo ThinkPad X13]: lenovo/thinkpad/x13
