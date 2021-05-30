@@ -4,6 +4,7 @@
   imports = [
     ./dwc2.nix
     ./modesetting.nix
+    ./tc358743.nix
   ];
 
   boot = {
