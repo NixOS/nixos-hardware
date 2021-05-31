@@ -77,11 +77,11 @@ in lib.overrideDerivation (buildLinux (args // {
   in lib.lists.unique (kernelPatches ++ reformPatches ++ [{
     name = "MNT-Reform-imx8mq-config";
     patch = null;
-    extraConfig = fetchurl {
+    extraConfig = builtins.readFile (fetchurl {
       url =
         "https://github.com/NixOS/nixos-hardware/releases/download/mnt-reform2-nitrogen8m-v1/kernel-config";
       sha256 = "1brazbr9zflb29i4fjhwn1z87bg475lqvzkksvi5n775zx28fk65";
-    };
+    });
   }]);
 
   allowImportFromDerivation = true;
