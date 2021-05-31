@@ -1,17 +1,17 @@
 {
   imports = [
-    ../.
     ../../../common/cpu/intel
     ../../../common/gpu/nvidia.nix
+    ../../../common/pc/laptop/acpi_call.nix
+    ../../../common/pc/laptop/ssd
   ];
 
-  hardware.nvidia.prime = {
-    # Bus ID of the Intel GPU.
-    intelBusId = lib.mkDefault "PCI:0:2:0";
+  # Need to set Thunderbolt to "BIOS Assist Mode"
+  # https://forums.lenovo.com/t5/Other-Linux-Discussions/T480-CPU-temperature-and-fan-speed-under-linux/m-p/4114832
+  boot.kernelParams = [ "acpi_backlight=native" ];
 
-    # Bus ID of the NVIDIA GPU.
-    nvidiaBusId = lib.mkDefault "PCI:1:0:0";
-  };
+  # Emulate mouse wheel on trackpoint
+  # hardware.trackpoint.emulateWheel = true;
 
   services.fprintd.enable = true;
 }
