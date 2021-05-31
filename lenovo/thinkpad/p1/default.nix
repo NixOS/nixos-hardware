@@ -13,5 +13,5 @@
     nvidiaBusId = lib.mkDefault "PCI:1:0:0";
   };
 
-	services.fprintd.enable = true;
+  services.fprintd.enable = true;
 }
