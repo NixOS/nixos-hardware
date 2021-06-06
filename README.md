@@ -137,6 +137,7 @@ See code for all available configurations.
 | [Lenovo ThinkPad X1 (7th Gen)][]  | `<nixos-hardware/lenovo/thinkpad/x1/7th-gen>`      |
 | Lenovo ThinkPad X1 Extreme Gen 2  | `<nixos-hardware/lenovo/thinkpad/x1-extreme/gen2>` |
 | [Lenovo ThinkPad X13][]           | `<nixos-hardware/lenovo/thinkpad/x13`              |
+| [One-Netbook OneNetbook 4][]      | `<nixos-hardware/onenetbook/4`                     |
 | [Microsoft Surface Range][]       | `<nixos-hardware/microsoft/surface>`               |
 | [Microsoft Surface Pro 3][]       | `<nixos-hardware/microsoft/surface-pro/3>`         |
 | [MSI GS60 2QE][]                  | `<nixos-hardware/msi/gs60>`                        |
@@ -181,6 +182,7 @@ See code for all available configurations.
 [Lenovo ThinkPad X260]: lenovo/thinkpad/x260
 [Microsoft Surface Pro 3]: microsoft/surface-pro/3
 [MSI GS60 2QE]: msi/gs60
+[One-Netbook OneNetbook 4]: onenetbook/4
 [Raspberry Pi 2]: raspberry-pi/2
 [Samsung Series 9 NP900X3C]: samsung/np900x3c
 [System76 (generic)]: system76
