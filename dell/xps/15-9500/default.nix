@@ -20,7 +20,7 @@ in
   services.thermald.configFile = lib.mkDefault thermald-conf;
   
   # WiFi speed is slow and crashes by default
-  # disable_11ax - doesn't actually disable AX but will fix the speed and crashes
+  # disable_11ax - required until ax driver support is fixed
   # power_save - works well on this card
   boot.extraModprobeConfig = ''
     options iwlwifi power_save=1 disable_11ax=1
