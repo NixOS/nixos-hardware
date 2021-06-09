@@ -19,7 +19,7 @@ in
   # was generated with dptfxtract-static (https://github.com/intel/dptfxtract)
   services.thermald.configFile = lib.mkDefault thermald-conf;
   
-  # WiFi speed is slow and crashes by default
+  # WiFi speed is slow and crashes by default (https://bugzilla.kernel.org/show_bug.cgi?id=213381)
   # disable_11ax - required until ax driver support is fixed
   # power_save - works well on this card
   boot.extraModprobeConfig = ''
