@@ -5,4 +5,9 @@
   environment.systemPackages = with pkgs; [ surface-control ];
   users.groups.surface-control = { };
   services.udev.packages = [ pkgs.surface-control ];
+  systemd.services.iptsd = {
+    description = "IPTSD";
+    script = "${pkgs.iptsd}/bin/iptsd";
+    wantedBy = [ "multi-user.target" ];
+  };
 }
