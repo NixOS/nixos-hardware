@@ -1,5 +1,25 @@
-{ stdenv, lib, kernel, fetchpatch }:
+{ stdenv, lib, kernel, fetchpatch, runCommandNoCC, patch }:
 
+let
+  patch1_original = fetchpatch {
+    url = "https://marc.info/?l=linux-input&m=161847127221531&q=p3";
+    name = "goodix-stylus-mastykin-1-pen-support.patch";
+    sha256 = "sha256-1oc8OvfhScYvtsMeV9A4hU+09i59tEJ6HZS6jspsJR8=";
+  };
+  patch1_updated_5_12_12 = runCommandNoCC
+    "goodix-stylus-mastykin-1-pen-support-5.12.12.patch" {}
+    ''
+      cat ${patch1_original} > $out
+      ${patch}/bin/patch $out < ${./5.12.12.patch.patch}
+    '';
+  patch1 = if (lib.versionAtLeast kernel.version "5.12.12") then
+    patch1_updated_5_12_12 else patch1_original;
+  patch2 = fetchpatch {
+    url = "https://marc.info/?l=linux-input&m=161847127221531&q=p4";
+    name = "goodix-stylus-mastykin-2-buttons.patch";
+    sha256 = "sha256-HxmR8iEgoj4PJopGWJdWsjFxbfISwTMzz+HyG81mRG4=";
+  };
+in
 stdenv.mkDerivation rec {
   name = "hid-multitouch-onenetbook4-${version}";
   version = kernel.version;
@@ -8,18 +28,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
   src = ./.;
-  patches = [
-    (fetchpatch {
-      url = "https://marc.info/?l=linux-input&m=161847127221531&q=p3";
-      name = "goodix-stylus-mastykin-1-pen-support.patch";
-      sha256 = "sha256-1oc8OvfhScYvtsMeV9A4hU+09i59tEJ6HZS6jspsJR8=";
-    })
-    (fetchpatch {
-      url = "https://marc.info/?l=linux-input&m=161847127221531&q=p4";
-      name = "goodix-stylus-mastykin-2-buttons.patch";
-      sha256 = "sha256-HxmR8iEgoj4PJopGWJdWsjFxbfISwTMzz+HyG81mRG4=";
-    })
-  ];
+  patches = [ patch1 patch2 ];
 
   postUnpack = ''
     tar -C goodix-stylus-mastykin \
