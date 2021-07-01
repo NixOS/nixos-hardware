@@ -1,12 +1,8 @@
 { nixos, lib, pkgs, config, stdenv, ... }:
 {
   imports = [
-    ../.
-    ../../../common/cpu/intel
-    ../../../common/pc/laptop/acpi_call.nix
+    ../l13
   ];
-
-  services.throttled.enable = lib.mkDefault true;
 
   # automatic screen orientation
   hardware.sensor.iio.enable = true;
