@@ -1,0 +1,1 @@
+/home/vherrmann/repos/nixos-hardware/lenovo/thinkpad/x13/yoga/default.nix
