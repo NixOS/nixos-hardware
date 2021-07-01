@@ -1,7 +1,8 @@
-{ config, lib, ... }: {
+{ nixos, lib, pkgs, config, stdenv, ... }:
+{
   imports = [
-    ./.
-    ../yoga.nix
+    ../.
+    ../../yoga.nix
   ];
 
   services.xserver.wacom.enable = lib.mkDefault config.services.xserver.enable;
