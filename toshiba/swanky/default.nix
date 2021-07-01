@@ -18,9 +18,9 @@ in
 
   # Sound requires a custom UCM config:
   system.replaceRuntimeDependencies = [{
-    original = pkgs.alsaLib;
+    original = pkgs.alsa-lib;
 
-    replacement = pkgs.alsaLib.overrideAttrs (super: {
+    replacement = pkgs.alsa-lib.overrideAttrs (super: {
       postFixup = "cp -r ${ucm}/chtmax98090 $out/share/alsa/ucm";
     });
   }];
