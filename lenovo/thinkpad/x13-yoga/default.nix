@@ -1,1 +1,1 @@
-../x13/yoga/default.nix
+..thinkpad/x13-yoga/default.nix
