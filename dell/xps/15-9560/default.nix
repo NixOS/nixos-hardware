@@ -4,7 +4,7 @@
   imports = [
     ../../../common/cpu/intel
     ../../../common/pc/laptop
-    ./xps-common.nix
+    ../xps-common.nix
   ];
 
   # This configuration makes intel default and optionaly applications could run nvidia with optirun.

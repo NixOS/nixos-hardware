@@ -4,7 +4,7 @@
   imports = [
     ../../../../common/cpu/intel
     ../../../../common/pc/laptop
-    ../xps-common.nix
+    ../../xps-common.nix
   ];
 
 
