@@ -6,7 +6,7 @@ in {
   options.hardware = {
     raspberry-pi."4".poe-hat = {
       enable = lib.mkEnableOption ''
-        Enable support for the Raspberry Pi POE Hat.
+        support for the Raspberry Pi POE Hat.
       '';
     };
   };
