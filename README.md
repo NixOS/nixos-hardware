@@ -108,6 +108,7 @@ See code for all available configurations.
 | [Lenovo ThinkPad L14 (AMD)](lenovo/thinkpad/l14/amd)                | `<nixos-hardware/lenovo/thinkpad/l14/amd>`         |
 | [Lenovo ThinkPad P1](thinkpad/p1)                                   | `<nixos-hardware/lenovo/thinkpad/p1>`              |
 | [Lenovo ThinkPad P1 Gen 3](lenovo/thinkpad/p1/3th-gen)              | `<nixos-hardware/lenovo/thinkpad/p1/3th-gen>`      |
+| [Lenovo ThinkPad P14s AMD Gen 2](lenovo/thinkpad/p14s/amd/gen2)     | `<nixos-hardware/lenovo/thinkpad/p14s/amd/gen2>`   |
 | [Lenovo ThinkPad P53](lenovo/thinkpad/p53)                          | `<nixos-hardware/lenovo/thinkpad/p53>`             |
 | [Lenovo ThinkPad T14](lenovo/thinkpad/t14)                          | `<nixos-hardware/lenovo/thinkpad/t14>`             |
 | [Lenovo ThinkPad T14s](lenovo/thinkpad/t14s)                        | `<nixos-hardware/lenovo/thinkpad/t14s>`            |
