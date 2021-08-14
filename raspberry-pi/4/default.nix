@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./audio.nix
     ./dwc2.nix
     ./modesetting.nix
     ./poe-hat.nix
