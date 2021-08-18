@@ -4,7 +4,7 @@
   # Includes the Wi-Fi and Bluetooth firmware for the QCA6390.
   hardware.enableRedistributableFirmware = true;
 
-  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_5_12;
+  boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "5.12") (lib.mkDefault pkgs.linuxPackages_latest);
   # TODO: upstream this to NixOS
   boot.kernelPatches = [{
     name = "enable-qca6390-bluetooth";
