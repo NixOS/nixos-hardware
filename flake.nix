@@ -5,6 +5,7 @@
     nixosModules = {
       dell-aspire-4810t = import ./acer/aspire/4810t;
       asus-fx504gd = import ./asus/fx504gd;
+      asus-zephyrus-ga401 = import ./asus/zephyrus/ga401;
       apple-macbook-air-3 = import ./apple/macbook-air/3;
       apple-macbook-air-4 = import apple/macbook-air/4;
       apple-macbook-air-6 = import apple/macbook-air/6;
@@ -29,6 +30,7 @@
       dell-xps-15-9560-nvidia = import ./dell/xps/15-9560/nvidia;
       dell-xps-15-9500 = import ./dell/xps/15-9500;
       dell-xps-15-9500-nvidia = import ./dell/xps/15-9500/nvidia;
+      dell-xps-17-9700-intel = import ./dell/xps/17-9700;
       friendlyarm-nanopc-t4 = import ./friendlyarm/nanopc-t4;
       google-pixelbook = import ./google/pixelbook;
       gpd-micropc = import ./gpd/micropc;

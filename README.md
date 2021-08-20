@@ -75,6 +75,7 @@ See code for all available configurations.
 | [Apple MacBook Pro 12,1](apple/macbook-pro/12-1)                    | `<nixos-hardware/apple/macbook-pro/12-1>`          |
 | [Apple MacBook Pro 10,1](apple/macbook-pro/10-1)                    | `<nixos-hardware/apple/macbook-pro/10-1>`          |
 | [Asus TUF FX504GD](asus/fx504gd)                                    | `<nixos-hardware/asus/fx504gd>`                    |
+| [Asus ROG Zephyrus G14 GA401](asus/zephyrus/ga401)                  | `<nixos-hardware/asus/zephyrus/ga401>`             |
 | [BeagleBoard PocketBeagle](beagleboard/pocketbeagle)                | `<nixos-hardware/beagleboard/pocketbeagle>`        |
 | [Dell G3 3779](dell/g3/3779)                                        | `<nixos-hardware/dell/g3/3779>`                    |
 | [Dell Latitude 3480](dell/latitude/3480)                            | `<nixos-hardware/dell/latitude/3480>`              |
@@ -107,6 +108,7 @@ See code for all available configurations.
 | [Lenovo ThinkPad L14 (AMD)](lenovo/thinkpad/l14/amd)                | `<nixos-hardware/lenovo/thinkpad/l14/amd>`         |
 | [Lenovo ThinkPad P1](thinkpad/p1)                                   | `<nixos-hardware/lenovo/thinkpad/p1>`              |
 | [Lenovo ThinkPad P1 Gen 3](lenovo/thinkpad/p1/3th-gen)              | `<nixos-hardware/lenovo/thinkpad/p1/3th-gen>`      |
+| [Lenovo ThinkPad P14s AMD Gen 2](lenovo/thinkpad/p14s/amd/gen2)     | `<nixos-hardware/lenovo/thinkpad/p14s/amd/gen2>`   |
 | [Lenovo ThinkPad P53](lenovo/thinkpad/p53)                          | `<nixos-hardware/lenovo/thinkpad/p53>`             |
 | [Lenovo ThinkPad T14](lenovo/thinkpad/t14)                          | `<nixos-hardware/lenovo/thinkpad/t14>`             |
 | [Lenovo ThinkPad T14s](lenovo/thinkpad/t14s)                        | `<nixos-hardware/lenovo/thinkpad/t14s>`            |
