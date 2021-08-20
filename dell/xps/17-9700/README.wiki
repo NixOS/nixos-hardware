@@ -54,7 +54,7 @@ the firmware setup, so this must be done by hand.
 These settings are needed both for booting the final install, and installer
 itself. Therefore, they must be done first.
 
-* ''Disable Secure Boot (but keep UEFI Boot).'' Thakfully doing so is as easy as
+* ''Disable Secure Boot (but keep UEFI Boot).'' Thankfully doing so is as easy as
   changing any other simple setting.
 
 * ''Disable Intel hardware RAID and use AHCI instead.'' Intel doesn't seem to
