@@ -6,10 +6,6 @@
     ../../../common/pc/laptop/ssd
   ];
 
-  # TODO: boot loader
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
   # TODO: reverse compat
   hardware.opengl.driSupport32Bit = true;
 
