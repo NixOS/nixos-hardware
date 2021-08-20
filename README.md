@@ -100,6 +100,8 @@ See code for all available configurations.
 | [GPD MicroPC](gpd/micropc)                                          | `<nixos-hardware/gpd/micropc>`                     |
 | [Inverse Path USB armory](inversepath/usbarmory)                    | `<nixos-hardware/inversepath/usbarmory>`           |
 | [Lenovo IdeaPad Z510](lenovo/ideapad/z510)                          | `<nixos-hardware/lenovo/ideapad/z510>`             |
+| [Lenovo ThinkPad E14 (Intel)](lenovo/thinkpad/e14/intel)            | `<nixos-hardware/lenovo/thinkpad/e14/intel>`       |
+| [Lenovo ThinkPad E14 (AMD)](lenovo/thinkpad/e14/amd)                | `<nixos-hardware/lenovo/thinkpad/e14/amd>`         |
 | [Lenovo ThinkPad E470](lenovo/thinkpad/e470)                        | `<nixos-hardware/lenovo/thinkpad/e470>`            |
 | [Lenovo ThinkPad E495](lenovo/thinkpad/e495)                        | `<nixos-hardware/lenovo/thinkpad/e495>`            |
 | [Lenovo ThinkPad L13](lenovo/thinkpad/l13)                          | `<nixos-hardware/lenovo/thinkpad/l13>`             |
