@@ -22,7 +22,7 @@ firmwareLinuxNonfree.overrideAttrs (old: rec {
     cp ${killernetworking_firmware}/board.bin $out/lib/firmware/ath10k/QCA6174/hw3.0/
   '';
 
-  outputHash = "1zvahsp06vikp83r89wkccwq7mixjiwcv10chw1xyikfjkqr48hr";
+  outputHash = "176cf5b9f370x2a532h2afjfkrxy13gqdygc11bam0sg8dlnrv21";
 
   meta = with lib; {
     description = "Standard binary firmware collection, adjusted with the Surface Go WiFi firmware";
