@@ -4,6 +4,7 @@
   imports = [
     ../.
     ../../../../common/cpu/amd
+    ../../../../common/gpu/amd
   ];
 
   boot.kernelParams = [
