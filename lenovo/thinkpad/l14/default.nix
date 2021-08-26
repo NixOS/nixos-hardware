@@ -3,6 +3,7 @@
 {
   imports = [
     ../.
+    ../../../common/pc/laptop/ssd
     ../../../common/pc/laptop/acpi_call.nix
   ];
 
