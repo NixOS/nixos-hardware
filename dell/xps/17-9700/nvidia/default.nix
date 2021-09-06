@@ -17,5 +17,5 @@
     enable = lib.mkDefault true;
     nvidiaBusId = lib.mkDefault "PCI:1:0:0";
     intelBusId = lib.mkDefault "PCI:0:2:0";
-  }
+  };
 }
