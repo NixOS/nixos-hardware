@@ -34,6 +34,7 @@
       google-pixelbook = import ./google/pixelbook;
       gpd-micropc = import ./gpd/micropc;
       inversepath-usbarmory = import ./inversepath/usbarmory;
+      kobol-helios64 = import ./kobol/helios64;
       lenovo-ideapad-z510 = import ./lenovo/ideapad/z510;
       lenovo-thinkpad-e14-intel = import ./lenovo/thinkpad/e14/intel;
       lenovo-thinkpad-e14-amd = import ./lenovo/thinkpad/e14/amd;
