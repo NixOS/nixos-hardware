@@ -10,6 +10,10 @@
     amdvlk
   ];
 
+  hardware.opengl.extraPackages32 = with pkgs; [
+    driversi686Linux.amdvlk
+  ];
+
   hardware.opengl = {
     driSupport = lib.mkDefault true;
     driSupport32Bit = lib.mkDefault true;
