@@ -63,6 +63,7 @@
       lenovo-thinkpad-t480s = import ./lenovo/thinkpad/t480s;
       lenovo-thinkpad-t490 = import ./lenovo/thinkpad/t490;
       lenovo-thinkpad-t495 = import ./lenovo/thinkpad/t495;
+      lenovo-thinkpad-t550 = import ./lenovo/thinkpad/t550;
       lenovo-thinkpad-x140e = import ./lenovo/thinkpad/x140e;
       lenovo-thinkpad-x200s = import ./lenovo/thinkpad/x200s;
       lenovo-thinkpad-x220 = import ./lenovo/thinkpad/x220;
