@@ -129,6 +129,7 @@ See code for all available configurations.
 | [Lenovo ThinkPad T480s](lenovo/thinkpad/t480s)                      | `<nixos-hardware/lenovo/thinkpad/t480s>`           |
 | [Lenovo ThinkPad T490](lenovo/thinkpad/t490)                        | `<nixos-hardware/lenovo/thinkpad/t490>`            |
 | [Lenovo ThinkPad T495](lenovo/thinkpad/t495)                        | `<nixos-hardware/lenovo/thinkpad/t495>`            |
+| [Lenovo ThinkPad T550](lenovo/thinkpad/t550)                        | `<nixos-hardware/lenovo/thinkpad/t550>`            |
 | [Lenovo ThinkPad X13 Yoga](lenovo/thinkpad/x13/yoga)                | `<nixos-hardware/lenovo/thinkpad/x13/yoga>`        |
 | [Lenovo ThinkPad X140e](lenovo/thinkpad/x140e)                      | `<nixos-hardware/lenovo/thinkpad/x140e>`           |
 | [Lenovo ThinkPad X200s](lenovo/thinkpad/x200s)                      | `<nixos-hardware/lenovo/thinkpad/x200s>`           |
