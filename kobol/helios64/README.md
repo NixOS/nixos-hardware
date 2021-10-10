@@ -46,6 +46,11 @@ adds support for the Helios64.
 
 Any other supported *platform firmware* should work too.
 
+> **NOTE**: at the time of writing (2021-10-10) the *platform firmware*
+> **must** make use of the proprietary ram training. The open source equivalent
+> will make the system unstable, and worse, will cause silent memory
+> corruption, in addition to loud memory corruption.
+
 
 Notes
 -----
