@@ -142,9 +142,8 @@ See code for all available configurations.
 | [Lenovo ThinkPad X1 (6th Gen)](lenovo/thinkpad/x1/6th-gen)          | `<nixos-hardware/lenovo/thinkpad/x1/6th-gen>`      |
 | [Lenovo ThinkPad X1 (7th Gen)](lenovo/thinkpad/x1/7th-gen)          | `<nixos-hardware/lenovo/thinkpad/x1/7th-gen>`      |
 | [Lenovo ThinkPad X1 Extreme Gen 2](lenovo/thinkpad/x1-extreme/gen2) | `<nixos-hardware/lenovo/thinkpad/x1-extreme/gen2>` |
-| [Lenovo ThinkPad X13](lenovo/thinkpad/x13)                          | `<nixos-hardware/lenovo/thinkpad/x13`              |
-| [Lenovo ThinkPad X13 Yoga](nixos-hardware/lenovo/thinkpad/x13-yoga) | `<nixos-hardware/lenovo/thinkpad/x13-yoga`         |
-| [One-Netbook OneNetbook 4](onenetbook/4)                            | `<nixos-hardware/onenetbook/4`                     |
+| [Lenovo ThinkPad X13](lenovo/thinkpad/x13)                          | `<nixos-hardware/lenovo/thinkpad/x13>`             |
+| [One-Netbook OneNetbook 4](onenetbook/4)                            | `<nixos-hardware/onenetbook/4>`                    |
 | [Microsoft Surface Range](microsoft/surface)                        | `<nixos-hardware/microsoft/surface>`               |
 | [Microsoft Surface Pro 3](microsoft/surface-pro/3)                  | `<nixos-hardware/microsoft/surface-pro/3>`         |
 | [MSI GS60 2QE](msi/gs60)                                            | `<nixos-hardware/msi/gs60>`                        |
