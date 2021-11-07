@@ -14,6 +14,7 @@
       beagleboard-pocketbeagle = import ./beagleboard/pocketbeagle;
       dell-g3-3779 = import ./dell/g3/3779;
       dell-latitude-3480 = import ./dell/latitude/3480;
+      dell-latitude-7490 = import ./dell/latitude/7490;
       dell-precision-5530 = import ./dell/precision/5530;
       dell-e7240 = import ./dell/e7240;
       dell-xps-13-7390 = import ./dell/xps/13-7390;
