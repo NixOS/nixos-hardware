@@ -156,6 +156,7 @@ See code for all available configurations.
 | [Purism Librem 15v3](purism/librem/13v3)                            | `<nixos-hardware/purism/librem/15v3>`              |
 | [Supermicro A1SRi-2758F](supermicro/a1sri-2758f)                    | `<nixos-hardware/supermicro/a1sri-2758f>`          |
 | [Supermicro X10SLL-F](supermicro/x10sll-f)                          | `<nixos-hardware/supermicro/x10sll-f>`             |
+| [Supermicro X12SCZ-TLN4F](supermicro/x12scz-tln4f)                  | `<nixos-hardware/supermicro/x12scz-tln4f>`         |
 | [System76 (generic)](system76)                                      | `<nixos-hardware/system76>`                        |
 | [System76 Darter Pro 6](system76/darp6)                             | `<nixos-hardware/system76/darp6>`                  |
 | [Toshiba Chromebook 2 `swanky`](toshiba/swanky)                     | `<nixos-hardware/toshiba/swanky>`                  |
