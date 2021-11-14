@@ -94,6 +94,7 @@
       purism-librem-15v3 = import ./purism/librem/15v3;
       supermicro-a1sri-2758f = import ./supermicro/a1sri-2758f;
       supermicro-x10sll-f = import ./supermicro/x10sll-f;
+      supermicro-x12scz-tln4f = import ./supermicro/x12scz-tln4f;
       thoshiba-swanky = import ./toshiba/swanky;
       tuxedo-infinitybook-v4 = import ./tuxedo/infinitybook/v4;
       common-cpu-amd = import ./common/cpu/amd;

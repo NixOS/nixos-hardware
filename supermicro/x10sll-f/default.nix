@@ -1,9 +1,11 @@
 { config, pkgs, ... }:
 
 {
-  environment.systemPackages = with pkgs; [ ipmitool ];
+  imports = [
+    ../.
+  ];
 
-  boot.kernelModules = [ "jc42" "ipmi_devintf" "ipmi_si" "tpm_rng" ];
+  boot.kernelModules = [ "jc42" "tpm_rng" ];
 
   # services.cron.systemCronJobs = [
   #   # Reset 5-minute watchdog timer every minute
