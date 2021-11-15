@@ -12,4 +12,11 @@
     libvdpau-va-gl
     intel-media-driver
   ];
+
+  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [
+    vaapiIntel
+    vaapiVdpau
+    libvdpau-va-gl
+    intel-media-driver
+  ];
 }
