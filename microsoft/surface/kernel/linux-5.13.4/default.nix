@@ -25,6 +25,12 @@ let
 
         BATTERY_SURFACE = module;
         CHARGER_SURFACE = module;
+        
+        #
+        # Surface laptop 1 keyboard
+        #
+        SERIAL_DEV_BUS = yes;
+        SERIAL_DEV_CTRL_TTYPORT = yes;
 
         #
         # Surface Hotplug
