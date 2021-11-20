@@ -7,7 +7,7 @@ let
 in
 
 {
-  options.hardware.asus.chargeUpto = lib.mkOption {
+  options.hardware.asus.battery.chargeUpto = lib.mkOption {
     description = "Maximum level of charge for your battery, as a percentage.";
     default = 100;
     type = lib.types.int;
@@ -15,7 +15,7 @@ in
   config = {
     environment.systemPackages = [ p ];
     systemd.tmpfiles.rules = [
-      "w /sys/class/power_supply/BAT0/charge_control_end_threshold - - - - ${toString cfg.chargeUpto}"
+      "w /sys/class/power_supply/BAT0/charge_control_end_threshold - - - - ${toString cfg.battery.chargeUpto}"
     ];
   };
 }
