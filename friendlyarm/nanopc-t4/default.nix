@@ -8,7 +8,7 @@
   };
 
   # UART debug console bitrates.
-  services.mingetty.serialSpeed = [ 1500000 115200 ];
+  boot.kernelParams = [ "console=ttyS2,1500000" ];
 
   # Enable additional firmware (such as Wi-Fi drivers).
   hardware.enableRedistributableFirmware = lib.mkDefault true;
