@@ -37,6 +37,7 @@
       friendlyarm-nanopc-t4 = import ./friendlyarm/nanopc-t4;
       google-pixelbook = import ./google/pixelbook;
       gpd-micropc = import ./gpd/micropc;
+      intel-nuc-8i7beh = import ./intel/nuc/8i7beh;
       inversepath-usbarmory = import ./inversepath/usbarmory;
       lenovo-ideapad-z510 = import ./lenovo/ideapad/z510;
       lenovo-thinkpad = import ./lenovo/thinkpad;
