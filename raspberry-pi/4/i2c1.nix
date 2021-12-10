@@ -22,20 +22,20 @@ in
           {
             name = "i2c1-on-overlay";
             dtsText = ''
-            /dts-v1/;
-            /plugin/;
-            / {
-              compatible = "brcm,bcm2711";
-              fragment@0 {
-                target = <&i2c1>;
-                __overlay__ {
-                  #address-cells = <1>;
-                  #size-cells = <0>;
-                  status = "okay";
+              /dts-v1/;
+              /plugin/;
+              / {
+                compatible = "brcm,bcm2711";
+                fragment@0 {
+                  target = <&i2c1>;
+                  __overlay__ {
+                    #address-cells = <1>;
+                    #size-cells = <0>;
+                    status = "okay";
+                  };
                 };
               };
-            };
-          '';
+            '';
           }
         ];
       };
