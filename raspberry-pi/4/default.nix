@@ -4,6 +4,7 @@
   imports = [
     ./audio.nix
     ./dwc2.nix
+    ./i2c0.nix
     ./i2c1.nix
     ./modesetting.nix
     ./poe-hat.nix

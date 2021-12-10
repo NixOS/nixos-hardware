@@ -2,6 +2,7 @@
 
 let
   cfg = config.hardware.raspberry-pi."4".i2c1;
+  inherit (import ./overlay.nix) simple-pi4-overlay;
 in
 {
   options.hardware = {
@@ -15,29 +16,9 @@ in
 
   config = lib.mkIf cfg.enable {
     hardware = {
-      i2c.enable = true;
+      i2c.enable = lib.mkDefault true;
       deviceTree = {
-        overlays = [
-          # Equivalent to dtparam=i2c1=on
-          {
-            name = "i2c1-on-overlay";
-            dtsText = ''
-              /dts-v1/;
-              /plugin/;
-              / {
-                compatible = "brcm,bcm2711";
-                fragment@0 {
-                  target = <&i2c1>;
-                  __overlay__ {
-                    #address-cells = <1>;
-                    #size-cells = <0>;
-                    status = "okay";
-                  };
-                };
-              };
-            '';
-          }
-        ];
+        overlays = [ (simple-pi4-overlay { target = "i2c1"; status = "okay"; }) ];
       };
     };
   };
