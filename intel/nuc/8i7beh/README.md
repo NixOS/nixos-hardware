@@ -26,7 +26,7 @@ $ lspci -nnn
 3c:00.0 Unassigned class [ff00]: Realtek Semiconductor Co., Ltd. RTS522A PCI Express Card Reader [10ec:522a] (rev 01)
 ```
 
-## Before Instalation
+## Before Installation
 
 These settings are needed both for booting the final install, and
 installer itself. Therefore, they must be done first.
