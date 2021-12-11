@@ -1,7 +1,6 @@
-= Dell Inspiron 5509 =
+## Dell Inspiron 5509
 
-== Tested Hardware ==
-
+### Tested Hardware
 ``` shellsession
 $ lspci -nn
 00:00.0 Host bridge [0600]: Intel Corporation 11th Gen Core Processor Host Bridge/DRAM Registers [8086:9a14] (rev 01)
@@ -27,21 +26,21 @@ $ lspci -nn
 2c:00.0 Network controller [0280]: Qualcomm Atheros QCA6174 802.11ac Wireless Network Adapter [168c:003e] (rev 32)
 ```
 
-=== Before Installation ===
+### Before Installation
 
 These settings are needed both for booting the final install, and
 installer itself. Therefore, they must be done first:
 
-- ''Disable Secure Boot (but keep UEFI Boot)''
-- ''Disable RAID and use AHCI''
++ Disable *Secure* Boot (but keep **UEFI** Boot)
++ Disable *RAID* and use **AHCI**
 
-== Firmware Upgrades ==
+### Firmware Upgrades
 
-Note that this device is supported by [https://fwupd.org/ fwupd].
+Note that this device is supported by [fwupd](https://fwupd.org).
 To perform firmware upgrades just activate the service:
 
-<code>
+```
 services.fwupd.enable = true;
-</code>
+```
 
-Then use <code>fwupdmgr</code> to perform updates
+Then use `fwupdmgr` to perform updates

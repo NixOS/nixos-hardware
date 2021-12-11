@@ -12,11 +12,8 @@
   # Cooling Management
   services.thermald.enable = lib.mkDefault true;
 
+  # Touchpad
   services.xserver = {
-    # GPU Driver Setting
-    videoDrivers = lib.mkDefault [ "intel" ];
-
-    # Touchpad
     libinput.touchpad.tapping = true;
     libinput.touchpad.tappingDragLock = true;
   };
