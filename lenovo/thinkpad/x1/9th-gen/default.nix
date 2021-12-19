@@ -2,6 +2,7 @@
 {
   imports = [
     ../.
+    ../../../../common/pc/laptop/ssd
   ];
 
   # This solves lagging noticeable on high-resolution screens.
