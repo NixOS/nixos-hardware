@@ -15,6 +15,7 @@
       apple-macbook-pro-12-1 = import ./apple/macbook-pro/12-1;
       beagleboard-pocketbeagle = import ./beagleboard/pocketbeagle;
       dell-g3-3779 = import ./dell/g3/3779;
+      dell-inspiron-5509 = import ./dell/inspiron/5509;
       dell-latitude-3480 = import ./dell/latitude/3480;
       dell-latitude-7490 = import ./dell/latitude/7490;
       dell-precision-5530 = import ./dell/precision/5530;
