@@ -8,5 +8,5 @@
   ];
 
   # Somehow psmouse does not load automatically on boot for me
-  boot.kernelModules = [ "psmouse" ];
+  boot.initrd.kernelModules = [ "psmouse" ];
 }
