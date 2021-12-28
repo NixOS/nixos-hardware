@@ -103,7 +103,6 @@ See code for all available configurations.
 | [Google Pixelbook](google/pixelbook)                                | `<nixos-hardware/google/pixelbook>`                |
 | [GPD MicroPC](gpd/micropc)                                          | `<nixos-hardware/gpd/micropc>`                     |
 | [Intel NUC 8i7BEH](intel/nuc/8i7beh/)                                     | `<nixos-hardware/intel/nuc/8i7beh>`                |
-| [Inverse Path USB armory](inversepath/usbarmory)                    | `<nixos-hardware/inversepath/usbarmory>`           |
 | [Lenovo IdeaPad Z510](lenovo/ideapad/z510)                          | `<nixos-hardware/lenovo/ideapad/z510>`             |
 | [Lenovo ThinkPad E14 (Intel)](lenovo/thinkpad/e14/intel)            | `<nixos-hardware/lenovo/thinkpad/e14/intel>`       |
 | [Lenovo ThinkPad E14 (AMD)](lenovo/thinkpad/e14/amd)                | `<nixos-hardware/lenovo/thinkpad/e14/amd>`         |
