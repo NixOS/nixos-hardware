@@ -39,7 +39,6 @@
       google-pixelbook = import ./google/pixelbook;
       gpd-micropc = import ./gpd/micropc;
       intel-nuc-8i7beh = import ./intel/nuc/8i7beh;
-      inversepath-usbarmory = import ./inversepath/usbarmory;
       lenovo-ideapad-z510 = import ./lenovo/ideapad/z510;
       lenovo-thinkpad = import ./lenovo/thinkpad;
       lenovo-thinkpad-e14-intel = import ./lenovo/thinkpad/e14/intel;
