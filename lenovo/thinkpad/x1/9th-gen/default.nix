@@ -9,4 +9,7 @@
   boot.kernelPackages = lib.mkIf
     (lib.versionOlder pkgs.linux.version "5.15")
     (lib.mkDefault pkgs.linuxPackages_latest);
+  
+
+  services.fwupd.enable = true;
 }
