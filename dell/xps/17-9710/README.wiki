@@ -1,0 +1,44 @@
+= Dell XPS 17 9710 =
+
+There are two major hardware variants. Intel-only and NVidia
+
+This has only been tested with the Intel-only variant
+
+== Firmware Configuration ==
+
+Enter the bios by repeatedly pressing F2 when the laptop turns on
+
+=== Before installation ===
+
+These settings are needed both for booting the final install, and installer itself. Therefore, they must be done first.
+
+==== Method One ====
+
+* Click ''Restore Settings'' button a select ''BIOS Defaults'', not to be confused with ''Factory Settings''
+
+==== Method Two ====
+
+* ''Disable Secure Boot (but keep UEFI Boot).'' Thankfully doing so is as easy as changing any other simple setting.
+
+* ''Disable Intel hardware RAID and use AHCI instead.'' Intel doesn't seem to provide a working linux driver for this
+
+== Optional ==
+
+=== Firmware upgrades ===
+
+Note that this device is supported by [https://fwupd.org/ fwupd].
+To perform firmware upgrades just activate the service
+
+<code>
+services.fwupd.enable = true;
+</code>
+
+Then use <code>fwupdmgr</code> to perform updates.
+
+=== Enable fingerprint reader ===
+
+Activate the service
+
+<code>
+services.fprintd.enable = true;
+</code>

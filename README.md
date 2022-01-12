@@ -100,6 +100,7 @@ See code for all available configurations.
 | [Dell XPS 15 9560, nvidia only](dell/xps/15-9560/nvidia)            | `<nixos-hardware/dell/xps/15-9560/nvidia>`         |
 | [Dell XPS 15 9500](dell/xps/15-9500)                                | `<nixos-hardware/dell/xps/15-9500>`                |
 | [Dell XPS 15 9500, nvidia](dell/xps/15-9500/nvidia)                 | `<nixos-hardware/dell/xps/15-9500/nvidia>`         |
+| [Dell XPS 17 9710, intel only](dell/xps/17-9710/intel)              | `<nixos-hardware/dell/xps/17-9710/intel>`          |
 | [FriendlyARM NanoPC-T4](friendlyarm/nanopc-t4)                      | `<nixos-hardware/friendlyarm/nanopc-t4>`           |
 | [Google Pixelbook](google/pixelbook)                                | `<nixos-hardware/google/pixelbook>`                |
 | [GPD MicroPC](gpd/micropc)                                          | `<nixos-hardware/gpd/micropc>`                     |
