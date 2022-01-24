@@ -13,5 +13,8 @@
   # NOTE: Check the README before enabling TLP:
   services.tlp.enable = lib.mkDefault false;
 
-  hardware.sensor.iio.enable = lib.mkDefault true;
+  hardware = {
+    enableRedistributableFirmware = lib.mkDefault true;
+    sensor.iio.enable = lib.mkDefault true;
+  };
 }
