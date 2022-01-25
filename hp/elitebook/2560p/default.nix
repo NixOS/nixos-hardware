@@ -13,7 +13,6 @@ in
     ../../../common/pc/hdd
 
     ./network.nix
-    ./igpu.nix
   ];
 
   config = {
