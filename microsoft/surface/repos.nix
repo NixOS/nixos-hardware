@@ -1,9 +1,9 @@
 { lib, pkgs, fetchFromGitHub, fetchurl }: {
-  linux-surface = fetchFromGitHub {
+  linux-surface-kernel = fetchFromGitHub {
     owner = "linux-surface";
-    repo = "linux-surface";
-    rev = "4130746c31606aebaccef58997b650beda9049f7";
-    sha256 = "0r74z0hj3rg8bn2arh2zj8p7awk7fi14gpyrs5h44lwxw4351xky";
+    repo = "kernel";
+    rev = "db94c89f56d6ceae03ca3802e11197f48e6c539f";
+    sha256 = "0c58ri0i9gdb4w7l361pnkvq6ap17kmgnxngh0bcdmgn4dc88wx2";
   };
 
   ath10k-firmware = fetchFromGitHub {
@@ -11,12 +11,6 @@
     repo = "ath10k-firmware";
     rev = "c987e38cbdb90dcb4e477d5dd21de66c77996435";
     sha256 = "16a67baxlga8vb43zbby2s7kpp4488vczg3manmr9g3wxnhhb9n3";
-  };
-
-  surface-go-ath10k-firmware_upstream = fetchurl {
-    url = "https://support.killernetworking.com/K1535_Debian/board.bin";
-    # url="https://www.killernetworking.com/support/K1535_Debian/board.bin";
-    sha256 = "0l8wfj8z4jbb31nzqkaxisby0n6061ix01c5di9bq66iby59j8py";
   };
 
   surface-go-ath10k-firmware_backup = fetchFromGitHub {
