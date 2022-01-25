@@ -4,7 +4,7 @@ let
   patches = repos.linux-surface + "/patches";
   surface_kernelPatches = [
     {
-      name = "microsoft-surface-patches-linux-5.13.4";
+      name = "microsoft-surface-patches-linux-5.16.2";
       patch = null;
       structuredExtraConfig = with lib.kernel; {
         #
@@ -77,50 +77,54 @@ let
     }
     {
       name = "ms-surface/0001-surface3-oemb";
-      patch = patches + "/5.13/0001-surface3-oemb.patch";
+      patch = patches + "/5.16/0001-surface3-oemb.patch";
     }
     {
       name = "ms-surface/0002-mwifiex";
-      patch = patches + "/5.13/0002-mwifiex.patch";
+      patch = patches + "/5.16/0002-mwifiex.patch";
     }
     {
       name = "ms-surface/0003-ath10k";
-      patch = patches + "/5.13/0003-ath10k.patch";
+      patch = patches + "/5.16/0003-ath10k.patch";
     }
     {
       name = "ms-surface/0004-ipts";
-      patch = patches + "/5.13/0004-ipts.patch";
-    }
-    {
-      name = "ms-surface/0005-surface-sam-over-hid";
-      patch = patches + "/5.13/0005-surface-sam-over-hid.patch";
+      patch = patches + "/5.16/0004-ipts.patch";
     }
     {
       name = "ms-surface/0006-surface-sam";
-      patch = patches + "/5.13/0006-surface-sam.patch";
+      patch = patches + "/5.16/0006-surface-sam.patch";
     }
     {
-      name = "ms-surface/0007-surface-hotplug";
-      patch = patches + "/5.13/0007-surface-hotplug.patch";
+      name = "ms-surface/0006-surface-sam-over-hid";
+      patch = patches + "/5.16/0006-surface-sam-over-hid.patch";
     }
     {
-      name = "ms-surface/0008-surface-typecover";
-      patch = patches + "/5.13/0008-surface-typecover.patch";
+      name = "ms-surface/0007-surface-gpe";
+      patch = patches + "/5.16/0007-surface-gpe.patch";
     }
     {
-      name = "ms-surface/0009-cameras";
-      patch = patches + "/5.13/0009-cameras.patch";
+      name = "ms-surface/0008-surface-button";
+      patch = patches + "/5.16/0008-surface-button.patch";
     }
     {
-      name = "ms-surface/0010-amd-gpio";
-      patch = patches + "/5.13/0010-amd-gpio.patch";
+      name = "ms-surface/0009-surface-typecover";
+      patch = patches + "/5.16/0009-surface-typecover.patch";
     }
     {
-      name = "ms-surface/0011-amd-s0ix";
-      patch = patches + "/5.13/0011-amd-s0ix.patch";
+      name = "ms-surface/0010-cameras";
+      patch = patches + "/5.16/0010-cameras.patch";
+    }
+    {
+      name = "ms-surface/0011-amd-gpio";
+      patch = patches + "/5.16/0011-amd-gpio.patch";
+    }
+    {
+      name = "ms-surface/0012-misc-fixes";
+      patch = patches + "/5.16/0012-misc-fixes.patch";
     }
   ];
 in (with pkgs;
-  recurseIntoAttrs (linuxPackagesFor (callPackage ./linux-5.13.4.nix {
+  recurseIntoAttrs (linuxPackagesFor (callPackage ./linux-5.16.2.nix {
     kernelPatches = surface_kernelPatches;
   })))
