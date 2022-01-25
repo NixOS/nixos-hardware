@@ -17,6 +17,8 @@
   # NOTE: Check the README before enabling TLP:
   services.tlp.enable = lib.mkDefault false;
 
+  # i.e. needed for wifi firmware, see https://github.com/NixOS/nixos-hardware/issues/364
+  hardware.enableRedistributableFirmware = lib.mkDefault true;
   hardware.sensor.iio.enable = lib.mkDefault true;
 
   environment.systemPackages = with pkgs; [ surface-control ];
