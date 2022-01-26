@@ -92,8 +92,8 @@ let
       patch = patches + "/5.16/0004-ipts.patch";
     }
     {
-      name = "ms-surface/0006-surface-sam";
-      patch = patches + "/5.16/0006-surface-sam.patch";
+      name = "ms-surface/0005-surface-sam";
+      patch = patches + "/5.16/0005-surface-sam.patch";
     }
     {
       name = "ms-surface/0006-surface-sam-over-hid";
