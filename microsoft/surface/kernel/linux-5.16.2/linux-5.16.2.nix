@@ -17,6 +17,6 @@ buildLinux (args // rec {
 
   src = fetchurl {
     url = "mirror://kernel/linux/kernel/v5.x/linux-${version}.tar.xz";
-    sha256 = "ra51jkdlpp33svjjv5cfibh6xr1ljji3dhz2g2lfn12rl2hmg0z";
+    sha256 = "0000000000000000000000000000000000000000000000000000";
   };
 } // (args.argsOverride or { }))
