@@ -1,0 +1,8 @@
+
+{ config, lib, pkgs, ... }:
+
+{
+  imports = [
+    ../.
+  ];
+}

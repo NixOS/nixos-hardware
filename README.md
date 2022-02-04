@@ -75,7 +75,7 @@ See code for all available configurations.
 | [Apple MacBook Pro 12,1](apple/macbook-pro/12-1)                    | `<nixos-hardware/apple/macbook-pro/12-1>`          |
 | [Apple MacBook Pro 10,1](apple/macbook-pro/10-1)                    | `<nixos-hardware/apple/macbook-pro/10-1>`          |
 | [Asus TUF FX504GD](asus/fx504gd)                                    | `<nixos-hardware/asus/fx504gd>`                    |
-| [Asus ROG Strix G733QS](asus/rog-strix/g733qs)                      | `<nixos-hardware/asus/rog-strix/g733qs>`           | 
+| [Asus ROG Strix G733QS](asus/rog-strix/g733qs)                      | `<nixos-hardware/asus/rog-strix/g733qs>`           |
 | [Asus ROG Zephyrus G14 GA401](asus/zephyrus/ga401)                  | `<nixos-hardware/asus/zephyrus/ga401>`             |
 | [BeagleBoard PocketBeagle](beagleboard/pocketbeagle)                | `<nixos-hardware/beagleboard/pocketbeagle>`        |
 | [Dell G3 3779](dell/g3/3779)                                        | `<nixos-hardware/dell/g3/3779>`                    |
@@ -120,7 +120,8 @@ See code for all available configurations.
 | [Lenovo ThinkPad P53](lenovo/thinkpad/p53)                          | `<nixos-hardware/lenovo/thinkpad/p53>`             |
 | [Lenovo ThinkPad T14](lenovo/thinkpad/t14)                          | `<nixos-hardware/lenovo/thinkpad/t14>`             |
 | [Lenovo ThinkPad T14s](lenovo/thinkpad/t14s)                        | `<nixos-hardware/lenovo/thinkpad/t14s>`            |
-| [Lenovo ThinkPad T14 AMD Gen 1](lenovo/thinkpad/t14s/amd/gen1)      | `<nixos-hardware/lenovo/thinkpad/t14/amd/gen1>`    |
+| [Lenovo ThinkPad T14 AMD Gen 1](lenovo/thinkpad/t14/amd/gen1)       | `<nixos-hardware/lenovo/thinkpad/t14/amd/gen1>`    |
+| [Lenovo ThinkPad T14 AMD Gen 2](lenovo/thinkpad/t14/amd/gen2)       | `<nixos-hardware/lenovo/thinkpad/t14/amd/gen2>`    |
 | [Lenovo ThinkPad T14s AMD Gen 1](lenovo/thinkpad/t14s/amd/gen1)     | `<nixos-hardware/lenovo/thinkpad/t14s/amd/gen1>`   |
 | [Lenovo ThinkPad T410](lenovo/thinkpad/t410)                        | `<nixos-hardware/lenovo/thinkpad/t410>`            |
 | [Lenovo ThinkPad T420](lenovo/thinkpad/t420)                        | `<nixos-hardware/lenovo/thinkpad/t420>`            |
