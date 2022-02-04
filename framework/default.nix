@@ -22,7 +22,6 @@
 
   # Fix font sizes in X
   services.xserver.dpi = 200;
-  fonts.fontconfig.dpi = 200;
 
   # Fix sizes of GTK/GNOME ui elements
   environment.variables = {
