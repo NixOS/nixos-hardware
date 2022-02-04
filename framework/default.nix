@@ -17,11 +17,16 @@
   services.fprintd.enable = true;
 
   # HiDPI
-  hardware.video.hidpi.enable = lib.mkDefault true;
+  # Leaving here for documentation
+  # hardware.video.hidpi.enable = lib.mkDefault true;
+
+  # Fix font sizes in X
   services.xserver.dpi = 200;
+  fonts.fontconfig.dpi = 200;
+
+  # Fix sizes of GTK/GNOME ui elements
   environment.variables = {
-    GDK_SCALE = "2";
-    GDK_DPI_SCALE = "0.5";
-    _JAVA_OPTIONS = "-Dsun.java2d.uiScale=2";
+    GDK_SCALE = lib.mkDefault "2";
+    GDK_DPI_SCALE = lib.mkDefault "0.5";
   };
 }
