@@ -13,7 +13,6 @@
   boot.kernelParams = ["amdgpu.backlight=0" "acpi_backlight=none"];
 
   # Wifi support
-  boot.extraModulePackages = [ config.boot.kernelPackages.rtw89 ];
   hardware.firmware = [ pkgs.rtw89-firmware ];
 
   # For support of newer AMD GPUs, backlight and internal microphone

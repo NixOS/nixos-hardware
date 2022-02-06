@@ -16,6 +16,7 @@
       beagleboard-pocketbeagle = import ./beagleboard/pocketbeagle;
       dell-g3-3779 = import ./dell/g3/3779;
       dell-inspiron-5509 = import ./dell/inspiron/5509;
+      dell-inspiron-5515 = import ./dell/inspiron/5515;
       dell-latitude-3480 = import ./dell/latitude/3480;
       dell-latitude-7490 = import ./dell/latitude/7490;
       dell-precision-5530 = import ./dell/precision/5530;
@@ -35,6 +36,7 @@
       dell-xps-15-9560-nvidia = import ./dell/xps/15-9560/nvidia;
       dell-xps-15-9500 = import ./dell/xps/15-9500;
       dell-xps-15-9500-nvidia = import ./dell/xps/15-9500/nvidia;
+      dell-xps-17-9710-intel = import ./dell/xps/17-9710/intel;
       friendlyarm-nanopc-t4 = import ./friendlyarm/nanopc-t4;
       google-pixelbook = import ./google/pixelbook;
       gpd-micropc = import ./gpd/micropc;
@@ -97,6 +99,7 @@
       purism-librem-13v3 = import ./purism/librem/13v3;
       purism-librem-15v3 = import ./purism/librem/15v3;
       supermicro-a1sri-2758f = import ./supermicro/a1sri-2758f;
+      supermicro-m11sdv-8c-ln4f = import ./supermicro/m11sdv-8c-ln4f;
       supermicro-x10sll-f = import ./supermicro/x10sll-f;
       supermicro-x12scz-tln4f = import ./supermicro/x12scz-tln4f;
       thoshiba-swanky = import ./toshiba/swanky;
