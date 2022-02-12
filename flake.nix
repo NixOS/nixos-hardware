@@ -48,7 +48,7 @@
       lenovo-thinkpad-e470 = import ./lenovo/thinkpad/e470;
       lenovo-thinkpad-e495 = import ./lenovo/thinkpad/e495;
       lenovo-thinkpad-l13 = import ./lenovo/thinkpad/l13;
-      lenovo-thinkpad-l13-yoga = import ./lenovo/thinkpad/l13-yoga/yoga;
+      lenovo-thinkpad-l13-yoga = import ./lenovo/thinkpad/l13/yoga;
       lenovo-thinkpad-l14-intel = import ./lenovo/thinkpad/l14/intel;
       lenovo-thinkpad-l14-amd = import ./lenovo/thinkpad/l14/amd;
       lenovo-thinkpad-p1 = import ./lenovo/thinkpad/p1;
