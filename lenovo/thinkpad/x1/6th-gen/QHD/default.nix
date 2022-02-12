@@ -10,11 +10,6 @@
   services.xserver.dpi = 210;
   fonts.fontconfig.dpi = 210;
 
-  # Fix sizes of GTK/GNOME ui elements
-  environment.variables = {
-    GDK_SCALE = lib.mkDefault "2";
-    GDK_DPI_SCALE= lib.mkDefault "0.5";
-  };
   # Enable readable font on console. The example configuration that
   # follows is taliored towards western languages. To see how to
   # configure the font download the source tarball from
