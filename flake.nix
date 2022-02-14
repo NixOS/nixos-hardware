@@ -91,6 +91,7 @@
       lenovo-thinkpad-x13-yoga = import ./lenovo/thinkpad/x13/yoga;
       microsoft-surface = import ./microsoft/surface;
       microsoft-surface-pro-3 = import ./microsoft/surface-pro/3;
+      msi-gs60 = import ./msi/gs60;
       pcengines-apu = import ./pcengines/apu;
       raspberry-pi-2 = import ./raspberry-pi/2;
       raspberry-pi-4 = import ./raspberry-pi/4;
