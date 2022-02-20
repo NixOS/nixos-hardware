@@ -30,7 +30,7 @@ in
       serviceConfig = {
         Type = "oneshot";
         Restart = "on-failure";
-        ExecStart = "/bin/sh -c 'echo ${toString cfg.chargeUpto} > /sys/class/power_supply/BAT0/charge_control_end_threshold'";
+        ExecStart = "${pkgs.runtimeShell} -c 'echo ${toString cfg.chargeUpto} > /sys/class/power_supply/BAT0/charge_control_end_threshold'";
       };
     };
   };
