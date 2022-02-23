@@ -13,14 +13,14 @@ in
       default = 100;
       type = lib.types.int;
     };
-    addChargeUptoScript = lib.mkOption {
+    enableChargeUptoScript = lib.mkOption {
       description = "Whether to add charge-upto to environment.systemPackages. `charge-upto 75` temporarily sets the charge limit to 75%.";
       default = true;
       type = lib.types.bool;
     };
   };
   config = {
-    environment.systemPackages = lib.mkIf cfg.addChargeUptoScript [ p ];
+    environment.systemPackages = lib.mkIf cfg.enableChargeUptoScript [ p ];
     systemd.services.battery-charge-threshold = {
       wantedBy = [ "local-fs.target" "suspend.target" ];
       after = [ "local-fs.target" "suspend.target" ];
