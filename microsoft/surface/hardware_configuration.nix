@@ -6,7 +6,7 @@
     options snd_ac97_codec power_save=1
     options iwlwifi power_save=Y
     options iwldvm force_cam=N
-s  '';
+  '';
 
   boot.kernelParams = [ "mem_sleep_default=deep" ];
 
