@@ -1,7 +1,9 @@
 { lib, pkgs, fetchFromGitHub, fetchurl }: {
-  linux-surface-kernel = fetchurl {
-    url = "https://github.com/linux-surface/kernel/archive/v5.16-surface.tar.gz";
-    sha256 = "060dz5bqd339w7731vgbkmd3inmw6andbzycx94xs84sdlv0363l";
+  linux-surface-kernel = fetchFromGitHub {
+    owner = "linux-surface";
+    repo = "kernel";
+    rev = "db94c89f56d6ceae03ca3802e11197f48e6c539f";
+    sha256 = "0c58ri0i9gdb4w7l361pnkvq6ap17kmgnxngh0bcdmgn4dc88wx2";
   };
 
   ath10k-firmware = fetchFromGitHub {
