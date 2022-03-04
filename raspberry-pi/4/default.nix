@@ -8,6 +8,7 @@
     ./modesetting.nix
     ./poe-hat.nix
     ./tc358743.nix
+    ./pwm0.nix
   ];
 
   boot = {
