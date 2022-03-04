@@ -20,8 +20,6 @@
     };
   };
 
-  nix.buildCores = 4;
-
   nixpkgs.config.platform = lib.systems.platforms.raspberrypi2;
 
   # cpufrequtils doesn't build on ARM
