@@ -11,10 +11,11 @@ unload () {
 
 wait_unload() {
   while sleep 1; do
-    case "$(unload "$1")" in
+    output="$(unload "$1")"
+    case "$output" in
       *is\ in\ use*) :;;
       *ok*) return 0;;
-      *) echo giving up; return 1;
+      *) echo "modprobe said: $output"; echo giving up; return 1;
     esac
   done
 }
