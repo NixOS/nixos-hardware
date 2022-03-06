@@ -45,6 +45,7 @@
       hp-elitebook-2560p = import ./hp/elitebook/2560p;
       intel-nuc-8i7beh = import ./intel/nuc/8i7beh;
       lenovo-ideapad-z510 = import ./lenovo/ideapad/z510;
+      lenovo-legion-15arh05h = import ./lenovo/legion/15arh05h;
       lenovo-thinkpad = import ./lenovo/thinkpad;
       lenovo-thinkpad-e14-amd = import ./lenovo/thinkpad/e14/amd;
       lenovo-thinkpad-e14-intel = import ./lenovo/thinkpad/e14/intel;
