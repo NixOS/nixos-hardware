@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 
 {
-  # This runs only Intel and nvidia does not drain power.
+  # This runs only intel/amdgpu igpus and nvidia dgpus do not drain power.
 
   ##### disable nvidia, very nice battery life.
   hardware.nvidiaOptimus.disable = lib.mkDefault true;
