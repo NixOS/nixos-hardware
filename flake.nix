@@ -121,6 +121,7 @@
 
       common-cpu-amd = import ./common/cpu/amd;
       common-cpu-intel = import ./common/cpu/intel;
+      common-cpu-intel-cpu-only = import ./common/cpu/intel/cpu-only;
       common-cpu-intel-kaby-lake = import ./common/cpu/intel/kaby-lake;
       common-cpu-intel-sandy-bridge = import ./common/cpu/intel/sandy-bridge;
       common-gpu-amd = import ./common/gpu/amd;
