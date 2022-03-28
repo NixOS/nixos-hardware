@@ -103,6 +103,7 @@
       msi-gs60 = import ./msi/gs60;
       onenetbook-4 = import ./onenetbook/4;
       pcengines-apu = import ./pcengines/apu;
+      pine64-pinebook-pro = import ./pine64/pinebook-pro;
       purism-librem-13v3 = import ./purism/librem/13v3;
       purism-librem-15v3 = import ./purism/librem/15v3;
       raspberry-pi-2 = import ./raspberry-pi/2;
