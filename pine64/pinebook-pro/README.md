@@ -20,8 +20,9 @@ Currently everything seems to work but this is not guaranteed it will be forever
 
 ### Kernel
 
-This uses a pinned kernel that imitates a manually tested version of [Manjaro ARM kernel](https://gitlab.manjaro.org/manjaro-arm/packages/core/linux/-/blob/master/PKGBUILD), this way one can update `nixpkgs` without worrying too much.
-This is default kernel but the current mainline kernel `linuxPackages_latest` seems to work too.
+By default this uses the latest upstream kernel but the overlay makes available `pinebookpro-unstable-manjaro-kernel`
+which is built from a pinned kernel version and makes available the DP alt mode over Type-C.
+This kernel is unstable and some sporadic kernel panics may occur, use at your own risk.
 
 ### Known issues
 
