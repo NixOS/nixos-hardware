@@ -21,7 +21,7 @@ Where possible, use module imports to share code between similar hardware varian
 
 # Performance
 
-Profiles should favor usability and stability, so performance improvements should either be conservative or 
+Profiles should favor usability and stability, so performance improvements should either be conservative or
 be guarded behind additional NixOS module options.
 
 If it makes sense to have a performance-focussed config, it can be declared in a separate profile.
