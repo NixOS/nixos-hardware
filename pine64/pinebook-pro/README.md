@@ -20,9 +20,7 @@ Currently everything seems to work but this is not guaranteed it will be forever
 
 ### Kernel
 
-By default this uses the latest upstream kernel but the overlay makes available `pinebookpro-unstable-manjaro-kernel`
-which is built from a pinned kernel version and makes available the DP alt mode over Type-C.
-This kernel is unstable and some sporadic kernel panics may occur, use at your own risk.
+This module defaults to the latest upstream kernel. Attempts have been made to use manjaro's kernel that makes  the DP alt mode available over Type-C, but it turns out that the kernel is unstable and some sporadic kernel panics may occur. If you want to test version, you can grab the nix expression from this commit: https://github.com/NixOS/nixos-hardware/blob/6d1bd5bc2e8b9992a3f57e416ba50fbed5516db6/pine64/pinebook-pro/kernel/default.nix
 
 ### Known issues
 
