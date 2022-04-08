@@ -1,16 +1,14 @@
 { lib
-, fetchFromGitLab
-, fetchurl
+, fetchFromGitHub
 , runCommandNoCC
 }:
 
 let
-  src = fetchFromGitLab {
-    domain = "gitlab.manjaro.org";
-    owner = "manjaro-arm";
-    repo = "packages/community/ap6256-firmware";
-    rev = "007c6dd132263624db9ea6ce8dde4fc2108f21b7";
-    sha256 = "sha256-Agqz05W7Rhl0NNQwpW4aQqs9YZmYyci9OXKzEKA30uk=";
+  src = fetchFromGitHub {
+    owner = "nix-community";
+    repo = "rkwifibt";
+    rev = "421b7dd8f3c67f66910710838a0be03f3575a3c9";
+    sha256 = "175qcjfaz7nhpyh0hxiih53k3hly407lkpxgissvldghxrw01ccn";
   };
 in
 runCommandNoCC "pinebookpro-ap6256-firmware"

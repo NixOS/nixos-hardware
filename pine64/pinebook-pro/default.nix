@@ -74,7 +74,7 @@
 
   hardware.enableRedistributableFirmware = true;
   hardware.firmware = [
-    pkgs.pinebookpro-ap6256-firmware
+    (pkgs.callPackage ./firmware/ap6256-firmware { })
   ];
 
   systemd.tmpfiles.rules = [
