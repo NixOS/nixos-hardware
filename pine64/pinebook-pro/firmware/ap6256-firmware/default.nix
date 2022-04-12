@@ -10,6 +10,7 @@ let
     rev = "421b7dd8f3c67f66910710838a0be03f3575a3c9";
     sha256 = "175qcjfaz7nhpyh0hxiih53k3hly407lkpxgissvldghxrw01ccn";
   };
+  clm_blob = ./brcmfmac43456-sdio.clm_blob;
 in
 runCommandNoCC "pinebookpro-ap6256-firmware"
 {
@@ -18,10 +19,10 @@ runCommandNoCC "pinebookpro-ap6256-firmware"
   };
 } ''
   (PS4=" $ "; set -x
-  cp ${src}/"BCM4345C5.hcd"               "BCM4345C5.hcd"
-  cp ${src}/"fw_bcm43456c5_ag.bin"        "fw_bcm43456c5_ag.bin"
-  cp ${src}/"brcmfmac43456-sdio.clm_blob" "brcmfmac43456-sdio.clm_blob"
-  cp ${src}/"nvram_ap6256.txt"            "nvram_ap6256.txt"
+  cp ${src}/"firmware/broadcom/all/bt/BCM4345C5.hcd"          "BCM4345C5.hcd"
+  cp ${src}/"firmware/broadcom/all/wifi/fw_bcm43456c5_ag.bin" "fw_bcm43456c5_ag.bin"
+  cp ${clm_blob}                                              "brcmfmac43456-sdio.clm_blob"
+  cp ${src}/"firmware/broadcom/all/wifi/nvram_ap6256.txt"     "nvram_ap6256.txt"
   mkdir -p $out/lib/firmware/brcm
   # Bluetooth firmware
   install -Dm644 "BCM4345C5.hcd" -t "$out/lib/firmware/"
