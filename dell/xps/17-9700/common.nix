@@ -18,7 +18,6 @@
       SND_SOC_INTEL_SOUNDWIRE_SOF_MACH m
       SND_SOC_RT1308 m
     '';
-    ignoreConfigErrors = true;
   }];
 
   boot.kernelPackages =
