@@ -39,6 +39,8 @@
       dell-xps-15-9560 = import ./dell/xps/15-9560;
       dell-xps-15-9560-intel = import ./dell/xps/15-9560/intel;
       dell-xps-15-9560-nvidia = import ./dell/xps/15-9560/nvidia;
+      dell-xps-17-9700-intel = import ./dell/xps/17-9700/intel;
+      dell-xps-17-9700-nvidia = import ./dell/xps/17-9700/nvidia;
       dell-xps-17-9710-intel = import ./dell/xps/17-9710/intel;
       framework = import ./framework;
       friendlyarm-nanopc-t4 = import ./friendlyarm/nanopc-t4;

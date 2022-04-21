@@ -1,0 +1,62 @@
+= Dell XPS 17 9700 =
+
+== Tested Hardware ==
+CPU: Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
+Screen: 17" FHD(1920x1200) InfinityEdge
+
+00:00.0 Host bridge: Intel Corporation 10th Gen Core Processor Host Bridge/DRAM Registers (rev 02)
+00:01.0 PCI bridge: Intel Corporation 6th-10th Gen Core Processor PCIe Controller (x16) (rev 02)
+00:02.0 VGA compatible controller: Intel Corporation CometLake-H GT2 [UHD Graphics] (rev 05)
+00:04.0 Signal processing controller: Intel Corporation Xeon E3-1200 v5/E3-1500 v5/6th Gen Core Processor Thermal Subsystem (rev 02)
+00:08.0 System peripheral: Intel Corporation Xeon E3-1200 v5/v6 / E3-1500 v5 / 6th/7th/8th Gen Core Processor Gaussian Mixture Model
+00:12.0 Signal processing controller: Intel Corporation Comet Lake PCH Thermal Controller
+00:13.0 Serial controller: Intel Corporation Device 06fc
+00:14.0 USB controller: Intel Corporation Comet Lake USB 3.1 xHCI Host Controller
+00:14.2 RAM memory: Intel Corporation Comet Lake PCH Shared SRAM
+00:14.3 Network controller: Intel Corporation Comet Lake PCH CNVi WiFi
+00:15.0 Serial bus controller [0c80]: Intel Corporation Comet Lake PCH Serial IO I2C Controller #0
+00:15.1 Serial bus controller [0c80]: Intel Corporation Comet Lake PCH Serial IO I2C Controller #1
+00:16.0 Communication controller: Intel Corporation Comet Lake HECI Controller
+00:1b.0 PCI bridge: Intel Corporation Comet Lake PCI Express Root Port #17 (rev f0)
+00:1c.0 PCI bridge: Intel Corporation Device 06b8 (rev f0)
+00:1c.4 PCI bridge: Intel Corporation Device 06bc (rev f0)
+00:1d.0 PCI bridge: Intel Corporation Comet Lake PCI Express Root Port #9 (rev f0)
+00:1f.0 ISA bridge: Intel Corporation Device 068e
+00:1f.3 Multimedia audio controller: Intel Corporation Comet Lake PCH cAVS
+00:1f.4 SMBus: Intel Corporation Comet Lake PCH SMBus Controller
+00:1f.5 Serial bus controller [0c80]: Intel Corporation Comet Lake PCH SPI Controller
+01:00.0 3D controller: NVIDIA Corporation TU117M [GeForce GTX 1650 Ti Mobile] (rev ff)
+02:00.0 Non-Volatile memory controller: SK hynix Device 1639
+03:00.0 Unassigned class [ff00]: Realtek Semiconductor Co., Ltd. RTS5260 PCI Express Card Reader (rev 01)
+04:00.0 PCI bridge: Intel Corporation JHL7540 Thunderbolt 3 Bridge [Titan Ridge 4C 2018] (rev 06)
+05:00.0 PCI bridge: Intel Corporation JHL7540 Thunderbolt 3 Bridge [Titan Ridge 4C 2018] (rev 06)
+05:01.0 PCI bridge: Intel Corporation JHL7540 Thunderbolt 3 Bridge [Titan Ridge 4C 2018] (rev 06)
+05:02.0 PCI bridge: Intel Corporation JHL7540 Thunderbolt 3 Bridge [Titan Ridge 4C 2018] (rev 06)
+05:04.0 PCI bridge: Intel Corporation JHL7540 Thunderbolt 3 Bridge [Titan Ridge 4C 2018] (rev 06)
+06:00.0 System peripheral: Intel Corporation JHL7540 Thunderbolt 3 NHI [Titan Ridge 4C 2018] (rev 06)
+3a:00.0 USB controller: Intel Corporation JHL7540 Thunderbolt 3 USB Controller [Titan Ridge 4C 2018] (rev 06)
+6e:00.0 PCI bridge: Intel Corporation JHL7540 Thunderbolt 3 Bridge [Titan Ridge 4C 2018] (rev 06)
+6f:00.0 PCI bridge: Intel Corporation JHL7540 Thunderbolt 3 Bridge [Titan Ridge 4C 2018] (rev 06)
+6f:01.0 PCI bridge: Intel Corporation JHL7540 Thunderbolt 3 Bridge [Titan Ridge 4C 2018] (rev 06)
+6f:02.0 PCI bridge: Intel Corporation JHL7540 Thunderbolt 3 Bridge [Titan Ridge 4C 2018] (rev 06)
+6f:04.0 PCI bridge: Intel Corporation JHL7540 Thunderbolt 3 Bridge [Titan Ridge 4C 2018] (rev 06)
+70:00.0 System peripheral: Intel Corporation JHL7540 Thunderbolt 3 NHI [Titan Ridge 4C 2018] (rev 06)
+a4:00.0 USB controller: Intel Corporation JHL7540 Thunderbolt 3 USB Controller [Titan Ridge 4C 2018] (rev 06)
+
+
+== Firmware Configuration ==
+
+Not much tweaking of NixOS itself was needed. But we currently cannot automate
+the firmware setup, so this must be done by hand.
+
+=== Before installation ===
+
+These settings are needed both for booting the final install, and installer
+itself. Therefore, they must be done first.
+
+* ''Disable Secure Boot (but keep UEFI Boot).'' Thankfully doing so is as easy as
+  changing any other simple setting.
+
+* ''Disable Intel hardware RAID and use AHCI instead.'' Intel doesn't seem to
+  provide a working linux drivr for this. (If you just have SSD it's pointless
+  and just slows things down needlessly anyways.)
