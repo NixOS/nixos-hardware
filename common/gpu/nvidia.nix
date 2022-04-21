@@ -19,4 +19,8 @@ in
     offload.enable = lib.mkDefault true;
     # Hardware should specify the bus ID for intel/nvidia devices
   };
+
+  hardware.opengl.extraPackages = with pkgs; [
+    vaapiVdpau
+  ];
 }
