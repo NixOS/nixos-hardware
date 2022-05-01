@@ -16,6 +16,11 @@
   # For fingerprint support
   services.fprintd.enable = true;
 
+  # Mis-detected by nixos-generate-config
+  # https://github.com/NixOS/nixpkgs/issues/171093
+  # https://wiki.archlinux.org/title/Framework_Laptop#Changing_the_brightness_of_the_monitor_does_not_work
+  hardware.acpilight.enable = lib.mkDefault true;
+
   # HiDPI
   # Leaving here for documentation
   # hardware.video.hidpi.enable = lib.mkDefault true;
