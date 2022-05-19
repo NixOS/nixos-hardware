@@ -16,6 +16,12 @@
   # For fingerprint support
   services.fprintd.enable = true;
 
+  # Fix headphone noise when on powersave
+  # https://community.frame.work/t/headphone-jack-intermittent-noise/5246/55
+  services.udev.extraRules = ''
+    SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0xa0e0", ATTR{power/control}="on"
+  '';
+
   # HiDPI
   # Leaving here for documentation
   # hardware.video.hidpi.enable = lib.mkDefault true;
