@@ -5,9 +5,14 @@
     ../common/pc/laptop/ssd
   ];
 
-  # For Power consumption
-  # https://kvark.github.io/linux/framework/2021/10/17/framework-nixos.html
-  boot.kernelParams = [ "mem_sleep_default=deep" ];
+  boot.kernelParams = [
+    # For Power consumption
+    # https://kvark.github.io/linux/framework/2021/10/17/framework-nixos.html
+    "mem_sleep_default=deep"
+    # For Power consumption
+    # https://community.frame.work/t/linux-battery-life-tuning/6665/156
+    "nvme.noacpi=1"
+  ];
 
   # Requires at least 5.16 for working wi-fi and bluetooth.
   # https://community.frame.work/t/using-the-ax210-with-linux-on-the-framework-laptop/1844/89
