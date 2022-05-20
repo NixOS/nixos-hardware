@@ -20,7 +20,7 @@
   '';
 
   # For fingerprint support
-  services.fprintd.enable = true;
+  services.fprintd.enable = lib.mkDefault true;
 
   # Fix headphone noise when on powersave
   # https://community.frame.work/t/headphone-jack-intermittent-noise/5246/55
