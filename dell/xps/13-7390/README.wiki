@@ -4,6 +4,16 @@
 
 You need to disable RAID and use AHCI instead as described [https://wiki.ubuntu.com/Dell/XPS/XPS-13-7390-2-in-1 here].
 
+== Known Issues ==
+
+If your BIOS version is greater than or equal to 1.0.13, you may need to add 
+
+<code>
+systemd.sleep.extraConfig = "SuspendState=freeze";
+</code>
+
+to your <code>configuration.nix</code> if you cannot wake from "Sleep". See reference [https://askubuntu.com/a/1194128 here].
+
 == Firmware upgrades ==
 
 Note that this device is supported by [https://fwupd.org/ fwupd].
