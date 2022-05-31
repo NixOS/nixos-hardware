@@ -15,6 +15,6 @@
   # Wifi support
   hardware.firmware = [ pkgs.rtw89-firmware ];
 
-  # For support of newer AMD GPUs, backlight and internal microphone
-  boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "5.13") pkgs.linuxPackages_latest;
+  # For mainline support of rtw89 wireless networking
+  boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "5.16") pkgs.linuxPackages_latest;
 }
