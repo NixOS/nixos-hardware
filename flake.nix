@@ -131,6 +131,7 @@
       common-gpu-amd = import ./common/gpu/amd;
       common-gpu-amd-sea-islands = import ./common/gpu/amd/sea-islands;
       common-gpu-amd-southern-islands = import ./common/gpu/amd/southern-islands;
+      common-gpu-intel = import ./common/gpu/intel.nix;
       common-gpu-nvidia = import ./common/gpu/nvidia.nix;
       common-gpu-nvidia-disable = import ./common/gpu/nvidia-disable.nix;
       common-pc = import ./common/pc;
