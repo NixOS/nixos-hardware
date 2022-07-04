@@ -19,5 +19,5 @@
     driSupport32Bit = lib.mkDefault true;
   };
 
-  environment.variables.AMD_VULKAN_ICD = "RADV";
+  environment.variables.AMD_VULKAN_ICD = lib.mkDefault "RADV";
 } 
