@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
   imports = [
     ../../../common/gpu/nvidia.nix
@@ -22,12 +22,9 @@
     };
   };
 
-  # reqired to make wireless work
+  # required to make wireless work
   hardware.enableAllFirmware = true;
-  
-  # See sleep.nix inside this directory for code that allows the system to
-  # sleep properly (out of the box, it will not) at the cost of battery life.
-  #
+
   # throttled vs. thermald
   # -----------------------
   #
