@@ -22,18 +22,9 @@
     };
   };
 
-  # Sleep
-  # -----
-  #
-  # The system will not stay asleep properly while on battery power or AC in
-  # either offload mode or sync mode.  This is true whether TLP is enabled or
-  # disabled.  When the system is told to sleep, it will appear to go into a
-  # sleep state, but within five minutes (and sometimes much more quickly; in
-  # my case especially if a USB hub is connected), it will wake itself.  I
-  # attempted to identify what was causing this to happen, but was not
-  # successful.  Note that this behavior is different from that of the P50 or
-  # P51, both of which can be convinced to sleep by changing TLP config.
-  #
+  # required to make wireless work
+  hardware.enableAllFirmware = true;
+
   # throttled vs. thermald
   # -----------------------
   #
