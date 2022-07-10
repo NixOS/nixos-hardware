@@ -10,8 +10,8 @@
   hardware = {
     nvidia = {
       prime = {
-        intelBusId = "PCI:0:2:0";
-        nvidiaBusId = "PCI:1:0:0";
+        intelBusId = lib.mkDefault "PCI:0:2:0";
+        nvidiaBusId = lib.mkDefault "PCI:1:0:0";
       };
     };
 
@@ -23,7 +23,7 @@
   };
 
   # required to make wireless work
-  hardware.enableAllFirmware = true;
+  hardware.enableAllFirmware = lib.mkDefault true;
 
   # throttled vs. thermald
   # -----------------------
