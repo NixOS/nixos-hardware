@@ -53,5 +53,5 @@
   # higher when running throttled than when running in the other two scenarios,
   # but still substantially under critical temp.
 
-  services.thermald.enable = lib.mkDefault true;
+  services.throttled.enable = lib.mkDefault true;
 }
