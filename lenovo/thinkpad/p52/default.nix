@@ -25,6 +25,9 @@
   # required to make wireless work
   hardware.enableAllFirmware = lib.mkDefault true;
 
+  # fix suspend/resume screen corruption
+  #hardware.nvidia.powerManagement.enable = true;
+  
   # throttled vs. thermald
   # -----------------------
   #
