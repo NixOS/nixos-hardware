@@ -42,6 +42,9 @@
   # 1920x1080 ones)
   #services.xserver.dpi = 96;
 
+  # silence ACPI "errors" at boot shown before NixOS stage 1 output (default is 4)
+  #boot.consoleLogLevel = 3;
+
   # throttled vs. thermald
   # -----------------------
   #
