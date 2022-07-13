@@ -36,6 +36,11 @@
       enable = lib.mkDefault true;
     };
 
+  # Make the DPI the same in sync mode as in offload mode (disabled because
+  # these thinkpads come with many kinds of screens, but this is valid for the
+  # 1920x1080 ones)
+  #services.xserver.dpi = 96;
+
   # silence ACPI "errors" at boot shown before NixOS stage 1 output (default is 4)
   #boot.consoleLogLevel = 3;
 
