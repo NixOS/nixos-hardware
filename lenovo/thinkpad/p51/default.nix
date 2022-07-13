@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{ config, lib, ... }: {
   imports = [
     ../../../common/gpu/nvidia.nix
     ../../../common/cpu/intel
@@ -25,6 +24,18 @@
 
   # required to make wireless work
   hardware.enableAllFirmware = lib.mkDefault true;
+
+  # fix suspend/resume screen corruption in sync mode
+  hardware.nvidia.powerManagement =
+    lib.mkIf config.hardware.nvidia.prime.sync.enable {
+      enable = lib.mkDefault true;
+    };
+
+  # fix screen tearing in sync mode
+  hardware.nvidia.modesetting =
+    lib.mkIf config.hardware.nvidia.prime.sync.enable {
+      enable = lib.mkDefault true;
+    };
 
   # throttled vs. thermald
   # -----------------------
