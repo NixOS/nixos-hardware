@@ -140,6 +140,7 @@ See code for all available configurations.
 | [Lenovo ThinkPad T440s](lenovo/thinkpad/t440s)                      | `<nixos-hardware/lenovo/thinkpad/t440s>`           |
 | [Lenovo ThinkPad T450s](lenovo/thinkpad/t450s)                      | `<nixos-hardware/lenovo/thinkpad/t450s>`           |
 | [Lenovo ThinkPad T460](lenovo/thinkpad/t460)                        | `<nixos-hardware/lenovo/thinkpad/t460>`            |
+| [Lenovo ThinkPad T460p](lenovo/thinkpad/t460p)                      | `<nixos-hardware/lenovo/thinkpad/t460p>`           |
 | [Lenovo ThinkPad T460s](lenovo/thinkpad/t460s)                      | `<nixos-hardware/lenovo/thinkpad/t460s>`           |
 | [Lenovo ThinkPad T470s](lenovo/thinkpad/t470s)                      | `<nixos-hardware/lenovo/thinkpad/t470s>`           |
 | [Lenovo ThinkPad T480](lenovo/thinkpad/t480)                        | `<nixos-hardware/lenovo/thinkpad/t480>`            |
