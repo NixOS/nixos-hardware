@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 {
   imports = [
-    ../../../common/cpu/amd
+    ../../../common/cpu/amd/pstate.nix
     ../../../common/gpu/nvidia.nix
     ../../../common/pc/laptop
     ../../../common/pc/ssd
