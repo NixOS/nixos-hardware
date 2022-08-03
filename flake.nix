@@ -30,6 +30,7 @@
       dell-xps-13-7390 = import ./dell/xps/13-7390;
       dell-xps-13-9310 = import ./dell/xps/13-9310;
       dell-xps-13-9343 = import ./dell/xps/13-9343;
+      dell-xps-13-9350 = import ./dell/xps/13-9350;
       dell-xps-13-9360 = import ./dell/xps/13-9360;
       dell-xps-13-9370 = import ./dell/xps/13-9370;
       dell-xps-13-9380 = import ./dell/xps/13-9380;

@@ -1,0 +1,15 @@
+{ lib, ... }:
+
+{
+  imports = [
+    ../../../common/cpu/intel
+    ../../../common/pc/laptop
+    ../../../common/pc/laptop/ssd
+  ];
+
+  # The touchpad uses I²C, so PS/2 is unnecessary
+  boot.blacklistedKernelModules = [ "psmouse" ];
+
+  # Recommended in NixOS/nixos-hardware#127
+  services.thermald.enable = lib.mkDefault true;
+}
