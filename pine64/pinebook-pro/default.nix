@@ -43,14 +43,6 @@
   ];
 
   services.udev.extraHwdb = lib.mkMerge [
-    # https://gitlab.manjaro.org/manjaro-arm/packages/community/pinebookpro-post-install/blob/master/10-usb-kbd.hwdb
-    ''
-      evdev:input:b0003v258Ap001E*
-        KEYBOARD_KEY_700a5=brightnessdown
-        KEYBOARD_KEY_700a6=brightnessup
-        KEYBOARD_KEY_70066=sleep
-    ''
-
     # https://github.com/elementary/os/blob/05a5a931806d4ed8bc90396e9e91b5ac6155d4d4/build-pinebookpro.sh#L253-L257
     # Disable the "keyboard mouse" in libinput. This is reported by the keyboard firmware
     # and is probably a placeholder for a TrackPoint style mouse that doesn't exist
