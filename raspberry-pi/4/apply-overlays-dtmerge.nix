@@ -21,7 +21,7 @@ with lib; (base: overlays': stdenvNoCC.mkDerivation {
         echo "Applying overlay ${o.name} to $( basename $dtb )"
         mv $dtb{,.in}
         cp ${o.dtboFile}{,.dtbo}
-        ${libraspberrypi}/bin/dtmerge "$dtb.in" "$dtb" ${o.dtboFile}.dtbo;
+        dtmerge "$dtb.in" "$dtb" ${o.dtboFile}.dtbo;
         rm $dtb.in ${o.dtboFile}.dtbo
       fi
       '')}
