@@ -27,4 +27,4 @@ with lib; (base: overlays': stdenvNoCC.mkDerivation {
       '')}
     done
   '';
-});
+})
