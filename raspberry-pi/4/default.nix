@@ -7,8 +7,10 @@
     ./i2c.nix
     ./modesetting.nix
     ./poe-hat.nix
+    ./poe-plus-hat.nix
     ./tc358743.nix
     ./pwm0.nix
+    ./pkgs-overlays.nix
   ];
 
   boot = {

@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
-let
-  cfg = config.hardware.raspberry-pi."4".poe-hat;
+let 
+  cfg = config.hardware.raspberry-pi."4".poe-plus-hat;
 in {
   options.hardware = {
-    raspberry-pi."4".poe-hat = {
+    raspberry-pi."4".poe-plus-hat = {
       enable = lib.mkEnableOption ''
-        support for the Raspberry Pi POE Hat.
+        support for the Raspberry Pi PoE+ HAT.
       '';
     };
   };
@@ -16,9 +16,11 @@ in {
 
     hardware.deviceTree = {
       overlays = [
-        # Equivalent to: https://github.com/raspberrypi/linux/blob/rpi-5.15.y/arch/arm/boot/dts/overlays/rpi-poe-overlay.dts
+        # Combined equivalent to:
+        # * https://github.com/raspberrypi/linux/blob/rpi-5.15.y/arch/arm/boot/dts/overlays/rpi-poe-overlay.dts
+        # * https://github.com/raspberrypi/linux/blob/rpi-5.15.y/arch/arm/boot/dts/overlays/rpi-poe-plus-overlay.dts
         {
-          name = "rpi-poe-overlay";
+          name = "rpi-poe-plus-overlay";
           dtsText = ''
             /*
             * Overlay for the Raspberry Pi POE HAT.
@@ -164,6 +166,54 @@ in {
                       <&poe_mfd>,"status=okay",
                       <&fan>,"pwms:0=",<&poe_mfd_pwm>;
               };
+            };
+
+            // SPDX-License-Identifier: (GPL-2.0 OR MIT)
+            // Overlay for the Raspberry Pi PoE+ HAT.
+
+            / {
+                compatible = "brcm,bcm2711";
+
+                fragment@10 {
+                    target-path = "/";
+                    __overlay__ {
+                        rpi_poe_power_supply: rpi-poe-power-supply {
+                            compatible = "raspberrypi,rpi-poe-power-supply";
+                            firmware = <&firmware>;
+                            status = "okay";
+                        };
+                    };
+                };
+                fragment@11 {
+                    target = <&poe_mfd>;
+                    __overlay__ {
+                        rpi-poe-power-supply@f2 {
+                            compatible = "raspberrypi,rpi-poe-power-supply";
+                            reg = <0xf2>;
+                            status = "okay";
+                        };
+                    };
+                };
+
+                __overrides__ {
+                    i2c =	<0>, "+5+6",
+                        <&fwpwm>,"status=disabled",
+                        <&rpi_poe_power_supply>,"status=disabled",
+                        <&i2c_bus>,"status=okay",
+                        <&poe_mfd>,"status=okay",
+                        <&fan>,"pwms:0=",<&poe_mfd_pwm>;
+                };
+            };
+
+            &fan {
+                cooling-levels = <0 32 64 128 255>;
+            };
+
+            &params {
+                poe_fan_i2c = <&fwpwm>,"status=disabled",
+                        <&rpi_poe_power_supply>,"status=disabled",
+                        <&poe_mfd>,"status=okay",
+                        <&fan>,"pwms:0=",<&poe_mfd_pwm>;
             };
           '';
         }
