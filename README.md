@@ -89,6 +89,7 @@ See code for all available configurations.
 | [Dell XPS 13 7390](dell/xps/13-7390)                                | `<nixos-hardware/dell/xps/13-7390>`                |
 | [Dell XPS 13 9310](dell/xps/13-9310)                                | `<nixos-hardware/dell/xps/13-9310>`                |
 | [Dell XPS 13 9343](dell/xps/13-9343)                                | `<nixos-hardware/dell/xps/13-9343>`                |
+| [Dell XPS 13 9350](dell/xps/13-9350)                                | `<nixos-hardware/dell/xps/13-9350>`                |
 | [Dell XPS 13 9360](dell/xps/13-9360)                                | `<nixos-hardware/dell/xps/13-9360>`                |
 | [Dell XPS 13 9370](dell/xps/13-9370)                                | `<nixos-hardware/dell/xps/13-9370>`                |
 | [Dell XPS 13 9380](dell/xps/13-9380)                                | `<nixos-hardware/dell/xps/13-9380>`                |
