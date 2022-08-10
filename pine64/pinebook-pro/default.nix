@@ -77,14 +77,6 @@
     (pkgs.callPackage ./firmware/ap6256-firmware { })
   ];
 
-  systemd.tmpfiles.rules = [
-    # Tweak the minimum frequencies of the GPU and CPU governors to get a bit more performance
-    # https://github.com/elementary/os/blob/05a5a931806d4ed8bc90396e9e91b5ac6155d4d4/build-pinebookpro.sh#L288-L294
-    "w- /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq - - - - 1200000"
-    "w- /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq - - - - 1008000"
-    "w- /sys/class/devfreq/ff9a0000.gpu/min_freq - - - - 600000000"
-  ];
-
   # The default powersave makes the wireless connection unusable.
   networking.networkmanager.wifi.powersave = lib.mkDefault false;
 }
