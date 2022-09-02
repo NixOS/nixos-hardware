@@ -166,6 +166,8 @@ See code for all available configurations.
 | [Lenovo ThinkPad X260](lenovo/thinkpad/x260)                        | `<nixos-hardware/lenovo/thinkpad/x260>`            |
 | [Lenovo ThinkPad X270](lenovo/thinkpad/x270)                        | `<nixos-hardware/lenovo/thinkpad/x270>`            |
 | [Lenovo ThinkPad X280](lenovo/thinkpad/x280)                        | `<nixos-hardware/lenovo/thinkpad/x280>`            |
+| [Lenovo ThinkPad Z Series](lenovo/thinkpad/z)                        | `<nixos-hardware/lenovo/thinkpad/z>`            |
+| [Lenovo ThinkPad Z13](lenovo/thinkpad/z/z13)                        | `<nixos-hardware/lenovo/thinkpad/z/z13>`            |
 | [MSI GS60 2QE](msi/gs60)                                            | `<nixos-hardware/msi/gs60>`                        |
 | [MSI GL62/CX62](msi/gl62)                                           | `<nixos-hardware/msi/gl62>`                        |
 | [Microsoft Surface Pro 3](microsoft/surface-pro/3)                  | `<nixos-hardware/microsoft/surface-pro/3>`         |
