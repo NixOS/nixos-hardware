@@ -149,6 +149,7 @@ See code for all available configurations.
 | [Lenovo ThinkPad T490](lenovo/thinkpad/t490)                        | `<nixos-hardware/lenovo/thinkpad/t490>`            |
 | [Lenovo ThinkPad T495](lenovo/thinkpad/t495)                        | `<nixos-hardware/lenovo/thinkpad/t495>`            |
 | [Lenovo ThinkPad T550](lenovo/thinkpad/t550)                        | `<nixos-hardware/lenovo/thinkpad/t550>`            |
+| [Lenovo ThinkPad T590](lenovo/thinkpad/t590)                        | `<nixos-hardware/lenovo/thinkpad/t590>`            |
 | [Lenovo ThinkPad X1 Yoga](lenovo/thinkpad/x1/yoga)                  | `<nixos-hardware/lenovo/thinkpad/x1/yoga>`         |
 | [Lenovo ThinkPad X1 (6th Gen)](lenovo/thinkpad/x1/6th-gen)          | `<nixos-hardware/lenovo/thinkpad/x1/6th-gen>`      |
 | [Lenovo ThinkPad X1 (7th Gen)](lenovo/thinkpad/x1/7th-gen)          | `<nixos-hardware/lenovo/thinkpad/x1/7th-gen>`      |
