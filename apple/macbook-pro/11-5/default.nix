@@ -10,15 +10,14 @@ in
   imports = [
     ../.
     ../../../common/pc/laptop/ssd
+
+    # Radeon Venus XT is a GCN 1 microarchitecture
+    # (amdgpu driver support is experimental and must be explicitly enabled)
+    ../../../common/gpu/amd/southern-islands
   ];
 
   # Enable broadcom-43xx firmware
   hardware.enableRedistributableFirmware = true;
-
-  # Apparently this is currently only supported by ati_unfree drivers, not ati
-  hardware.opengl.driSupport32Bit = false;
-
-  services.xserver.videoDrivers = [ "ati" ];
 
   services.udev.extraRules =
     # Disable XHC1 wakeup signal to avoid resume getting triggered some time
