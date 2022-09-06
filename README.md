@@ -31,7 +31,7 @@ There is also experimental flake support. In your `/etc/nixos/flake.nix` add the
 ```nix
 {
   description = "NixOS configuration with flakes";
-  inputs.nixos-hardware.url = github:NixOS/nixos-hardware/master;
+  inputs.nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
   outputs = { self, nixpkgs, nixos-hardware }: {
     # replace <your-hostname> with your actual hostname
