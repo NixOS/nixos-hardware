@@ -22,11 +22,19 @@ This configuration will **not** work with MacBook Pro 11,2 or 11,3 models.
 
 ## Graphics
 
-The [MacBookPro11,4 and MacBookPro11,5](https://support.apple.com/kb/SP719) models ship with a discrete ATI graphics card (whereas MacBookPro11,2 and MacBookPro11,3 ship with NVidia cards). This is alongside the usual integrated Intel GPU.
+The [MacBookPro11,4 and MacBookPro11,5](https://support.apple.com/kb/SP719) models ship with a discrete ATI/AMD graphics card (whereas MacBookPro11,2 and MacBookPro11,3 ship with NVidia cards). This is alongside the usual integrated Intel GPU.
 
 You may wish to look into dynamic switching between integrated and discrete graphics, but this config doesn't attempt it.
+
+Currently this uses the experimental `si_support` to disable the older radeon driver and enable the more modern `amdgpu` driver.
 
 ## Additional resources
 
 * Arch linux wiki: [MacBookPro11,x](https://wiki.archlinux.org/index.php/MacBookPro11,x)
 * Kernel patches: [MacBookPro11,x](https://bugzilla.kernel.org/buglist.cgi?quicksearch=macbookpro11)
+
+For more context about experimental `amdgpu` support, see:
+
+* [Enabling AMDGPU by default for SI & CIK (November 2021)](https://gitlab.freedesktop.org/drm/amd/-/issues/1776)
+* [Enabling AMDGPU by default for SI & CIK (August 2020))](https://lists.freedesktop.org/archives/amd-gfx/2020-August/052243.html)
+* [Feature support matrix](https://wiki.gentoo.org/wiki/AMDGPU#Feature_support)
