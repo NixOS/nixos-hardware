@@ -10,10 +10,6 @@ in
   imports = [
     ../.
     ../../../common/pc/laptop/ssd
-
-    # Radeon Venus XT is a GCN 1 microarchitecture
-    # (amdgpu driver support is experimental and must be explicitly enabled)
-    ../../../common/gpu/amd/southern-islands
   ];
 
   # Enable broadcom-43xx firmware

@@ -24,19 +24,34 @@ This configuration will **not** work with MacBook Pro 11,2 or 11,3 models.
 
 The [MacBookPro11,4 and MacBookPro11,5](https://support.apple.com/kb/SP719) models ship with a discrete ATI/AMD graphics card (whereas MacBookPro11,2 and MacBookPro11,3 ship with NVidia cards). This is alongside the usual integrated Intel GPU.
 
-You may wish to look into dynamic switching between integrated and discrete graphics, but this config doesn't attempt it.
+To switch from the older `radeon` driver to the newer `amdgpu` driver (via experimental `si_support`), include `nixos-hardware.nixosModules.common-gpu-amd-southern-islands` (or `${nixos-hardware}/common/gpu/amd/southern-islands`) in your configuration. This will get you vulkan support among other benefits.
 
-Currently this uses the experimental `si_support` to disable the older radeon driver and enable the more modern `amdgpu` driver.
+For example, in your `flake.nix`:
+
+```nix
+nixosConfigurations = {
+  macbook-pro-11-5 = lib.nixosSystem {
+    system = "x86_64-linux";
+    modules = [
+      nixos-hardware.nixosModules.apple-macbook-pro-11-5
+      nixos-hardware.nixosModules.common-gpu-amd-southern-islands
+      {
+        # Your personal configuration
+      }
+    ];
+  };
+};
+```
 
 ## Hardware probes
 
 Hardware probes generated with `nix run nixpkgs#hw-probe -- -all -upload`:
 
-* Probe [#305905e674](https://linux-hardware.org/?probe=305905e674) of Apple MacBookPro11,5
+* Probe [#305905e674](https://linux-hardware.org/?probe=305905e674) of Apple MacBookPro11,5 (with `amdgpu` driver)
 
 DRM (Direct Rendering Manager) snapshots generated with `drm_info -j | curl -d @- https://drmdb.emersion.fr/submit`:
 
-* Snapshot [#e8f8076f1f1b](https://drmdb.emersion.fr/snapshots/e8f8076f1f1b)
+* Snapshot [#e8f8076f1f1b](https://drmdb.emersion.fr/snapshots/e8f8076f1f1b) (with `amdgpu` driver)
 
 ## Additional resources
 
