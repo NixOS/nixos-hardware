@@ -17,7 +17,7 @@ in
   ];
 
   # Enable broadcom-43xx firmware
-  hardware.enableRedistributableFirmware = true;
+  hardware.enableRedistributableFirmware = lib.mkDefault true;
 
   services.udev.extraRules =
     # Disable XHC1 wakeup signal to avoid resume getting triggered some time
