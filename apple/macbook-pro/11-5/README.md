@@ -43,6 +43,11 @@ nixosConfigurations = {
 };
 ```
 
+## Power management
+
+You may also wish to look into dynamic switching between integrated and discrete graphics, but this config doesn't currently attempt it.
+See the removed [hardware.amdHybridGraphics.disable](https://github.com/NixOS/nixpkgs/pull/33915) option for an entry point.
+
 ## Hardware probes
 
 Hardware probes generated with `nix run nixpkgs#hw-probe -- -all -upload`:
