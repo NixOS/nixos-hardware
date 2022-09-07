@@ -72,6 +72,7 @@ See code for all available configurations.
 | [Apple MacBook Air 4,X](apple/macbook-air/4)                        | `<nixos-hardware/apple/macbook-air/4>`             |
 | [Apple MacBook Air 6,X](apple/macbook-air/6)                        | `<nixos-hardware/apple/macbook-air/6>`             |
 | [Apple MacBook Pro 10,1](apple/macbook-pro/10-1)                    | `<nixos-hardware/apple/macbook-pro/10-1>`          |
+| [Apple MacBook Pro 11,5](apple/macbook-pro/11-5)                    | `<nixos-hardware/apple/macbook-pro/11-5>`          |
 | [Apple MacBook Pro 12,1](apple/macbook-pro/12-1)                    | `<nixos-hardware/apple/macbook-pro/12-1>`          |
 | [Asus ROG Strix G733QS](asus/rog-strix/g733qs)                      | `<nixos-hardware/asus/rog-strix/g733qs>`           |
 | [Asus ROG Zephyrus G14 GA401](asus/zephyrus/ga401)                  | `<nixos-hardware/asus/zephyrus/ga401>`             |
