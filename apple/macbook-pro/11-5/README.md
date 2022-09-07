@@ -28,6 +28,16 @@ You may wish to look into dynamic switching between integrated and discrete grap
 
 Currently this uses the experimental `si_support` to disable the older radeon driver and enable the more modern `amdgpu` driver.
 
+## Hardware probes
+
+Hardware probes generated with `nix run nixpkgs#hw-probe -- -all -upload`:
+
+* Probe [#305905e674](https://linux-hardware.org/?probe=305905e674) of Apple MacBookPro11,5
+
+DRM (Direct Rendering Manager) snapshots generated with `drm_info -j | curl -d @- https://drmdb.emersion.fr/submit`:
+
+* Snapshot [#e8f8076f1f1b](https://drmdb.emersion.fr/snapshots/e8f8076f1f1b)
+
 ## Additional resources
 
 * Arch linux wiki: [MacBookPro11,x](https://wiki.archlinux.org/index.php/MacBookPro11,x)
