@@ -10,13 +10,10 @@ in
   imports = [
     ../.
     ../../../common/pc/laptop/ssd
-    <nixpkgs/nixos/modules/hardware/network/broadcom-43xx.nix>
   ];
 
-  # Apparently this is currently only supported by ati_unfree drivers, not ati
-  hardware.opengl.driSupport32Bit = false;
-
-  services.xserver.videoDrivers = [ "ati" ];
+  # Enable broadcom-43xx firmware
+  hardware.enableRedistributableFirmware = lib.mkDefault true;
 
   services.udev.extraRules =
     # Disable XHC1 wakeup signal to avoid resume getting triggered some time
