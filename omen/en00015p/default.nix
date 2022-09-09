@@ -2,10 +2,10 @@
 
 {
   imports = [
-    ../../../common/cpu/amd
-    ../../../common/gpu/nvidia.nix
-    ../../../common/pc/laptop
-    ../../../common/pc/ssd
+    ../../common/cpu/amd
+    ../../common/gpu/nvidia.nix
+    ../../common/pc/laptop
+    ../../common/pc/ssd
   ];
 
   hardware.nvidia.prime = {
