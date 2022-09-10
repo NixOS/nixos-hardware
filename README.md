@@ -97,13 +97,13 @@ See code for all available configurations.
 | [Dell XPS 15 7590](dell/xps/15-7590)                                | `<nixos-hardware/dell/xps/15-7590>`                |
 | [Dell XPS 15 9500, nvidia](dell/xps/15-9500/nvidia)                 | `<nixos-hardware/dell/xps/15-9500/nvidia>`         |
 | [Dell XPS 15 9500](dell/xps/15-9500)                                | `<nixos-hardware/dell/xps/15-9500>`                |
-| [Dell XPS 17 9700, intel](dell/xps/15-9700/intel)                   | `<nixos-hardware/dell/xps/17-9700/intel`           |
-| [Dell XPS 17 9700, nvidia](dell/xps/15-9700/nvidia)                 | `<nixos-hardware/dell/xps/17-9700/nvidia>`         |
 | [Dell XPS 15 9550, nvidia](dell/xps/15-9550/nvidia)                 | `<nixos-hardware/dell/xps/15-9550/nvidia>`         |
 | [Dell XPS 15 9550](dell/xps/15-9550)                                | `<nixos-hardware/dell/xps/15-9550>`                |
 | [Dell XPS 15 9560, intel only](dell/xps/15-9560/intel)              | `<nixos-hardware/dell/xps/15-9560/intel>`          |
 | [Dell XPS 15 9560, nvidia only](dell/xps/15-9560/nvidia)            | `<nixos-hardware/dell/xps/15-9560/nvidia>`         |
 | [Dell XPS 15 9560](dell/xps/15-9560)                                | `<nixos-hardware/dell/xps/15-9560>`                |
+| [Dell XPS 17 9700, intel](dell/xps/17-9700/intel)                   | `<nixos-hardware/dell/xps/17-9700/intel`           |
+| [Dell XPS 17 9700, nvidia](dell/xps/17-9700/nvidia)                 | `<nixos-hardware/dell/xps/17-9700/nvidia>`         |
 | [Dell XPS 17 9710, intel only](dell/xps/17-9710/intel)              | `<nixos-hardware/dell/xps/17-9710/intel>`          |
 | [Dell XPS E7240](dell/e7240)                                        | `<nixos-hardware/dell/e7240>`                      |
 | [Framework](framework)                                              | `<nixos-hardware/framework>`                       |
@@ -125,7 +125,7 @@ See code for all available configurations.
 | [Lenovo ThinkPad L14 (Intel)](lenovo/thinkpad/l14/intel)            | `<nixos-hardware/lenovo/thinkpad/l14/intel>`       |
 | [Lenovo ThinkPad P1 Gen 3](lenovo/thinkpad/p1/3th-gen)              | `<nixos-hardware/lenovo/thinkpad/p1/3th-gen>`      |
 | [Lenovo ThinkPad P14s AMD Gen 2](lenovo/thinkpad/p14s/amd/gen2)     | `<nixos-hardware/lenovo/thinkpad/p14s/amd/gen2>`   |
-| [Lenovo ThinkPad P1](thinkpad/p1)                                   | `<nixos-hardware/lenovo/thinkpad/p1>`              |
+| [Lenovo ThinkPad P1](lenovo/thinkpad/p1)                            | `<nixos-hardware/lenovo/thinkpad/p1>`              |
 | [Lenovo ThinkPad P50](lenovo/thinkpad/p50)                          | `<nixos-hardware/lenovo/thinkpad/p50>`             |
 | [Lenovo ThinkPad P51](lenovo/thinkpad/p51)                          | `<nixos-hardware/lenovo/thinkpad/p51>`             |
 | [Lenovo ThinkPad P52](lenovo/thinkpad/p52)                          | `<nixos-hardware/lenovo/thinkpad/p52>`             |
@@ -167,8 +167,8 @@ See code for all available configurations.
 | [Lenovo ThinkPad X260](lenovo/thinkpad/x260)                        | `<nixos-hardware/lenovo/thinkpad/x260>`            |
 | [Lenovo ThinkPad X270](lenovo/thinkpad/x270)                        | `<nixos-hardware/lenovo/thinkpad/x270>`            |
 | [Lenovo ThinkPad X280](lenovo/thinkpad/x280)                        | `<nixos-hardware/lenovo/thinkpad/x280>`            |
-| [Lenovo ThinkPad Z Series](lenovo/thinkpad/z)                        | `<nixos-hardware/lenovo/thinkpad/z>`            |
-| [Lenovo ThinkPad Z13](lenovo/thinkpad/z/z13)                        | `<nixos-hardware/lenovo/thinkpad/z/z13>`            |
+| [Lenovo ThinkPad Z Series](lenovo/thinkpad/z)                       | `<nixos-hardware/lenovo/thinkpad/z>`               |
+| [Lenovo ThinkPad Z13](lenovo/thinkpad/z/z13)                        | `<nixos-hardware/lenovo/thinkpad/z/z13>`           |
 | [MSI GS60 2QE](msi/gs60)                                            | `<nixos-hardware/msi/gs60>`                        |
 | [MSI GL62/CX62](msi/gl62)                                           | `<nixos-hardware/msi/gl62>`                        |
 | [Microsoft Surface Pro 3](microsoft/surface-pro/3)                  | `<nixos-hardware/microsoft/surface-pro/3>`         |
