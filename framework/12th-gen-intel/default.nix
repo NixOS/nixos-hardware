@@ -14,9 +14,13 @@
     "nvme.noacpi=1"
   ];
 
-  # Requires at least 5.16 for working wi-fi and bluetooth.
-  # https://community.frame.work/t/using-the-ax210-with-linux-on-the-framework-laptop/1844/89
-  boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "5.16") (lib.mkDefault pkgs.linuxPackages_latest);
+  # This enables the brightness keys to work
+  # https://community.frame.work/t/12th-gen-not-sending-xf86monbrightnessup-down/20605/11
+  boot.blacklistedKernelModules = [ "hid-sensor-hub" ];
+
+  # Alder Lake CPUs benefit from kernel 5.18 for ThreadDirector
+  # https://www.tomshardware.com/news/intel-thread-director-coming-to-linux-5-18
+  boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "5.18") (lib.mkDefault pkgs.linuxPackages_latest);
 
   # Fix TRRS headphones missing a mic
   # https://community.frame.work/t/headset-microphone-on-linux/12387/3
