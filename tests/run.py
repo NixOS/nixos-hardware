@@ -38,6 +38,7 @@ def build_profile(
     cmd = [
         "nix",
         "build",
+        "--extra-experimental-features", "nix-command",
         "-f",
         "build-profile.nix",
         "-I",
