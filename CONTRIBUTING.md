@@ -1,8 +1,14 @@
-# Writing profiles
+# Contributing a Device Profile
+
+## 1. Writing profiles
+
+Create an appropriate directory and start writing your expression.
 
 When setting an option, use `lib.mkDefault` unless:
-- The option *must* be set and the user should get an error if they try to override it.
-- The setting should merge with the user's settings (typical for list or set options).
+- The option *must* be set and the user should get an error if they try to
+  override it.
+- The setting should merge with the user's settings (typical for list or set
+  options).
 
 For example:
 
@@ -15,17 +21,29 @@ For example:
 }
 ```
 
-Try to avoid "opinionated" settings relating to optional features like sound, bluetooth, choice of bootloader etc.
+Where possible, use module imports to share code between similar hardware
+variants. In most cases, import:
+- a cpu module;
+- a gpu module;
+- either the pc or the laptop module;
+- either the HDD or the SSD module.
 
-Where possible, use module imports to share code between similar hardware variants.
+Try to avoid "opinionated" settings relating to optional features like sound,
+bluetooth, choice of bootloader etc. You can mention these in the readme.
 
-# Performance
+Profiles should favor usability and stability, so performance improvements
+should either be conservative or be guarded behind additional NixOS module
+options. If it makes sense to have a performance-focussed config, it can be
+declared in a separate profile.
 
-Profiles should favor usability and stability, so performance improvements should either be conservative or
-be guarded behind additional NixOS module options.
+## 2. Adding Entry
 
-If it makes sense to have a performance-focussed config, it can be declared in a separate profile.
+Link the profile in the table in README.md and in flake.nix.
 
-# Testing
+## 3. Testing
 
-Because profiles can only be tested with the appropriate hardware, quality assurance is up to *you*.
+Run ./tests/run.py to test building. The test script script will parse all the
+profiles from the README.md.
+
+Because profiles can only be tested with the appropriate hardware, quality
+assurance is up to *you*.

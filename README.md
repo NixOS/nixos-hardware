@@ -24,9 +24,10 @@ imports = [
 
 New updates to the expressions here will be fetched when you update the channel.
 
-## Using nix flakes support
+### Using nix flakes support
 
-There is also experimental flake support. In your `/etc/nixos/flake.nix` add the following:
+There is also experimental flake support. In your `/etc/nixos/flake.nix` add
+the following:
 
 ```nix
 {
@@ -59,6 +60,10 @@ imports = [
 
 Unlike the channel, this will update the git repository on a rebuild. However,
 you can easily pin to a particular revision if you desire more stability.
+
+## How to contribute a new device profile
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## List of Profiles
 
@@ -189,9 +194,3 @@ See code for all available configurations.
 | [System76 Darter Pro 6](system76/darp6)                             | `<nixos-hardware/system76/darp6>`                  |
 | [Toshiba Chromebook 2 `swanky`](toshiba/swanky)                     | `<nixos-hardware/toshiba/swanky>`                  |
 | [Tuxedo InfinityBook v4](tuxedo/infinitybook/v4)                    | `<nixos-hardware/tuxedo/infinitybook/v4>`          |
-
-## How to contribute a new device profile
-
-1. Add your device profile expression in the appropriate directory
-2. Link it in the table in README.md and in flake.nix
-3. Run ./tests/run.py to test it. The test script script will parse all the profiles from the README.md
