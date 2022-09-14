@@ -47,6 +47,7 @@
       dell-xps-17-9700-nvidia = import ./dell/xps/17-9700/nvidia;
       dell-xps-17-9710-intel = import ./dell/xps/17-9710/intel;
       framework = import ./framework;
+      framework-12th-gen-intel = import ./framework/12th-gen-intel;
       friendlyarm-nanopc-t4 = import ./friendlyarm/nanopc-t4;
       google-pixelbook = import ./google/pixelbook;
       gpd-micropc = import ./gpd/micropc;
