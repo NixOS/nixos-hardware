@@ -70,6 +70,7 @@
       lenovo-thinkpad-p1 = import ./lenovo/thinkpad/p1;
       lenovo-thinkpad-p1-gen3 = import ./lenovo/thinkpad/p1/3th-gen;
       lenovo-thinkpad-p14s-amd-gen2 = import ./lenovo/thinkpad/p14s/amd/gen2;
+      lenovo-thinkpad-p16s-amd-gen1 = import ./lenovo/thinkpad/p16s/amd/gen1;
       lenovo-thinkpad-p50 = import ./lenovo/thinkpad/p50;
       lenovo-thinkpad-p51 = import ./lenovo/thinkpad/p51;
       lenovo-thinkpad-p52 = import ./lenovo/thinkpad/p52;
