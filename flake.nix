@@ -84,6 +84,7 @@
       pcengines-apu = import ./pcengines/apu;
       raspberry-pi-2 = import ./raspberry-pi/2;
       raspberry-pi-4 = import ./raspberry-pi/4;
+      kobol-helios4 = import ./kobol/helios4;
       samsung-np900x3c = import ./samsung/np900x3c;
       system76 = import ./system76;
       system76-darp6 = import ./system76/darp6;
