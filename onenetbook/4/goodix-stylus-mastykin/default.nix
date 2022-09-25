@@ -1,4 +1,4 @@
-{ stdenv, lib, kernel, fetchpatch, runCommandNoCC, patch }:
+{ stdenv, lib, kernel, fetchpatch, runCommand, patch }:
 
 let
   patch1_original = fetchpatch {
@@ -6,7 +6,7 @@ let
     name = "goodix-stylus-mastykin-1-pen-support.patch";
     sha256 = "sha256-1oc8OvfhScYvtsMeV9A4hU+09i59tEJ6HZS6jspsJR8=";
   };
-  patch1_updated_5_12_12 = runCommandNoCC
+  patch1_updated_5_12_12 = runCommand
     "goodix-stylus-mastykin-1-pen-support-5.12.12.patch" {}
     ''
       cat ${patch1_original} > $out
