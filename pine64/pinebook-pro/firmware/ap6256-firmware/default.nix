@@ -1,6 +1,6 @@
 { lib
 , fetchFromGitHub
-, runCommandNoCC
+, runCommand
 }:
 
 let
@@ -11,7 +11,7 @@ let
     sha256 = "0ac7z3m5mnmk1qhf9pq9s3y6ky8jmd3ggn8m29797z1ng40q3cka";
   };
 in
-runCommandNoCC "pinebookpro-ap6256-firmware"
+runCommand "pinebookpro-ap6256-firmware"
 {
   meta = with lib; {
     license = licenses.unfreeRedistributable;
