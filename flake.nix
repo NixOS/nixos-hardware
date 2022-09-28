@@ -129,6 +129,7 @@
       purism-librem-15v3 = import ./purism/librem/15v3;
       raspberry-pi-2 = import ./raspberry-pi/2;
       raspberry-pi-4 = import ./raspberry-pi/4;
+      kobol-helios4 = import ./kobol/helios4;
       samsung-np900x3c = import ./samsung/np900x3c;
       supermicro = import ./supermicro;
       supermicro-a1sri-2758f = import ./supermicro/a1sri-2758f;
