@@ -20,10 +20,10 @@
   # Laptop can't correctly suspend if wlan is active
   powerManagement = {
     powerDownCommands = ''
-      ${pkgs.utillinux}/bin/rfkill block wlan
+      ${pkgs.util-linux}/bin/rfkill block wlan
     '';
     resumeCommands = ''
-      ${pkgs.utillinux}/bin/rfkill unblock wlan
+      ${pkgs.util-linux}/bin/rfkill unblock wlan
     '';
   };
 }
