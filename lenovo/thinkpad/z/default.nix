@@ -9,7 +9,7 @@
     ../../../common/pc/laptop/ssd
   ];
   # kernel versions prior to 5.18 won't boot
-  boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "5.18") (lib.mkDefault pkgs.linuxPackages_5_18);
+  boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "5.18") (lib.mkDefault pkgs.linuxPackages_latest);
 
   hardware.enableRedistributableFirmware = lib.mkDefault true;
   hardware.trackpoint.device = lib.mkDefault "TPPS/2 Elan TrackPoint";
