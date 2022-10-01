@@ -53,3 +53,11 @@ You can also just specify a single profile like this:
 
 Because profiles can only be tested with the appropriate hardware, quality
 assurance is up to *you*.
+
+# For reviewers:
+
+This repository has bors enabled for easier merging after a successfull build:
+
+* `bors try` - check if the PR builds.
+* `bors merge` - same as `bors try` but will also merge the PR if it builds successfully.
+* https://bors.tech/documentation/
