@@ -1,0 +1,44 @@
+{ lib, pkgs, ... }:
+let inherit (lib) mkDefault mkIf;
+in
+{
+	imports = [
+		../../common/pc/laptop
+		../../common/pc/laptop/ssd
+	];
+
+  # Necessary kernel modules
+	boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usbhid" "thunderbolt" ];
+
+	# GPU is an Intel Iris Xe, on a “TigerLake” mobile CPU
+	boot.initrd.kernelModules = [ "i915" ];  # Early loading so the passphrase prompt appears on external displays
+	services.xserver.videoDrivers = [ "intel" ];
+	hardware.opengl.extraPackages = with pkgs; [ intel-media-driver vaapiIntel ];
+
+	boot.kernelParams = [
+		# S3 suspend is broken as of Sept. 2022 (screen does not come back properly), use S2
+		"mem_sleep_default=s2idle"
+
+		# The GPD Pocket3 uses a tablet OLED display, that is mounted rotated 90° counter-clockwise
+		"fbcon=rotate:1" "video=DSI-1:panel_orientation=right_side_up"
+	];
+
+	fonts.fontconfig = {
+		subpixel.rgba = "vbgr";  # Pixel order for rotated screen
+
+		# The OLED display has √(1920² + 1200²) px / 8in ≃ 283 dpi
+		# Per the documentation, antialiasing, hinting, etc. have no visible effect at such high pixel densities anyhow.
+		# Set manually, as the hiDPI module had incorrect settings prior to NixOS 22.11; see nixpkgs#194594.
+		hinting.enable = mkDefault false;
+		antialias = mkIf (lib.versionOlder (lib.versions.majorMinor lib.version) "22.11") false;
+	};
+
+	# More HiDPI settings
+	hardware.video.hidpi.enable = true;
+	services.xserver.dpi = 280;
+
+	# Necessary for audio support on the 1195G7 model
+	boot.extraModprobeConfig = ''
+		options snd-intel-dspcfg dsp_driver=1
+	'';
+}
