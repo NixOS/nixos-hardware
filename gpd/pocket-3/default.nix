@@ -1,5 +1,5 @@
 { lib, pkgs, ... }:
-let inherit (lib) mkDefault;
+let inherit (lib) mkDefault mkIf;
 in
 {
 	imports = [
@@ -28,8 +28,9 @@ in
 
 		# The OLED display has √(1920² + 1200²) px / 8in ≃ 283 dpi
 		# Per the documentation, antialiasing, hinting, etc. have no visible effect at such high pixel densities anyhow.
+		# Set manually, as the hiDPI module had incorrect settings prior to NixOS 22.11; see nixpkgs#194594.
 		hinting.enable = mkDefault false;
-		antialias = false;  #TODO(nicoo): Fix nixpkgs' HiDPI module
+		antialias = mkIf (lib.versionOlder (lib.versions.majorMinor lib.version) "22.11") false;
 	};
 
 	# More HiDPI settings
