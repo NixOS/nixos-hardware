@@ -12,6 +12,9 @@
     # For Power consumption
     # https://community.frame.work/t/linux-battery-life-tuning/6665/156
     "nvme.noacpi=1"
+    # Workaround iGPU hangs
+    # https://discourse.nixos.org/t/intel-12th-gen-igpu-freezes/21768/4
+    "i915.enable_psr=1"
   ];
 
   # This enables the brightness keys to work
