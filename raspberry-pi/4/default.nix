@@ -3,6 +3,7 @@
 {
   imports = [
     ./audio.nix
+    ./cpu-revision.nix
     ./dwc2.nix
     ./i2c.nix
     ./modesetting.nix
