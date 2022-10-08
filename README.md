@@ -193,6 +193,7 @@ See code for all available configurations.
 | [Raspberry Pi 2](raspberry-pi/2)                                    | `<nixos-hardware/raspberry-pi/2>`                  |
 | [Raspberry Pi 4](raspberry-pi/4)                                    | `<nixos-hardware/raspberry-pi/4>`                  |
 | [Samsung Series 9 NP900X3C](samsung/np900x3c)                       | `<nixos-hardware/samsung/np900x3c>`                |
+| [StarFive VisionFive v1](starfive/visionfive/v1)                    | `<nixos-hardware/starfive/visionfive/v1>`          |
 | [Supermicro A1SRi-2758F](supermicro/a1sri-2758f)                    | `<nixos-hardware/supermicro/a1sri-2758f>`          |
 | [Supermicro M11SDV-8C-LN4F](supermicro/m11sdv-8c-ln4f)              | `<nixes-hardware/supermicro/m11sdv-8c-ln4f>`       |
 | [Supermicro X10SLL-F](supermicro/x10sll-f)                          | `<nixos-hardware/supermicro/x10sll-f>`             |
