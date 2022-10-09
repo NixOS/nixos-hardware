@@ -132,6 +132,7 @@
       raspberry-pi-4 = import ./raspberry-pi/4;
       kobol-helios4 = import ./kobol/helios4;
       samsung-np900x3c = import ./samsung/np900x3c;
+      starfive-visionfive-v1 = import ./starfive/visionfive/v1;
       supermicro = import ./supermicro;
       supermicro-a1sri-2758f = import ./supermicro/a1sri-2758f;
       supermicro-m11sdv-8c-ln4f = import ./supermicro/m11sdv-8c-ln4f;
