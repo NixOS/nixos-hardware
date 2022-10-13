@@ -6,13 +6,13 @@
     { config, ... }:
 
     {
-    imports = [ <nixos-hardware/starfive/visionfive/v1/sd-image-installer.nix> ];
-    # or imports = [ "${nixos-hardware-directory}/starfive/visionfive/v1/sd-image-installer.nix" ];
+        imports = [ <nixos-hardware/starfive/visionfive/v1/sd-image-installer.nix> ];
+        # or imports = [ "${nixos-hardware-directory}/starfive/visionfive/v1/sd-image-installer.nix" ];
 
-    nixpkgs.crossSystem = {
-        config = "riscv64-unknown-linux-gnu";
-        system = "riscv64-linux";
-    };
+        nixpkgs.crossSystem = {
+            config = "riscv64-unknown-linux-gnu";
+            system = "riscv64-linux";
+        };
     }
     ```
 
