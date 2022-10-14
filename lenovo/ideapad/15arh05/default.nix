@@ -5,6 +5,7 @@
     ../../../common/cpu/amd
     ../../../common/gpu/nvidia.nix
     ../../../common/pc/laptop
+    ../../../common/pc/laptop/acpi_call.nix
     ../../../common/pc/laptop/ssd
   ];
 
@@ -17,4 +18,8 @@
   # Cooling management
   services.thermald.enable = lib.mkDefault true;
 
+  # tlp defaults to "powersave", which doesn't exist on this laptop
+  services.tlp.settings = {
+    CPU_SCALING_GOVERNOR_ON_BAT = "schedutil";
+  };
 }
