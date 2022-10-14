@@ -5,6 +5,7 @@
     ../../../common/cpu/amd
     ../../../common/gpu/nvidia.nix
     ../../../common/pc/laptop
+    ../../../common/pc/laptop/acpi_call.nix
     ../../../common/pc/laptop/ssd
   ];
 
