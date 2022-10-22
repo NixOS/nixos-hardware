@@ -25,7 +25,7 @@
     path        = [ pkgs.bash pkgs.coreutils ];
 
     serviceConfig.Type = "oneshot";
-    serviceConfig.ExecStart = ./disable-nvme-d3cold.sh;
+    serviceConfig.ExecStart = "${./disable-nvme-d3cold.sh}";
     serviceConfig.TimeoutSec = 0;
 
     wantedBy = [ "multi-user.target" "suspend.target" ];
@@ -44,7 +44,7 @@
     path = [ pkgs.bash pkgs.kmod pkgs.bluez ];
 
     serviceConfig.Type = "simple";
-    serviceConfig.ExecStart = ./btfix.sh;
+    serviceConfig.ExecStart = "${./btfix.sh}";
 
     wantedBy = [ "multi-user.target" ];
   };
