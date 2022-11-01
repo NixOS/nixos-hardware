@@ -16,7 +16,13 @@
 
   boot = {
     kernelPackages = lib.mkDefault pkgs.linuxPackages_rpi4;
-    initrd.availableKernelModules = [ "usbhid" "usb_storage" "vc4" ];
+    initrd.availableKernelModules = [
+      "usbhid"
+      "usb_storage"
+      "vc4"
+      "pcie_brcmstb"      # required for the pcie bus to work
+      "reset-raspberrypi" # required for vl805 firmware to load
+    ];
 
     loader = {
       grub.enable = lib.mkDefault false;
