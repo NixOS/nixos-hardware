@@ -1,12 +1,14 @@
 # To build, use:
 # nix-build "<nixpkgs/nixos>" -I nixos-config=starfive/visionfive/v1/sd-image-installer.nix -A config.system.build.sdImage
+{ modulesPath, ... }:
+
 {
   imports = [
-    <nixpkgs/nixos/modules/profiles/installation-device.nix>
+    "${modulesPath}/profiles/installation-device.nix"
     ./sd-image.nix
   ];
 
-  # the installation media is also the installation target,
+  # The installation media is also the installation target,
   # so we don't want to provide the installation configuration.nix.
   installer.cloneConfig = false;
 }

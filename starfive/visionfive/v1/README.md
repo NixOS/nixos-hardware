@@ -1,4 +1,4 @@
-### Build the SD image
+## Build the SD image
 - ``nix-build "<nixpkgs/nixos>" -A config.system.build.sdImage -I nixos-config=iso.nix``
 
 - ``iso.nix``
@@ -16,10 +16,10 @@
     }
     ```
 
-### Relevant documentation
+## Relevant documentation
 - Flashing
-- - https://doc-en.rvspace.org/VisionFive/Quick_Start_Guide/VisionFive_QSG/hardware_connection.html
-- - https://doc-en.rvspace.org/VisionFive/Quick_Start_Guide/VisionFive_QSG/using_xmodem1.html
+  - https://doc-en.rvspace.org/VisionFive/Quick_Start_Guide/VisionFive_QSG/hardware_connection.html
+  - https://doc-en.rvspace.org/VisionFive/Quick_Start_Guide/VisionFive_QSG/using_xmodem1.html
 - Recovery
-- - https://doc-en.rvspace.org/VisionFive/Quick_Start_Guide/VisionFive_QSG/hardware_setup.html
-- - https://doc-en.rvspace.org/VisionFive/Quick_Start_Guide/VisionFive_QSG/for_maclinux4.html
+  - https://doc-en.rvspace.org/VisionFive/Quick_Start_Guide/VisionFive_QSG/hardware_setup.html
+  - https://doc-en.rvspace.org/VisionFive/Quick_Start_Guide/VisionFive_QSG/for_maclinux4.html
