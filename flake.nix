@@ -102,16 +102,13 @@
       lenovo-thinkpad-t590 = import ./lenovo/thinkpad/t590;
       lenovo-thinkpad-x1 = import ./lenovo/thinkpad/x1;
       lenovo-thinkpad-x1-yoga = import ./lenovo/thinkpad/x1/yoga;
-      lenovo-thinkpad-x1-yoga-7th-gen =
-        import ./lenovo/thinkpad/x1/yoga/7th-gen;
+      lenovo-thinkpad-x1-yoga-7th-gen = import ./lenovo/thinkpad/x1/yoga/7th-gen;
       lenovo-thinkpad-x1-6th-gen = import ./lenovo/thinkpad/x1/6th-gen;
       lenovo-thinkpad-x1-7th-gen = import ./lenovo/thinkpad/x1/7th-gen;
       lenovo-thinkpad-x1-9th-gen = import ./lenovo/thinkpad/x1/9th-gen;
       lenovo-thinkpad-x1-extreme = import ./lenovo/thinkpad/x1-extreme;
-      lenovo-thinkpad-x1-extreme-gen2 =
-        import ./lenovo/thinkpad/x1-extreme/gen2;
-      lenovo-thinkpad-x1-extreme-gen4 =
-        import ./lenovo/thinkpad/x1-extreme/gen4;
+      lenovo-thinkpad-x1-extreme-gen2 = import ./lenovo/thinkpad/x1-extreme/gen2;
+      lenovo-thinkpad-x1-extreme-gen4 = import ./lenovo/thinkpad/x1-extreme/gen4;
       lenovo-thinkpad-x13 = import ./lenovo/thinkpad/x13;
       lenovo-thinkpad-x13-yoga = import ./lenovo/thinkpad/x13/yoga;
       lenovo-thinkpad-x140e = import ./lenovo/thinkpad/x140e;
@@ -157,8 +154,7 @@
       common-cpu-intel-sandy-bridge = import ./common/cpu/intel/sandy-bridge;
       common-gpu-amd = import ./common/gpu/amd;
       common-gpu-amd-sea-islands = import ./common/gpu/amd/sea-islands;
-      common-gpu-amd-southern-islands =
-        import ./common/gpu/amd/southern-islands;
+      common-gpu-amd-southern-islands = import ./common/gpu/amd/southern-islands;
       common-gpu-intel = import ./common/gpu/intel.nix;
       common-gpu-nvidia = import ./common/gpu/nvidia.nix;
       common-gpu-nvidia-disable = import ./common/gpu/nvidia-disable.nix;
