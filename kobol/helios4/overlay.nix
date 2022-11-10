@@ -5,20 +5,20 @@ final: prev: {
       # the patch has been successfully applied to 5.15 and 5.19
       {
         patch = final.fetchpatch {
-          url = "https://raw.githubusercontent.com/armbian/build/03dbd9d3a733f097e23595e76ac60771c655ebf1/patch/kernel/archive/mvebu-5.15/92-mvebu-gpio-remove-hardcoded-timer-assignment.patch";
-          sha256 = "sha256-0h7v3Nua1LuHf4h53WdYEBrbUA9dOGdF06TDBlDplOQ=";
+          url = "https://raw.githubusercontent.com/armbian/build/bd3466eef2106ea13e85e821f5d852ff97465e6c/patch/kernel/archive/mvebu-5.15/92-mvebu-gpio-remove-hardcoded-timer-assignment.patch";
+          sha256 = "sha256-eQqMp0+MZd30zkl8DE89oB7czvyqCkfwF2k0EZ69jr0=";
         };
       }
       # support for Wake-On-Lan
       {
         patch = final.fetchpatch {
-          url = "https://raw.githubusercontent.com/armbian/build/03dbd9d3a733f097e23595e76ac60771c655ebf1/patch/kernel/archive/mvebu-5.15/92-mvebu-gpio-add_wake_on_gpio_support.patch";
+          url = "https://raw.githubusercontent.com/armbian/build/bd3466eef2106ea13e85e821f5d852ff97465e6c/patch/kernel/archive/mvebu-5.15/92-mvebu-gpio-add_wake_on_gpio_support.patch";
           sha256 = "sha256-OrvnVCU55P0U78jdoxGRJvl29i+Rvq8AdEGSCCpxa2I=";
         };
       }
       {
         patch = final.fetchpatch {
-          url = "https://raw.githubusercontent.com/armbian/build/03dbd9d3a733f097e23595e76ac60771c655ebf1/patch/kernel/archive/mvebu-5.15/94-helios4-dts-add-wake-on-lan-support.patch";
+          url = "https://raw.githubusercontent.com/armbian/build/bd3466eef2106ea13e85e821f5d852ff97465e6c/patch/kernel/archive/mvebu-5.15/94-helios4-dts-add-wake-on-lan-support.patch";
           sha256 = "sha256-ai4161bTC22023eaVVWsvbk6fQKjkv0P4DQ4DA1Zgow=";
         };
       }
