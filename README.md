@@ -89,6 +89,7 @@ See code for all available configurations.
 | [Dell Inspiron 5509](dell/inspiron/5509)                            | `<nixos-hardware/dell/inspiron/5509>`              |
 | [Dell Inspiron 5515](dell/inspiron/5515)                            | `<nixos-hardware/dell/inspiron/5515>`              |
 | [Dell Inspiron 7405](dell/inspiron/7405)                            | `<nixos-hardware/dell/inspiron/7405>`              |
+| [Dell Latitude 3340](dell/latitude/3340)                            | `<nixos-hardware/dell/latitude/3340>`              |
 | [Dell Latitude 3480](dell/latitude/3480)                            | `<nixos-hardware/dell/latitude/3480>`              |
 | [Dell Latitude 5520](dell/latitude/5520)                            | `<nixos-hardware/dell/latitude/5520>`              |
 | [Dell Latitude 7490](dell/latitude/7490)                            | `<nixos-hardware/dell/latitude/7490>`              |
@@ -117,7 +118,7 @@ See code for all available configurations.
 | [Framework 12th Gen Intel Core](framework/12th-gen-intel)           | `<nixos-hardware/framework/12th-gen-intel>`        |
 | [FriendlyARM NanoPC-T4](friendlyarm/nanopc-t4)                      | `<nixos-hardware/friendlyarm/nanopc-t4>`           |
 | [GPD MicroPC](gpd/micropc)                                          | `<nixos-hardware/gpd/micropc>`                     |
-| [GPD Pocket 3](gpd/pocket-3)                                        | `<nixos-hardware/gpd/pocket-3>`                     |
+| [GPD Pocket 3](gpd/pocket-3)                                        | `<nixos-hardware/gpd/pocket-3>`                    |
 | [Google Pixelbook](google/pixelbook)                                | `<nixos-hardware/google/pixelbook>`                |
 | [HP Elitebook 2560p](hp/elitebook/2560p)                            | `<nixos-hardware/hp/elitebook/2560p>`              |
 | [Intel NUC 8i7BEH](intel/nuc/8i7beh/)                               | `<nixos-hardware/intel/nuc/8i7beh>`                |
