@@ -4,7 +4,7 @@
   imports = [
     ../../common/pc/laptop/ssd
     ../../common/cpu/intel
-    ../../common/gpu/nvidia.nix
+    ../../common/gpu/nvidia/prime.nix
     ../../common/pc/laptop
   ];
 

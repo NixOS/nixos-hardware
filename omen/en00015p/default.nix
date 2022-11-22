@@ -3,7 +3,7 @@
 {
   imports = [
     ../../common/cpu/amd
-    ../../common/gpu/nvidia.nix
+    ../../common/gpu/nvidia/prime.nix
     ../../common/pc/laptop
     ../../common/pc/ssd
   ];

@@ -2,7 +2,7 @@
 {
   imports = [
     ../../../common/cpu/amd/pstate.nix
-    ../../../common/gpu/nvidia.nix
+    ../../../common/gpu/nvidia/prime.nix
     ../../../common/pc/laptop
     ../../../common/pc/ssd
     ../../battery.nix

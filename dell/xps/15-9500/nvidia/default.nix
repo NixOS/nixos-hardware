@@ -2,7 +2,7 @@
 {
   imports = [
     ../default.nix
-    ../../../../common/gpu/nvidia.nix
+    ../../../../common/gpu/nvidia/prime.nix
   ];
 
   hardware.nvidia.prime = {

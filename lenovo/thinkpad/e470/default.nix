@@ -4,7 +4,7 @@
   imports = [
     ../.
     ../../../common/cpu/intel/kaby-lake
-    ../../../common/gpu/nvidia.nix
+    ../../../common/gpu/nvidia/prime.nix
   ];
 
   hardware.nvidia.prime = {
