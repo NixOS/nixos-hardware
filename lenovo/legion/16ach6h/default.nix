@@ -1,6 +1,6 @@
-{ lib, config, ... }:
-let kernelPackages = config.boot.kernelPackages;
-in {
+{ lib, ... }:
+
+{
   imports = [
     ../../../common/cpu/amd
     ../../../common/gpu/amd
