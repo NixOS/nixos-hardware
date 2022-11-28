@@ -1,10 +1,11 @@
 { lib, pkgs, fetchFromGitHub, fetchurl }: {
-  linux-surface-kernel = fetchFromGitHub {
-    owner = "linux-surface";
-    repo = "kernel";
-    rev = "db94c89f56d6ceae03ca3802e11197f48e6c539f";
-    sha256 = "0c58ri0i9gdb4w7l361pnkvq6ap17kmgnxngh0bcdmgn4dc88wx2";
-  };
+  # This is the owner and repo for the pre-patched kernel from the "linux-surface" project:
+  linux-surface-kernel = { rev, sha256 }:
+    fetchFromGitHub {
+      owner = "linux-surface";
+      repo = "kernel";
+      inherit rev sha256;
+    };
 
   ath10k-firmware = fetchFromGitHub {
     owner = "kvalo";
