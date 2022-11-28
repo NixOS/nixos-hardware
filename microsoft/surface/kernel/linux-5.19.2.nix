@@ -1,20 +1,21 @@
 { lib,
   fetchurl,
+  repos,
 }:
 
 let
   inherit (lib) kernel;
   version = "5.19.2";
+  branch = "5.19";
+  patches = repos.linux-surface + "/patches/${branch}";
 
 in {
-  inherit version;
+  inherit version branch;
   modDirVersion = version;
-  branch = "5.19";
   src = fetchurl {
     url = "mirror://kernel/linux/kernel/v5.x/linux-${version}.tar.xz";
     sha256 = "sha256-SOQKH1UB7GxA48htPVMZIAtojy2TYPcoMwhNdIAf5j0=";
   };
-  patches = repos.linux-surface + "/patches/${branch}";
 
   kernelPatches = [
     {
