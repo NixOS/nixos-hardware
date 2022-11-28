@@ -9,7 +9,11 @@ let
       modDirVersion = version;
       extraMeta.branch = "5.16";
 
-      src = repos.linux-surface-kernel;
+      src = repos.linux-surface-kernel {
+        # Kernel 5.16.11
+        rev = "db94c89f56d6ceae03ca3802e11197f48e6c539f";
+        sha256 = "0c58ri0i9gdb4w7l361pnkvq6ap17kmgnxngh0bcdmgn4dc88wx2";
+      };
 
       kernelPatches = [{
         name = "microsoft-surface-patches-linux-5.16.2";
