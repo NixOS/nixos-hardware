@@ -6,7 +6,7 @@
 }:
 
 # To test the kernel build:
-# nix-build -E "with import <nixpkgs> {}; (pkgs.callPackage ./. {}).kernel"
+# nix-build -E "with import <nixpkgs> {}; (pkgs.callPackage ./. {}).boot.kernelPackages.kernel"
 
 let
   inherit (lib) kernel recurseIntoAttrs;
