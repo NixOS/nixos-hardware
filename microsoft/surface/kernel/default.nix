@@ -1,16 +1,12 @@
-{ lib,
-  buildLinux,
-  callPackage,
-  linuxPackagesFor,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 # To test the kernel build:
 # nix-build -E "with import <nixpkgs> {}; (pkgs.callPackage ./. {}).boot.kernelPackages.kernel"
 
 let
   inherit (lib) kernel recurseIntoAttrs;
-  repos = callPackage ../repos.nix {};
+  inherit (pkgs) buildLinux linuxPackagesFor;
+  repos = pkgs.callPackage ../repos.nix {};
 
   linuxPackage =
     { version,
@@ -25,11 +21,11 @@ let
         modDirVersion = version;
         extraMeta.branch = branch;
       };
-      linuxPackagesFor' = (linuxPackagesFor buildLinux');
+      linuxPackagesFor' = linuxPackagesFor buildLinux';
     in recurseIntoAttrs linuxPackagesFor';
 
   linux-5_16_11 = linuxPackage (
-    callPackage ./linux-5.16.11.nix { inherit repos; }
+    pkgs.callPackage ./linux-5.16.11.nix { inherit repos; }
   );
 
 in {

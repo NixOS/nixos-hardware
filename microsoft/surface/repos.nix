@@ -1,4 +1,4 @@
-{ lib, pkgs, fetchFromGitHub, fetchurl }: {
+{ fetchFromGitHub, fetchurl }: {
   # This is the owner and repo for the pre-patched kernel from the "linux-surface" project:
   linux-surface-kernel = { rev, sha256 }:
     fetchFromGitHub {
