@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 
 {
   imports = [
@@ -11,7 +11,7 @@
   ];
 
   services = {
-    asusd.enable = true;
+    asusd.enable = lib.mkDefault true;
   };
 
   boot = {
