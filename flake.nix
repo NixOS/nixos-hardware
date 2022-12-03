@@ -17,6 +17,7 @@
       asus-fx504gd = import ./asus/fx504gd;
       asus-rog-strix-g733qs = import ./asus/rog-strix/g733qs;
       asus-zephyrus-ga401 = import ./asus/zephyrus/ga401;
+      asus-zephyrus-ga402 = import ./asus/zephyrus/ga402;
       asus-zephyrus-ga503 = import ./asus/zephyrus/ga503;
       beagleboard-pocketbeagle = import ./beagleboard/pocketbeagle;
       dell-e7240 = import ./dell/e7240;
