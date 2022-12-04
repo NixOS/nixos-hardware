@@ -24,10 +24,10 @@ let
       linuxPackagesFor' = linuxPackagesFor buildLinux';
     in recurseIntoAttrs linuxPackagesFor';
 
-  linux-5_16_11 = linuxPackage (
-    pkgs.callPackage ./linux-5.16.11.nix { inherit repos; }
+  linux-5_19_17 = linuxPackage (
+    pkgs.callPackage ./linux-5.19.17.nix { inherit repos; }
   );
 
 in {
-  boot.kernelPackages = linux-5_16_11;
+  boot.kernelPackages = linux-5_19_17;
 }
