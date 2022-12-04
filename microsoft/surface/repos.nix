@@ -1,9 +1,9 @@
 { lib, pkgs, fetchFromGitHub, fetchurl }: {
-  linux-surface-kernel = fetchFromGitHub {
+  linux-surface = fetchFromGitHub {
     owner = "linux-surface";
-    repo = "kernel";
-    rev = "db94c89f56d6ceae03ca3802e11197f48e6c539f";
-    sha256 = "0c58ri0i9gdb4w7l361pnkvq6ap17kmgnxngh0bcdmgn4dc88wx2";
+    repo = "linux-surface";
+    rev = "fe2bed0f88a1803d87cd1805dc81272be32844ae";
+    sha256 = "sha256-sOJ4oN1F+/bNrGcqxh2IG4rn6twu//TExnn+qmQPW/0=";
   };
 
   ath10k-firmware = fetchFromGitHub {
