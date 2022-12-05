@@ -28,6 +28,14 @@ let
     pkgs.callPackage ./linux-5.19.17.nix { inherit repos; }
   );
 
+  linux-6_0_11 = linuxPackage (
+    pkgs.callPackage ./linux-6.0.11.nix { inherit repos; }
+  );
+
 in {
+<<<<<<< Updated upstream
   boot.kernelPackages = linux-5_19_17;
+=======
+  boot.kernelPackages = linux-6_0_11;
+>>>>>>> Stashed changes
 }
