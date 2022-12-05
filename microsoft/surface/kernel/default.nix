@@ -33,9 +33,5 @@ let
   );
 
 in {
-<<<<<<< Updated upstream
-  boot.kernelPackages = linux-5_19_17;
-=======
   boot.kernelPackages = linux-6_0_11;
->>>>>>> Stashed changes
 }
