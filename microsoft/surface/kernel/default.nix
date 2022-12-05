@@ -25,7 +25,7 @@ let
     in recurseIntoAttrs linuxPackagesFor';
 
   linux-5_19_17 = linuxPackage (
-    pkgs.callPackage ./linux-5.19.17 { inherit repos; };
+    pkgs.callPackage ./linux-5.19.17.nix { inherit repos; }
   );
 
 in {

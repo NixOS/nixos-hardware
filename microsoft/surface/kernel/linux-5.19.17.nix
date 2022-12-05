@@ -1,10 +1,25 @@
-{ config, lib, pkgs, ... }:
+{ lib,
+  fetchurl,
+  repos,
+}:
+
 let
-  repos = (pkgs.callPackage ../../repos.nix { });
-  patches = repos.linux-surface + "/patches";
-  surface_kernelPatches = [
+  inherit (lib) kernel;
+  version = "5.19.17";
+  branch = "5.19";
+  patches = repos.linux-surface + "/patches/${branch}";
+
+in {
+  inherit version branch;
+  modDirVersion = version;
+  src = fetchurl {
+    url = "mirror://kernel/linux/kernel/v5.x/linux-${version}.tar.xz";
+    sha256 = "sha256-yTuzhKl60fCk8Y5ELOApEkJyL3gCPspliyI0RUHwlIk=";
+  };
+
+  kernelPatches = [
     {
-      name = "microsoft-surface-patches-linux-5.19.17";
+      name = "microsoft-surface-patches-linux-${version}";
       patch = null;
       structuredExtraConfig = with lib.kernel; {
         #
@@ -25,7 +40,7 @@ let
 
         BATTERY_SURFACE = module;
         CHARGER_SURFACE = module;
-        
+
         #
         # Surface laptop 1 keyboard
         #
@@ -77,50 +92,47 @@ let
     }
     {
       name = "ms-surface/0001-surface3-oemb";
-      patch = patches + "/5.19/0001-surface3-oemb.patch";
+      patch = patches + "/0001-surface3-oemb.patch";
     }
     {
       name = "ms-surface/0002-mwifiex";
-      patch = patches + "/5.19/0002-mwifiex.patch";
+      patch = patches + "/0002-mwifiex.patch";
     }
     {
       name = "ms-surface/0003-ath10k";
-      patch = patches + "/5.19/0003-ath10k.patch";
+      patch = patches + "/0003-ath10k.patch";
     }
     {
       name = "ms-surface/0004-ipts";
-      patch = patches + "/5.19/0004-ipts.patch";
+      patch = patches + "/0004-ipts.patch";
     }
     {
       name = "ms-surface/0005-surface-sam";
-      patch = patches + "/5.19/0005-surface-sam.patch";
+      patch = patches + "/0005-surface-sam.patch";
     }
     {
       name = "ms-surface/0006-surface-sam-over-hid";
-      patch = patches + "/5.19/0006-surface-sam-over-hid.patch";
+      patch = patches + "/0006-surface-sam-over-hid.patch";
     }
     {
       name = "ms-surface/0007-surface-button";
-      patch = patches + "/5.19/0007-surface-button.patch";
+      patch = patches + "/0007-surface-button.patch";
     }
     {
       name = "ms-surface/0008-surface-typecover";
-      patch = patches + "/5.19/0008-surface-typecover.patch";
+      patch = patches + "/0008-surface-typecover.patch";
     }
     {
       name = "ms-surface/0009-surface-gpe";
-      patch = patches + "/5.19/0009-surface-gpe.patch";
+      patch = patches + "/0009-surface-gpe.patch";
     }
     {
       name = "ms-surface/0010-cameras";
-      patch = patches + "/5.19/0010-cameras.patch";
+      patch = patches + "/0010-cameras.patch";
     }
     {
       name = "ms-surface/0011-amd-gpio";
-      patch = patches + "/5.19/0011-amd-gpio.patch";
+      patch = patches + "/0011-amd-gpio.patch";
     }
   ];
-in (with pkgs;
-  recurseIntoAttrs (linuxPackagesFor (callPackage ./linux-5.19.17.nix {
-    kernelPatches = surface_kernelPatches;
-  })))
+}
