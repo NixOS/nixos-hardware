@@ -1,7 +1,4 @@
-{ lib,
-  fetchurl,
-  repos,
-}:
+{ lib, fetchurl, repos,}:
 
 let
   inherit (lib) kernel;
