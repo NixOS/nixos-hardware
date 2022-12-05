@@ -8,9 +8,8 @@ in {
     ./linux-5.19.17
   ];
 
-  options.microsoft-surface.kernel-version = mkOption {
+  options.microsoft-surface.kernelVersion = mkOption {
     description = "Kernel Version to use (patched for MS Surface)";
-    type = types.enum [  ];
-    # default = "5.19.17";
+    type = types.enum [ ];
   };
 }

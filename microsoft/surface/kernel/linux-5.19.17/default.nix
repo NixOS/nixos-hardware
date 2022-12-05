@@ -6,7 +6,7 @@ let
 
   inherit (pkgs.callPackage ../linux-package.nix { }) linuxPackage repos;
 
-  cfg = config.microsoft-surface.kernel-version;
+  cfg = config.microsoft-surface;
 
   version = "5.19.17";
   extraMeta.branch = "5.19";
@@ -25,11 +25,11 @@ let
   };
 
 in {
-  options.microsoft-surface.kernel-version = mkOption {
+  options.microsoft-surface.kernelVersion = mkOption {
     type = types.enum [ "5.19.17" ];
   };
 
-  config = mkIf (cfg == "5.19.17") {
+  config = mkIf (cfg.kernelVersion == "5.19.17") {
     boot = {
       inherit kernelPackages;
     };
