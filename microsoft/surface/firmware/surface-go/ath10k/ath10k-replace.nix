@@ -1,9 +1,10 @@
-{stdenv, lib, pkgs, firmwareLinuxNonfree, ...}:
+{ stdenv, lib, pkgs, firmwareLinuxNonfree, ... }:
+
 let
   repos = (pkgs.callPackage ../../../repos.nix {});
   killernetworking_firmware = repos.surface-go-ath10k-firmware_backup + "/K1535_Debian";
-in
-stdenv.mkDerivation {
+
+in stdenv.mkDerivation {
   pname = "microsoft-surface-go-firmware-linux-nonfree";
   inherit (firmwareLinuxNonfree) version;
   src = firmwareLinuxNonfree;
