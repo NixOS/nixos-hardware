@@ -10,6 +10,7 @@ in {
     ../../../common/pc/laptop
     ../../../common/pc/laptop/acpi_call.nix
     ../../../common/pc/ssd
+    ../sleep-resume/i2c-designware
   ];
 
   # Force S3 sleep mode. See README.wiki for details.
@@ -26,4 +27,7 @@ in {
 
   # This will save you money and possibly your life!
   services.thermald.enable = mkDefault true;
+
+  # Reloads i2c-designware module after suspend
+  services.sleep-resume.i2c-designware.enable = mkDefault true;
 }
