@@ -1,5 +1,16 @@
 { config, lib, pkgs, ... }:
 
-{
-  boot.kernelPackages = pkgs.callPackage ./linux-5.19.17 { };
+let
+  inherit (lib) mkOption types;
+
+in {
+  imports = [
+    ./linux-5.19.17
+    ./linux-6.0.11
+  ];
+
+  options.microsoft-surface.kernelVersion = mkOption {
+    description = "Kernel Version to use (patched for MS Surface)";
+    type = types.enum [ ];
+  };
 }
