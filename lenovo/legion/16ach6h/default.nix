@@ -7,7 +7,10 @@
     ../../../common/gpu/nvidia/prime.nix
     ../../../common/pc/laptop
     ../../../common/pc/laptop/ssd
+    ./edid
   ];
+
+  hardware.amdgpu.loadInInitrd = lib.mkDefault false;
 
   hardware.nvidia.prime = {
     amdgpuBusId = "PCI:6:0:0";
