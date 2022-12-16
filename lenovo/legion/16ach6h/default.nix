@@ -12,9 +12,13 @@
 
   hardware.amdgpu.loadInInitrd = lib.mkDefault false;
 
-  hardware.nvidia.prime = {
-    amdgpuBusId = "PCI:6:0:0";
-    nvidiaBusId = "PCI:1:0:0";
+  hardware.nvidia = {
+    powerManagement.enable = lib.mkDefault true;
+
+    prime = {
+      amdgpuBusId = "PCI:6:0:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
   };
 
   services.thermald.enable = lib.mkDefault true;
