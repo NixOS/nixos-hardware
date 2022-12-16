@@ -2,7 +2,7 @@
 
 {
   boot.initrd.kernelModules = [ "amdgpu" ];
-  services.xserver.videoDrivers = [ "amdgpu" ];
+  services.xserver.videoDrivers = lib.mkDefault [ "amdgpu" ];
   
   hardware.opengl.extraPackages = with pkgs; [
     rocm-opencl-icd
