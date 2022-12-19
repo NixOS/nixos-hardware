@@ -1,3 +1,8 @@
+## Introduction
+Due to the introduction of DDG feature, you may toggle DDG frequently, so for the default settings of this laptop, we use "specialization" feature of Nix so that you can easily select the required graphics card driver in the startup menu.  
+**But It will slow down NixOS evaluation by factor 2 and increase memory usage.**  
+So if you don't need specialization feature, you can just use hybrid only configuration or nvidia only (DDG only) configuration
+
 ## Setup at the time of testing
 ```
 $ nix-info -m
