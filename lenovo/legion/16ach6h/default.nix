@@ -13,6 +13,7 @@
   hardware.amdgpu.loadInInitrd = lib.mkDefault false;
 
   hardware.nvidia = {
+    modesetting.enable = lib.mkDefault true;
     powerManagement.enable = lib.mkDefault true;
 
     prime = {
