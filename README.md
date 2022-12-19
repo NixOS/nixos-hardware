@@ -93,6 +93,7 @@ See code for all available configurations.
 | [Dell Latitude 3340](dell/latitude/3340)                            | `<nixos-hardware/dell/latitude/3340>`              |
 | [Dell Latitude 3480](dell/latitude/3480)                            | `<nixos-hardware/dell/latitude/3480>`              |
 | [Dell Latitude 5520](dell/latitude/5520)                            | `<nixos-hardware/dell/latitude/5520>`              |
+| [Dell Latitude 7430](dell/latitude/7430)                            | `<nixos-hardware/dell/latitude/7430>`              |
 | [Dell Latitude 7490](dell/latitude/7490)                            | `<nixos-hardware/dell/latitude/7490>`              |
 | [Dell Poweredge R7515](dell/poweredge/r7515)                        | `<nixos-hardware/dell/poweredge/r7515>`            |
 | [Dell Precision 5530](dell/precision/5530)                          | `<nixos-hardware/dell/precision/5530>`             |
