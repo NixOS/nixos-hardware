@@ -1,36 +1,24 @@
 { lib, pkgs, ...  }:
 
 {
-  boot.initrd.kernelModules = [ 
-    "amdgpu"
-    "ideapad_laptop"
+  imports = [
+    ../../../thinkpad/yoga.nix
+    ../../../../common/gpu/amd/default.nix
   ];
-  services.xserver.videoDrivers = [ "amdgpu" ];
+
+  boot.initrd.kernelModules = [ "ideapad_laptop" ];
   hardware.opengl.extraPackages = with pkgs; [
-    rocm-opencl-icd
-    rocm-opencl-runtime
-    amdvlk
     vaapiVdpau
     libvdpau-va-gl
   ];
-  hardware.opengl.extraPackages32 = with pkgs; [
-    driversi686Linux.amdvlk
-  ];
-  hardware.opengl = {
-    driSupport = lib.mkDefault true;
-    driSupport32Bit = lib.mkDefault true;
-  };
-  environment.variables.AMD_VULKAN_ICD = lib.mkDefault "RADV";
 
   # Latest Kernel
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
+  # energy savings
   hardware.bluetooth.powerOnBoot = lib.mkDefault false;
   services.power-profiles-daemon.enable = false;
   services.tlp.enable = lib.mkDefault true;
-  # automatic screen orientation, only works in X11
-  hardware.sensor.iio.enable = true;
-  # energy savings
   boot.kernelParams = ["mem_sleep_default=deep" "pcie_aspm.policy=powersupersave"];
   powerManagement.enable = lib.mkDefault true;
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
