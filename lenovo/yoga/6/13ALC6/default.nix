@@ -16,6 +16,5 @@
   boot.kernelPackages =  lib.mkIf (lib.versionOlder pkgs.linux.version "5.16") pkgs.linuxPackages_latest;
 
   # energy savings
-  hardware.bluetooth.powerOnBoot = lib.mkDefault false;
   boot.kernelParams = ["mem_sleep_default=deep" "pcie_aspm.policy=powersupersave"];
 }
