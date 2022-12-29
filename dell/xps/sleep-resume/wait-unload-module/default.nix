@@ -10,7 +10,7 @@ writeShellApplication {
     unload_module() {
       local module="$1"
 
-      if modprobe -r "${module}" 2>&1; then
+      if modprobe -r "$module" 2>&1; then
         echo ok
       else
         echo fail
@@ -24,8 +24,8 @@ writeShellApplication {
 
       # TODO: Change to a timeout, rather than a "sleep"?
       while sleep 1; do
-        output="$(unload_module "${module}")"
-        case "${output}" in
+        output="$(unload_module "$module")"
+        case "$output" in
           *is\ in\ use*)
             :noop
             ;;
@@ -34,7 +34,7 @@ writeShellApplication {
             ;;
           *)
             echo "'modprobe':
-            echo "${output}"
+            echo "$output"
             echo "(Exiting)"
             return 1
             ;;
