@@ -12,8 +12,7 @@
     libvdpau-va-gl
   ];
 
-  # Latest Kernel
-  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+  boot.kernelPackages =  lib.mkIf (lib.versionOlder pkgs.linux.version "6.1") pkgs.linuxPackages_latest;
 
   # energy savings
   hardware.bluetooth.powerOnBoot = lib.mkDefault false;
