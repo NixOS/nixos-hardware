@@ -33,7 +33,7 @@ writeShellApplication {
             return 0
             ;;
           *)
-            echo "'modprobe':
+            echo "modprobe output:"
             echo "$output"
             echo "(Exiting)"
             return 1
