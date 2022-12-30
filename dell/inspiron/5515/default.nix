@@ -4,7 +4,7 @@ let
   waitUnloadModule = pkgs.callPackage ../../../common/utilities/sleep-resume/wait-unload-module { };
 
   fix-touchpad = pkgs.writeShellApplication {
-    name = "fix-touchpad";
+    name = "fix-touchpad.sh";
     runtimeInputs = [
       pkgs.kmod
       waitUnloadModule
@@ -30,7 +30,7 @@ in {
   # it sometimes fails to register (ps2 mouse emulation works, but not scrolling)
   # hack around it by unloading and reloading module i2c_hid
   systemd.services.fix-touchpad = {
-    serviceConfig.ExecStart = ''${pkgs.systemd}/bin/systemd-inhibit --what=sleep --why="fixing touchpad must finish before sleep" --mode=delay ${fix-touchpad}'';
+    serviceConfig.ExecStart = ''${pkgs.systemd}/bin/systemd-inhibit --what=sleep --why="fixing touchpad must finish before sleep" --mode=delay ${fix-touchpad}/bin/fix-touchpad.sh'';
     serviceConfig.Type = "oneshot";
     description = "reload touchpad driver";
     # must run at boot (and not too early), and after suspend
