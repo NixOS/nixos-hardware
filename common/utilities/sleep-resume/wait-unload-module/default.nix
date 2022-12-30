@@ -11,6 +11,9 @@ writeShellApplication {
     kmod
   ];
   text = ''
+    # NOTE: If using "systemd-inhibit", please use "--mode=delay" to minimise the risk of sleep
+    #       being completely blocked.
+
     unload_module() {
       local module="$1"
 
@@ -21,8 +24,6 @@ writeShellApplication {
       fi
     }
 
-    # NOTE: If using "systemd-inhibit", please use "--mode=delay" to minimise the risk of sleep
-    #       being completely blocked.
     main() {
       local module="$1"
 
