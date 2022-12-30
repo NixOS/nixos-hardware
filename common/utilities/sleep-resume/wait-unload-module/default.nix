@@ -11,8 +11,15 @@ writeShellApplication {
     kmod
   ];
   text = ''
+    # This script attempts to unload a kernel module, waiting for it to no longer be in-use by
+    # other modules.
+    # It does so by trying to "modprobe -r" the module once every second until the command
+    # no longer fails with a "is in use" message.
+    #
     # NOTE: If using "systemd-inhibit", please use "--mode=delay" to minimise the risk of sleep
     #       being completely blocked.
+    #       The setting causes "systemd-inhibit" to place a time-out on the completion of the
+    #       script, and will cancel the inhibit it if the script exceeds the time-out.
 
     unload_module() {
       local module="$1"
