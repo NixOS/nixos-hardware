@@ -1,11 +1,15 @@
-{ kmod,
+{ coreutils,
+  kmod,
   writeShellApplication,
   ...
 }:
 
 writeShellApplication {
   name = "wait-unload-module";
-  runtimeInputs = [ kmod ];
+  runtimeInputs = [
+    coreutils
+    kmod
+  ];
   text = ''
     unload_module() {
       local module="$1"
