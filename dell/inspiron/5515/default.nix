@@ -1,5 +1,9 @@
 { lib, pkgs, ... }:
-{
+
+let
+    waitUnloadModule = pkgs.callPackage ../../../common/utilities/sleep-resume/wait-unload-module { };
+
+in {
   imports = [
     ../../../common/pc/laptop
     ../../../common/pc/ssd
@@ -11,7 +15,11 @@
   # it sometimes fails to register (ps2 mouse emulation works, but not scrolling)
   # hack around it by unloading and reloading module i2c_hid
   systemd.services.fix-touchpad = {
-    path = [ pkgs.kmod ];
+    path = [
+      pkgs.bash
+      pkgs.kmod
+      waitUnloadModule
+    ];
     serviceConfig.ExecStart = ''${pkgs.systemd}/bin/systemd-inhibit --what=sleep --why="fixing touchpad must finish before sleep" --mode=delay  ${./fix_touchpad.sh}'';
     serviceConfig.Type = "oneshot";
     description = "reload touchpad driver";
