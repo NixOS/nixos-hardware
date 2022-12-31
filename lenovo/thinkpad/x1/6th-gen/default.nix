@@ -5,7 +5,7 @@
 #
 # Enable the lower-power S3 suspend state by upgrading the BIOS to version >= 1.30,
 # then manually selecting Linux in the power management section.
-{ config, pkgs, lib, ... }:
+{ lib, ... }:
 {
   imports = [
     ../.

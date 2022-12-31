@@ -1,8 +1,8 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, ... }:
 
 let
 
-  kernelPackages = config.boot.kernelPackages;
+  inherit (config.boot) kernelPackages;
 
 in
 

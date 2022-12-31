@@ -1,7 +1,7 @@
 {
   description = "nixos-hardware";
 
-  outputs = { self }: {
+  outputs = _: {
     nixosModules = {
       acer-aspire-4810t = import ./acer/aspire/4810t;
       airis-n990 = import ./airis/n990;

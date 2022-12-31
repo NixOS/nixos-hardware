@@ -22,7 +22,7 @@ let
 in
 stdenv.mkDerivation rec {
   name = "hid-multitouch-onenetbook4-${version}";
-  version = kernel.version;
+  inherit (kernel) version;
 
   hardeningDisable = [ "pic" "format" ];
   nativeBuildInputs = kernel.moduleBuildDependencies;

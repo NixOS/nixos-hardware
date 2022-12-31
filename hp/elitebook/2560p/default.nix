@@ -1,8 +1,5 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 with lib;
-let
-  xcfg = config.services.xserver;
-in
 {
   imports = [
     ../../../common/cpu/intel

@@ -1,4 +1,3 @@
-{ lib, ... }:
 {
   imports = [
     ../../../common/cpu/intel
@@ -25,8 +24,8 @@
   # The 48.ucode causes the Killer wifi card to crash.
   # The iwlfwifi-cc-a0-46.ucode works perfectly
   nixpkgs.overlays = [
-    (self: super: {
-      firmwareLinuxNonfree = super.firmwareLinuxNonfree.overrideAttrs (old: {
+    (_self: super: {
+      firmwareLinuxNonfree = super.firmwareLinuxNonfree.overrideAttrs (_old: {
         src = super.fetchgit {
           url =
             "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git";

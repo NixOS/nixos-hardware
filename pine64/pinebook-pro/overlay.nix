@@ -1,4 +1,4 @@
-final: super:
+final: _super:
 
 let
   inherit (final) callPackage;

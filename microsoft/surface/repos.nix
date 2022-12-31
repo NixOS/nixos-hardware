@@ -1,4 +1,4 @@
-{ fetchFromGitHub, fetchurl }:
+{ fetchFromGitHub }:
 
 {
   linux-surface = fetchFromGitHub {

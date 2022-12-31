@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 let
   cfg = config.hardware.raspberry-pi."4";
@@ -57,7 +57,7 @@ in
         overlays = [ (simple-overlay {
           target = "i2c0if";
           status = "okay";
-          frequency = cfg.i2c0.frequency;
+          inherit (cfg.i2c0) frequency;
         }) ];
       };
     })
@@ -67,7 +67,7 @@ in
         overlays = [ (simple-overlay {
           target = "i2c1";
           status = "okay";
-          frequency = cfg.i2c1.frequency;
+          inherit (cfg.i2c1) frequency;
         }) ];
       };
     })

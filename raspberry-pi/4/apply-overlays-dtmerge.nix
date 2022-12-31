@@ -1,6 +1,6 @@
 # modification of nixpkgs deviceTree.applyOverlays to resolve https://github.com/NixOS/nixpkgs/issues/125354
 # derived from https://github.com/NixOS/nixpkgs/blob/916ca8f2b0c208def051f8ea9760c534a40309db/pkgs/os-specific/linux/device-tree/default.nix
-{ lib, pkgs, stdenvNoCC, dtc, libraspberrypi }:
+{ lib, stdenvNoCC, dtc, libraspberrypi }:
 
 with lib; (base: overlays': stdenvNoCC.mkDerivation {
   name = "device-tree-overlays";

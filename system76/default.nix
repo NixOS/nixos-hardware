@@ -2,7 +2,7 @@
 #
 # https://system76.com/
 
-{ config, lib, ... }:
+{ lib, ... }:
 {
   imports = [ ../common/pc ];
 

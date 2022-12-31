@@ -1,4 +1,4 @@
-final: prev: {
+final: _prev: {
   linux_5_15_helios4 = final.linux_5_15.override {
     kernelPatches = [
       # A patch to get both PWM fans working

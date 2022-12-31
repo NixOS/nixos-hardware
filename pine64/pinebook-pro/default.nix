@@ -1,5 +1,5 @@
 # This configuration file can be safely imported in your system configuration.
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 
 {
   nixpkgs.overlays = [

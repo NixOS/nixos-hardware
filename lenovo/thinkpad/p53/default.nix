@@ -1,4 +1,4 @@
-{ nixos, pkgs, lib, config, stdenv, ... }:
+{ lib, ... }:
 {
   imports = [
     ../../../common/cpu/intel

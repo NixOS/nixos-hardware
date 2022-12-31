@@ -1,12 +1,11 @@
 { lib,
   buildLinux,
   callPackage,
-  fetchurl,
   linuxPackagesFor,
 }:
 
 let
-  inherit (lib) kernel recurseIntoAttrs;
+  inherit (lib) recurseIntoAttrs;
 
 in {
   repos = callPackage ../repos.nix {};
