@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, ... }:
 
 {
   # This runs only intel/amdgpu igpus and nvidia dgpus do not drain power.

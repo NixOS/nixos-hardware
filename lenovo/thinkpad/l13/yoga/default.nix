@@ -1,4 +1,4 @@
-{ nixos, lib, pkgs, config, stdenv, ... }:
+{ lib, config, ... }:
 {
   imports = [
     ../.

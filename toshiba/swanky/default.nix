@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 
 let
   ucm = pkgs.fetchzip {
@@ -20,7 +20,7 @@ in
   system.replaceRuntimeDependencies = [{
     original = pkgs.alsa-lib;
 
-    replacement = pkgs.alsa-lib.overrideAttrs (super: {
+    replacement = pkgs.alsa-lib.overrideAttrs (_super: {
       postFixup = "cp -r ${ucm}/chtmax98090 $out/share/alsa/ucm";
     });
   }];

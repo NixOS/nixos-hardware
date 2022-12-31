@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, ... }:
 {
   hardware.nvidia.modesetting.enable = true;
   hardware.opengl.driSupport32Bit = true;

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ...}:
+{ pkgs, ...}:
 
 let
   # This file was obtained from the display while "DDG" mode was enabled.

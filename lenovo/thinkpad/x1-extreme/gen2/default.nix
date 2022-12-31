@@ -19,7 +19,7 @@ with lib;
   hardware.bumblebee.connectDisplay = true;
 
   nixpkgs.overlays = [
-    (self: super: {
+    (_self: super: {
       bumblebee = super.bumblebee.override {
         extraNvidiaDeviceOptions = ''
           Option "AllowEmptyInitialConfiguration"

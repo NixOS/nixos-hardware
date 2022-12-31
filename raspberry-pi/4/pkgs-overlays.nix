@@ -1,9 +1,9 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{ config, lib, ... }:
 let
   cfg = config.hardware.raspberry-pi."4".apply-overlays-dtmerge;
-  dt_ao_overlay = (final: prev: {
-    deviceTree.applyOverlays = (prev.callPackage ./apply-overlays-dtmerge.nix { });
-  });
+  dt_ao_overlay = _final: prev: {
+    deviceTree.applyOverlays = prev.callPackage ./apply-overlays-dtmerge.nix { };
+  };
 in {
   options.hardware = {
     raspberry-pi."4".apply-overlays-dtmerge = {

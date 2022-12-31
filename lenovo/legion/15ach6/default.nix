@@ -1,5 +1,6 @@
 { lib, config, ... }:
-let kernelPackages = config.boot.kernelPackages;
+let
+  inherit (config.boot) kernelPackages;
 in {
   imports = [
     ../../../common/cpu/amd

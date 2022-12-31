@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ../../common/cpu/intel
