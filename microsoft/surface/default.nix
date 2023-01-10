@@ -5,8 +5,8 @@ let
 
 in {
   imports = [
-    ./kernel
-    ./firmware/surface-go/ath10k
+    ./common
+    ./surface-go/firmware/ath10k
   ];
 
   microsoft-surface.kernelVersion = mkDefault "6.0.11";

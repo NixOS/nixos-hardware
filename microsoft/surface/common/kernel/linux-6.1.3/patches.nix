@@ -111,8 +111,12 @@
     name = "ms-surface/0009-cameras";
     patch = patchDir + "/0009-cameras.patch";
   }
-  # {
-  #   name = "ms-surface/0010-amd-gpio";
-  #   patch = patchDir + "/0010-amd-gpio.patch";
-  # }
+  {
+    name = "ms-surface/0010-amd-gpio";
+    patch = patchDir + "/0010-amd-gpio.patch";
+  }
+  {
+    name = "ms-surface/0011-rtc";
+    patch = patchDir + "/0011-rtc.patch";
+  }
 ]
