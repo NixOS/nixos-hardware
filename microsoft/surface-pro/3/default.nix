@@ -1,3 +1,3 @@
 {
-  imports = [ ../../surface ];
+  imports = [ ../../surface/surface-pro-intel ];
 }
