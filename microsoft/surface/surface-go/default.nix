@@ -1,5 +1,9 @@
 { lib, ... }:
 
+# This module is intended to support the Surface Go range of devices.
+# The current version of this targets the Go 1, and other versions of the device may need further
+# config changes to work well.
+
 let
   inherit (lib) mkDefault;
 in {
@@ -8,6 +12,7 @@ in {
     ./firmware/ath10k
     ../../../common/pc
     ../../../common/pc/ssd
+    # The Intel CPU module auto-includes Intel's GPU:
     ../../../common/cpu/intel
     ../../../common/cpu/intel/kaby-lake
   ];
