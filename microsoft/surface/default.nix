@@ -25,11 +25,5 @@ in {
     pkgs.surface-control
   ];
 
-  systemd.services.iptsd = {
-    description = "IPTSD";
-    script = "${pkgs.iptsd}/bin/iptsd";
-    wantedBy = [
-      "multi-user.target"
-    ];
-  };
+  microsoft-surface.ipts.enable = true;
 }
