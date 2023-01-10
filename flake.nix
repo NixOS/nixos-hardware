@@ -130,7 +130,10 @@
       lenovo-thinkpad-z13 = import ./lenovo/thinkpad/z/z13;
       lenovo-yoga-6-13ALC6 = import ./lenovo/yoga/6/13ALC6;
       letsnote-cf-lx4 = import ./panasonic/letsnote/cf-lx4;
-      microsoft-surface = import ./microsoft/surface;
+      microsoft-surface-go = import ./microsoft/surface/surface-go;
+      microsoft-surface-pro-intel = import ./microsoft/surface/surface-pro-intel;
+      microsoft-surface-laptop-amd = import ./microsoft/surface/surface-laptop-amd;
+      microsoft-surface-common = import ./microsoft/surface/common;
       microsoft-surface-pro-3 = import ./microsoft/surface-pro/3;
       msi-gs60 = import ./msi/gs60;
       msi-gl62 = import ./msi/gl62;

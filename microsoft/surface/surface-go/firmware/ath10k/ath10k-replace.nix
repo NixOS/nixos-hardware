@@ -1,7 +1,7 @@
 { stdenv, lib, pkgs, firmwareLinuxNonfree, ... }:
 
 let
-  repos = pkgs.callPackage ../../../repos.nix {};
+  repos = pkgs.callPackage ../../../common/repos.nix {};
   killernetworking_firmware = repos.surface-go-ath10k-firmware_backup + "/K1535_Debian";
 
 in stdenv.mkDerivation {
