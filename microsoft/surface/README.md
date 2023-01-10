@@ -1,3 +1,8 @@
+# NOTE: Structure changes from 2023-01-10
+
+Please read the [Old Behaviour README](./old/README.md) to understand how some structural changes to
+the code might affect you!
+
 # Derivatives for Microsoft Surface notebooks
 
 These derivatives use the patches from the [linux-surface repo](https://github.com/linux-surface/linux-surface/tree/master/patches).
