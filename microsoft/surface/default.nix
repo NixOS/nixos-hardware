@@ -17,13 +17,6 @@ in {
     options iwldvm force_cam=N
   '';
 
-  environment.systemPackages = [
-    pkgs.surface-control
-  ];
-  users.groups.surface-control = { };
-  services.udev.packages = [
-    pkgs.surface-control
-  ];
-
+  microsoft-surface.surface-control.enable = true;
   microsoft-surface.ipts.enable = true;
 }
