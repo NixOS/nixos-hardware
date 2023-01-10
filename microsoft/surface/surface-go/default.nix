@@ -1,7 +1,7 @@
-{ config, lib, pkgs, ... }:
+{ lib, ... }:
 
 let
-  inherit (lib) mkDefault mkEnableOption mkIf mkMerge;
+  inherit (lib) mkDefault;
 in {
   imports = [
     ../common
