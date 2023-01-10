@@ -11,6 +11,16 @@ models, and they would fail gracefully enough that we could mostly ignore warnin
 Now, however --- as-of 2023-01-10 --- we have a much wider variety of chipsets, incl. models with
 some of the newer AMD CPUs, and this is breaking small things in annoying ways for more people.
 
+## How to update
+
+By preference, there will already be a specialised module for your model's configuration.
+
+If not, the `microsoft/surface/common/` module can also be imported directly, and the options
+provided can be used in your own system's configuration.
+
+Alternatively, you can create a new specialisation for your model under `microsoft/surface`
+configured for that model.
+
 ## Changes
 
 ### Model Specialisations

@@ -1,13 +1,28 @@
 # NOTE: Structure changes from 2023-01-10
 
-Please read the [Deprecated Behaviour README](./deprecated/README.md) to understand how some structural changes to
+Please read the [Deprecated Behaviour README](./OLD-BEHAVIOUR-DEPRECATED.md) to understand how some structural changes to
 the code might affect you!
 
-# Derivatives for Microsoft Surface notebooks
+# Derivations for Microsoft Surface notebooks
 
 These derivatives use the patches from the [linux-surface repo](https://github.com/linux-surface/linux-surface/tree/master/patches).
 
-## Kernel
+## Importing
+
+By preference, there will already be a specialised module for your model's configuration.
+
+If not, the `microsoft/surface/common/` module can also be imported directly, and the options
+provided can be used in your own system's configuration.
+
+Alternatively, you can create a new specialisation for your model under `microsoft/surface`
+configured for that model.
+
+## Common Modules
+
+Most shared / common modules are under the [`common/`](./common/) directory.
+This includes the patched kernel build modules, as well as tools and service like `IPTSd` and `surface-control`.
+
+### Kernel
 
 The kernel needs several patches to make it work correctly with some of the hardware on various
 Surface models, e.g. keyboard/trackpad, camera, wifi.
@@ -16,20 +31,18 @@ Not all hardware is fully supported, but the
 [linux-surface feature matrix](https://github.com/linux-surface/linux-surface/wiki/Supported-Devices-and-Features#feature-matrix)
 provides details on which devices are supported on which types of machine.
 
-The kernel-specific derivations are under the `kernel/` sub-directory.
+The kernel-specific derivations are under the [`common/kernel/`](./common/kernel/) sub-directory.
 In order to simplify maintenance of the Nix code, only the most-recent kernel patch-set is expected
 to be maintained in this repo.
 
 _*NOTE:*_ Some built-in Kernel config items need to be set, that aren't set by default:
 - https://github.com/linux-surface/surface-aggregator-module/wiki/Testing-and-Installing
 
-## Firmware, Drivers and Support Tools
-
-### WiFi
-
-For the Surface Go, please see the "Issues" sections below.
+### Support Tools
 
 ### IPTS
+
+Enable this with the `microsoft-surface.ipts.enable = true;` config option.
 
 IPTS is used on most of the Surface range, except for Surface Go and Surface Laptop 3 (AMD version).
 
@@ -49,9 +62,20 @@ kernel-space driver into events for the HID / input sub-system.
 
 #### surface-control
 
+Enable this with the `config.microsoft-surface.surface-control.enable = true;` config option.
+
 For controlling the performance modes and other aspects of the device, the [`surface-control`](https://github.com/linux-surface/surface-control) tool is included.
 
 To be able to control the performance mode without using `sudo`, add your user to the `surface-control` group.
+
+## Firmware and Drivers
+
+### WiFi on Surface Go
+
+For the Surface Go, please see the "Issues" sections below.
+
+Including the [`microsoft/surface/surface-go/firmware/ath-10k/`](./surface-go/firmware/ath-10k/)
+module will replace the default firmware with the updated firmware.
 
 # ToDo's Not Done
 
@@ -73,8 +97,8 @@ You will see messages like "Can't ping firmware".
 The most effective fix to-date is to remove the `board-2.bin` file or replace it with a copy of the
 `board.bin` file.
 
-The derivative in `firmware/surface-go/ath10k/` can configure this, if you set the option
-`config.hardware.microsoft-surface.firmware.surface-go-ath10k.replace` to `true`.
+The derivative in `surface-go/firmware/ath10k/` can configure this, with the
+`config.hardware.microsoft-surface.firmware.surface-go-ath10k.replace = true` config option.
 
 _*NOTE:*_ This is destructive, as it deletes all the `board.bin` and `board-2.bin` files for the
 `ath10k` QCA6174 device, and replaces them with KillerNetworking's version.
