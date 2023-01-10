@@ -1,10 +1,12 @@
-{ lib, pkgs, ... }:
+{ lib, ... }:
 
 let
-  inherit (lib) mkDefault;
+  inherit (lib) warn;
 
 in {
   imports = [
-    ./old
+    ( warn
+      "Please don't import microsoft/surface/ (default.nix) any longer; use microsoft/surface/old or see microsoft/surface/old/README.md for more details."
+      ./old )
   ];
 }
