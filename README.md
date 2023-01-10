@@ -195,6 +195,7 @@ See code for all available configurations.
 | [MSI GL62/CX62](msi/gl62)                                           | `<nixos-hardware/msi/gl62>`                        |
 | [Microsoft Surface Go](microsoft/surface/surface-go)                | `<nixos-hardware/microsoft/surface/surface-go>`    |
 | [Microsoft Surface Pro (Intel)](microsoft/surface/surface-pro-intel)| `<nixos-hardware/microsoft/surface/surface-pro-intel>`|
+| [Microsoft Surface Laptop (AMD)](microsoft/surface/surface-laptop-amd)| `<nixos-hardware/microsoft/surface/surface-laptop-amd>`|
 | [Microsoft Surface Range (Common Modules)](microsoft/surface/common)| `<nixos-hardware/microsoft/surface/common>`        |
 | [Microsoft Surface Pro 3](microsoft/surface-pro/3)                  | `<nixos-hardware/microsoft/surface-pro/3>`         |
 | [Omen en00015p](omen/en00015p)                                      | `<nixos-hardware/omen/en00015p>`                   |
