@@ -6,7 +6,7 @@ let
 in {
   imports = [
     ( warn
-      "Please don't import microsoft/surface/ (default.nix) any longer; use microsoft/surface/old or see microsoft/surface/old/README.md for more details."
+      "Please do not import microsoft/surface/ (default.nix) directly; use microsoft/surface/old or see microsoft/surface/old/README.md for more details."
       ./old )
   ];
 }
