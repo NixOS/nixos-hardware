@@ -10,6 +10,7 @@ These derivatives use the patches from the [linux-surface repo](https://github.c
 ## Importing
 
 By preference, there will already be a specialised module for your model's configuration.
+e.g. The `microsoft/surface/surface-go` module configures for the Surface Go.
 
 If not, the `microsoft/surface/common/` module can also be imported directly, and the options
 provided can be used in your own system's configuration.
