@@ -33,12 +33,12 @@ Tools / services that are shared among several models are now extracted to their
 `common/` and imported by `common/default.nix`.
 These new "common" modules now have an `enable` option, which is `false` by default.
 
-### "Old Behaviour" module
+### "Deprecated Behaviour" module
 
-The original `./default.nix` module has been replaced by a new `old/` module, which replicates the
+The original `./default.nix` module has been replaced by a new `deprecated/` module, which replicates the
 original behaviour.
 
-The new `./default.nix` will load the new `old/` module, but will also pop-up a warning asking users
+The new `./default.nix` will load the new `deprecated/` module, but will also pop-up a warning asking users
 to update how they use the microsoft/surface profile from now on.
 This warning will probably change to a fail assertion at some point in the future.
 

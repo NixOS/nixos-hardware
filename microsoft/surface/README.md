@@ -1,6 +1,6 @@
 # NOTE: Structure changes from 2023-01-10
 
-Please read the [Old Behaviour README](./old/README.md) to understand how some structural changes to
+Please read the [Deprecated Behaviour README](./deprecated/README.md) to understand how some structural changes to
 the code might affect you!
 
 # Derivatives for Microsoft Surface notebooks
