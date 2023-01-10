@@ -34,6 +34,8 @@ def build_profile(
     system = "x86_64-linux"
     if "raspberry-pi/2" in profile:
         system = "armv7l-linux"
+    if "raspberry-pi/4" in profile:
+        system = "aarch64-linux"
 
     cmd = [
         "nix",
