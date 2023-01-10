@@ -42,14 +42,18 @@
 * Support Tools
 ** TODO Incorporate @hpfr's function(s) from this commit:
    - https://github.com/hpfr/system/commit/03fa1b0a83f8a336e812910d0d50f5247a8a630c
-** TODO Create derivative for `iptsd` touch-screen daemon
-   - [ ] Download
-   - [ ] Install binary
-   - [ ] Enable via systemd
+   - @hpfr's repo forked for posterity, as he no longer has a Surface:
+     https://github.com/mexisme/hpfr-nix-linux-surface-system/commit/03fa1b0a83f8a336e812910d0d50f5247a8a630c
+** DONE Create derivative for `iptsd` touch-screen daemon
+- State "DONE"       from "TODO"       [2023-01-11 Wed 12:09]
+   - [X] Download
+   - [X] Install binary
+   - [X] Enable via systemd
 ** TODO Create derivative to patch and rebuild libwacom
    - github.com/linux-surface/libwacom-surface
    - The plan is to do this in a separate PR against `nixpkgs` instead of `nixos-hardware`
-** TODO Create derivative to install `surface-control`
+** DONE Create derivative to install `surface-control`
+- State "DONE"       from "TODO"       [2023-01-11 Wed 12:05]
    - Download github.com/linux-surface/surface-control
 ** TODO Create derivative to install `surface-dtx-daemon`
    - Download github.com/linux-surface/surface-dtx-daemon
