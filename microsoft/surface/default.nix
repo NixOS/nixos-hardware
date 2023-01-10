@@ -19,6 +19,7 @@ in {
     options iwldvm force_cam=N
   '';
 
+  # Seems to be required to properly enable S0ix "Modern Standby":
   boot.kernelParams = [ "mem_sleep_default=deep" ];
 
   # NOTE: Check the README before enabling TLP:
