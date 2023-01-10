@@ -9,7 +9,7 @@ in {
     ./firmware/surface-go/ath10k
   ];
 
-  microsoft-surface.kernelVersion = mkDefault "6.0.11";
+  microsoft-surface.kernelVersion = mkDefault "6.0.17";
 
   boot.extraModprobeConfig = mkDefault ''
     options i915 enable_fbc=1 enable_rc6=1 modeset=1
