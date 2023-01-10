@@ -11,6 +11,16 @@ models, and they would fail gracefully enough that we could mostly ignore warnin
 Now, however --- as-of 2023-01-10 --- we have a much wider variety of chipsets, incl. models with
 some of the newer AMD CPUs, and this is breaking small things in annoying ways for more people.
 
+## How to update
+
+By preference, there will already be a specialised module for your model's configuration.
+
+If not, the `microsoft/surface/common/` module can also be imported directly, and the options
+provided can be used in your own system's configuration.
+
+Alternatively, you can create a new specialisation for your model under `microsoft/surface`
+configured for that model.
+
 ## Changes
 
 ### Model Specialisations
@@ -33,12 +43,12 @@ Tools / services that are shared among several models are now extracted to their
 `common/` and imported by `common/default.nix`.
 These new "common" modules now have an `enable` option, which is `false` by default.
 
-### "Old Behaviour" module
+### "Deprecated Behaviour" module
 
-The original `./default.nix` module has been replaced by a new `old/` module, which replicates the
+The original `./default.nix` module has been replaced by a new `deprecated/` module, which replicates the
 original behaviour.
 
-The new `./default.nix` will load the new `old/` module, but will also pop-up a warning asking users
+The new `./default.nix` will load the new `deprecated/` module, but will also pop-up a warning asking users
 to update how they use the microsoft/surface profile from now on.
 This warning will probably change to a fail assertion at some point in the future.
 
