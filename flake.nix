@@ -131,7 +131,6 @@
       lenovo-yoga-6-13ALC6 = import ./lenovo/yoga/6/13ALC6;
       letsnote-cf-lx4 = import ./panasonic/letsnote/cf-lx4;
       microsoft-surface = import ./microsoft/surface;
-      microsoft-surface-deprecated = import ./microsoft/surface/deprecated;
       microsoft-surface-pro-3 = import ./microsoft/surface-pro/3;
       msi-gs60 = import ./msi/gs60;
       msi-gl62 = import ./msi/gl62;
