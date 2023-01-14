@@ -210,7 +210,7 @@ See code for all available configurations.
 | [Samsung Series 9 NP900X3C](samsung/np900x3c)                       | `<nixos-hardware/samsung/np900x3c>`                |
 | [StarFive VisionFive v1](starfive/visionfive/v1)                    | `<nixos-hardware/starfive/visionfive/v1>`          |
 | [Supermicro A1SRi-2758F](supermicro/a1sri-2758f)                    | `<nixos-hardware/supermicro/a1sri-2758f>`          |
-| [Supermicro M11SDV-8C-LN4F](supermicro/m11sdv-8c-ln4f)              | `<nixes-hardware/supermicro/m11sdv-8c-ln4f>`       |
+| [Supermicro M11SDV-8C-LN4F](supermicro/m11sdv-8c-ln4f)              | `<nixos-hardware/supermicro/m11sdv-8c-ln4f>`       |
 | [Supermicro X10SLL-F](supermicro/x10sll-f)                          | `<nixos-hardware/supermicro/x10sll-f>`             |
 | [Supermicro X12SCZ-TLN4F](supermicro/x12scz-tln4f)                  | `<nixos-hardware/supermicro/x12scz-tln4f>`         |
 | [System76 (generic)](system76)                                      | `<nixos-hardware/system76>`                        |
