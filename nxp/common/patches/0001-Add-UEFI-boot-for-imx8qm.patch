@@ -1,0 +1,83 @@
+From c2535837ee018bb6336f7043394072aaadcace34 Mon Sep 17 00:00:00 2001
+From: Panu Finnila <panu.finnila@unikie.com>
+Date: Mon, 12 Sep 2022 16:33:16 +0300
+Subject: [PATCH] Add UEFI boot for imx8qm
+
+Signed-off-by: Panu Finnila <panu.finnila@unikie.com>
+---
+ configs/imx8qm_mek_defconfig |  9 ++++++++-
+ include/configs/imx8qm_mek.h | 20 +++++++++++++++++++-
+ 2 files changed, 27 insertions(+), 2 deletions(-)
+
+diff --git a/configs/imx8qm_mek_defconfig b/configs/imx8qm_mek_defconfig
+index 29e9d796a6..1ed6eeee57 100644
+--- a/configs/imx8qm_mek_defconfig
++++ b/configs/imx8qm_mek_defconfig
+@@ -31,7 +31,7 @@ CONFIG_PANIC_HANG=y
+ CONFIG_OF_SYSTEM_SETUP=y
+ CONFIG_BOOTDELAY=3
+ CONFIG_USE_BOOTCOMMAND=y
+-CONFIG_BOOTCOMMAND="mmc dev ${mmcdev}; if mmc rescan; then if run loadbootscript; then run bootscript; else if test ${sec_boot} = yes; then if run loadcntr; then run mmcboot; else run netboot; fi; else if run loadimage; then run mmcboot; else run netboot; fi; fi; fi; else booti ${loadaddr} - ${fdt_addr}; fi"
++CONFIG_BOOTCOMMAND="run loadhdp; hdp load ${hdp_addr}; run distro_bootcmd;"
+ CONFIG_LOG=y
+ CONFIG_BOARD_EARLY_INIT_F=y
+ CONFIG_SPL_BOARD_INIT=y
+@@ -196,3 +196,10 @@ CONFIG_SYS_WHITE_ON_BLACK=y
+ CONFIG_SPLASH_SCREEN=y
+ CONFIG_SPLASH_SCREEN_ALIGN=y
+ CONFIG_CMD_BMP=y
++CONFIG_DISTRO_DEFAULTS=y
++CONFIG_CMD_BOOTEFI_SELFTEST=y
++CONFIG_CMD_BOOTEFI=y
++CONFIG_EFI_LOADER=y
++CONFIG_BLK=y
++CONFIG_PARTITIONS=y
++CONFIG_DM_DEVICE_REMOVE=n
+diff --git a/include/configs/imx8qm_mek.h b/include/configs/imx8qm_mek.h
+index ed5c179fc7..ab5b58ec32 100644
+--- a/include/configs/imx8qm_mek.h
++++ b/include/configs/imx8qm_mek.h
+@@ -138,6 +138,22 @@
+ 	"m4boot_0=run loadm4image_0; dcache flush; bootaux ${loadaddr} 0\0" \
+ 	"m4boot_1=run loadm4image_1; dcache flush; bootaux ${loadaddr} 1\0" \
+ 
++#ifdef CONFIG_DISTRO_DEFAULTS
++#define BOOT_TARGET_DEVICES(func) \
++       func(MMC, mmc, 1) \
++       func(MMC, mmc, 0)
++
++#include <config_distro_bootcmd.h>
++#else
++#define BOOTENV
++#endif
++
++#define MEM_LAYOUT_ENV_SETTINGS \
++       "fdt_addr_r=0x83000000\0" \
++       "kernel_addr_r=0x80200000\0" \
++       "ramdisk_addr_r=0x83100000\0" \
++       "scriptaddr=0x83200000\0" \
++
+ #ifdef CONFIG_NAND_BOOT
+ #define MFG_NAND_PARTITION "mtdparts=gpmi-nand:128m(boot),32m(kernel),16m(dtb),8m(misc),-(rootfs) "
+ #else
+@@ -166,6 +182,8 @@
+ /* Initial environment variables */
+ #define CONFIG_EXTRA_ENV_SETTINGS		\
+ 	CONFIG_MFG_ENV_SETTINGS \
++	MEM_LAYOUT_ENV_SETTINGS \
++	BOOTENV \
+ 	M4_BOOT_ENV \
+ 	XEN_BOOT_ENV \
+ 	JAILHOUSE_ENV\
+@@ -179,7 +197,7 @@
+ 	"cntr_addr=0x98000000\0"			\
+ 	"cntr_file=os_cntr_signed.bin\0" \
+ 	"boot_fdt=try\0" \
+-	FDT_FILE \
++	"fdtfile=imx8qm-mek-hdmi.dtb\0" \
+ 	"mmcdev="__stringify(CONFIG_SYS_MMC_ENV_DEV)"\0" \
+ 	"mmcpart=1\0" \
+ 	"mmcroot=" CONFIG_MMCROOT " rootwait rw\0" \
+-- 
+2.25.1
+
