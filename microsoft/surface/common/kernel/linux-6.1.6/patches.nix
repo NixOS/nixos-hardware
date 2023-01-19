@@ -8,6 +8,8 @@
     name = "microsoft-surface-patches-linux-${version}";
     patch = null;
     structuredExtraConfig = with kernel; {
+      STREAMING_MEDIA = yes;
+
       #
       # Surface Aggregator Module
       #
