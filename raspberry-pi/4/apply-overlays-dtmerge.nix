@@ -24,26 +24,24 @@ with lib; (base: overlays': stdenvNoCC.mkDerivation {
       # skip incompatible and non-matching overlays
       if [[ ! "$dtbCompat" =~ "$overlayCompat" ]]; then
         echo "Skipping overlay ${o.name}: incompatible with $(basename "$dtb")"
-        continue
-      fi
-      ${optionalString ((o.filter or null) != null) ''
-      if [[ "''${dtb//${o.filter}/}" ==  "$dtb" ]]; then
-        echo "Skipping overlay ${o.name}: filter does not match $(basename "$dtb")"
-        continue
-      fi
+      elif ${if ((o.filter or null) == null) then "false" else ''
+        [[ "''${dtb//${o.filter}/}" ==  "$dtb" ]]
       ''}
+      then
+        echo "Skipping overlay ${o.name}: filter does not match $(basename "$dtb")"
+      else
+        echo -n "Applying overlay ${o.name} to $(basename "$dtb")... "
+        mv "$dtb"{,.in}
 
-      echo -n "Applying overlay ${o.name} to $(basename "$dtb")... "
-      mv "$dtb"{,.in}
+        # dtmerge requires a .dtbo ext for dtbo files, otherwise it adds it to the given file implicitly
+        dtboWithExt="$TMPDIR/$(basename "${o.dtboFile}").dtbo"
+        cp -r ${o.dtboFile} "$dtboWithExt"
 
-      # dtmerge requires a .dtbo ext for dtbo files, otherwise it adds it to the given file implicitly
-      dtboWithExt="$TMPDIR/$(basename "${o.dtboFile}").dtbo"
-      cp -r ${o.dtboFile} "$dtboWithExt"
+        dtmerge "$dtb.in" "$dtb" "$dtboWithExt"
 
-      dtmerge "$dtb.in" "$dtb" "$dtboWithExt"
-
-      echo "ok"
-      rm "$dtb.in" "$dtboWithExt"
+        echo "ok"
+        rm "$dtb.in" "$dtboWithExt"
+      fi
       '')}
 
     done'';
