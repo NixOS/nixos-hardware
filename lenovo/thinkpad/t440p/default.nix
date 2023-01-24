@@ -7,7 +7,7 @@
   ];
 
   boot = {
-    extraModprobeConfig = lib.mkDefault ''
+    extraModprobeConfig = ''
       options bbswitch use_acpi_to_detect_card_state=1
       options thinkpad_acpi force_load=1 fan_control=1
     '';
