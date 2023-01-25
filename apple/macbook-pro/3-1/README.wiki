@@ -1,0 +1,5 @@
+= Apple MacBook Pro 3,1 =
+
+This laptop is a weird one. It has an nVidia 8600M GT, which is supported in driver 340, which is (at the moment) marked as broken because OpenGL is broken with it. Nouveau doesn't work either, as it fails to pull the firmware from the GPU to turn it on.
+
+That said, the rest of it all just... works.
