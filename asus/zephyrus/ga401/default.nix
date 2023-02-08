@@ -7,7 +7,7 @@
     ../../../common/gpu/amd
     ../../../common/gpu/nvidia/prime.nix
     ../../../common/pc/laptop
-    ../../../common/pc/ssd
+    ../../../common/pc/laptop/ssd
   ];
 
   hardware.nvidia.prime = {
