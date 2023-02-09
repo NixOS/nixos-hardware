@@ -22,7 +22,6 @@
   boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "5.12") (lib.mkDefault pkgs.linuxPackages_latest);
 
   hardware.nvidia.prime = {
-    offload.enable = lib.mkDefault true;
     amdgpuBusId = "PCI:5:0:0";
     nvidiaBusId = "PCI:1:0:1";
   };

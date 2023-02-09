@@ -16,7 +16,7 @@ in {
   environment.systemPackages = [ nvidia-offload ];
 
   hardware.nvidia.prime = {
-    offload.enable = lib.mkDefault true;
+    offload.enable = lib.mkOverride 990 true;
     # Hardware should specify the bus ID for intel/nvidia devices
   };
 }
