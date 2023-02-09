@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 
 {
   imports = [
@@ -15,9 +15,13 @@
     nvidiaBusId = "PCI:1:0:0";
   };
 
-  # fixes mic mute button
-  services.udev.extraHwdb = ''
-    evdev:name:*:dmi:bvn*:bvr*:bd*:svnASUS*:pn*:*
-     KEYBOARD_KEY_ff31007c=f20
-  '';
+  services = {
+    asusd.enable = lib.mkDefault true;
+
+    # fixes mic mute button
+    udev.extraHwdb = ''
+      evdev:name:*:dmi:bvn*:bvr*:bd*:svnASUS*:pn*:*
+       KEYBOARD_KEY_ff31007c=f20
+    '';
+  };
 }
