@@ -232,6 +232,7 @@ See code for all available configurations.
 | [PINE64 STAR64](pine64/star64/)                                     | `<nixos-hardware/pine64/star64>`                   |
 | [Purism Librem 13v3](purism/librem/13v3)                            | `<nixos-hardware/purism/librem/13v3>`              |
 | [Purism Librem 15v3](purism/librem/13v3)                            | `<nixos-hardware/purism/librem/15v3>`              |
+| [Purism Librem 5r4](purism/librem/5r4)                              | `<nixos-hardware/purism/librem/5r4>`               |
 | [Raspberry Pi 2](raspberry-pi/2)                                    | `<nixos-hardware/raspberry-pi/2>`                  |
 | [Raspberry Pi 4](raspberry-pi/4)                                    | `<nixos-hardware/raspberry-pi/4>`                  |
 | [Samsung Series 9 NP900X3C](samsung/np900x3c)                       | `<nixos-hardware/samsung/np900x3c>`                |
