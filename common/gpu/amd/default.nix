@@ -8,9 +8,7 @@
   };
   options.hardware.amdgpu.amdvlk = lib.mkEnableOption (lib.mdDoc 
     "use amdvlk drivers instead mesa radv drivers"
-  ) // {
-    default = true;
-  };
+  );
   options.hardware.amdgpu.opencl = lib.mkEnableOption (lib.mdDoc 
     "rocm opencl runtime (Install rocm-opencl-icd and rocm-opencl-runtime)"
   ) // {
@@ -39,8 +37,6 @@
       hardware.opengl.extraPackages32 = with pkgs; [
         driversi686Linux.amdvlk
       ];
-      
-      environment.variables.AMD_VULKAN_ICD = lib.mkDefault "RADV";
     })
     (lib.mkIf config.hardware.amdgpu.opencl {
       hardware.opengl.extraPackages = with pkgs; [
