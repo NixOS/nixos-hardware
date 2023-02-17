@@ -29,8 +29,6 @@
     })
     (lib.mkIf config.hardware.amdgpu.amdvlk {
       hardware.opengl.extraPackages = with pkgs; [
-        rocm-opencl-icd
-        rocm-opencl-runtime
         amdvlk
       ];
 
