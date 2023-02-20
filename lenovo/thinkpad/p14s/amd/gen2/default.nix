@@ -1,6 +1,4 @@
-
-{ lib, pkgs, ... }:
-
+{ lib, pkgs, config, ... }:
 {
   imports = [
     ../../../../../common/pc/laptop/acpi_call.nix
@@ -9,8 +7,9 @@
   # For suspending to RAM, set Config -> Power -> Sleep State to "Linux" in EFI.
 
   # amdgpu.backlight=0 makes the backlight work
-  # acpi_backlight=none allows the backlight save/load systemd service to work.
-  boot.kernelParams = ["amdgpu.backlight=0" "acpi_backlight=none"];
+  # acpi_backlight=none allows the backlight save/load systemd service to work on older kernel versions
+  boot.kernelParams = [ "amdgpu.backlight=0" ] ++ lib.optional (lib.versionOlder config.boot.kernelPackages.kernel.version "6.1.6") "acpi_backlight=none";
+
 
   # Wifi support
   hardware.firmware = [ pkgs.rtw89-firmware ];
