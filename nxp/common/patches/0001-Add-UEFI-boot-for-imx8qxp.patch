@@ -1,0 +1,83 @@
+From 884b162cabdc198121be36bb7ee40922f8689d77 Mon Sep 17 00:00:00 2001
+From: Grigoriy Romanov <grigoriy.romanov@unikie.com>
+Date: Tue, 20 Dec 2022 13:32:03 +0200
+Subject: [PATCH] Add UEFI boot for imx8qxp
+
+Signed-off-by: Grigoriy Romanov <grigoriy.romanov@unikie.com>
+---
+ configs/imx8qxp_mek_defconfig |  9 ++++++++-
+ include/configs/imx8qxp_mek.h | 20 +++++++++++++++++++-
+ 2 files changed, 27 insertions(+), 2 deletions(-)
+
+diff --git a/configs/imx8qxp_mek_defconfig b/configs/imx8qxp_mek_defconfig
+index eda9d2cc00..e498ca1d5b 100644
+--- a/configs/imx8qxp_mek_defconfig
++++ b/configs/imx8qxp_mek_defconfig
+@@ -32,7 +32,7 @@ CONFIG_OF_BOARD_SETUP=y
+ CONFIG_OF_SYSTEM_SETUP=y
+ CONFIG_BOOTDELAY=3
+ CONFIG_USE_BOOTCOMMAND=y
+-CONFIG_BOOTCOMMAND="mmc dev ${mmcdev}; if mmc rescan; then if run loadbootscript; then run bootscript; else if test ${sec_boot} = yes; then if run loadcntr; then run mmcboot; else run netboot; fi; else if run loadimage; then run mmcboot; else run netboot; fi; fi; fi; else booti ${loadaddr} - ${fdt_addr}; fi"
++CONFIG_BOOTCOMMAND="run distro_bootcmd;"
+ CONFIG_LOG=y
+ CONFIG_BOARD_EARLY_INIT_F=y
+ CONFIG_SPL_BOARD_INIT=y
+@@ -194,3 +194,10 @@ CONFIG_SYS_WHITE_ON_BLACK=y
+ CONFIG_SPLASH_SCREEN=y
+ CONFIG_SPLASH_SCREEN_ALIGN=y
+ CONFIG_CMD_BMP=y
++CONFIG_DISTRO_DEFAULTS=y
++CONFIG_CMD_BOOTEFI_SELFTEST=y
++CONFIG_CMD_BOOTEFI=y
++CONFIG_EFI_LOADER=y
++CONFIG_BLK=y
++CONFIG_PARTITIONS=y
++CONFIG_DM_DEVICE_REMOVE=n
+diff --git a/include/configs/imx8qxp_mek.h b/include/configs/imx8qxp_mek.h
+index 2886a3b99b..7cc89336b7 100644
+--- a/include/configs/imx8qxp_mek.h
++++ b/include/configs/imx8qxp_mek.h
+@@ -52,6 +52,22 @@
+ #define AHAB_ENV "sec_boot=no\0"
+ #endif
+
++#ifdef CONFIG_DISTRO_DEFAULTS
++#define BOOT_TARGET_DEVICES(func) \
++       func(MMC, mmc, 1) \
++       func(MMC, mmc, 0)
++
++#include <config_distro_bootcmd.h>
++#else
++#define BOOTENV
++#endif
++
++#define MEM_LAYOUT_ENV_SETTINGS \
++       "fdt_addr_r=0x83000000\0" \
++       "kernel_addr_r=0x80200000\0" \
++       "ramdisk_addr_r=0x83100000\0" \
++       "scriptaddr=0x83200000\0" \
++
+ /* Boot M4 */
+ #define M4_BOOT_ENV \
+ 	"m4_0_image=m4_0.bin\0" \
+@@ -108,6 +124,8 @@
+ /* Initial environment variables */
+ #define CONFIG_EXTRA_ENV_SETTINGS		\
+ 	CONFIG_MFG_ENV_SETTINGS \
++    MEM_LAYOUT_ENV_SETTINGS \
++    BOOTENV \
+ 	M4_BOOT_ENV \
+ 	XEN_BOOT_ENV \
+ 	JAILHOUSE_ENV\
+@@ -121,7 +139,7 @@
+ 	"cntr_addr=0x98000000\0"			\
+ 	"cntr_file=os_cntr_signed.bin\0" \
+ 	"boot_fdt=try\0" \
+-	"fdt_file=undefined\0" \
++	"fdtfile=imx8qxp-mek.dtb\0" \
+ 	"mmcdev="__stringify(CONFIG_SYS_MMC_ENV_DEV)"\0" \
+ 	"mmcpart=1\0" \
+ 	"mmcroot=" CONFIG_MMCROOT " rootwait rw\0" \
+--
+2.34.1
+
