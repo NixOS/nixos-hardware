@@ -38,7 +38,7 @@ declared in a separate profile.
 
 ## 2. Adding Entry
 
-Link the profile in the table in README.md and in flake.nix.
+Link the profile in the table in README.md.
 
 ## 3. Testing
 

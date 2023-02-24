@@ -1,187 +1,46 @@
 {
   description = "nixos-hardware";
 
-  outputs = _: {
-    nixosModules = {
-      acer-aspire-4810t = import ./acer/aspire/4810t;
-      airis-n990 = import ./airis/n990;
-      apple-macbook-air-3 = import ./apple/macbook-air/3;
-      apple-macbook-air-4 = import ./apple/macbook-air/4;
-      apple-macbook-air-6 = import ./apple/macbook-air/6;
-      apple-macbook-pro = import ./apple/macbook-pro;
-      apple-macbook-pro-10-1 = import ./apple/macbook-pro/10-1;
-      apple-macbook-pro-11-5 = import ./apple/macbook-pro/11-5;
-      apple-macbook-pro-12-1 = import ./apple/macbook-pro/12-1;
-      apple-macbook-pro-14-1 = import ./apple/macbook-pro/14-1;
-      asus-battery = import ./asus/battery.nix;
-      asus-fx504gd = import ./asus/fx504gd;
-      asus-rog-strix-g733qs = import ./asus/rog-strix/g733qs;
-      asus-zephyrus-ga401 = import ./asus/zephyrus/ga401;
-      asus-zephyrus-ga402 = import ./asus/zephyrus/ga402;
-      asus-zephyrus-ga503 = import ./asus/zephyrus/ga503;
-      beagleboard-pocketbeagle = import ./beagleboard/pocketbeagle;
-      dell-e7240 = import ./dell/e7240;
-      dell-g3-3779 = import ./dell/g3/3779;
-      dell-inspiron-5509 = import ./dell/inspiron/5509;
-      dell-inspiron-5515 = import ./dell/inspiron/5515;
-      dell-inspiron-7405 = import ./dell/inspiron/7405;
-      dell-latitude-3340 = import ./dell/latitude/3340;
-      dell-latitude-3480 = import ./dell/latitude/3480;
-      dell-latitude-5520 = import ./dell/latitude/5520;
-      dell-latitude-7430 = import ./dell/latitude/7430;
-      dell-latitude-7490 = import ./dell/latitude/7490;
-      dell-poweredge-r7515 = import ./dell/poweredge/r7515;
-      dell-precision-5530 = import ./dell/precision/5530;
-      dell-xps-13-7390 = import ./dell/xps/13-7390;
-      dell-xps-13-9300 = import ./dell/xps/13-9300;
-      dell-xps-13-9310 = import ./dell/xps/13-9310;
-      dell-xps-13-9343 = import ./dell/xps/13-9343;
-      dell-xps-13-9350 = import ./dell/xps/13-9350;
-      dell-xps-13-9360 = import ./dell/xps/13-9360;
-      dell-xps-13-9370 = import ./dell/xps/13-9370;
-      dell-xps-13-9380 = import ./dell/xps/13-9380;
-      dell-xps-15-7590 = import ./dell/xps/15-7590;
-      dell-xps-15-9500 = import ./dell/xps/15-9500;
-      dell-xps-15-9500-nvidia = import ./dell/xps/15-9500/nvidia;
-      dell-xps-15-9550 = import ./dell/xps/15-9550;
-      dell-xps-15-9550-nvidia = import ./dell/xps/15-9550/nvidia;
-      dell-xps-15-9560 = import ./dell/xps/15-9560;
-      dell-xps-15-9560-intel = import ./dell/xps/15-9560/intel;
-      dell-xps-15-9560-nvidia = import ./dell/xps/15-9560/nvidia;
-      dell-xps-17-9700-intel = import ./dell/xps/17-9700/intel;
-      dell-xps-17-9700-nvidia = import ./dell/xps/17-9700/nvidia;
-      dell-xps-17-9710-intel = import ./dell/xps/17-9710/intel;
-      framework = import ./framework;
-      framework-12th-gen-intel = import ./framework/12th-gen-intel;
-      friendlyarm-nanopc-t4 = import ./friendlyarm/nanopc-t4;
-      google-pixelbook = import ./google/pixelbook;
-      gpd-micropc = import ./gpd/micropc;
-      gpd-pocket-3 = import ./gpd/pocket-3;
-      gpd-win-2 = import ./gpd/win-2;
-      hp-elitebook-2560p = import ./hp/elitebook/2560p;
-      intel-nuc-8i7beh = import ./intel/nuc/8i7beh;
-      lenovo-ideapad-15arh05 = import ./lenovo/ideapad/15arh05;
-      lenovo-ideapad-z510 = import ./lenovo/ideapad/z510;
-      lenovo-legion-15ach6 = import ./lenovo/legion/15ach6;
-      lenovo-legion-15arh05h = import ./lenovo/legion/15arh05h;
-      lenovo-legion-16ach6h = import ./lenovo/legion/16ach6h;
-      lenovo-legion-16ach6h-hybrid = import ./lenovo/legion/16ach6h/hybrid;
-      lenovo-legion-16ach6h-nvidia = import ./lenovo/legion/16ach6h/nvidia;
-      lenovo-legion-16ithg6 = import ./lenovo/legion/16ithg6;
-      lenovo-legion-y530-15ich = import ./lenovo/legion/15ich;
-      lenovo-thinkpad = import ./lenovo/thinkpad;
-      lenovo-thinkpad-e14-amd = import ./lenovo/thinkpad/e14/amd;
-      lenovo-thinkpad-e14-intel = import ./lenovo/thinkpad/e14/intel;
-      lenovo-thinkpad-e470 = import ./lenovo/thinkpad/e470;
-      lenovo-thinkpad-e495 = import ./lenovo/thinkpad/e495;
-      lenovo-thinkpad-l13 = import ./lenovo/thinkpad/l13;
-      lenovo-thinkpad-l13-yoga = import ./lenovo/thinkpad/l13/yoga;
-      lenovo-thinkpad-l14-amd = import ./lenovo/thinkpad/l14/amd;
-      lenovo-thinkpad-l14-intel = import ./lenovo/thinkpad/l14/intel;
-      lenovo-thinkpad-p1 = import ./lenovo/thinkpad/p1;
-      lenovo-thinkpad-p1-gen3 = import ./lenovo/thinkpad/p1/3th-gen;
-      lenovo-thinkpad-p14s-amd-gen2 = import ./lenovo/thinkpad/p14s/amd/gen2;
-      lenovo-thinkpad-p16s-amd-gen1 = import ./lenovo/thinkpad/p16s/amd/gen1;
-      lenovo-thinkpad-p50 = import ./lenovo/thinkpad/p50;
-      lenovo-thinkpad-p51 = import ./lenovo/thinkpad/p51;
-      lenovo-thinkpad-p52 = import ./lenovo/thinkpad/p52;
-      lenovo-thinkpad-p53 = import ./lenovo/thinkpad/p53;
-      lenovo-thinkpad-t14 = import ./lenovo/thinkpad/t14;
-      lenovo-thinkpad-t14-amd-gen1 = import ./lenovo/thinkpad/t14/amd/gen1;
-      lenovo-thinkpad-t14-amd-gen2 = import ./lenovo/thinkpad/t14/amd/gen2;
-      lenovo-thinkpad-t14-amd-gen3 = import ./lenovo/thinkpad/t14/amd/gen3;
-      lenovo-thinkpad-t14s = import ./lenovo/thinkpad/t14s;
-      lenovo-thinkpad-t14s-amd-gen1 = import ./lenovo/thinkpad/t14s/amd/gen1;
-      lenovo-thinkpad-t410 = import ./lenovo/thinkpad/t410;
-      lenovo-thinkpad-t420 = import ./lenovo/thinkpad/t420;
-      lenovo-thinkpad-t430 = import ./lenovo/thinkpad/t430;
-      lenovo-thinkpad-t440p = import ./lenovo/thinkpad/t440p;
-      lenovo-thinkpad-t440s = import ./lenovo/thinkpad/t440s;
-      lenovo-thinkpad-t450s = import ./lenovo/thinkpad/t450s;
-      lenovo-thinkpad-t460 = import ./lenovo/thinkpad/t460;
-      lenovo-thinkpad-t460p = import ./lenovo/thinkpad/t460p;
-      lenovo-thinkpad-t460s = import ./lenovo/thinkpad/t460s;
-      lenovo-thinkpad-t470s = import ./lenovo/thinkpad/t470s;
-      lenovo-thinkpad-t480 = import ./lenovo/thinkpad/t480;
-      lenovo-thinkpad-t480s = import ./lenovo/thinkpad/t480s;
-      lenovo-thinkpad-t490 = import ./lenovo/thinkpad/t490;
-      lenovo-thinkpad-t495 = import ./lenovo/thinkpad/t495;
-      lenovo-thinkpad-t520 = import ./lenovo/thinkpad/t520;
-      lenovo-thinkpad-t550 = import ./lenovo/thinkpad/t550;
-      lenovo-thinkpad-t590 = import ./lenovo/thinkpad/t590;
-      lenovo-thinkpad-x1 = import ./lenovo/thinkpad/x1;
-      lenovo-thinkpad-x1-yoga = import ./lenovo/thinkpad/x1/yoga;
-      lenovo-thinkpad-x1-yoga-7th-gen = import ./lenovo/thinkpad/x1/yoga/7th-gen;
-      lenovo-thinkpad-x1-6th-gen = import ./lenovo/thinkpad/x1/6th-gen;
-      lenovo-thinkpad-x1-7th-gen = import ./lenovo/thinkpad/x1/7th-gen;
-      lenovo-thinkpad-x1-9th-gen = import ./lenovo/thinkpad/x1/9th-gen;
-      lenovo-thinkpad-x1-10th-gen = import ./lenovo/thinkpad/x1/10th-gen;
-      lenovo-thinkpad-x1-extreme = import ./lenovo/thinkpad/x1-extreme;
-      lenovo-thinkpad-x1-extreme-gen2 = import ./lenovo/thinkpad/x1-extreme/gen2;
-      lenovo-thinkpad-x1-extreme-gen4 = import ./lenovo/thinkpad/x1-extreme/gen4;
-      lenovo-thinkpad-x13 = import ./lenovo/thinkpad/x13;
-      lenovo-thinkpad-x13-yoga = import ./lenovo/thinkpad/x13/yoga;
-      lenovo-thinkpad-x140e = import ./lenovo/thinkpad/x140e;
-      lenovo-thinkpad-x200s = import ./lenovo/thinkpad/x200s;
-      lenovo-thinkpad-x220 = import ./lenovo/thinkpad/x220;
-      lenovo-thinkpad-x230 = import ./lenovo/thinkpad/x230;
-      lenovo-thinkpad-x250 = import ./lenovo/thinkpad/x250;
-      lenovo-thinkpad-x260 = import ./lenovo/thinkpad/x260;
-      lenovo-thinkpad-x270 = import ./lenovo/thinkpad/x270;
-      lenovo-thinkpad-x280 = import ./lenovo/thinkpad/x280;
-      lenovo-thinkpad-z = import ./lenovo/thinkpad/z;
-      lenovo-thinkpad-z13 = import ./lenovo/thinkpad/z/z13;
-      lenovo-yoga-6-13ALC6 = import ./lenovo/yoga/6/13ALC6;
-      letsnote-cf-lx4 = import ./panasonic/letsnote/cf-lx4;
-      microsoft-surface-go = import ./microsoft/surface/surface-go;
-      microsoft-surface-pro-intel = import ./microsoft/surface/surface-pro-intel;
-      microsoft-surface-laptop-amd = import ./microsoft/surface/surface-laptop-amd;
-      microsoft-surface-common = import ./microsoft/surface/common;
-      microsoft-surface-pro-3 = import ./microsoft/surface-pro/3;
-      msi-gs60 = import ./msi/gs60;
-      msi-gl62 = import ./msi/gl62;
-      nxp-imx8qm-mek = import ./nxp/imx8qm-mek;
-      omen-en00015p = import ./omen/en00015p;
-      onenetbook-4 = import ./onenetbook/4;
-      pcengines-apu = import ./pcengines/apu;
-      pine64-pinebook-pro = import ./pine64/pinebook-pro;
-      purism-librem-13v3 = import ./purism/librem/13v3;
-      purism-librem-15v3 = import ./purism/librem/15v3;
-      raspberry-pi-2 = import ./raspberry-pi/2;
-      raspberry-pi-4 = import ./raspberry-pi/4;
-      kobol-helios4 = import ./kobol/helios4;
-      samsung-np900x3c = import ./samsung/np900x3c;
-      starfive-visionfive-v1 = import ./starfive/visionfive/v1;
-      supermicro = import ./supermicro;
-      supermicro-a1sri-2758f = import ./supermicro/a1sri-2758f;
-      supermicro-m11sdv-8c-ln4f = import ./supermicro/m11sdv-8c-ln4f;
-      supermicro-x10sll-f = import ./supermicro/x10sll-f;
-      supermicro-x12scz-tln4f = import ./supermicro/x12scz-tln4f;
-      system76 = import ./system76;
-      system76-darp6 = import ./system76/darp6;
-      toshiba-swanky = import ./toshiba/swanky;
-      tuxedo-infinitybook-v4 = import ./tuxedo/infinitybook/v4;
+  outputs = _:
+    let
+      recurse = segments:
+        let
+          dir = builtins.concatStringsSep "/" ([ ./. ] ++ segments);
+          stat = builtins.readDir dir;
+          f = acc: name:
+            if stat.${name} == "directory" then
+              acc // recurse (segments ++ [ name ])
+            else if name == "default.nix" && segments != [ ] then
+              acc // {
+                "${builtins.concatStringsSep "-" segments}" = dir;
+              }
+            else
+              acc;
+        in
+        builtins.foldl' f { } (builtins.attrNames stat);
 
-      common-cpu-amd = import ./common/cpu/amd;
-      common-cpu-amd-pstate = import ./common/cpu/amd/pstate.nix;
-      common-cpu-intel = import ./common/cpu/intel;
-      common-cpu-intel-cpu-only = import ./common/cpu/intel/cpu-only.nix;
-      common-cpu-intel-kaby-lake = import ./common/cpu/intel/kaby-lake;
-      common-cpu-intel-sandy-bridge = import ./common/cpu/intel/sandy-bridge;
-      common-gpu-amd = import ./common/gpu/amd;
-      common-gpu-amd-sea-islands = import ./common/gpu/amd/sea-islands;
-      common-gpu-amd-southern-islands = import ./common/gpu/amd/southern-islands;
-      common-gpu-intel = import ./common/gpu/intel.nix;
-      common-gpu-nvidia = import ./common/gpu/nvidia/prime.nix;
-      common-gpu-nvidia-nonprime = import ./common/gpu/nvidia;
-      common-gpu-nvidia-disable = import ./common/gpu/nvidia/disable.nix;
-      common-pc = import ./common/pc;
-      common-pc-hdd = import ./common/pc/hdd;
-      common-pc-laptop = import ./common/pc/laptop;
-      common-pc-laptop-acpi_call = import ./common/pc/laptop/acpi_call.nix;
-      common-pc-laptop-hdd = import ./common/pc/laptop/hdd;
-      common-pc-laptop-ssd = import ./common/pc/ssd;
-      common-pc-ssd = import ./common/pc/ssd;
+      modules = recurse [ ];
+    in
+    {
+      nixosModules = modules // {
+        # Backwards compatibility
+        asus-battery = import ./asus/battery.nix;
+        common-cpu-amd-pstate = import ./common/cpu/amd/pstate.nix;
+        common-cpu-intel-cpu-only = import ./common/cpu/intel/cpu-only.nix;
+        common-gpu-intel = import ./common/gpu/intel.nix;
+        common-gpu-nvidia = import ./common/gpu/nvidia/prime.nix;
+        common-gpu-nvidia-disable = import ./common/gpu/nvidia/disable.nix;
+        common-gpu-nvidia-nonprime = import ./common/gpu/nvidia;
+        common-pc-laptop-acpi_call = import ./common/pc/laptop/acpi_call.nix;
+        common-pc-laptop-ssd = import ./common/pc/ssd;
+        lenovo-legion-y530-15ich = import ./lenovo/legion/15ich;
+        lenovo-thinkpad-p1-gen3 = import ./lenovo/thinkpad/p1/3th-gen;
+        lenovo-thinkpad-z13 = import ./lenovo/thinkpad/z/z13;
+        letsnote-cf-lx4 = import ./panasonic/letsnote/cf-lx4;
+        microsoft-surface-go = import ./microsoft/surface/surface-go;
+        microsoft-surface-laptop-amd = import ./microsoft/surface/surface-laptop-amd;
+        microsoft-surface-pro-intel = import ./microsoft/surface/surface-pro-intel;
+        purism-librem-15v3 = import ./purism/librem/15v3;
+      };
     };
-  };
 }
