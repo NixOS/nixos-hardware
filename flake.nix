@@ -41,6 +41,7 @@
       dell-xps-13-9370 = import ./dell/xps/13-9370;
       dell-xps-13-9380 = import ./dell/xps/13-9380;
       dell-xps-15-7590 = import ./dell/xps/15-7590;
+      dell-xps-15-7590-nvidia = import ./dell/xps/15-7590/nvidia;
       dell-xps-15-9500 = import ./dell/xps/15-9500;
       dell-xps-15-9500-nvidia = import ./dell/xps/15-9500/nvidia;
       dell-xps-15-9550 = import ./dell/xps/15-9550;
