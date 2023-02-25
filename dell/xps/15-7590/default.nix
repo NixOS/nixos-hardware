@@ -1,3 +1,5 @@
+{ lib, ... }:
+
 {
   imports = [
     ../../../common/cpu/intel
@@ -20,6 +22,9 @@
 
   # Prevent small EFI partiion from filling up
   boot.loader.grub.configurationLimit = 10;
+
+  # This will save you money and possibly your life!
+  services.thermald.enable = lib.mkDefault true;
 
   # The 48.ucode causes the Killer wifi card to crash.
   # The iwlfwifi-cc-a0-46.ucode works perfectly
