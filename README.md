@@ -105,6 +105,7 @@ See code for all available configurations.
 | [Dell XPS 13 9360](dell/xps/13-9360)                                | `<nixos-hardware/dell/xps/13-9360>`                |
 | [Dell XPS 13 9370](dell/xps/13-9370)                                | `<nixos-hardware/dell/xps/13-9370>`                |
 | [Dell XPS 13 9380](dell/xps/13-9380)                                | `<nixos-hardware/dell/xps/13-9380>`                |
+| [Dell XPS 15 7590, nvidia](dell/xps/15-7590/nvidia)                 | `<nixos-hardware/dell/xps/15-7590/nvidia>`         |
 | [Dell XPS 15 7590](dell/xps/15-7590)                                | `<nixos-hardware/dell/xps/15-7590>`                |
 | [Dell XPS 15 9500, nvidia](dell/xps/15-9500/nvidia)                 | `<nixos-hardware/dell/xps/15-9500/nvidia>`         |
 | [Dell XPS 15 9500](dell/xps/15-9500)                                | `<nixos-hardware/dell/xps/15-9500>`                |
