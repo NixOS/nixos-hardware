@@ -1,15 +1,11 @@
-{ config, lib, pkgs, ... }:
-
 {
-  boot.initrd.kernelModules = [ "i915" ];
+  imports = [ ./intel ];
 
-  environment.variables = {
-    VDPAU_DRIVER = lib.mkIf config.hardware.opengl.enable (lib.mkDefault "va_gl");
-  };
+  warnings = [
+    ''
+      DEPRECATED: The <nixos-hardware/common/gpu/intel.nix> module has been deprecated.
 
-  hardware.opengl.extraPackages = with pkgs; [
-    vaapiIntel
-    libvdpau-va-gl
-    intel-media-driver
+      Switch to using <nixos-hardware/common/gpu/intel> instead.
+    ''
   ];
 }

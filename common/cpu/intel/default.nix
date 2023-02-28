@@ -1,6 +1,6 @@
 {
   imports = [
     ./cpu-only.nix
-    ../../gpu/intel.nix
+    ../../gpu/intel
   ];
 }
