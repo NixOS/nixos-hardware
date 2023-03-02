@@ -5,7 +5,7 @@ let
 
   cfg = config.microsoft-surface.ipts;
 
-  version-includes-systemd-config = versionAtLeast iptsd.version "1.0";
+  version-includes-systemd-config = versionAtLeast pkgs.iptsd.version "1.0";
 
 in {
   options.microsoft-surface.ipts = {
@@ -17,7 +17,7 @@ in {
       microsoft-surface.ipts.enable = mkDefault false;
     }
 
-    (mkIf (cfg.enable and !version-includes-systemd-config) {
+    (mkIf (cfg.enable && !version-includes-systemd-config) {
       systemd.services.iptsd = {
         description = "IPTSD";
         path = with pkgs; [ iptsd ];
@@ -26,7 +26,7 @@ in {
       };
     })
 
-    (mkIf (cfg.enable and version-includes-systemd-config) {
+    (mkIf (cfg.enable && version-includes-systemd-config) {
       # TODO:
       # I'm not convinced I need to add pkgs.iptsd to systemd.packages and services.udev.packages;
       # just adding it to environment.systemPackages might be good enough?
@@ -38,7 +38,7 @@ in {
       # it won't find the iptsd ones, anyway:
       # - https://github.com/NixOS/nixpkgs/blob/10e51cdc0456f1d5c8a00f026c384f0e81126538/nixos/modules/system/boot/systemd.nix#L467-L473
       systemd.packages = [
-        pkgs.ipstd
+        pkgs.iptsd
       ];
 
       # TODO:
