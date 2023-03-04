@@ -6,11 +6,15 @@ let
   ];
 in
 {
+  imports = [ ./opencl.nix ];
+
   boot.initrd.kernelModules = [ "i915" ];
 
   environment.variables = {
     VDPAU_DRIVER = lib.mkIf config.hardware.opengl.enable (lib.mkDefault "va_gl");
   };
+
+  hardware.intel.opencl.enable = lib.mkDefault true;
 
   hardware.opengl.extraPackages = selectPackages pkgs;
   hardware.opengl.extraPackages32 = selectPackages (pkgs.driversi686Linux);
