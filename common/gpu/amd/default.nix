@@ -17,7 +17,7 @@
 
   config = lib.mkMerge [
     {
-      services.xserver.videoDrivers = lib.mkDefault [ "amdgpu" ];
+      services.xserver.videoDrivers = lib.mkDefault [ "modesetting" ];
 
       hardware.opengl = {
         driSupport = lib.mkDefault true;
