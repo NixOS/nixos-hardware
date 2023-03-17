@@ -122,6 +122,7 @@ See code for all available configurations.
 | [Framework 12th Gen Intel Core](framework/12th-gen-intel)           | `<nixos-hardware/framework/12th-gen-intel>`        |
 | [FriendlyARM NanoPC-T4](friendlyarm/nanopc-t4)                      | `<nixos-hardware/friendlyarm/nanopc-t4>`           |
 | [GPD MicroPC](gpd/micropc)                                          | `<nixos-hardware/gpd/micropc>`                     |
+| [GPD P2 Max](gpd/p2-max)                                            | `<nixos-hardware/gpd/p2-max>`                      |
 | [GPD Pocket 3](gpd/pocket-3)                                        | `<nixos-hardware/gpd/pocket-3>`                    |
 | [GPD WIN 2](gpd/win-2)                                              | `<nixos-hardware/gpd/win-2>`                       |
 | [Google Pixelbook](google/pixelbook)                                | `<nixos-hardware/google/pixelbook>`                |
