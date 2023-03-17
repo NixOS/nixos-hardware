@@ -57,6 +57,7 @@
       friendlyarm-nanopc-t4 = import ./friendlyarm/nanopc-t4;
       google-pixelbook = import ./google/pixelbook;
       gpd-micropc = import ./gpd/micropc;
+      gpd-p2-max = import ./gpd/p2-max;
       gpd-pocket-3 = import ./gpd/pocket-3;
       gpd-win-2 = import ./gpd/win-2;
       hp-elitebook-2560p = import ./hp/elitebook/2560p;
