@@ -57,6 +57,7 @@
       friendlyarm-nanopc-t4 = import ./friendlyarm/nanopc-t4;
       google-pixelbook = import ./google/pixelbook;
       gpd-micropc = import ./gpd/micropc;
+      gpd-p2-max = import ./gpd/p2-max;
       gpd-pocket-3 = import ./gpd/pocket-3;
       gpd-win-2 = import ./gpd/win-2;
       hp-elitebook-2560p = import ./hp/elitebook/2560p;
@@ -142,6 +143,7 @@
       msi-gs60 = import ./msi/gs60;
       msi-gl62 = import ./msi/gl62;
       nxp-imx8qm-mek = import ./nxp/imx8qm-mek;
+      hardkernel-odroid-hc4 = import ./hardkernel/odroid-hc4;
       omen-en00015p = import ./omen/en00015p;
       onenetbook-4 = import ./onenetbook/4;
       pcengines-apu = import ./pcengines/apu;

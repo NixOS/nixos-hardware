@@ -10,7 +10,7 @@
   ];
 
   boot.loader.grub.extraFiles = {
-      "imx8qm-mek.dtb" = "${pkgs.linux_imx8}/dtbs/freescale/imx8qm-mek.dtb";
+    "imx8qm-mek.dtb" = "${pkgs.linux_imx8}/dtbs/freescale/imx8qm-mek.dtb";
   };
 
   hardware.deviceTree = {

@@ -122,6 +122,7 @@ See code for all available configurations.
 | [Framework 12th Gen Intel Core](framework/12th-gen-intel)           | `<nixos-hardware/framework/12th-gen-intel>`        |
 | [FriendlyARM NanoPC-T4](friendlyarm/nanopc-t4)                      | `<nixos-hardware/friendlyarm/nanopc-t4>`           |
 | [GPD MicroPC](gpd/micropc)                                          | `<nixos-hardware/gpd/micropc>`                     |
+| [GPD P2 Max](gpd/p2-max)                                            | `<nixos-hardware/gpd/p2-max>`                      |
 | [GPD Pocket 3](gpd/pocket-3)                                        | `<nixos-hardware/gpd/pocket-3>`                    |
 | [GPD WIN 2](gpd/win-2)                                              | `<nixos-hardware/gpd/win-2>`                       |
 | [Google Pixelbook](google/pixelbook)                                | `<nixos-hardware/google/pixelbook>`                |
@@ -202,6 +203,7 @@ See code for all available configurations.
 | [Microsoft Surface Laptop (AMD)](microsoft/surface/surface-laptop-amd)| `<nixos-hardware/microsoft/surface/surface-laptop-amd>`|
 | [Microsoft Surface Range (Common Modules)](microsoft/surface/common)| `<nixos-hardware/microsoft/surface/common>`        |
 | [Microsoft Surface Pro 3](microsoft/surface-pro/3)                  | `<nixos-hardware/microsoft/surface-pro/3>`         |
+| [Hardkernel Odroid HC4](hardkernel/odroid-hc4/default.nix)          | `<nixos-hardware/hardkernel/odroid-hc4>`           |
 | [Omen en00015p](omen/en00015p)                                      | `<nixos-hardware/omen/en00015p>`                   |
 | [One-Netbook OneNetbook 4](onenetbook/4)                            | `<nixos-hardware/onenetbook/4>`                    |
 | [Panasonic Let's Note CF-LX4 ](panasonic/letsnote/cf-lx4)           | `<nixos-hardware/panasonic/letsnote/cf-lx4>`       |

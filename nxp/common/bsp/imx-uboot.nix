@@ -18,7 +18,7 @@ with pkgs; let
     ahab = "mx8qmb0-ahab-container.img";
     scfw = "mx8qm-mek-scfw-tcm.bin";
     soc = "QM";
-    patches = [ ../patches/0001-Add-UEFI-boot-on-imx8qm_mek.patch ];
+    patches = [ ../patches/0001-Add-UEFI-boot-for-imx8qm.patch ];
   };
 
   imx8-attrs = if (targetBoard == "imx8qxp") then imx8qxp-attrs

@@ -1,3 +1,3 @@
 final: prev: {
-  inherit ( final.callPackage ./bsp/u-boot/imx8/imx-uboot.nix { pkgs = final; targetBoard = "imx8qxp"; }) ubootImx8 imx-firmware;
+  inherit ( final.callPackage ../common/bsp/imx-uboot.nix { pkgs = final; targetBoard = "imx8qxp"; }) ubootImx8 imx-firmware;
 }
