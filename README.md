@@ -203,6 +203,7 @@ See code for all available configurations.
 | [Microsoft Surface Laptop (AMD)](microsoft/surface/surface-laptop-amd)| `<nixos-hardware/microsoft/surface/surface-laptop-amd>`|
 | [Microsoft Surface Range (Common Modules)](microsoft/surface/common)| `<nixos-hardware/microsoft/surface/common>`        |
 | [Microsoft Surface Pro 3](microsoft/surface-pro/3)                  | `<nixos-hardware/microsoft/surface-pro/3>`         |
+| [Morefine M600](morefine/m600)                                      | `<nixos-hardware/morefine/m600>`                   |
 | [Hardkernel Odroid HC4](hardkernel/odroid-hc4/default.nix)          | `<nixos-hardware/hardkernel/odroid-hc4>`           |
 | [Omen en00015p](omen/en00015p)                                      | `<nixos-hardware/omen/en00015p>`                   |
 | [One-Netbook OneNetbook 4](onenetbook/4)                            | `<nixos-hardware/onenetbook/4>`                    |
