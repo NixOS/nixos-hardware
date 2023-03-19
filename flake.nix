@@ -140,6 +140,7 @@
       microsoft-surface-laptop-amd = import ./microsoft/surface/surface-laptop-amd;
       microsoft-surface-common = import ./microsoft/surface/common;
       microsoft-surface-pro-3 = import ./microsoft/surface-pro/3;
+      morefine-m600 = import ./morefine/m600;
       msi-gs60 = import ./msi/gs60;
       msi-gl62 = import ./msi/gl62;
       nxp-imx8qm-mek = import ./nxp/imx8qm-mek;
