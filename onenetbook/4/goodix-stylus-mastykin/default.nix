@@ -12,8 +12,18 @@ let
       cat ${patch1_original} > $out
       ${patch}/bin/patch $out < ${./5.12.12.patch.patch}
     '';
-  patch1 = if (lib.versionAtLeast kernel.version "5.12.12") then
-    patch1_updated_5_12_12 else patch1_original;
+  patch1_updated_6_1 = runCommand
+    "goodix-stylus-mastykin-1-pen-support-6.1.patch" {}
+    ''
+      cat ${patch1_original} > $out
+      ${patch}/bin/patch $out < ${./6.1.patch.patch}
+    '';
+  patch1 =
+    if (lib.versionAtLeast kernel.version "6.1") then
+      patch1_updated_6_1
+    else if (lib.versionAtLeast kernel.version "5.12.12") then
+      patch1_updated_5_12_12
+    else patch1_original;
   patch2 = fetchpatch {
     url = "https://marc.info/?l=linux-input&m=161847127221531&q=p4";
     name = "goodix-stylus-mastykin-2-buttons.patch";
