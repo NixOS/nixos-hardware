@@ -5,7 +5,8 @@ let
 
   cfg = config.microsoft-surface.ipts;
 
-  version-includes-systemd-config = versionAtLeast pkgs.iptsd.version "1.0";
+  iptsd = pkgs.iptsd;
+  version-includes-systemd-config = versionAtLeast iptsd.version "1.0";
 
 in {
   options.microsoft-surface.ipts = {
@@ -20,7 +21,7 @@ in {
     (mkIf (cfg.enable && !version-includes-systemd-config) {
       systemd.services.iptsd = {
         description = "IPTSD";
-        path = with pkgs; [ iptsd ];
+        path = [ iptsd ];
         script = "iptsd";
         wantedBy = [ "multi-user.target" ];
       };
@@ -37,17 +38,13 @@ in {
       # "system.packages" only seems to check for ${package}/lib/systemd/systemd-${type} which means
       # it won't find the iptsd ones, anyway:
       # - https://github.com/NixOS/nixpkgs/blob/10e51cdc0456f1d5c8a00f026c384f0e81126538/nixos/modules/system/boot/systemd.nix#L467-L473
-      systemd.packages = [
-        pkgs.iptsd
-      ];
+      systemd.packages = [ iptsd ];
 
       # TODO:
       # udev.packages does add files from ${package}/etc/udev/rules.d/ but maybe just adding to
       # environment.systemPackages is good enough?
       # - https://github.com/NixOS/nixpkgs/blob/10e51cdc0456f1d5c8a00f026c384f0e81126538/nixos/modules/services/hardware/udev.nix#L69-L75
-      services.udev.packages = [
-        pkgs.iptsd
-      ];
+      services.udev.packages = [ iptsd ];
     })
   ];
 }
