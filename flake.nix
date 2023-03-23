@@ -180,6 +180,7 @@
       common-gpu-nvidia = import ./common/gpu/nvidia/prime.nix;
       common-gpu-nvidia-nonprime = import ./common/gpu/nvidia;
       common-gpu-nvidia-disable = import ./common/gpu/nvidia/disable.nix;
+      common-hidpi = import ./common/hidpi.nix;
       common-pc = import ./common/pc;
       common-pc-hdd = import ./common/pc/hdd;
       common-pc-laptop = import ./common/pc/laptop;
