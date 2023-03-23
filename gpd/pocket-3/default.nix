@@ -5,6 +5,7 @@ in
 	imports = [
 		../../common/pc/laptop
 		../../common/pc/laptop/ssd
+    ../../common/hidpi.nix
 	];
 
   # Necessary kernel modules
@@ -34,7 +35,6 @@ in
 	};
 
 	# More HiDPI settings
-	hardware.video.hidpi.enable = true;
 	services.xserver.dpi = 280;
 
 	# Necessary for audio support on the 1195G7 model
