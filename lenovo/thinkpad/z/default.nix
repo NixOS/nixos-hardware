@@ -13,7 +13,7 @@
 
   hardware.enableRedistributableFirmware = lib.mkDefault true;
   hardware.trackpoint.device = lib.mkDefault "TPPS/2 Elan TrackPoint";
-  hardware.video.hidpi.enable = lib.mkDefault true;
+  fonts.optimizeForVeryHighDPI = lib.mkDefault true;
 
   services.fprintd.enable = lib.mkDefault true;
 

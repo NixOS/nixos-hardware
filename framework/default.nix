@@ -46,7 +46,7 @@
 
   # HiDPI
   # Leaving here for documentation
-  # hardware.video.hidpi.enable = lib.mkDefault true;
+  # fonts.optimizeForVeryHighDPI = lib.mkDefault true;
 
   # Fix font sizes in X
   # services.xserver.dpi = 200;

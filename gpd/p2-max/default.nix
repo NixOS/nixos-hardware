@@ -7,5 +7,5 @@
   ];
 
   # HiDPI settings
-  hardware.video.hidpi.enable = lib.mkDefault true;
+  fonts.optimizeForVeryHighDPI = lib.mkDefault true;
 }

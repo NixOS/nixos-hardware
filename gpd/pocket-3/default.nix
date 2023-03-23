@@ -34,7 +34,7 @@ in
 	};
 
 	# More HiDPI settings
-	hardware.video.hidpi.enable = true;
+	fonts.optimizeForVeryHighDPI = true;
 	services.xserver.dpi = 280;
 
 	# Necessary for audio support on the 1195G7 model
