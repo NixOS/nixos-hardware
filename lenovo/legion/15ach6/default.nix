@@ -6,6 +6,7 @@ in {
     ../../../common/cpu/amd
     ../../../common/gpu/amd
     ../../../common/gpu/nvidia/prime.nix
+    ../../../common/hidpi.nix
     ../../../common/pc/laptop
     ../../../common/pc/laptop/ssd
   ];
@@ -16,6 +17,9 @@ in {
   };
 
   services.thermald.enable = lib.mkDefault true;
+
+  # √(3840² + 2160²) px / 15.60 in ≃ 282 dpi
+  services.xserver.dpi = 282;
 
   # https://wiki.archlinux.org/title/backlight#Backlight_is_always_at_full_brightness_after_a_reboot_with_amdgpu_driver
   systemd.services.fix-brightness = {
