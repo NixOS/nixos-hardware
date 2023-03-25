@@ -44,10 +44,6 @@
   # Needed for desktop environments to detect/manage display brightness
   hardware.sensor.iio.enable = lib.mkDefault true;
 
-  # HiDPI
-  # Leaving here for documentation
-  # hardware.video.hidpi.enable = lib.mkDefault true;
-
   # Fix font sizes in X
   # services.xserver.dpi = 200;
 }
