@@ -7,13 +7,13 @@
     ../../../common/pc/laptop
     ../../../common/pc/laptop/acpi_call.nix
     ../../../common/pc/laptop/ssd
+    ../../../common/hidpi.nix # can be dropped after nixos 23.05
   ];
   # kernel versions prior to 5.18 won't boot
   boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "5.18") (lib.mkDefault pkgs.linuxPackages_latest);
 
   hardware.enableRedistributableFirmware = lib.mkDefault true;
   hardware.trackpoint.device = lib.mkDefault "TPPS/2 Elan TrackPoint";
-  hardware.video.hidpi.enable = lib.mkDefault true;
 
   services.fprintd.enable = lib.mkDefault true;
 
