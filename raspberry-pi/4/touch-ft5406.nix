@@ -20,15 +20,8 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # Configure for modesetting in the device tree
     hardware.deviceTree = {
       overlays = [
-        # this *should* be equivalent to (which doesn't work):
-        # https://github.com/raspberrypi/linux/blob/rpi-5.10.y/arch/arm/boot/dts/overlays/dwc2-overlay.dts
-        # but actually it's obtained using
-        # dtc -I dtb -O dts ${config.hardware.deviceTree.kernelPackage}/dtbs/overlays/dwc2.dtbo
-        # (changes: modified top-level "compatible" field)
-        # which is slightly different and works
         {
           name = "rpi-ft5406-overlay";
           dtsText = ''
@@ -55,7 +48,7 @@ in
             		touchscreen-inverted-x = <&ts>,"touchscreen-inverted-x?";
             		touchscreen-inverted-y = <&ts>,"touchscreen-inverted-y?";
             		touchscreen-swapped-x-y = <&ts>,"touchscreen-swapped-x-y?";
-                    };
+              };
             };
           '';
         }
