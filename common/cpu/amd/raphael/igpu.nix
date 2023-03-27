@@ -9,7 +9,7 @@
   boot = lib.mkMerge [
     (lib.mkIf (lib.versionOlder pkgs.linux.version "6.1") {
       kernelPackages = pkgs.linuxPackages_latest;
-      kernelParams = lib.mkMerge [["amdgpu.sg_display=0"]];  
+      kernelParams = ["amdgpu.sg_display=0"];  
     })
   ];
 }
