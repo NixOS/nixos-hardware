@@ -1,8 +1,9 @@
-{ lib, pkgs, ...}:
+{ lib, pkgs, ... }:
 
 {
   imports = [
     ./audio.nix
+    ./backlight.nix
     ./cpu-revision.nix
     ./dwc2.nix
     ./i2c.nix
@@ -22,6 +23,7 @@
       "vc4"
       "pcie_brcmstb"      # required for the pcie bus to work
       "reset-raspberrypi" # required for vl805 firmware to load
+      "rpi_backlight"     # required for backlight support
     ];
 
     loader = {
