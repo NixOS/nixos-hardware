@@ -8,7 +8,7 @@ in {
         description = lib.mdDoc ''
           Which wi-fi card is installed in your phone.
 
-          Phones shipped before Januarly 2023 have redpine, newer phones have sparklan.
+          Phones shipped before January 2023 have redpine, newer phones have sparklan.
         '';
         default = "redpine";
       };

@@ -38,6 +38,6 @@ stdenv.mkDerivation {
   '';
 
   # https://source.puri.sm/Librem5/librem5-base/-/issues/68
-  # President@Purism promised it's under a free license: https://matrix.to/#/%23community-librem-5%3Atalk.puri.sm/%24hNCtZr7Escmr56uz1eEiaHpakteEXig7b5G8t2W6tWs?via=balsoft.ru&via=matrix.org&via=shareknot.de&via=zorix.us
+  # President@Purism promised it's under a free license: https://matrix.to/#/%23community-librem-5%3Atalk.puri.sm/%24hNCtZr7Escmr56uz1eEiaHpakteEXig7b5G8t2W6tWs
   meta.license = lib.licenses.free;
 }
