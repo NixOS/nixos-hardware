@@ -37,6 +37,11 @@
       SURFACE_HOTPLUG = module;
 
       #
+      # Intel Touch Host Controller
+      #
+      HID_ITHC = module;
+
+      #
       # IPTS touchscreen
       #
       # This only enables the user interface for IPTS data.
@@ -94,31 +99,47 @@
     patch = patchDir + "/0004-ipts.patch";
   }
   {
-    name = "ms-surface/0005-surface-sam";
-    patch = patchDir + "/0005-surface-sam.patch";
+    name = "ms-surface/0005-ithc";
+    patch = patchDir + "/0005-ithc.patch";
   }
   {
-    name = "ms-surface/0006-surface-sam-over-hid";
-    patch = patchDir + "/0006-surface-sam-over-hid.patch";
+    name = "ms-surface/0006-surface-sam";
+    patch = patchDir + "/0006-surface-sam.patch";
   }
   {
-    name = "ms-surface/0007-surface-button";
-    patch = patchDir + "/0007-surface-button.patch";
+    name = "ms-surface/0007-surface-sam-over-hid";
+    patch = patchDir + "/0007-surface-sam-over-hid.patch";
   }
   {
-    name = "ms-surface/0008-surface-typecover";
-    patch = patchDir + "/0008-surface-typecover.patch";
+    name = "ms-surface/0008-surface-button";
+    patch = patchDir + "/0008-surface-button.patch";
   }
   {
-    name = "ms-surface/0009-cameras";
-    patch = patchDir + "/0009-cameras.patch";
+    name = "ms-surface/0009-surface-typecover";
+    patch = patchDir + "/0009-surface-typecover.patch";
   }
   {
-    name = "ms-surface/0010-amd-gpio";
-    patch = patchDir + "/0010-amd-gpio.patch";
+    name = "ms-surface/0010-surface-shutdown";
+    patch = patchDir + "/0010-surface-shutdown.patch";
   }
   {
-    name = "ms-surface/0011-rtc";
-    patch = patchDir + "/0011-rtc.patch";
+    name = "ms-surface/0011-surface-gpe";
+    patch = patchDir + "/0011-surface-gpe.patch";
+  }
+  {
+    name = "ms-surface/0012-cameras";
+    patch = patchDir + "/0012-cameras.patch";
+  }
+  {
+    name = "ms-surface/0013-amd-gpio";
+    patch = patchDir + "/0013-amd-gpio.patch";
+  }
+  {
+    name = "ms-surface/0014-rtc";
+    patch = patchDir + "/0014-rtc.patch";
+  }
+  {
+    name = "ms-surface/0015-intel-thread-director";
+    patch = patchDir + "/0015-intel-thread-director.patch";
   }
 ]
