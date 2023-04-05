@@ -6,6 +6,7 @@
     ../../../common/gpu/nvidia/prime.nix
     ../../../common/pc/laptop
     ../../../common/pc/laptop/ssd
+    ../../../common/hidpi.nix
   ];
 
   # Specify bus id of Nvidia and Intel graphics.
@@ -16,4 +17,7 @@
 
   # Cooling management
   services.thermald.enable = lib.mkDefault true;
+
+  # √(2560² + 1600²) px / 16 in ≃ 189 dpi
+  services.xserver.dpi = 189;
 }
