@@ -131,6 +131,7 @@
       lenovo-thinkpad-x260 = import ./lenovo/thinkpad/x260;
       lenovo-thinkpad-x270 = import ./lenovo/thinkpad/x270;
       lenovo-thinkpad-x280 = import ./lenovo/thinkpad/x280;
+      lenovo-thinkpad-x390 = import ./lenovo/thinkpad/x390;
       lenovo-thinkpad-z = import ./lenovo/thinkpad/z;
       lenovo-thinkpad-z13 = import ./lenovo/thinkpad/z/z13;
       lenovo-yoga-6-13ALC6 = import ./lenovo/yoga/6/13ALC6;

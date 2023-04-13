@@ -192,8 +192,9 @@ See code for all available configurations.
 | [Lenovo ThinkPad X250](lenovo/thinkpad/x250)                        | `<nixos-hardware/lenovo/thinkpad/x250>`            |
 | [Lenovo ThinkPad X260](lenovo/thinkpad/x260)                        | `<nixos-hardware/lenovo/thinkpad/x260>`            |
 | [Lenovo ThinkPad X270](lenovo/thinkpad/x270)                        | `<nixos-hardware/lenovo/thinkpad/x270>`            |
-| [Lenovo ThinkPad X280](lenovo/thinkpad/x280)                        | `<nixos-hardware/lenovo/thinkpad/x280>`            |
 | [Lenovo ThinkPad Z Series](lenovo/thinkpad/z)                       | `<nixos-hardware/lenovo/thinkpad/z>`               |
+| [Lenovo ThinkPad X280](lenovo/thinkpad/x280)                        | `<nixos-hardware/lenovo/thinkpad/x280>`            |
+| [Lenovo ThinkPad X390](lenovo/thinkpad/x390)                        | `<nixos-hardware/lenovo/thinkpad/x390>`            |
 | [Lenovo ThinkPad Z13](lenovo/thinkpad/z/z13)                        | `<nixos-hardware/lenovo/thinkpad/z/z13>`           |
 | [LENOVO Yoga 6 13ALC6 82ND](lenovo/yoga/6/13ALC6)                   | `<nixos-hardware/lenovo/yoga/6/13ALC6>`            |
 | [MSI GS60 2QE](msi/gs60)                                            | `<nixos-hardware/msi/gs60>`                        |
