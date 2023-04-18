@@ -5,7 +5,7 @@
       lib.mkForce [ "btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" ];
     consoleLogLevel = lib.mkDefault 7;
     kernelPackages =
-      lib.mkDefault (pkgs.callPackage ./linux_6_3.nix { inherit (config.boot) kernelPatches; });
+      lib.mkDefault (pkgs.callPackage ./linux-6.3.nix { inherit (config.boot) kernelPatches; });
 
     kernelParams =
       lib.mkDefault [ "console=tty0" "console=ttyS0,115200n8" "earlycon=sbi" ];

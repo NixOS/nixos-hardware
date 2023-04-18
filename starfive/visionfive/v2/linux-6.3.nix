@@ -14,7 +14,16 @@ let
       };
 
       inherit modDirVersion;
-      kernelPatches = [{ patch = ./fix-memory-size.patch; }] ++ kernelPatches;
+      kernelPatches = [
+        { patch = ./fix-memory-size.patch; }
+        {
+          patch = fetchpatch {
+            url =
+              "https://github.com/torvalds/linux/commit/d83806c4c0cccc0d6d3c3581a11983a9c186a138.diff";
+            hash = "sha256-xUnEJkzQRIIBF/0GIpS0Cd+h6OdSiJlyva5xwxtleE0=";
+          };
+        }
+      ] ++ kernelPatches;
 
       structuredExtraConfig = with lib.kernel; {
         PL330_DMA = no;

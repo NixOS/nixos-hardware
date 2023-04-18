@@ -3,9 +3,7 @@
 Create and configure the `flake.nix` file:
 ``` nix
 {
-  # Kernel is broken on riscv64 see https://github.com/NixOS/nixpkgs/issues/225756
-  inputs.nixpkgs.url =
-    "github:nixos/nixpkgs/c3e12e57c3e3d5c84cc500420be4507b3de33e90";
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   inputs.nixos-hardware.url = "github:nixos/nixos-hardware";
   inputs.flake-utils.url = "github:numtide/flake-utils";
   outputs = { self, nixpkgs, nixos-hardware, flake-utils }:
