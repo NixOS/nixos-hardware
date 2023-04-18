@@ -6,8 +6,8 @@ stdenv.mkDerivation rec{
   src = fetchFromGitHub {
     owner = "starfive-tech";
     repo = "soft_3rdpart";
-    rev = "cd7b50cd9f9eca66c23ebd19f06a172ce0be591f";
-    sha256 = "sha256-hRmP74gz0Y9KnSwXCjxEiArJE+FonI9rGghZTK54qGs=";
+    rev = "89ff3396250538548643c3322f74640712b80893";
+    sha256 = "sha256-Ni3pBWKgr4bYJb/uJ+5EbSQl6JwWoO2lZFk2Xpi63IA=";
     sparseCheckout = [ "spl_tool" ];
   };
   sourceRoot = "source/spl_tool";
