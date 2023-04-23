@@ -1,11 +1,11 @@
-{ callPackage, runCommand, writeText, stdenv, dtc }:
+{ callPackage, pkgsBuildHost, runCommand, writeText, stdenv, dtc }:
 let
   uboot = callPackage ./uboot.nix { };
   opensbi = callPackage ./opensbi.nix {
     withPayload = "${uboot}/u-boot.bin";
     withFDT = "${uboot}/starfive_visionfive2.dtb";
   };
-  spl-tool = callPackage ./spl-tool.nix { };
+  spl-tool = pkgsBuildHost.callPackage ./spl-tool.nix { };
   its-file = writeText "visionfive2-uboot-fit-image.its" ''
     /dts-v1/;
 
@@ -38,12 +38,17 @@ let
   '';
 in {
   inherit opensbi uboot;
-  spl = runCommand "starfive-visionfive2-spl" { } ''
-    mkdir -p $out/share/starfive-visionfive2/
-    ln -s ${uboot}/u-boot-spl.bin .
-    ${spl-tool}/bin/spl_tool -c -f ./u-boot-spl.bin
-    cp u-boot-spl.bin.normal.out $out/share/starfive-visionfive2/spl.bin
-  '';
+  spl = stdenv.mkDerivation {
+    name = "starfive-visionfive2-spl";
+    depsBuildBuild = [ spl-tool ];
+    phases = [ "installPhase" ];
+    installPhase = ''
+      mkdir -p $out/share/starfive-visionfive2/
+      ln -s ${uboot}/u-boot-spl.bin .
+      spl_tool -c -f ./u-boot-spl.bin
+      cp u-boot-spl.bin.normal.out $out/share/starfive-visionfive2/spl.bin
+    '';
+  };
   uboot-fit-image = stdenv.mkDerivation {
     name = "starfive-visionfive2-uboot-fit-image";
     nativeBuildInputs = [ dtc ];
