@@ -5,8 +5,13 @@ Create and configure the `flake.nix` file:
 {
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   inputs.nixos-hardware.url = "github:nixos/nixos-hardware";
+
+  # Some dependencies of this flake are not yet available on non linux systems
+  inputs.systems.url = "github:nix-systems/x86_64-linux";
   inputs.flake-utils.url = "github:numtide/flake-utils";
-  outputs = { self, nixpkgs, nixos-hardware, flake-utils }:
+  inputs.flake-utils.inputs.systems.follows = "systems";
+
+  outputs = { self, nixpkgs, nixos-hardware, flake-utils, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       rec {
         packages.default = packages.sd-image;
