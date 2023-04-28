@@ -96,6 +96,7 @@ See code for all available configurations.
 | [Dell Latitude 7430](dell/latitude/7430)                            | `<nixos-hardware/dell/latitude/7430>`              |
 | [Dell Latitude 7490](dell/latitude/7490)                            | `<nixos-hardware/dell/latitude/7490>`              |
 | [Dell Poweredge R7515](dell/poweredge/r7515)                        | `<nixos-hardware/dell/poweredge/r7515>`            |
+| [Dell Precision 3541](dell/precision/3541)                          | `<nixos-hardware/dell/precision/3541>`             |
 | [Dell Precision 5530](dell/precision/5530)                          | `<nixos-hardware/dell/precision/5530>`             |
 | [Dell XPS 13 7390](dell/xps/13-7390)                                | `<nixos-hardware/dell/xps/13-7390>`                |
 | [Dell XPS 13 9300](dell/xps/13-9300)                                | `<nixos-hardware/dell/xps/13-9300>`                |
