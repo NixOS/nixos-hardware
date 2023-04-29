@@ -1,7 +1,7 @@
 { lib, callPackage, linuxPackagesFor, kernelPatches, fetchpatch, ... }:
 
 let
-  modDirVersion = "6.3.0-rc3";
+  modDirVersion = "6.3.0-rc4";
   linuxPkg = { lib, fetchFromGitHub, buildLinux, ... }@args:
     buildLinux (args // {
       version = "${modDirVersion}-starfive-visionfive2";
@@ -9,8 +9,8 @@ let
       src = fetchFromGitHub {
         owner = "starfive-tech";
         repo = "linux";
-        rev = "2a6909fb414dfc72ae391791ec6edc3eedd13e6f";
-        sha256 = "sha256-FeY6N+hk0PTpuIuA1hkcS+B+ozn6iHV6YaRVx1kuYHc=";
+        rev = "a57bdb1d13f93c8fc1b3c668cc74d585bb20f3f8";
+        sha256 = "sha256-jnQnJChIGCyJt+zwGfUTsMhrwmWek/ngIM6Pae6OXuI=";
       };
 
       inherit modDirVersion;
