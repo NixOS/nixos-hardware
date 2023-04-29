@@ -6,8 +6,8 @@ buildUBoot {
   src = fetchFromGitHub {
     owner = "starfive-tech";
     repo = "u-boot";
-    rev = "688befadf1d337dee3593e6cc0fe1c737cc150bd";
-    sha256 = "sha256-RGADEJRZyuzjblxowdHnhj78eMJBIWnvkwEcpSen5Oo=";
+    rev = "ac0ac696256abf412826d74ee918dd417e207d7b";
+    sha256 = "sha256-cyEMKkTIiET8hnWgD6poZSzfjmRAqUtyRQM0yvNY230=";
   };
 
   defconfig = "starfive_visionfive2_defconfig";
