@@ -156,6 +156,7 @@
       kobol-helios4 = import ./kobol/helios4;
       samsung-np900x3c = import ./samsung/np900x3c;
       starfive-visionfive-v1 = import ./starfive/visionfive/v1;
+      starfive-visionfive-2 = import ./starfive/visionfive/v2;
       supermicro = import ./supermicro;
       supermicro-a1sri-2758f = import ./supermicro/a1sri-2758f;
       supermicro-m11sdv-8c-ln4f = import ./supermicro/m11sdv-8c-ln4f;
