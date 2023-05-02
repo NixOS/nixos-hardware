@@ -96,6 +96,7 @@ See code for all available configurations.
 | [Dell Latitude 7430](dell/latitude/7430)                            | `<nixos-hardware/dell/latitude/7430>`              |
 | [Dell Latitude 7490](dell/latitude/7490)                            | `<nixos-hardware/dell/latitude/7490>`              |
 | [Dell Poweredge R7515](dell/poweredge/r7515)                        | `<nixos-hardware/dell/poweredge/r7515>`            |
+| [Dell Precision 3541](dell/precision/3541)                          | `<nixos-hardware/dell/precision/3541>`             |
 | [Dell Precision 5530](dell/precision/5530)                          | `<nixos-hardware/dell/precision/5530>`             |
 | [Dell XPS 13 7390](dell/xps/13-7390)                                | `<nixos-hardware/dell/xps/13-7390>`                |
 | [Dell XPS 13 9300](dell/xps/13-9300)                                | `<nixos-hardware/dell/xps/13-9300>`                |
@@ -109,6 +110,8 @@ See code for all available configurations.
 | [Dell XPS 15 7590](dell/xps/15-7590)                                | `<nixos-hardware/dell/xps/15-7590>`                |
 | [Dell XPS 15 9500, nvidia](dell/xps/15-9500/nvidia)                 | `<nixos-hardware/dell/xps/15-9500/nvidia>`         |
 | [Dell XPS 15 9500](dell/xps/15-9500)                                | `<nixos-hardware/dell/xps/15-9500>`                |
+| [Dell XPS 15 9520, nvidia](dell/xps/15-9520/nvidia)                 | `<nixos-hardware/dell/xps/15-9520/nvidia>`         |
+| [Dell XPS 15 9520](dell/xps/15-9520)                                | `<nixos-hardware/dell/xps/15-9520>`                |
 | [Dell XPS 15 9550, nvidia](dell/xps/15-9550/nvidia)                 | `<nixos-hardware/dell/xps/15-9550/nvidia>`         |
 | [Dell XPS 15 9550](dell/xps/15-9550)                                | `<nixos-hardware/dell/xps/15-9550>`                |
 | [Dell XPS 15 9560, intel only](dell/xps/15-9560/intel)              | `<nixos-hardware/dell/xps/15-9560/intel>`          |

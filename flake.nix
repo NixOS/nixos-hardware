@@ -31,6 +31,7 @@
       dell-latitude-7430 = import ./dell/latitude/7430;
       dell-latitude-7490 = import ./dell/latitude/7490;
       dell-poweredge-r7515 = import ./dell/poweredge/r7515;
+      dell-precision-3541 = import ./dell/precision/3541;
       dell-precision-5530 = import ./dell/precision/5530;
       dell-xps-13-7390 = import ./dell/xps/13-7390;
       dell-xps-13-9300 = import ./dell/xps/13-9300;
@@ -44,6 +45,8 @@
       dell-xps-15-7590-nvidia = import ./dell/xps/15-7590/nvidia;
       dell-xps-15-9500 = import ./dell/xps/15-9500;
       dell-xps-15-9500-nvidia = import ./dell/xps/15-9500/nvidia;
+      dell-xps-15-9520 = import ./dell/xps/15-9520;
+      dell-xps-15-9520-nvidia = import ./dell/xps/15-9520/nvidia;
       dell-xps-15-9550 = import ./dell/xps/15-9550;
       dell-xps-15-9550-nvidia = import ./dell/xps/15-9550/nvidia;
       dell-xps-15-9560 = import ./dell/xps/15-9560;
