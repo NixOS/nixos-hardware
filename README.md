@@ -130,6 +130,7 @@ See code for all available configurations.
 | [GPD WIN 2](gpd/win-2)                                              | `<nixos-hardware/gpd/win-2>`                       |
 | [Google Pixelbook](google/pixelbook)                                | `<nixos-hardware/google/pixelbook>`                |
 | [HP Elitebook 2560p](hp/elitebook/2560p)                            | `<nixos-hardware/hp/elitebook/2560p>`              |
+| [i.MX8QuadMax Multisensory Enablement Kit](nxp/imx8qm-mek/)         | `<nixos-hardware/nxp/imx8qm-mek>`                  |
 | [Intel NUC 8i7BEH](intel/nuc/8i7beh/)                               | `<nixos-hardware/intel/nuc/8i7beh>`                |
 | [Lenovo IdeaPad Gaming 3 15arh05](lenovo/ideapad/15arh05)           | `<nixos-hardware/lenovo/ideapad/15arh05>`          |
 | [Lenovo IdeaPad Z510](lenovo/ideapad/z510)                          | `<nixos-hardware/lenovo/ideapad/z510>`             |
