@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, config, ... }:
 
 {
   imports = [
@@ -22,4 +22,11 @@
   boot = {
     kernelParams = [ "pcie_aspm.policy=powersupersave" ];
   };
+
+  assertions = [
+    {
+      assertion = (lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.2");
+      message = "The ga402 requires kernel version >=6.2 to ensure that fans are correctly managed. Please upgrade nixpkgs for this system.";
+    }
+  ];
 }
