@@ -31,7 +31,7 @@ in
     hardware.deviceTree = {
       overlays = [
         # Equivalent to:
-        # https://github.com/raspberrypi/linux/blob/rpi-5.10.y/arch/arm/boot/dts/overlays/cma-overlay.dts
+        # https://github.com/raspberrypi/linux/blob/rpi-6.1.y/arch/arm/boot/dts/overlays/cma-overlay.dts
         {
           name = "rpi4-cma-overlay";
           dtsText = ''
@@ -52,7 +52,7 @@ in
           '';
         }
         # Equivalent to:
-        # https://github.com/raspberrypi/linux/blob/rpi-5.10.y/arch/arm/boot/dts/overlays/vc4-fkms-v3d-overlay.dts
+        # https://github.com/raspberrypi/linux/blob/rpi-6.1.y/arch/arm/boot/dts/overlays/vc4-fkms-v3d-overlay.dts
         {
           name = "rpi4-vc4-fkms-v3d-overlay";
           dtsText = ''
