@@ -29,7 +29,7 @@ in {
             /plugin/;
 
             / {
-              compatible = "brcm,bcm2835";
+              compatible = "brcm,bcm2711";
 
               fragment@0 {
                 target-path = "/";
@@ -181,7 +181,7 @@ in {
             // Overlay for the Raspberry Pi PoE+ HAT.
 
             / {
-              compatible = "brcm,bcm2835";
+              compatible = "brcm,bcm2711";
 
               fragment@10 {
                 target-path = "/";
