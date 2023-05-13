@@ -58,6 +58,7 @@
       framework = import ./framework;
       framework-12th-gen-intel = import ./framework/12th-gen-intel;
       friendlyarm-nanopc-t4 = import ./friendlyarm/nanopc-t4;
+      focus-m2-gen1 = import ./focus/m2/gen1;
       google-pixelbook = import ./google/pixelbook;
       gpd-micropc = import ./gpd/micropc;
       gpd-p2-max = import ./gpd/p2-max;
