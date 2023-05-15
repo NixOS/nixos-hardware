@@ -16,8 +16,9 @@ in
     hardware.deviceTree = {
       overlays = [
         # This overlay was originally taken from:
-        # https://github.com/raspberrypi/linux/blob/rpi-5.15.y/arch/arm/boot/dts/overlays/rpi-backlight-overlay.dts
+        # https://github.com/raspberrypi/linux/blob/rpi-6.1.y/arch/arm/boot/dts/overlays/rpi-backlight-overlay.dts
         # The only modification made was to change the compatible field to bcm2711
+        # this is the same as for the 5.15.y kernel
         {
           name = "rpi-backlight-overlay";
           dtsText = ''

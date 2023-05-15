@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, config, ... }:
 
 {
   imports = [
@@ -32,7 +32,15 @@
     };
   };
 
-  hardware.deviceTree.filter = "bcm2711-rpi-*.dtb";
+  hardware.deviceTree.filter = lib.mkDefault "bcm2711-rpi-*.dtb";
+
+
+  assertions = [
+    {
+      assertion = (lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.1");
+      message = "This version of raspberry pi 4 dts overlays requires a newer kernel version (>=6.1). Please upgrade nixpkgs for this system.";
+    }
+  ];
 
   # Required for the Wireless firmware
   hardware.enableRedistributableFirmware = true;
