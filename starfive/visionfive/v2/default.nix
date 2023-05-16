@@ -4,7 +4,7 @@
     supportedFilesystems =
       lib.mkForce [ "btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" ];
     consoleLogLevel = lib.mkDefault 7;
-    kernelPackages = lib.mkDefault (pkgs.callPackage ./linux-6.3.nix {
+    kernelPackages = lib.mkDefault (pkgs.callPackage ./linux-6.4.nix {
       inherit (config.boot) kernelPatches;
     });
 

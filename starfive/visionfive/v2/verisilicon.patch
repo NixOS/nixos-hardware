@@ -1,0 +1,46 @@
+From f6df0d69978ceb373d14c9337c4cda74d604f46d Mon Sep 17 00:00:00 2001
+From: Nick Cao <nickcao@nichi.co>
+Date: Sat, 1 Jul 2023 17:19:22 +0800
+Subject: [PATCH 1/2] drm/verisilicon: add missing null entry in vs_drm_dt_ids
+
+---
+ drivers/gpu/drm/verisilicon/vs_drv.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/verisilicon/vs_drv.c b/drivers/gpu/drm/verisilicon/vs_drv.c
+index b740fe934035..1255a373f7a2 100644
+--- a/drivers/gpu/drm/verisilicon/vs_drv.c
++++ b/drivers/gpu/drm/verisilicon/vs_drv.c
+@@ -258,6 +258,7 @@ static SIMPLE_DEV_PM_OPS(vs_drm_pm_ops, vs_drm_suspend, vs_drm_resume);
+ 
+ static const struct of_device_id vs_drm_dt_ids[] = {
+ 	{ .compatible = "verisilicon,display-subsystem", },
++	{},
+ };
+ 
+ MODULE_DEVICE_TABLE(of, vs_drm_dt_ids);
+-- 
+2.41.0
+
+From f7d2f6e8c6e566cdd441b7bd4710f7628af15dcb Mon Sep 17 00:00:00 2001
+From: Nick Cao <nickcao@nichi.co>
+Date: Sat, 1 Jul 2023 17:49:05 +0800
+Subject: [PATCH 2/2] drm/verisilicon: import DMA_BUF namespace
+
+---
+ drivers/gpu/drm/verisilicon/vs_drv.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/verisilicon/vs_drv.c b/drivers/gpu/drm/verisilicon/vs_drv.c
+index 1255a373f7a2..8627027047aa 100644
+--- a/drivers/gpu/drm/verisilicon/vs_drv.c
++++ b/drivers/gpu/drm/verisilicon/vs_drv.c
+@@ -299,4 +299,5 @@ module_init(vs_drm_init);
+ module_exit(vs_drm_fini);
+ 
+ MODULE_DESCRIPTION("VeriSilicon DRM Driver");
++MODULE_IMPORT_NS(DMA_BUF);
+ MODULE_LICENSE("GPL");
+-- 
+2.41.0
+
