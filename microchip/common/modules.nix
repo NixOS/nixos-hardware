@@ -1,10 +1,6 @@
 { pkgs, lib, ... }: {
-  nixpkgs.overlays = [
-    (import ./overlay.nix)
-  ];
-
   boot = {
-    kernelPackages = pkgs.linuxPackagesFor pkgs.linux-icicle-kit;
+    kernelPackages = pkgs.linuxPackagesFor (pkgs.callPackage ./bsp/linux-icicle-kit.nix { });
     initrd.includeDefaultModules = lib.mkForce false;
   };
 
