@@ -31,10 +31,6 @@ Create and configure the `flake.nix` file:
               # networking.interfaces.end0.useDHCP = true;
               # networking.interfaces.end1.useDHCP = true;
 
-              # If you have the 2A variant uncomment the following line
-              # hardware.deviceTree.name =
-              #   lib.mkDefault "starfive/jh7110-starfive-visionfive-2-v1.2a.dtb";
-
               # Additional configuration goes here
 
               sdImage.compressImage = false;
@@ -56,4 +52,34 @@ Build the sd image.
 
 ``` sh
 nix build .#
+```
+
+## Additional configuration
+Additional configuration may be needed depending on your specific hardware configuration.
+### Board rev 1.2A
+If you have the 1.2A board revision add the following to your config:
+``` nix
+hardware.deviceTree.name =
+  lib.mkDefault "starfive/jh7110-starfive-visionfive-2-v1.2a.dtb";
+```
+
+### 8GB memory
+If your board has 8GB of RAM add the following to your config:
+
+#### Board rev 1.3B
+``` nix
+hardware.deviceTree.overlays = [{
+  name = "8GB-patch";
+  dtsFile =
+    "${nixos-hardware}/starfive/visionfive/v2/visionfive-2-v1.3b-8GB.dts";
+}];
+```
+
+#### Board rev 1.2A
+``` nix
+hardware.deviceTree.overlays = [{
+  name = "8GB-patch";
+  dtsFile =
+    "${nixos-hardware}/starfive/visionfive/v2/visionfive-2-v1.2a-8GB.dts";
+}];
 ```

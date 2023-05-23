@@ -15,7 +15,6 @@ let
 
       inherit modDirVersion;
       kernelPatches = [
-        { patch = ./fix-memory-size.patch; }
         {
           patch = fetchpatch {
             url =
