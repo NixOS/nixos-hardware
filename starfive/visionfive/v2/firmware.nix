@@ -1,4 +1,5 @@
-{ callPackage, pkgsBuildHost, runCommand, writeText, stdenv, dtc }:
+{ callPackage, pkgsBuildHost, runCommand, writeText, writeShellApplication
+, stdenv, dtc, mtdutils, coreutils }:
 let
   uboot = callPackage ./uboot.nix { };
   opensbi = callPackage ./opensbi.nix {
@@ -36,7 +37,7 @@ let
       };
     };
   '';
-in {
+in rec {
   inherit opensbi uboot;
   spl = stdenv.mkDerivation {
     name = "starfive-visionfive2-spl";
@@ -56,6 +57,22 @@ in {
     installPhase = ''
       mkdir -p $out/share/starfive-visionfive2/
       ${uboot}/mkimage -f ${its-file} -A riscv -O u-boot -T firmware $out/share/starfive-visionfive2/visionfive2_fw_payload.img
+    '';
+  };
+  updater-flash = writeShellApplication {
+    name = "visionfive2-firmware-update-flash";
+    runtimeInputs = [ mtdutils ];
+    text = ''
+      flashcp -v ${spl}/share/starfive-visionfive2/spl.bin /dev/mtd0
+      flashcp -v ${uboot-fit-image}/share/starfive-visionfive2/visionfive2_fw_payload.img /dev/mtd1
+    '';
+  };
+  updater-sd = writeShellApplication {
+    name = "visionfive2-firmware-update-sd";
+    runtimeInputs = [ ];
+    text = ''
+      dd if=${spl}/share/starfive-visionfive2/spl.bin of=/dev/mmcblk0p1 conv=fsync
+      dd if=${uboot-fit-image}/share/starfive-visionfive2/visionfive2_fw_payload.img of=/dev/mmcblk0p2 conv=fsync
     '';
   };
 }

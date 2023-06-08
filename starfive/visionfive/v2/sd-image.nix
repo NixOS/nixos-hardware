@@ -1,7 +1,6 @@
 { config, pkgs, lib, modulesPath, ... }:
 
-let
-  firmware = pkgs.callPackage ./firmware.nix { };
+let firmware = pkgs.callPackage ./firmware.nix { };
 in {
   imports = [
     "${modulesPath}/profiles/base.nix"
@@ -48,4 +47,6 @@ in {
       ${config.boot.loader.generic-extlinux-compatible.populateCmd} -c ${config.system.build.toplevel} -d ./files/boot
     '';
   };
+
+  environment.systemPackages = [ firmware.updater-flash ];
 }
