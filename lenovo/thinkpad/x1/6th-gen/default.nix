@@ -17,5 +17,5 @@
   # See also https://certification.ubuntu.com/catalog/component/input/5313/input%3ATPPS/2ElanTrackPoint/
   hardware.trackpoint.device = "TPPS/2 Elan TrackPoint";
 
-  services.throttled.enable = lib.mkDefault true;
+  services.thermald.enable = lib.mkDefault true;
 }

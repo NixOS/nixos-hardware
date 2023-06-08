@@ -17,9 +17,32 @@
     "i915.enable_psr=1"
   ];
 
-  # This enables the brightness keys to work
+  # This enables the brightness and airplane mode keys to work
   # https://community.frame.work/t/12th-gen-not-sending-xf86monbrightnessup-down/20605/11
   boot.blacklistedKernelModules = [ "hid-sensor-hub" ];
+  
+  # Further tweak to ensure the brightness and airplane mode keys work
+  # https://community.frame.work/t/responded-12th-gen-not-sending-xf86monbrightnessup-down/20605/67
+  systemd.services.bind-keys-driver = {
+    description = "Bind brightness and airplane mode keys to their driver";
+    wantedBy = [ "default.target" ];
+    after = [ "network.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root";
+    };
+    script = ''
+      ls -lad /sys/bus/i2c/devices/i2c-*:* /sys/bus/i2c/drivers/i2c_hid_acpi/i2c-*:*
+      if [ -e /sys/bus/i2c/devices/i2c-FRMW0001:00 -a ! -e /sys/bus/i2c/drivers/i2c_hid_acpi/i2c-FRMW0001:00 ]; then
+        echo fixing
+        echo i2c-FRMW0001:00 > /sys/bus/i2c/drivers/i2c_hid_acpi/bind
+        ls -lad /sys/bus/i2c/devices/i2c-*:* /sys/bus/i2c/drivers/i2c_hid_acpi/i2c-*:*
+        echo done
+      else
+        echo no fix needed
+      fi
+    '';
+  };
 
   # Alder Lake CPUs benefit from kernel 5.18 for ThreadDirector
   # https://www.tomshardware.com/news/intel-thread-director-coming-to-linux-5-18
