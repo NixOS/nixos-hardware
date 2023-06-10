@@ -66,6 +66,7 @@
       gpd-win-2 = import ./gpd/win-2;
       hp-elitebook-2560p = import ./hp/elitebook/2560p;
       hp-elitebook-845g9 = import ./hp/elitebook/845/g9;
+      hp-notebook-14-df0023 = import ./hp/notebook/14-df0023;
       intel-nuc-8i7beh = import ./intel/nuc/8i7beh;
       lenovo-ideapad-15arh05 = import ./lenovo/ideapad/15arh05;
       lenovo-ideapad-z510 = import ./lenovo/ideapad/z510;
