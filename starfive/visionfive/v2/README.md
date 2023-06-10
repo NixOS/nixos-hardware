@@ -83,3 +83,31 @@ hardware.deviceTree.overlays = [{
     "${nixos-hardware}/starfive/visionfive/v2/visionfive-2-v1.2a-8GB.dts";
 }];
 ```
+# Updating the bootloader
+## SD-Card
+Install the firmware update script
+``` nix
+environment.systemPackages = [
+  (pkgs.callPackage
+    "${nixos-hardware}/starfive/visionfive/v2/firmware.nix"
+    { }).updater-sd
+];
+```
+Then run as root
+``` sh
+visionfive2-firmware-update-sd
+```
+## SPI Flash
+Install the firmware update script
+``` nix
+environment.systemPackages = [
+  (pkgs.callPackage
+    "${nixos-hardware}/starfive/visionfive/v2/firmware.nix"
+    { }).updater-flash
+];
+```
+Then run as root
+``` sh
+visionfive2-firmware-update-flash
+```
+
