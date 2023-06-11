@@ -127,6 +127,8 @@
       lenovo-thinkpad-x1-extreme = import ./lenovo/thinkpad/x1-extreme;
       lenovo-thinkpad-x1-extreme-gen2 = import ./lenovo/thinkpad/x1-extreme/gen2;
       lenovo-thinkpad-x1-extreme-gen4 = import ./lenovo/thinkpad/x1-extreme/gen4;
+      lenovo-thinkpad-x1-nano = import ./lenovo/thinkpad/x1-nano;
+      lenovo-thinkpad-x1-nano-gen1 = import ./lenovo/thinkpad/x1-nano/gen1;
       lenovo-thinkpad-x13 = import ./lenovo/thinkpad/x13;
       lenovo-thinkpad-x13-yoga = import ./lenovo/thinkpad/x13/yoga;
       lenovo-thinkpad-x140e = import ./lenovo/thinkpad/x140e;
