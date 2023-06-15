@@ -207,6 +207,7 @@ See code for all available configurations.
 | [LENOVO Yoga 6 13ALC6 82ND](lenovo/yoga/6/13ALC6)                   | `<nixos-hardware/lenovo/yoga/6/13ALC6>`            |
 | [MSI GS60 2QE](msi/gs60)                                            | `<nixos-hardware/msi/gs60>`                        |
 | [MSI GL62/CX62](msi/gl62)                                           | `<nixos-hardware/msi/gl62>`                        |
+| [Micrchip Icicle Kit](microchip/icicle-kit)                         | `<nixos-hardware/microchip/icicle-kit>`            |
 | [Microsoft Surface Go](microsoft/surface/surface-go)                | `<nixos-hardware/microsoft/surface/surface-go>`    |
 | [Microsoft Surface Pro (Intel)](microsoft/surface/surface-pro-intel)| `<nixos-hardware/microsoft/surface/surface-pro-intel>`|
 | [Microsoft Surface Laptop (AMD)](microsoft/surface/surface-laptop-amd)| `<nixos-hardware/microsoft/surface/surface-laptop-amd>`|

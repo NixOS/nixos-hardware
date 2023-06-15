@@ -1,0 +1,26 @@
+From 2085960b5dfc7058d572cfb90fa349efe9bacdf2 Mon Sep 17 00:00:00 2001
+From: Ganga Ram <ganga.jaiswal@gmail.com>
+Date: Mon, 24 Apr 2023 10:15:22 +0400
+Subject: [PATCH] Boot environment for Microchip Iciclle Kit
+
+Signed-off-by: Ganga Ram <ganga.jaiswal@gmail.com>
+---
+ include/configs/microchip_mpfs_icicle.h | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/include/configs/microchip_mpfs_icicle.h b/include/configs/microchip_mpfs_icicle.h
+index 9ef5425c9f..c8a1f7c9df 100644
+--- a/include/configs/microchip_mpfs_icicle.h
++++ b/include/configs/microchip_mpfs_icicle.h
+@@ -71,6 +71,9 @@
+ #define CONFIG_EXTRA_ENV_SETTINGS \
+	"bootm_size=0x10000000\0" \
+	"scriptaddr=0x8e000000\0" \
++  "kernel_addr_r=0x8e000000\0" \
++  "ramdisk_addr_r=0x90000000\0" \
++  "fdt_addr_r=0x92000000\0" \
+	BOOTENV_DESIGN_OVERLAYS \
+	BOOTENV \
+
+--
+2.39.2
