@@ -19,7 +19,7 @@ in {
       systemd.services.iptsd = {
         description = "IPTSD";
         path = with pkgs; [ iptsd ];
-        script = "iptsd";
+        script = "iptsd $(iptsd-find-hidraw)";
         wantedBy = [ "multi-user.target" ];
       };
     })
