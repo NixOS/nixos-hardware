@@ -86,6 +86,8 @@ See code for all available configurations.
 | [Asus ROG Strix G733QS](asus/rog-strix/g733qs)                         | `<nixos-hardware/asus/rog-strix/g733qs>`                |
 | [Asus ROG Zephyrus G14 GA401](asus/zephyrus/ga401)                     | `<nixos-hardware/asus/zephyrus/ga401>`                  |
 | [Asus ROG Zephyrus G14 GA402](asus/zephyrus/ga402)                     | `<nixos-hardware/asus/zephyrus/ga402>`                  |
+| [Asus ROG Zephyrus G14 GA402X* (2023)](asus/zephyrus/ga402x/amdgpu)    | `<nixos-hardware/asus/zephyrus/ga402x/amdgpu>`          |
+| [Asus ROG Zephyrus G14 GA402X* (2023)](asus/zephyrus/ga402x/nvidia)    | `<nixos-hardware/asus/zephyrus/ga402x/nvidia>`          |
 | [Asus ROG Zephyrus G15 GA502](asus/zephyrus/ga502)                     | `<nixos-hardware/asus/zephyrus/ga502>`                  |
 | [Asus ROG Zephyrus G15 GA503](asus/zephyrus/ga503)                     | `<nixos-hardware/asus/zephyrus/ga503>`                  |
 | [Asus ROG Zephyrus M16 GU603H](asus/zephyrus/gu603h)                   | `<nixos-hardware/asus/zephyrus/gu603h>`                 |
