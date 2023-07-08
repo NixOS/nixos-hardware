@@ -1,0 +1,24 @@
+diff --git a/drivers/rtc/rtc-starfive.c b/drivers/rtc/rtc-starfive.c
+index 895960ff0..d567cf876 100644
+--- a/drivers/rtc/rtc-starfive.c
++++ b/drivers/rtc/rtc-starfive.c
+@@ -575,7 +575,7 @@ static int sft_rtc_probe(struct platform_device *pdev)
+ 	struct device *dev = &pdev->dev;
+ 	struct sft_rtc *srtc;
+ 	struct rtc_time tm;
+-	struct irq_desc *desc;
++	struct irq_data *data;
+ 	int ret;
+ 
+ 	srtc = devm_kzalloc(dev, sizeof(*srtc), GFP_KERNEL);
+@@ -640,8 +640,8 @@ static int sft_rtc_probe(struct platform_device *pdev)
+ 	srtc->rtc_dev->ops = &starfive_rtc_ops;
+ 	device_init_wakeup(dev, true);
+ 
+-	desc = irq_to_desc(srtc->rtc_irq);
+-	irq_desc_get_chip(desc)->flags = IRQCHIP_SKIP_SET_WAKE;
++	data = irq_get_irq_data(srtc->rtc_irq);
++	irq_data_get_irq_chip(data)->flags = IRQCHIP_SKIP_SET_WAKE;
+ 
+ 	/* Always use 24-hour mode and keep the RTC values */
+ 	sft_rtc_set_mode(srtc, RTC_HOUR_MODE_24H);
