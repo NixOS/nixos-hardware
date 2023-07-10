@@ -13,6 +13,7 @@ buildUBoot rec {
   src = fetchFromGitHub {
     owner = "polarfire-soc";
     repo = "u-boot";
+    # from mpfs-uboot-2022.01 branch
     rev = "7e19f9dff788025403ac6a34d9acf8736eef32ff";
     sha256 = "sha256-1qmifjjNxPOUWRgZdQk6Ld5KGQk/PypSRK/ILPSsTLs";
   };
