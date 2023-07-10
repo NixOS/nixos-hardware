@@ -8,7 +8,7 @@ let
     hash = "sha256-VILJAK7F0E/8Z3sOzsUpS9dmtpull2XVXQkakZ0UTIA=";
   };
 
-  version = "6.4";
+  version = "6.4.2";
   majorVersion = with lib; (elemAt (take 1 (splitVersion version)) 0);
 in
 buildLinux (args // {
@@ -20,7 +20,7 @@ buildLinux (args // {
 
   src = fetchurl {
     url = "mirror://kernel/linux/kernel/v${majorVersion}.x/linux-${version}.tar.xz";
-    hash = "sha256-j6BYjwws7KRMrHeg45ukjJ8AprncaXYcAqXT76yNp/M=";
+    hash = "sha256-oyarIkF2xbF8c8nMrYXzLkm25Odkhh1XWVcnt+8QBiw=";
   };
 
   structuredExtraConfig = with lib.kernel; {
