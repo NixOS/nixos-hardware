@@ -18,7 +18,7 @@
   hardware = {
     nvidia = {
       modesetting.enable = lib.mkDefault true;
-      powerManagement.enable = lib.mkDefault true; #
+      powerManagement.enable = lib.mkDefault true;
       #
       prime = {
         intelBusId = "PCI:00:02:0";
