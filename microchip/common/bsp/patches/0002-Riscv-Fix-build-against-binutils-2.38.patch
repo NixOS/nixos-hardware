@@ -1,0 +1,51 @@
+From 8afd811876b1ce8d6da6d5c804452a2b15805f5a Mon Sep 17 00:00:00 2001
+From: Ganga Ram <Ganga.Ram@tii.ae>
+Date: Wed, 5 Jul 2023 11:32:44 +0400
+Subject: [PATCH] From: Ganga Ram <Ganga.Ram@tii.ae> Date: Wed, 05 July 2023
+ 06:15:22 +0400 Subject: [PATCH] Riscv-Fix-build-against-binutils-2.38
+
+The following description is copied from the equivalent patch for the
+Linux Kernel proposed by Aurelien Jarno:
+
+From version 2.38, binutils default to ISA spec version 20191213. This
+means that the csr read/write (csrr*/csrw*) instructions and fence.i
+instruction has separated from the `I` extension, become two standalone
+extensions: Zicsr and Zifencei. As the kernel uses those instruction,
+this causes the following build failure:
+
+arch/riscv/lib/cache.c:12: Error: unrecognized opcode `fence.i', extension `zifencei' required
+arch/riscv/cpu/cpu.c:94: Error: unrecognized opcode `csrs sstatus,a5', extension `zicsr' required
+arch/riscv/cpu/cpu.c:95: Error: unrecognized opcode `csrw 0x003,0', extension `zicsr' required
+
+More detail: https://patchwork.ozlabs.org/series/283391/mbox/
+
+Signed-off-by: Ganga Ram <Ganga.Ram@tii.ae>
+---
+ arch/riscv/Makefile | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/arch/riscv/Makefile b/arch/riscv/Makefile
+index 0b80eb8d86..53d1194ffb 100644
+--- a/arch/riscv/Makefile
++++ b/arch/riscv/Makefile
+@@ -24,7 +24,16 @@ ifeq ($(CONFIG_CMODEL_MEDANY),y)
+ 	CMODEL = medany
+ endif
+ 
+-ARCH_FLAGS = -march=$(ARCH_BASE)$(ARCH_A)$(ARCH_C) -mabi=$(ABI) \
++RISCV_MARCH = $(ARCH_BASE)$(ARCH_A)$(ARCH_C)
++
++# Newer binutils versions default to ISA spec version 20191213 which moves some
++# instructions from the I extension to the Zicsr and Zifencei extensions.
++toolchain-need-zicsr-zifencei := $(call cc-option-yn, -mabi=$(ABI) -march=$(RISCV_MARCH)_zicsr_zifencei)
++ifeq ($(toolchain-need-zicsr-zifencei),y)
++	RISCV_MARCH := $(RISCV_MARCH)_zicsr_zifencei
++endif
++
++ARCH_FLAGS = -march=$(RISCV_MARCH) -mabi=$(ABI) \
+ 	     -mcmodel=$(CMODEL)
+ 
+ PLATFORM_CPPFLAGS	+= $(ARCH_FLAGS)
+-- 
+2.39.2
+
