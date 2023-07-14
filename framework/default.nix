@@ -24,9 +24,6 @@
     options snd-hda-intel model=dell-headset-multi
   '';
 
-  # Less invasive than tlp and should work for frameworks
-  services.power-profiles-daemon.enable = lib.mkDefault true;
-
   # For fingerprint support
   services.fprintd.enable = lib.mkDefault true;
 
