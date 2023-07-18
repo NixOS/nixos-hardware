@@ -21,6 +21,7 @@
       asus-zephyrus-ga402 = import ./asus/zephyrus/ga402;
       asus-zephyrus-ga503 = import ./asus/zephyrus/ga503;
       beagleboard-pocketbeagle = import ./beagleboard/pocketbeagle;
+      deciso-dec = import ./deciso/dec;
       dell-e7240 = import ./dell/e7240;
       dell-g3-3779 = import ./dell/g3/3779;
       dell-inspiron-5509 = import ./dell/inspiron/5509;

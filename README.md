@@ -87,6 +87,7 @@ See code for all available configurations.
 | [Asus ROG Zephyrus G15 GA503](asus/zephyrus/ga503)                  | `<nixos-hardware/asus/zephyrus/ga503>`             |
 | [Asus TUF FX504GD](asus/fx504gd)                                    | `<nixos-hardware/asus/fx504gd>`                    |
 | [BeagleBoard PocketBeagle](beagleboard/pocketbeagle)                | `<nixos-hardware/beagleboard/pocketbeagle>`        |
+| [Deciso DEC series](deciso/dec)                                     | `<nixos-hardware/deciso/dec>`                      |
 | [Dell G3 3779](dell/g3/3779)                                        | `<nixos-hardware/dell/g3/3779>`                    |
 | [Dell Inspiron 5509](dell/inspiron/5509)                            | `<nixos-hardware/dell/inspiron/5509>`              |
 | [Dell Inspiron 5515](dell/inspiron/5515)                            | `<nixos-hardware/dell/inspiron/5515>`              |
