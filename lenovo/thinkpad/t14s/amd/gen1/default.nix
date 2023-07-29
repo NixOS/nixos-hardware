@@ -8,5 +8,5 @@
   boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "5.16") pkgs.linuxPackages_latest;
 
   # Enable energy savings during sleep
-  boot.kernelParams = ["mem_sleep_default=deep"];
+  boot.kernelParams = [ "mem_sleep_default=deep" ];
 }
