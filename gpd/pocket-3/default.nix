@@ -20,9 +20,6 @@ in
 	];
 
 	boot.kernelParams = [
-		# S3 suspend is broken as of Sept. 2022 (screen does not come back properly), use S2
-		"mem_sleep_default=s2idle"
-
 		# The GPD Pocket3 uses a tablet OLED display, that is mounted rotated 90° counter-clockwise
 		"fbcon=rotate:1" "video=DSI-1:panel_orientation=right_side_up"
 	];
