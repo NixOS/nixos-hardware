@@ -1,0 +1,9 @@
+= Dell XPS 13 9300 =
+
+== SSD ==
+
+In the <code>default.nix</code> file, I imported
+<code>../../../common/pc/ssd</code> because my laptop has currently an SSD, but
+I'm not sure if it was the case when I bought it or if I installed it later.
+
+The main updates allow the touchpad to work.
