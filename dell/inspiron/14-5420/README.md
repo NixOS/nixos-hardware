@@ -7,4 +7,7 @@
 ### Other Info
 `fwupd` is used to receive firmware updates from vendors. This device is in its [supported devices list](https://fwupd.org/lvfs/devices/)
 
-`thermald` and `tlp` are used to achieve better battery life and better thermal behaviour
+`thermald` is used to achieve better thermal behaviour
+
+##### TLP
+TLP is a battery power optimizer for laptops. You may enable it with `services.tlp.enable = true;`, however, please note that it may conflict with GNOME's power management. Enabling TLP may require additional configurations.
