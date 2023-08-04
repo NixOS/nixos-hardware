@@ -18,8 +18,5 @@
 		thermald = {
 			enable = lib.mkDefault true;
 		};
-		tlp	= {
-			enable = lib.mkDefault true;
-		};
 	};
 }
