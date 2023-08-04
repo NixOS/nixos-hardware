@@ -25,6 +25,7 @@
       deciso-dec = import ./deciso/dec;
       dell-e7240 = import ./dell/e7240;
       dell-g3-3779 = import ./dell/g3/3779;
+      dell-inspiron-14-5420 = import ./dell/inspiron/14-5420;
       dell-inspiron-5509 = import ./dell/inspiron/5509;
       dell-inspiron-5515 = import ./dell/inspiron/5515;
       dell-inspiron-7405 = import ./dell/inspiron/7405;
