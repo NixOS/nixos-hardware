@@ -10,7 +10,7 @@ You can consult the [wiki](https://wiki.t2linux.org/) for information specific t
 
 ## Unlocking Internal iGPU
 
-The `apple-set-os-loader-installer.nix` module serves as an installer for the [`apple-set-os-loader`](https://github.com/Redecorating/apple_set_os-loader). This tool is designed to unlock the internal integrated GPU (iGPU) on certain MacBooks. See https://wiki.t2linux.org/guides/hybrid-graphics/ for more details.
+The `apple-set-os-loader-installer` module serves as an installer for the [`apple-set-os-loader`](https://github.com/Redecorating/apple_set_os-loader). This tool is designed to unlock the internal integrated GPU (iGPU) on certain MacBooks. See https://wiki.t2linux.org/guides/hybrid-graphics/ for more details.
 
 ### What it Does:
 
@@ -22,12 +22,9 @@ Upon activation, this module performs the following:
 
 ### How to Implement:
 
-1. **Integrate the apple-set-os-loader installer** into your `configuration.nix`:
+1. Add this into your `configuration.nix`:
 ```
-imports = [
-  ...
-  "${builtins.fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; }}/apple/t2/apple-set-os-loader-installer.nix"
-];
+appleT2Config.enableAppleSetOsLoader = true;
 ```
 
 2. **Rebuild your system**:
