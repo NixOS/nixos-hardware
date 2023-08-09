@@ -41,13 +41,13 @@ These settings are needed both for booting the final install, and installer itse
 
 == Optional Functionality ==
 
-* ''Fan control'' This laptop supports Dell's own [libsmbios](https://github.com/dell/libsmbios) to set fan modes, as well as other bios settings. Simply add the `libsmbios` package to your environment.
+* ''Fan control'' This laptop supports Dell's own libsmbios: https://github.com/dell/libsmbios to set fan modes, as well as other bios settings. Simply add the `libsmbios` package to your environment.
 
 * ''TPM 2.0 LUKS Decryption'' If using the experimental systemd initrd, the TPM can easily be used to decrypt the root partition at boot. Simply use `systemd-cryptenroll` with desired options.
 
 * ''Firmware Upgrades'' `services.fwupd` and your desired front-end can be used to update almost all of the firmware on this system. Something curious is the BIOS offered through fwupd/lvfs is much newer than the one available on Dell's website.
 
-* ''Secure Boot'' This works. There is more than one way to enable it. Tested with [lanzaboote](https://github.com/nix-community/lanzaboote) v0.3.0
+* ''Secure Boot'' This works. There is more than one way to enable it. Tested with https://github.com/nix-community/lanzaboote v0.3.0
 
 == Troubleshooting ==
 
