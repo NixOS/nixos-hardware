@@ -67,7 +67,7 @@ boot.kernelParams = [ "acpi_rev_override=1" "pcie_aspm=off" "nouveau.modeset=0" 
 
 Some more detail about the problem can be found here: https://bbs.archlinux.org/viewtopic.php?id=223056
 
-=== TPM 2.0 Intermittent ===
+==== TPM 2.0 Intermittent ====
 
 * The TPM was very unreliable, sometimes not showing up to the system. Updating to the latest TPM firmware fixed the problem. I could not seem to do this through `fwupd` so used the latest exe from the Dell website. Loading the exe through a command prompt on a Windows installer was adequate.
 
