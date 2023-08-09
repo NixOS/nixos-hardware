@@ -8,7 +8,7 @@ Create and configure the `flake.nix` file:
   inputs.nixos-hardware.url = "github:nixos/nixos-hardware";
 
 
-  outputs = { self, nixpkgs, nixos-hardware, flake-utils, ... }:
+  outputs = { self, nixpkgs, nixos-hardware, ... }:
     let
       supportedSystems = [
         "x86_64-linux"
