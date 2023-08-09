@@ -31,9 +31,7 @@ These settings are needed both for booting the final install, and installer itse
 
 === Optional ===
 
-* ''Disable C-States.'' This is a processor idling thing. It seems to cause random crashes (Blank screen, no normal panic debug dump). Unfortunately, without it, the computer cannot be suspended. On the other hand, it doesn't seem to affect acpi's estimation of battery life when the computer is running with minimal load, but I haven't tested battery life in practice. I list it as optional as there's a tradeoff, and the crashes are rare enough one can probably get through installation just fine.
-
-  * This does not seem to be a problem on recent firmware/kernel versions.
+* ''Disable C-States.'' This is a processor idling thing. It seems to cause random crashes (Blank screen, no normal panic debug dump). Unfortunately, without it, the computer cannot be suspended. On the other hand, it doesn't seem to affect acpi's estimation of battery life when the computer is running with minimal load, but I haven't tested battery life in practice. I list it as optional as there's a tradeoff, and the crashes are rare enough one can probably get through installation just fine. This does not seem to be a problem on recent firmware/kernel versions.
 
 * ''Update BIOS.'' According to Reddit, this helps with battery life.
 
