@@ -27,6 +27,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # fixes a crash: https://github.com/raspberrypi/linux/issues/5568
+    # can be removed for >= nixos 23.11: https://github.com/NixOS/nixpkgs/pull/247826
+    boot.kernelParams = [ "kunit.enable=0" ];
+
+    # doesn't work for the CM module, so we exclude e.g. bcm2711-rpi-cm4.dts
+    hardware.deviceTree.filter = "bcm2711-rpi-4*.dtb";
+
     # Configure for modesetting in the device tree
     hardware.deviceTree = {
       overlays = [
