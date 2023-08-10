@@ -62,6 +62,7 @@
       dell-xps-17-9710-intel = import ./dell/xps/17-9710/intel;
       framework = import ./framework;
       framework-12th-gen-intel = import ./framework/12th-gen-intel;
+      framework-13th-gen-intel = import ./framework/13th-gen-intel;
       friendlyarm-nanopc-t4 = import ./friendlyarm/nanopc-t4;
       focus-m2-gen1 = import ./focus/m2/gen1;
       google-pixelbook = import ./google/pixelbook;
