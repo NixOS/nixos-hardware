@@ -1,11 +1,11 @@
-{ stdenv, buildUBoot, fetchurl, fetchFromGitLab, lib, flex, bison }:
+{ stdenv, gcc11Stdenv, buildUBoot, fetchurl, fetchFromGitLab, lib, flex, bison }:
 let
   firmware-imx = stdenv.mkDerivation (fa: {
     pname = "firmware-imx";
-    version = "8.12";
+    version = "8.15";
     src = fetchurl {
       url = "https://www.nxp.com/lgfiles/NMG/MAD/YOCTO/${fa.pname}-${fa.version}.bin";
-      sha256 = "1vr2wgjac718hp48arhdvxd7gib93zhdrbrla8w3xigc6szlfrvb";
+      hash = "sha256-k34ZZHa46VtLfyUBoUyDJtigZJ+KP5IotyNzdwoI3rM=";
     };
     unpackPhase = ''
       cp $src firmware
@@ -15,12 +15,12 @@ let
     installPhase = ''
       mkdir -p $out
       cd ${fa.pname}-${fa.version}/firmware
-      cp ddr/synopsys/lpddr4_pmu_train_?d_?mem.bin hdmi/cadence/signed_*_imx8m.bin $out
+      cp ddr/synopsys/lpddr4*.bin hdmi/cadence/signed_*_imx8m.bin $out
     '';
     meta.license = lib.licenses.unfree;
   });
 
-  arm-trusted-firmware-imx8mq = stdenv.mkDerivation (fa: {
+  arm-trusted-firmware-imx8mq = gcc11Stdenv.mkDerivation (fa: {
     pname = "arm-trusted-firmware-bl31";
     version = "unstable-2020-07-08";
     src = fetchFromGitLab {
@@ -42,14 +42,14 @@ let
   });
 
   ubootLibrem5 = buildUBoot {
-    version = "2022.10-librem5.1";
+    version = "unstable-2022-12-15";
     defconfig = "librem5_defconfig";
     src = fetchFromGitLab {
       domain = "source.puri.sm";
-      owner = "a-wai";
+      owner = "Librem5";
       repo = "uboot-imx";
-      rev = "3a836701279ed1f51063dc5da6f59adc4809093e";
-      hash = "sha256-69auZ8GzyhSBxzi4jc6IyyQ6JBrTYXaOk6dZ+joUgF4=";
+      rev = "956aa590c93977992743b41c45d3c7ee5a024915"; # this is the latest commit on the upstream/librem5 branch
+      hash = "sha256-MsIIlarN+WFFEzc0ptLAgS7BwJ6Cosy42xo0EwPn1AU=";
     };
     BL31 = "${arm-trusted-firmware-imx8mq}/bl31.bin";
     preConfigure = ''
@@ -64,6 +64,7 @@ let
       mkdir $out/bin
       sed 's|TARGET="/usr/lib/u-boot/librem5.*"|TARGET="${placeholder "out"}"|' \
         $src/debian/bin/u-boot-install-librem5 > $out/bin/u-boot-install-librem5
+      chmod +x $out/bin/u-boot-install-librem5
     '';
   };
 in
