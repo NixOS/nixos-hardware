@@ -15,10 +15,25 @@ in {
       customInitrdModules = lib.mkEnableOption (lib.mdDoc "use of custom kernel modules in the initrd.");
       installUdevPackages = lib.mkEnableOption (lib.mdDoc "installation of udev packages from librem5-base.");
       lockdownFix = lib.mkEnableOption (lib.mdDoc "fix for orientation and proximity sensors not working after lockdown.");
+      audio = lib.mkOption {
+        description = lib.mdDoc ''
+          Whether to enable and configure PulseAudio for the Librem5 modem.
+
+          This is required for audio during calls to work at all.
+        '';
+        type = lib.types.bool;
+        default = true;
+        example = false;
+      };
     };
   };
 
-  imports = [ ./initrd.nix ./wifi.nix ./lockdown-fix.nix ];
+  imports = [
+    ./audio.nix
+    ./initrd.nix
+    ./wifi.nix
+    ./lockdown-fix.nix
+  ];
 
   config = {
     hardware.librem5 = {

@@ -1,13 +1,13 @@
 { stdenv, fetchFromGitLab, shellcheck, kmod, lib }:
 stdenv.mkDerivation {
-  pname = "librem5-udev-rules";
+  pname = "librem5-base";
   version = "unstable";
   src = fetchFromGitLab {
     domain = "source.puri.sm";
     owner = "Librem5";
     repo = "librem5-base";
-    rev = "f5b51beb144f76ef3bc483b74e19867bd6364d32";
-    hash = "sha256-5k7e4o9ak0zik+XqRV6PPwkTDf3yH3NxtLkhTyCQj7U=";
+    rev = "96b0f920cde9157332b0c16ba1135ee60a3f3259";
+    hash = "sha256-nR42dk3g0/IkVFygZ7K1SZ2KoQJeDzuMOumKdOOQS5k=";
   };
 
   buildPhase = ":";
@@ -27,6 +27,11 @@ stdenv.mkDerivation {
       cp -v "$rule" "$out/lib/udev/rules.d/''${rule#*.}.rules"
     done
     popd
+
+    mkdir -p "$out/etc/pulse"
+    cp -v "default/audio/pulse/librem5.pa" "$out/etc/pulse/librem5.pa"
+    substituteInPlace "$out/etc/pulse/librem5.pa" \
+      --replace ".include /etc/pulse/default.pa" ""
   '';
 
   postFixup = ''
