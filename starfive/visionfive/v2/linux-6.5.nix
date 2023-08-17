@@ -9,15 +9,11 @@ let
       src = fetchFromGitHub {
         owner = "starfive-tech";
         repo = "linux";
-        rev = "64a6c57ec372c44d0f25416c9614657e274fccff";
-        hash = "sha256-ZOCCj/VyUZa36+q6sUnE+qA0FcNCFnQjIUils0hBb28=";
+        rev = "67e8df01b875afd312a7d2ab77f56a62f39dd6d9";
+        hash = "sha256-H+INnZTrfeCLmxPYbQEu3658/e5/Wz/Y5Ann2+lU6WQ=";
       };
 
-      inherit modDirVersion;
-      kernelPatches = [{
-        name = "verisilicon";
-        patch = ./verisilicon.patch;
-      }] ++ kernelPatches;
+      inherit modDirVersion kernelPatches;
 
       structuredExtraConfig = with lib.kernel; {
         PINCTRL_STARFIVE_JH7110_SYS = yes;
