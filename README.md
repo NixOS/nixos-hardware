@@ -130,6 +130,7 @@ See code for all available configurations.
 | [Framework 12th Gen Intel Core](framework/12th-gen-intel)           | `<nixos-hardware/framework/12th-gen-intel>`        |
 | [Framework 13th Gen Intel Core](framework/13th-gen-intel)           | `<nixos-hardware/framework/13th-gen-intel>`        |
 | [FriendlyARM NanoPC-T4](friendlyarm/nanopc-t4)                      | `<nixos-hardware/friendlyarm/nanopc-t4>`           |
+| [FriendlyARM NanoPi R5s](friendlyarm/nanopi-r5s)                    | `<nixos-hardware/friendlyarm/nanopi-r5s>`          |
 | [Focus M2 Gen 1](focus/m2/gen1)                                     | `<nixos-hardware/focus/m2/gen1>`                   |
 | [GPD MicroPC](gpd/micropc)                                          | `<nixos-hardware/gpd/micropc>`                     |
 | [GPD P2 Max](gpd/p2-max)                                            | `<nixos-hardware/gpd/p2-max>`                      |
