@@ -223,7 +223,7 @@ in {
     systemd.services.v4l2-relayd = {
         environment = {
         GST_PLUGIN_SYSTEM_PATH_1_0 = pkgs.lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" (with pkgs.gst_all_1; [icamerasrc gstreamer gst-plugins-base gst-plugins-good]);
-        LD_LIBRARY_PATH = "${ipu6-camera-bin}/lib";
+        LD_LIBRARY_PATH = "${ipu6-camera-bins}/lib";
         };
         script = ''
           export GST_DEBUG=2
@@ -241,7 +241,7 @@ in {
     };
 
     hardware.firmware = [
-        ipu6-camera-bin
+        ipu6-camera-bins
         ivsc-firmware
     ];
 
