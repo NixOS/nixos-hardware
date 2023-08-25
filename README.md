@@ -84,10 +84,13 @@ See code for all available configurations.
 | [Asus ROG Strix G733QS](asus/rog-strix/g733qs)                      | `<nixos-hardware/asus/rog-strix/g733qs>`           |
 | [Asus ROG Zephyrus G14 GA401](asus/zephyrus/ga401)                  | `<nixos-hardware/asus/zephyrus/ga401>`             |
 | [Asus ROG Zephyrus G14 GA402](asus/zephyrus/ga402)                  | `<nixos-hardware/asus/zephyrus/ga402>`             |
+| [Asus ROG Zephyrus G15 GA502](asus/zephyrus/ga502)                  | `<nixos-hardware/asus/zephyrus/ga502>`             |
 | [Asus ROG Zephyrus G15 GA503](asus/zephyrus/ga503)                  | `<nixos-hardware/asus/zephyrus/ga503>`             |
 | [Asus TUF FX504GD](asus/fx504gd)                                    | `<nixos-hardware/asus/fx504gd>`                    |
 | [BeagleBoard PocketBeagle](beagleboard/pocketbeagle)                | `<nixos-hardware/beagleboard/pocketbeagle>`        |
+| [Deciso DEC series](deciso/dec)                                     | `<nixos-hardware/deciso/dec>`                      |
 | [Dell G3 3779](dell/g3/3779)                                        | `<nixos-hardware/dell/g3/3779>`                    |
+| [Dell Inspiron 14 5420](dell/inspiron/14-5420)                      | `<nixos-hardawre/dell/inspiron/14-5420>`           |
 | [Dell Inspiron 5509](dell/inspiron/5509)                            | `<nixos-hardware/dell/inspiron/5509>`              |
 | [Dell Inspiron 5515](dell/inspiron/5515)                            | `<nixos-hardware/dell/inspiron/5515>`              |
 | [Dell Inspiron 7405](dell/inspiron/7405)                            | `<nixos-hardware/dell/inspiron/7405>`              |
@@ -102,6 +105,7 @@ See code for all available configurations.
 | [Dell XPS 13 7390](dell/xps/13-7390)                                | `<nixos-hardware/dell/xps/13-7390>`                |
 | [Dell XPS 13 9300](dell/xps/13-9300)                                | `<nixos-hardware/dell/xps/13-9300>`                |
 | [Dell XPS 13 9310](dell/xps/13-9310)                                | `<nixos-hardware/dell/xps/13-9310>`                |
+| [Dell XPS 13 9333](dell/xps/13-9333)                                | `<nixos-hardware/dell/xps/13-9333>`                |
 | [Dell XPS 13 9343](dell/xps/13-9343)                                | `<nixos-hardware/dell/xps/13-9343>`                |
 | [Dell XPS 13 9350](dell/xps/13-9350)                                | `<nixos-hardware/dell/xps/13-9350>`                |
 | [Dell XPS 13 9360](dell/xps/13-9360)                                | `<nixos-hardware/dell/xps/13-9360>`                |
@@ -122,8 +126,9 @@ See code for all available configurations.
 | [Dell XPS 17 9700, nvidia](dell/xps/17-9700/nvidia)                 | `<nixos-hardware/dell/xps/17-9700/nvidia>`         |
 | [Dell XPS 17 9710, intel only](dell/xps/17-9710/intel)              | `<nixos-hardware/dell/xps/17-9710/intel>`          |
 | [Dell XPS E7240](dell/e7240)                                        | `<nixos-hardware/dell/e7240>`                      |
-| [Framework](framework)                                              | `<nixos-hardware/framework>`                       |
+| [Framework 11th Gen Intel Core](framework)                          | `<nixos-hardware/framework>`                       |
 | [Framework 12th Gen Intel Core](framework/12th-gen-intel)           | `<nixos-hardware/framework/12th-gen-intel>`        |
+| [Framework 13th Gen Intel Core](framework/13th-gen-intel)           | `<nixos-hardware/framework/13th-gen-intel>`        |
 | [FriendlyARM NanoPC-T4](friendlyarm/nanopc-t4)                      | `<nixos-hardware/friendlyarm/nanopc-t4>`           |
 | [Focus M2 Gen 1](focus/m2/gen1)                                     | `<nixos-hardware/focus/m2/gen1>`                   |
 | [GPD MicroPC](gpd/micropc)                                          | `<nixos-hardware/gpd/micropc>`                     |
@@ -143,6 +148,7 @@ See code for all available configurations.
 | [Lenovo Legion 5 Pro 16ach6h](lenovo/legion/16ach6h)                | `<nixos-hardware/lenovo/legion/16ach6h>`           |
 | [Lenovo Legion 5 Pro 16ach6h (Hybrid)](lenovo/legion/16ach6h/hybrid)| `<nixos-hardware/lenovo/legion/16ach6h/hybrid>`    |
 | [Lenovo Legion 5 Pro 16ach6h (Nvidia)](lenovo/legion/16ach6h/nvidia)| `<nixos-hardware/lenovo/legion/16ach6h/nvidia>`    |
+| [Lenovo Legion 7i Pro 16irx8h (Intel)](lenovo/legion/16irx8h)       | `<nixos-hardware/lenovo/legion/16irx8h>`           |
 | [Lenovo Legion Y530 15ICH](lenovo/legion/15ich)                     | `<nixos-hardware/lenovo/legion/15ich>`             |
 | [Lenovo ThinkPad E14 (AMD)](lenovo/thinkpad/e14/amd)                | `<nixos-hardware/lenovo/thinkpad/e14/amd>`         |
 | [Lenovo ThinkPad E14 (Intel)](lenovo/thinkpad/e14/intel)            | `<nixos-hardware/lenovo/thinkpad/e14/intel>`       |

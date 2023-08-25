@@ -4,7 +4,7 @@
     supportedFilesystems =
       lib.mkForce [ "btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" ];
     consoleLogLevel = lib.mkDefault 7;
-    kernelPackages = lib.mkDefault (pkgs.callPackage ./linux-6.4.nix {
+    kernelPackages = lib.mkDefault (pkgs.callPackage ./linux-6.5.nix {
       inherit (config.boot) kernelPatches;
     });
 
@@ -21,4 +21,9 @@
 
   hardware.deviceTree.name =
     lib.mkDefault "starfive/jh7110-starfive-visionfive-2-v1.3b.dtb";
+
+  hardware.deviceTree.overlays = [{
+    name = "qspi-patch";
+    dtsFile = ./qspi-patch.dts;
+  }];
 }

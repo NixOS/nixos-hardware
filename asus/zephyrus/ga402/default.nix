@@ -20,6 +20,6 @@
   };
 
   boot = {
-    kernelParams = [ "pcie_aspm.policy=powersupersave" "acpi.prefer_microsoft_dsm_guid=1" ];
+    kernelParams = [ "pcie_aspm.policy=powersupersave" ];
   };
 }

@@ -14,6 +14,8 @@
 
 Not much tweaking of NixOS itself was needed. But we currently cannot automate the firmware setup, so this must be done by hand.
 
+== Installation ==
+
 === Before installation ===
 
 These settings are needed both for booting the final install, and installer itself. Therefore, they must be done first.
@@ -29,13 +31,23 @@ These settings are needed both for booting the final install, and installer itse
 
 === Optional ===
 
-* ''Disable C-States.'' This is a processor idling thing. It seems to cause random crashes (Blank screen, no normal panic debug dump). Unfortunately, without it, the computer cannot be suspended. On the other hand, it doesn't seem to affect acpi's estimation of battery life when the computer is running with minimal load, but I haven't tested battery life in practice. I list it as optional as there's a tradeoff, and the crashes are rare enough one can probably get through installation just fine.
+* ''Disable C-States.'' This is a processor idling thing. It seems to cause random crashes (Blank screen, no normal panic debug dump). Unfortunately, without it, the computer cannot be suspended. On the other hand, it doesn't seem to affect acpi's estimation of battery life when the computer is running with minimal load, but I haven't tested battery life in practice. I list it as optional as there's a tradeoff, and the crashes are rare enough one can probably get through installation just fine. This does not seem to be a problem on recent firmware/kernel versions.
 
 * ''Update BIOS.'' According to Reddit, this helps with battery life.
 
 * ''Update Intel's Thunderbolt firmware.'' Without this, the Thunderbolt port will only work as power source, and not transfer data.
 
-=== Troubleshooting ===
+== Optional Functionality ==
+
+* ''Fan control'' This laptop supports Dell's own libsmbios: https://github.com/dell/libsmbios to set fan modes, as well as other bios settings. Simply add the `libsmbios` package to your environment.
+
+* ''TPM 2.0 LUKS Decryption'' If using the experimental systemd initrd, the TPM can easily be used to decrypt the root partition at boot. Simply use `systemd-cryptenroll` with desired options.
+
+* ''Firmware Upgrades'' `services.fwupd` and your desired front-end can be used to update almost all of the firmware on this system. Something curious is the BIOS offered through fwupd/lvfs is much newer than the one available on Dell's website.
+
+* ''Secure Boot'' This works. There is more than one way to enable it. Tested with https://github.com/nix-community/lanzaboote v0.3.0
+
+== Troubleshooting ==
 
 ==== rcu_sched freezing problems ====
 
@@ -52,3 +64,12 @@ boot.kernelParams = [ "acpi_rev_override=1" "pcie_aspm=off" "nouveau.modeset=0" 
 ```
 
 Some more detail about the problem can be found here: https://bbs.archlinux.org/viewtopic.php?id=223056
+
+==== TPM 2.0 Intermittent ====
+
+* The TPM was very unreliable, sometimes not showing up to the system. Updating to the latest TPM firmware fixed the problem. I could not seem to do this through `fwupd` so used the latest exe from the Dell website. Loading the exe through a command prompt on a Windows installer was adequate.
+
+== Broken Functionality ==
+
+* ''Fingerprint Reader'': Can be enabled with `services.fprintd.enable`, and can read your fingerprint. Fingerprint authentication is extremely reliable to the point it is not worth using.
+
