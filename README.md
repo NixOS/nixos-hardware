@@ -222,6 +222,7 @@ See code for all available configurations.
 | [Microsoft Surface Pro 3](microsoft/surface-pro/3)                  | `<nixos-hardware/microsoft/surface-pro/3>`         |
 | [Morefine M600](morefine/m600)                                      | `<nixos-hardware/morefine/m600>`                   |
 | [Hardkernel Odroid HC4](hardkernel/odroid-hc4/default.nix)          | `<nixos-hardware/hardkernel/odroid-hc4>`           |
+| [Hardkernel Odroid H3](hardkernel/odroid-h3/default.nix)            | `<nixos-hardware/hardkernel/odroid-h3>`            |
 | [Omen en00015p](omen/en00015p)                                      | `<nixos-hardware/omen/en00015p>`                   |
 | [One-Netbook OneNetbook 4](onenetbook/4)                            | `<nixos-hardware/onenetbook/4>`                    |
 | [Panasonic Let's Note CF-LX4 ](panasonic/letsnote/cf-lx4)           | `<nixos-hardware/panasonic/letsnote/cf-lx4>`       |

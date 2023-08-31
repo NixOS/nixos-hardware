@@ -162,6 +162,7 @@
       msi-gl62 = import ./msi/gl62;
       nxp-imx8qm-mek = import ./nxp/imx8qm-mek;
       hardkernel-odroid-hc4 = import ./hardkernel/odroid-hc4;
+      hardkernel-odroid-h3 = import ./hardkernel/odroid-h3;
       omen-en00015p = import ./omen/en00015p;
       onenetbook-4 = import ./onenetbook/4;
       pcengines-apu = import ./pcengines/apu;
