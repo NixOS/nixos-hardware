@@ -1,7 +1,7 @@
 { lib, callPackage, linuxPackagesFor, kernelPatches, fetchpatch, ... }:
 
 let
-  modDirVersion = "5.15.115";
+  modDirVersion = "5.15.128";
   linuxPkg = { lib, fetchFromGitHub, buildLinux, ... }@args:
     buildLinux (args // {
       version = "${modDirVersion}-fishwaldo-star64";
@@ -9,8 +9,8 @@ let
       src = fetchFromGitHub {
         owner = "Fishwaldo";
         repo = "Star64_linux";
-        rev = "765947eacb2408a3a232cbe8093bf28a991f3c35"; # Star64_devel branch
-        hash = "sha256-2Gbk2BsC9LCcXfXfgzJiPdEap90Y0Fl6Fz9TvIIbmB8=";
+        rev = "e9ae40dd4b7eb2d5083e318ce65f81e8f01d8118"; # Star64_devel branch
+        hash = "sha256-jzF5NO/JAQxnaiQ79m6nws95jl17NBctWEa1MP4rimo=";
       };
 
       inherit modDirVersion;
@@ -27,7 +27,6 @@ let
              hash = "sha256-EY0lno+HkY5mradBUPII3qqu0xh+BVQRzveCQcaht0M=";
            };
          }
-         { patch = ./pl330-name-collision.patch; }
          { patch = ./irq-desc-to-data.patch; }
       ] ++ kernelPatches;
 
