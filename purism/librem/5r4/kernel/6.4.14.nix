@@ -6,14 +6,14 @@
 buildLinux (args
   // rec {
   defconfig = "librem5_defconfig";
-  version = "6.4.5-librem5";
+  version = "6.4.14-librem5";
   modDirVersion = version;
   src = fetchFromGitLab {
     domain = "source.puri.sm";
     owner = "Librem5";
     repo = "linux";
-    rev = "pureos/6.4.5pureos1";
-    hash = "sha256-xg/qZ3Lig8oAAa3I+yn4tKPbftBy9Y6fnk8IvB+rm4E=";
+    rev = "pureos/6.4.14pureos1";
+    hash = "sha256-PzRG6czWLMahklceuaWGK1QJ+m9FAKDa/m1jp87h62k=";
   };
   kernelPatches = [ ];
   structuredExtraConfig = with lib.kernel; {
