@@ -138,8 +138,4 @@
     name = "ms-surface/0014-rtc";
     patch = patchDir + "/0014-rtc.patch";
   }
-  {
-    name = "ms-surface/0015-intel-thread-director";
-    patch = patchDir + "/0015-intel-thread-director.patch";
-  }
 ]
