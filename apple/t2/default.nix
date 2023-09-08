@@ -80,15 +80,21 @@ in
       after = [ "post-resume.target" ];
     };
 
-    # Activation script to install apple-set-os-loader in order to unlock the iGPU 
+    # Activation script to install apple-set-os-loader in order to unlock the iGPU
     system.activationScripts.appleSetOsLoader = lib.optionalString t2Cfg.enableAppleSetOsLoader ''
-      if [[ -e /boot/efi/EFI/BOOT/bootx64_original.efi ]]; then
+      if [[ -e /boot/efi/efi/boot/bootx64_original.efi ]]; then
         true # It's already installed, no action required
-      elif [[ -e /boot/efi/EFI/BOOT/BOOTX64.EFI ]]; then
-        mv /boot/efi/EFI/BOOT/BOOTX64.EFI /boot/efi/EFI/BOOT/bootx64_original.efi
-        cp ${apple-set-os-loader-installer}/bootx64.efi /boot/efi/EFI/BOOT/bootx64.efi
+      elif [[ -e /boot/efi/efi/boot/bootx64.efi ]]; then
+        # Copy the new bootloader to a temporary location
+        cp ${apple-set-os-loader-installer}/bootx64.efi /boot/efi/efi/boot/bootx64_temp.efi
+
+        # Rename the original bootloader
+        mv /boot/efi/efi/boot/bootx64.efi /boot/efi/efi/boot/bootx64_original.efi
+
+        # Move the new bootloader to the final destination
+        mv /boot/efi/efi/boot/bootx64_temp.efi /boot/efi/efi/boot/bootx64.efi
       else
-        echo "Error: /boot/efi/EFI/BOOT/BOOTX64.EFI is missing" >&2
+        echo "Error: /boot/efi/efi/boot/bootx64.efi is missing" >&2
       fi
     '';
   };
