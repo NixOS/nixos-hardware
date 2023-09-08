@@ -19,6 +19,7 @@ Upon activation, this module performs the following:
 - Renames the existing `BOOTX64.EFI` file to `bootx64_original.efi`.
 - Installs the `apple-set-os-loader` hook in its place as `bootx64.efi`.
 - Before the system boots the hook unlocks the iGPU and subsequently calls the original `bootx64_original.efi`.
+- Enables the iGPU by default.
 
 ### How to Implement:
 
