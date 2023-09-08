@@ -97,5 +97,10 @@ in
         echo "Error: /boot/efi/efi/boot/bootx64.efi is missing" >&2
       fi
     '';
+
+    # Enable the iGPU by default if present
+    environment.etc."modprobe.d/apple-gmux.conf".text = lib.optionalString t2Cfg.enableAppleSetOsLoader ''
+      options apple-gmux force_igd=y
+    '';
   };
 }
