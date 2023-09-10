@@ -2,10 +2,10 @@
 let
   firmware-imx = stdenv.mkDerivation (fa: {
     pname = "firmware-imx";
-    version = "8.15";
+    version = "8.20";
     src = fetchurl {
       url = "https://www.nxp.com/lgfiles/NMG/MAD/YOCTO/${fa.pname}-${fa.version}.bin";
-      hash = "sha256-k34ZZHa46VtLfyUBoUyDJtigZJ+KP5IotyNzdwoI3rM=";
+      hash = "sha256-9txqXI/ZuROhU2DTzNU9GI2wWgioWUxRjldiJHjHI4M=";
     };
     unpackPhase = ''
       cp $src firmware
