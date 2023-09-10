@@ -31,7 +31,7 @@ Note down this device path.
 >
 > While upstream u-boot does support Librem 5, it can only boot using `boot.scr`, for which NixOS has no native support.
 >
-> There's work on extlinux support in Librem 5's U-Boot here: https://source.puri.sm/a-wai/uboot-imx/-/tree/allow-compressed-kernel
+> There's extlinux support in Librem 5's U-Boot here: https://source.puri.sm/Librem5/uboot-imx/
 >
 > This U-Boot version is packaged in the [`u-boot`] directory.
 
@@ -49,11 +49,11 @@ Provided you have a way to build Nix derivations for `aarch64-linux` (like a rem
 >
 > If it does not work, your best bet is to follow the advice here, which will flash U-Boot build by upstream: https://forums.puri.sm/t/can-someone-with-serial-console-access-try-nixos-kernel-on-librem-5/19121/27
 
-To flash the device, run
+To flash u-boot to the device, use one of the following (assuming you've built u-boot to `./result`):
 
-```console
-$ sudo u-boot-install-librem5 <path to librem 5's MMC>
-```
+- if you're running an existing OS on the Librem 5, run `# result/bin/u-boot-install-librem5 /dev/mmcblk0` on the device itself
+- if you've mounted the Librem 5's internal MMC via Jumpdrive, run `# TARGET="$(pwd)/result" result/bin/u-boot-install-librem5 <path to Librem 5's MMC>`
+- if you want to flash u-boot manually (not recommended!), use `dd if=/dev/zero of=<path to MMC> bs=1024 count=1055 seek=2` and `dd if=result/uboot.imx conv=notrunc of=<path to MMC> bs=1024 seek=33`
 
 At this point, if you have an OS installed on your Librem 5, it's best to reboot into it to check that the U-Boot was flashed correctly.
 If that's the case, reboot back into Jumpdrive.
@@ -64,27 +64,32 @@ Now, from your host system, partition the MMC.
 
 > **Warning**
 >
-> Doing this wipes all data off the phone
+> Doing this wipes all data off the phone!
 
-I went with 1 bootable `ext2` partition for `/boot`, and one `ext4` partition for `/`.
+> **Warning**
+>
+> Make sure to keep 2MiB of free space before the first partition as this is where u-boot lives.
+> If you accidentally create a file system in that space, you have to flash u-boot again.
+
 It ended up looking like this (your device names will be different):
 
 ```console
 $ sudo fdisk -l /dev/mmcblk0
-Disk /dev/mmcblk0: 29.12 GiB, 31268536320 bytes, 61071360 sectors
+Disk /dev/mmcblk0: 29,12 GiB, 31268536320 bytes, 61071360 sectors
 Units: sectors of 1 * 512 = 512 bytes
 Sector size (logical/physical): 512 bytes / 512 bytes
 I/O size (minimum/optimal): 512 bytes / 512 bytes
 Disklabel type: dos
-Disk identifier: 0xcec26c32
+Disk identifier: 0x15650736
 
 Device         Boot  Start      End  Sectors  Size Id Type
-/dev/mmcblk0p1 *      4096   499711   495616  242M 83 Linux
-/dev/mmcblk0p2      499712 61071359 60571648 28.9G 83 Linux
+/dev/mmcblk0p1 *      4096   528383   524288  256M 83 Linux
+/dev/mmcblk0p2      528384 61071359 60542976 28,9G 83 Linux
 ```
 
-Note 2MiB of free space before the first partition.
-This is where U-Boot lives.
+Now you can create filesystems on those partitions.
+
+I went with a bootable `ext2` partition for `/boot`, and one `f2fs` partition for `/`. You can use any filesystem supported by NixOS (like `ext4` or `zfs`) for `/`, but `f2fs` might improve your eMMC lifespan as it supports wear leveling. Note that `f2fs` does not have a journal, so filesystem corruption can happen if the battery runs out for example.
 
 Mount the partitions on your host system, e.g. to `/mnt` and `/mnt/boot`.
 Remember that `/mnt` is the second partition, and `/mnt/boot` is the first.
@@ -103,7 +108,7 @@ Build the configuration (`nix build .#nixosConfigurations.<hostname>.config.syst
 
 Running `nixos-install --system ./result --root /mnt` will copy the system to the MMC.
 Unless you're running on an aarch64 system, it will fail to activate or install the bootloader, however.
-You must do this manually.
+You must do this manually. Remember to `sync` and `umount` the MMC on your host before proceeding.
 Get a shell on Jumpdrive, mount partitions there, and activate the system:
 
 ```console
@@ -131,3 +136,11 @@ Unmount:
 And shut the phone down by holding the power key.
 
 Start it up and you should be booting straight into your NixOS installation.
+
+## Updating u-boot
+
+Once you're running NixOS with this module, you can run `# u-boot-install-librem5 /dev/mmcblk0` any time to reflash the most recent version of u-boot from the running NixOS.
+
+> **Warning**
+>
+> While I (@999eagle) will test u-boot updates on my own device before updating this repository, flashing u-boot may still render your device unbootable!

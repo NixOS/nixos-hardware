@@ -64,5 +64,7 @@ in {
 
     services.udev.packages = lib.mkIf cfg.installUdevPackages [ pkgs.librem5-base ];
 
+    environment.systemPackages = with pkgs; [ ubootLibrem5 ];
+
   };
 }
