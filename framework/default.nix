@@ -6,9 +6,8 @@
   ];
 
   boot.kernelParams = [
-    # For Power consumption
-    # https://kvark.github.io/linux/framework/2021/10/17/framework-nixos.html
-    "mem_sleep_default=deep"
+    # Fixes a regression in s2idle, making it more power efficient than deep sleep
+    "acpi_osi=\"!Windows 2020\""
     # For Power consumption
     # https://community.frame.work/t/linux-battery-life-tuning/6665/156
     "nvme.noacpi=1"
