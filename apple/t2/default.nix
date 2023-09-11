@@ -37,12 +37,12 @@ let
     '';
   };
 
-  t2Cfg = config.appleT2Config;
+  t2Cfg = config.hardware.apple-t2;
 
 in
 {
   options = {
-    appleT2Config.enableAppleSetOsLoader = lib.mkOption {
+    hardware.apple-t2.enableAppleSetOsLoader = lib.mkOption {
       default = false;
       type = lib.types.bool;
       description = "Whether to enable the appleSetOsLoader activation script.";
