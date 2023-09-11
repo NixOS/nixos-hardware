@@ -1,13 +1,13 @@
 { fetchFromGitHub, buildUBoot }:
 
 buildUBoot rec {
-  version = "3.0.4";
+  version = "3.6.1";
 
   src = fetchFromGitHub {
     owner = "starfive-tech";
     repo = "u-boot";
     rev = "refs/tags/VF2_v${version}";
-    hash = "sha256-Vd8vhSZE9fJ+Gp5IbLlqz7JAT9ChJ66krxb7gpLJ4P8=";
+    hash = "sha256-735V8HMCGKj13cgQJv7FYrBIF3mYWOrmJhr+46nsVuY=";
   };
 
   defconfig = "starfive_visionfive2_defconfig";
