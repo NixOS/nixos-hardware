@@ -25,7 +25,7 @@ Upon activation, this module performs the following:
 
 1. Add this into your `configuration.nix`:
 ```
-appleT2Config.enableAppleSetOsLoader = true;
+hardware.apple-t2.enableAppleSetOsLoader = true;
 ```
 
 2. **Rebuild your system**:
