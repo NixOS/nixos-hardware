@@ -14,6 +14,7 @@
     ./touch-ft5406.nix
     ./pwm0.nix
     ./pkgs-overlays.nix
+    ./xhci.nix
   ];
 
   boot = {
