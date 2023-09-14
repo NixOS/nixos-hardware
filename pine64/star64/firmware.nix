@@ -67,12 +67,20 @@ in rec {
       flashcp -v ${uboot-fit-image}/share/pine64-star64/star64_fw_payload.img /dev/mtd1
     '';
   };
-  updater-sd = writeShellApplication {
-    name = "star64-firmware-update-sd";
+  updater-mmc = writeShellApplication {
+    name = "star64-firmware-update-mmc";
     runtimeInputs = [ ];
     text = ''
       dd if=${spl}/share/pine64-star64/spl.bin of=/dev/mmcblk0p1 conv=fsync
       dd if=${uboot-fit-image}/share/pine64-star64/star64_fw_payload.img of=/dev/mmcblk0p2 conv=fsync
+    '';
+  };
+  updater-sd = writeShellApplication {
+    name = "star64-firmware-update-sd";
+    runtimeInputs = [ ];
+    text = ''
+      dd if=${spl}/share/pine64-star64/spl.bin of=/dev/mmcblk1p1 conv=fsync
+      dd if=${uboot-fit-image}/share/pine64-star64/star64_fw_payload.img of=/dev/mmcblk1p2 conv=fsync
     '';
   };
 }

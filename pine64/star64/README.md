@@ -83,6 +83,24 @@ hardware.deviceTree.overlays = [{
 
 # Updating the bootloader
 
+## eMMC
+
+Install the firmware update script
+
+``` nix
+environment.systemPackages = [
+  (pkgs.callPackage
+    "${nixos-hardware}/pine64/star64/firmware.nix"
+    { }).updater-mmc
+];
+```
+
+Then run as root
+
+``` sh
+star64-firmware-update-mmc
+```
+
 ## SD-Card
 
 Install the firmware update script
