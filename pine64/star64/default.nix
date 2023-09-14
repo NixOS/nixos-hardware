@@ -22,7 +22,12 @@
     kernelParams =
       lib.mkDefault [ "console=tty0" "console=ttyS0,115200n8" "earlycon=sbi" ];
 
-    initrd.availableKernelModules = [ "dw_mmc_starfive" ];
+    initrd.availableKernelModules = [
+      "8250_dw" # serial port driver
+      "dw_mmc_starfive" # eMMC/SD
+      "i2c_designware_platform" # i2c (needed for GPIO -> eMMC RST)
+      "axp15060_regulator" # PMIC (needed for eMMC)
+    ];
 
     # Ethernet. The module gets forced m due to other modules even though
     # it's marked y in defconfig.
