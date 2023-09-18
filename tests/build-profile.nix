@@ -14,6 +14,7 @@ let
     nixpkgs.config = {
       allowBroken = true;
       allowUnfree = true;
+      nvidia.acceptLicense = true;
     };
   };
 in (import <nixpkgs/nixos> {
