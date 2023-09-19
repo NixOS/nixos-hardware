@@ -73,4 +73,9 @@
 
   # Fix font sizes in X
   # services.xserver.dpi = 200;
+
+  # This adds a patched ectool, to interact with the Embedded Controller
+  # Can be used to interact with leds from userspace, etc.
+  # Not part of a nixos release yet, so package only gets added if it exists.
+  environment.systemPackages = lib.optional (pkgs ? "fw-ectool") pkgs.fw-ectool;
 }
