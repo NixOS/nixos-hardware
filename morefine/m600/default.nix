@@ -2,7 +2,6 @@
   imports = [
     ../../common/cpu/amd
     ../../common/cpu/amd/pstate.nix
-    ../../common/gpu/amd
   ];
 
   hardware.enableRedistributableFirmware = lib.mkDefault true;
