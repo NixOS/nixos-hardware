@@ -10,10 +10,9 @@
   ];
 
   # Enables ACPI platform profiles
-  # TODO - enable module after PR merge
-  # boot = lib.mkIf (lib.versionAtLeast pkgs.linux.version "6.1") { 
-  #   kernelModules = [ "hp-wmi" ];  
-  # };
+  boot = lib.mkIf (lib.versionAtLeast pkgs.linux.version "6.1") { 
+    kernelModules = [ "hp-wmi" ];  
+  };
 
   hardware.nvidia.prime = {
     amdgpuBusId = "PCI:7:0:0";
