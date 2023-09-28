@@ -42,17 +42,6 @@
     "rtc_rk808"
   ];
 
-  services.udev.extraHwdb = lib.mkMerge [
-    # https://github.com/elementary/os/blob/05a5a931806d4ed8bc90396e9e91b5ac6155d4d4/build-pinebookpro.sh#L253-L257
-    # Disable the "keyboard mouse" in libinput. This is reported by the keyboard firmware
-    # and is probably a placeholder for a TrackPoint style mouse that doesn't exist
-    ''
-      evdev:input:b0003v258Ap001Ee0110-e0,1,2,4,k110,111,112,r0,1,am4,lsfw
-        ID_INPUT=0
-        ID_INPUT_MOUSE=0
-    ''
-  ];
-
   hardware.enableRedistributableFirmware = true;
   hardware.firmware = [
     (pkgs.callPackage ./firmware/ap6256-firmware { })
