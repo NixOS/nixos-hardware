@@ -53,17 +53,6 @@
     ''
   ];
 
-  # https://github.com/elementary/os/blob/05a5a931806d4ed8bc90396e9e91b5ac6155d4d4/build-pinebookpro.sh#L253-L257
-  # Mark the keyboard as internal, so that "disable when typing" works for the touchpad
-  environment.etc."libinput/local-overrides.quirks".text = ''
-    [Pinebook Pro Keyboard]
-    MatchUdevType=keyboard
-    MatchBus=usb
-    MatchVendor=0x258A
-    MatchProduct=0x001E
-    AttrKeyboardIntegration=internal
-  '';
-
   hardware.enableRedistributableFirmware = true;
   hardware.firmware = [
     (pkgs.callPackage ./firmware/ap6256-firmware { })
