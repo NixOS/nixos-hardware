@@ -36,6 +36,11 @@
     "tcpm"
     "typec"
 
+    # PCIe/NVMe
+    "nvme"
+    "pcie_rockchip_host"
+    "phy_rockchip_pcie"
+
     # Misc. modules
     "cw2015_battery"
     "gpio_charger"
