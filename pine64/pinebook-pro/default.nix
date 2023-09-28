@@ -48,9 +48,6 @@
   ];
 
   hardware.enableRedistributableFirmware = true;
-  hardware.firmware = [
-    (pkgs.callPackage ./firmware/ap6256-firmware { })
-  ];
 
   # The default powersave makes the wireless connection unusable.
   networking.networkmanager.wifi.powersave = lib.mkDefault false;
