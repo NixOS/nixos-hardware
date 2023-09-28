@@ -1,0 +1,22 @@
+= Dell XPS 15 9510 =
+
+== Tested Hardware ==
+
+* CPU: 11th Gen Intel(R) Core(TM) i7-11800H @ 2.30GHz
+* RAM: 32 GB
+* HDD: 1 TiB SSD
+* Screen: 15" FHD+ (1920✕1200)
+* Graphics: NVIDIA Corporation GA107M [GeForce RTX 3050 Ti Mobile] (rev a1), with Intel Corporation TigerLake-H GT1 [UHD Graphics] (rev 01).
+* Input: Trackpad.
+
+== Notes ==
+
+Also tested with Dell WD19S Thunderbolt Dock.
+
+== NVIDIA Offload ==
+
+In order to run a program on the NVIDIA gpu, you can use the `nvidia-offload` function, for example:
+```
+nvidia-offload `nix-shell -p glxinfo --run 'glxgears'`
+```
+This is a short bash script that sets the proper environment variables and calls your command.
