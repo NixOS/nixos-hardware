@@ -233,6 +233,7 @@ See code for all available configurations.
 | [Panasonic Let's Note CF-LX4 ](panasonic/letsnote/cf-lx4)           | `<nixos-hardware/panasonic/letsnote/cf-lx4>`       |
 | [PC Engines APU](pcengines/apu)                                     | `<nixos-hardware/pcengines/apu>`                   |
 | [PINE64 Pinebook Pro](pine64/pinebook-pro/)                         | `<nixos-hardware/pine64/pinebook-pro>`             |
+| [PINE64 RockPro64](pine64/rockpro64/)                               | `<nixos-hardware/pine64/rockpro64>`                |
 | [PINE64 STAR64](pine64/star64/)                                     | `<nixos-hardware/pine64/star64>`                   |
 | [Purism Librem 13v3](purism/librem/13v3)                            | `<nixos-hardware/purism/librem/13v3>`              |
 | [Purism Librem 15v3](purism/librem/13v3)                            | `<nixos-hardware/purism/librem/15v3>`              |
