@@ -41,4 +41,8 @@
 
   hardware.deviceTree.name =
     lib.mkDefault "starfive/jh7110-pine64-star64.dtb";
+
+  # Only "performance" and "schedutil" are available,
+  # and "performance" takes precedence by default, which is a waste of power.
+  powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
 }
