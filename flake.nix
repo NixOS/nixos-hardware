@@ -168,6 +168,7 @@
       omen-15-en0010ca = import ./omen/15-en0010ca;
       omen-en00015p = import ./omen/en00015p;
       onenetbook-4 = import ./onenetbook/4;
+      olimex-teres_i = import ./olimex/teres_i;
       pcengines-apu = import ./pcengines/apu;
       pine64-pinebook-pro = import ./pine64/pinebook-pro;
       pine64-star64 = import ./pine64/star64;
