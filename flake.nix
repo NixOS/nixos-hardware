@@ -77,6 +77,7 @@
       intel-nuc-8i7beh = import ./intel/nuc/8i7beh;
       lenovo-ideapad-15arh05 = import ./lenovo/ideapad/15arh05;
       lenovo-ideapad-z510 = import ./lenovo/ideapad/z510;
+      lenovo-ideapad-slim-5 = import ./lenovo/ideapad/slim-5;
       lenovo-legion-15ach6 = import ./lenovo/legion/15ach6;
       lenovo-legion-15arh05h = import ./lenovo/legion/15arh05h;
       lenovo-legion-16ach6h = import ./lenovo/legion/16ach6h;
@@ -166,11 +167,13 @@
       hardkernel-odroid-hc4 = import ./hardkernel/odroid-hc4;
       hardkernel-odroid-h3 = import ./hardkernel/odroid-h3;
       omen-15-en0010ca = import ./omen/15-en0010ca;
+      omen-15-en1007sa = import ./omen/15-en1007sa;
       omen-en00015p = import ./omen/en00015p;
       onenetbook-4 = import ./onenetbook/4;
       olimex-teres_i = import ./olimex/teres_i;
       pcengines-apu = import ./pcengines/apu;
       pine64-pinebook-pro = import ./pine64/pinebook-pro;
+      pine64-rockpro64 = import ./pine64/rockpro64;
       pine64-star64 = import ./pine64/star64;
       purism-librem-13v3 = import ./purism/librem/13v3;
       purism-librem-15v3 = import ./purism/librem/15v3;
