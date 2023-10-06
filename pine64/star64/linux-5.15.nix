@@ -1,7 +1,7 @@
 { lib, callPackage, linuxPackagesFor, kernelPatches, fetchpatch, ... }:
 
 let
-  modDirVersion = "5.15.128";
+  modDirVersion = "5.15.131";
   linuxPkg = { lib, fetchFromGitHub, buildLinux, ... }@args:
     buildLinux (args // {
       version = "${modDirVersion}-fishwaldo-star64";
@@ -9,8 +9,8 @@ let
       src = fetchFromGitHub {
         owner = "Fishwaldo";
         repo = "Star64_linux";
-        rev = "e9ae40dd4b7eb2d5083e318ce65f81e8f01d8118"; # Star64_devel branch
-        hash = "sha256-jzF5NO/JAQxnaiQ79m6nws95jl17NBctWEa1MP4rimo=";
+        rev = "1456c984f15e21e28fb8a9ce96d0ca10e61a71c4"; # Star64_devel branch
+        hash = "sha256-I5wzmxiY7PWpahYCqTOAmYEiJvpRPpUV7S21Kn9lLwg=";
       };
 
       inherit modDirVersion;

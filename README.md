@@ -144,6 +144,7 @@ See code for all available configurations.
 | [Intel NUC 8i7BEH](intel/nuc/8i7beh/)                               | `<nixos-hardware/intel/nuc/8i7beh>`                |
 | [Lenovo IdeaPad Gaming 3 15arh05](lenovo/ideapad/15arh05)           | `<nixos-hardware/lenovo/ideapad/15arh05>`          |
 | [Lenovo IdeaPad Z510](lenovo/ideapad/z510)                          | `<nixos-hardware/lenovo/ideapad/z510>`             |
+| [Lenovo IdeaPad Slim 5](lenovo/ideapad/slim-5)                      | `<nixos-hardware/lenovo/ideapad/slim-5>`           |
 | [Lenovo Legion 5 15arh05h](lenovo/legion/15arh05h)                  | `<nixos-hardware/lenovo/legion/15arh05h>`          |
 | [Lenovo Legion 7 Slim 15ach6](lenovo/legion/15ach6)                 | `<nixos-hardware/lenovo/legion/15ach6>`            |
 | [Lenovo Legion 5 Pro 16ach6h](lenovo/legion/16ach6h)                | `<nixos-hardware/lenovo/legion/16ach6h>`           |
