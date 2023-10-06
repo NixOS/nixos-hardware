@@ -144,6 +144,7 @@ See code for all available configurations.
 | [Intel NUC 8i7BEH](intel/nuc/8i7beh/)                               | `<nixos-hardware/intel/nuc/8i7beh>`                |
 | [Lenovo IdeaPad Gaming 3 15arh05](lenovo/ideapad/15arh05)           | `<nixos-hardware/lenovo/ideapad/15arh05>`          |
 | [Lenovo IdeaPad Z510](lenovo/ideapad/z510)                          | `<nixos-hardware/lenovo/ideapad/z510>`             |
+| [Lenovo IdeaPad Slim 5](lenovo/ideapad/slim-5)                      | `<nixos-hardware/lenovo/ideapad/slim-5>`           |
 | [Lenovo Legion 5 15arh05h](lenovo/legion/15arh05h)                  | `<nixos-hardware/lenovo/legion/15arh05h>`          |
 | [Lenovo Legion 7 Slim 15ach6](lenovo/legion/15ach6)                 | `<nixos-hardware/lenovo/legion/15ach6>`            |
 | [Lenovo Legion 5 Pro 16ach6h](lenovo/legion/16ach6h)                | `<nixos-hardware/lenovo/legion/16ach6h>`           |
@@ -226,6 +227,7 @@ See code for all available configurations.
 | [Hardkernel Odroid HC4](hardkernel/odroid-hc4/default.nix)          | `<nixos-hardware/hardkernel/odroid-hc4>`           |
 | [Hardkernel Odroid H3](hardkernel/odroid-h3/default.nix)            | `<nixos-hardware/hardkernel/odroid-h3>`            |
 | [Omen 15-en0010ca](omen/15-en0010ca)                                | `<nixos-hardware/omen/15-en0010ca>`                |
+| [Omen 15-en1007sa](omen/15-en1007sa)                                | `<nixos-hardware/omen/15-en1007sa>`                |
 | [Omen en00015p](omen/en00015p)                                      | `<nixos-hardware/omen/en00015p>`                   |
 | [One-Netbook OneNetbook 4](onenetbook/4)                            | `<nixos-hardware/onenetbook/4>`                    |
 | [Panasonic Let's Note CF-LX4 ](panasonic/letsnote/cf-lx4)           | `<nixos-hardware/panasonic/letsnote/cf-lx4>`       |
