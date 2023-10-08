@@ -2,8 +2,9 @@
 let
   cfg = config.hardware.raspberry-pi."4".apply-overlays-dtmerge;
   dt_ao_overlay = _final: prev: {
-    deviceTree.applyOverlays = prev.callPackage ./apply-overlays-dtmerge.nix { };
-    deviceTree.compileDTS = prev.callPackage ./compile-overlays-dtmerge.nix { };
+    deviceTree = prev.deviceTree // {
+      applyOverlays = _final.callPackage ./apply-overlays-dtmerge.nix { };
+    };
   };
 in {
   options.hardware = {
