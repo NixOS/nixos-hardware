@@ -253,3 +253,4 @@ See code for all available configurations.
 | [System76 Darter Pro 6](system76/darp6)                             | `<nixos-hardware/system76/darp6>`                  |
 | [Toshiba Chromebook 2 `swanky`](toshiba/swanky)                     | `<nixos-hardware/toshiba/swanky>`                  |
 | [Tuxedo InfinityBook v4](tuxedo/infinitybook/v4)                    | `<nixos-hardware/tuxedo/infinitybook/v4>`          |
+| [TUXEDO Pulse 15 - Gen2](tuxedo/pulse/15/gen2)                      | `<nixos-hardware/tuxedo/pulse/15/gen2>`            |
