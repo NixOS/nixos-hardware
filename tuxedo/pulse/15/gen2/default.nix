@@ -11,7 +11,7 @@
 
   hardware.amdgpu.loadInInitrd = lib.mkDefault false;
 
-  services.udev.extraRules = lib.concatStringsSep "\n" (
+  services.udev.extraRules = builtins.concatStringsSep "\n" (
     ["# Properly suspend the system."]
     ++ (
       map
