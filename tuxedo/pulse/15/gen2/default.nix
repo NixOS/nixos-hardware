@@ -9,6 +9,8 @@
     ../../../../common/pc/laptop/ssd
   ];
 
+  hardware.amdgpu.loadInInitrd = lib.mkDefault false;
+
   services.udev.extraRules = lib.concatStringsSep "\n" (
     ["# Properly suspend the system."]
     ++ (
