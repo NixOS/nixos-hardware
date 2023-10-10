@@ -1,16 +1,16 @@
 { config, lib, pkgs, ... }:
 
 {
-  options.hardware.amdgpu.loadInInitrd = lib.mkEnableOption (lib.mdDoc 
+  options.hardware.amdgpu.loadInInitrd = lib.mkEnableOption (lib.mdDoc
     "loading `amdgpu` kernelModule at stage 1. (Add `amdgpu` to `boot.initrd.kernelModules`)"
   ) // {
     default = true;
   };
-  options.hardware.amdgpu.amdvlk = lib.mkEnableOption (lib.mdDoc 
+  options.hardware.amdgpu.amdvlk = lib.mkEnableOption (lib.mdDoc
     "use amdvlk drivers instead mesa radv drivers"
   );
-  options.hardware.amdgpu.opencl = lib.mkEnableOption (lib.mdDoc 
-    "rocm opencl runtime (Install rocm-opencl-icd and rocm-opencl-runtime)"
+  options.hardware.amdgpu.opencl = lib.mkEnableOption (lib.mdDoc
+    "rocm opencl runtime (Install rocmPackages.clr and rocmPackages.clr.icd)"
   ) // {
     default = true;
   };
@@ -37,10 +37,10 @@
       ];
     })
     (lib.mkIf config.hardware.amdgpu.opencl {
-      hardware.opengl.extraPackages = with pkgs; [
-        rocm-opencl-icd
-        rocm-opencl-runtime
-      ];
+      hardware.opengl.extraPackages =
+        if pkgs ? rocmPackages.clr
+        then with pkgs.rocmPackages; [ clr clr.icd ]
+        else with pkgs; [ rocm-opencl-icd rocm-opencl-runtime ];
     })
   ];
-} 
+}
