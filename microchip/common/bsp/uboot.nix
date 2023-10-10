@@ -8,14 +8,14 @@ with pkgs; let
 in
 buildUBoot rec {
   pname = "uboot";
-  version = "linux4microchip+fpga-2023.06";
+  version = "linux4microchip+fpga-2023.09";
 
   src = fetchFromGitHub {
     owner = "polarfire-soc";
     repo = "u-boot";
     # from mpfs-uboot-2022.01 branch
-    rev = "7e19f9dff788025403ac6a34d9acf8736eef32ff";
-    sha256 = "sha256-1qmifjjNxPOUWRgZdQk6Ld5KGQk/PypSRK/ILPSsTLs";
+    rev = "8f5e331e3f09cdf469d528905f5d6a7139016634";
+    sha256 = "sha256-UElnkRgzcvTjAo5X9N8c1fCTrTxdpAGkntcpQlqgDy8=";
   };
 
   extraMakeFlags = [
@@ -24,7 +24,6 @@ buildUBoot rec {
 
   patches = [
     ./patches/0001-Boot-environment-for-Microchip-Iciclle-Kit.patch
-    ./patches/0002-Riscv-Fix-build-against-binutils-2.38.patch
   ];
   defconfig = "${targetBoard}_defconfig";
   enableParallelBuilding = true;
