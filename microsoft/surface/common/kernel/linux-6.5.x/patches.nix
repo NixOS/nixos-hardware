@@ -7,14 +7,13 @@
   {
     name = "microsoft-surface-patches-linux-${version}";
     patch = null;
-    structuredExtraConfig = with kernel; {
-      STREAMING_MEDIA = yes;
+    extraStructuredConfig = with kernel; {
+      STAGING_MEDIA = yes;
 
       #
       # Surface Aggregator Module
       #
       SURFACE_AGGREGATOR = module;
-      SURFACE_AGGREGATOR_ERROR_INJECTION = no;
       SURFACE_AGGREGATOR_BUS = yes;
       SURFACE_AGGREGATOR_CDEV = module;
       SURFACE_AGGREGATOR_HUB = module;
