@@ -1,4 +1,8 @@
-NixOS profiles to optimize settings for different hardware.
+# My fork of nixos hardware
+
+This should address the problems with the surface devices.
+Take a look at [this](https://github.com/NixOS/nixos-hardware/issues/523) issue if
+you want more info about this.
 
 ## Setup
 
