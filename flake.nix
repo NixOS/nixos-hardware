@@ -171,7 +171,7 @@
       omen-15-en0010ca = import ./omen/15-en0010ca;
       omen-16-n0005ne = import ./omen/16-n0005ne;
       omen-15-en1007sa = import ./omen/15-en1007sa;
-      omen-en00015p = import ./omen/en00015p;
+      omen-15-en0002np = import ./omen/15-en0002np;
       onenetbook-4 = import ./onenetbook/4;
       olimex-teres_i = import ./olimex/teres_i;
       pcengines-apu = import ./pcengines/apu;
