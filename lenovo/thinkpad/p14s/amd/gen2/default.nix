@@ -2,6 +2,7 @@
 {
   imports = [
     ../.
+    ../../../../../common/cpu/amd/pstate.nix
   ];
 
   # For suspending to RAM, set Config -> Power -> Sleep State to "Linux" in EFI.
