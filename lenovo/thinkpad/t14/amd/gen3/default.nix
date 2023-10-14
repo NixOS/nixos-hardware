@@ -3,6 +3,7 @@
 {
   imports = [
     ../.
+    ../../../../../common/cpu/amd/pstate.nix
   ];
 
   # For the Qualcomm NFA-725A (Device 1103) wireless network controller
