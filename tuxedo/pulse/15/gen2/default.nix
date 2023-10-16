@@ -1,15 +1,9 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ../../../../common/cpu/amd
     ../../../../common/gpu/amd
     ../../../../common/pc/laptop/ssd
   ];
-
-  hardware.amdgpu.loadInInitrd = lib.mkDefault false;
 
   services.udev.extraRules = builtins.concatStringsSep "\n" (
     ["# Properly suspend the system."]
