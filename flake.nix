@@ -15,6 +15,7 @@
       apple-macbook-pro-14-1 = import ./apple/macbook-pro/14-1;
       apple-t2 = import ./apple/t2;
       asus-battery = import ./asus/battery.nix;
+      asus-ally-rc71l = import ./asus/ally/rc71l;
       asus-fx504gd = import ./asus/fx504gd;
       asus-rog-strix-g733qs = import ./asus/rog-strix/g733qs;
       asus-zephyrus-ga401 = import ./asus/zephyrus/ga401;
