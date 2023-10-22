@@ -66,23 +66,13 @@ hardware.deviceTree.name =
 ### 8GB memory
 If your board has 8GB of RAM add the following to your config:
 
-#### Board rev 1.3B
 ``` nix
 hardware.deviceTree.overlays = [{
   name = "8GB-patch";
-  dtsFile =
-    "${nixos-hardware}/starfive/visionfive/v2/visionfive-2-v1.3b-8GB.dts";
+  dtsFile = "${nixos-hardware}/starfive/visionfive/v2/8gb-patch.dts";
 }];
 ```
 
-#### Board rev 1.2A
-``` nix
-hardware.deviceTree.overlays = [{
-  name = "8GB-patch";
-  dtsFile =
-    "${nixos-hardware}/starfive/visionfive/v2/visionfive-2-v1.2a-8GB.dts";
-}];
-```
 # Updating the bootloader
 ## SD-Card
 Install the firmware update script

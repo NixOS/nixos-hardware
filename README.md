@@ -81,6 +81,7 @@ See code for all available configurations.
 | [Apple MacBook Pro 12,1](apple/macbook-pro/12-1)                    | `<nixos-hardware/apple/macbook-pro/12-1>`          |
 | [Apple MacBook Pro 14,1](apple/macbook-pro/14-1)                    | `<nixos-hardware/apple/macbook-pro/14-1>`          |
 | [Apple Macs with a T2 Chip](apple/t2)                               | `<nixos-hardware/apple/t2>`                        |
+| [Asus ROG Ally RC71L (2023)](asus/ally/rc71l)                       | `<nixos-hardware/asus/ally/rc71l>`                 |
 | [Asus ROG Strix G733QS](asus/rog-strix/g733qs)                      | `<nixos-hardware/asus/rog-strix/g733qs>`           |
 | [Asus ROG Zephyrus G14 GA401](asus/zephyrus/ga401)                  | `<nixos-hardware/asus/zephyrus/ga401>`             |
 | [Asus ROG Zephyrus G14 GA402](asus/zephyrus/ga402)                  | `<nixos-hardware/asus/zephyrus/ga402>`             |
@@ -229,6 +230,7 @@ See code for all available configurations.
 | [Hardkernel Odroid HC4](hardkernel/odroid-hc4/default.nix)          | `<nixos-hardware/hardkernel/odroid-hc4>`           |
 | [Hardkernel Odroid H3](hardkernel/odroid-h3/default.nix)            | `<nixos-hardware/hardkernel/odroid-h3>`            |
 | [Omen 15-en0010ca](omen/15-en0010ca)                                | `<nixos-hardware/omen/15-en0010ca>`                |
+| [Omen 16-n0005ne](omen/16-n0005ne)                                  | `<nixos-hardware/omen/16-n0005ne>`                 |
 | [Omen 15-en1007sa](omen/15-en1007sa)                                | `<nixos-hardware/omen/15-en1007sa>`                |
 | [Omen en00015p](omen/en00015p)                                      | `<nixos-hardware/omen/en00015p>`                   |
 | [One-Netbook OneNetbook 4](onenetbook/4)                            | `<nixos-hardware/onenetbook/4>`                    |

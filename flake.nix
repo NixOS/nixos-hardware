@@ -15,6 +15,7 @@
       apple-macbook-pro-14-1 = import ./apple/macbook-pro/14-1;
       apple-t2 = import ./apple/t2;
       asus-battery = import ./asus/battery.nix;
+      asus-ally-rc71l = import ./asus/ally/rc71l;
       asus-fx504gd = import ./asus/fx504gd;
       asus-rog-strix-g733qs = import ./asus/rog-strix/g733qs;
       asus-zephyrus-ga401 = import ./asus/zephyrus/ga401;
@@ -169,6 +170,7 @@
       hardkernel-odroid-hc4 = import ./hardkernel/odroid-hc4;
       hardkernel-odroid-h3 = import ./hardkernel/odroid-h3;
       omen-15-en0010ca = import ./omen/15-en0010ca;
+      omen-16-n0005ne = import ./omen/16-n0005ne;
       omen-15-en1007sa = import ./omen/15-en1007sa;
       omen-en00015p = import ./omen/en00015p;
       onenetbook-4 = import ./onenetbook/4;
