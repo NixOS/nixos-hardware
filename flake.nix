@@ -66,6 +66,7 @@
       framework = import ./framework;
       framework-12th-gen-intel = import ./framework/12th-gen-intel;
       framework-13th-gen-intel = import ./framework/13th-gen-intel;
+      framework-7040-amd = import ./framework/7040-amd;
       friendlyarm-nanopc-t4 = import ./friendlyarm/nanopc-t4;
       friendlyarm-nanopi-r5s = import ./friendlyarm/nanopi-r5s;
       focus-m2-gen1 = import ./focus/m2/gen1;

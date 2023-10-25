@@ -132,6 +132,7 @@ See code for all available configurations.
 | [Framework 11th Gen Intel Core](framework)                          | `<nixos-hardware/framework>`                       |
 | [Framework 12th Gen Intel Core](framework/12th-gen-intel)           | `<nixos-hardware/framework/12th-gen-intel>`        |
 | [Framework 13th Gen Intel Core](framework/13th-gen-intel)           | `<nixos-hardware/framework/13th-gen-intel>`        |
+| [Framework AMD Ryzen 7040 Series](framework/7040-amd)               | `<nixos-hardware/framework/7040-amd>`              |
 | [FriendlyARM NanoPC-T4](friendlyarm/nanopc-t4)                      | `<nixos-hardware/friendlyarm/nanopc-t4>`           |
 | [FriendlyARM NanoPi R5s](friendlyarm/nanopi-r5s)                    | `<nixos-hardware/friendlyarm/nanopi-r5s>`          |
 | [Focus M2 Gen 1](focus/m2/gen1)                                     | `<nixos-hardware/focus/m2/gen1>`                   |
