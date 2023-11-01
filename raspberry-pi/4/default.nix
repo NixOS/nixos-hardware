@@ -15,6 +15,7 @@
     ./pwm0.nix
     ./pkgs-overlays.nix
     ./xhci.nix
+    ./digi-amp-plus.nix
   ];
 
   boot = {
