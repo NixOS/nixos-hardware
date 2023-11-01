@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{ lib, ... }: {
   imports = [
     ../../../common/cpu/intel
     ../../../common/pc/laptop
@@ -8,11 +7,10 @@
 
   # This will save you money and possibly your life!
   services.thermald.enable = lib.mkDefault true;
-  
+
   # WiFi speed is slow and crashes by default (https://bugzilla.kernel.org/show_bug.cgi?id=213381)
-  # disable_11ax - required until ax driver support is fixed
-  # power_save - works well on this card
+  # Tuning based on iwlwifi reference(https://wiki.archlinux.org/title/Network_configuration/Wireless#iwlwifi)
   boot.extraModprobeConfig = ''
-    options iwlwifi power_save=1 disable_11ax=1
+    options iwlwifi 11n_disable=8
   '';
 }
