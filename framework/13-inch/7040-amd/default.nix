@@ -1,10 +1,10 @@
 { lib, pkgs, ... }: {
   imports = [
-    ../../common/cpu/amd
-    ../../common/cpu/amd/pstate.nix
-    ../../common/gpu/amd
-    ../../common/pc/laptop
-    ../../common/pc/laptop/ssd
+    ../../../common/cpu/amd
+    ../../../common/cpu/amd/pstate.nix
+    ../../../common/gpu/amd
+    ../../../common/pc/laptop
+    ../../../common/pc/laptop/ssd
   ];
 
   # Newer kernel is better for amdgpu driver updates
