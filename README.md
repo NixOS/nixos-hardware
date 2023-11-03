@@ -142,6 +142,7 @@ See code for all available configurations.
 | [GPD WIN 2](gpd/win-2)                                              | `<nixos-hardware/gpd/win-2>`                       |
 | [Google Pixelbook](google/pixelbook)                                | `<nixos-hardware/google/pixelbook>`                |
 | [HP Elitebook 2560p](hp/elitebook/2560p)                            | `<nixos-hardware/hp/elitebook/2560p>`              |
+| [HP Elitebook 845g7](hp/elitebook/845/g7)                           | `<nixos-hardware/hp/elitebook/845/g7>`             |
 | [HP Elitebook 845g9](hp/elitebook/845/g9)                           | `<nixos-hardware/hp/elitebook/845/g9>`             |
 | [HP Notebook 14-df0023](hp/notebook/14-df0023)                      | `<nixos-hardware/hp/notebook/14-df0023>`           |
 | [i.MX8QuadMax Multisensory Enablement Kit](nxp/imx8qm-mek/)         | `<nixos-hardware/nxp/imx8qm-mek>`                  |
