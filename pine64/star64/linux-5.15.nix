@@ -61,7 +61,7 @@ let
         DRM_DP_AUX_BUS = no;
         DRM_DP_AUX_CHARDEV = lib.mkForce no;
         DRM_KMS_HELPER = no;
-        DRM_FBDEV_EMULATION = no;
+        DRM_FBDEV_EMULATION = lib.mkForce no;
         DRM_LOAD_EDID_FIRMWARE = lib.mkForce no;
         DRM_TTM = no;
         DRM_VRAM_HELPER = no;
