@@ -1,7 +1,8 @@
 {
-  # Per original module layout, default framework export was the 11th gen Intel
-  # of the Framework 13 Laptop
-  imports = [
-    ./13-inch/11th-gen-intel
+  assertions = [
+    {
+      assertion = false;
+      message = "Importing framework/ (default.nix) directly is deprecated! See https://github.com/NixOS/nixos-hardware/blob/master/framework/OLD-BEHAVIOUR-DEPRECATED.md for more details.";
+    }
   ];
 }
