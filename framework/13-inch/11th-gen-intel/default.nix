@@ -1,7 +1,7 @@
 { lib, pkgs, ...}: {
   imports = [
-    ../.
-    ../intel.nix
+    ../common
+    ../common/intel.nix
   ];
 
   # Requires at least 5.16 for working wi-fi and bluetooth.

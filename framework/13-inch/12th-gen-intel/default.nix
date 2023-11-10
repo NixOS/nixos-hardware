@@ -1,7 +1,7 @@
 { lib, pkgs, ... }: {
   imports = [
-    ../.
-    ../intel.nix
+    ../common
+    ../common/intel.nix
   ];
 
   boot.kernelParams = [
