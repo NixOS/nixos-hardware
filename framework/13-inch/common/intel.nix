@@ -1,6 +1,6 @@
 { lib, pkgs, ... }: {
   imports = [
-    ../../common/cpu/intel
+    ../../../common/cpu/intel
   ];
 
   boot.kernelParams = [
