@@ -8,7 +8,9 @@ the end of 2023.
 
 ## How to update
 
-By preference, there will already be a specialised module for your model's configuration.
+By preference, there will already be a specialised module for your model's configuration. If you
+have an 11th gen Intel Framework 13 and were importing the `framework` profile, you would need to
+update to use the `framework-11th-gen-intel` profile instead.
 
 If not and you have a 13-inch model, the common module under `framework/13-inch/common/default.nix`
 can be imported directly, and the options provided can be used in your own system's configuration.
