@@ -31,6 +31,10 @@
   services.udev.extraRules = ''
     # Ethernet expansion card support
     ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="0bda", ATTR{idProduct}=="8156", ATTR{power/autosuspend}="20"
+
+    # Prevent wake when plugging in AC during suspend. Trade-off: keyboard wake disabled. See:
+    # https://community.frame.work/t/tracking-framework-amd-ryzen-7040-series-lid-wakeup-behavior-feedback/39128/45
+    #ACTION=="add", SUBSYSTEM=="serio", DRIVERS=="atkbd", ATTR{power/wakeup}="disabled"
   '';
 
   # Needed for desktop environments to detect/manage display brightness
