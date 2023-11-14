@@ -66,8 +66,9 @@
       dell-xps-17-9700-nvidia = import ./dell/xps/17-9700/nvidia;
       dell-xps-17-9710-intel = import ./dell/xps/17-9710/intel;
       framework = import ./framework;
-      framework-12th-gen-intel = import ./framework/12th-gen-intel;
-      framework-13th-gen-intel = import ./framework/13th-gen-intel;
+      framework-11th-gen-intel = import ./framework/13-inch/11th-gen-intel;
+      framework-12th-gen-intel = import ./framework/13-inch/12th-gen-intel;
+      framework-13th-gen-intel = import ./framework/13-inch/13th-gen-intel;
       framework-13-7040-amd = import ./framework/13-inch/7040-amd;
       friendlyarm-nanopc-t4 = import ./friendlyarm/nanopc-t4;
       friendlyarm-nanopi-r5s = import ./friendlyarm/nanopi-r5s;

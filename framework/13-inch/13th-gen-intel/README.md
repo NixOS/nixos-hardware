@@ -11,7 +11,5 @@ services.fwupd.enable = true;
 Then run
 
 ```sh
- $ sudo fwupdmgr update
+ $ fwupdmgr update
 ```
-
-- [Latest Update](https://fwupd.org/lvfs/devices/work.frame.Laptop.ADL.BIOS.firmware)
