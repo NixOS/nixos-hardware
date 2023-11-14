@@ -8,6 +8,7 @@
     ./digi-amp-plus.nix
     ./dwc2.nix
     ./i2c.nix
+    ./leds.nix
     ./modesetting.nix
     ./pkgs-overlays.nix
     ./poe-hat.nix
