@@ -11,5 +11,5 @@ services.fwupd.enable = true;
 Then run
 
 ```sh
- $ sudo fwupdmgr update
+ $ fwupdmgr update
 ```

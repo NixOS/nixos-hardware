@@ -3,6 +3,7 @@
 {
   imports = [
     ../../common/cpu/amd
+    ../../common/cpu/amd/pstate.nix
     ../../common/gpu/amd
     ../../common/gpu/nvidia/prime.nix
     ../../common/pc/laptop
@@ -10,8 +11,8 @@
   ];
 
   # Enables ACPI platform profiles
-  boot = lib.mkIf (lib.versionAtLeast pkgs.linux.version "6.1") { 
-    kernelModules = [ "hp-wmi" ];  
+  boot = lib.mkIf (lib.versionAtLeast pkgs.linux.version "6.1") {
+    kernelModules = [ "hp-wmi" ];
   };
 
   hardware.nvidia.prime = {

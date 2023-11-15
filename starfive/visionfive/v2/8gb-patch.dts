@@ -1,7 +1,7 @@
 /dts-v1/;
 /plugin/;
 / {
-	compatible = "starfive,visionfive-2-v1.2a", "starfive,jh7110";
+	compatible = "starfive,jh7110";
 	fragment@0 {
 		target-path = "/memory@40000000";
 		__overlay__ {

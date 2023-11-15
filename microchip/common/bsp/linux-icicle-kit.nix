@@ -3,7 +3,7 @@
 with pkgs;
 
 buildLinux (args // rec {
-  version = "5.15.92-linux4microchip+fpga-2023.02";
+  version = "6.1.43-linux4microchip+fpga-2023.09";
 
   # modDirVersion needs to be x.y.z, will automatically add .0 if needed
   modDirVersion = version;
@@ -63,7 +63,7 @@ buildLinux (args // rec {
   src = fetchFromGitHub {
     owner = "linux4microchip";
     repo = "linux";
-    rev = "360a547daec2a69169be49d3da9cca8b1ecb325f";
-    sha256 = "sha256-ri2d91bHmcFkV2PjwRNho1XQixKttJKoG/qiOdeB01M=";
+    rev = "25e35c7c54ad853d03c14a02b189b408cb5b5eb3";
+    sha256 = "sha256-wj7lz247MkhxmhSHUcNeWmcZK+DL+5PAnLwTmALD97M=";
   };
 } // (args.argsOverride or { }))

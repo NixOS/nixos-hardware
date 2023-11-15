@@ -15,12 +15,15 @@
       apple-macbook-pro-14-1 = import ./apple/macbook-pro/14-1;
       apple-t2 = import ./apple/t2;
       asus-battery = import ./asus/battery.nix;
+      asus-ally-rc71l = import ./asus/ally/rc71l;
       asus-fx504gd = import ./asus/fx504gd;
+      asus-rog-strix-g513im = import ./asus/rog-strix/g513im;
       asus-rog-strix-g733qs = import ./asus/rog-strix/g733qs;
       asus-zephyrus-ga401 = import ./asus/zephyrus/ga401;
       asus-zephyrus-ga402 = import ./asus/zephyrus/ga402;
       asus-zephyrus-ga502 = import ./asus/zephyrus/ga502;
       asus-zephyrus-ga503 = import ./asus/zephyrus/ga503;
+      asus-zephyrus-gu603h = import ./asus/zephyrus/gu603h;
       beagleboard-pocketbeagle = import ./beagleboard/pocketbeagle;
       deciso-dec = import ./deciso/dec;
       dell-e7240 = import ./dell/e7240;
@@ -63,8 +66,10 @@
       dell-xps-17-9700-nvidia = import ./dell/xps/17-9700/nvidia;
       dell-xps-17-9710-intel = import ./dell/xps/17-9710/intel;
       framework = import ./framework;
-      framework-12th-gen-intel = import ./framework/12th-gen-intel;
-      framework-13th-gen-intel = import ./framework/13th-gen-intel;
+      framework-11th-gen-intel = import ./framework/13-inch/11th-gen-intel;
+      framework-12th-gen-intel = import ./framework/13-inch/12th-gen-intel;
+      framework-13th-gen-intel = import ./framework/13-inch/13th-gen-intel;
+      framework-13-7040-amd = import ./framework/13-inch/7040-amd;
       friendlyarm-nanopc-t4 = import ./friendlyarm/nanopc-t4;
       friendlyarm-nanopi-r5s = import ./friendlyarm/nanopi-r5s;
       focus-m2-gen1 = import ./focus/m2/gen1;
@@ -74,6 +79,7 @@
       gpd-pocket-3 = import ./gpd/pocket-3;
       gpd-win-2 = import ./gpd/win-2;
       hp-elitebook-2560p = import ./hp/elitebook/2560p;
+      hp-elitebook-845g7 = import ./hp/elitebook/845/g7;
       hp-elitebook-845g9 = import ./hp/elitebook/845/g9;
       hp-notebook-14-df0023 = import ./hp/notebook/14-df0023;
       intel-nuc-8i7beh = import ./intel/nuc/8i7beh;
@@ -169,6 +175,7 @@
       hardkernel-odroid-hc4 = import ./hardkernel/odroid-hc4;
       hardkernel-odroid-h3 = import ./hardkernel/odroid-h3;
       omen-15-en0010ca = import ./omen/15-en0010ca;
+      omen-16-n0005ne = import ./omen/16-n0005ne;
       omen-15-en1007sa = import ./omen/15-en1007sa;
       omen-en00015p = import ./omen/en00015p;
       onenetbook-4 = import ./onenetbook/4;
@@ -195,6 +202,7 @@
       system76-darp6 = import ./system76/darp6;
       toshiba-swanky = import ./toshiba/swanky;
       tuxedo-infinitybook-v4 = import ./tuxedo/infinitybook/v4;
+      tuxedo-pulse-15-gen2 = import ./tuxedo/pulse/15/gen2;
 
       common-cpu-amd = import ./common/cpu/amd;
       common-cpu-amd-pstate = import ./common/cpu/amd/pstate.nix;

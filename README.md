@@ -85,11 +85,14 @@ See code for all available configurations.
 | [Apple MacBook Pro 12,1](apple/macbook-pro/12-1)                    | `<nixos-hardware/apple/macbook-pro/12-1>`          |
 | [Apple MacBook Pro 14,1](apple/macbook-pro/14-1)                    | `<nixos-hardware/apple/macbook-pro/14-1>`          |
 | [Apple Macs with a T2 Chip](apple/t2)                               | `<nixos-hardware/apple/t2>`                        |
+| [Asus ROG Ally RC71L (2023)](asus/ally/rc71l)                       | `<nixos-hardware/asus/ally/rc71l>`                 |
+| [Asus ROG Strix G513IM](asus/rog-strix/g513im)                      | `<nixos-hardware/asus/rog-strix/g513im>`           |
 | [Asus ROG Strix G733QS](asus/rog-strix/g733qs)                      | `<nixos-hardware/asus/rog-strix/g733qs>`           |
 | [Asus ROG Zephyrus G14 GA401](asus/zephyrus/ga401)                  | `<nixos-hardware/asus/zephyrus/ga401>`             |
 | [Asus ROG Zephyrus G14 GA402](asus/zephyrus/ga402)                  | `<nixos-hardware/asus/zephyrus/ga402>`             |
 | [Asus ROG Zephyrus G15 GA502](asus/zephyrus/ga502)                  | `<nixos-hardware/asus/zephyrus/ga502>`             |
 | [Asus ROG Zephyrus G15 GA503](asus/zephyrus/ga503)                  | `<nixos-hardware/asus/zephyrus/ga503>`             |
+| [Asus ROG Zephyrus M16 GU603H](asus/zephyrus/gu603h)                  | `<nixos-hardware/asus/zephyrus/gu603h>`             |
 | [Asus TUF FX504GD](asus/fx504gd)                                    | `<nixos-hardware/asus/fx504gd>`                    |
 | [BeagleBoard PocketBeagle](beagleboard/pocketbeagle)                | `<nixos-hardware/beagleboard/pocketbeagle>`        |
 | [Deciso DEC series](deciso/dec)                                     | `<nixos-hardware/deciso/dec>`                      |
@@ -132,9 +135,10 @@ See code for all available configurations.
 | [Dell XPS 17 9700, nvidia](dell/xps/17-9700/nvidia)                 | `<nixos-hardware/dell/xps/17-9700/nvidia>`         |
 | [Dell XPS 17 9710, intel only](dell/xps/17-9710/intel)              | `<nixos-hardware/dell/xps/17-9710/intel>`          |
 | [Dell XPS E7240](dell/e7240)                                        | `<nixos-hardware/dell/e7240>`                      |
-| [Framework 11th Gen Intel Core](framework)                          | `<nixos-hardware/framework>`                       |
-| [Framework 12th Gen Intel Core](framework/12th-gen-intel)           | `<nixos-hardware/framework/12th-gen-intel>`        |
-| [Framework 13th Gen Intel Core](framework/13th-gen-intel)           | `<nixos-hardware/framework/13th-gen-intel>`        |
+| [Framework 11th Gen Intel Core](framework/13-inch/11th-gen-intel)   | `<nixos-hardware/framework/13-inch/11th-gen-intel>`|
+| [Framework 12th Gen Intel Core](framework/13-inch/12th-gen-intel)   | `<nixos-hardware/framework/13-inch/12th-gen-intel>`|
+| [Framework 13th Gen Intel Core](framework/13-inch/13th-gen-intel)   | `<nixos-hardware/framework/13-inch/13th-gen-intel>`|
+| [Framework 13 AMD Ryzen 7040 Series](framework/13-inch/7040-amd)    | `<nixos-hardware/framework/13-inch/7040-amd>`      |
 | [FriendlyARM NanoPC-T4](friendlyarm/nanopc-t4)                      | `<nixos-hardware/friendlyarm/nanopc-t4>`           |
 | [FriendlyARM NanoPi R5s](friendlyarm/nanopi-r5s)                    | `<nixos-hardware/friendlyarm/nanopi-r5s>`          |
 | [Focus M2 Gen 1](focus/m2/gen1)                                     | `<nixos-hardware/focus/m2/gen1>`                   |
@@ -144,6 +148,7 @@ See code for all available configurations.
 | [GPD WIN 2](gpd/win-2)                                              | `<nixos-hardware/gpd/win-2>`                       |
 | [Google Pixelbook](google/pixelbook)                                | `<nixos-hardware/google/pixelbook>`                |
 | [HP Elitebook 2560p](hp/elitebook/2560p)                            | `<nixos-hardware/hp/elitebook/2560p>`              |
+| [HP Elitebook 845g7](hp/elitebook/845/g7)                           | `<nixos-hardware/hp/elitebook/845/g7>`             |
 | [HP Elitebook 845g9](hp/elitebook/845/g9)                           | `<nixos-hardware/hp/elitebook/845/g9>`             |
 | [HP Notebook 14-df0023](hp/notebook/14-df0023)                      | `<nixos-hardware/hp/notebook/14-df0023>`           |
 | [i.MX8QuadMax Multisensory Enablement Kit](nxp/imx8qm-mek/)         | `<nixos-hardware/nxp/imx8qm-mek>`                  |
@@ -233,6 +238,7 @@ See code for all available configurations.
 | [Hardkernel Odroid HC4](hardkernel/odroid-hc4/default.nix)          | `<nixos-hardware/hardkernel/odroid-hc4>`           |
 | [Hardkernel Odroid H3](hardkernel/odroid-h3/default.nix)            | `<nixos-hardware/hardkernel/odroid-h3>`            |
 | [Omen 15-en0010ca](omen/15-en0010ca)                                | `<nixos-hardware/omen/15-en0010ca>`                |
+| [Omen 16-n0005ne](omen/16-n0005ne)                                  | `<nixos-hardware/omen/16-n0005ne>`                 |
 | [Omen 15-en1007sa](omen/15-en1007sa)                                | `<nixos-hardware/omen/15-en1007sa>`                |
 | [Omen en00015p](omen/en00015p)                                      | `<nixos-hardware/omen/en00015p>`                   |
 | [One-Netbook OneNetbook 4](onenetbook/4)                            | `<nixos-hardware/onenetbook/4>`                    |
@@ -257,3 +263,4 @@ See code for all available configurations.
 | [System76 Darter Pro 6](system76/darp6)                             | `<nixos-hardware/system76/darp6>`                  |
 | [Toshiba Chromebook 2 `swanky`](toshiba/swanky)                     | `<nixos-hardware/toshiba/swanky>`                  |
 | [Tuxedo InfinityBook v4](tuxedo/infinitybook/v4)                    | `<nixos-hardware/tuxedo/infinitybook/v4>`          |
+| [TUXEDO Pulse 15 - Gen2](tuxedo/pulse/15/gen2)                      | `<nixos-hardware/tuxedo/pulse/15/gen2>`            |
