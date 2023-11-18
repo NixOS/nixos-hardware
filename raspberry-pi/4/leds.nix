@@ -2,25 +2,25 @@
 
 let
   cfg = config.hardware.raspberry-pi."4".leds;
+  mkDisableOption = name: lib.mkOption {
+    default = false;
+    example = true;
+    description = "Whether to disable ${name}.";
+    type = lib.types.bool;
+  };
 in
 {
   options.hardware = {
     raspberry-pi."4".leds = {
-      disable-eth = lib.mkEnableOption ''
-        disable ethernet LEDs.
-      '';
-      disable-act = lib.mkEnableOption ''
-        disable activity LED.
-      '';
-      disable-pwr = lib.mkEnableOption ''
-        disable power LED.
-      '';
+      eth.disable = mkDisableOption ''ethernet LEDs.'';
+      act.disable = mkDisableOption ''activity LED.'';
+      pwr.disable = mkDisableOption ''power LED.'';
     };
   };
 
   # Adapted from: https://gist.github.com/SFrijters/206d2c09656affb04284f076c75a1969
   config = lib.mkMerge [
-    (lib.mkIf cfg.disable-eth {
+    (lib.mkIf cfg.eth.disable {
       hardware.deviceTree = {
         overlays = [
           # https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README
@@ -58,7 +58,7 @@ in
         ];
       };
     })
-    (lib.mkIf cfg.disable-act {
+    (lib.mkIf cfg.act.disable {
       hardware.deviceTree = {
         overlays = [
           # Debugging:
@@ -85,7 +85,7 @@ in
         ];
       };
     })
-    (lib.mkIf cfg.disable-pwr {
+    (lib.mkIf cfg.pwr.disable {
       hardware.deviceTree = {
         overlays = [
           # Debugging:
