@@ -1,6 +1,9 @@
 { lib, pkgs, ... }: {
   imports = [ ../../../../common/gpu/nvidia/prime.nix ];
 
+  #D-Bus service to check the availability of dual-GPU
+  services.switcherooControl.enable = lib.mkDefault true;
+
   hardware = {
     nvidia = {
       prime = {
