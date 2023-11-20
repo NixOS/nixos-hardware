@@ -13,9 +13,14 @@
     "i915.enable_psr=1"
   ];
 
-  # This enables the brightness and airplane mode keys to work
-  # https://community.frame.work/t/12th-gen-not-sending-xf86monbrightnessup-down/20605/11
-  boot.blacklistedKernelModules = [ "hid-sensor-hub" ];
+  boot.blacklistedKernelModules = [ 
+    # This enables the brightness and airplane mode keys to work
+    # https://community.frame.work/t/12th-gen-not-sending-xf86monbrightnessup-down/20605/11
+    "hid-sensor-hub"
+    # This fixes controller crashes during sleep
+    # https://community.frame.work/t/tracking-fn-key-stops-working-on-popos-after-a-while/21208/32
+    "cros_ec_lpcs"
+  ];
   
   # Further tweak to ensure the brightness and airplane mode keys work
   # https://community.frame.work/t/responded-12th-gen-not-sending-xf86monbrightnessup-down/20605/67
