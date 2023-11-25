@@ -2,16 +2,16 @@
 
 {
   imports = [
-    ../../../../common/cpu/amd
-    ../../../../common/cpu/amd/pstate.nix
+    #../../../../common/cpu/amd
+    #../../../../common/cpu/amd/pstate.nix
     ../../../../common/gpu/amd
     ../../../../common/gpu/nvidia/prime.nix
-    ../../../../common/pc/laptop
-    ../../../../common/pc/laptop/ssd
+    #../../../../common/pc/laptop
+    #../../../../common/pc/laptop/ssd
   ];
 
   hardware = {
-    amdgpu.loadInInitrd = lib.mkDefault false;
+    #amdgpu.loadInInitrd = lib.mkDefault false;
 
     nvidia = {
       modesetting.enable = lib.mkDefault true;
