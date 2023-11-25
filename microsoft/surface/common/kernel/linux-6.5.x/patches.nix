@@ -1,5 +1,6 @@
-{ kernel,
-  patchDir,
+{ lib,
+  kernel ? lib.kernel,
+  patchSrc,
   version,
 }:
 
@@ -85,58 +86,58 @@
   }
   {
     name = "ms-surface/0001-surface3-oemb";
-    patch = patchDir + "/0001-surface3-oemb.patch";
+    patch = patchSrc + "/0001-surface3-oemb.patch";
   }
   {
     name = "ms-surface/0002-mwifiex";
-    patch = patchDir + "/0002-mwifiex.patch";
+    patch = patchSrc + "/0002-mwifiex.patch";
   }
   {
     name = "ms-surface/0003-ath10k";
-    patch = patchDir + "/0003-ath10k.patch";
+    patch = patchSrc + "/0003-ath10k.patch";
   }
   {
     name = "ms-surface/0004-ipts";
-    patch = patchDir + "/0004-ipts.patch";
+    patch = patchSrc + "/0004-ipts.patch";
   }
   {
     name = "ms-surface/0005-ithc";
-    patch = patchDir + "/0005-ithc.patch";
+    patch = patchSrc + "/0005-ithc.patch";
   }
   {
     name = "ms-surface/0006-surface-sam";
-    patch = patchDir + "/0006-surface-sam.patch";
+    patch = patchSrc + "/0006-surface-sam.patch";
   }
   {
     name = "ms-surface/0007-surface-sam-over-hid";
-    patch = patchDir + "/0007-surface-sam-over-hid.patch";
+    patch = patchSrc + "/0007-surface-sam-over-hid.patch";
   }
   {
     name = "ms-surface/0008-surface-button";
-    patch = patchDir + "/0008-surface-button.patch";
+    patch = patchSrc + "/0008-surface-button.patch";
   }
   {
     name = "ms-surface/0009-surface-typecover";
-    patch = patchDir + "/0009-surface-typecover.patch";
+    patch = patchSrc + "/0009-surface-typecover.patch";
   }
   {
     name = "ms-surface/0010-surface-shutdown";
-    patch = patchDir + "/0010-surface-shutdown.patch";
+    patch = patchSrc + "/0010-surface-shutdown.patch";
   }
   {
     name = "ms-surface/0011-surface-gpe";
-    patch = patchDir + "/0011-surface-gpe.patch";
+    patch = patchSrc + "/0011-surface-gpe.patch";
   }
   {
     name = "ms-surface/0012-cameras";
-    patch = patchDir + "/0012-cameras.patch";
+    patch = patchSrc + "/0012-cameras.patch";
   }
   {
     name = "ms-surface/0013-amd-gpio";
-    patch = patchDir + "/0013-amd-gpio.patch";
+    patch = patchSrc + "/0013-amd-gpio.patch";
   }
   {
     name = "ms-surface/0014-rtc";
-    patch = patchDir + "/0014-rtc.patch";
+    patch = patchSrc + "/0014-rtc.patch";
   }
 ]

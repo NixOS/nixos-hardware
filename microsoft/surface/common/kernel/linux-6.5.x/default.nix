@@ -4,19 +4,19 @@ let
   inherit (lib) mkIf mkOption types;
   inherit (pkgs) fetchurl;
 
-  inherit (pkgs.callPackage ../linux-package.nix { }) linuxPackage repos;
+  inherit (pkgs.callPackage ../linux-package.nix { }) linuxPackage1 repos;
 
   cfg = config.microsoft-surface;
 
   version = "6.5.11";
   extraMeta.branch = "6.5";
-  patchDir = repos.linux-surface + "/patches/${extraMeta.branch}";
+  patchSrc = repos.linux-surface + "/patches/${extraMeta.branch}";
   kernelPatches = pkgs.callPackage ./patches.nix {
     inherit (lib) kernel;
-    inherit version patchDir;
+    inherit version patchSrc;
   };
 
-  kernelPackages = linuxPackage {
+  kernelPackages = linuxPackage1 {
     inherit version extraMeta kernelPatches;
     src = fetchurl {
       url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
