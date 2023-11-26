@@ -11,7 +11,7 @@
   ];
 
   hardware = {
-    #amdgpu.loadInInitrd = lib.mkDefault false;
+    amdgpu.loadInInitrd = lib.mkDefault false;
 
     # opengl = {
     #   enable = true;
