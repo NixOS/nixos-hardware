@@ -1,7 +1,7 @@
 { lib, pkgs, config, ... }:
 
 {
-  imports = [ ./. ];
+  #imports = [ ./. ];
 
   hardware.nvidia.prime = {
     offload = {
