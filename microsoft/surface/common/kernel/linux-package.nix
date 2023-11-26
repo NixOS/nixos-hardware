@@ -21,7 +21,7 @@ let
       linuxPackagesFor' = linuxPackagesFor buildLinux';
     in recurseIntoAttrs linuxPackagesFor';
 
-  # Version 1 of the linuxPackage funtion, with hopefully simplified arguments:
+  # Version 1 of the linuxPackage function, with hopefully simplified arguments:
   linuxPackage2 =
     { url ? "mirror://kernel/linux/kernel/v${versions.major version}.x/linux-${version}.tar.xz",
       sha256 ? null,
@@ -41,7 +41,7 @@ let
     in linuxPackages';
 
   surfacePatches =
-    { patchSrc ? (repos.linux-surface + "/patches/${versions.major version}"),
+    { patchSrc ? (repos.linux-surface + "/patches/${versions.majorMinor version}"),
       version,
       patchFn,
     }: pkgs.callPackage patchFn {
