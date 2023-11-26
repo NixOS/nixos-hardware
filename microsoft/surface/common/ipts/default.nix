@@ -33,7 +33,6 @@ in
   config = mkMerge [
     {
       microsoft-surface.ipts.enable = mkDefault false;
-
     }
 
     (mkIf cfg.enable {
@@ -43,7 +42,6 @@ in
         script = "iptsd $(iptsd-find-hidraw)";
         wantedBy = [ "multi-user.target" ];
       };
-
       environment.etc."iptsd/iptsd.conf".source = "${iptsConfFile}";
     })
   ];
