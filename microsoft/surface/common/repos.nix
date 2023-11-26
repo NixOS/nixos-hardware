@@ -4,7 +4,7 @@
   linux-surface = fetchFromGitHub {
     owner = "linux-surface";
     repo = "linux-surface";
-    rev = "a6eafcad32dc789ae92f42636b11e9aae6e7c879";
+    rev = "arch-6.6.1-1";
     hash = "sha256-GfxRzxFxDZoSZyEOzxr/Hz0IonbuwzkGaisKl3VYvlI=";
   };
 
