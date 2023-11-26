@@ -22,7 +22,6 @@
     nvidia = {
       modesetting.enable = lib.mkDefault true;
       powerManagement.enable = lib.mkDefault true;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
 
       prime = {
         amdgpuBusId = "PCI:5:0:0";
