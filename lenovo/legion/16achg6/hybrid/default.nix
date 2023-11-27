@@ -11,14 +11,6 @@
   ];
 
   hardware = {
-    amdgpu.loadInInitrd = lib.mkDefault false;
-
-    opengl = {
-      enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
-    };
-
     nvidia = {
       modesetting.enable = lib.mkDefault true;
       powerManagement.enable = lib.mkDefault true;
