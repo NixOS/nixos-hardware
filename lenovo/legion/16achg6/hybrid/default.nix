@@ -14,9 +14,6 @@
     videoDrivers = [ "nvidia" "amdgpu" ];
   };
 
-  boot.initrd.kernelModules = ["nvidia"];
-  boot.extraModulePackages = [config.boot.kernelPackages.nvidia_x11];
-
   hardware = {
     nvidia = {
       modesetting.enable = lib.mkDefault true;
