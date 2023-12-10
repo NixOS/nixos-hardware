@@ -156,6 +156,8 @@ See code for all available configurations.
 | [Lenovo Legion 7 Slim 15ach6](lenovo/legion/15ach6)                 | `<nixos-hardware/lenovo/legion/15ach6>`            |
 | [Lenovo Legion 5 Pro 16ach6h](lenovo/legion/16ach6h)                | `<nixos-hardware/lenovo/legion/16ach6h>`           |
 | [Lenovo Legion 5 Pro 16ach6h (Hybrid)](lenovo/legion/16ach6h/hybrid)| `<nixos-hardware/lenovo/legion/16ach6h/hybrid>`    |
+| [Lenovo Legion 7 16achg6 (Hybrid)](lenovo/legion/16achg6/hybrid)    | `<nixos-hardware/lenovo/legion/16achg6/hybrid>`    |
+| [Lenovo Legion 7 16achg6 (Nvidia)](lenovo/legion/16achg6/nvidia)    | `<nixos-hardware/lenovo/legion/16achg6/nvidia>`    |
 | [Lenovo Legion 5 Pro 16ach6h (Nvidia)](lenovo/legion/16ach6h/nvidia)| `<nixos-hardware/lenovo/legion/16ach6h/nvidia>`    |
 | [Lenovo Legion 7i Pro 16irx8h (Intel)](lenovo/legion/16irx8h)       | `<nixos-hardware/lenovo/legion/16irx8h>`           |
 | [Lenovo Legion Y530 15ICH](lenovo/legion/15ich)                     | `<nixos-hardware/lenovo/legion/15ich>`             |
