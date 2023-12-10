@@ -10,9 +10,7 @@
     ../../../../common/pc/laptop/ssd
   ];
 
-  services.xserver = {
-    videoDrivers = [ "nvidia" "amdgpu" ];
-  };
+  services.xserver.videoDrivers = [ "nvidia" "amdgpu" ];
 
   hardware = {
     nvidia = {

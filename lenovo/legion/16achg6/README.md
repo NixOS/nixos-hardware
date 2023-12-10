@@ -1,3 +1,5 @@
+I personally use my laptop with an external display attached. In `hybrid` config it works nice only with Wayland, while X11 can't detect the external monitor. Everything works as expected in `nvidia` mode, but battery life is reduced then.
+
 ## Setup at the time of testing
 ```
 $ nix-info -m

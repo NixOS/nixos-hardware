@@ -2,7 +2,7 @@
 
 {
   imports = [ ../hybrid ];
-  services.xserver.videoDrivers = [ "nvidia" ]; # This will override services.xserver.videoDrivers = lib.mkDefault [ "amdgpu" "nvidia" ];
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware = {
     nvidia.prime.offload.enable = false;
     amdgpu = {
