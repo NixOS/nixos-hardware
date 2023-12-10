@@ -10,10 +10,6 @@
     ../../../../common/pc/laptop/ssd
   ];
 
-  services.xserver = {
-    videoDrivers = lib.mkDefault [ "nvidia" "amdgpu" ];
-  };
-
   hardware = {
     nvidia = {
       modesetting.enable = lib.mkDefault true;
