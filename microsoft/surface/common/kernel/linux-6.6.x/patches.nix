@@ -55,7 +55,7 @@
       VIDEO_DW9719 = module;
       VIDEO_IPU3_IMGU = module;
       VIDEO_IPU3_CIO2 = module;
-      CIO2_BRIDGE = yes;
+      IPU_BRIDGE = module;
       INTEL_SKL_INT3472 = module;
       REGULATOR_TPS68470 = module;
       COMMON_CLK_TPS68470 = module;
