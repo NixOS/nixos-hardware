@@ -1,4 +1,6 @@
-I personally use my laptop with an external display attached. In `hybrid` config it works nice only with Wayland, while X11 can't detect the external monitor. Everything works as expected in `nvidia` mode, but battery life is reduced then.
+I personally use my laptop with an external display attached and haven't observed any issues so far.
+
+From my experience, it's better to use gdm, as sddm seems to have a problem detecting the external monitor (more details available [here](https://github.com/sddm/sddm/issues/1558)). Of course it's not a blocker, as it is still possible to log in using sddm. I personally find it annoying that my main display remains idle.
 
 ## Setup at the time of testing
 ```
