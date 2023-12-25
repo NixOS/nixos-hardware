@@ -1,4 +1,4 @@
-{ config, pkgs, lib, modulesPath, ... }:
+{ config, pkgs, modulesPath, ... }:
 
 let firmware = pkgs.callPackage ./firmware.nix { };
 in {

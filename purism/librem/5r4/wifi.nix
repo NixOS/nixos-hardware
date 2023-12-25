@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, ... }:
 lib.mkIf (config.hardware.librem5.wifiCard == "redpine") {
   # Disable mainline rsi module
   boot.blacklistedKernelModules = [

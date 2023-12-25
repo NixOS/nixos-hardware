@@ -1,4 +1,4 @@
-{ stdenv, gcc11Stdenv, buildUBoot, fetchurl, fetchFromGitLab, lib, flex, bison }:
+{ stdenv, gcc11Stdenv, buildUBoot, fetchurl, fetchFromGitLab, lib, bison }:
 let
   firmware-imx = stdenv.mkDerivation (fa: {
     pname = "firmware-imx";

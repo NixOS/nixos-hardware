@@ -1,8 +1,5 @@
-{ config, lib, pkgs, ...}:
+{ config, lib, ...}:
 with lib;
-let 
-  cfg = config.hardware.gpd.ppt;
-in 
 {
   imports = [
     ./..
