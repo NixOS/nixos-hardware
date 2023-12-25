@@ -8,7 +8,6 @@ import subprocess
 import sys
 from functools import partial
 from pathlib import Path
-from typing import List, Tuple
 
 TEST_ROOT = Path(__file__).resolve().parent
 ROOT = TEST_ROOT.parent
@@ -18,9 +17,9 @@ RED = "\033[91m"
 RESET = "\033[0m"
 
 
-def parse_readme() -> List[str]:
+def parse_readme() -> list[str]:
     profiles = set()
-    with open(ROOT.joinpath("README.md")) as f:
+    with ROOT.joinpath("README.md").open() as f:
         for line in f:
             results = re.findall(r"<nixos-hardware/[^>]+>", line)
             profiles.update(results)
@@ -29,7 +28,7 @@ def parse_readme() -> List[str]:
 
 def build_profile(
     profile: str, verbose: bool
-) -> Tuple[str, subprocess.CompletedProcess]:
+) -> tuple[str, subprocess.CompletedProcess]:
     # Hard-code this for now until we have enough other architectures to care about this.
     system = "x86_64-linux"
     if "raspberry-pi/2" in profile:
@@ -62,9 +61,9 @@ def build_profile(
     res = subprocess.run(
         cmd,
         cwd=TEST_ROOT,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        capture_output=True,
         text=True,
+        check=False,
     )
     return (profile, res)
 
@@ -89,14 +88,11 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    if len(args.profiles) == 0:
-        profiles = parse_readme()
-    else:
-        profiles = args.profiles
+    profiles = parse_readme() if len(args.profiles) == 0 else args.profiles
 
     failed_profiles = []
 
-    def eval_finished(args: Tuple[str, subprocess.CompletedProcess]) -> None:
+    def eval_finished(args: tuple[str, subprocess.CompletedProcess]) -> None:
         profile, res = args
         if res.returncode == 0:
             print(f"{GREEN}OK {profile}{RESET}")
