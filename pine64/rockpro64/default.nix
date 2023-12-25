@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ lib, ... }:
 {
   boot.initrd.kernelModules = [
     # PCIe/NVMe

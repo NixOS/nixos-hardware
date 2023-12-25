@@ -1,4 +1,4 @@
-{ callPackage, pkgsBuildHost, runCommand, writeText, writeShellApplication
+{ callPackage, pkgsBuildHost, writeText, writeShellApplication
 , stdenv, dtc, mtdutils, coreutils }:
 let
   uboot = callPackage ./uboot.nix { };
