@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, ... }:
 lib.mkIf config.hardware.librem5.customInitrdModules {
   boot.initrd = {
     kernelModules = [
