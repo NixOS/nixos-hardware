@@ -40,7 +40,8 @@ def build_profile(
     cmd = [
         "nix",
         "build",
-        "--extra-experimental-features", "nix-command",
+        "--extra-experimental-features",
+        "nix-command",
         "-f",
         "build-profile.nix",
         "-I",
@@ -59,7 +60,11 @@ def build_profile(
     if verbose:
         print(f"$ {' '.join(cmd)}")
     res = subprocess.run(
-        cmd, cwd=TEST_ROOT, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+        cmd,
+        cwd=TEST_ROOT,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
     )
     return (profile, res)
 
@@ -74,7 +79,9 @@ def parse_args() -> argparse.Namespace:
         "If set to 1 it disable multi processing (suitable for debugging)",
     )
     parser.add_argument(
-        "--verbose", action="store_true", help="Print evaluation commands executed",
+        "--verbose",
+        action="store_true",
+        help="Print evaluation commands executed",
     )
     parser.add_argument("profiles", nargs="*")
     return parser.parse_args()
