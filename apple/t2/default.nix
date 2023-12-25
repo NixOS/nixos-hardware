@@ -8,6 +8,12 @@ let
     hash = "sha256-x7K0qa++P1e1vuCGxnsFxL1d9+nwMtZUJ6Kd9e27TFs=";
   };
 
+  audioFilesUdevRules = pkgs.runCommand "audio-files-udev-rules" {} ''
+    mkdir -p $out/lib/udev/rules.d
+    cp ${audioFiles}/files/*.rules $out/lib/udev/rules.d
+    substituteInPlace $out/lib/udev/rules.d/*.rules --replace "/usr/bin/sed" "${pkgs.gnused}/bin/sed"
+  '';
+
   overrideAudioFiles = package: pluginsPath:
     package.overrideAttrs (new: old: {
       preConfigurePhases = old.preConfigurePhases or [ ] ++ [ "postPatchPhase" ];
@@ -18,7 +24,7 @@ let
 
   pipewirePackage = overrideAudioFiles pkgs.pipewire "spa/plugins/";
 
-  apple-set-os-loader-installer = pkgs.stdenv.mkDerivation rec {
+  apple-set-os-loader-installer = pkgs.stdenv.mkDerivation {
     name = "apple-set-os-loader-installer-1.0";
     src = pkgs.fetchFromGitHub {
       owner = "Redecorating";
@@ -51,15 +57,12 @@ in
 
   config = {
     # For keyboard and touchbar
-    boot.kernelPackages = with pkgs; recurseIntoAttrs (linuxPackagesFor (callPackage ./pkgs/linux-t2.nix { }));
+    boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.callPackage ./pkgs/linux-t2.nix { });
     boot.initrd.kernelModules = [ "apple-bce" ];
 
     # For audio
     boot.kernelParams = [ "pcie_ports=compat" "intel_iommu=on" "iommu=pt" ];
-    services.udev.extraRules = builtins.readFile (pkgs.substitute {
-      src = "${audioFiles}/files/91-audio-custom.rules";
-      replacements = [ "--replace" "/usr/bin/sed" "${pkgs.gnused}/bin/sed" ];
-    });
+    services.udev.packages = [ audioFilesUdevRules ];
 
     hardware.pulseaudio.package = overrideAudioFiles pkgs.pulseaudio "src/modules/";
 
