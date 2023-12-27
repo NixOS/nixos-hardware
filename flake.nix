@@ -35,6 +35,7 @@
       dell-latitude-3340 = import ./dell/latitude/3340;
       dell-latitude-3480 = import ./dell/latitude/3480;
       dell-latitude-5520 = import ./dell/latitude/5520;
+      dell-latitude-7390 = import ./dell/latitude/7390;
       dell-latitude-7430 = import ./dell/latitude/7430;
       dell-latitude-7490 = import ./dell/latitude/7490;
       dell-poweredge-r7515 = import ./dell/poweredge/r7515;
