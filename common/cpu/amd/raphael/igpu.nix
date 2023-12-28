@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }: 
+{ lib, pkgs, ... }:
 
 {
   # Sets the kernel version to the latest kernel to make the usage of the iGPU possible if your kernel version is too old
@@ -10,7 +10,7 @@
   boot = lib.mkMerge [
     (lib.mkIf (lib.versionOlder pkgs.linux.version "6.1") {
       kernelPackages = pkgs.linuxPackages_latest;
-      kernelParams = ["amdgpu.sg_display=0"];  
+      kernelParams = ["amdgpu.sg_display=0"];
     })
 
     (lib.mkIf (lib.versionAtLeast pkgs.linux.version "6.2") {
