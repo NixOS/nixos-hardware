@@ -17,7 +17,7 @@
   boot.blacklistedKernelModules = [ "psmouse" ];
 
   # enable finger print sensor.
-  # this has to be configured with `sudo fprintd-enroll septias`
+  # this has to be configured with `sudo fprintd-enroll <username>`.
   services.fprintd.enable = true;
   services.fprintd.tod.enable = true;
   services.fprintd.tod.driver = pkgs.libfprint-2-tod1-goodix;
