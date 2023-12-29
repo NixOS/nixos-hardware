@@ -16,6 +16,12 @@
   # Without this we get errors in dmesg on boot and hangs when shutting down.
   boot.blacklistedKernelModules = [ "psmouse" ];
 
+  # enable finger print sensor.
+  # this has to be configured with `sudo fprintd-enroll septias`
+  services.fprintd.enable = true;
+  services.fprintd.tod.enable = true;
+  services.fprintd.tod.driver = pkgs.libfprint-2-tod1-goodix;
+
   # Allows for updating firmware via `fwupdmgr`.
   services.fwupd.enable = true;
 }
