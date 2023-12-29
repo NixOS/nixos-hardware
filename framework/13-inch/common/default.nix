@@ -6,9 +6,7 @@
 
   # Fix TRRS headphones missing a mic
   # https://community.frame.work/t/headset-microphone-on-linux/12387/3
-  #
-  # This is temporary until a kernel patch is submitted
-  boot.extraModprobeConfig = ''
+  boot.extraModprobeConfig = lib.mkIf (lib.versionOlder pkgs.linux.version "6.6.8") ''
     options snd-hda-intel model=dell-headset-multi
   '';
 
