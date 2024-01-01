@@ -1,4 +1,4 @@
-{ lib, ... }: {
+{ lib, pkgs, ... }: {
   imports = [
     ../../../common/pc/laptop
     ../../../common/pc/laptop/ssd
