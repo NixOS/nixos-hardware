@@ -12,7 +12,7 @@ rec {
     runtimeInputs = [ mtdutils ];
     text = ''
       flashcp -v ${uboot}/u-boot-spl.bin.normal.out /dev/mtd0
-      flashcp -v ${uboot}/u-boot.itb /dev/mtd1
+      flashcp -v ${uboot}/u-boot.itb /dev/mtd2
     '';
   };
   updater-sd = writeShellApplication {
