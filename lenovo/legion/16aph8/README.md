@@ -20,7 +20,7 @@ hardware.nvidia = {
 ```
 $ nix-info -m
  - system: `"x86_64-linux"`
- - host os: `Linux 6.1.68, NixOS, 23.11 (Tapir), 23.11.20231220.d65bcea`
+ - host os: `Linux 6.6.8, NixOS, 23.11 (Tapir), 23.11.20231231.32f6357`
  - multi-user?: `yes`
  - sandbox: `yes`
  - version: `nix-env (Nix) 2.18.1`
