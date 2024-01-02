@@ -100,6 +100,7 @@ See code for all available configurations.
 | [Dell Latitude 3340](dell/latitude/3340)                               | `<nixos-hardware/dell/latitude/3340>`                   |
 | [Dell Latitude 3480](dell/latitude/3480)                               | `<nixos-hardware/dell/latitude/3480>`                   |
 | [Dell Latitude 5520](dell/latitude/5520)                               | `<nixos-hardware/dell/latitude/5520>`                   |
+| [Dell Latitude 7390](dell/latitude/7390)                               | `<nixos-hardware/dell/latitude/7390>`                   |
 | [Dell Latitude 7430](dell/latitude/7430)                               | `<nixos-hardware/dell/latitude/7430>`                   |
 | [Dell Latitude 7490](dell/latitude/7490)                               | `<nixos-hardware/dell/latitude/7490>`                   |
 | [Dell Poweredge R7515](dell/poweredge/r7515)                           | `<nixos-hardware/dell/poweredge/r7515>`                 |
@@ -146,6 +147,7 @@ See code for all available configurations.
 | [Google Pixelbook](google/pixelbook)                                   | `<nixos-hardware/google/pixelbook>`                     |
 | [HP Elitebook 2560p](hp/elitebook/2560p)                               | `<nixos-hardware/hp/elitebook/2560p>`                   |
 | [HP Elitebook 845g7](hp/elitebook/845/g7)                              | `<nixos-hardware/hp/elitebook/845/g7>`                  |
+| [HP Elitebook 845g8](hp/elitebook/845/g8)                              | `<nixos-hardware/hp/elitebook/845/g8>`                  |
 | [HP Elitebook 845g9](hp/elitebook/845/g9)                              | `<nixos-hardware/hp/elitebook/845/g9>`                  |
 | [HP Notebook 14-df0023](hp/notebook/14-df0023)                         | `<nixos-hardware/hp/notebook/14-df0023>`                |
 | [i.MX8QuadMax Multisensory Enablement Kit](nxp/imx8qm-mek/)            | `<nixos-hardware/nxp/imx8qm-mek>`                       |
@@ -264,4 +266,5 @@ See code for all available configurations.
 | [System76 Darter Pro 6](system76/darp6)                                | `<nixos-hardware/system76/darp6>`                       |
 | [Toshiba Chromebook 2 `swanky`](toshiba/swanky)                        | `<nixos-hardware/toshiba/swanky>`                       |
 | [Tuxedo InfinityBook v4](tuxedo/infinitybook/v4)                       | `<nixos-hardware/tuxedo/infinitybook/v4>`               |
+| [TUXEDO InfinityBook Pro 14 - Gen7](tuxedo/infinitybook/pro14/gen7)    | `<nixos-hardware/tuxedo/infinitybook/pro14/gen7>`       |
 | [TUXEDO Pulse 15 - Gen2](tuxedo/pulse/15/gen2)                         | `<nixos-hardware/tuxedo/pulse/15/gen2>`                 |

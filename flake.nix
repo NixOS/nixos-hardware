@@ -35,6 +35,7 @@
       dell-latitude-3340 = import ./dell/latitude/3340;
       dell-latitude-3480 = import ./dell/latitude/3480;
       dell-latitude-5520 = import ./dell/latitude/5520;
+      dell-latitude-7390 = import ./dell/latitude/7390;
       dell-latitude-7430 = import ./dell/latitude/7430;
       dell-latitude-7490 = import ./dell/latitude/7490;
       dell-poweredge-r7515 = import ./dell/poweredge/r7515;
@@ -81,6 +82,7 @@
       gpd-win-max-2-2023 = import ./gpd/win-max-2/2023;
       hp-elitebook-2560p = import ./hp/elitebook/2560p;
       hp-elitebook-845g7 = import ./hp/elitebook/845/g7;
+      hp-elitebook-845g8 = import ./hp/elitebook/845/g8;
       hp-elitebook-845g9 = import ./hp/elitebook/845/g9;
       hp-notebook-14-df0023 = import ./hp/notebook/14-df0023;
       intel-nuc-8i7beh = import ./intel/nuc/8i7beh;
@@ -208,6 +210,7 @@
       system76-darp6 = import ./system76/darp6;
       toshiba-swanky = import ./toshiba/swanky;
       tuxedo-infinitybook-v4 = import ./tuxedo/infinitybook/v4;
+      tuxedo-infinitybook-pro14-gen7 = import ./tuxedo/infinitybook/pro14/gen7;
       tuxedo-pulse-15-gen2 = import ./tuxedo/pulse/15/gen2;
 
       common-cpu-amd = import ./common/cpu/amd;
