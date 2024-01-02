@@ -13,7 +13,7 @@
   # Use latest LTS kernel for more Raphael fixes
   boot = lib.mkMerge [
     (lib.mkIf (lib.versionOlder pkgs.linux.version "6.6") {
-      kernelPackages = pkgs.linuxPackages_6_6;
+      kernelPackages = pkgs.linuxPackages_latest;
       kernelParams = ["amdgpu.sg_display=0"];
     })
   ];
