@@ -18,8 +18,6 @@
     })
   ];
 
-  services.xserver.videoDrivers = [ "nvidia" ];
-
   hardware.nvidia = {
       modesetting.enable = lib.mkDefault true;
       powerManagement.enable = lib.mkDefault false;
@@ -31,6 +29,9 @@
           nvidiaBusId = "PCI:1:0:0";
       };
   };
+
+  # Avoid issues with modesetting causing blank screen
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   # AMD has better battery life with PPD over TLP:
   # https://community.frame.work/t/responded-amd-7040-sleep-states/38101/13
