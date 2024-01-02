@@ -18,8 +18,10 @@
     })
   ];
 
+  services.xserver.videoDrivers = [ "nvidia" ];
+
   hardware.nvidia = {
-      modesetting.enable = lib.mkDefault false;
+      modesetting.enable = lib.mkDefault true;
       powerManagement.enable = lib.mkDefault false;
       powerManagement.finegrained = lib.mkDefault false;
       open = lib.mkDefault false;
