@@ -1,20 +1,36 @@
-{ fetchFromGitHub, buildUBoot }:
+{ lib
+, fetchFromGitHub
+, buildUBoot
+, buildPackages
+, opensbi
+}:
 
 buildUBoot rec {
-  version = "3.8.2";
+  version = "2024.01-rc5";
 
   src = fetchFromGitHub {
-    owner = "starfive-tech";
+    owner = "u-boot";
     repo = "u-boot";
-    rev = "refs/tags/VF2_v${version}";
-    hash = "sha256-M/ndil++spcJCYnpYLb+fuxqCi4H3BunXdHbl529ovM=";
+    rev = "refs/tags/v${version}";
+    hash = "sha256-QlwgvnSaXh39z9AM7HNF731lRiUkPbN3oQyioQNTYFA=";
   };
 
+  # workaround for https://github.com/NixOS/nixpkgs/pull/146634
+  # uboot: only apply raspberry pi patches to raspberry pi builds
+  patches = [ ];
+
+  extraMakeFlags = [
+    # workaround for https://github.com/NixOS/nixpkgs/pull/277997
+    # buildUBoot: specify absolute path of dtc, fix building u-boot 2023.10+
+    "DTC=${lib.getExe buildPackages.dtc}"
+
+    "OPENSBI=${opensbi}/share/opensbi/lp64/generic/firmware/fw_dynamic.bin"
+  ];
+
   defconfig = "starfive_visionfive2_defconfig";
+
   filesToInstall = [
-    "u-boot.bin"
-    "arch/riscv/dts/starfive_visionfive2.dtb"
-    "spl/u-boot-spl.bin"
-    "tools/mkimage"
+    "spl/u-boot-spl.bin.normal.out"
+    "u-boot.itb"
   ];
 }

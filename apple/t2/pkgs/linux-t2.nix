@@ -1,4 +1,5 @@
-{ lib, buildLinux, fetchFromGitHub, fetchurl, ... } @ args:
+{ lib, buildLinux, fetchFromGitHub, fetchzip, runCommand
+, ... } @ args:
 
 let
   patchRepo = fetchFromGitHub {
@@ -18,10 +19,18 @@ buildLinux (args // {
   # Snippet from nixpkgs
   modDirVersion = with lib; "${concatStringsSep "." (take 3 (splitVersion "${version}.0"))}";
 
-  src = fetchurl {
-    url = "mirror://kernel/linux/kernel/v${majorVersion}.x/linux-${version}.tar.xz";
-    hash = "sha256-eldLvCCALqdrUsp/rwcmf3IEXoYbGJFcUnKpjCer+IQ=";
-  };
+  src = runCommand "patched-source" {} ''
+    cp -r ${fetchzip {
+      url = "mirror://kernel/linux/kernel/v${majorVersion}.x/linux-${version}.tar.xz";
+      hash = "sha256-qJmVSju69WcvDIbgrbtMyCi+OXUNTzNX2G+/0zwsPR4=";
+    }} $out
+    chmod -R u+w $out
+    cd $out
+    while read -r patch; do
+      echo "Applying patch $patch";
+      patch -p1 < $patch;
+    done < <(find ${patchRepo} -type f -name "*.patch" | sort)
+  '';
 
   structuredExtraConfig = with lib.kernel; {
     APPLE_BCE = module;
@@ -40,7 +49,5 @@ buildLinux (args // {
     STAGING = yes;
   };
 
-  kernelPatches = lib.attrsets.mapAttrsToList (file: type: { name = file; patch = "${patchRepo}/${file}"; })
-    (lib.attrsets.filterAttrs (file: type: type == "regular" && lib.strings.hasSuffix ".patch" file)
-      (builtins.readDir patchRepo));
+  kernelPatches = [];
 } // (args.argsOverride or {}))

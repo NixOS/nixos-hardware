@@ -6,7 +6,6 @@ let
 in {
   imports = [
     ./linux-6.1.x
-    ./linux-6.5.x
     ./linux-6.6.x
   ];
 

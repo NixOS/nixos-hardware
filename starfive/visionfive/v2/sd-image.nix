@@ -1,4 +1,4 @@
-{ config, pkgs, lib, modulesPath, ... }:
+{ config, pkgs, modulesPath, ... }:
 
 let firmware = pkgs.callPackage ./firmware.nix { };
 in {
@@ -36,10 +36,10 @@ in {
       EOF
 
       eval $(partx $img -o START,SECTORS --nr 1 --pairs)
-      dd conv=notrunc if=${firmware.spl}/share/starfive-visionfive2/spl.bin of=$img seek=$START count=$SECTORS
+      dd conv=notrunc if=${firmware.uboot}/u-boot-spl.bin.normal.out of=$img seek=$START count=$SECTORS
 
       eval $(partx $img -o START,SECTORS --nr 2 --pairs)
-      dd conv=notrunc if=${firmware.uboot-fit-image}/share/starfive-visionfive2/visionfive2_fw_payload.img of=$img seek=$START count=$SECTORS
+      dd conv=notrunc if=${firmware.uboot}/u-boot.itb of=$img seek=$START count=$SECTORS
     '';
 
     populateRootCommands = ''
