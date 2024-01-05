@@ -82,6 +82,7 @@
       gpd-win-max-2-2023 = import ./gpd/win-max-2/2023;
       hp-elitebook-2560p = import ./hp/elitebook/2560p;
       hp-elitebook-845g7 = import ./hp/elitebook/845/g7;
+      hp-elitebook-845g8 = import ./hp/elitebook/845/g8;
       hp-elitebook-845g9 = import ./hp/elitebook/845/g9;
       hp-notebook-14-df0023 = import ./hp/notebook/14-df0023;
       intel-nuc-8i7beh = import ./intel/nuc/8i7beh;
@@ -96,6 +97,7 @@
       lenovo-legion-16ach6h-nvidia = import ./lenovo/legion/16ach6h/nvidia;
       lenovo-legion-16achg6-hybrid = import ./lenovo/legion/16achg6/hybrid;
       lenovo-legion-16achg6-nvidia = import ./lenovo/legion/16achg6/nvidia;
+      lenovo-legion-16aph8 = import ./lenovo/legion/16aph8;
       lenovo-legion-16ithg6 = import ./lenovo/legion/16ithg6;
       lenovo-legion-16irx8h = import ./lenovo/legion/16irx8h;
       lenovo-legion-y530-15ich = import ./lenovo/legion/15ich;
@@ -208,6 +210,7 @@
       system76-darp6 = import ./system76/darp6;
       toshiba-swanky = import ./toshiba/swanky;
       tuxedo-infinitybook-v4 = import ./tuxedo/infinitybook/v4;
+      tuxedo-infinitybook-pro14-gen7 = import ./tuxedo/infinitybook/pro14/gen7;
       tuxedo-pulse-15-gen2 = import ./tuxedo/pulse/15/gen2;
 
       common-cpu-amd = import ./common/cpu/amd;
