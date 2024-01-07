@@ -8,7 +8,7 @@ let
 
   cfg = config.microsoft-surface;
 
-  version = "6.6.8";
+  version = "6.6.10";
   majorVersion = "6.6";
   patchDir = repos.linux-surface + "/patches/${majorVersion}";
   kernelPatches = pkgs.callPackage ./patches.nix {
@@ -21,7 +21,7 @@ let
     extraMeta.branch = majorVersion;
     src = fetchurl {
       url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
-      sha256 = "sha256-UDbENOEeSzbY2j9ImFH3+CnPeF+n94h0aFN6nqRXJBY=";
+      sha256 = "sha256-nuYn5MEJrsf8o+2liY6B0gGvLH6y99nX2UwfDhIFVGw=";
     };
   };
 
