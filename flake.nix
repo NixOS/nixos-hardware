@@ -169,6 +169,7 @@
       lenovo-thinkpad-z = import ./lenovo/thinkpad/z;
       lenovo-thinkpad-z13 = import ./lenovo/thinkpad/z/z13;
       lenovo-yoga-6-13ALC6 = import ./lenovo/yoga/6/13ALC6;
+      lenovo-yoga-7-slim-gen8 = import ./lenovo/yoga/7/slim/gen8;
       letsnote-cf-lx4 = import ./panasonic/letsnote/cf-lx4;
       microchip-icicle-kit = import ./microchip/icicle-kit;
       microsoft-surface-go = import ./microsoft/surface/surface-go;
