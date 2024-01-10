@@ -229,6 +229,7 @@ See code for all available configurations.
 | [Lenovo ThinkPad Z Series](lenovo/thinkpad/z)                          | `<nixos-hardware/lenovo/thinkpad/z>`                    |
 | [Lenovo ThinkPad Z13](lenovo/thinkpad/z/z13)                           | `<nixos-hardware/lenovo/thinkpad/z/z13>`                |
 | [LENOVO Yoga 6 13ALC6 82ND](lenovo/yoga/6/13ALC6)                      | `<nixos-hardware/lenovo/yoga/6/13ALC6>`                 |
+| [LENOVO Yoga 7 Slim Gen8](lenovo/yoga/7/slim/gen8)                     | `<nixos-hardware/lenovo/yoga/7/slim/gen8>`              |
 | [MSI GS60 2QE](msi/gs60)                                               | `<nixos-hardware/msi/gs60>`                             |
 | [MSI GL62/CX62](msi/gl62)                                              | `<nixos-hardware/msi/gl62>`                             |
 | [Microchip Icicle Kit](microchip/icicle-kit)                           | `<nixos-hardware/microchip/icicle-kit>`                 |
