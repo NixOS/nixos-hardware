@@ -12,7 +12,7 @@
     powerManagement.enable = lib.mkDefault false;
     powerManagement.finegrained = lib.mkDefault false;
     open = lib.mkDefault false;
-    package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.stable;
+    package = lib.mkDefault config.boot.kernelPackages.nvidiaPackages.stable;
     nvidiaSettings = lib.mkDefault true;
     prime = {
       offload.enable = lib.mkForce true;
