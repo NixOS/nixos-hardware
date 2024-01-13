@@ -1,4 +1,3 @@
-# Please include `package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.stable;` in your config.
 { lib, config, ... }:
 {
   imports = [
@@ -13,9 +12,10 @@
     powerManagement.enable = lib.mkDefault false;
     powerManagement.finegrained = lib.mkDefault false;
     open = lib.mkDefault false;
+    package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.stable;
     nvidiaSettings = lib.mkDefault true;
     prime = {
-      offload.enable = lib.mkDefault true;
+      offload.enable = lib.mkForce true;
       amdgpuBusId = "PCI:6:0:0";
       nvidiaBusId = "PCI:1:0:0";
     };
