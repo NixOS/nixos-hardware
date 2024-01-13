@@ -3,8 +3,11 @@
   imports = [
     ../../common/cpu/amd
     ../../common/gpu/amd
+    ../../common/cpu/amd/pstate.nix
+ 		../../common/gpu/nvidia
     ../../common/gpu/nvidia/prime.nix
     ../../common/pc/laptop  
+    ../../common/pc/ssd
   ];
   # These are the BusID's for this device.
   hardware.nvidia = {
