@@ -3,7 +3,7 @@
   imports = [
     ../../common/cpu/amd
     ../../common/gpu/amd
-    ../../common/gpu/nvidia
+    ../../common/gpu/nvidia/prime.nix
     ../../common/pc/laptop  
   ];
   # These are the BusID's for this device.
@@ -15,7 +15,6 @@
     package = lib.mkDefault config.boot.kernelPackages.nvidiaPackages.stable;
     nvidiaSettings = lib.mkDefault true;
     prime = {
-      offload.enable = lib.mkForce true;
       amdgpuBusId = "PCI:6:0:0";
       nvidiaBusId = "PCI:1:0:0";
     };
