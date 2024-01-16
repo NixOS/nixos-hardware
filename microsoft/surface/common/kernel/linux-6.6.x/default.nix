@@ -23,6 +23,7 @@ let
       url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
       sha256 = "sha256-nuYn5MEJrsf8o+2liY6B0gGvLH6y99nX2UwfDhIFVGw=";
     };
+    ignoreConfigErrors=true;
   };
 
 
