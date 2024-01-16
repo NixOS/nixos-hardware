@@ -88,6 +88,8 @@
       gpd-win-2 = import ./gpd/win-2;
       gpd-win-max-2-2023 = import ./gpd/win-max-2/2023;
       hp-elitebook-2560p = import ./hp/elitebook/2560p;
+      hp-elitebook-830-g6 = import ./hp/elitebook/830/g6
+      hp-elitebook-830g6 = import ./hp/elitebook/830/g6
       hp-elitebook-845g7 = import ./hp/elitebook/845/g7;
       hp-elitebook-845g8 = import ./hp/elitebook/845/g8;
       hp-elitebook-845g9 = import ./hp/elitebook/845/g9;
