@@ -19,7 +19,7 @@ let
 
 in {
   options.microsoft-surface.kernelVersion = mkOption {
-    type = types.enum [ version majorVersion ];
+    type = types.enum [ version ];
   };
 
   config = mkIf (cfg.kernelVersion == version) {
