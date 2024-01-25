@@ -7,7 +7,6 @@
     ../../../common/pc/laptop
     ../../../common/pc/laptop/acpi_call.nix
     ../../../common/pc/laptop/ssd
-    ../../../common/hidpi.nix # can be dropped after nixos 23.05
   ];
   # kernel versions prior to 5.18 won't boot
   boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "5.18") (lib.mkDefault pkgs.linuxPackages_latest);
