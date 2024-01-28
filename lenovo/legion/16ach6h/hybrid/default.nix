@@ -28,7 +28,7 @@
       powerManagement.enable = lib.mkDefault true;
 
       prime = {
-        amdgpuBusId = "PCI:6:0:0";
+        amdgpuBusId = lib.mkDefault "PCI:5:0:0";
         nvidiaBusId = "PCI:1:0:0";
       };
     };
