@@ -16,6 +16,8 @@
     modesetting.enable = lib.mkDefault true;
     # Enable DRM kernel mode setting
     powerManagement.enable = lib.mkDefault true;
+
+    dynamicBoost.enable = true;
     
     prime = {
       amdgpuBusId = "PCI:4:0:0";
