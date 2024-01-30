@@ -9,20 +9,7 @@ let
   inherit (lib) recurseIntoAttrs versions;
   repos = pkgs.callPackage ../repos.nix {};
 
-  # Version 1 of the linuxPackage function:
-  # (DEPRECATED)
-  linuxPackage1 =
-    { version,
-      modDirVersion ? version,
-      ...
-    } @ args:
-    let
-      buildLinux' = buildLinux (args // { inherit modDirVersion; });
-      linuxPackagesFor' = linuxPackagesFor buildLinux';
-    in recurseIntoAttrs linuxPackagesFor';
-
-  # Version 1 of the linuxPackage function, with hopefully simplified arguments:
-  linuxPackage2 =
+  linuxPackage =
     { url ? "mirror://kernel/linux/kernel/v${versions.major version}.x/linux-${version}.tar.xz",
       sha256 ? null,
       src ? (fetchurl { inherit url sha256; }),
@@ -50,8 +37,5 @@ let
     };
 
 in {
-  inherit linuxPackage1 linuxPackage2 repos surfacePatches;
-
-  # Default version:
-  linuxPackage = linuxPackage2;
+  inherit linuxPackage repos surfacePatches;
 }

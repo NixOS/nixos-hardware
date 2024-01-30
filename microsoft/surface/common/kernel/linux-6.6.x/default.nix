@@ -3,7 +3,7 @@
 let
   inherit (lib) mkIf mkOption types;
 
-  inherit (pkgs.callPackage ../linux-package.nix { }) linuxPackage2 surfacePatches;
+  inherit (pkgs.callPackage ../linux-package.nix { }) linuxPackage surfacePatches;
 
   cfg = config.microsoft-surface;
 
@@ -12,7 +12,7 @@ let
     inherit version;
     patchFn = ./patches.nix;
   };
-  kernelPackages = linuxPackage2 {
+  kernelPackages = linuxPackage {
     inherit version kernelPatches;
     sha256 = "sha256-iLiefdQerU46seQRyLuNWSV1rPgVzx3zwNxX4uiCwLw=";
     ignoreConfigErrors=true;
