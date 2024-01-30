@@ -17,8 +17,6 @@ in {
     ../../../common/cpu/intel/kaby-lake
   ];
 
-  microsoft-surface.kernelVersion = "6.6.10";
-
   boot.kernelParams = [
     "i915.enable_rc6=1"
     "i915.modeset=1"
