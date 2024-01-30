@@ -8,10 +8,12 @@
   {
     name = "microsoft-surface-patches-linux-${version}";
     patch = null;
-    structuredExtraConfig = with kernel; {
-      ##
-      ## Surface Aggregator Module
-      ##
+    extraStructuredConfig = with kernel; {
+      STAGING_MEDIA = yes;
+
+      #
+      # Surface Aggregator Module
+      #
       SURFACE_AGGREGATOR = module;
       # SURFACE_AGGREGATOR_ERROR_INJECTION is not set
       SURFACE_AGGREGATOR_BUS = yes;

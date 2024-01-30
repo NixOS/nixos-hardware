@@ -6,13 +6,13 @@
 }:
 
 buildUBoot rec {
-  version = "2024.01-rc5";
+  version = "2024.01";
 
   src = fetchFromGitHub {
     owner = "u-boot";
     repo = "u-boot";
     rev = "refs/tags/v${version}";
-    hash = "sha256-QlwgvnSaXh39z9AM7HNF731lRiUkPbN3oQyioQNTYFA=";
+    hash = "sha256-0Da7Czy9cpQ+D5EICc3/QSZhAdCBsmeMvBgykYhAQFw=";
   };
 
   # workaround for https://github.com/NixOS/nixpkgs/pull/146634
