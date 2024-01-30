@@ -16,8 +16,8 @@
   # Allows for updating firmware via `fwupdmgr`.
   services.fwupd.enable = lib.mkDefault true;
 
-  # Enables ACPI platform profiles
-  boot = lib.mkIf (lib.versionAtLeast pkgs.linux.version "6.1") {
-    kernelModules = [ "hp-wmi" ];
-  };
+  # Enables ACPI platform profiles, maybe messed up vscode?
+  #boot = lib.mkIf (lib.versionAtLeast pkgs.linux.version "6.1") {
+  #  kernelModules = [ "hp-wmi" ];
+  #};
 }
