@@ -16,7 +16,7 @@
   # Allows for updating firmware via `fwupdmgr`.
   services.fwupd.enable = lib.mkDefault true;
 
-  # Enables ACPI platform profile?
+  # Enables ACPI platform profiles
   boot = lib.mkIf (lib.versionAtLeast pkgs.linux.version "6.1") {
     kernelModules = [ "hp-wmi" ];
   };
