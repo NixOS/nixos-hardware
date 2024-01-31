@@ -6,7 +6,9 @@
 }:
 
 let
-  inherit (lib) recurseIntoAttrs versions;
+  inherit (builtins) elem;
+  inherit (lib) recurseIntoAttrs types versions;
+
   repos = pkgs.callPackage ../repos.nix {};
 
   linuxPackage =
@@ -36,6 +38,18 @@ let
       inherit version patchSrc;
     };
 
+  versionsOf = version:
+    # Provides a list of versions that can be used as an enum option for this full version:
+    [ version (versions.majorMinor version) ];
+
+  versionsOfOption = version:
+    # Provide an enum option for versions of this kernel:
+    types.enum (versionsOf version);
+
+  isVersionOf = kernelVersion: version:
+    # Test if the provided version is considered one of the list of versions from above:
+    elem version (versionsOf version);
+
 in {
-  inherit linuxPackage repos surfacePatches;
+  inherit linuxPackage repos surfacePatches versionsOf isVersionOf versionsOfOption;
 }
