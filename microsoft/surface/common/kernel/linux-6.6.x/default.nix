@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mkIf mkOption types;
+  inherit (lib) mkIf mkOption;
 
-  inherit (pkgs.callPackage ../linux-package.nix { }) linuxPackage surfacePatches;
+  inherit (pkgs.callPackage ../linux-package.nix { }) linuxPackage surfacePatches isVersionOf versionsOfOption;
 
   cfg = config.microsoft-surface;
 
@@ -20,10 +20,10 @@ let
 
 in {
   options.microsoft-surface.kernelVersion = mkOption {
-    type = types.enum [ version ];
+    type = versionsOfOption version;
   };
 
-  config = mkIf (cfg.kernelVersion == version) {
+  config = mkIf (isVersionOf cfg.kernelVersion version) {
     boot = {
       inherit kernelPackages;
     };
