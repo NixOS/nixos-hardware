@@ -3,7 +3,7 @@
 let
   inherit (lib) mkIf mkOption;
 
-  inherit (pkgs.callPackage ../linux-package.nix { }) linuxPackage surfacePatches isVersionOf versionsOfOption;
+  inherit (pkgs.callPackage ../linux-package.nix { }) linuxPackage surfacePatches isVersionOf versionsOfEnum;
 
   cfg = config.microsoft-surface;
 
@@ -20,7 +20,7 @@ let
 
 in {
   options.microsoft-surface.kernelVersion = mkOption {
-    type = versionsOfOption version;
+    type = versionsOfEnum version;
   };
 
   config = mkIf (isVersionOf cfg.kernelVersion version) {
