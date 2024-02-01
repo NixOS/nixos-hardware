@@ -9,8 +9,8 @@ let
       src = fetchFromGitHub {
         owner = "starfive-tech";
         repo = "linux";
-        rev = "7ccbe4604c1498e880cc63c7e8b45e3c55914d6d";
-        hash = "sha256-iO7tnnWYfveVbyvVZKL0dDLwONijt1n0RUD1kTkOQew=";
+        rev = "13eb70da2a73187c8c7aece13d23d68928aa8210";
+        hash = "sha256-bwB7Pc+Z+MWXPfWYdgtRGuhqjiNHLDGNCY62e4lBGvE=";
       };
 
       inherit modDirVersion kernelPatches;
