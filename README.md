@@ -86,6 +86,8 @@ See code for all available configurations.
 | [Asus ROG Strix G733QS](asus/rog-strix/g733qs)                         | `<nixos-hardware/asus/rog-strix/g733qs>`                |
 | [Asus ROG Zephyrus G14 GA401](asus/zephyrus/ga401)                     | `<nixos-hardware/asus/zephyrus/ga401>`                  |
 | [Asus ROG Zephyrus G14 GA402](asus/zephyrus/ga402)                     | `<nixos-hardware/asus/zephyrus/ga402>`                  |
+| [Asus ROG Zephyrus G14 GA402X* (2023)](asus/zephyrus/ga402x/amdgpu)    | `<nixos-hardware/asus/zephyrus/ga402x/amdgpu>`          |
+| [Asus ROG Zephyrus G14 GA402X* (2023)](asus/zephyrus/ga402x/nvidia)    | `<nixos-hardware/asus/zephyrus/ga402x/nvidia>`          |
 | [Asus ROG Zephyrus G15 GA502](asus/zephyrus/ga502)                     | `<nixos-hardware/asus/zephyrus/ga502>`                  |
 | [Asus ROG Zephyrus G15 GA503](asus/zephyrus/ga503)                     | `<nixos-hardware/asus/zephyrus/ga503>`                  |
 | [Asus ROG Zephyrus M16 GU603H](asus/zephyrus/gu603h)                   | `<nixos-hardware/asus/zephyrus/gu603h>`                 |
@@ -246,7 +248,7 @@ See code for all available configurations.
 | [Omen 15-en0010ca](omen/15-en0010ca)                                   | `<nixos-hardware/omen/15-en0010ca>`                     |
 | [Omen 16-n0005ne](omen/16-n0005ne)                                     | `<nixos-hardware/omen/16-n0005ne>`                      |
 | [Omen 15-en1007sa](omen/15-en1007sa)                                   | `<nixos-hardware/omen/15-en1007sa>`                     |
-| [Omen en00015p](omen/en00015p)                                         | `<nixos-hardware/omen/en00015p>`                        |
+| [Omen 15-en0002np](omen/15-en0002np)                                   | `<nixos-hardware/omen/15-en0002np>`                     |
 | [One-Netbook OneNetbook 4](onenetbook/4)                               | `<nixos-hardware/onenetbook/4>`                         |
 | [Panasonic Let's Note CF-LX4](panasonic/letsnote/cf-lx4)               | `<nixos-hardware/panasonic/letsnote/cf-lx4>`            |
 | [PC Engines APU](pcengines/apu)                                        | `<nixos-hardware/pcengines/apu>`                        |
