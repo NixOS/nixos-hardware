@@ -13,4 +13,5 @@ with lib;
 
   #see README
   boot.blacklistedKernelModules = mkIf config.hardware.sensor.iio.bmi260.enable [ "bmi160_spi" "bmi160_i2c" "bmi160_core" ];
+  hardware.sensor.iio.enable = mkIf config.hardware.sensor.iio.bmi260.enable true;
 }
