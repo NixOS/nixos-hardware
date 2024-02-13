@@ -6,10 +6,12 @@ with lib;
     ../../../common/cpu/amd
     ../../../common/cpu/amd/pstate.nix
     ../../../common/gpu/amd
+    ./bmi260
   ];
 
-  # fix suspend problem: https://www.reddit.com/r/gpdwin/comments/16veksm/win_max_2_2023_linux_experience_suspend_problems/
-  services.udev.extraRules = ''
-    ACTION=="add" SUBSYSTEM=="pci" ATTR{vendor}=="0x1022" ATTR{device}=="0x14ee" ATTR{power/wakeup}="disabled"
-  '';
+  hardware.sensor.iio.bmi260.enable = lib.mkDefault true;
+
+  #see README
+  boot.blacklistedKernelModules = mkIf config.hardware.sensor.iio.bmi260.enable [ "bmi160_spi" "bmi160_i2c" "bmi160_core" ];
+  hardware.sensor.iio.enable = mkIf config.hardware.sensor.iio.bmi260.enable true;
 }
