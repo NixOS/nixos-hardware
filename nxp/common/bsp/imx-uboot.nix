@@ -32,7 +32,7 @@ in {
   ubootImx8 = buildUBoot {
     version = "2022.04";
     src = fetchgit {
-      url = "https://source.codeaurora.org/external/imx/uboot-imx.git";
+      url = "https://github.com/nxp-imx/uboot-imx.git";
       # tag: "lf_v2022.04"
       rev = "1c881f4da83cc05bee50f352fa183263d7e2622b";
       sha256 = "sha256-0TS6VH6wq6PwZUq6ekbuLaisZ9LrE0/haU9nseGdiE0=";
