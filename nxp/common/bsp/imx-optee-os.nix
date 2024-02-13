@@ -35,7 +35,7 @@ pkgs.stdenv.mkDerivation rec {
   ];
 
   src = fetchGit {
-    url = "https://source.codeaurora.org/external/imx/imx-optee-os.git";
+    url = "https://github.com/nxp-imx/imx-optee-os.git";
     ref = "lf-5.15.32_2.0.0";
   };
 
