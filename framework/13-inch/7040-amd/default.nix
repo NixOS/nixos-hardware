@@ -7,6 +7,7 @@ in
   imports = [
     ../common
     ../common/amd.nix
+    ../../../common/cpu/amd/raphael/igpu.nix
   ];
 
   options = {
@@ -24,11 +25,6 @@ in
   };
 
   config = {
-    # Newer kernel is better for amdgpu driver updates
-    # Requires at least 5.16 for working wi-fi and bluetooth (RZ616, kmod mt7922):
-    # https://wireless.wiki.kernel.org/en/users/drivers/mediatek
-    boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "6.1") (lib.mkDefault pkgs.linuxPackages_latest);
-
     # Workaround applied upstream in Linux >=6.7 (on BIOS 03.03)
     # https://github.com/torvalds/linux/commit/a55bdad5dfd1efd4ed9ffe518897a21ca8e4e193
     services.udev.extraRules = lib.mkIf (lib.versionOlder pkgs.linux.version "6.7" && cfg.preventWakeOnAC) ''
