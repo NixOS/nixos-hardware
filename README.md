@@ -70,7 +70,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 See code for all available configurations.
 
 | Model                                                                  | Path                                                    |
-| ---------------------------------------------------------------------- | ------------------------------------------------------- |
+|------------------------------------------------------------------------|---------------------------------------------------------|
 | [Acer Aspire 4810T](acer/aspire/4810t)                                 | `<nixos-hardware/acer/aspire/4810t>`                    |
 | [Airis N990](airis/n990)                                               | `<nixos-hardware/airis/n990>`                           |
 | [Apple MacBook Air 3,X](apple/macbook-air/3)                           | `<nixos-hardware/apple/macbook-air/3>`                  |
@@ -130,6 +130,9 @@ See code for all available configurations.
 | [Dell XPS 15 9560, intel only](dell/xps/15-9560/intel)                 | `<nixos-hardware/dell/xps/15-9560/intel>`               |
 | [Dell XPS 15 9560, nvidia only](dell/xps/15-9560/nvidia)               | `<nixos-hardware/dell/xps/15-9560/nvidia>`              |
 | [Dell XPS 15 9560](dell/xps/15-9560)                                   | `<nixos-hardware/dell/xps/15-9560>`                     |
+| [Dell XPS 15 9570, intel only](dell/xps/15-9570/intel)                 | `<nixos-hardware/dell/xps/15-9570/intel>`               |
+| [Dell XPS 15 9570, nvidia](dell/xps/15-9570/nvidia)                    | `<nixos-hardware/dell/xps/15-9570/nvidia>`              |
+| [Dell XPS 15 9570](dell/xps/15-9570)                                   | `<nixos-hardware/dell/xps/15-9570>`                     |
 | [Dell XPS 17 9700, intel](dell/xps/17-9700/intel)                      | `<nixos-hardware/dell/xps/17-9700/intel`                |
 | [Dell XPS 17 9700, nvidia](dell/xps/17-9700/nvidia)                    | `<nixos-hardware/dell/xps/17-9700/nvidia>`              |
 | [Dell XPS 17 9710, intel only](dell/xps/17-9710/intel)                 | `<nixos-hardware/dell/xps/17-9710/intel>`               |
