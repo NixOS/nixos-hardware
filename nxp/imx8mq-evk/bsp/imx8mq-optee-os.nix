@@ -5,7 +5,7 @@
   cpp = pkgs.gcc;
 in
   pkgs.stdenv.mkDerivation rec {
-    pname = "imx8mp-optee-os";
+    pname = "imx8mq-optee-os";
     version = "lf-6.1.55-2.2.0";
 
     nativeBuildInputs = [
@@ -51,7 +51,7 @@ in
 
     makeFlags = [
       "PLATFORM=imx"
-      "PLATFORM_FLAVOR=mx8mpevk"
+      "PLATFORM_FLAVOR=mx8mqevk"
       "CFG_ARM64_core=y"
       "CFG_TEE_TA_LOG_LEVEL=0"
       "CFG_TEE_CORE_LOG_LEVEL=0"

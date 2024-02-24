@@ -184,6 +184,7 @@
       msi-gs60 = import ./msi/gs60;
       msi-gl62 = import ./msi/gl62;
       nxp-imx8mp-evk = import ./nxp/imx8mp-evk;
+      nxp-imx8mq-evk = import ./nxp/imx8mq-evk;
       nxp-imx8qm-mek = import ./nxp/imx8qm-mek;
       hardkernel-odroid-hc4 = import ./hardkernel/odroid-hc4;
       hardkernel-odroid-h3 = import ./hardkernel/odroid-h3;

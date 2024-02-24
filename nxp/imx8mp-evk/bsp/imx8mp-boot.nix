@@ -1,12 +1,12 @@
 {
   pkgs,
-  enable-tee ? false,
+  enable-tee ? true,
 }:
 with pkgs; let
   fw-ver = "202006";
   cp-tee =
     if enable-tee
-    then "install -m 0644 ${optee-os}/tee.bin ./iMX8M/tee.bin"
+    then "install -m 0644 ${imx8mp-optee-os}/tee.bin ./iMX8M/tee.bin"
     else "";
 
   imx8mp-atf = pkgs.callPackage ./imx8mp-atf.nix {
