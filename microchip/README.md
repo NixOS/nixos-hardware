@@ -9,7 +9,7 @@ Currently this overlay is used for generating bootable NixOS SD images.
 Code snippet example that enables icicle-kit configuration:
 ```
 { nixos-hardware, }: {
-  system = "aarch64-linux";
+  system = "riscv64-linux";
   modules = [
     nixos-hardware.nixosModules.icicle-kit
   ];
