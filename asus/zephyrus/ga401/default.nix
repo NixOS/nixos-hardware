@@ -11,11 +11,11 @@
   ];
 
   hardware.nvidia = {
-    # PCI-Express Runtime D3 Power Management is enabled by default on this laptop
-    # But it can fix screen tearing & suspend/resume screen corruption in sync mode
-    modesetting.enable = lib.mkDefault true;
     # Enable DRM kernel mode setting
-    powerManagement.enable = lib.mkDefault true;
+    # This will also cause "PCI-Express Runtime D3 Power Management" to be enabled by default
+    modesetting.enable = lib.mkDefault true;
+
+    dynamicBoost.enable = true;
     
     prime = {
       amdgpuBusId = "PCI:4:0:0";

@@ -70,7 +70,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 See code for all available configurations.
 
 | Model                                                                  | Path                                                    |
-| ---------------------------------------------------------------------- | ------------------------------------------------------- |
+|------------------------------------------------------------------------|---------------------------------------------------------|
 | [Acer Aspire 4810T](acer/aspire/4810t)                                 | `<nixos-hardware/acer/aspire/4810t>`                    |
 | [Airis N990](airis/n990)                                               | `<nixos-hardware/airis/n990>`                           |
 | [Apple MacBook Air 3,X](apple/macbook-air/3)                           | `<nixos-hardware/apple/macbook-air/3>`                  |
@@ -86,10 +86,13 @@ See code for all available configurations.
 | [Asus ROG Strix G733QS](asus/rog-strix/g733qs)                         | `<nixos-hardware/asus/rog-strix/g733qs>`                |
 | [Asus ROG Zephyrus G14 GA401](asus/zephyrus/ga401)                     | `<nixos-hardware/asus/zephyrus/ga401>`                  |
 | [Asus ROG Zephyrus G14 GA402](asus/zephyrus/ga402)                     | `<nixos-hardware/asus/zephyrus/ga402>`                  |
+| [Asus ROG Zephyrus G14 GA402X* (2023)](asus/zephyrus/ga402x/amdgpu)    | `<nixos-hardware/asus/zephyrus/ga402x/amdgpu>`          |
+| [Asus ROG Zephyrus G14 GA402X* (2023)](asus/zephyrus/ga402x/nvidia)    | `<nixos-hardware/asus/zephyrus/ga402x/nvidia>`          |
 | [Asus ROG Zephyrus G15 GA502](asus/zephyrus/ga502)                     | `<nixos-hardware/asus/zephyrus/ga502>`                  |
 | [Asus ROG Zephyrus G15 GA503](asus/zephyrus/ga503)                     | `<nixos-hardware/asus/zephyrus/ga503>`                  |
 | [Asus ROG Zephyrus M16 GU603H](asus/zephyrus/gu603h)                   | `<nixos-hardware/asus/zephyrus/gu603h>`                 |
 | [Asus TUF FX504GD](asus/fx504gd)                                       | `<nixos-hardware/asus/fx504gd>`                         |
+| [Asus TUF FA507RM](asus/fa507rm)                                       | `<nixos-hardware/asus/fa507rm>`                         |
 | [BeagleBoard PocketBeagle](beagleboard/pocketbeagle)                   | `<nixos-hardware/beagleboard/pocketbeagle>`             |
 | [Deciso DEC series](deciso/dec)                                        | `<nixos-hardware/deciso/dec>`                           |
 | [Dell G3 3779](dell/g3/3779)                                           | `<nixos-hardware/dell/g3/3779>`                         |
@@ -128,6 +131,9 @@ See code for all available configurations.
 | [Dell XPS 15 9560, intel only](dell/xps/15-9560/intel)                 | `<nixos-hardware/dell/xps/15-9560/intel>`               |
 | [Dell XPS 15 9560, nvidia only](dell/xps/15-9560/nvidia)               | `<nixos-hardware/dell/xps/15-9560/nvidia>`              |
 | [Dell XPS 15 9560](dell/xps/15-9560)                                   | `<nixos-hardware/dell/xps/15-9560>`                     |
+| [Dell XPS 15 9570, intel only](dell/xps/15-9570/intel)                 | `<nixos-hardware/dell/xps/15-9570/intel>`               |
+| [Dell XPS 15 9570, nvidia](dell/xps/15-9570/nvidia)                    | `<nixos-hardware/dell/xps/15-9570/nvidia>`              |
+| [Dell XPS 15 9570](dell/xps/15-9570)                                   | `<nixos-hardware/dell/xps/15-9570>`                     |
 | [Dell XPS 17 9700, intel](dell/xps/17-9700/intel)                      | `<nixos-hardware/dell/xps/17-9700/intel`                |
 | [Dell XPS 17 9700, nvidia](dell/xps/17-9700/nvidia)                    | `<nixos-hardware/dell/xps/17-9700/nvidia>`              |
 | [Dell XPS 17 9710, intel only](dell/xps/17-9710/intel)                 | `<nixos-hardware/dell/xps/17-9710/intel>`               |
@@ -230,6 +236,8 @@ See code for all available configurations.
 | [Lenovo ThinkPad Z Series](lenovo/thinkpad/z)                          | `<nixos-hardware/lenovo/thinkpad/z>`                    |
 | [Lenovo ThinkPad Z13](lenovo/thinkpad/z/z13)                           | `<nixos-hardware/lenovo/thinkpad/z/z13>`                |
 | [LENOVO Yoga 6 13ALC6 82ND](lenovo/yoga/6/13ALC6)                      | `<nixos-hardware/lenovo/yoga/6/13ALC6>`                 |
+| [LENOVO Yoga Slim 7 Pro-X 14ARH7 82ND](lenovo/yoga/7/14ARH7/amdgpu)    | `<nixos-hardware/lenovo/yoga/7/14ARH7/amdgpu>`          |
+| [LENOVO Yoga Slim 7 Pro-X 14ARH7 82ND](lenovo/yoga/7/14ARH7/nvidia)    | `<nixos-hardware/lenovo/yoga/7/14ARH7/nvidia>`          |
 | [LENOVO Yoga 7 Slim Gen8](lenovo/yoga/7/slim/gen8)                     | `<nixos-hardware/lenovo/yoga/7/slim/gen8>`              |
 | [MSI GS60 2QE](msi/gs60)                                               | `<nixos-hardware/msi/gs60>`                             |
 | [MSI GL62/CX62](msi/gl62)                                              | `<nixos-hardware/msi/gl62>`                             |
@@ -240,12 +248,14 @@ See code for all available configurations.
 | [Microsoft Surface Range (Common Modules)](microsoft/surface/common)   | `<nixos-hardware/microsoft/surface/common>`             |
 | [Microsoft Surface Pro 3](microsoft/surface-pro/3)                     | `<nixos-hardware/microsoft/surface-pro/3>`              |
 | [Morefine M600](morefine/m600)                                         | `<nixos-hardware/morefine/m600>`                        |
+| [NXP iMX8 MPlus Evaluation Kit](nxp/imx8mp-evk)                        | `<nixos-hardware/nxp/imx8mp-evk>`                 |
+| [NXP iMX8 MQuad Evaluation Kit](nxp/imx8mq-evk)                        | `<nixos-hardware/nxp/imx8mq-evk>`                 |
 | [Hardkernel Odroid HC4](hardkernel/odroid-hc4/default.nix)             | `<nixos-hardware/hardkernel/odroid-hc4>`                |
 | [Hardkernel Odroid H3](hardkernel/odroid-h3/default.nix)               | `<nixos-hardware/hardkernel/odroid-h3>`                 |
 | [Omen 15-en0010ca](omen/15-en0010ca)                                   | `<nixos-hardware/omen/15-en0010ca>`                     |
 | [Omen 16-n0005ne](omen/16-n0005ne)                                     | `<nixos-hardware/omen/16-n0005ne>`                      |
 | [Omen 15-en1007sa](omen/15-en1007sa)                                   | `<nixos-hardware/omen/15-en1007sa>`                     |
-| [Omen en00015p](omen/en00015p)                                         | `<nixos-hardware/omen/en00015p>`                        |
+| [Omen 15-en0002np](omen/15-en0002np)                                   | `<nixos-hardware/omen/15-en0002np>`                     |
 | [One-Netbook OneNetbook 4](onenetbook/4)                               | `<nixos-hardware/onenetbook/4>`                         |
 | [Panasonic Let's Note CF-LX4](panasonic/letsnote/cf-lx4)               | `<nixos-hardware/panasonic/letsnote/cf-lx4>`            |
 | [PC Engines APU](pcengines/apu)                                        | `<nixos-hardware/pcengines/apu>`                        |

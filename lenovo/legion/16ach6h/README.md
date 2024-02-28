@@ -3,6 +3,12 @@ Due to the introduction of DDG feature, you may toggle DDG frequently, so for th
 **But It will slow down NixOS evaluation by factor 2 and increase memory usage.**  
 So if you don't need specialization feature, you can just use hybrid only configuration or nvidia only (DDG only) configuration
 
+## Using multiple drives with this configuration
+
+When using more than one drive, the value of `hardware.nvidia.prime.amdgpuBusId` will change from the default of `PCI:5:0:0`.
+
+Make sure you override this default in your personal configuration. For two drives, it should be `PCI:6:0:0`.
+
 ## Setup at the time of testing
 ```
 $ nix-info -m

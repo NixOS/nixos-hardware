@@ -17,10 +17,12 @@
       asus-battery = import ./asus/battery.nix;
       asus-ally-rc71l = import ./asus/ally/rc71l;
       asus-fx504gd = import ./asus/fx504gd;
+      asus-fa507rm = import ./asus/fa507rm;
       asus-rog-strix-g513im = import ./asus/rog-strix/g513im;
       asus-rog-strix-g733qs = import ./asus/rog-strix/g733qs;
       asus-zephyrus-ga401 = import ./asus/zephyrus/ga401;
       asus-zephyrus-ga402 = import ./asus/zephyrus/ga402;
+      asus-zephyrus-ga402x = import ./asus/zephyrus/ga402x;
       asus-zephyrus-ga502 = import ./asus/zephyrus/ga502;
       asus-zephyrus-ga503 = import ./asus/zephyrus/ga503;
       asus-zephyrus-gu603h = import ./asus/zephyrus/gu603h;
@@ -63,6 +65,8 @@
       dell-xps-15-9560 = import ./dell/xps/15-9560;
       dell-xps-15-9560-intel = import ./dell/xps/15-9560/intel;
       dell-xps-15-9560-nvidia = import ./dell/xps/15-9560/nvidia;
+      dell-xps-15-9570-intel = import ./dell/xps/15-9570/intel;
+      dell-xps-15-9570-nvidia = import ./dell/xps/15-9570/nvidia;
       dell-xps-17-9700-intel = import ./dell/xps/17-9700/intel;
       dell-xps-17-9700-nvidia = import ./dell/xps/17-9700/nvidia;
       dell-xps-17-9710-intel = import ./dell/xps/17-9710/intel;
@@ -170,6 +174,7 @@
       lenovo-thinkpad-z = import ./lenovo/thinkpad/z;
       lenovo-thinkpad-z13 = import ./lenovo/thinkpad/z/z13;
       lenovo-yoga-6-13ALC6 = import ./lenovo/yoga/6/13ALC6;
+      lenovo-yoga-7-14ARH7 = import ./lenovo/yoga/7/14ARH7;
       lenovo-yoga-7-slim-gen8 = import ./lenovo/yoga/7/slim/gen8;
       letsnote-cf-lx4 = import ./panasonic/letsnote/cf-lx4;
       microchip-icicle-kit = import ./microchip/icicle-kit;
@@ -181,13 +186,15 @@
       morefine-m600 = import ./morefine/m600;
       msi-gs60 = import ./msi/gs60;
       msi-gl62 = import ./msi/gl62;
+      nxp-imx8mp-evk = import ./nxp/imx8mp-evk;
+      nxp-imx8mq-evk = import ./nxp/imx8mq-evk;
       nxp-imx8qm-mek = import ./nxp/imx8qm-mek;
       hardkernel-odroid-hc4 = import ./hardkernel/odroid-hc4;
       hardkernel-odroid-h3 = import ./hardkernel/odroid-h3;
       omen-15-en0010ca = import ./omen/15-en0010ca;
       omen-16-n0005ne = import ./omen/16-n0005ne;
       omen-15-en1007sa = import ./omen/15-en1007sa;
-      omen-en00015p = import ./omen/en00015p;
+      omen-15-en0002np = import ./omen/15-en0002np;
       onenetbook-4 = import ./onenetbook/4;
       olimex-teres_i = import ./olimex/teres_i;
       pcengines-apu = import ./pcengines/apu;

@@ -29,5 +29,9 @@
   # https://bbs.archlinux.org/viewtopic.php?id=266108 says linux >= 5.12 required
   boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "5.12") pkgs.linuxPackages_latest;
 
+  # sometimes boots to a black screen, and pressing alt+sysrq+k makes the
+  # display manager start
+  # fixed by early kernel modesetting
+  boot.initrd.kernelModules = [ "amdgpu" ];
 
 }
