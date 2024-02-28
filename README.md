@@ -210,6 +210,7 @@ See code for all available configurations.
 | [Lenovo ThinkPad T520](lenovo/thinkpad/t520)                           | `<nixos-hardware/lenovo/thinkpad/t520>`                 |
 | [Lenovo ThinkPad T550](lenovo/thinkpad/t550)                           | `<nixos-hardware/lenovo/thinkpad/t550>`                 |
 | [Lenovo ThinkPad T590](lenovo/thinkpad/t590)                           | `<nixos-hardware/lenovo/thinkpad/t590>`                 |
+| [Lenovo ThinkPad W520](lenovo/thinkpad/w520)                           | `<nixos-hardware/lenovo/thinkpad/w520>`                 |
 | [Lenovo ThinkPad X1 Yoga](lenovo/thinkpad/x1/yoga)                     | `<nixos-hardware/lenovo/thinkpad/x1/yoga>`              |
 | [Lenovo ThinkPad X1 Yoga Gen 7](lenovo/thinkpad/x1/yoga/7th-gen/)      | `<nixos-hardware/lenovo/thinkpad/x1/yoga/7th-gen>`      |
 | [Lenovo ThinkPad X1 (6th Gen)](lenovo/thinkpad/x1/6th-gen)             | `<nixos-hardware/lenovo/thinkpad/x1/6th-gen>`           |
