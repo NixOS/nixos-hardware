@@ -92,6 +92,7 @@ See code for all available configurations.
 | [Asus ROG Zephyrus G15 GA503](asus/zephyrus/ga503)                     | `<nixos-hardware/asus/zephyrus/ga503>`                  |
 | [Asus ROG Zephyrus M16 GU603H](asus/zephyrus/gu603h)                   | `<nixos-hardware/asus/zephyrus/gu603h>`                 |
 | [Asus TUF FX504GD](asus/fx504gd)                                       | `<nixos-hardware/asus/fx504gd>`                         |
+| [Asus TUF FA507RM](asus/fa507rm)                                       | `<nixos-hardware/asus/fa507rm>`                         |
 | [BeagleBoard PocketBeagle](beagleboard/pocketbeagle)                   | `<nixos-hardware/beagleboard/pocketbeagle>`             |
 | [Deciso DEC series](deciso/dec)                                        | `<nixos-hardware/deciso/dec>`                           |
 | [Dell G3 3779](dell/g3/3779)                                           | `<nixos-hardware/dell/g3/3779>`                         |
@@ -246,6 +247,8 @@ See code for all available configurations.
 | [Microsoft Surface Range (Common Modules)](microsoft/surface/common)   | `<nixos-hardware/microsoft/surface/common>`             |
 | [Microsoft Surface Pro 3](microsoft/surface-pro/3)                     | `<nixos-hardware/microsoft/surface-pro/3>`              |
 | [Morefine M600](morefine/m600)                                         | `<nixos-hardware/morefine/m600>`                        |
+| [NXP iMX8 MPlus Evaluation Kit](nxp/imx8mp-evk)                        | `<nixos-hardware/nxp/imx8mp-evk>`                 |
+| [NXP iMX8 MQuad Evaluation Kit](nxp/imx8mq-evk)                        | `<nixos-hardware/nxp/imx8mq-evk>`                 |
 | [Hardkernel Odroid HC4](hardkernel/odroid-hc4/default.nix)             | `<nixos-hardware/hardkernel/odroid-hc4>`                |
 | [Hardkernel Odroid H3](hardkernel/odroid-h3/default.nix)               | `<nixos-hardware/hardkernel/odroid-h3>`                 |
 | [Omen 15-en0010ca](omen/15-en0010ca)                                   | `<nixos-hardware/omen/15-en0010ca>`                     |

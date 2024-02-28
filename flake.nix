@@ -17,6 +17,7 @@
       asus-battery = import ./asus/battery.nix;
       asus-ally-rc71l = import ./asus/ally/rc71l;
       asus-fx504gd = import ./asus/fx504gd;
+      asus-fa507rm = import ./asus/fa507rm;
       asus-rog-strix-g513im = import ./asus/rog-strix/g513im;
       asus-rog-strix-g733qs = import ./asus/rog-strix/g733qs;
       asus-zephyrus-ga401 = import ./asus/zephyrus/ga401;
@@ -184,6 +185,8 @@
       morefine-m600 = import ./morefine/m600;
       msi-gs60 = import ./msi/gs60;
       msi-gl62 = import ./msi/gl62;
+      nxp-imx8mp-evk = import ./nxp/imx8mp-evk;
+      nxp-imx8mq-evk = import ./nxp/imx8mq-evk;
       nxp-imx8qm-mek = import ./nxp/imx8qm-mek;
       hardkernel-odroid-hc4 = import ./hardkernel/odroid-hc4;
       hardkernel-odroid-h3 = import ./hardkernel/odroid-h3;
