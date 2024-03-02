@@ -70,7 +70,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 See code for all available configurations.
 
 | Model                                                                  | Path                                                    |
-| ---------------------------------------------------------------------- | ------------------------------------------------------- |
+|------------------------------------------------------------------------|---------------------------------------------------------|
 | [Acer Aspire 4810T](acer/aspire/4810t)                                 | `<nixos-hardware/acer/aspire/4810t>`                    |
 | [Airis N990](airis/n990)                                               | `<nixos-hardware/airis/n990>`                           |
 | [Apple MacBook Air 3,X](apple/macbook-air/3)                           | `<nixos-hardware/apple/macbook-air/3>`                  |
@@ -131,6 +131,9 @@ See code for all available configurations.
 | [Dell XPS 15 9560, intel only](dell/xps/15-9560/intel)                 | `<nixos-hardware/dell/xps/15-9560/intel>`               |
 | [Dell XPS 15 9560, nvidia only](dell/xps/15-9560/nvidia)               | `<nixos-hardware/dell/xps/15-9560/nvidia>`              |
 | [Dell XPS 15 9560](dell/xps/15-9560)                                   | `<nixos-hardware/dell/xps/15-9560>`                     |
+| [Dell XPS 15 9570, intel only](dell/xps/15-9570/intel)                 | `<nixos-hardware/dell/xps/15-9570/intel>`               |
+| [Dell XPS 15 9570, nvidia](dell/xps/15-9570/nvidia)                    | `<nixos-hardware/dell/xps/15-9570/nvidia>`              |
+| [Dell XPS 15 9570](dell/xps/15-9570)                                   | `<nixos-hardware/dell/xps/15-9570>`                     |
 | [Dell XPS 17 9700, intel](dell/xps/17-9700/intel)                      | `<nixos-hardware/dell/xps/17-9700/intel`                |
 | [Dell XPS 17 9700, nvidia](dell/xps/17-9700/nvidia)                    | `<nixos-hardware/dell/xps/17-9700/nvidia>`              |
 | [Dell XPS 17 9710, intel only](dell/xps/17-9710/intel)                 | `<nixos-hardware/dell/xps/17-9710/intel>`               |
@@ -207,6 +210,7 @@ See code for all available configurations.
 | [Lenovo ThinkPad T520](lenovo/thinkpad/t520)                           | `<nixos-hardware/lenovo/thinkpad/t520>`                 |
 | [Lenovo ThinkPad T550](lenovo/thinkpad/t550)                           | `<nixos-hardware/lenovo/thinkpad/t550>`                 |
 | [Lenovo ThinkPad T590](lenovo/thinkpad/t590)                           | `<nixos-hardware/lenovo/thinkpad/t590>`                 |
+| [Lenovo ThinkPad W520](lenovo/thinkpad/w520)                           | `<nixos-hardware/lenovo/thinkpad/w520>`                 |
 | [Lenovo ThinkPad X1 Yoga](lenovo/thinkpad/x1/yoga)                     | `<nixos-hardware/lenovo/thinkpad/x1/yoga>`              |
 | [Lenovo ThinkPad X1 Yoga Gen 7](lenovo/thinkpad/x1/yoga/7th-gen/)      | `<nixos-hardware/lenovo/thinkpad/x1/yoga/7th-gen>`      |
 | [Lenovo ThinkPad X1 (6th Gen)](lenovo/thinkpad/x1/6th-gen)             | `<nixos-hardware/lenovo/thinkpad/x1/6th-gen>`           |
@@ -245,6 +249,8 @@ See code for all available configurations.
 | [Microsoft Surface Range (Common Modules)](microsoft/surface/common)   | `<nixos-hardware/microsoft/surface/common>`             |
 | [Microsoft Surface Pro 3](microsoft/surface-pro/3)                     | `<nixos-hardware/microsoft/surface-pro/3>`              |
 | [Morefine M600](morefine/m600)                                         | `<nixos-hardware/morefine/m600>`                        |
+| [NXP iMX8 MPlus Evaluation Kit](nxp/imx8mp-evk)                        | `<nixos-hardware/nxp/imx8mp-evk>`                 |
+| [NXP iMX8 MQuad Evaluation Kit](nxp/imx8mq-evk)                        | `<nixos-hardware/nxp/imx8mq-evk>`                 |
 | [Hardkernel Odroid HC4](hardkernel/odroid-hc4/default.nix)             | `<nixos-hardware/hardkernel/odroid-hc4>`                |
 | [Hardkernel Odroid H3](hardkernel/odroid-h3/default.nix)               | `<nixos-hardware/hardkernel/odroid-h3>`                 |
 | [Omen 15-en0010ca](omen/15-en0010ca)                                   | `<nixos-hardware/omen/15-en0010ca>`                     |

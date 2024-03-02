@@ -65,6 +65,8 @@
       dell-xps-15-9560 = import ./dell/xps/15-9560;
       dell-xps-15-9560-intel = import ./dell/xps/15-9560/intel;
       dell-xps-15-9560-nvidia = import ./dell/xps/15-9560/nvidia;
+      dell-xps-15-9570-intel = import ./dell/xps/15-9570/intel;
+      dell-xps-15-9570-nvidia = import ./dell/xps/15-9570/nvidia;
       dell-xps-17-9700-intel = import ./dell/xps/17-9700/intel;
       dell-xps-17-9700-nvidia = import ./dell/xps/17-9700/nvidia;
       dell-xps-17-9710-intel = import ./dell/xps/17-9710/intel;
@@ -141,6 +143,7 @@
       lenovo-thinkpad-t490 = import ./lenovo/thinkpad/t490;
       lenovo-thinkpad-t495 = import ./lenovo/thinkpad/t495;
       lenovo-thinkpad-t520 = import ./lenovo/thinkpad/t520;
+      lenovo-thinkpad-w520 = import ./lenovo/thinkpad/w520;
       lenovo-thinkpad-t550 = import ./lenovo/thinkpad/t550;
       lenovo-thinkpad-t590 = import ./lenovo/thinkpad/t590;
       lenovo-thinkpad-x1 = import ./lenovo/thinkpad/x1;
@@ -184,6 +187,8 @@
       msi-b550-a-pro = import ./msi/b550-a-pro;
       msi-gs60 = import ./msi/gs60;
       msi-gl62 = import ./msi/gl62;
+      nxp-imx8mp-evk = import ./nxp/imx8mp-evk;
+      nxp-imx8mq-evk = import ./nxp/imx8mq-evk;
       nxp-imx8qm-mek = import ./nxp/imx8qm-mek;
       hardkernel-odroid-hc4 = import ./hardkernel/odroid-hc4;
       hardkernel-odroid-h3 = import ./hardkernel/odroid-h3;
