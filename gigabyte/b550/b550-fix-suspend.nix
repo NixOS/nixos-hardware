@@ -1,4 +1,4 @@
-{ lib } :
+{ pkgs, lib, ... } :
 
 {
   systemd.services.bugfixSuspend-GPP0 = {
