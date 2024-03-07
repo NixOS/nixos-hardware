@@ -9,7 +9,7 @@
     };
     serviceConfig = {
       User            = "root"; # root may not be necessary
-      ExecStart       = "-${pkgs.bash}/bin/bash -c 'echo 'GPP8' > /proc/acpi/wakeup'";
+      ExecStart       = "-${pkgs.bash}/bin/bash -c 'echo 'GPP0' > /proc/acpi/wakeup'";
       RemainAfterExit = "yes";  # required to not toggle when `nixos-rebuild switch` is ran
       
     };
