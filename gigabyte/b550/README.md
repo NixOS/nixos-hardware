@@ -12,6 +12,7 @@ Symptoms:
 Fix: disable GPP0 and GPP8 (And, for some cards, potentially PTXH, I can't test) in /proc/acpi/wakeup
     - To do this permanently, a systemd service is provided
 
+
 ## This affects at least:
 - Gigabyte b550m-d3sh (my machine)
 - Gigabyte B550i AORUS Pro Ax https://www.reddit.com/r/gigabyte/comments/p5ewjn/b550i_pro_ax_f13_bios_sleep_issue_on_linux/
@@ -34,6 +35,7 @@ Fix: disable GPP0 and GPP8 (And, for some cards, potentially PTXH, I can't test)
 ## Shoutouts:
 - thanks to [/u/dustythermals's reddit comment](https://www.reddit.com/r/gigabyte/comments/p5ewjn/comment/hb32elw/) for the systemd service blueprint
 - thanks to help from [@ToxicFrog](https://github.com/ToxicFrog) for advice on making it not toggle when `nixos-rebuild switch` is ran
+- thanks to [/u/Demotay's reddit comment](https://www.reddit.com/r/gigabyte/comments/p5ewjn/comment/ksbm0mb/) for how to make it check and only fire if these are enabled
 - Huge thanks to /u/theHugePotato who found the [root cause](https://www.reddit.com/r/gigabyte/comments/p5ewjn/comment/h9plj88/) and put it where everyone could find
 
 ## Breadcrumbs:

@@ -9,7 +9,9 @@
     };
     serviceConfig = {
       User            = "root"; # root may not be necessary
-      ExecStart       = "-${pkgs.bash}/bin/bash -c 'echo 'GPP0' > /proc/acpi/wakeup'";
+      # check for gppN, disable if enabled
+      # lifted from  https://www.reddit.com/r/gigabyte/comments/p5ewjn/comment/ksbm0mb/ /u/Demotay
+      ExecStart       = "-${pkgs.bash}/bin/bash -c 'if grep 'GPP0' /proc/acpi/wakeup | grep -q 'enabled'; then echo 'GPP0' > /proc/acpi/wakeup; fi'"; 
       RemainAfterExit = "yes";  # required to not toggle when `nixos-rebuild switch` is ran
       
     };
@@ -24,7 +26,7 @@
     };
     serviceConfig = {
       User            = "root";
-      ExecStart       = "-${pkgs.bash}/bin/bash -c 'echo 'GPP8' > /proc/acpi/wakeup'";
+      ExecStart       = "-${pkgs.bash}/bin/bash -c 'if grep 'GPP8' /proc/acpi/wakeup | grep -q 'enabled'; then echo 'GPP8' > /proc/acpi/wakeup; fi''";
       RemainAfterExit = "yes";
     };
     wantedBy = ["multi-user.target"];
