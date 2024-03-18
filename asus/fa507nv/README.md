@@ -1,0 +1,2 @@
+# ASUS TUF A15 FA507NV
+As Nvidia offload is not available for AMD CPU, nvidia prime is using sync. Additionally the kernel is set to latest as the keyboard and wireless drivers does not work in the default LTS kernel. 

@@ -18,6 +18,7 @@
       asus-battery = import ./asus/battery.nix;
       asus-ally-rc71l = import ./asus/ally/rc71l;
       asus-fx504gd = import ./asus/fx504gd;
+      asus-fa507nv = import ./asus/fa507nv;
       asus-fa507rm = import ./asus/fa507rm;
       asus-pro-ws-x570-ace = import ./asus/pro-ws-x570-ace;
       asus-rog-strix-g513im = import ./asus/rog-strix/g513im;
@@ -249,6 +250,7 @@
       common-gpu-intel = import ./common/gpu/intel;
       common-gpu-intel-disable = import ./common/gpu/intel/disable.nix;
       common-gpu-nvidia = import ./common/gpu/nvidia/prime.nix;
+      common-gpu-nvidia-sync = import ./common/gpu/nvidia/prime-sync.nix;
       common-gpu-nvidia-nonprime = import ./common/gpu/nvidia;
       common-gpu-nvidia-disable = import ./common/gpu/nvidia/disable.nix;
       common-hidpi = import ./common/hidpi.nix;
