@@ -184,6 +184,7 @@
       microsoft-surface-common = import ./microsoft/surface/common;
       microsoft-surface-pro-3 = import ./microsoft/surface-pro/3;
       morefine-m600 = import ./morefine/m600;
+      msi-b350-tomahawk = import ./msi/b350-tomahawk;
       msi-b550-a-pro = import ./msi/b550-a-pro;
       msi-gs60 = import ./msi/gs60;
       msi-gl62 = import ./msi/gl62;
