@@ -41,7 +41,7 @@ in
         path = with pkgs; [ iptsd ];
         script = "iptsd $(iptsd-find-hidraw)";
         wantedBy = [ "multi-user.target" ];
-        restartTriggers = [ (if (cfg.config != null) then iptsConfFile else "") ];
+        restartTriggers = lib.optional (cfg.config != null) iptsConfFile;
       };
     })
 
