@@ -145,6 +145,7 @@ See code for all available configurations.
 | [FriendlyARM NanoPC-T4](friendlyarm/nanopc-t4)                         | `<nixos-hardware/friendlyarm/nanopc-t4>`                |
 | [FriendlyARM NanoPi R5s](friendlyarm/nanopi-r5s)                       | `<nixos-hardware/friendlyarm/nanopi-r5s>`               |
 | [Focus M2 Gen 1](focus/m2/gen1)                                        | `<nixos-hardware/focus/m2/gen1>`                        |
+| [Gigabyte B550](gigabyte/b550)                                         | `<nixos-hardware/gigabyte/b550>`
 | [GPD MicroPC](gpd/micropc)                                             | `<nixos-hardware/gpd/micropc>`                          |
 | [GPD P2 Max](gpd/p2-max)                                               | `<nixos-hardware/gpd/p2-max>`                           |
 | [GPD Pocket 3](gpd/pocket-3)                                           | `<nixos-hardware/gpd/pocket-3>`                         |
