@@ -24,4 +24,7 @@
 
   # Needed for desktop environments to detect/manage display brightness
   hardware.sensor.iio.enable = lib.mkDefault true;
+
+  # Enable keyboard customization
+  hardware.keyboard.qmk.enable = lib.mkDefault true;
 }
