@@ -229,6 +229,7 @@
       common-cpu-amd-pstate = import ./common/cpu/amd/pstate.nix;
       common-cpu-amd-raphael-igpu = import ./common/cpu/amd/raphael/igpu.nix;
       common-cpu-intel = import ./common/cpu/intel;
+      common-cpu-intel-comet-lake = import ./common/cpu/intel/comet-lake;
       common-cpu-intel-cpu-only = import ./common/cpu/intel/cpu-only.nix;
       common-cpu-intel-kaby-lake = import ./common/cpu/intel/kaby-lake;
       common-cpu-intel-sandy-bridge = import ./common/cpu/intel/sandy-bridge;
