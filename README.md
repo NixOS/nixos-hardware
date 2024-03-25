@@ -266,6 +266,7 @@ See code for all available configurations.
 | [PINE64 Pinebook Pro](pine64/pinebook-pro/)                            | `<nixos-hardware/pine64/pinebook-pro>`                  |
 | [PINE64 RockPro64](pine64/rockpro64/)                                  | `<nixos-hardware/pine64/rockpro64>`                     |
 | [PINE64 STAR64](pine64/star64/)                                        | `<nixos-hardware/pine64/star64>`                        |
+| [Protectli VP4670](protectli/vp4670/)                                  | `<nixos-hardware/protectli/vp4670>`                     |
 | [Purism Librem 13v3](purism/librem/13v3)                               | `<nixos-hardware/purism/librem/13v3>`                   |
 | [Purism Librem 15v3](purism/librem/13v3)                               | `<nixos-hardware/purism/librem/15v3>`                   |
 | [Purism Librem 5r4](purism/librem/5r4)                                 | `<nixos-hardware/purism/librem/5r4>`                    |

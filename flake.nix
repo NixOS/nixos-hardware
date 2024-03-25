@@ -204,6 +204,7 @@
       pine64-pinebook-pro = import ./pine64/pinebook-pro;
       pine64-rockpro64 = import ./pine64/rockpro64;
       pine64-star64 = import ./pine64/star64;
+      protectli-vp4670 = import ./protectli/vp4670;
       purism-librem-13v3 = import ./purism/librem/13v3;
       purism-librem-15v3 = import ./purism/librem/15v3;
       purism-librem-5r4 = import ./purism/librem/5r4;
