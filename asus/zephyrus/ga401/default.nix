@@ -15,7 +15,7 @@
     # This will also cause "PCI-Express Runtime D3 Power Management" to be enabled by default
     modesetting.enable = lib.mkDefault true;
 
-    dynamicBoost.enable = true;
+    dynamicBoost.enable = lib.mkDefault true;
     
     prime = {
       amdgpuBusId = "PCI:4:0:0";
