@@ -1,6 +1,6 @@
 { config, lib, ... }: {
   imports = [
-    ../.
+    ../intel
     ../../yoga.nix
   ];
 

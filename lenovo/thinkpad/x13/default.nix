@@ -1,12 +1,8 @@
-{ ... }: {
-  # Reference to hardware: https://certification.ubuntu.com/hardware/202004-27844
-  imports = [
-    ../.
-    ../../../common/cpu/intel
-    ../../../common/pc/laptop/acpi_call.nix
-    ../../../common/pc/laptop/ssd
+{
+  assertions = [
+    {
+      assertion = false;
+      message = "Importing the x13/ (default.nix) directly is deprecated! See https://github.com/NixOS/nixos-hardware/blob/master/lenovo/thinkpad/x13/OLD-BEHAVIOUR-DEPRECATED.md for more details.";
+    }
   ];
-
-  # Somehow psmouse does not load automatically on boot for me
-  boot.initrd.kernelModules = [ "psmouse" ];
 }

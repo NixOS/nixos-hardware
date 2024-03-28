@@ -10,7 +10,9 @@ in
 {
   hardware.firmware = [ chip_edid ];
 
-  boot.kernelParams = [ "drm.edid_firmware=edid/16ach6h.bin" ];
+  # For some reason, the internal display is sometimes eDP-1, and sometimes it's eDP-2
+  boot.kernelParams = [ "drm.edid_firmware=eDP-1:edid/16ach6h.bin,eDP-2:edid/16ach6h.bin" ];
+
   # This fails at the moment, https://github.com/NixOS/nixos-hardware/issues/795
   # Extra refresh rates seem to work regardless
   # boot.initrd.extraFiles."lib/firmware/edid/16ach6h.bin".source = pkgs.runCommandLocal "chip_edid" { } "cp ${./16ach6h.bin} $out";
