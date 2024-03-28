@@ -2,7 +2,7 @@
 
 ## Updating Firmware
 
-First put enable `fwupd`
+First enable the `fwupd` service
 
 ```nix
 services.fwupd.enable = true;
