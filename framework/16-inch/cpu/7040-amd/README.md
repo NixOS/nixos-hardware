@@ -1,4 +1,4 @@
-# [Framework Laptop 13](https://frame.work/)
+# [Framework Laptop 16](https://frame.work/)
 
 ## Updating Firmware
 
