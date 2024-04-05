@@ -204,6 +204,7 @@
       pine64-pinebook-pro = import ./pine64/pinebook-pro;
       pine64-rockpro64 = import ./pine64/rockpro64;
       pine64-star64 = import ./pine64/star64;
+      protectli-vp4670 = import ./protectli/vp4670;
       purism-librem-13v3 = import ./purism/librem/13v3;
       purism-librem-15v3 = import ./purism/librem/15v3;
       purism-librem-5r4 = import ./purism/librem/5r4;
@@ -229,6 +230,7 @@
       common-cpu-amd-pstate = import ./common/cpu/amd/pstate.nix;
       common-cpu-amd-raphael-igpu = import ./common/cpu/amd/raphael/igpu.nix;
       common-cpu-intel = import ./common/cpu/intel;
+      common-cpu-intel-comet-lake = import ./common/cpu/intel/comet-lake;
       common-cpu-intel-cpu-only = import ./common/cpu/intel/cpu-only.nix;
       common-cpu-intel-kaby-lake = import ./common/cpu/intel/kaby-lake;
       common-cpu-intel-sandy-bridge = import ./common/cpu/intel/sandy-bridge;
