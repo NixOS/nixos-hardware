@@ -8,7 +8,7 @@
   ];
 
   # is there any redistributable firmware for this device?
-  hardware.enableRedistributableFirmware = true;
+  hardware.enableRedistributableFirmware = lib.mkDefault true;
 
   # Cooling management
   services.thermald.enable = lib.mkDefault true;
