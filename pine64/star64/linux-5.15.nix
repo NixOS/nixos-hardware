@@ -55,7 +55,7 @@ let
         # brute force disable drm
         CEC_CORE = no;
         CEC_NOTIFIER = no;
-        DRM = no;
+        DRM = lib.mkForce no;
         DRM_MIPI_DBI = no;
         DRM_MIPI_DSI = no;
         DRM_DP_AUX_BUS = no;
