@@ -1,0 +1,15 @@
+--- a/drivers/sd/sd.c
++++ b/drivers/sd/sd.c
+@@ -560,11 +560,11 @@ static int bm_sd_read(int lba, uintptr_t buf, size_t size)
+ 			} else {
+ 				udelay(1);
+ 				timeout++;
+ 			}
+ 
+-			if (timeout >= 10000) {
++			if (timeout >= 100000) {
+ 				printf("sdhci read data timeout\n");
+ 				goto timeout;
+ 			}
+ 		}
+ 
