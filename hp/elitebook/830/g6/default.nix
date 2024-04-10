@@ -7,6 +7,7 @@
     ../../../../common/pc/laptop/ssd
   ];
 
+  # Needed for wifi
   hardware.enableRedistributableFirmware = lib.mkDefault true;
 
   # Cooling management
