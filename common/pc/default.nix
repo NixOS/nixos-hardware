@@ -5,5 +5,5 @@
     "ath3k"
   ];
 
-  services.xserver.libinput.enable = lib.mkDefault true;
+  services.xserver.libinput.enable = lib.mkDefault config.services.xserver.enable;
 }
