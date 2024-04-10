@@ -7,7 +7,6 @@
     ../../../../common/pc/laptop/ssd
   ];
 
-  # is there any redistributable firmware for this device?
   hardware.enableRedistributableFirmware = lib.mkDefault true;
 
   # Cooling management
