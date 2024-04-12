@@ -74,15 +74,6 @@ in
     # Make sure post-resume.service exists
     powerManagement.enable = true;
 
-    systemd.services.fix-keyboard-backlight-and-touchbar = {
-      path = [ pkgs.kmod ];
-      serviceConfig.ExecStart = ''${pkgs.systemd}/bin/systemd-inhibit --what=sleep --why="fixing keyboard backlight and touchbar must finish before sleep" --mode=delay ${./fix-keyboard-backlight-and-touchbar.sh}'';
-      serviceConfig.Type = "oneshot";
-      description = "reload touchbar driver and restart upower";
-      wantedBy = [ "display-manager.service" "post-resume.target" ];
-      after = [ "post-resume.target" ];
-    };
-
     # Activation script to install apple-set-os-loader in order to unlock the iGPU
     system.activationScripts.appleSetOsLoader = lib.optionalString t2Cfg.enableAppleSetOsLoader ''
       if [[ -e /boot/efi/efi/boot/bootx64_original.efi ]]; then
