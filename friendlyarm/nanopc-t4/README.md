@@ -4,7 +4,7 @@ This document on how I configure [NixOS](https://nixos.org/) on [NanoPC-T4](http
 
 # Installation
 
-To install NixOS on you can follow the [official instructions](https://nixos.wiki/wiki/NixOS_on_ARM/NanoPC-T4) and use the [pre-built images](https://github.com/tmountain/arch-nanopct4/tree/main/images/) from @tmountain. You can also build the U-Boot image yourself from `nixpkgs` based on changes added in [#111034](https://github.com/NixOS/nixpkgs/pull/111034).
+To install NixOS on you can follow the [official instructions](https://wiki.nixos.org/wiki/NixOS_on_ARM/NanoPC-T4) and use the [pre-built images](https://github.com/tmountain/arch-nanopct4/tree/main/images/) from @tmountain. You can also build the U-Boot image yourself from `nixpkgs` based on changes added in [#111034](https://github.com/NixOS/nixpkgs/pull/111034).
 
 ## NixOS on NVMe with ZFS
 
@@ -62,7 +62,7 @@ A reader using `CP2102` chip did not work but `FT232RL` works fine:
 
 You can use `minicom` or `picocom` to connect:
 ```
-sudo minicom -b 1500000 -D /dev/ttyUSB0 
+sudo minicom -b 1500000 -D /dev/ttyUSB0
 sudo picocom -b 1500000 /dev/ttyUSB0
 ```
 But you'll need to disable flow control with `Ctrl-A x`.
