@@ -1,18 +1,4 @@
 # [Framework Laptop 16](https://frame.work/)
 
 ## Updating Firmware
-
-First enable the `fwupd` service
-
-```nix
-services.fwupd.enable = true;
-```
-
-Then run
-
-```sh
- $ fwupdmgr update
-```
-
-- [Latest Update](https://fwupd.org/lvfs/devices/work.frame.Laptop.Ryzen7040.BIOS.firmware)
-
+The Framework Laptop 16 uses LVFS, so it can be updated via fwupd; see https://wiki.nixos.org/wiki/Fwupd for details
