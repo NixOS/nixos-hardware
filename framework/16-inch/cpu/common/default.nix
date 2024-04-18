@@ -19,9 +19,6 @@
     ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="0bda", ATTR{idProduct}=="8156", ATTR{power/autosuspend}="20"
   '';
 
-  # Fix font sizes in X
-  # services.xserver.dpi = 200;
-
   # Needed for desktop environments to detect/manage display brightness
   hardware.sensor.iio.enable = lib.mkDefault true;
 
