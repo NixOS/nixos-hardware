@@ -12,7 +12,7 @@
       ../../common/pc/ssd
     ];
 
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+    boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
     hardware.nvidia.prime = {
       amdgpuBusId = "PCI:54:0:0";
