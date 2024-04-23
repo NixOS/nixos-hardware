@@ -8,7 +8,6 @@
     ../../../../common/gpu/nvidia/prime.nix
     ../../../../common/pc/laptop
     ../../../../common/pc/laptop/ssd
-    ../edid
   ];
 
   # Still needs to load at some point if we want X11 to work
@@ -28,7 +27,7 @@
       powerManagement.enable = lib.mkDefault true;
 
       prime = {
-        amdgpuBusId = lib.mkDefault "PCI:5:0:0";
+        amdgpuBusId = lib.mkDefault "PCI:6:0:0";
         nvidiaBusId = "PCI:1:0:0";
       };
     };

@@ -1,0 +1,33 @@
+diff -rupN linux-6.8-9791-ge5eb28f6d1af/sound/pci/hda/cs35l41_hda_property.c linux-6.8-9791-ge5eb28f6d1af-patched/sound/pci/hda/cs35l41_hda_property.c
+--- linux-6.8-9791-ge5eb28f6d1af/sound/pci/hda/cs35l41_hda_property.c	2024-03-15 02:03:09.000000000 +0100
++++ linux-6.8-9791-ge5eb28f6d1af-patched/sound/pci/hda/cs35l41_hda_property.c	2024-03-17 12:23:48.183404375 +0100
+@@ -115,6 +115,8 @@ static const struct cs35l41_config cs35l
+ 	{ "17AA38B5", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 0, 0, 0 },
+ 	{ "17AA38B6", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 0, 0, 0 },
+ 	{ "17AA38B7", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 0, 0, 0 },
++	{ "17AA3877", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 0, 0, 0 },
++	{ "17AA3878", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 0, 0, 0 },
+ 	{}
+ };
+ 
+@@ -503,6 +505,8 @@ static const struct cs35l41_prop_model c
+ 	{ "CSC3551", "17AA38B5", generic_dsd_config },
+ 	{ "CSC3551", "17AA38B6", generic_dsd_config },
+ 	{ "CSC3551", "17AA38B7", generic_dsd_config },
++	{ "CSC3551", "17AA3877", generic_dsd_config },
++	{ "CSC3551", "17AA3878", generic_dsd_config },
+ 	{}
+ };
+ 
+diff -rupN linux-6.8-9791-ge5eb28f6d1af/sound/pci/hda/patch_realtek.c linux-6.8-9791-ge5eb28f6d1af-patched/sound/pci/hda/patch_realtek.c
+--- linux-6.8-9791-ge5eb28f6d1af/sound/pci/hda/patch_realtek.c	2024-03-15 02:03:09.000000000 +0100
++++ linux-6.8-9791-ge5eb28f6d1af-patched/sound/pci/hda/patch_realtek.c	2024-03-17 12:18:22.241570472 +0100
+@@ -10263,6 +10263,8 @@ static const struct snd_pci_quirk alc269
+ 	SND_PCI_QUIRK(0x17aa, 0x38b5, "Legion Slim 7 16IRH8", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x17aa, 0x38b6, "Legion Slim 7 16APH8", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x17aa, 0x38b7, "Legion Slim 7 16APH8", ALC287_FIXUP_CS35L41_I2C_2),
++	SND_PCI_QUIRK(0x17aa, 0x3877, "Legion S7 16ARHA7", ALC287_FIXUP_CS35L41_I2C_2),
++	SND_PCI_QUIRK(0x17aa, 0x3878, "Legion S7 16ARHA7", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x17aa, 0x38ba, "Yoga S780-14.5 Air AMD quad YC", ALC287_FIXUP_TAS2781_I2C),
+ 	SND_PCI_QUIRK(0x17aa, 0x38bb, "Yoga S780-14.5 Air AMD quad AAC", ALC287_FIXUP_TAS2781_I2C),
+ 	SND_PCI_QUIRK(0x17aa, 0x38be, "Yoga S980-14.5 proX YC Dual", ALC287_FIXUP_TAS2781_I2C),

@@ -13,6 +13,7 @@
       apple-macbook-pro-11-5 = import ./apple/macbook-pro/11-5;
       apple-macbook-pro-12-1 = import ./apple/macbook-pro/12-1;
       apple-macbook-pro-14-1 = import ./apple/macbook-pro/14-1;
+      apple-macmini-4-1 = import ./apple/macmini/4;
       apple-t2 = import ./apple/t2;
       asus-battery = import ./asus/battery.nix;
       asus-ally-rc71l = import ./asus/ally/rc71l;
@@ -38,6 +39,7 @@
       dell-latitude-3340 = import ./dell/latitude/3340;
       dell-latitude-3480 = import ./dell/latitude/3480;
       dell-latitude-5520 = import ./dell/latitude/5520;
+      dell-latitude-7280 = import ./dell/latitude/7280;
       dell-latitude-7390 = import ./dell/latitude/7390;
       dell-latitude-7430 = import ./dell/latitude/7430;
       dell-latitude-7490 = import ./dell/latitude/7490;
@@ -76,6 +78,7 @@
       framework-12th-gen-intel = import ./framework/13-inch/12th-gen-intel;
       framework-13th-gen-intel = import ./framework/13-inch/13th-gen-intel;
       framework-13-7040-amd = import ./framework/13-inch/7040-amd;
+      framework-16-7040-amd = import ./framework/16-inch/cpu/7040-amd;
       friendlyarm-nanopc-t4 = import ./friendlyarm/nanopc-t4;
       friendlyarm-nanopi-r5s = import ./friendlyarm/nanopi-r5s;
       focus-m2-gen1 = import ./focus/m2/gen1;
@@ -103,6 +106,7 @@
       lenovo-legion-16achg6-hybrid = import ./lenovo/legion/16achg6/hybrid;
       lenovo-legion-16achg6-nvidia = import ./lenovo/legion/16achg6/nvidia;
       lenovo-legion-16aph8 = import ./lenovo/legion/16aph8;
+      lenovo-legion-16arha7 = import ./lenovo/legion/16arha7;
       lenovo-legion-16ithg6 = import ./lenovo/legion/16ithg6;
       lenovo-legion-16irx8h = import ./lenovo/legion/16irx8h;
       lenovo-legion-y530-15ich = import ./lenovo/legion/15ich;
@@ -160,7 +164,8 @@
       lenovo-thinkpad-x1-extreme-gen4 = import ./lenovo/thinkpad/x1-extreme/gen4;
       lenovo-thinkpad-x1-nano = import ./lenovo/thinkpad/x1-nano;
       lenovo-thinkpad-x1-nano-gen1 = import ./lenovo/thinkpad/x1-nano/gen1;
-      lenovo-thinkpad-x13 = import ./lenovo/thinkpad/x13;
+      lenovo-thinkpad-x13 = import ./lenovo/thinkpad/x13/intel;
+      lenovo-thinkpad-x13-amd = import ./lenovo/thinkpad/x13/amd;
       lenovo-thinkpad-x13-yoga = import ./lenovo/thinkpad/x13/yoga;
       lenovo-thinkpad-x13-yoga-3th-gen = import ./lenovo/thinkpad/x13/yoga/3th-gen;
       lenovo-thinkpad-x140e = import ./lenovo/thinkpad/x140e;
@@ -173,7 +178,8 @@
       lenovo-thinkpad-x280 = import ./lenovo/thinkpad/x280;
       lenovo-thinkpad-x390 = import ./lenovo/thinkpad/x390;
       lenovo-thinkpad-z = import ./lenovo/thinkpad/z;
-      lenovo-thinkpad-z13 = import ./lenovo/thinkpad/z/z13;
+      lenovo-thinkpad-z13-gen1 = import ./lenovo/thinkpad/z/gen1/z13;
+      lenovo-thinkpad-z13-gen2 = import ./lenovo/thinkpad/z/gen2/z13;
       lenovo-yoga-6-13ALC6 = import ./lenovo/yoga/6/13ALC6;
       lenovo-yoga-7-14ARH7 = import ./lenovo/yoga/7/14ARH7;
       lenovo-yoga-7-slim-gen8 = import ./lenovo/yoga/7/slim/gen8;
@@ -184,6 +190,7 @@
       microsoft-surface-laptop-amd = import ./microsoft/surface/surface-laptop-amd;
       microsoft-surface-common = import ./microsoft/surface/common;
       microsoft-surface-pro-3 = import ./microsoft/surface-pro/3;
+      milkv-pioneer = import ./milkv/pioneer;
       morefine-m600 = import ./morefine/m600;
       msi-b350-tomahawk = import ./msi/b350-tomahawk;
       msi-b550-a-pro = import ./msi/b550-a-pro;
@@ -204,6 +211,7 @@
       pine64-pinebook-pro = import ./pine64/pinebook-pro;
       pine64-rockpro64 = import ./pine64/rockpro64;
       pine64-star64 = import ./pine64/star64;
+      protectli-vp4670 = import ./protectli/vp4670;
       purism-librem-13v3 = import ./purism/librem/13v3;
       purism-librem-15v3 = import ./purism/librem/15v3;
       purism-librem-5r4 = import ./purism/librem/5r4;
@@ -223,12 +231,14 @@
       toshiba-swanky = import ./toshiba/swanky;
       tuxedo-infinitybook-v4 = import ./tuxedo/infinitybook/v4;
       tuxedo-infinitybook-pro14-gen7 = import ./tuxedo/infinitybook/pro14/gen7;
+      tuxedo-pulse-14-gen3 = import ./tuxedo/pulse/14/gen3;
       tuxedo-pulse-15-gen2 = import ./tuxedo/pulse/15/gen2;
 
       common-cpu-amd = import ./common/cpu/amd;
       common-cpu-amd-pstate = import ./common/cpu/amd/pstate.nix;
       common-cpu-amd-raphael-igpu = import ./common/cpu/amd/raphael/igpu.nix;
       common-cpu-intel = import ./common/cpu/intel;
+      common-cpu-intel-comet-lake = import ./common/cpu/intel/comet-lake;
       common-cpu-intel-cpu-only = import ./common/cpu/intel/cpu-only.nix;
       common-cpu-intel-kaby-lake = import ./common/cpu/intel/kaby-lake;
       common-cpu-intel-sandy-bridge = import ./common/cpu/intel/sandy-bridge;
