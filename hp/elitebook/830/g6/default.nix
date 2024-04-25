@@ -20,4 +20,9 @@
   boot = lib.mkIf (lib.versionAtLeast pkgs.linux.version "6.1") {
     kernelModules = [ "hp-wmi" ];
   };
+
+  # reduces warnings/errors in boot log, seems to eliminate the ocassional boot hangs described in readme
+  hardware.enableAllFirmware = lib.mkDefault true;
+  # required for enableAllFirmware
+  nixpkgs.config.allowUnfree = lib.mkDefault true;
 }
