@@ -281,6 +281,7 @@ See code for all available configurations.
 | [Purism Librem 5r4](purism/librem/5r4)                                 | `<nixos-hardware/purism/librem/5r4>`                    |
 | [Raspberry Pi 2](raspberry-pi/2)                                       | `<nixos-hardware/raspberry-pi/2>`                       |
 | [Raspberry Pi 4](raspberry-pi/4)                                       | `<nixos-hardware/raspberry-pi/4>`                       |
+| [Raspberry Pi 5](raspberry-pi/5)                                       | `<nixos-hardware/raspberry-pi/5>`                       |
 | [Samsung Series 9 NP900X3C](samsung/np900x3c)                          | `<nixos-hardware/samsung/np900x3c>`                     |
 | [StarFive VisionFive v1](starfive/visionfive/v1)                       | `<nixos-hardware/starfive/visionfive/v1>`               |
 | [StarFive VisionFive 2](starfive/visionfive/v2)                        | `<nixos-hardware/starfive/visionfive/v2>`               |
