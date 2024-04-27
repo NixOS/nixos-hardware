@@ -77,6 +77,7 @@
       framework-12th-gen-intel = import ./framework/13-inch/12th-gen-intel;
       framework-13th-gen-intel = import ./framework/13-inch/13th-gen-intel;
       framework-13-7040-amd = import ./framework/13-inch/7040-amd;
+      framework-16-7040-amd = import ./framework/16-inch/cpu/7040-amd;
       friendlyarm-nanopc-t4 = import ./friendlyarm/nanopc-t4;
       friendlyarm-nanopi-r5s = import ./friendlyarm/nanopi-r5s;
       focus-m2-gen1 = import ./focus/m2/gen1;
@@ -229,6 +230,7 @@
       toshiba-swanky = import ./toshiba/swanky;
       tuxedo-infinitybook-v4 = import ./tuxedo/infinitybook/v4;
       tuxedo-infinitybook-pro14-gen7 = import ./tuxedo/infinitybook/pro14/gen7;
+      tuxedo-pulse-14-gen3 = import ./tuxedo/pulse/14/gen3;
       tuxedo-pulse-15-gen2 = import ./tuxedo/pulse/15/gen2;
 
       common-cpu-amd = import ./common/cpu/amd;
