@@ -2,6 +2,7 @@
   imports = [
     ../../../common/pc/laptop
     ../../../common/pc/laptop/ssd
+    ../../kmod.nix
   ];
 
   # Fix TRRS headphones missing a mic

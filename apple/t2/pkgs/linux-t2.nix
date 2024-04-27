@@ -5,11 +5,11 @@ let
   patchRepo = fetchFromGitHub {
     owner = "t2linux";
     repo = "linux-t2-patches";
-    rev = "46dd873d1d9d12b26916790045008a91a95d0c11";
-    hash = "sha256-YGUGuzsAJFtZYjIW9d2XU4eGKNvMKCaWXqgqJn5TdeY=";
+    rev = "7cd298e227e95bac9a704ffc8f5ff5e89a1bf4d7";
+    hash = "sha256-Oi3CwQl0IwdVc9w+pbmJjBnyqwLFhbqFwxs5o0mqtbE=";
   };
 
-  version = "6.5";
+  version = "6.7.7";
   majorVersion = with lib; (elemAt (take 1 (splitVersion version)) 0);
 in
 buildLinux (args // {
@@ -22,7 +22,7 @@ buildLinux (args // {
   src = runCommand "patched-source" {} ''
     cp -r ${fetchzip {
       url = "mirror://kernel/linux/kernel/v${majorVersion}.x/linux-${version}.tar.xz";
-      hash = "sha256-qJmVSju69WcvDIbgrbtMyCi+OXUNTzNX2G+/0zwsPR4=";
+      hash = "sha256-j+Ufl6C1Mqjthk18GPt2e7j+i7viauOgNnVy9dJSgaM=";
     }} $out
     chmod -R u+w $out
     cd $out
@@ -40,10 +40,11 @@ buildLinux (args // {
     BT_HCIBCM4377 = module;
     BT_HCIUART_BCM = yes;
     BT_HCIUART = module;
-    HID_APPLE_IBRIDGE = module;
+    HID_APPLETB_BL = module;
+    HID_APPLETB_KBD = module;
     HID_APPLE = module;
+    DRM_APPLETBDRM = module;
     HID_APPLE_MAGIC_BACKLIGHT = module;
-    HID_APPLE_TOUCHBAR = module;
     HID_SENSOR_ALS = module;
     SND_PCM = module;
     STAGING = yes;
