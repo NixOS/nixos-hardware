@@ -24,6 +24,8 @@ let
 
   pipewirePackage = overrideAudioFiles pkgs.pipewire "spa/plugins/";
 
+  tiny-dfrPackage = pkgs.callPackage ./pkgs/tiny-dfr.nix { };
+
   apple-set-os-loader-installer = pkgs.stdenv.mkDerivation {
     name = "apple-set-os-loader-installer-1.0";
     src = pkgs.fetchFromGitHub {
@@ -60,9 +62,10 @@ in
     boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.callPackage ./pkgs/linux-t2.nix { });
     boot.initrd.kernelModules = [ "apple-bce" ];
 
+    services.udev.packages = [ audioFilesUdevRules tiny-dfrPackage ];
+
     # For audio
     boot.kernelParams = [ "pcie_ports=compat" "intel_iommu=on" "iommu=pt" ];
-    services.udev.packages = [ audioFilesUdevRules ];
 
     hardware.pulseaudio.package = overrideAudioFiles pkgs.pulseaudio "src/modules/";
 
@@ -71,17 +74,24 @@ in
       pipewire = pipewirePackage;
     };
 
+    # For tiny-dfr
+    systemd.services.tiny-dfr = {
+      enable = true;
+      description = "Tiny Apple silicon touch bar daemon";
+      after = [ "systemd-user-sessions.service" "getty@tty1.service" "plymouth-quit.service" "systemd-logind.service" ];
+      bindsTo = [ "dev-tiny_dfr_display.device" "dev-tiny_dfr_backlight.device" ];
+      startLimitIntervalSec = 30;
+      startLimitBurst = 2;
+      script = "${tiny-dfrPackage}/bin/tiny-dfr";
+      restartTriggers = [ tiny-dfrPackage ];
+    };
+
+    environment.etc."tiny-dfr/config.toml" = {
+      source = "${tiny-dfrPackage}/share/tiny-dfr/config.toml";
+    };
+
     # Make sure post-resume.service exists
     powerManagement.enable = true;
-
-    systemd.services.fix-keyboard-backlight-and-touchbar = {
-      path = [ pkgs.kmod ];
-      serviceConfig.ExecStart = ''${pkgs.systemd}/bin/systemd-inhibit --what=sleep --why="fixing keyboard backlight and touchbar must finish before sleep" --mode=delay ${./fix-keyboard-backlight-and-touchbar.sh}'';
-      serviceConfig.Type = "oneshot";
-      description = "reload touchbar driver and restart upower";
-      wantedBy = [ "display-manager.service" "post-resume.target" ];
-      after = [ "post-resume.target" ];
-    };
 
     # Activation script to install apple-set-os-loader in order to unlock the iGPU
     system.activationScripts.appleSetOsLoader = lib.optionalString t2Cfg.enableAppleSetOsLoader ''
