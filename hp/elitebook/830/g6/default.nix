@@ -23,6 +23,4 @@
 
   # reduces warnings/errors in boot log, seems to eliminate the ocassional boot hangs described in readme
   hardware.enableAllFirmware = lib.mkDefault true;
-  # required for enableAllFirmware
-  nixpkgs.config.allowUnfree = lib.mkDefault true;
 }
