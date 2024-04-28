@@ -1,8 +1,8 @@
 { lib, config, ... }: {
   imports = [
-    ../../../../common/cpu/amd
-    ../../../../common/cpu/amd/pstate.nix
-    ../../../../common/gpu/amd
+    ../../../common/cpu/amd
+    ../../../common/cpu/amd/pstate.nix
+    ../../../common/gpu/amd
   ];
 
   # Workaround for SuspendThenHibernate: https://lore.kernel.org/linux-kernel/20231106162310.85711-1-mario.limonciello@amd.com/

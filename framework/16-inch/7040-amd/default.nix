@@ -4,7 +4,7 @@
   imports = [
     ../common
     ../common/amd.nix
-    ../../../../common/cpu/amd/raphael/igpu.nix
+    ../../../common/cpu/amd/raphael/igpu.nix
   ];
 
 }
