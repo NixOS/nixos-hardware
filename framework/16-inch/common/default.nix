@@ -1,7 +1,7 @@
 { lib, pkgs, ... }: {
   imports = [
-    ../../../../common/pc/laptop
-    ../../../../common/pc/laptop/ssd
+    ../../../common/pc/laptop
+    ../../../common/pc/laptop/ssd
   ];
 
   # Fix TRRS headphones missing a mic
