@@ -8,6 +8,7 @@
   boot = {
     kernelPackages = lib.mkDefault (pkgs.linuxPackagesFor pkgs.linux_rpi5);
     initrd.availableKernelModules = [
+      "nvme"
       "usbhid"
       "usb_storage"
     ];
