@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, config, ... }:
 
 {
   nixpkgs.overlays = [
@@ -24,4 +24,11 @@
     Option "PrimaryGPU" "true"
   EndSection
   '';
+
+  assertions = [
+    {
+      assertion = (lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.1.54");
+      message = "The Raspberry Pi 5 requires a newer kernel version (>=6.1.54). Please upgrade nixpkgs for this system.";
+    }
+  ];
 }
