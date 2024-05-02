@@ -1,5 +1,0 @@
-{
-  imports = [
-    ../../../../lenovo/thinkpad/z
-  ];
-}

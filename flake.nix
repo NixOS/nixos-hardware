@@ -13,11 +13,14 @@
       apple-macbook-pro-11-5 = import ./apple/macbook-pro/11-5;
       apple-macbook-pro-12-1 = import ./apple/macbook-pro/12-1;
       apple-macbook-pro-14-1 = import ./apple/macbook-pro/14-1;
+      apple-macmini-4-1 = import ./apple/macmini/4;
       apple-t2 = import ./apple/t2;
       asus-battery = import ./asus/battery.nix;
       asus-ally-rc71l = import ./asus/ally/rc71l;
       asus-fx504gd = import ./asus/fx504gd;
+      asus-fa507nv = import ./asus/fa507nv;
       asus-fa507rm = import ./asus/fa507rm;
+      asus-pro-ws-x570-ace = import ./asus/pro-ws-x570-ace;
       asus-rog-strix-g513im = import ./asus/rog-strix/g513im;
       asus-rog-strix-g733qs = import ./asus/rog-strix/g733qs;
       asus-zephyrus-ga401 = import ./asus/zephyrus/ga401;
@@ -76,6 +79,7 @@
       framework-12th-gen-intel = import ./framework/13-inch/12th-gen-intel;
       framework-13th-gen-intel = import ./framework/13-inch/13th-gen-intel;
       framework-13-7040-amd = import ./framework/13-inch/7040-amd;
+      framework-16-7040-amd = import ./framework/16-inch/cpu/7040-amd;
       friendlyarm-nanopc-t4 = import ./friendlyarm/nanopc-t4;
       friendlyarm-nanopi-r5s = import ./friendlyarm/nanopi-r5s;
       focus-m2-gen1 = import ./focus/m2/gen1;
@@ -86,6 +90,7 @@
       gpd-win-2 = import ./gpd/win-2;
       gpd-win-max-2-2023 = import ./gpd/win-max-2/2023;
       hp-elitebook-2560p = import ./hp/elitebook/2560p;
+      hp-elitebook-830g6 = import ./hp/elitebook/830/g6;
       hp-elitebook-845g7 = import ./hp/elitebook/845/g7;
       hp-elitebook-845g8 = import ./hp/elitebook/845/g8;
       hp-elitebook-845g9 = import ./hp/elitebook/845/g9;
@@ -175,7 +180,8 @@
       lenovo-thinkpad-x280 = import ./lenovo/thinkpad/x280;
       lenovo-thinkpad-x390 = import ./lenovo/thinkpad/x390;
       lenovo-thinkpad-z = import ./lenovo/thinkpad/z;
-      lenovo-thinkpad-z13 = import ./lenovo/thinkpad/z/z13;
+      lenovo-thinkpad-z13-gen1 = import ./lenovo/thinkpad/z/gen1/z13;
+      lenovo-thinkpad-z13-gen2 = import ./lenovo/thinkpad/z/gen2/z13;
       lenovo-yoga-6-13ALC6 = import ./lenovo/yoga/6/13ALC6;
       lenovo-yoga-7-14ARH7 = import ./lenovo/yoga/7/14ARH7;
       lenovo-yoga-7-slim-gen8 = import ./lenovo/yoga/7/slim/gen8;
@@ -186,6 +192,7 @@
       microsoft-surface-laptop-amd = import ./microsoft/surface/surface-laptop-amd;
       microsoft-surface-common = import ./microsoft/surface/common;
       microsoft-surface-pro-3 = import ./microsoft/surface-pro/3;
+      milkv-pioneer = import ./milkv/pioneer;
       morefine-m600 = import ./morefine/m600;
       msi-b350-tomahawk = import ./msi/b350-tomahawk;
       msi-b550-a-pro = import ./msi/b550-a-pro;
@@ -226,6 +233,7 @@
       toshiba-swanky = import ./toshiba/swanky;
       tuxedo-infinitybook-v4 = import ./tuxedo/infinitybook/v4;
       tuxedo-infinitybook-pro14-gen7 = import ./tuxedo/infinitybook/pro14/gen7;
+      tuxedo-pulse-14-gen3 = import ./tuxedo/pulse/14/gen3;
       tuxedo-pulse-15-gen2 = import ./tuxedo/pulse/15/gen2;
 
       common-cpu-amd = import ./common/cpu/amd;
@@ -242,6 +250,7 @@
       common-gpu-intel = import ./common/gpu/intel;
       common-gpu-intel-disable = import ./common/gpu/intel/disable.nix;
       common-gpu-nvidia = import ./common/gpu/nvidia/prime.nix;
+      common-gpu-nvidia-sync = import ./common/gpu/nvidia/prime-sync.nix;
       common-gpu-nvidia-nonprime = import ./common/gpu/nvidia;
       common-gpu-nvidia-disable = import ./common/gpu/nvidia/disable.nix;
       common-hidpi = import ./common/hidpi.nix;

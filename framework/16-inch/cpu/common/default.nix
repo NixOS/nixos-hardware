@@ -1,8 +1,7 @@
 { lib, pkgs, ... }: {
   imports = [
-    ../../../common/pc/laptop
-    ../../../common/pc/laptop/ssd
-    ../../kmod.nix
+    ../../../../common/pc/laptop
+    ../../../../common/pc/laptop/ssd
   ];
 
   # Fix TRRS headphones missing a mic
@@ -20,9 +19,9 @@
     ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="0bda", ATTR{idProduct}=="8156", ATTR{power/autosuspend}="20"
   '';
 
-  # Fix font sizes in X
-  # services.xserver.dpi = 200;
-
   # Needed for desktop environments to detect/manage display brightness
   hardware.sensor.iio.enable = lib.mkDefault true;
+
+  # Enable keyboard customization
+  hardware.keyboard.qmk.enable = lib.mkDefault true;
 }
