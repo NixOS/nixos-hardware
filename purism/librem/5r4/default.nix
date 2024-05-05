@@ -1,8 +1,15 @@
 { config, pkgs, lib, ... }:
-let cfg = config.hardware.librem5;
+let
+  cfg = config.hardware.librem5;
+  linuxPackages_librem5 = pkgs.linuxPackagesFor (pkgs.callPackage ./kernel.nix { });
+  ubootLibrem5 = pkgs.callPackage ./u-boot { };
 in {
   options = {
     hardware.librem5 = {
+      package = lib.mkOption {
+        type = lib.types.package;
+        default = pkgs.callPackage ./librem5-base { };
+      };
       wifiCard = lib.mkOption {
         type = lib.types.enum [ "redpine" "sparklan" "none" ];
         description = lib.mdDoc ''
@@ -42,15 +49,6 @@ in {
       lockdownFix = lib.mkDefault true;
     };
 
-    nixpkgs.overlays = [
-      (import ./kernel)
-      (final: prev: {
-        ubootLibrem5 = final.callPackage ./u-boot { };
-
-        librem5-base = final.callPackage ./librem5-base { };
-      })
-    ];
-
     boot = {
       kernelParams = [ "rootwait" ];
 
@@ -59,12 +57,11 @@ in {
         grub.enable = false;
       };
 
-      kernelPackages = lib.mkDefault pkgs.linuxPackages_librem5;
+      kernelPackages = lib.mkDefault linuxPackages_librem5;
     };
 
-    services.udev.packages = lib.mkIf cfg.installUdevPackages [ pkgs.librem5-base ];
+    services.udev.packages = lib.mkIf cfg.installUdevPackages [ config.hardware.librem5.package ];
 
-    environment.systemPackages = with pkgs; [ ubootLibrem5 ];
-
+    environment.systemPackages = [ ubootLibrem5 ];
   };
 }
