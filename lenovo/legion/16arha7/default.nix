@@ -18,4 +18,14 @@ in
   
   # √(2560² + 1600²) px / 16 in ≃ 189 dpi
   services.xserver.dpi = 189;
+
+  # Enable fingerprint reader
+  services.fprintd = {
+    enable = true;
+    package = pkgs.fprintd-tod;
+    tod = {
+      enable = true;
+      driver = pkgs.libfprint-2-tod1-elan;
+    };
+  };
 }
