@@ -1,0 +1,2 @@
+# ASUS TUF A15 FA507NV
+As Nvidia offload is not available for AMD CPU, nvidia prime is using sync. Additionally the kernel is set to the latest stable release(using boot.kernelPackages = pkgs.linuxPackages_latest) as the keyboard and wireless drivers does not work in the default NixOS kernel which is the LTS kernel.

@@ -18,7 +18,9 @@
       asus-battery = import ./asus/battery.nix;
       asus-ally-rc71l = import ./asus/ally/rc71l;
       asus-fx504gd = import ./asus/fx504gd;
+      asus-fa507nv = import ./asus/fa507nv;
       asus-fa507rm = import ./asus/fa507rm;
+      asus-pro-ws-x570-ace = import ./asus/pro-ws-x570-ace;
       asus-rog-strix-g513im = import ./asus/rog-strix/g513im;
       asus-rog-strix-g733qs = import ./asus/rog-strix/g733qs;
       asus-zephyrus-ga401 = import ./asus/zephyrus/ga401;
@@ -88,6 +90,7 @@
       gpd-win-2 = import ./gpd/win-2;
       gpd-win-max-2-2023 = import ./gpd/win-max-2/2023;
       hp-elitebook-2560p = import ./hp/elitebook/2560p;
+      hp-elitebook-830g6 = import ./hp/elitebook/830/g6;
       hp-elitebook-845g7 = import ./hp/elitebook/845/g7;
       hp-elitebook-845g8 = import ./hp/elitebook/845/g8;
       hp-elitebook-845g9 = import ./hp/elitebook/845/g9;
@@ -118,6 +121,7 @@
       lenovo-thinkpad-l13-yoga = import ./lenovo/thinkpad/l13/yoga;
       lenovo-thinkpad-l14-amd = import ./lenovo/thinkpad/l14/amd;
       lenovo-thinkpad-l14-intel = import ./lenovo/thinkpad/l14/intel;
+      lenovo-thinkpad-l480 = import ./lenovo/thinkpad/l480;
       lenovo-thinkpad-p1 = import ./lenovo/thinkpad/p1;
       lenovo-thinkpad-p1-gen3 = import ./lenovo/thinkpad/p1/3th-gen;
       lenovo-thinkpad-p14s-amd-gen2 = import ./lenovo/thinkpad/p14s/amd/gen2;
@@ -248,6 +252,7 @@
       common-gpu-intel = import ./common/gpu/intel;
       common-gpu-intel-disable = import ./common/gpu/intel/disable.nix;
       common-gpu-nvidia = import ./common/gpu/nvidia/prime.nix;
+      common-gpu-nvidia-sync = import ./common/gpu/nvidia/prime-sync.nix;
       common-gpu-nvidia-nonprime = import ./common/gpu/nvidia;
       common-gpu-nvidia-disable = import ./common/gpu/nvidia/disable.nix;
       common-hidpi = import ./common/hidpi.nix;

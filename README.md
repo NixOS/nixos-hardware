@@ -82,6 +82,7 @@ See code for all available configurations.
 | [Apple MacBook Pro 14,1](apple/macbook-pro/14-1)                       | `<nixos-hardware/apple/macbook-pro/14-1>`               |
 | [Apple MacMini (2010, Intel, Nvidia)](apple/macmini/4)                 | `<nixos-hardware/apple/macmini/4>`                      |
 | [Apple Macs with a T2 Chip](apple/t2)                                  | `<nixos-hardware/apple/t2>`                             |
+| [Asus Pro WS X570-ACE](asus/pro-ws-x570-ace)                           | `<nixos-hardware/asus/pro-ws-x570-ace>`                 |
 | [Asus ROG Ally RC71L (2023)](asus/ally/rc71l)                          | `<nixos-hardware/asus/ally/rc71l>`                      |
 | [Asus ROG Strix G513IM](asus/rog-strix/g513im)                         | `<nixos-hardware/asus/rog-strix/g513im>`                |
 | [Asus ROG Strix G733QS](asus/rog-strix/g733qs)                         | `<nixos-hardware/asus/rog-strix/g733qs>`                |
@@ -94,6 +95,7 @@ See code for all available configurations.
 | [Asus ROG Zephyrus M16 GU603H](asus/zephyrus/gu603h)                   | `<nixos-hardware/asus/zephyrus/gu603h>`                 |
 | [Asus TUF FX504GD](asus/fx504gd)                                       | `<nixos-hardware/asus/fx504gd>`                         |
 | [Asus TUF FA507RM](asus/fa507rm)                                       | `<nixos-hardware/asus/fa507rm>`                         |
+| [Asus TUF FA507NV](asus/fa507nv)                                       | `<nixos-hardware/asus/fa507nv>`                         |
 | [BeagleBoard PocketBeagle](beagleboard/pocketbeagle)                   | `<nixos-hardware/beagleboard/pocketbeagle>`             |
 | [Deciso DEC series](deciso/dec)                                        | `<nixos-hardware/deciso/dec>`                           |
 | [Dell G3 3779](dell/g3/3779)                                           | `<nixos-hardware/dell/g3/3779>`                         |
@@ -156,6 +158,7 @@ See code for all available configurations.
 | [GPD WIN Max 2 2023](gpd/win-max-2/2023)                               | `<nixos-hardware/gpd/win-max-2/2023>`                   |
 | [Google Pixelbook](google/pixelbook)                                   | `<nixos-hardware/google/pixelbook>`                     |
 | [HP Elitebook 2560p](hp/elitebook/2560p)                               | `<nixos-hardware/hp/elitebook/2560p>`                   |
+| [HP Elitebook 830g6](hp/elitebook/830/g6)                              | `<nixos-hardware/hp/elitebook/830/g6>`                  |
 | [HP Elitebook 845g7](hp/elitebook/845/g7)                              | `<nixos-hardware/hp/elitebook/845/g7>`                  |
 | [HP Elitebook 845g8](hp/elitebook/845/g8)                              | `<nixos-hardware/hp/elitebook/845/g8>`                  |
 | [HP Elitebook 845g9](hp/elitebook/845/g9)                              | `<nixos-hardware/hp/elitebook/845/g9>`                  |
@@ -184,6 +187,7 @@ See code for all available configurations.
 | [Lenovo ThinkPad L13](lenovo/thinkpad/l13)                             | `<nixos-hardware/lenovo/thinkpad/l13>`                  |
 | [Lenovo ThinkPad L14 (AMD)](lenovo/thinkpad/l14/amd)                   | `<nixos-hardware/lenovo/thinkpad/l14/amd>`              |
 | [Lenovo ThinkPad L14 (Intel)](lenovo/thinkpad/l14/intel)               | `<nixos-hardware/lenovo/thinkpad/l14/intel>`            |
+| [Lenovo ThinkPad L480](lenovo/thinkpad/l480)                           | `<nixos-hardware/lenovo/thinkpad/l480>`                 |
 | [Lenovo ThinkPad P1 Gen 3](lenovo/thinkpad/p1/3th-gen)                 | `<nixos-hardware/lenovo/thinkpad/p1/3th-gen>`           |
 | [Lenovo ThinkPad P14s AMD Gen 2](lenovo/thinkpad/p14s/amd/gen2)        | `<nixos-hardware/lenovo/thinkpad/p14s/amd/gen2>`        |
 | [Lenovo ThinkPad P16s AMD Gen 1](lenovo/thinkpad/p16s/amd/gen1)        | `<nixos-hardware/lenovo/thinkpad/p16s/amd/gen1>`        |

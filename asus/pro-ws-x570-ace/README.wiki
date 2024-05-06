@@ -1,0 +1,29 @@
+= ASUS Pro WS X570-ACE =
+
+== Firmware issues ==
+
+=== BIOS ===
+
+BIOS version 4805 (and possibly older) has broken <code>X2APIC</code> mode, which in turn breaks <code>amd-pstate</code> support.
+Other possible config values for <code>APIC</code> are <code>Compatibility</code>, <code>Auto</code> and <code>XAPIC</code>; best results were observed with <code>XAPIC</code>.
+
+This is the error in dmesg when <code>X2APIC</code> is enabled:
+
+<code>
+amd_pstate: the _CPC object is not present in SBIOS or ACPI disabled
+</code>
+
+=== IPMI ===
+
+The IPMI is half-baked and for the most part unusable in a pure Linux environment, see https://forum.level1techs.com/t/remote-management-on-the-asus-pro-ws-x570-ace-under-linux
+
+== Firmware features ==
+
+=== IOMMU ===
+
+The groups are great, it's a good board for VFIO.
+
+=== ECC Memory ===
+
+As stated on the product page, it works; explicitly enabling in BIOS might be required.
+Tested with <code>M391A2K43BB1-CTD</code>.
