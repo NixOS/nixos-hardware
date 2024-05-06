@@ -187,6 +187,7 @@ See code for all available configurations.
 | [Lenovo ThinkPad L13](lenovo/thinkpad/l13)                             | `<nixos-hardware/lenovo/thinkpad/l13>`                  |
 | [Lenovo ThinkPad L14 (AMD)](lenovo/thinkpad/l14/amd)                   | `<nixos-hardware/lenovo/thinkpad/l14/amd>`              |
 | [Lenovo ThinkPad L14 (Intel)](lenovo/thinkpad/l14/intel)               | `<nixos-hardware/lenovo/thinkpad/l14/intel>`            |
+| [Lenovo ThinkPad L480](lenovo/thinkpad/l480)                           | `<nixos-hardware/lenovo/thinkpad/l480>`                 |
 | [Lenovo ThinkPad P1 Gen 3](lenovo/thinkpad/p1/3th-gen)                 | `<nixos-hardware/lenovo/thinkpad/p1/3th-gen>`           |
 | [Lenovo ThinkPad P14s AMD Gen 2](lenovo/thinkpad/p14s/amd/gen2)        | `<nixos-hardware/lenovo/thinkpad/p14s/amd/gen2>`        |
 | [Lenovo ThinkPad P16s AMD Gen 1](lenovo/thinkpad/p16s/amd/gen1)        | `<nixos-hardware/lenovo/thinkpad/p16s/amd/gen1>`        |
@@ -280,6 +281,7 @@ See code for all available configurations.
 | [Purism Librem 5r4](purism/librem/5r4)                                 | `<nixos-hardware/purism/librem/5r4>`                    |
 | [Raspberry Pi 2](raspberry-pi/2)                                       | `<nixos-hardware/raspberry-pi/2>`                       |
 | [Raspberry Pi 4](raspberry-pi/4)                                       | `<nixos-hardware/raspberry-pi/4>`                       |
+| [Raspberry Pi 5](raspberry-pi/5)                                       | `<nixos-hardware/raspberry-pi/5>`                       |
 | [Samsung Series 9 NP900X3C](samsung/np900x3c)                          | `<nixos-hardware/samsung/np900x3c>`                     |
 | [StarFive VisionFive v1](starfive/visionfive/v1)                       | `<nixos-hardware/starfive/visionfive/v1>`               |
 | [StarFive VisionFive 2](starfive/visionfive/v2)                        | `<nixos-hardware/starfive/visionfive/v2>`               |

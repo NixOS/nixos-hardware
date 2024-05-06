@@ -121,6 +121,7 @@
       lenovo-thinkpad-l13-yoga = import ./lenovo/thinkpad/l13/yoga;
       lenovo-thinkpad-l14-amd = import ./lenovo/thinkpad/l14/amd;
       lenovo-thinkpad-l14-intel = import ./lenovo/thinkpad/l14/intel;
+      lenovo-thinkpad-l480 = import ./lenovo/thinkpad/l480;
       lenovo-thinkpad-p1 = import ./lenovo/thinkpad/p1;
       lenovo-thinkpad-p1-gen3 = import ./lenovo/thinkpad/p1/3th-gen;
       lenovo-thinkpad-p14s-amd-gen2 = import ./lenovo/thinkpad/p14s/amd/gen2;
@@ -219,6 +220,7 @@
       purism-librem-5r4 = import ./purism/librem/5r4;
       raspberry-pi-2 = import ./raspberry-pi/2;
       raspberry-pi-4 = import ./raspberry-pi/4;
+      raspberry-pi-5 = import ./raspberry-pi/5;
       kobol-helios4 = import ./kobol/helios4;
       samsung-np900x3c = import ./samsung/np900x3c;
       starfive-visionfive-v1 = import ./starfive/visionfive/v1;
