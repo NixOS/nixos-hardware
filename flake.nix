@@ -47,6 +47,7 @@
       dell-poweredge-r7515 = import ./dell/poweredge/r7515;
       dell-precision-3541 = import ./dell/precision/3541;
       dell-precision-5530 = import ./dell/precision/5530;
+      dell-precision-7520 = import ./dell/precision/7520;
       dell-xps-13-7390 = import ./dell/xps/13-7390;
       dell-xps-13-9300 = import ./dell/xps/13-9300;
       dell-xps-13-9310 = import ./dell/xps/13-9310;
