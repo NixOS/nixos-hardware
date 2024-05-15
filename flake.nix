@@ -69,6 +69,7 @@
       dell-xps-15-9560 = import ./dell/xps/15-9560;
       dell-xps-15-9560-intel = import ./dell/xps/15-9560/intel;
       dell-xps-15-9560-nvidia = import ./dell/xps/15-9560/nvidia;
+      dell-xps-15-9570 = import ./dell/xps/15-9570;
       dell-xps-15-9570-intel = import ./dell/xps/15-9570/intel;
       dell-xps-15-9570-nvidia = import ./dell/xps/15-9570/nvidia;
       dell-xps-17-9700-intel = import ./dell/xps/17-9700/intel;
