@@ -35,11 +35,13 @@
     };
   };
 
-  hardware.nvidia.prime = {
+  hardware.nvidia = {
     modesetting.enable = lib.mkDefault true;
     open = lib.mkDefault false;
     nvidiaSettings = lib.mkDefault true;
-    amdgpuBusId = "PCI:54:0:0";
-    nvidiaBusId = "PCI:1:0:0";
+    prime = {
+      amdgpuBusId = "PCI:54:0:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
   };
 }
