@@ -242,6 +242,7 @@
 
       common-cpu-amd = import ./common/cpu/amd;
       common-cpu-amd-pstate = import ./common/cpu/amd/pstate.nix;
+      common-cpu-amd-zenpower = import ./common/cpu/amd/zenpower.nix;
       common-cpu-amd-raphael-igpu = import ./common/cpu/amd/raphael/igpu.nix;
       common-cpu-intel = import ./common/cpu/intel;
       common-cpu-intel-comet-lake = import ./common/cpu/intel/comet-lake;
