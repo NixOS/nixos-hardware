@@ -47,6 +47,7 @@
       dell-poweredge-r7515 = import ./dell/poweredge/r7515;
       dell-precision-3541 = import ./dell/precision/3541;
       dell-precision-5530 = import ./dell/precision/5530;
+      dell-precision-7520 = import ./dell/precision/7520;
       dell-xps-13-7390 = import ./dell/xps/13-7390;
       dell-xps-13-9300 = import ./dell/xps/13-9300;
       dell-xps-13-9310 = import ./dell/xps/13-9310;
@@ -69,6 +70,7 @@
       dell-xps-15-9560 = import ./dell/xps/15-9560;
       dell-xps-15-9560-intel = import ./dell/xps/15-9560/intel;
       dell-xps-15-9560-nvidia = import ./dell/xps/15-9560/nvidia;
+      dell-xps-15-9570 = import ./dell/xps/15-9570;
       dell-xps-15-9570-intel = import ./dell/xps/15-9570/intel;
       dell-xps-15-9570-nvidia = import ./dell/xps/15-9570/nvidia;
       dell-xps-17-9700-intel = import ./dell/xps/17-9700/intel;
@@ -111,6 +113,7 @@
       lenovo-legion-16arha7 = import ./lenovo/legion/16arha7;
       lenovo-legion-16ithg6 = import ./lenovo/legion/16ithg6;
       lenovo-legion-16irx8h = import ./lenovo/legion/16irx8h;
+      lenovo-legion-t526amr5 = import ./lenovo/legion/t526amr5;
       lenovo-legion-y530-15ich = import ./lenovo/legion/15ich;
       lenovo-thinkpad = import ./lenovo/thinkpad;
       lenovo-thinkpad-a475 = import ./lenovo/thinkpad/a475;
@@ -242,6 +245,7 @@
 
       common-cpu-amd = import ./common/cpu/amd;
       common-cpu-amd-pstate = import ./common/cpu/amd/pstate.nix;
+      common-cpu-amd-zenpower = import ./common/cpu/amd/zenpower.nix;
       common-cpu-amd-raphael-igpu = import ./common/cpu/amd/raphael/igpu.nix;
       common-cpu-intel = import ./common/cpu/intel;
       common-cpu-intel-comet-lake = import ./common/cpu/intel/comet-lake;
