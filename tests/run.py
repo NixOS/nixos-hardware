@@ -81,7 +81,7 @@ def write_eval_test(f: IO[str], profiles: list[str]) -> None:
             continue
 
         system = "x86_64-linux"
-        if "raspberry-pi/4" == profile:
+        if "raspberry-pi/4" == profile or "raspberry-pi/5" == profile:
             system = "aarch64-linux"
 
         f.write(

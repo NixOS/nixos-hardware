@@ -9,7 +9,7 @@
       enable = true;
       # this is required to correctly configure the modem as PA source/sink
       extraConfig = ''
-        .include ${pkgs.librem5-base}/etc/pulse/librem5.pa
+        .include ${config.hardware.librem5.package}/etc/pulse/librem5.pa
       '';
     };
 

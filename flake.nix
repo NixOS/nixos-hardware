@@ -70,6 +70,7 @@
       dell-xps-15-9560 = import ./dell/xps/15-9560;
       dell-xps-15-9560-intel = import ./dell/xps/15-9560/intel;
       dell-xps-15-9560-nvidia = import ./dell/xps/15-9560/nvidia;
+      dell-xps-15-9570 = import ./dell/xps/15-9570;
       dell-xps-15-9570-intel = import ./dell/xps/15-9570/intel;
       dell-xps-15-9570-nvidia = import ./dell/xps/15-9570/nvidia;
       dell-xps-17-9700-intel = import ./dell/xps/17-9700/intel;
@@ -80,7 +81,7 @@
       framework-12th-gen-intel = import ./framework/13-inch/12th-gen-intel;
       framework-13th-gen-intel = import ./framework/13-inch/13th-gen-intel;
       framework-13-7040-amd = import ./framework/13-inch/7040-amd;
-      framework-16-7040-amd = import ./framework/16-inch/cpu/7040-amd;
+      framework-16-7040-amd = import ./framework/16-inch/7040-amd;
       friendlyarm-nanopc-t4 = import ./friendlyarm/nanopc-t4;
       friendlyarm-nanopi-r5s = import ./friendlyarm/nanopi-r5s;
       focus-m2-gen1 = import ./focus/m2/gen1;
@@ -114,6 +115,7 @@
       lenovo-legion-16irx8h = import ./lenovo/legion/16irx8h;
       lenovo-legion-y530-15ich = import ./lenovo/legion/15ich;
       lenovo-thinkpad = import ./lenovo/thinkpad;
+      lenovo-thinkpad-a475 = import ./lenovo/thinkpad/a475;
       lenovo-thinkpad-e14-amd = import ./lenovo/thinkpad/e14/amd;
       lenovo-thinkpad-e14-intel = import ./lenovo/thinkpad/e14/intel;
       lenovo-thinkpad-e470 = import ./lenovo/thinkpad/e470;
@@ -221,6 +223,7 @@
       purism-librem-5r4 = import ./purism/librem/5r4;
       raspberry-pi-2 = import ./raspberry-pi/2;
       raspberry-pi-4 = import ./raspberry-pi/4;
+      raspberry-pi-5 = import ./raspberry-pi/5;
       kobol-helios4 = import ./kobol/helios4;
       samsung-np900x3c = import ./samsung/np900x3c;
       starfive-visionfive-v1 = import ./starfive/visionfive/v1;

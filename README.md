@@ -147,7 +147,7 @@ See code for all available configurations.
 | [Framework 12th Gen Intel Core](framework/13-inch/12th-gen-intel)      | `<nixos-hardware/framework/13-inch/12th-gen-intel>`     |
 | [Framework 13th Gen Intel Core](framework/13-inch/13th-gen-intel)      | `<nixos-hardware/framework/13-inch/13th-gen-intel>`     |
 | [Framework 13 AMD Ryzen 7040 Series](framework/13-inch/7040-amd)       | `<nixos-hardware/framework/13-inch/7040-amd>`           |
-| [Framework 16 AMD Ryzen 7040 Series](framework/16-inch/cpu/7040-amd)   | `<nixos-hardware/framework/16-inch/cpu/7040-amd>`       |
+| [Framework 16 AMD Ryzen 7040 Series](framework/16-inch/7040-amd)       | `<nixos-hardware/framework/16-inch/7040-amd>`           |
 | [FriendlyARM NanoPC-T4](friendlyarm/nanopc-t4)                         | `<nixos-hardware/friendlyarm/nanopc-t4>`                |
 | [FriendlyARM NanoPi R5s](friendlyarm/nanopi-r5s)                       | `<nixos-hardware/friendlyarm/nanopi-r5s>`               |
 | [Focus M2 Gen 1](focus/m2/gen1)                                        | `<nixos-hardware/focus/m2/gen1>`                        |
@@ -180,6 +180,7 @@ See code for all available configurations.
 | [Lenovo Legion 7i Pro 16irx8h (Intel)](lenovo/legion/16irx8h)          | `<nixos-hardware/lenovo/legion/16irx8h>`                |
 | [Lenovo Legion Slim 7 Gen 7 (AMD)](lenovo/legion/16arha7/)             | `<nixos-hardware/lenovo/legion/16arha7>`                |
 | [Lenovo Legion Y530 15ICH](lenovo/legion/15ich)                        | `<nixos-hardware/lenovo/legion/15ich>`                  |
+| [Lenovo ThinkPad A475](lenovo/thinkpad/a475)                           | `<nixos-hardware/lenovo/thinkpad/a475>`                 |
 | [Lenovo ThinkPad E14 (AMD)](lenovo/thinkpad/e14/amd)                   | `<nixos-hardware/lenovo/thinkpad/e14/amd>`              |
 | [Lenovo ThinkPad E14 (Intel)](lenovo/thinkpad/e14/intel)               | `<nixos-hardware/lenovo/thinkpad/e14/intel>`            |
 | [Lenovo ThinkPad E470](lenovo/thinkpad/e470)                           | `<nixos-hardware/lenovo/thinkpad/e470>`                 |
@@ -282,6 +283,7 @@ See code for all available configurations.
 | [Purism Librem 5r4](purism/librem/5r4)                                 | `<nixos-hardware/purism/librem/5r4>`                    |
 | [Raspberry Pi 2](raspberry-pi/2)                                       | `<nixos-hardware/raspberry-pi/2>`                       |
 | [Raspberry Pi 4](raspberry-pi/4)                                       | `<nixos-hardware/raspberry-pi/4>`                       |
+| [Raspberry Pi 5](raspberry-pi/5)                                       | `<nixos-hardware/raspberry-pi/5>`                       |
 | [Samsung Series 9 NP900X3C](samsung/np900x3c)                          | `<nixos-hardware/samsung/np900x3c>`                     |
 | [StarFive VisionFive v1](starfive/visionfive/v1)                       | `<nixos-hardware/starfive/visionfive/v1>`               |
 | [StarFive VisionFive 2](starfive/visionfive/v2)                        | `<nixos-hardware/starfive/visionfive/v2>`               |
