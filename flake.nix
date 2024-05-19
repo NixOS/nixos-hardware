@@ -18,6 +18,7 @@
       asus-battery = import ./asus/battery.nix;
       asus-ally-rc71l = import ./asus/ally/rc71l;
       asus-fx504gd = import ./asus/fx504gd;
+      asus-fx506hm = import ./asus/fx506hm;
       asus-fa507nv = import ./asus/fa507nv;
       asus-fa507rm = import ./asus/fa507rm;
       asus-pro-ws-x570-ace = import ./asus/pro-ws-x570-ace;
