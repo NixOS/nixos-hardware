@@ -11,7 +11,7 @@ lib.mkIf config.hardware.librem5.lockdownFix {
   systemd.services.librem5-lockdown-support = {
     description = "Set up drivers for the orientation and proximity sensors on Librem 5";
     serviceConfig.Type = "oneshot";
-    serviceConfig.ExecStart = "${pkgs.librem5-base}/bin/lockdown-support.sh";
+    serviceConfig.ExecStart = "${config.hardware.librem5.package}/bin/lockdown-support.sh";
     wantedBy = [ "default.target" ];
     path = [ pkgs.kmod ];
   };
