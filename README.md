@@ -97,6 +97,7 @@ See code for all available configurations.
 | [Asus TUF FX506HM](asus/fx506hm)                                       | `<nixos-hardware/asus/fx506hm>`                         |
 | [Asus TUF FA507RM](asus/fa507rm)                                       | `<nixos-hardware/asus/fa507rm>`                         |
 | [Asus TUF FA507NV](asus/fa507nv)                                       | `<nixos-hardware/asus/fa507nv>`                         |
+| [Asus Zenbook Flip S13 UX371](asus/zenbook/ux371/)                     | `<nixos-hardware/asus/zenbook/ux371>`                   |
 | [BeagleBoard PocketBeagle](beagleboard/pocketbeagle)                   | `<nixos-hardware/beagleboard/pocketbeagle>`             |
 | [Deciso DEC series](deciso/dec)                                        | `<nixos-hardware/deciso/dec>`                           |
 | [Dell G3 3779](dell/g3/3779)                                           | `<nixos-hardware/dell/g3/3779>`                         |
