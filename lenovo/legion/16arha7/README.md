@@ -1,6 +1,6 @@
 ## Introduction
 
-This configuration includes a fix to get audio playing over the speakers, however, the volume is low. If you know of a workaround or fix, please contribute it to the repo!!
+This configuration includes a fix to get the speakers working on kernels earlier than 6.9.0. Kernels after 6.9.0 already have this patch built-in.
 
 ## Setup at the time of testing
 ```
