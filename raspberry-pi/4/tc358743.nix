@@ -13,6 +13,16 @@ in
         running ustreamer (which starts webservice providing a camera stream):
         ''${pkgs.ustreamer}/bin/ustreamer --persistent --dv-timings
       '';
+      lanes = lib.mkOption {
+        type = lib.types.enum [
+          2
+          4
+        ];
+        default = 2;
+        description = ''
+          Number of CSI lanes available
+        '';
+      };
     };
   };
 
@@ -74,17 +84,31 @@ in
             fragment@2 {
               target = <0x03>;
 
-              __overlay__ {
-                data-lanes = <0x01 0x02>;
-              };
+              ${
+                if cfg.lanes == 2 then
+                  ''
+                    __overlay__ {
+                      data-lanes = <0x01 0x02>;
+                    };
+                  ''
+                else
+                  ""
+              }
             };
 
             fragment@3 {
               target = <0x03>;
 
-              __dormant__ {
-                data-lanes = <0x01 0x02 0x03 0x04>;
-              };
+              ${
+                if cfg.lanes == 4 then
+                  ''
+                    __overlay__ {
+                      data-lanes = <0x01 0x02 0x03 0x04>;
+                    };
+                  ''
+                else
+                  ""
+              }
             };
 
             fragment@4 {
@@ -120,21 +144,34 @@ in
             fragment@7 {
               target = <0x02>;
 
-              __overlay__ {
-                data-lanes = <0x01 0x02>;
-              };
+              ${
+                if cfg.lanes == 2 then
+                  ''
+                    __overlay__ {
+                      data-lanes = <0x01 0x02>;
+                    };
+                  ''
+                else
+                  ""
+              }
             };
 
             fragment@8 {
               target = <0x02>;
 
-              __dormant__ {
-                data-lanes = <0x01 0x02 0x03 0x04>;
-              };
+              ${
+                if cfg.lanes == 4 then
+                  ''
+                    __overlay__ {
+                      data-lanes = <0x01 0x02 0x03 0x04>;
+                    };
+                  ''
+                else
+                  ""
+              }
             };
 
             __overrides__ {
-              4lane = "\0\0\0\0-2+3-7+8";
               link-frequency = [00 00 00 03 6c 69 6e 6b 2d 66 72 65 71 75 65 6e 63 69 65 73 23 30 00];
             };
 
