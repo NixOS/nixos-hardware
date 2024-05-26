@@ -94,8 +94,10 @@ See code for all available configurations.
 | [Asus ROG Zephyrus G15 GA503](asus/zephyrus/ga503)                     | `<nixos-hardware/asus/zephyrus/ga503>`                  |
 | [Asus ROG Zephyrus M16 GU603H](asus/zephyrus/gu603h)                   | `<nixos-hardware/asus/zephyrus/gu603h>`                 |
 | [Asus TUF FX504GD](asus/fx504gd)                                       | `<nixos-hardware/asus/fx504gd>`                         |
+| [Asus TUF FX506HM](asus/fx506hm)                                       | `<nixos-hardware/asus/fx506hm>`                         |
 | [Asus TUF FA507RM](asus/fa507rm)                                       | `<nixos-hardware/asus/fa507rm>`                         |
 | [Asus TUF FA507NV](asus/fa507nv)                                       | `<nixos-hardware/asus/fa507nv>`                         |
+| [Asus Zenbook Flip S13 UX371](asus/zenbook/ux371/)                     | `<nixos-hardware/asus/zenbook/ux371>`                   |
 | [BeagleBoard PocketBeagle](beagleboard/pocketbeagle)                   | `<nixos-hardware/beagleboard/pocketbeagle>`             |
 | [Deciso DEC series](deciso/dec)                                        | `<nixos-hardware/deciso/dec>`                           |
 | [Dell G3 3779](dell/g3/3779)                                           | `<nixos-hardware/dell/g3/3779>`                         |
@@ -164,6 +166,7 @@ See code for all available configurations.
 | [HP Elitebook 845g8](hp/elitebook/845/g8)                              | `<nixos-hardware/hp/elitebook/845/g8>`                  |
 | [HP Elitebook 845g9](hp/elitebook/845/g9)                              | `<nixos-hardware/hp/elitebook/845/g9>`                  |
 | [HP Notebook 14-df0023](hp/notebook/14-df0023)                         | `<nixos-hardware/hp/notebook/14-df0023>`                |
+| [Huawei Matebook X Pro (2020)](huawei/machc-wa)                        | `<nixos-hardware/huawei/machc-wa>`                      |
 | [i.MX8QuadMax Multisensory Enablement Kit](nxp/imx8qm-mek/)            | `<nixos-hardware/nxp/imx8qm-mek>`                       |
 | [Intel NUC 8i7BEH](intel/nuc/8i7beh/)                                  | `<nixos-hardware/intel/nuc/8i7beh>`                     |
 | [Lenovo IdeaPad Gaming 3 15arh05](lenovo/ideapad/15arh05)              | `<nixos-hardware/lenovo/ideapad/15arh05>`               |
@@ -268,6 +271,7 @@ See code for all available configurations.
 | [Microsoft Surface Laptop (AMD)](microsoft/surface/surface-laptop-amd) | `<nixos-hardware/microsoft/surface/surface-laptop-amd>` |
 | [Microsoft Surface Range (Common Modules)](microsoft/surface/common)   | `<nixos-hardware/microsoft/surface/common>`             |
 | [Microsoft Surface Pro 3](microsoft/surface-pro/3)                     | `<nixos-hardware/microsoft/surface-pro/3>`              |
+| [Microsoft Surface Pro 9](microsoft/surface-pro/9)                     | `<nixos-hardware/microsoft/surface-pro/9>`              |
 | [Morefine M600](morefine/m600)                                         | `<nixos-hardware/morefine/m600>`                        |
 | [NXP iMX8 MPlus Evaluation Kit](nxp/imx8mp-evk)                        | `<nixos-hardware/nxp/imx8mp-evk>`                       |
 | [NXP iMX8 MQuad Evaluation Kit](nxp/imx8mq-evk)                        | `<nixos-hardware/nxp/imx8mq-evk>`                       |
