@@ -18,6 +18,7 @@
       asus-battery = import ./asus/battery.nix;
       asus-ally-rc71l = import ./asus/ally/rc71l;
       asus-fx504gd = import ./asus/fx504gd;
+      asus-fx506hm = import ./asus/fx506hm;
       asus-fa507nv = import ./asus/fa507nv;
       asus-fa507rm = import ./asus/fa507rm;
       asus-pro-ws-x570-ace = import ./asus/pro-ws-x570-ace;
@@ -47,6 +48,7 @@
       dell-poweredge-r7515 = import ./dell/poweredge/r7515;
       dell-precision-3541 = import ./dell/precision/3541;
       dell-precision-5530 = import ./dell/precision/5530;
+      dell-precision-7520 = import ./dell/precision/7520;
       dell-xps-13-7390 = import ./dell/xps/13-7390;
       dell-xps-13-9300 = import ./dell/xps/13-9300;
       dell-xps-13-9310 = import ./dell/xps/13-9310;
@@ -69,6 +71,7 @@
       dell-xps-15-9560 = import ./dell/xps/15-9560;
       dell-xps-15-9560-intel = import ./dell/xps/15-9560/intel;
       dell-xps-15-9560-nvidia = import ./dell/xps/15-9560/nvidia;
+      dell-xps-15-9570 = import ./dell/xps/15-9570;
       dell-xps-15-9570-intel = import ./dell/xps/15-9570/intel;
       dell-xps-15-9570-nvidia = import ./dell/xps/15-9570/nvidia;
       dell-xps-17-9700-intel = import ./dell/xps/17-9700/intel;
@@ -94,6 +97,7 @@
       hp-elitebook-845g7 = import ./hp/elitebook/845/g7;
       hp-elitebook-845g8 = import ./hp/elitebook/845/g8;
       hp-elitebook-845g9 = import ./hp/elitebook/845/g9;
+      huawei-machc-wa = import ./huawei/machc-wa;
       hp-notebook-14-df0023 = import ./hp/notebook/14-df0023;
       intel-nuc-8i7beh = import ./intel/nuc/8i7beh;
       lenovo-ideapad-15arh05 = import ./lenovo/ideapad/15arh05;
@@ -111,6 +115,7 @@
       lenovo-legion-16arha7 = import ./lenovo/legion/16arha7;
       lenovo-legion-16ithg6 = import ./lenovo/legion/16ithg6;
       lenovo-legion-16irx8h = import ./lenovo/legion/16irx8h;
+      lenovo-legion-t526amr5 = import ./lenovo/legion/t526amr5;
       lenovo-legion-y530-15ich = import ./lenovo/legion/15ich;
       lenovo-thinkpad = import ./lenovo/thinkpad;
       lenovo-thinkpad-a475 = import ./lenovo/thinkpad/a475;
@@ -125,7 +130,10 @@
       lenovo-thinkpad-l480 = import ./lenovo/thinkpad/l480;
       lenovo-thinkpad-p1 = import ./lenovo/thinkpad/p1;
       lenovo-thinkpad-p1-gen3 = import ./lenovo/thinkpad/p1/3th-gen;
+      lenovo-thinkpad-p14s-amd-gen1 = import ./lenovo/thinkpad/p14s/amd/gen1;
       lenovo-thinkpad-p14s-amd-gen2 = import ./lenovo/thinkpad/p14s/amd/gen2;
+      lenovo-thinkpad-p14s-amd-gen3 = import ./lenovo/thinkpad/p14s/amd/gen3;
+      lenovo-thinkpad-p14s-amd-gen4 = import ./lenovo/thinkpad/p14s/amd/gen4;
       lenovo-thinkpad-p16s-amd-gen1 = import ./lenovo/thinkpad/p16s/amd/gen1;
       lenovo-thinkpad-p50 = import ./lenovo/thinkpad/p50;
       lenovo-thinkpad-p51 = import ./lenovo/thinkpad/p51;
@@ -135,6 +143,7 @@
       lenovo-thinkpad-t14-amd-gen1 = import ./lenovo/thinkpad/t14/amd/gen1;
       lenovo-thinkpad-t14-amd-gen2 = import ./lenovo/thinkpad/t14/amd/gen2;
       lenovo-thinkpad-t14-amd-gen3 = import ./lenovo/thinkpad/t14/amd/gen3;
+      lenovo-thinkpad-t14-amd-gen4 = import ./lenovo/thinkpad/t14/amd/gen4;
       lenovo-thinkpad-t14s = import ./lenovo/thinkpad/t14s;
       lenovo-thinkpad-t14s-amd-gen1 = import ./lenovo/thinkpad/t14s/amd/gen1;
       lenovo-thinkpad-t410 = import ./lenovo/thinkpad/t410;
@@ -206,6 +215,7 @@
       nxp-imx8qm-mek = import ./nxp/imx8qm-mek;
       hardkernel-odroid-hc4 = import ./hardkernel/odroid-hc4;
       hardkernel-odroid-h3 = import ./hardkernel/odroid-h3;
+      omen-14-fb0798ng = import ./omen/14-fb0798ng;
       omen-15-en0010ca = import ./omen/15-en0010ca;
       omen-16-n0005ne = import ./omen/16-n0005ne;
       omen-15-en1007sa = import ./omen/15-en1007sa;
@@ -242,6 +252,7 @@
 
       common-cpu-amd = import ./common/cpu/amd;
       common-cpu-amd-pstate = import ./common/cpu/amd/pstate.nix;
+      common-cpu-amd-zenpower = import ./common/cpu/amd/zenpower.nix;
       common-cpu-amd-raphael-igpu = import ./common/cpu/amd/raphael/igpu.nix;
       common-cpu-intel = import ./common/cpu/intel;
       common-cpu-intel-comet-lake = import ./common/cpu/intel/comet-lake;
