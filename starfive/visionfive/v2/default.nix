@@ -25,9 +25,4 @@
 
   hardware.deviceTree.name =
     lib.mkDefault "starfive/jh7110-starfive-visionfive-2-v1.3b.dtb";
-
-  hardware.deviceTree.overlays = [{
-    name = "qspi-patch";
-    dtsFile = ./qspi-patch.dts;
-  }];
 }
