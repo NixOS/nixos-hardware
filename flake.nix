@@ -18,11 +18,13 @@
       asus-battery = import ./asus/battery.nix;
       asus-ally-rc71l = import ./asus/ally/rc71l;
       asus-fx504gd = import ./asus/fx504gd;
+      asus-fx506hm = import ./asus/fx506hm;
       asus-fa507nv = import ./asus/fa507nv;
       asus-fa507rm = import ./asus/fa507rm;
       asus-pro-ws-x570-ace = import ./asus/pro-ws-x570-ace;
       asus-rog-strix-g513im = import ./asus/rog-strix/g513im;
       asus-rog-strix-g733qs = import ./asus/rog-strix/g733qs;
+      asus-zenbook-ux371 = import ./asus/zenbook/ux371;
       asus-zephyrus-ga401 = import ./asus/zephyrus/ga401;
       asus-zephyrus-ga402 = import ./asus/zephyrus/ga402;
       asus-zephyrus-ga402x = import ./asus/zephyrus/ga402x;
@@ -96,6 +98,7 @@
       hp-elitebook-845g7 = import ./hp/elitebook/845/g7;
       hp-elitebook-845g8 = import ./hp/elitebook/845/g8;
       hp-elitebook-845g9 = import ./hp/elitebook/845/g9;
+      huawei-machc-wa = import ./huawei/machc-wa;
       hp-notebook-14-df0023 = import ./hp/notebook/14-df0023;
       intel-nuc-8i7beh = import ./intel/nuc/8i7beh;
       lenovo-ideapad-15arh05 = import ./lenovo/ideapad/15arh05;
@@ -103,6 +106,7 @@
       lenovo-ideapad-slim-5 = import ./lenovo/ideapad/slim-5;
       lenovo-ideapad-s145-15api = import ./lenovo/ideapad/s145-15api;
       lenovo-legion-15ach6 = import ./lenovo/legion/15ach6;
+      lenovo-legion-15ach6h = import ./lenovo/legion/15ach6h;
       lenovo-legion-15arh05h = import ./lenovo/legion/15arh05h;
       lenovo-legion-16ach6h = import ./lenovo/legion/16ach6h;
       lenovo-legion-16ach6h-hybrid = import ./lenovo/legion/16ach6h/hybrid;
@@ -201,6 +205,7 @@
       microsoft-surface-laptop-amd = import ./microsoft/surface/surface-laptop-amd;
       microsoft-surface-common = import ./microsoft/surface/common;
       microsoft-surface-pro-3 = import ./microsoft/surface-pro/3;
+      microsoft-surface-pro-9 = import ./microsoft/surface-pro/9;
       milkv-pioneer = import ./milkv/pioneer;
       morefine-m600 = import ./morefine/m600;
       msi-b350-tomahawk = import ./msi/b350-tomahawk;
