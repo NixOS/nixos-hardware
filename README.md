@@ -169,6 +169,7 @@ See code for all available configurations.
 | [Huawei Matebook X Pro (2020)](huawei/machc-wa)                        | `<nixos-hardware/huawei/machc-wa>`                      |
 | [i.MX8QuadMax Multisensory Enablement Kit](nxp/imx8qm-mek/)            | `<nixos-hardware/nxp/imx8qm-mek>`                       |
 | [Intel NUC 8i7BEH](intel/nuc/8i7beh/)                                  | `<nixos-hardware/intel/nuc/8i7beh>`                     |
+| [Lenovo IdeaPad 3 15alc6](lenovo/ideapad/15alc6)                       | `<nixos-hardware/lenovo/ideapad/15alc06>`               |
 | [Lenovo IdeaPad Gaming 3 15arh05](lenovo/ideapad/15arh05)              | `<nixos-hardware/lenovo/ideapad/15arh05>`               |
 | [Lenovo IdeaPad Z510](lenovo/ideapad/z510)                             | `<nixos-hardware/lenovo/ideapad/z510>`                  |
 | [Lenovo IdeaPad Slim 5](lenovo/ideapad/slim-5)                         | `<nixos-hardware/lenovo/ideapad/slim-5>`                |
