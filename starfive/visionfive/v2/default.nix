@@ -18,7 +18,4 @@
       generic-extlinux-compatible.enable = lib.mkDefault true;
     };
   };
-
-  hardware.deviceTree.name =
-    lib.mkDefault "starfive/jh7110-starfive-visionfive-2-v1.3b.dtb";
 }
