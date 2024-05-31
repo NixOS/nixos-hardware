@@ -54,19 +54,6 @@ Build the sd image.
 nix build .#
 ```
 
-## Additional configuration
-Additional configuration may be needed depending on your specific hardware configuration.
-
-### 8GB memory
-If your board has 8GB of RAM add the following to your config:
-
-``` nix
-hardware.deviceTree.overlays = [{
-  name = "8GB-patch";
-  dtsFile = "${nixos-hardware}/starfive/visionfive/v2/8gb-patch.dts";
-}];
-```
-
 # Updating the bootloader
 ## SD-Card
 Install the firmware update script
