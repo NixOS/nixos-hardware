@@ -1,21 +1,36 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   boot = {
-    # Force no ZFS (from nixos/modules/profiles/base.nix) until updated to kernel 6.0
-    supportedFilesystems =
-      lib.mkForce [ "btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" ];
     consoleLogLevel = lib.mkDefault 7;
-    kernelPackages = lib.mkDefault (pkgs.callPackage ./linux-6.6.nix {
-      inherit (config.boot) kernelPatches;
-    });
-
-    kernelParams =
-      lib.mkDefault [ "console=tty0" "console=ttyS0,115200n8" "earlycon=sbi" ];
+    # Switch to default as soon they reach >= 6.11
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
     initrd.availableKernelModules = [ "dw_mmc_starfive" ];
+
+    # Support booting SD-image from NVME SSD
+    initrd.kernelModules = [
+      "clk-starfive-jh7110-aon"
+      "clk-starfive-jh7110-stg"
+      "phy-jh7110-pcie"
+      "pcie-starfive"
+      "nvme"
+    ];
 
     loader = {
       grub.enable = lib.mkDefault false;
       generic-extlinux-compatible.enable = lib.mkDefault true;
     };
   };
+
+  assertions = [
+    {
+      assertion = lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.11";
+      message = "The VisionFive 2 requires at least mainline kernel version 6.11 for minimum hardware support.";
+    }
+  ];
 }
