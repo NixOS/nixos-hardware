@@ -15,7 +15,6 @@
       apple-macbook-pro-14-1 = import ./apple/macbook-pro/14-1;
       apple-macmini-4-1 = import ./apple/macmini/4;
       apple-t2 = import ./apple/t2;
-      asus-battery = import ./asus/battery.nix;
       asus-ally-rc71l = import ./asus/ally/rc71l;
       asus-fx504gd = import ./asus/fx504gd;
       asus-fa507nv = import ./asus/fa507nv;
@@ -259,6 +258,7 @@
       common-pc-hdd = import ./common/pc/hdd;
       common-pc-laptop = import ./common/pc/laptop;
       common-pc-laptop-acpi_call = import ./common/pc/laptop/acpi_call.nix;
+      common-pc-laptop-battery = import ./common/pc/laptop/battery.nix;
       common-pc-laptop-hdd = import ./common/pc/laptop/hdd;
       common-pc-laptop-ssd = import ./common/pc/ssd;
       common-pc-ssd = import ./common/pc/ssd;
