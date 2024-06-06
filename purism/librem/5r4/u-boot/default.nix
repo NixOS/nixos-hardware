@@ -51,6 +51,7 @@ let
       rev = "956aa590c93977992743b41c45d3c7ee5a024915"; # this is the latest commit on the upstream/librem5 branch
       hash = "sha256-MsIIlarN+WFFEzc0ptLAgS7BwJ6Cosy42xo0EwPn1AU=";
     };
+    patches = [];
     BL31 = "${arm-trusted-firmware-imx8mq}/bl31.bin";
     preConfigure = ''
       cp $BL31 .
