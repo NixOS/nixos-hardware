@@ -5,11 +5,11 @@ let
   patchRepo = fetchFromGitHub {
     owner = "t2linux";
     repo = "linux-t2-patches";
-    rev = "48429c87a9a7fa7ea6b328da46ef1ea8725c31da";
-    hash = "sha256-KK5DjQPjBq7dRCLckagxigyHlRtantJ51bnHFCLfbxU=";
+    rev = "33d5a01c41f140a416a7f840cc06e7f30dc58d8d";
+    hash = "sha256-wx5jkOQ8l/4XRGLV9KFrxXuqunwcFA9RB1yhrtseP2A=";
   };
 
-  version = "6.9.2";
+  version = "6.9.3";
   majorVersion = with lib; (elemAt (take 1 (splitVersion version)) 0);
 in
 buildLinux (args // {
@@ -22,7 +22,7 @@ buildLinux (args // {
   src = runCommand "patched-source" {} ''
     cp -r ${fetchzip {
       url = "mirror://kernel/linux/kernel/v${majorVersion}.x/linux-${version}.tar.xz";
-      hash = "sha256-8SyfBmjLSWsBPvboCMh4qBAjaQ7yPT+AvMd3FTeYzMM=";
+      hash = "sha256-7262WHO2veIn+9cd4m9io1ov93LsfpgRKfmvBx0DCBA=";
     }} $out
     chmod -R u+w $out
     cd $out
@@ -35,6 +35,7 @@ buildLinux (args // {
   structuredExtraConfig = with lib.kernel; {
     APPLE_BCE = module;
     APPLE_GMUX = module;
+    APFS_FS = module;
     BRCMFMAC = module;
     BT_BCM = module;
     BT_HCIBCM4377 = module;
