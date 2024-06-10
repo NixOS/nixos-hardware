@@ -4,6 +4,7 @@
   imports = [
     ./audio.nix
     ./backlight.nix
+    ./bluetooth.nix
     ./cpu-revision.nix
     ./digi-amp-plus.nix
     ./dwc2.nix
