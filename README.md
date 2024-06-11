@@ -99,6 +99,7 @@ See code for all available configurations.
 | [Asus TUF FA507NV](asus/fa507nv)                                       | `<nixos-hardware/asus/fa507nv>`                         |
 | [Asus Zenbook Flip S13 UX371](asus/zenbook/ux371/)                     | `<nixos-hardware/asus/zenbook/ux371>`                   |
 | [BeagleBoard PocketBeagle](beagleboard/pocketbeagle)                   | `<nixos-hardware/beagleboard/pocketbeagle>`             |
+| [Chuwi MiniBook X](chuwi/minibook-x)                                   | `<nixos-hardware/chuwi/minibook-x>`                     |
 | [Deciso DEC series](deciso/dec)                                        | `<nixos-hardware/deciso/dec>`                           |
 | [Dell G3 3779](dell/g3/3779)                                           | `<nixos-hardware/dell/g3/3779>`                         |
 | [Dell Inspiron 14 5420](dell/inspiron/14-5420)                         | `<nixos-hardawre/dell/inspiron/14-5420>`                |
