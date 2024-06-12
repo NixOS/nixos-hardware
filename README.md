@@ -99,6 +99,7 @@ See code for all available configurations.
 | [Asus TUF FA507NV](asus/fa507nv)                                       | `<nixos-hardware/asus/fa507nv>`                         |
 | [Asus Zenbook Flip S13 UX371](asus/zenbook/ux371/)                     | `<nixos-hardware/asus/zenbook/ux371>`                   |
 | [BeagleBoard PocketBeagle](beagleboard/pocketbeagle)                   | `<nixos-hardware/beagleboard/pocketbeagle>`             |
+| [Chuwi MiniBook X](chuwi/minibook-x)                                   | `<nixos-hardware/chuwi/minibook-x>`                     |
 | [Deciso DEC series](deciso/dec)                                        | `<nixos-hardware/deciso/dec>`                           |
 | [Dell G3 3779](dell/g3/3779)                                           | `<nixos-hardware/dell/g3/3779>`                         |
 | [Dell Inspiron 14 5420](dell/inspiron/14-5420)                         | `<nixos-hardawre/dell/inspiron/14-5420>`                |
@@ -171,6 +172,7 @@ See code for all available configurations.
 | [Intel NUC 8i7BEH](intel/nuc/8i7beh/)                                  | `<nixos-hardware/intel/nuc/8i7beh>`                     |
 | [Lenovo IdeaPad 3 15alc6](lenovo/ideapad/15alc6)                       | `<nixos-hardware/lenovo/ideapad/15alc6>`                |
 | [Lenovo IdeaPad Gaming 3 15arh05](lenovo/ideapad/15arh05)              | `<nixos-hardware/lenovo/ideapad/15arh05>`               |
+| [Lenovo IdeaPad 5 Pro 16ach6](lenovo/ideapad/16ach6)                   | `<nixos-hardware/lenovo/ideapad/16ach6>`                |
 | [Lenovo IdeaPad Z510](lenovo/ideapad/z510)                             | `<nixos-hardware/lenovo/ideapad/z510>`                  |
 | [Lenovo IdeaPad Slim 5](lenovo/ideapad/slim-5)                         | `<nixos-hardware/lenovo/ideapad/slim-5>`                |
 | [Lenovo IdeaPad S145 15api](lenovo/ideapad/s145-15api)                 | `<nixos-hardware/lenovo/ideapad/s145-15api>`            |

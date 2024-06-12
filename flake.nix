@@ -32,6 +32,7 @@
       asus-zephyrus-ga503 = import ./asus/zephyrus/ga503;
       asus-zephyrus-gu603h = import ./asus/zephyrus/gu603h;
       beagleboard-pocketbeagle = import ./beagleboard/pocketbeagle;
+      chuwi-minibook-x = import ./chuwi/minibook-x;
       deciso-dec = import ./deciso/dec;
       dell-e7240 = import ./dell/e7240;
       dell-g3-3779 = import ./dell/g3/3779;
@@ -103,6 +104,7 @@
       intel-nuc-8i7beh = import ./intel/nuc/8i7beh;
       lenovo-ideapad-15alc6 = import ./lenovo/ideapad/15alc6;
       lenovo-ideapad-15arh05 = import ./lenovo/ideapad/15arh05;
+      lenovo-ideapad-16ach6 = import ./lenovo/ideapad/16ach6;
       lenovo-ideapad-z510 = import ./lenovo/ideapad/z510;
       lenovo-ideapad-slim-5 = import ./lenovo/ideapad/slim-5;
       lenovo-ideapad-s145-15api = import ./lenovo/ideapad/s145-15api;
