@@ -89,6 +89,7 @@
       friendlyarm-nanopc-t4 = import ./friendlyarm/nanopc-t4;
       friendlyarm-nanopi-r5s = import ./friendlyarm/nanopi-r5s;
       focus-m2-gen1 = import ./focus/m2/gen1;
+      gigabyte-b550 = import ./gigabyte/b550;
       google-pixelbook = import ./google/pixelbook;
       gpd-micropc = import ./gpd/micropc;
       gpd-p2-max = import ./gpd/p2-max;
