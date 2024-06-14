@@ -26,7 +26,7 @@
     };
     serviceConfig = {
       User            = "root";
-      ExecStart       = "-${pkgs.bash}/bin/bash -c 'if grep 'GPP8' /proc/acpi/wakeup | grep -q 'enabled'; then echo 'GPP8' > /proc/acpi/wakeup; fi''";
+      ExecStart       = "-${pkgs.bash}/bin/bash -c 'if grep 'GPP8' /proc/acpi/wakeup | grep -q 'enabled'; then echo 'GPP8' > /proc/acpi/wakeup; fi'";
       RemainAfterExit = "yes";
     };
     wantedBy = ["multi-user.target"];
