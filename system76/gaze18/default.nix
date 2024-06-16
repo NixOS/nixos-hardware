@@ -6,9 +6,9 @@
   boot.initrd.kernelModules = [ "nvidia" ];
 
   hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
+    enable = lib.mkDefault true;
+    driSupport = lib.mkDefault true;
+    driSupport32Bit = lib.mkDefault true;
     extraPackages = with pkgs; [
       vaapiVdpau
     ];
@@ -18,11 +18,11 @@
 
   hardware.nvidia = {
 
-    modesetting.enable = true;
+    modesetting.enable = lib.mkDefault true;
 
-    powerManagement.finegrained = true;
+    powerManagement.finegrained = lib.mkDefault true;
 
-    nvidiaSettings = true;
+    nvidiaSettings = lib.mkDefault true;
 
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     prime = {
@@ -30,7 +30,7 @@
       nvidiaBusId = "PCI:1:0:0";
       offload = {
         enable = true;
-        enableOffloadCmd = true;
+        enableOffloadCmd = lib.mkDefault true;
       };
     };
   };
