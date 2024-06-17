@@ -6,7 +6,6 @@ let
 in {
   imports = [
     ./kernel
-    ./ipts
     ./surface-control
   ];
 
