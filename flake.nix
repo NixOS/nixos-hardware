@@ -205,12 +205,12 @@
       lenovo-yoga-7-slim-gen8 = import ./lenovo/yoga/7/slim/gen8;
       letsnote-cf-lx4 = import ./panasonic/letsnote/cf-lx4;
       microchip-icicle-kit = import ./microchip/icicle-kit;
-      microsoft-surface-go = import ./microsoft/surface/surface-go;
-      microsoft-surface-pro-intel = import ./microsoft/surface/surface-pro-intel;
-      microsoft-surface-laptop-amd = import ./microsoft/surface/surface-laptop-amd;
+      microsoft-surface-go = import ./microsoft/surface/go;
+      microsoft-surface-pro-intel = import ./microsoft/surface/pro/intel;
+      microsoft-surface-laptop-amd = import ./microsoft/surface/laptop-amd;
       microsoft-surface-common = import ./microsoft/surface/common;
-      microsoft-surface-pro-3 = import ./microsoft/surface-pro/3;
-      microsoft-surface-pro-9 = import ./microsoft/surface-pro/9;
+      microsoft-surface-pro-3 = import ./microsoft/surface/pro/intel/laptop;
+      microsoft-surface-pro-9 = import ./microsoft/surface/pro/9;
       milkv-pioneer = import ./milkv/pioneer;
       morefine-m600 = import ./morefine/m600;
       msi-b350-tomahawk = import ./msi/b350-tomahawk;

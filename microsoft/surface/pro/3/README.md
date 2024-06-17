@@ -1,3 +1,5 @@
+**Note: Deprecated. These instructions may be used, but use surface pro intel module instead.**
+
 Work in progress. This is the setup for a dual-boot windows/NixOS. 
 
 == Installation ==

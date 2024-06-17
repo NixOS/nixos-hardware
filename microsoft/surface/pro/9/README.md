@@ -1,4 +1,5 @@
 # Microsoft Surface Pro 9
+effectively just a regular intel device, except with PSR disabled.
 
 ## Note on Intel Panel Self Refresh (PSR)
 
