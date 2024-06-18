@@ -13,7 +13,6 @@ with lib;
     ../../../../common/pc/ssd
     # The Intel CPU module auto-includes Intel's GPU:
     ../../../../common/cpu/intel
-    ../../../../common/pc/laptop
   ];
 
   services.iptsd.enable = mkDefault true;
