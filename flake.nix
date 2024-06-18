@@ -209,7 +209,6 @@
       microsoft-surface-pro-intel = import ./microsoft/surface/pro/intel;
       microsoft-surface-laptop-amd = import ./microsoft/surface/laptop-amd;
       microsoft-surface-common = import ./microsoft/surface/common;
-      microsoft-surface-pro-3 = import ./microsoft/surface/pro/intel;
       microsoft-surface-pro-9 = import ./microsoft/surface/pro/9;
       milkv-pioneer = import ./milkv/pioneer;
       morefine-m600 = import ./morefine/m600;

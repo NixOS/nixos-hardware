@@ -47,3 +47,6 @@ maybe not the best custodian of this code any longer.
 
 However, hopefully the (imminent) `surface-go/` module is a reasonable exmample, and we should be
 able to gather more examples for more model specialisations over time.
+
+The Surface Pro 3 configuration was just a link to the intel configuration, and thus has been removed.
+Please use the intel configuration from now on.

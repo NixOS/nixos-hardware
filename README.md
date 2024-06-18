@@ -274,7 +274,6 @@ See code for all available configurations.
 | [Microsoft Surface Pro (Intel)](microsoft/surface/pro/intel)   | `<nixos-hardware/microsoft/surface/pro/intel>`  |
 | [Microsoft Surface Laptop (AMD)](microsoft/surface/laptop-amd) | `<nixos-hardware/microsoft/surface/laptop-amd>` |
 | [Microsoft Surface Range (Common Modules)](microsoft/surface/common)   | `<nixos-hardware/microsoft/surface/common>`             |
-| [Microsoft Surface Pro 3](microsoft/surface/pro/3)                     | `<nixos-hardware/microsoft/surface/pro/intel>`              |
 | [Microsoft Surface Pro 9](microsoft/surface/pro/9)                     | `<nixos-hardware/microsoft/surface/pro/9>`              |
 | [Morefine M600](morefine/m600)                                         | `<nixos-hardware/morefine/m600>`                        |
 | [NXP iMX8 MPlus Evaluation Kit](nxp/imx8mp-evk)                        | `<nixos-hardware/nxp/imx8mp-evk>`                       |
