@@ -4,6 +4,9 @@
     ../.
     ../../common/gpu/nvidia/prime.nix
   ];
+
+  boot.initrd.kernelModules = [ "nvidia" ];
+
   hardware.opengl = {
     enable = lib.mkDefault true;
     driSupport = lib.mkDefault true;
@@ -12,7 +15,7 @@
 
   hardware.nvidia = {
 
-    modesetting.enable = lib.mkDefault true;
+    # modesetting.enable = lib.mkDefault true;
 
     powerManagement.finegrained = lib.mkDefault true;
 
