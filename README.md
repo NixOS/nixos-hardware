@@ -65,6 +65,10 @@ you can easily pin to a particular revision if you desire more stability.
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
+## Get in touch
+
+For questions and discussions, come join us in the [nixos-anywhere matrix](https://matrix.to/#/#nixos-hardware:nixos.org) room.
+
 ## List of Profiles
 
 See code for all available configurations.
