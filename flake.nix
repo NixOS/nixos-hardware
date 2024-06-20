@@ -262,10 +262,13 @@
       common-cpu-amd-zenpower = import ./common/cpu/amd/zenpower.nix;
       common-cpu-amd-raphael-igpu = import ./common/cpu/amd/raphael/igpu.nix;
       common-cpu-intel = import ./common/cpu/intel;
-      common-cpu-intel-comet-lake = import ./common/cpu/intel/comet-lake;
       common-cpu-intel-cpu-only = import ./common/cpu/intel/cpu-only.nix;
+      common-cpu-intel-comet-lake = import ./common/cpu/intel/comet-lake;
+      common-cpu-intel-elkhart-lake = import ./common/cpu/intel/elkhart-lake;
+      common-cpu-intel-jasper-lake = import ./common/cpu/intel/jasper-lake;
       common-cpu-intel-kaby-lake = import ./common/cpu/intel/kaby-lake;
       common-cpu-intel-sandy-bridge = import ./common/cpu/intel/sandy-bridge;
+      common-cpu-intel-tiger-lake = import ./common/cpu/intel/tiger-lake;
       common-gpu-amd = import ./common/gpu/amd;
       common-gpu-amd-sea-islands = import ./common/gpu/amd/sea-islands;
       common-gpu-amd-southern-islands = import ./common/gpu/amd/southern-islands;
