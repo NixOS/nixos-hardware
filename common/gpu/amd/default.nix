@@ -6,11 +6,6 @@
   ) // {
     default = true;
   };
-  options.hardware.amdgpu.opencl = lib.mkEnableOption (lib.mdDoc
-    "rocm opencl runtime (Install rocmPackages.clr and rocmPackages.clr.icd)"
-  ) // {
-    default = true;
-  };
 
   config = lib.mkMerge [
     {
@@ -23,12 +18,6 @@
     }
     (lib.mkIf config.hardware.amdgpu.loadInInitrd {
       boot.initrd.kernelModules = [ "amdgpu" ];
-    })
-    (lib.mkIf config.hardware.amdgpu.opencl {
-      hardware.opengl.extraPackages =
-        if pkgs ? rocmPackages.clr
-        then with pkgs.rocmPackages; [ clr clr.icd ]
-        else with pkgs; [ rocm-opencl-icd rocm-opencl-runtime ];
     })
   ];
 }
