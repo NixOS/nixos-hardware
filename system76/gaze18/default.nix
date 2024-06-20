@@ -9,6 +9,7 @@
 
   hardware.opengl = {
     enable = lib.mkDefault true;
+    # adds ~100MB of 32-bit mesa drivers.
     driSupport32Bit = lib.mkDefault true;
   };
 
