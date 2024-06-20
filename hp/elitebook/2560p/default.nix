@@ -7,7 +7,6 @@ with lib;
     ../../../common/pc
     ../../../common/pc/laptop
     ../../../common/pc/laptop/hdd
-    ../../../common/pc/hdd
 
     ./network.nix
   ];
