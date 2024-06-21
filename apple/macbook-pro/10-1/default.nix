@@ -4,6 +4,7 @@
   imports = [
     ../.
     ../../../common/pc/laptop/ssd
+    ../../../common/gpu/24.05-compat.nix
   ];
 
   # TODO: reverse compat

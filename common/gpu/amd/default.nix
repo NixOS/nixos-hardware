@@ -7,6 +7,7 @@
     default = true;
   };
 
+  imports = [ ../24.05-compat.nix ];
   config = lib.mkMerge [
     {
       services.xserver.videoDrivers = lib.mkDefault [ "modesetting" ];
