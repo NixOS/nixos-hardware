@@ -5,11 +5,11 @@ let
   patchRepo = fetchFromGitHub {
     owner = "t2linux";
     repo = "linux-t2-patches";
-    rev = "33d5a01c41f140a416a7f840cc06e7f30dc58d8d";
-    hash = "sha256-wx5jkOQ8l/4XRGLV9KFrxXuqunwcFA9RB1yhrtseP2A=";
+    rev = "0ad2b3913f5484ba8e86b6965f5d88903464261d";
+    hash = "sha256-mwT4cuIBrz3tz8+fAxVKmnRtkPRp3lWmNbocuXCsm44=";
   };
 
-  version = "6.9.3";
+  version = "6.9.4";
   majorVersion = with lib; (elemAt (take 1 (splitVersion version)) 0);
 in
 buildLinux (args // {
@@ -22,7 +22,7 @@ buildLinux (args // {
   src = runCommand "patched-source" {} ''
     cp -r ${fetchzip {
       url = "mirror://kernel/linux/kernel/v${majorVersion}.x/linux-${version}.tar.xz";
-      hash = "sha256-7262WHO2veIn+9cd4m9io1ov93LsfpgRKfmvBx0DCBA=";
+      hash = "sha256-8jC5DpPi6poig1gmJPIIZ2HMwQQt1kTK4PcvyYm+Hsg=";
     }} $out
     chmod -R u+w $out
     cd $out
