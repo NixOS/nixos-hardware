@@ -5,6 +5,7 @@
   ...
 }:
 {
+  imports = [ ../24.05-compat.nix ];
   options.hardware.intelgpu.driver = lib.mkOption {
     description = "Intel GPU driver to use";
     type = lib.types.enum [

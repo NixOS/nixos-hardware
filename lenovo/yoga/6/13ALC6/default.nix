@@ -4,6 +4,7 @@
   imports = [
     ../../../thinkpad/yoga.nix
     ../../../../common/gpu/amd/default.nix
+    ../../../../common/gpu/24.05-compat.nix
   ];
 
   boot.initrd.kernelModules = [ "ideapad_laptop" ];

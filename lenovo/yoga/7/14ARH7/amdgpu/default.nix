@@ -8,6 +8,7 @@ let
 in {
   imports = [
     ../shared.nix
+    ../../../../../common/gpu/24.05-compat.nix
   ];
 
   # AMD RX680

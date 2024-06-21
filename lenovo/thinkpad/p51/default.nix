@@ -1,5 +1,6 @@
 { config, lib, ... }: {
   imports = [
+    ../../../common/gpu/24.05-compat.nix
     ../../../common/gpu/nvidia/prime.nix
     ../../../common/cpu/intel
     ../../../common/cpu/intel/kaby-lake

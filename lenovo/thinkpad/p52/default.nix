@@ -1,5 +1,6 @@
 { lib, config, ... }: {
   imports = [
+    ../../../common/gpu/24.05-compat.nix
     ../../../common/gpu/nvidia/prime.nix
     ../../../common/cpu/intel
     ../../../common/pc/laptop/acpi_call.nix

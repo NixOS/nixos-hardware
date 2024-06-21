@@ -6,6 +6,7 @@ in
 		../../common/pc/laptop
 		../../common/pc/laptop/ssd
     ../../common/hidpi.nix
+    ../../common/gpu/24.05-compat.nix
 	];
 
   # Necessary kernel modules
