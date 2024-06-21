@@ -7,17 +7,17 @@
   ];
 
   hardware = {
+    # is this too much?  It's convenient for Steam.
+    graphics = {
+      enable = lib.mkDefault true;
+      enable32Bit = lib.mkDefault true;
+    };
+
     nvidia = {
       prime = {
         intelBusId = lib.mkDefault "PCI:0:2:0";
         nvidiaBusId = lib.mkDefault "PCI:1:0:0";
       };
-    };
-
-    # is this too much?  It's convenient for Steam.
-    opengl = {
-      driSupport = lib.mkDefault true;
-      driSupport32Bit = lib.mkDefault true;
     };
   };
 

@@ -7,10 +7,9 @@
 
   boot.initrd.kernelModules = [ "nvidia" ];
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = lib.mkDefault true;
-    # adds ~100MB of 32-bit mesa drivers.
-    driSupport32Bit = lib.mkDefault true;
+    enable32Bit = lib.mkDefault true;
   };
 
   hardware.nvidia = {

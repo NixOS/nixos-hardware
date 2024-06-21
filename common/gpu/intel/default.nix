@@ -26,10 +26,10 @@
     boot.initrd.kernelModules = [ config.hardware.intelgpu.driver ];
 
     environment.variables = {
-      VDPAU_DRIVER = lib.mkIf config.hardware.opengl.enable (lib.mkDefault "va_gl");
+      VDPAU_DRIVER = lib.mkIf config.hardware.graphics.enable (lib.mkDefault "va_gl");
     };
 
-    hardware.opengl.extraPackages = with pkgs; [
+    hardware.graphics.extraPackages = with pkgs; [
       (
         if (lib.versionOlder (lib.versions.majorMinor lib.version) "23.11") then
           vaapiIntel
@@ -40,7 +40,7 @@
       intel-media-driver
     ];
 
-    hardware.opengl.extraPackages32 = with pkgs.driversi686Linux; [
+    hardware.graphics.extraPackages32 = with pkgs.driversi686Linux; [
       (
         if (lib.versionOlder (lib.versions.majorMinor lib.version) "23.11") then
           vaapiIntel

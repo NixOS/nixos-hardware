@@ -2,7 +2,7 @@
 
 {
   services.xserver.videoDrivers = lib.mkDefault [ "nvidia" ];
-  hardware.opengl.extraPackages = with pkgs; [
+  hardware.graphics.extraPackages = with pkgs; [
     vaapiVdpau
   ];
 }
