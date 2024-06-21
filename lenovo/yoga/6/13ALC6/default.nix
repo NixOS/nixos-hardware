@@ -7,7 +7,7 @@
   ];
 
   boot.initrd.kernelModules = [ "ideapad_laptop" ];
-  hardware.opengl.extraPackages = with pkgs; [
+  hardware.graphics.extraPackages = with pkgs; [
     vaapiVdpau
     libvdpau-va-gl
   ];

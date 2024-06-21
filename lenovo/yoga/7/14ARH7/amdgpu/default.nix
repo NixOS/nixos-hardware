@@ -15,7 +15,7 @@ in {
 
   hardware = {
     amdgpu.loadInInitrd = true;
-    opengl.extraPackages = with pkgs; [
+    graphics.extraPackages = with pkgs; [
       vaapiVdpau
       libvdpau-va-gl
     ];

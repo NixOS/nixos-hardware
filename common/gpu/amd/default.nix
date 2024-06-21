@@ -11,9 +11,9 @@
     {
       services.xserver.videoDrivers = lib.mkDefault [ "modesetting" ];
 
-      hardware.opengl = {
-        driSupport = lib.mkDefault true;
-        driSupport32Bit = lib.mkDefault true;
+      hardware.graphics = {
+        enable = lib.mkDefault true;
+        enable32Bit = lib.mkDefault true;
       };
     }
     (lib.mkIf config.hardware.amdgpu.loadInInitrd {
