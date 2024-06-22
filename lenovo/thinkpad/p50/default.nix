@@ -13,12 +13,6 @@
         nvidiaBusId = lib.mkDefault "PCI:1:0:0";
       };
     };
-
-    # is this too much?  It's convenient for Steam.
-    opengl = {
-      driSupport = lib.mkDefault true;
-      driSupport32Bit = lib.mkDefault true;
-    };
   };
 
   # required to make wireless work

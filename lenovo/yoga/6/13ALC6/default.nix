@@ -4,10 +4,11 @@
   imports = [
     ../../../thinkpad/yoga.nix
     ../../../../common/gpu/amd/default.nix
+    ../../../../common/gpu/24.05-compat.nix
   ];
 
   boot.initrd.kernelModules = [ "ideapad_laptop" ];
-  hardware.opengl.extraPackages = with pkgs; [
+  hardware.graphics.extraPackages = with pkgs; [
     vaapiVdpau
     libvdpau-va-gl
   ];

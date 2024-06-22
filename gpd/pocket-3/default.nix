@@ -6,6 +6,7 @@ in
 		../../common/pc/laptop
 		../../common/pc/laptop/ssd
     ../../common/hidpi.nix
+    ../../common/gpu/24.05-compat.nix
 	];
 
   # Necessary kernel modules
@@ -14,7 +15,7 @@ in
 	# GPU is an Intel Iris Xe, on a “TigerLake” mobile CPU
 	boot.initrd.kernelModules = [ "i915" ];  # Early loading so the passphrase prompt appears on external displays
 	services.xserver.videoDrivers = [ "intel" ];
-	hardware.opengl.extraPackages = with pkgs; [
+	hardware.graphics.extraPackages = with pkgs; [
 		intel-media-driver
 		(if (lib.versionOlder (lib.versions.majorMinor lib.version) "23.11") then vaapiIntel else intel-vaapi-driver)
 	];

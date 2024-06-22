@@ -8,21 +8,23 @@ in
 {
   imports = [
     ../.
+    ../../../common/gpu/24.05-compat.nix
   ];
 
   services.xserver.videoDrivers = mkDefault [ "nvidiaLegacy340" ];
 
-  hardware.opengl = {
-    enable = mkDefault true;
-    driSupport = mkDefault true;
-    driSupport32Bit = mkDefault true;
-  };
+  hardware = {
+    graphics = {
+      enable = mkDefault true;
+      enable32Bit = mkDefault true;
+    };
 
-  hardware.nvidia = {
-    modesetting.enable = mkDefault true;
-    powerManagement.enable = mkDefault false;
-    powerManagement.finegrained = mkDefault false;
-    open = mkDefault false;
-    nvidiaSettings = mkDefault true;
+    nvidia = {
+      modesetting.enable = mkDefault true;
+      powerManagement.enable = mkDefault false;
+      powerManagement.finegrained = mkDefault false;
+      open = mkDefault false;
+      nvidiaSettings = mkDefault true;
+    };
   };
 }

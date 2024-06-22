@@ -20,9 +20,6 @@
   };
 
   # TODO: reverse compat
-  hardware.opengl.driSupport = false;
-
-  # TODO: reverse compat
   services.xserver = {
     defaultDepth = lib.mkDefault 24;
   };

@@ -1,8 +1,6 @@
 {
   config,
   lib,
-  pkgs,
-  inputs,
   ...
 }: {
   imports = [
@@ -21,25 +19,26 @@
   };
   boot.kernelParams = ["i915.modeset=1"];
 
-  hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.legacy_390;
-    nvidiaSettings = lib.mkDefault true;
-    modesetting.enable = lib.mkDefault true;
-    open = lib.mkDefault false;
-    prime = {
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
+  hardware = {
+    graphics = {
+      enable = lib.mkDefault true;
+      enable32Bit = lib.mkDefault true;
     };
-  };
-  hardware.opengl = {
-    enable = lib.mkDefault true;
-    driSupport = lib.mkDefault true;
-    driSupport32Bit = lib.mkDefault true;
+    nvidia = {
+      package = config.boot.kernelPackages.nvidiaPackages.legacy_390;
+      nvidiaSettings = lib.mkDefault true;
+      modesetting.enable = lib.mkDefault true;
+      open = lib.mkDefault false;
+      prime = {
+        intelBusId = "PCI:0:2:0";
+        nvidiaBusId = "PCI:1:0:0";
+      };
+    };
   };
 
   # Override the intel gpu driver setting imported above
   environment.variables = {
-    VDPAU_DRIVER = lib.mkIf config.hardware.opengl.enable (lib.mkOverride 990 "nvidia");
+    VDPAU_DRIVER = lib.mkIf config.hardware.graphics.enable (lib.mkOverride 990 "nvidia");
   };
 
   services.thermald.enable = lib.mkDefault true;
