@@ -28,10 +28,10 @@
 
   config = {
     hardware.opengl = lib.optionalAttrs (lib.versionOlder lib.version "24.11pre") {
-      enable = config.hardware.graphics.enable;
-      driSupport32Bit = config.hardware.graphics.enable32Bit;
-      extraPackages = config.hardware.graphics.extraPackages;
-      extraPackages32 = config.hardware.graphics.extraPackages32;
+      enable = lib.mkDefault config.hardware.graphics.enable;
+      driSupport32Bit = lib.mkDefault config.hardware.graphics.enable32Bit;
+      extraPackages = lib.mkDefault config.hardware.graphics.extraPackages;
+      extraPackages32 = lib.mkDefault config.hardware.graphics.extraPackages32;
     };
   };
 }
