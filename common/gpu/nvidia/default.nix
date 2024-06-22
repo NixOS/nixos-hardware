@@ -1,8 +1,9 @@
 { lib, pkgs, ... }:
 
 {
+  imports = [ ../24.05-compat.nix ];
   services.xserver.videoDrivers = lib.mkDefault [ "nvidia" ];
-  hardware.opengl.extraPackages = with pkgs; [
+  hardware.graphics.extraPackages = with pkgs; [
     vaapiVdpau
   ];
 }

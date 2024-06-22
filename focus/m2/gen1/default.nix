@@ -18,10 +18,9 @@
   boot.blacklistedKernelModules = [ "i2c_nvidia_gpu" ];
 
   hardware.nvidia.modesetting.enable = lib.mkDefault true;
-  hardware.opengl = {
+  hardware.graphics = {
     enable = lib.mkDefault true;
-    driSupport = lib.mkDefault true;
-    driSupport32Bit = lib.mkDefault true;
+    enable32Bit = lib.mkDefault true;
   };
 
   hardware.nvidia.prime = {

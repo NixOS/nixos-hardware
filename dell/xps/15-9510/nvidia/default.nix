@@ -5,6 +5,11 @@
   services.switcherooControl.enable = lib.mkDefault true;
 
   hardware = {
+    graphics = {
+      enable = lib.mkDefault true;
+      enable32Bit = lib.mkDefault true;
+      extraPackages = with pkgs; [ intel-media-driver intel-compute-runtime ];
+    };
     nvidia = {
       prime = {
         # Bus ID of the Intel GPU.
@@ -19,11 +24,6 @@
         # Enable dynamic power management.
         finegrained = lib.mkDefault true;
       };
-    };
-    opengl = {
-      enable = lib.mkDefault true;
-      driSupport32Bit = lib.mkDefault true;
-      extraPackages = with pkgs; [ intel-media-driver intel-compute-runtime ];
     };
   };
 }

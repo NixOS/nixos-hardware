@@ -1,11 +1,14 @@
+{ lib, ... }:
+
 {
   imports = [
     ../.
     ../../../common/pc/laptop/ssd
+    ../../../common/gpu/24.05-compat.nix
   ];
 
   # TODO: reverse compat
-  hardware.opengl.driSupport32Bit = true;
+  hardware.graphics.enable32Bit = lib.mkDefault true;
 
   services.xserver = {
     # TODO: we should not enable unfree drivers
