@@ -1,7 +1,8 @@
 queue_rules:
   - name: default
     merge_conditions:
-      - check-success=tests
+      - check-success=tests (nixos-24.05)
+      - check-success=tests (nixos-unstable)
 defaults:
   actions:
     queue:

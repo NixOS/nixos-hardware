@@ -15,4 +15,9 @@
 
   services.iptsd.enable = lib.mkDefault true;
   environment.systemPackages = [ pkgs.surface-control ];
+  
+  services.thermald = lib.mkDefault {
+    enable = true;
+    configFile = ./thermal-conf.xml;
+  };
 }
