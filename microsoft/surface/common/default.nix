@@ -6,8 +6,6 @@ let
 in {
   imports = [
     ./kernel
-    ./ipts
-    ./surface-control
   ];
 
   microsoft-surface.kernelVersion = mkDefault "6.6";
