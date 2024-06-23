@@ -1,17 +1,26 @@
-# MacBook Pro 14,1
+# MacBook Pro 14,1, NixOS 24.01 (2024)
 
 ## Audio
-
-Audio is a lost cause. Bribe an Apple or Cirrus engineer for the datasheet. ;)
-
-## Thunderbolt
-
-The thunderbolt module will oops upon system resume, and subsequently refuse to work until next reboot.
-
-## Suspend/Resume
-
-The d3cold state needs to be disabled on the NVME controller for it to wake up.
+ [ ] Still broken, use usb/hdmi instead, nixos pkg needed: https://github.com/davidjo/snd_hda_macbookpro
 
 ## Bluetooth
-The Bluetooth UART (/dev/ttyS0) is created and then deleted by udev in early boot.
-Hack around it by reloading the 8250_dw module, causing it to be re-created.
+ [ ] Still broken, even (hacky) workaround does not work any more with latest driver updates
+
+## Touchpad 
+ [x] Working, including 'disable while typing' usable quirk
+
+## Thunderbolt
+ [x] Working
+
+## NVME
+ [x] Working, older NVME / Controller may need workaround for resume
+
+## Suspend/Resume
+ [ ] Thunderbolt, WIFI, NVME may still need reboot (sometimes).
+
+## Wifi
+ [x] Working (2,4Ghz & 5Ghz supported), WEP3 currently broken b/c old brcm fw 
+
+## Resources
+- https://github.com/Dunedan/mbp-2016-linux?tab=readme-ov-file
+- https://gist.github.com/roadrunner2/1289542a748d9a104e7baec6a92f9cd7
