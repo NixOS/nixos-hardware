@@ -37,7 +37,6 @@
         else
           intel-vaapi-driver
       )
-      libvdpau-va-gl
       intel-media-driver
     ];
 
@@ -48,7 +47,6 @@
         else
           intel-vaapi-driver
       )
-      libvdpau-va-gl
       intel-media-driver
     ];
 
