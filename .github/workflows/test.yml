@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        # when updating channels, also update .mergify.yml
         channel: [ nixos-unstable, nixos-24.05 ]
     steps:
     - uses: actions/checkout@v4
