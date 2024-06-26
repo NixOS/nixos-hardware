@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 {
   options.hardware.amdgpu.loadInInitrd = lib.mkEnableOption (lib.mdDoc
