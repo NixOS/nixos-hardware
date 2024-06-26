@@ -19,10 +19,6 @@ in {
   hardware = {
     ## Enable the Nvidia card, as well as Prime and Offload:
     amdgpu.loadInInitrd = true;
-    graphics.extraPackages = with pkgs; [
-      vaapiVdpau
-      libvdpau-va-gl
-    ];
 
     nvidia = {
       modesetting.enable = true;
