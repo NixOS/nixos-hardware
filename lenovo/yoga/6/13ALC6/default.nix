@@ -13,4 +13,6 @@
 
   # energy savings
   boot.kernelParams = ["mem_sleep_default=deep" "pcie_aspm.policy=powersupersave"];
+
+  hardware.bluetooth.enable = true;
 }
