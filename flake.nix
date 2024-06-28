@@ -14,6 +14,7 @@
       apple-macbook-pro-12-1 = import ./apple/macbook-pro/12-1;
       apple-macbook-pro-14-1 = import ./apple/macbook-pro/14-1;
       apple-macmini-4-1 = import ./apple/macmini/4;
+      apple-imac-18-2 = import ./apple/imac/18-2;
       apple-t2 = import ./apple/t2;
       asus-battery = import ./asus/battery.nix;
       asus-ally-rc71l = import ./asus/ally/rc71l;
