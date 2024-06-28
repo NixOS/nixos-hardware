@@ -32,7 +32,4 @@
     "console=tty0"
   ];
 
-  environment.systemPackages = with pkgs; [
-    libraspberrypi
-  ];
 }
