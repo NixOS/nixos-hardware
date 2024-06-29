@@ -1,5 +1,5 @@
 {
   imports = [
-    ../../common/cpu/intel/jasper-lake
+    ../../common/gpu/intel/jasper-lake
   ];
 }
