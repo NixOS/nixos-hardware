@@ -1,15 +1,10 @@
 { config, lib, pkgs, ... }: {
   boot = {
-    # Force no ZFS (from nixos/modules/profiles/base.nix) until updated to kernel 6.0
-    supportedFilesystems =
-      lib.mkForce [ "btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" ];
     consoleLogLevel = lib.mkDefault 7;
-    kernelPackages = lib.mkDefault (pkgs.callPackage ./linux-6.6.nix {
-      inherit (config.boot) kernelPatches;
-    });
+    # Require at least Linux >= 6.9
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
-    kernelParams =
-      lib.mkDefault [ "console=tty0" "console=ttyS0,115200n8" "earlycon=sbi" ];
+    kernelParams = [ "console=tty0" "console=ttyS0,115200n8" "earlycon=sbi" ];
 
     initrd.availableKernelModules = [ "dw_mmc_starfive" ];
 
