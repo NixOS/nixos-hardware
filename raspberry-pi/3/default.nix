@@ -22,13 +22,12 @@
   # Enables the generation of /boot/extlinux/extlinux.conf
   boot.loader.generic-extlinux-compatible.enable = lib.mkDefault true;
 
+  # The last console argument in the list that linux can find at boot will receive kernel logs.
   # The serial ports listed here are:
-  # - ttyS0: for Tegra (Jetson TX1)
-  # - ttyAMA0: for QEMU's -machine virt
-  # https://github.com/NixOS/nixpkgs/blob/b72bde7c4a1f9c9bf1a161f0c267186ce3c6483c/nixos/modules/installer/sd-card/sd-image-aarch64.nix#L19
+  # - ttyS0: serial
+  # - tty0: hdmi
   boot.kernelParams = [
     "console=ttyS0,115200n8"
-    "console=ttyAMA0,115200n8"
     "console=tty0"
   ];
 
