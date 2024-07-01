@@ -2,7 +2,9 @@
   description = "nixos-hardware";
 
   outputs = _: {
-    nixosModules = {
+    nixosModules = let
+      deprecated = issue: name: value: builtins.trace "warning: ${name} flake output is deprecated and will be removed. See https://github.com/NixOS/nixos-hardware/issues/${issue} for more information" value;
+    in {
       acer-aspire-4810t = import ./acer/aspire/4810t;
       airis-n990 = import ./airis/n990;
       apple-macbook-air-3 = import ./apple/macbook-air/3;
@@ -264,10 +266,10 @@
       common-cpu-amd-zenpower = import ./common/cpu/amd/zenpower.nix;
       common-cpu-amd-raphael-igpu = import ./common/cpu/amd/raphael/igpu.nix;
       common-cpu-intel = import ./common/cpu/intel;
-      common-gpu-intel-comet-lake = import ./common/gpu/intel/comet-lake;
+      common-gpu-intel-comet-lake = deprecated "992" "common-gpu-intel-comet-lake" (import ./common/gpu/intel/comet-lake);
       common-cpu-intel-cpu-only = import ./common/cpu/intel/cpu-only.nix;
-      common-gpu-intel-kaby-lake = import ./common/gpu/intel/kaby-lake;
-      common-gpu-intel-sandy-bridge = import ./common/gpu/intel/sandy-bridge;
+      common-gpu-intel-kaby-lake = deprecated "992" "common-gpu-intel-kaby-lake" (import ./common/gpu/intel/kaby-lake);
+      common-gpu-intel-sandy-bridge = deprecated "992" "common-gpu-intel-sandy-bridge" (import ./common/gpu/intel/sandy-bridge);
       common-gpu-amd = import ./common/gpu/amd;
       common-gpu-amd-sea-islands = import ./common/gpu/amd/sea-islands;
       common-gpu-amd-southern-islands = import ./common/gpu/amd/southern-islands;
