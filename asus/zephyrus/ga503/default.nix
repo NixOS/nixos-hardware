@@ -9,6 +9,9 @@
   ];
 
   hardware.nvidia.prime = {
+    reverseSync.enable = true;
+    # Enable if using an external GPU        
+    allowExternalGpu = false;
     amdgpuBusId = "PCI:7:0:0";
     nvidiaBusId = "PCI:1:0:0";
   };
