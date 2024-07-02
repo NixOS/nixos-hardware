@@ -1,7 +1,7 @@
 {
   imports = [
     ../../../common/cpu/intel
-    ../../../common/cpu/intel/kaby-lake
+    ../../../common/gpu/intel/kaby-lake
     ../../../common/pc/laptop
     ./xps-common.nix
 
