@@ -2,6 +2,9 @@
 , ... } @ args:
 
 let
+  version = "6.9.4";
+  majorVersion = with lib; (elemAt (take 1 (splitVersion version)) 0);
+
   patchRepo = fetchFromGitHub {
     owner = "t2linux";
     repo = "linux-t2-patches";
@@ -9,8 +12,10 @@ let
     hash = "sha256-mwT4cuIBrz3tz8+fAxVKmnRtkPRp3lWmNbocuXCsm44=";
   };
 
-  version = "6.9.4";
-  majorVersion = with lib; (elemAt (take 1 (splitVersion version)) 0);
+  kernel = fetchzip {
+    url = "mirror://kernel/linux/kernel/v${majorVersion}.x/linux-${version}.tar.xz";
+    hash = "sha256-8jC5DpPi6poig1gmJPIIZ2HMwQQt1kTK4PcvyYm+Hsg=";
+  };
 in
 buildLinux (args // {
   inherit version;
@@ -20,10 +25,7 @@ buildLinux (args // {
   modDirVersion = with lib; "${concatStringsSep "." (take 3 (splitVersion "${version}.0"))}";
 
   src = runCommand "patched-source" {} ''
-    cp -r ${fetchzip {
-      url = "mirror://kernel/linux/kernel/v${majorVersion}.x/linux-${version}.tar.xz";
-      hash = "sha256-8jC5DpPi6poig1gmJPIIZ2HMwQQt1kTK4PcvyYm+Hsg=";
-    }} $out
+    cp -r ${kernel} $out
     chmod -R u+w $out
     cd $out
     while read -r patch; do
