@@ -8,8 +8,8 @@ let
   patchRepo = fetchFromGitHub {
     owner = "t2linux";
     repo = "linux-t2-patches";
-    rev = "0ad2b3913f5484ba8e86b6965f5d88903464261d";
-    hash = "sha256-mwT4cuIBrz3tz8+fAxVKmnRtkPRp3lWmNbocuXCsm44=";
+    rev = "47b4069221c0ee3b6db56ab1ea90ae89e2de26f3";
+    hash = "sha256-1B5DbLdyKdswy2ERmWVyjojdazTDbMsS+Vz/mrTdoFY=";
   };
 
   kernel = fetchzip {
@@ -47,7 +47,6 @@ buildLinux (args // {
     HID_APPLETB_KBD = module;
     HID_APPLE = module;
     DRM_APPLETBDRM = module;
-    HID_APPLE_MAGIC_BACKLIGHT = module;
     HID_SENSOR_ALS = module;
     SND_PCM = module;
     STAGING = yes;
