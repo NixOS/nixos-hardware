@@ -2,15 +2,20 @@
 , ... } @ args:
 
 let
+  version = "6.9.8";
+  majorVersion = with lib; (elemAt (take 1 (splitVersion version)) 0);
+
   patchRepo = fetchFromGitHub {
     owner = "t2linux";
     repo = "linux-t2-patches";
-    rev = "0ad2b3913f5484ba8e86b6965f5d88903464261d";
-    hash = "sha256-mwT4cuIBrz3tz8+fAxVKmnRtkPRp3lWmNbocuXCsm44=";
+    rev = "47b4069221c0ee3b6db56ab1ea90ae89e2de26f3";
+    hash = "sha256-1B5DbLdyKdswy2ERmWVyjojdazTDbMsS+Vz/mrTdoFY=";
   };
 
-  version = "6.9.4";
-  majorVersion = with lib; (elemAt (take 1 (splitVersion version)) 0);
+  kernel = fetchzip {
+    url = "mirror://kernel/linux/kernel/v${majorVersion}.x/linux-${version}.tar.xz";
+    hash = "sha256-o67tasZu4qGQ7obw+BCgNfaLqDcT3SPqsa3kTzWjmfg=";
+  };
 in
 buildLinux (args // {
   inherit version;
@@ -20,10 +25,7 @@ buildLinux (args // {
   modDirVersion = with lib; "${concatStringsSep "." (take 3 (splitVersion "${version}.0"))}";
 
   src = runCommand "patched-source" {} ''
-    cp -r ${fetchzip {
-      url = "mirror://kernel/linux/kernel/v${majorVersion}.x/linux-${version}.tar.xz";
-      hash = "sha256-8jC5DpPi6poig1gmJPIIZ2HMwQQt1kTK4PcvyYm+Hsg=";
-    }} $out
+    cp -r ${kernel} $out
     chmod -R u+w $out
     cd $out
     while read -r patch; do
@@ -45,7 +47,6 @@ buildLinux (args // {
     HID_APPLETB_KBD = module;
     HID_APPLE = module;
     DRM_APPLETBDRM = module;
-    HID_APPLE_MAGIC_BACKLIGHT = module;
     HID_SENSOR_ALS = module;
     SND_PCM = module;
     STAGING = yes;

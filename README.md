@@ -221,6 +221,7 @@ See code for all available configurations.
 | [Lenovo ThinkPad T14 AMD Gen 4](lenovo/thinkpad/t14/amd/gen4)          | `<nixos-hardware/lenovo/thinkpad/t14/amd/gen4>`         |
 | [Lenovo ThinkPad T14](lenovo/thinkpad/t14)                             | `<nixos-hardware/lenovo/thinkpad/t14>`                  |
 | [Lenovo ThinkPad T14s AMD Gen 1](lenovo/thinkpad/t14s/amd/gen1)        | `<nixos-hardware/lenovo/thinkpad/t14s/amd/gen1>`        |
+| [Lenovo ThinkPad T14s AMD Gen 4](lenovo/thinkpad/t14s/amd/gen4)        | `<nixos-hardware/lenovo/thinkpad/t14s/amd/gen4>`        |
 | [Lenovo ThinkPad T14s](lenovo/thinkpad/t14s)                           | `<nixos-hardware/lenovo/thinkpad/t14s>`                 |
 | [Lenovo ThinkPad T410](lenovo/thinkpad/t410)                           | `<nixos-hardware/lenovo/thinkpad/t410>`                 |
 | [Lenovo ThinkPad T420](lenovo/thinkpad/t420)                           | `<nixos-hardware/lenovo/thinkpad/t420>`                 |
@@ -302,6 +303,7 @@ See code for all available configurations.
 | [Purism Librem 15v3](purism/librem/13v3)                               | `<nixos-hardware/purism/librem/15v3>`                   |
 | [Purism Librem 5r4](purism/librem/5r4)                                 | `<nixos-hardware/purism/librem/5r4>`                    |
 | [Raspberry Pi 2](raspberry-pi/2)                                       | `<nixos-hardware/raspberry-pi/2>`                       |
+| [Raspberry Pi 3](raspberry-pi/3)                                       | `<nixos-hardware/raspberry-pi/3>`                       |
 | [Raspberry Pi 4](raspberry-pi/4)                                       | `<nixos-hardware/raspberry-pi/4>`                       |
 | [Raspberry Pi 5](raspberry-pi/5)                                       | `<nixos-hardware/raspberry-pi/5>`                       |
 | [Samsung Series 9 NP900X3C](samsung/np900x3c)                          | `<nixos-hardware/samsung/np900x3c>`                     |

@@ -156,6 +156,7 @@
       lenovo-thinkpad-t14-amd-gen4 = import ./lenovo/thinkpad/t14/amd/gen4;
       lenovo-thinkpad-t14s = import ./lenovo/thinkpad/t14s;
       lenovo-thinkpad-t14s-amd-gen1 = import ./lenovo/thinkpad/t14s/amd/gen1;
+      lenovo-thinkpad-t14s-amd-gen4 = import ./lenovo/thinkpad/t14s/amd/gen4;
       lenovo-thinkpad-t410 = import ./lenovo/thinkpad/t410;
       lenovo-thinkpad-t420 = import ./lenovo/thinkpad/t420;
       lenovo-thinkpad-t430 = import ./lenovo/thinkpad/t430;
@@ -241,6 +242,7 @@
       purism-librem-15v3 = import ./purism/librem/15v3;
       purism-librem-5r4 = import ./purism/librem/5r4;
       raspberry-pi-2 = import ./raspberry-pi/2;
+      raspberry-pi-3 = import ./raspberry-pi/3;
       raspberry-pi-4 = import ./raspberry-pi/4;
       raspberry-pi-5 = import ./raspberry-pi/5;
       kobol-helios4 = import ./kobol/helios4;
