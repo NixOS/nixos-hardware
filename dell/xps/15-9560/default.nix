@@ -7,7 +7,7 @@
     ../../../common/gpu/nvidia
   ];
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
