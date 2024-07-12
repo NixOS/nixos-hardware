@@ -89,6 +89,7 @@ See code for all available configurations.
 | [Asus Pro WS X570-ACE](asus/pro-ws-x570-ace)                           | `<nixos-hardware/asus/pro-ws-x570-ace>`                 |
 | [Asus ROG Ally RC71L (2023)](asus/ally/rc71l)                          | `<nixos-hardware/asus/ally/rc71l>`                      |
 | [Asus ROG Strix G513IM](asus/rog-strix/g513im)                         | `<nixos-hardware/asus/rog-strix/g513im>`                |
+| [Asus ROG Strix G713IE](asus/rog-strix/g713ie)                         | `<nixos-hardware/asus/rog-strix/g713ie>`                |
 | [Asus ROG Strix G733QS](asus/rog-strix/g733qs)                         | `<nixos-hardware/asus/rog-strix/g733qs>`                |
 | [Asus ROG Zephyrus G14 GA401](asus/zephyrus/ga401)                     | `<nixos-hardware/asus/zephyrus/ga401>`                  |
 | [Asus ROG Zephyrus G14 GA402](asus/zephyrus/ga402)                     | `<nixos-hardware/asus/zephyrus/ga402>`                  |
