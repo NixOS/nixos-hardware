@@ -4,7 +4,7 @@
  - [ ] broken, PR pending: https://github.com/NixOS/nixpkgs/pull/322968
 
 ## Bluetooth
- - [ ] broken, PR pending: https://github.com/NixOS/nixpkgs/pull/322964
+ - [ ] broken lands https://github.com/NixOS/nixpkgs/pull/322964 in master
 
 ## Touchpad 
  - [x] Working, including 'disable while typing' usable quirk
