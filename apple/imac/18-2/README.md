@@ -1,10 +1,10 @@
 # iMac 18,2, NixOS 24.05 (2024)
 
 ## Audio
-- [ ] broken, PR pending: https://github.com/NixOS/nixpkgs/pull/322968
+- [ ] broken until https://github.com/NixOS/nixpkgs/pull/322968 lands in master
 
 ## Bluetooth
-- [ ] broken, PR pending: https://github.com/NixOS/nixpkgs/pull/322964
+- [ ] broken until https://github.com/NixOS/nixpkgs/pull/322964 lands in master
 
 ## Thunderbolt
 - [x] ok
