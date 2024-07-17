@@ -4,6 +4,7 @@
   outputs = _: {
     nixosModules = let
       deprecated = issue: name: value: builtins.trace "warning: ${name} flake output is deprecated and will be removed. See https://github.com/NixOS/nixos-hardware/issues/${issue} for more information" value;
+      import = path: path; # let the module system know what we are exporting
     in {
       acer-aspire-4810t = import ./acer/aspire/4810t;
       airis-n990 = import ./airis/n990;
