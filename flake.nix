@@ -27,6 +27,7 @@
       asus-rog-strix-g513im = import ./asus/rog-strix/g513im;
       asus-rog-strix-g713ie = import ./asus/rog-strix/g713ie;
       asus-rog-strix-g733qs = import ./asus/rog-strix/g733qs;
+      asus-rog-strix-x570e = import ./asus/rog-strix/x570e;
       asus-zenbook-ux371 = import ./asus/zenbook/ux371;
       asus-zephyrus-ga401 = import ./asus/zephyrus/ga401;
       asus-zephyrus-ga402 = import ./asus/zephyrus/ga402;
