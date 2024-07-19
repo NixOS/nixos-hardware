@@ -2,7 +2,10 @@
   description = "nixos-hardware";
 
   outputs = _: {
-    nixosModules = {
+    nixosModules = let
+      deprecated = issue: name: value: builtins.trace "warning: ${name} flake output is deprecated and will be removed. See https://github.com/NixOS/nixos-hardware/issues/${issue} for more information" value;
+      import = path: path; # let the module system know what we are exporting
+    in {
       acer-aspire-4810t = import ./acer/aspire/4810t;
       airis-n990 = import ./airis/n990;
       apple-macbook-air-3 = import ./apple/macbook-air/3;
@@ -23,7 +26,9 @@
       asus-fa507rm = import ./asus/fa507rm;
       asus-pro-ws-x570-ace = import ./asus/pro-ws-x570-ace;
       asus-rog-strix-g513im = import ./asus/rog-strix/g513im;
+      asus-rog-strix-g713ie = import ./asus/rog-strix/g713ie;
       asus-rog-strix-g733qs = import ./asus/rog-strix/g733qs;
+      asus-rog-strix-x570e = import ./asus/rog-strix/x570e;
       asus-zenbook-ux371 = import ./asus/zenbook/ux371;
       asus-zephyrus-ga401 = import ./asus/zephyrus/ga401;
       asus-zephyrus-ga402 = import ./asus/zephyrus/ga402;
@@ -154,6 +159,7 @@
       lenovo-thinkpad-t14-amd-gen4 = import ./lenovo/thinkpad/t14/amd/gen4;
       lenovo-thinkpad-t14s = import ./lenovo/thinkpad/t14s;
       lenovo-thinkpad-t14s-amd-gen1 = import ./lenovo/thinkpad/t14s/amd/gen1;
+      lenovo-thinkpad-t14s-amd-gen4 = import ./lenovo/thinkpad/t14s/amd/gen4;
       lenovo-thinkpad-t410 = import ./lenovo/thinkpad/t410;
       lenovo-thinkpad-t420 = import ./lenovo/thinkpad/t420;
       lenovo-thinkpad-t430 = import ./lenovo/thinkpad/t430;
@@ -226,6 +232,7 @@
       omen-14-fb0798ng = import ./omen/14-fb0798ng;
       omen-15-en0010ca = import ./omen/15-en0010ca;
       omen-16-n0005ne = import ./omen/16-n0005ne;
+      omen-16-n0280nd = import ./omen/16-n0280nd;
       omen-15-en1007sa = import ./omen/15-en1007sa;
       omen-15-en0002np = import ./omen/15-en0002np;
       onenetbook-4 = import ./onenetbook/4;
@@ -265,10 +272,10 @@
       common-cpu-amd-zenpower = import ./common/cpu/amd/zenpower.nix;
       common-cpu-amd-raphael-igpu = import ./common/cpu/amd/raphael/igpu.nix;
       common-cpu-intel = import ./common/cpu/intel;
-      common-cpu-intel-comet-lake = import ./common/cpu/intel/comet-lake;
+      common-gpu-intel-comet-lake = deprecated "992" "common-gpu-intel-comet-lake" (import ./common/gpu/intel/comet-lake);
       common-cpu-intel-cpu-only = import ./common/cpu/intel/cpu-only.nix;
-      common-cpu-intel-kaby-lake = import ./common/cpu/intel/kaby-lake;
-      common-cpu-intel-sandy-bridge = import ./common/cpu/intel/sandy-bridge;
+      common-gpu-intel-kaby-lake = deprecated "992" "common-gpu-intel-kaby-lake" (import ./common/gpu/intel/kaby-lake);
+      common-gpu-intel-sandy-bridge = deprecated "992" "common-gpu-intel-sandy-bridge" (import ./common/gpu/intel/sandy-bridge);
       common-gpu-amd = import ./common/gpu/amd;
       common-gpu-amd-sea-islands = import ./common/gpu/amd/sea-islands;
       common-gpu-amd-southern-islands = import ./common/gpu/amd/southern-islands;

@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../../../common/cpu/intel/kaby-lake
+    ../../../common/gpu/intel/kaby-lake
     ../../../common/pc/laptop
     ../../../common/pc/laptop/acpi_call.nix
   ];
