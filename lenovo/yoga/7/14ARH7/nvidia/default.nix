@@ -18,7 +18,7 @@ in {
 
   hardware = {
     ## Enable the Nvidia card, as well as Prime and Offload:
-    amdgpu.loadInInitrd = true;
+    amdgpu.initrd.enable = true;
 
     nvidia = {
       modesetting.enable = true;

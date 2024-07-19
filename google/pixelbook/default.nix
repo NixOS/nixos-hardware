@@ -4,6 +4,6 @@
   imports = [
     ../../common/pc/laptop
     ../../common/pc/laptop/ssd
-    ../../common/cpu/intel/kaby-lake
+    ../../common/gpu/intel/kaby-lake
   ];
 }

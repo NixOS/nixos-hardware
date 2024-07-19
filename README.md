@@ -89,7 +89,9 @@ See code for all available configurations.
 | [Asus Pro WS X570-ACE](asus/pro-ws-x570-ace)                           | `<nixos-hardware/asus/pro-ws-x570-ace>`                 |
 | [Asus ROG Ally RC71L (2023)](asus/ally/rc71l)                          | `<nixos-hardware/asus/ally/rc71l>`                      |
 | [Asus ROG Strix G513IM](asus/rog-strix/g513im)                         | `<nixos-hardware/asus/rog-strix/g513im>`                |
+| [Asus ROG Strix G713IE](asus/rog-strix/g713ie)                         | `<nixos-hardware/asus/rog-strix/g713ie>`                |
 | [Asus ROG Strix G733QS](asus/rog-strix/g733qs)                         | `<nixos-hardware/asus/rog-strix/g733qs>`                |
+| [Asus ROG Strix X570-E GAMING](asus/rog-strix/x570e)                   | `<nixos-hardware/asus/rog-strix/x570e>`                 |
 | [Asus ROG Zephyrus G14 GA401](asus/zephyrus/ga401)                     | `<nixos-hardware/asus/zephyrus/ga401>`                  |
 | [Asus ROG Zephyrus G14 GA402](asus/zephyrus/ga402)                     | `<nixos-hardware/asus/zephyrus/ga402>`                  |
 | [Asus ROG Zephyrus G14 GA402X* (2023)](asus/zephyrus/ga402x/amdgpu)    | `<nixos-hardware/asus/zephyrus/ga402x/amdgpu>`          |
@@ -221,6 +223,7 @@ See code for all available configurations.
 | [Lenovo ThinkPad T14 AMD Gen 4](lenovo/thinkpad/t14/amd/gen4)          | `<nixos-hardware/lenovo/thinkpad/t14/amd/gen4>`         |
 | [Lenovo ThinkPad T14](lenovo/thinkpad/t14)                             | `<nixos-hardware/lenovo/thinkpad/t14>`                  |
 | [Lenovo ThinkPad T14s AMD Gen 1](lenovo/thinkpad/t14s/amd/gen1)        | `<nixos-hardware/lenovo/thinkpad/t14s/amd/gen1>`        |
+| [Lenovo ThinkPad T14s AMD Gen 4](lenovo/thinkpad/t14s/amd/gen4)        | `<nixos-hardware/lenovo/thinkpad/t14s/amd/gen4>`        |
 | [Lenovo ThinkPad T14s](lenovo/thinkpad/t14s)                           | `<nixos-hardware/lenovo/thinkpad/t14s>`                 |
 | [Lenovo ThinkPad T410](lenovo/thinkpad/t410)                           | `<nixos-hardware/lenovo/thinkpad/t410>`                 |
 | [Lenovo ThinkPad T420](lenovo/thinkpad/t420)                           | `<nixos-hardware/lenovo/thinkpad/t420>`                 |
@@ -302,6 +305,7 @@ See code for all available configurations.
 | [Purism Librem 15v3](purism/librem/13v3)                               | `<nixos-hardware/purism/librem/15v3>`                   |
 | [Purism Librem 5r4](purism/librem/5r4)                                 | `<nixos-hardware/purism/librem/5r4>`                    |
 | [Raspberry Pi 2](raspberry-pi/2)                                       | `<nixos-hardware/raspberry-pi/2>`                       |
+| [Raspberry Pi 3](raspberry-pi/3)                                       | `<nixos-hardware/raspberry-pi/3>`                       |
 | [Raspberry Pi 4](raspberry-pi/4)                                       | `<nixos-hardware/raspberry-pi/4>`                       |
 | [Raspberry Pi 5](raspberry-pi/5)                                       | `<nixos-hardware/raspberry-pi/5>`                       |
 | [Samsung Series 9 NP900X3C](samsung/np900x3c)                          | `<nixos-hardware/samsung/np900x3c>`                     |
