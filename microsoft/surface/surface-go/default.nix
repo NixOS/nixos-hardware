@@ -14,7 +14,7 @@ in {
     ../../../common/pc/ssd
     # The Intel CPU module auto-includes Intel's GPU:
     ../../../common/cpu/intel
-    ../../../common/cpu/intel/kaby-lake
+    ../../../common/gpu/intel/kaby-lake
   ];
 
   boot.kernelParams = [

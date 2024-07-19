@@ -89,7 +89,9 @@ See code for all available configurations.
 | [Asus Pro WS X570-ACE](asus/pro-ws-x570-ace)                           | `<nixos-hardware/asus/pro-ws-x570-ace>`                 |
 | [Asus ROG Ally RC71L (2023)](asus/ally/rc71l)                          | `<nixos-hardware/asus/ally/rc71l>`                      |
 | [Asus ROG Strix G513IM](asus/rog-strix/g513im)                         | `<nixos-hardware/asus/rog-strix/g513im>`                |
+| [Asus ROG Strix G713IE](asus/rog-strix/g713ie)                         | `<nixos-hardware/asus/rog-strix/g713ie>`                |
 | [Asus ROG Strix G733QS](asus/rog-strix/g733qs)                         | `<nixos-hardware/asus/rog-strix/g733qs>`                |
+| [Asus ROG Strix X570-E GAMING](asus/rog-strix/x570e)                   | `<nixos-hardware/asus/rog-strix/x570e>`                 |
 | [Asus ROG Zephyrus G14 GA401](asus/zephyrus/ga401)                     | `<nixos-hardware/asus/zephyrus/ga401>`                  |
 | [Asus ROG Zephyrus G14 GA402](asus/zephyrus/ga402)                     | `<nixos-hardware/asus/zephyrus/ga402>`                  |
 | [Asus ROG Zephyrus G14 GA402X* (2023)](asus/zephyrus/ga402x/amdgpu)    | `<nixos-hardware/asus/zephyrus/ga402x/amdgpu>`          |
@@ -290,6 +292,7 @@ See code for all available configurations.
 | [Omen 15-en0010ca](omen/14-fb0798ng)                                   | `<nixos-hardware/omen/14-fb0798ng>`                     |
 | [Omen 15-en0010ca](omen/15-en0010ca)                                   | `<nixos-hardware/omen/15-en0010ca>`                     |
 | [Omen 16-n0005ne](omen/16-n0005ne)                                     | `<nixos-hardware/omen/16-n0005ne>`                      |
+| [Omen 16-n0280nd](/omen/16-n0280nd)                                    | `<nixos-hardware/omen/16-n0280nd>`                      |
 | [Omen 15-en1007sa](omen/15-en1007sa)                                   | `<nixos-hardware/omen/15-en1007sa>`                     |
 | [Omen 15-en0002np](omen/15-en0002np)                                   | `<nixos-hardware/omen/15-en0002np>`                     |
 | [One-Netbook OneNetbook 4](onenetbook/4)                               | `<nixos-hardware/onenetbook/4>`                         |
