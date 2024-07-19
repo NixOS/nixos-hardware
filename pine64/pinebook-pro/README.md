@@ -32,14 +32,6 @@ https://github.com/NixOS/nixos-hardware/blob/6d1bd5bc2e8b9992a3f57e416ba50fbed55
 
 HDMI over Type-C works only for the custom kernel and the audio dosen't work (it's an upstream problem).
 
-#### `rockchipdrm` and `efifb`
-
-This can be worked around by booting with the `efifb=off` kernel command-line.
-
-This is already handled for you by this configuration. If using the generic
-UEFI AArch64 iso, you will need to add the option yourself to the command-line
-using GRUB.
-
 #### _EFI_ and poweroff
 
 When booted using EFI, the system will not power off. It will stay seemingly
