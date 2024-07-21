@@ -26,4 +26,14 @@
 
   # Enable keyboard customization
   hardware.keyboard.qmk.enable = lib.mkDefault true;
+
+  # Allow `services.libinput.touchpad.disableWhileTyping` to work correctly.
+  # Set unconditionally because libinput can also be configured dynamically via
+  # gsettings.
+  environment.etc."libinput/local-overrides.quirks".text = ''
+    [Serial Keyboards]
+    MatchUdevType=keyboard
+    MatchName=Framework Laptop 16 Keyboard Module - ANSI Keyboard
+    AttrKeyboardIntegration=internal
+  '';
 }
