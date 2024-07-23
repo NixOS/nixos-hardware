@@ -191,6 +191,7 @@
       lenovo-thinkpad-x1-9th-gen = import ./lenovo/thinkpad/x1/9th-gen;
       lenovo-thinkpad-x1-10th-gen = import ./lenovo/thinkpad/x1/10th-gen;
       lenovo-thinkpad-x1-11th-gen = import ./lenovo/thinkpad/x1/11th-gen;
+      lenovo-thinkpad-x1-12th-gen = import ./lenovo/thinkpad/x1/12th-gen;
       lenovo-thinkpad-x1-extreme = import ./lenovo/thinkpad/x1-extreme;
       lenovo-thinkpad-x1-extreme-gen2 = import ./lenovo/thinkpad/x1-extreme/gen2;
       lenovo-thinkpad-x1-extreme-gen4 = import ./lenovo/thinkpad/x1-extreme/gen4;
