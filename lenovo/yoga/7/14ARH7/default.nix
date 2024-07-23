@@ -1,15 +1,10 @@
-# When using from a Flake, you can access these via imports of the attr key, e.g:
-#
-# imports = [
-#   nixos-hardware.nixosModules.lenovo-yoga-7-14ARH7.amdgpu
-# ];
-#
-## or:
-# imports = [
-#   nixos-hardware.nixosModules.lenovo-yoga-7-14ARH7.nvidia
-# ];
+{ ... }:
 
 {
-  amdgpu = import ./amdgpu;
-  nvidia = import ./nvidia;
+  assertions = [
+    {
+      assertion = false;
+      message = "Importing lenovo/yoga/7/14ARH7/ (default.nix) directly is deprecated! See https://github.com/NixOS/nixos-hardware/blob/master/lenovo/yoga/7/14ARH7/ATTR-SET-DEPRECATION.md for more details";
+    }
+  ];
 }
