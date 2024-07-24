@@ -112,6 +112,7 @@
       intel-nuc-8i7beh = import ./intel/nuc/8i7beh;
       lenovo-ideapad-15alc6 = import ./lenovo/ideapad/15alc6;
       lenovo-ideapad-15arh05 = import ./lenovo/ideapad/15arh05;
+      lenovo-ideapad-15ach6 = import ./lenovo/ideapad/15ach6;
       lenovo-ideapad-16ach6 = import ./lenovo/ideapad/16ach6;
       lenovo-ideapad-z510 = import ./lenovo/ideapad/z510;
       lenovo-ideapad-slim-5 = import ./lenovo/ideapad/slim-5;
