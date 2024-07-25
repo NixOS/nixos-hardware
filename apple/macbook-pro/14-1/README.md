@@ -1,25 +1,25 @@
-# MacBook Pro 14,1, NixOS 24.01 (2024)
+# MacBook Pro 14,1, NixOS 24.05 (2024)
 
 ## Audio
- [ ] Still broken, use usb/hdmi instead, nixos pkg needed: https://github.com/davidjo/snd_hda_macbookpro
+ - [ ] broken until https://github.com/NixOS/nixpkgs/pull/322968 lands in master
 
 ## Bluetooth
- [ ] Still broken, even (hacky) workaround does not work any more with latest driver updates
+ - [ ] broken lands https://github.com/NixOS/nixpkgs/pull/322964 in master
 
 ## Touchpad 
- [x] Working, including 'disable while typing' usable quirk
+ - [x] Working, including 'disable while typing' usable quirk
 
 ## Thunderbolt
- [x] Working
+ - [x] Working
 
 ## NVME
- [x] Working, older NVME / Controller may need workaround for resume
+ - [x] Working, older NVME / Controller may need workaround for resume
 
 ## Suspend/Resume
- [ ] Thunderbolt, WIFI, NVME may still need reboot (sometimes).
+ - [ ] Thunderbolt, WIFI, NVME may still need reboot (sometimes).
 
 ## Wifi
- [x] Working (2,4Ghz & 5Ghz supported), WEP3 currently broken b/c old brcm fw 
+ - [x] Working (2,4Ghz & 5Ghz supported), WEP3 broken -> brcm fw blob (2015) 
 
 ## Resources
 - https://github.com/Dunedan/mbp-2016-linux?tab=readme-ov-file
