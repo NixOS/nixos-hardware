@@ -48,7 +48,7 @@ let
 
   isVersionOf = kernelVersion: version:
     # Test if the provided version is considered one of the list of versions from above:
-    elem version (versionsOf version);
+    elem kernelVersion (versionsOf version);
 
 in {
   inherit linuxPackage repos surfacePatches versionsOf isVersionOf versionsOfEnum;
