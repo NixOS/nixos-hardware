@@ -17,6 +17,7 @@
       apple-macbook-pro-12-1 = import ./apple/macbook-pro/12-1;
       apple-macbook-pro-14-1 = import ./apple/macbook-pro/14-1;
       apple-macmini-4-1 = import ./apple/macmini/4;
+      apple-imac-18-2 = import ./apple/imac/18-2;
       apple-t2 = import ./apple/t2;
       asus-battery = import ./asus/battery.nix;
       asus-ally-rc71l = import ./asus/ally/rc71l;
@@ -33,6 +34,8 @@
       asus-zephyrus-ga401 = import ./asus/zephyrus/ga401;
       asus-zephyrus-ga402 = import ./asus/zephyrus/ga402;
       asus-zephyrus-ga402x = import ./asus/zephyrus/ga402x;
+      asus-zephyrus-ga402x-amdgpu = import ./asus/zephyrus/ga402x/amdgpu;
+      asus-zephyrus-ga402x-nvidia = import ./asus/zephyrus/ga402x/nvidia;
       asus-zephyrus-ga502 = import ./asus/zephyrus/ga502;
       asus-zephyrus-ga503 = import ./asus/zephyrus/ga503;
       asus-zephyrus-gu603h = import ./asus/zephyrus/gu603h;
@@ -188,6 +191,7 @@
       lenovo-thinkpad-x1-9th-gen = import ./lenovo/thinkpad/x1/9th-gen;
       lenovo-thinkpad-x1-10th-gen = import ./lenovo/thinkpad/x1/10th-gen;
       lenovo-thinkpad-x1-11th-gen = import ./lenovo/thinkpad/x1/11th-gen;
+      lenovo-thinkpad-x1-12th-gen = import ./lenovo/thinkpad/x1/12th-gen;
       lenovo-thinkpad-x1-extreme = import ./lenovo/thinkpad/x1-extreme;
       lenovo-thinkpad-x1-extreme-gen2 = import ./lenovo/thinkpad/x1-extreme/gen2;
       lenovo-thinkpad-x1-extreme-gen4 = import ./lenovo/thinkpad/x1-extreme/gen4;
@@ -211,6 +215,8 @@
       lenovo-thinkpad-z13-gen2 = import ./lenovo/thinkpad/z/gen2/z13;
       lenovo-yoga-6-13ALC6 = import ./lenovo/yoga/6/13ALC6;
       lenovo-yoga-7-14ARH7 = import ./lenovo/yoga/7/14ARH7;
+      lenovo-yoga-7-14ARH7-amdgpu = import ./lenovo/yoga/7/14ARH7/amdgpu;
+      lenovo-yoga-7-14ARH7-nvidia = import ./lenovo/yoga/7/14ARH7/nvidia;
       lenovo-yoga-7-slim-gen8 = import ./lenovo/yoga/7/slim/gen8;
       letsnote-cf-lx4 = import ./panasonic/letsnote/cf-lx4;
       microchip-icicle-kit = import ./microchip/icicle-kit;

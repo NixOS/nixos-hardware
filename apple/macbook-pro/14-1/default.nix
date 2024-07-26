@@ -5,10 +5,10 @@
   ...
 }: {
   imports = [
+    ../.
     ../../../common/gpu/intel/kaby-lake
     ../../../common/gpu/intel
     ../../../common/hidpi.nix
-    ../../../common/pc/laptop
     ../../../common/pc/laptop/ssd
     ../../../common/pc/laptop/acpi_call.nix
   ];
@@ -49,34 +49,10 @@
     cpu.intel.updateMicrocode = lib.mkDefault true;
   };
 
-  # Bluetooth, only needed if kernel lacks support - custom kernel build
-  # boot.kernelPatches = [
-  #  {
-  #    name = "bcrm-config";
-  #    patch = null;
-  #    extraConfig = ''
-  #      BT_HCIUART_BCM y '';
-  #  }
-  # ];
-  
-  ##  [Workaround seems not to work anymore! Any Ideas?]
-  # For some reason /dev/ttyS0 is created, and then removed by udev. We need this
-  # for bluetooth, and the only way to get it again is to reload 8502_dw. Luckily,
-  # nothing else uses it.
-  ## 
-  # systemd.services.btattach-bcm2e7c = lib.mkIf config.hardware.bluetooth.enable {
-  #  before = [ "bluetooth.target" ];
-  #  after = [ "sys-devices-platform-serial8250-tty-ttyS1.device" ];
-  #  path = [ pkgs.bash pkgs.kmod pkgs.bluez ];
-  #  serviceConfig.Type = "simple";
-  #  serviceConfig.ExecStart = "${./btfix.sh}";
-  #  wantedBy = [ "multi-user.target" ];
-  # };
-
-  ## [Enable only if needed!]
+  # [Enable only if needed!]
   # Disable d3cold on older NVME controller, only if needed
   # https://github.com/Dunedan/mbp-2016-linux
-  ##
+  #
   #systemd.services.disable-nvme-d3cold = {
   #  description = "Disables d3cold on the NVME controller";
   #  before      = [ "suspend.target" ];
