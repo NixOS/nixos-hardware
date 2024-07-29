@@ -13,7 +13,7 @@ in
       unmuteAmp = lib.mkOption {
         type = lib.types.bool;
         default = false;
-        description = lib.mdDoc ''
+        description = ''
           "one-shot" unmute when kernel module first loads.
         '';
       };
@@ -21,7 +21,7 @@ in
       autoMuteAmp = lib.mkOption {
         type = lib.types.bool;
         default = true;
-        description = lib.mdDoc ''
+        description = ''
           Unmute the amp when an ALSA device is opened by a client. Mute, with a five-second delay when the ALSA device is closed.
           (Reopening the device within the five-second close window will cancel mute.)
         '';

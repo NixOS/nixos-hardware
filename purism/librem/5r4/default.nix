@@ -12,18 +12,18 @@ in {
       };
       wifiCard = lib.mkOption {
         type = lib.types.enum [ "redpine" "sparklan" "none" ];
-        description = lib.mdDoc ''
+        description = ''
           Which wi-fi card is installed in your phone.
 
           Phones shipped before January 2023 have redpine, newer phones have sparklan.
         '';
         default = "redpine";
       };
-      customInitrdModules = lib.mkEnableOption (lib.mdDoc "use of custom kernel modules in the initrd.");
-      installUdevPackages = lib.mkEnableOption (lib.mdDoc "installation of udev packages from librem5-base.");
-      lockdownFix = lib.mkEnableOption (lib.mdDoc "fix for orientation and proximity sensors not working after lockdown.");
+      customInitrdModules = lib.mkEnableOption "use of custom kernel modules in the initrd.";
+      installUdevPackages = lib.mkEnableOption "installation of udev packages from librem5-base.";
+      lockdownFix = lib.mkEnableOption "fix for orientation and proximity sensors not working after lockdown.";
       audio = lib.mkOption {
-        description = lib.mdDoc ''
+        description = ''
           Whether to enable and configure PulseAudio for the Librem5 modem.
 
           This is required for audio during calls to work at all.
