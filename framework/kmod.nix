@@ -1,8 +1,8 @@
 { config, lib, ... }:
 {
-  options.hardware.framework.enableKmod = lib.mkEnableOption (lib.mdDoc
+  options.hardware.framework.enableKmod = lib.mkEnableOption
     "Enable the community created Framework kernel module that allows interacting with the embedded controller from sysfs."
-  ) // {
+  // {
     # Enable by default if on new enough version of NixOS
     default = (lib.versionAtLeast (lib.versions.majorMinor lib.version) "24.05");
   };

@@ -15,7 +15,7 @@ in
   # NOTICE: Whenever you can limit PPT to 15W by pressing Fn + Shift to enter quiet mode.
 
   options.hardware.gpd.ppt = {
-    enable = mkEnableOption (mdDoc "Enable PPT control for device by ryzenadj.") // {
+    enable = mkEnableOption "Enable PPT control for device by ryzenadj." // {
       # Default increase PPT to the BIOS default when power adapter plugin to increase performance.
       default = true;
     };

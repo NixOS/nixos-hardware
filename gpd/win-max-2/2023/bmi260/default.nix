@@ -18,7 +18,7 @@ in
     hardware.sensor.iio.bmi260.enable = mkOption {
       default = false;
       type = types.bool;
-      description = mdDoc ''
+      description = ''
         Enable Bosch BMI260 IMU kernel module driver.
       '';
     };

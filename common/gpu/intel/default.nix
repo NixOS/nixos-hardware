@@ -16,9 +16,8 @@
   };
 
   options.hardware.intelgpu.loadInInitrd =
-    lib.mkEnableOption (
-      lib.mdDoc "Load the Intel GPU kernel module at stage 1 boot. (Added to `boot.initrd.kernelModules`)"
-    )
+    lib.mkEnableOption
+      "Load the Intel GPU kernel module at stage 1 boot. (Added to `boot.initrd.kernelModules`)"
     // {
       default = true;
     };
