@@ -5,7 +5,11 @@
 }:
 
 let
-  inherit (lib) mkDefault mkIf mkMerge version versionOlder;
+  inherit (lib) mkDefault mkEnableOption mkIf mkMerge version versionAtLeast versionOlder;
+
+  cfg = config.hardware.asus.zephyrus.ga402x;
+  defaultAutosuspendEnable = if (versionAtLeast version "6.9") then true else false;
+
 in {
 
   imports = [
@@ -17,6 +21,16 @@ in {
     ../../../common/pc/laptop/acpi_call.nix
     ../../../common/pc/ssd
   ];
+
+  options.hardware.asus.zephyrus.ga402x = {
+    # Kernels earlier than 6.9 (possibly even earlier) tend to take 1-2 key-presses
+    # to wake-up the internal keyboard after suspending (the ASUS N-KEY USB Device).
+    #
+    # Therefore, this option disables suspend for the keyboard by default, but
+    # enables it for kernel 6.9.x onwards.
+    keyboard.autosuspend.enable = (mkEnableOption "Enable auto-suspend on the internal USB keyboard (ASUS N-KEY Device) on Zephyrus GA402X"
+    ) // { default = defaultAutosuspendEnable; };
+  };
 
   config = mkMerge [
     {
@@ -43,14 +57,19 @@ in {
             evdev:name:*:dmi:bvn*:bvr*:bd*:svnASUS*:pn*:*
             KEYBOARD_KEY_ff31007c=f20
           '';
-          extraRules = ''
-            # Disable auto-suspend for the ASUS N-KEY Device, i.e. USB Keyboard
-            # Otherwise, it will tend to take 1-2 key-presses to wake-up after suspending
-            ACTION=="add", SUBSYSTEM=="usb", TEST=="power/autosuspend", ATTR{idVendor}=="0b05", ATTR{idProduct}=="19b6", ATTR{power/autosuspend}="-1"
-          '';
         };
       };
     }
+
+    (mkIf (! cfg.keyboard.autosuspend.enable) {
+      services.udev = {
+        extraRules = ''
+          # Disable auto-suspend for the ASUS N-KEY Device, i.e. USB Keyboard
+          # Otherwise on certain kernel-versions, it will tend to take 1-2 key-presses to wake-up after suspending
+          ACTION=="add", SUBSYSTEM=="usb", TEST=="power/autosuspend", ATTR{idVendor}=="0b05", ATTR{idProduct}=="19b6", ATTR{power/autosuspend}="-1"
+        '';
+      };
+    })
 
     (mkIf (versionOlder version "23.11") {
       # See https://asus-linux.org/wiki/nixos/ for info about some problems
