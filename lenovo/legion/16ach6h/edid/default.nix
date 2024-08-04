@@ -8,10 +8,16 @@ let
   '';
 in
 {
-  hardware.firmware = [ chip_edid ];
+  hardware.display = {
+    edid.packages = [ chip_edid ];
 
-  # For some reason, the internal display is sometimes eDP-1, and sometimes it's eDP-2
-  boot.kernelParams = [ "drm.edid_firmware=eDP-1:edid/16ach6h.bin,eDP-2:edid/16ach6h.bin" ];
+    outputs = {
+      # For some reason, the internal display is sometimes eDP-1, and sometimes it's eDP-2
+      "eDP-1".edid = "16ach6h.bin";
+      "eDP-2".edid = "16ach6h.bin";
+    };
+  };
+
 
   # This fails at the moment, https://github.com/NixOS/nixos-hardware/issues/795
   # Extra refresh rates seem to work regardless
