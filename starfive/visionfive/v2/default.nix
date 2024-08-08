@@ -1,15 +1,10 @@
 { config, lib, pkgs, ... }: {
   boot = {
-    # Force no ZFS (from nixos/modules/profiles/base.nix) until updated to kernel 6.0
-    supportedFilesystems =
-      lib.mkForce [ "btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" ];
     consoleLogLevel = lib.mkDefault 7;
-    kernelPackages = lib.mkDefault (pkgs.callPackage ./linux-6.6.nix {
-      inherit (config.boot) kernelPatches;
-    });
+    # Switch to latest or LTE as soon they reach >= 6.11
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_testing;
 
-    kernelParams =
-      lib.mkDefault [ "console=tty0" "console=ttyS0,115200n8" "earlycon=sbi" ];
+    kernelParams = [ "console=tty0" "console=ttyS0,115200n8" "earlycon=sbi" ];
 
     initrd.availableKernelModules = [ "dw_mmc_starfive" ];
 
@@ -18,4 +13,19 @@
       generic-extlinux-compatible.enable = lib.mkDefault true;
     };
   };
+
+  hardware.deviceTree.name =
+    lib.mkDefault "starfive/jh7110-starfive-visionfive-2-v1.3b.dtb";
+
+  hardware.deviceTree.overlays = [{
+    name = "qspi-patch";
+    dtsFile = ./qspi-patch.dts;
+  }];
+
+  assertions = [
+    {
+      assertion = (lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.11");
+      message = "The VisionFive 2 requires at least mainline kernel version 6.11 for minimum hardware support.";
+    }
+  ];
 }
