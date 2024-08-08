@@ -5,7 +5,7 @@
     ../../../common/gpu/nvidia/prime.nix
     ../../../common/pc/laptop
     ../../../common/pc/ssd
-    ../../battery.nix
+    ../../../common/pc/laptop/battery.nix
   ];
 
   # fixing audio by overriding pins as suggested in
