@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ config, lib, ... }:
 
 {
   imports =
@@ -14,6 +14,7 @@
   hardware.nvidia =
   {
     modesetting.enable = lib.mkDefault true;
+    open = lib.mkIf (lib.versionAtLeast config.hardware.nvidia.package.version "555") true;
 
     prime =
     {
