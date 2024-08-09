@@ -29,7 +29,8 @@ in {
     # enables it for kernel 6.9.x onwards.
     #
     # Note: the device name is "ASUS N-KEY Device".
-    keyboard.autosuspend.enable = (mkEnableOption "Enable auto-suspend on the internal USB keyboard (ASUS N-KEY Device) on Zephyrus GA402X"
+    keyboard.autosuspend.enable = (
+      mkEnableOption "Enable auto-suspend on the internal USB keyboard (ASUS N-KEY Device) on Zephyrus GA402X"
     ) // { default = defaultAutosuspendEnable; };
   };
 
@@ -58,19 +59,14 @@ in {
             evdev:name:*:dmi:bvn*:bvr*:bd*:svnASUS*:pn*:*
             KEYBOARD_KEY_ff31007c=f20
           '';
-        };
-      };
-    }
-
-    (mkIf (! cfg.keyboard.autosuspend.enable) {
-      services.udev = {
-        extraRules = ''
+        extraRules = mkIf (! cfg.keyboard.autosuspend.enable) ''
           # Disable auto-suspend for the ASUS N-KEY Device, i.e. USB Keyboard
           # Otherwise on certain kernel-versions, it will tend to take 1-2 key-presses to wake-up after the device suspends
           ACTION=="add", SUBSYSTEM=="usb", TEST=="power/autosuspend", ATTR{idVendor}=="0b05", ATTR{idProduct}=="19b6", ATTR{power/autosuspend}="-1"
         '';
+        };
       };
-    })
+    }
 
     (mkIf (versionOlder version "23.11") {
       # See https://asus-linux.org/wiki/nixos/ for info about some problems
