@@ -8,7 +8,7 @@ let
   inherit (lib) mkDefault mkEnableOption mkIf mkMerge version versionAtLeast versionOlder;
 
   cfg = config.hardware.asus.zephyrus.ga402x;
-  defaultAutosuspendEnable = if (versionAtLeast version "6.9") then true else false;
+  defaultAutosuspendEnable = versionAtLeast config.boot.kernelPackages.kernel.version "6.9";
 
 in {
 
