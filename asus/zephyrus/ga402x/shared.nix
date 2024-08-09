@@ -59,11 +59,11 @@ in {
             evdev:name:*:dmi:bvn*:bvr*:bd*:svnASUS*:pn*:*
             KEYBOARD_KEY_ff31007c=f20
           '';
-        extraRules = mkIf (! cfg.keyboard.autosuspend.enable) ''
-          # Disable auto-suspend for the ASUS N-KEY Device, i.e. USB Keyboard
-          # Otherwise on certain kernel-versions, it will tend to take 1-2 key-presses to wake-up after the device suspends
-          ACTION=="add", SUBSYSTEM=="usb", TEST=="power/autosuspend", ATTR{idVendor}=="0b05", ATTR{idProduct}=="19b6", ATTR{power/autosuspend}="-1"
-        '';
+          extraRules = mkIf (! cfg.keyboard.autosuspend.enable) ''
+            # Disable auto-suspend for the ASUS N-KEY Device, i.e. USB Keyboard
+            # Otherwise on certain kernel-versions, it will tend to take 1-2 key-presses to wake-up after the device suspends
+            ACTION=="add", SUBSYSTEM=="usb", TEST=="power/autosuspend", ATTR{idVendor}=="0b05", ATTR{idProduct}=="19b6", ATTR{power/autosuspend}="-1"
+          '';
         };
       };
     }
