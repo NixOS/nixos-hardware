@@ -108,14 +108,14 @@ with (lib.kernel.whenHelpers version);
   DRM_NOUVEAU = no;
   DRM_AMDGPU = no;
 
-  #fix btf info missing from vmlinux
-  CONFIG_BPF = yes;
-  BPF_SYSCALL = yes;
-  BPF_JIT = yes;
-  # BPF_JIT_ALWAYS_ON = yes;
-  BPF_JIT_DEFAULT_ON = yes;
-  PAHOLE_HAS_BTF_TAG = yes;
-  DEBUG_INFO_BTF = yes;
-  DEBUG_INFO_BTF_MODULES = yes;
+  #pahole causes OOM(6GiB> including zram) on build, disableing it as a mitigation
+  CONFIG_BPF = lib.mkForce no;
+  BPF_SYSCALL = lib.mkForce no;
+  BPF_JIT = lib.mkForce no;
+  BPF_JIT_ALWAYS_ON = lib.mkForce no;
+  BPF_JIT_DEFAULT_ON = lib.mkForce no;
+  PAHOLE_HAS_BTF_TAG = lib.mkForce no;
+  DEBUG_INFO_BTF = lib.mkForce no;
+  DEBUG_INFO_BTF_MODULES = lib.mkForce no;
 
 }

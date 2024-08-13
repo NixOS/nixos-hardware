@@ -50,7 +50,7 @@ buildLinux (
       inherit lib;
       version = pver;
     };
-    autoModules = false;
+    # autoModules = false;
 
     kernelPatches = kernelPatches ++ map apply_patch patches;
     extraMeta = {
