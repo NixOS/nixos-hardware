@@ -108,7 +108,7 @@ with (lib.kernel.whenHelpers version);
   DRM_NOUVEAU = no;
   DRM_AMDGPU = no;
 
-  #pahole causes OOM(6GiB> including zram) on build, disableing it as a mitigation
+  #pahole causes OOM(6GiB> including zram) during build, disabling it as a mitigation
   CONFIG_BPF = lib.mkForce no;
   BPF_SYSCALL = lib.mkForce no;
   BPF_JIT = lib.mkForce no;

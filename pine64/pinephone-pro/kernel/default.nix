@@ -30,7 +30,6 @@ let
       patch = path;
     }
   );
-  # patches = [ ./pinephonepro_defconfig.patch ];
   patches = [ ];
 in
 buildLinux (
@@ -43,14 +42,11 @@ buildLinux (
       inherit pver upstream_patch;
       src = src_pine64;
     };
-    features = {
-      debug = true; # needed for BTF generation
-    };
+    features = { };
     structuredExtraConfig = import ./config.nix {
       inherit lib;
       version = pver;
     };
-    # autoModules = false;
 
     kernelPatches = kernelPatches ++ map apply_patch patches;
     extraMeta = {
