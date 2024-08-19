@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   linux_5_15_helios4 = pkgs.linux_5_15.override {
     kernelPatches = [
@@ -26,8 +26,8 @@ let
     ];
     defconfig = "mvebu_v7_defconfig";
     # Make the kernel build a bit faster by disabling GPU modules, which we don't need anyways
-    structuredExtraConfig = with pkgs.lib.kernel; {
-      DRM = no;
+    structuredExtraConfig = {
+      DRM = lib.mkForce pkgs.lib.kernel.no;
     };
   };
 in

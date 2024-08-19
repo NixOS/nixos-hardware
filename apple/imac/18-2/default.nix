@@ -6,7 +6,7 @@
 }: {
   imports = [
     ../.
-    ../../../common/cpu/intel/kaby-lake
+    ../../../common/gpu/intel/kaby-lake
     ../../../common/gpu/intel
     ../../../common/gpu/amd
     ../../../common/hidpi.nix
@@ -14,16 +14,16 @@
     ../../../common/pc/laptop/acpi_call.nix
   ];
 
-  # apple smc (TODO: check spi) 
+  # apple smc (TODO: check spi)
   boot = {
     initrd.kernelModules = ["applespi" "spi_pxa2xx_platform" "intel_lpss_pci" "applesmc" ];
     kernelParams = [ "intel_iommu=on" ];
     kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "6.0") pkgs.linuxPackages_latest;
   };
 
-  # Wifi, CPU Microcode FW updates 
+  # Wifi, CPU Microcode FW updates
   networking.enableB43Firmware = lib.mkDefault true;
-  hardware = { 
+  hardware = {
     enableRedistributableFirmware = lib.mkDefault true;
     cpu.intel.updateMicrocode = lib.mkDefault true;
   };
