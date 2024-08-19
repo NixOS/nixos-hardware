@@ -2,10 +2,8 @@ queue_rules:
   - name: default
     merge_conditions:
       - check-success=tests
-defaults:
-  actions:
-    queue:
-      merge_method: rebase
+    batch_size: 5
+    merge_method: rebase
 pull_request_rules:
   - name: merge using the merge queue
     conditions:
