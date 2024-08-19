@@ -1,4 +1,4 @@
-{ profile, pkgs }:
+{ pkgs, profile }:
 
 (pkgs.nixos [
   profile
