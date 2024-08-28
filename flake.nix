@@ -8,6 +8,8 @@
     in {
       acer-aspire-4810t = import ./acer/aspire/4810t;
       airis-n990 = import ./airis/n990;
+      apple-imac-14-2 = import ./apple/imac/14-2;
+      apple-imac-18-2 = import ./apple/imac/18-2;
       apple-macbook-air-3 = import ./apple/macbook-air/3;
       apple-macbook-air-4 = import ./apple/macbook-air/4;
       apple-macbook-air-6 = import ./apple/macbook-air/6;
@@ -17,7 +19,6 @@
       apple-macbook-pro-12-1 = import ./apple/macbook-pro/12-1;
       apple-macbook-pro-14-1 = import ./apple/macbook-pro/14-1;
       apple-macmini-4-1 = import ./apple/macmini/4;
-      apple-imac-18-2 = import ./apple/imac/18-2;
       apple-t2 = import ./apple/t2;
       asus-battery = import ./asus/battery.nix;
       asus-ally-rc71l = import ./asus/ally/rc71l;
