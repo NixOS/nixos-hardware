@@ -9,7 +9,7 @@
     powerManagement = {
       # Enable NVIDIA power management.
       enable = lib.mkDefault true;
-      
+
       # Enable dynamic power management.
       finegrained = lib.mkDefault true;
     };
@@ -21,5 +21,7 @@
       # Bus ID of the NVIDIA GPU.
       nvidiaBusId = lib.mkDefault "PCI:1:0:0";
     };
+
+    open = lib.mkDefault true;
   };
 }
