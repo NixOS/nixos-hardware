@@ -6,5 +6,5 @@ in
   imports = [ ../. ];
 
   # enable the opensorce drivers if the package supports it
-  hardware.nvidia.open = lib.mkDefault (nividiaPackage ? open && nividiaPackage ? firmware);
+  hardware.nvidia.open = lib.mkOverride 990 (nividiaPackage ? open && nividiaPackage ? firmware);
 }
