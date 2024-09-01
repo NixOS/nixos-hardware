@@ -5,6 +5,6 @@ in
 {
   imports = [ ../. ];
 
-  # enable the opensorce drivers if the package supports it
+  # enable the open source drivers if the package supports it
   hardware.nvidia.open = lib.mkOverride 990 (nividiaPackage ? open && nividiaPackage ? firmware);
 }
