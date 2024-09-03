@@ -6,6 +6,7 @@
     ../../../common/cpu/amd/pstate.nix
     ../../../common/gpu/amd
     ../../../common/gpu/nvidia/prime.nix
+    ../../../common/gpu/nvidia/ampere
     ../../../common/pc/laptop
     ../../../common/pc/laptop/ssd
   ];
@@ -16,7 +17,7 @@
     modesetting.enable = lib.mkDefault true;
 
     dynamicBoost.enable = lib.mkDefault true;
-    
+
     prime = {
       amdgpuBusId = "PCI:4:0:0";
       nvidiaBusId = "PCI:1:0:0";
