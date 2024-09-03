@@ -295,11 +295,6 @@
       common-gpu-nvidia-sync = import ./common/gpu/nvidia/prime-sync.nix;
       common-gpu-nvidia-nonprime = import ./common/gpu/nvidia;
       common-gpu-nvidia-disable = import ./common/gpu/nvidia/disable.nix;
-      common-gpu-nvidia-ada-lovelace = import ./common/gpu/nvidia/ada-lovelace;
-      common-gpu-nvidia-ampere = import ./common/gpu/nvidia/ampere;
-      common-gpu-nvidia-turing = import ./common/gpu/nvidia/turing;
-      common-gpu-nvidia-pascal = import ./common/gpu/nvidia/pascal;
-      common-gpu-nvidia-maxwell = import ./common/gpu/nvidia/maxwell;
       common-hidpi = import ./common/hidpi.nix;
       common-pc = import ./common/pc;
       common-pc-hdd = import ./common/pc/hdd;
