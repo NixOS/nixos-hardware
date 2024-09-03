@@ -1,5 +1,8 @@
 { lib, pkgs, ... }: {
-  imports = [ ../../../../common/gpu/nvidia/prime.nix ];
+  imports = [
+    ../../../../common/gpu/nvidia/prime.nix
+    ../../../../common/gpu/nvidia/ampere
+  ];
 
   #D-Bus service to check the availability of dual-GPU
   services.switcherooControl.enable = lib.mkDefault true;
