@@ -12,6 +12,7 @@ in {
     ## "prime.nix" loads this, aleady:
     # ../../../common/gpu/nvidia
     ../../../../common/gpu/nvidia/prime.nix
+    ../../../../common/gpu/nvidia/ada-lovelace
 
   ];
 
