@@ -14,5 +14,10 @@
   # energy savings
   boot.kernelParams = ["mem_sleep_default=deep" "pcie_aspm.policy=powersupersave"];
 
+  # Fix for unstable wifi connection on Lenovo laptops
+  boot.extraModprobeConfig = ''
+    options rtw89_pci disable_clkreq=y disable_aspm_l1=y disable_aspm_l1ss=y
+  '';
+
   hardware.bluetooth.enable = true;
 }
