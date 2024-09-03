@@ -5,6 +5,7 @@
     ../../../common/pc/laptop
     ./xps-common.nix
     ../../../common/gpu/nvidia
+    ../../../common/gpu/nvidia/pascal
   ];
 
   hardware.graphics.enable = true;
