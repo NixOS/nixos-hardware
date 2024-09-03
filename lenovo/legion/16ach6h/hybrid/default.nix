@@ -7,6 +7,7 @@
     ../../../../common/cpu/amd/zenpower.nix
     ../../../../common/gpu/amd
     ../../../../common/gpu/nvidia/prime.nix
+    ../../../../common/gpu/nvidia/ampere
     ../../../../common/pc/laptop
     ../../../../common/pc/laptop/ssd
     ../edid
