@@ -6,6 +6,7 @@
     ../../../../common/gpu/nvidia/prime.nix
     ../../../../common/pc/laptop
     ../xps-common.nix
+    ../../../../common/gpu/nvidia/pascal
   ];
 
 
