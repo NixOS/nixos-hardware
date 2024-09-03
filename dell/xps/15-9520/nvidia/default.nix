@@ -3,6 +3,7 @@
   imports = [
     ../default.nix
     ../../../../common/gpu/nvidia/prime.nix
+    ../../../../common/gpu/nvidia/ampere
   ];
 
   hardware.nvidia.prime = {
