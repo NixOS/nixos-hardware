@@ -4,6 +4,7 @@
 		../../../common/cpu/amd/pstate.nix
 		../../../common/gpu/nvidia
 		../../../common/gpu/nvidia/prime.nix
+		../../../common/gpu/nvidia/ampere
 		../../../common/pc/laptop
 		../../../common/pc/ssd
 		../../battery.nix
