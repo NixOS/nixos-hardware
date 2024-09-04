@@ -8,5 +8,5 @@ with lib;
     ../../../common/gpu/amd
   ];
 
-  hardware.bluetooth.enable = true;
+  hardware.bluetooth.enable = lib.mkDefault true;
 }
