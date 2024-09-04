@@ -9,6 +9,7 @@
     ../.
     ../../../common/gpu/intel
     ../../../common/gpu/nvidia
+    ../../../common/gpu/nvidia/kepler
     ../../../common/hidpi.nix
   ];
 
