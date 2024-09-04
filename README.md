@@ -170,6 +170,7 @@ See code for all available configurations.
 | [GPD Pocket 3](gpd/pocket-3)                                           | `<nixos-hardware/gpd/pocket-3>`                         |
 | [GPD WIN 2](gpd/win-2)                                                 | `<nixos-hardware/gpd/win-2>`                            |
 | [GPD WIN Max 2 2023](gpd/win-max-2/2023)                               | `<nixos-hardware/gpd/win-max-2/2023>`                   |
+| [GPD WIN Mini 2024](gpd/win-mini/2024)                                 | `<nixos-hardware/gpd/win-mini/2024>`                    |
 | [Google Pixelbook](google/pixelbook)                                   | `<nixos-hardware/google/pixelbook>`                     |
 | [HP Elitebook 2560p](hp/elitebook/2560p)                               | `<nixos-hardware/hp/elitebook/2560p>`                   |
 | [HP Elitebook 830g6](hp/elitebook/830/g6)                              | `<nixos-hardware/hp/elitebook/830/g6>`                  |
