@@ -4,6 +4,7 @@
   imports = [
     ../.
     ../../../../../common/gpu/nvidia/prime.nix
+    ../../../../../common/gpu/nvidia/turing
   ];
 
   hardware = {
