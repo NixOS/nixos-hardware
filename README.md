@@ -100,6 +100,7 @@ See code for all available configurations.
 | [Asus ROG Zephyrus G14 GA402X* (2023)](asus/zephyrus/ga402x/nvidia)    | `<nixos-hardware/asus/zephyrus/ga402x/nvidia>`          |
 | [Asus ROG Zephyrus G15 GA502](asus/zephyrus/ga502)                     | `<nixos-hardware/asus/zephyrus/ga502>`                  |
 | [Asus ROG Zephyrus G15 GA503](asus/zephyrus/ga503)                     | `<nixos-hardware/asus/zephyrus/ga503>`                  |
+| [Asus ROG Zephyrus G16 GU605MY](asus/zephyrus/gu605my)                 | `<nixos-hardware/asus/zephyrus/gu605my>`                |
 | [Asus ROG Zephyrus M16 GU603H](asus/zephyrus/gu603h)                   | `<nixos-hardware/asus/zephyrus/gu603h>`                 |
 | [Asus TUF FX504GD](asus/fx504gd)                                       | `<nixos-hardware/asus/fx504gd>`                         |
 | [Asus TUF FX506HM](asus/fx506hm)                                       | `<nixos-hardware/asus/fx506hm>`                         |
