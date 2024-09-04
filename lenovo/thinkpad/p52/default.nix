@@ -2,6 +2,7 @@
   imports = [
     ../../../common/gpu/24.05-compat.nix
     ../../../common/gpu/nvidia/prime.nix
+    ../../../common/gpu/nvidia/pascal
     ../../../common/cpu/intel
     ../../../common/pc/laptop/acpi_call.nix
     ../.
