@@ -4,6 +4,7 @@
     ../../../common/cpu/amd
     ../../../common/gpu/amd
     ../../../common/gpu/nvidia/prime.nix
+    ../../../common/gpu/nvidia/ampere
     ../../../common/hidpi.nix
     ../../../common/pc/laptop
     ../../../common/pc/laptop/ssd

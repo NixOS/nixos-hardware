@@ -6,6 +6,7 @@
     ../../common/cpu/amd/pstate.nix
     ../../common/gpu/amd
     ../../common/gpu/nvidia/prime.nix
+    ../../common/gpu/nvidia/turing
     ../../common/pc/laptop
     ../../common/pc/ssd
   ];

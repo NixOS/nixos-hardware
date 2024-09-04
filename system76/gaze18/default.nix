@@ -3,6 +3,7 @@
   imports = [
     ../.
     ../../common/gpu/nvidia/prime.nix
+    ../../common/gpu/nvidia/ampere
   ];
 
   boot.initrd.kernelModules = [ "nvidia" ];

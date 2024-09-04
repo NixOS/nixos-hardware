@@ -5,6 +5,7 @@
     ../.
     ../../../common/pc/laptop/ssd
     ../../../common/gpu/24.05-compat.nix
+    ../../../common/gpu/nvidia/kepler
   ];
 
   # TODO: reverse compat
