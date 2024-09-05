@@ -7,7 +7,7 @@
 		../../../common/gpu/nvidia/ampere
 		../../../common/pc/laptop
 		../../../common/pc/ssd
-		../../battery.nix
+		../../../common/pc/laptop/battery.nix
 	];
 
 	hardware.nvidia.prime = {

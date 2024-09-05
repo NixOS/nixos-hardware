@@ -6,7 +6,7 @@
     ../../../common/gpu/amd
     ../../../common/pc/laptop
     ../../../common/pc/laptop/ssd
-    ../../battery.nix
+    ../../../common/pc/laptop/battery.nix
   ];
 
   # 6.5 adds many fixes and improvements for the Ally
