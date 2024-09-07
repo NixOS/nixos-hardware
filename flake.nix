@@ -14,6 +14,7 @@
       apple-macbook-air-4 = import ./apple/macbook-air/4;
       apple-macbook-air-6 = import ./apple/macbook-air/6;
       apple-macbook-pro = import ./apple/macbook-pro;
+      apple-macbook-pro-8-1 = import ./apple/macbook-pro/8-1;
       apple-macbook-pro-10-1 = import ./apple/macbook-pro/10-1;
       apple-macbook-pro-11-5 = import ./apple/macbook-pro/11-5;
       apple-macbook-pro-12-1 = import ./apple/macbook-pro/12-1;
@@ -266,6 +267,7 @@
       samsung-np900x3c = import ./samsung/np900x3c;
       starfive-visionfive-v1 = import ./starfive/visionfive/v1;
       starfive-visionfive-2 = import ./starfive/visionfive/v2;
+      starlabs-starlite-i5 = import ./starlabs/starlite/i5;
       supermicro = import ./supermicro;
       supermicro-a1sri-2758f = import ./supermicro/a1sri-2758f;
       supermicro-m11sdv-8c-ln4f = import ./supermicro/m11sdv-8c-ln4f;

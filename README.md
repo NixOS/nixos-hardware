@@ -82,6 +82,7 @@ See code for all available configurations.
 | [Apple MacBook Air 3,X](apple/macbook-air/3)                           | `<nixos-hardware/apple/macbook-air/3>`                  |
 | [Apple MacBook Air 4,X](apple/macbook-air/4)                           | `<nixos-hardware/apple/macbook-air/4>`                  |
 | [Apple MacBook Air 6,X](apple/macbook-air/6)                           | `<nixos-hardware/apple/macbook-air/6>`                  |
+| [Apple MacBook Pro 8,1](apple/macbook-pro/8-1)                         | `<nixos-hardware/apple/macbook-pro/8-1>`                |
 | [Apple MacBook Pro 10,1](apple/macbook-pro/10-1)                       | `<nixos-hardware/apple/macbook-pro/10-1>`               |
 | [Apple MacBook Pro 11,5](apple/macbook-pro/11-5)                       | `<nixos-hardware/apple/macbook-pro/11-5>`               |
 | [Apple MacBook Pro 12,1](apple/macbook-pro/12-1)                       | `<nixos-hardware/apple/macbook-pro/12-1>`               |
@@ -320,6 +321,7 @@ See code for all available configurations.
 | [Samsung Series 9 NP900X3C](samsung/np900x3c)                          | `<nixos-hardware/samsung/np900x3c>`                     |
 | [StarFive VisionFive v1](starfive/visionfive/v1)                       | `<nixos-hardware/starfive/visionfive/v1>`               |
 | [StarFive VisionFive 2](starfive/visionfive/v2)                        | `<nixos-hardware/starfive/visionfive/v2>`               |
+| [StarLabs StarLite 5 (I5)](starlabs/starlite/i5)                    | `<nixos-hardware/starlabs/starlite/i5>`                 |
 | [Supermicro A1SRi-2758F](supermicro/a1sri-2758f)                       | `<nixos-hardware/supermicro/a1sri-2758f>`               |
 | [Supermicro M11SDV-8C-LN4F](supermicro/m11sdv-8c-ln4f)                 | `<nixos-hardware/supermicro/m11sdv-8c-ln4f>`            |
 | [Supermicro X10SLL-F](supermicro/x10sll-f)                             | `<nixos-hardware/supermicro/x10sll-f>`                  |
