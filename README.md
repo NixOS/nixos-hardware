@@ -82,6 +82,7 @@ See code for all available configurations.
 | [Apple MacBook Air 3,X](apple/macbook-air/3)                           | `<nixos-hardware/apple/macbook-air/3>`                  |
 | [Apple MacBook Air 4,X](apple/macbook-air/4)                           | `<nixos-hardware/apple/macbook-air/4>`                  |
 | [Apple MacBook Air 6,X](apple/macbook-air/6)                           | `<nixos-hardware/apple/macbook-air/6>`                  |
+| [Apple MacBook Pro 8,1](apple/macbook-pro/8-1)                         | `<nixos-hardware/apple/macbook-pro/8-1>`                |
 | [Apple MacBook Pro 10,1](apple/macbook-pro/10-1)                       | `<nixos-hardware/apple/macbook-pro/10-1>`               |
 | [Apple MacBook Pro 11,5](apple/macbook-pro/11-5)                       | `<nixos-hardware/apple/macbook-pro/11-5>`               |
 | [Apple MacBook Pro 12,1](apple/macbook-pro/12-1)                       | `<nixos-hardware/apple/macbook-pro/12-1>`               |
