@@ -308,6 +308,7 @@ See code for all available configurations.
 | [Panasonic Let's Note CF-LX4](panasonic/letsnote/cf-lx4)               | `<nixos-hardware/panasonic/letsnote/cf-lx4>`            |
 | [PC Engines APU](pcengines/apu)                                        | `<nixos-hardware/pcengines/apu>`                        |
 | [PINE64 Pinebook Pro](pine64/pinebook-pro/)                            | `<nixos-hardware/pine64/pinebook-pro>`                  |
+| [PINE64 Pinephone Pro](pine64/pinephone-pro/)                          | `<nixos-hardware/pine64/pinephone-pro>`                  |
 | [PINE64 RockPro64](pine64/rockpro64/)                                  | `<nixos-hardware/pine64/rockpro64>`                     |
 | [PINE64 STAR64](pine64/star64/)                                        | `<nixos-hardware/pine64/star64>`                        |
 | [Protectli VP4670](protectli/vp4670/)                                  | `<nixos-hardware/protectli/vp4670>`                     |

@@ -253,6 +253,7 @@
       olimex-teres_i = import ./olimex/teres_i;
       pcengines-apu = import ./pcengines/apu;
       pine64-pinebook-pro = import ./pine64/pinebook-pro;
+      pine64-pinephone-pro = import ./pine64/pinephone-pro;
       pine64-rockpro64 = import ./pine64/rockpro64;
       pine64-star64 = import ./pine64/star64;
       protectli-vp4670 = import ./protectli/vp4670;
