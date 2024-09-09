@@ -1,0 +1,79 @@
+= Malibal Aon S1 =
+
+== Tested Hardware ==
+
+* CPU: Intel(R) Core(TM) i7-13700H CPU @ 2.4GHz
+* RAM: 32 GB
+* HDD: 2 TiB SSD
+* Screen: 14" WQXGA+ (2880x1800)
+* Graphics: Intel Raptor Lake-P [Iris Xe Graphics]. nVidia graphics disabled preemptively.
+* Display: Wayland.
+* Input: trackpad
+
+== Firmware Configuration ==
+
+No tweaking to get a useful system, but some is needed.
+- Sleeping doesn't work properly and overheats the system.
+- Fans spin even when the system is at almost no load and CPUs report 30°C-35°C
+
+== Installation ==
+
+=== Before installation ===
+
+I don't recall what I did very well, probably just disabled secure boot as
+there's no nice and meaningful way of using it yet.
+
+=== After installation ===
+
+=== Optional ===
+
+* Run fwupd
+
+== Troubleshooting ==
+
+
+== Annoyances ==
+
+=== It's easy to tap the power button ===
+
+It's better to ignore short tapping the power button,
+
+```nix
+  services = {
+    logind = {
+      if options.hardware.ignorePowerButtonTap
+      extraConfig = ''
+        # Don’t shutdown when power button is short-pressed
+        HandlePowerKey=ignore
+      '';
+    };
+  };
+```
+
+== Broken Functionality ==
+
+=== Sleeping works, but overheats the machine ===
+
+This drains battery faster than keeping the machine on and it might get you backpack really warm.
+
+Best workaround I found so far is to increase the time to take an action, and use shutdown as the action.
+This is *not* a reasonable workaround for most.
+
+
+```nix
+  services = {
+    logind = {
+      if options.hardware.ignorePowerButtonTap
+      extraConfig = ''
+        # Shutdown until sleep/hibernate works
+        IdleAction=poweroff
+
+        # Ideal case (hibernation onto / isn't working for me, but probably works with a swap partition)
+        # When idle, sleep, but hibernate if it's been too long.
+        # IdleAction=hybrid-sleep
+      '';
+    };
+  };
+```
+
+I'm hoping that suspend-then-hibernate will make this a non-issue in practice, but haven't spent time on it.

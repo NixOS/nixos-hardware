@@ -224,6 +224,7 @@
       lenovo-yoga-7-14ARH7-nvidia = import ./lenovo/yoga/7/14ARH7/nvidia;
       lenovo-yoga-7-slim-gen8 = import ./lenovo/yoga/7/slim/gen8;
       letsnote-cf-lx4 = import ./panasonic/letsnote/cf-lx4;
+      malibal-aon-s1-intel = import ./malibal/aon/s1;
       microchip-icicle-kit = import ./microchip/icicle-kit;
       microsoft-surface-go = import ./microsoft/surface/surface-go;
       microsoft-surface-pro-intel = import ./microsoft/surface/surface-pro-intel;
