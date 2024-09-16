@@ -55,7 +55,6 @@ module for your model's configuration. Otherwise, it can be added alongside the 
 
 ### fw-ectool
 
-There is a `fw-ectool` package available in nixpkgs-unstable that provides some system configuration options via the EC.
+There is a `fw-ectool` package available in nixpkgs that provides some system configuration options via the EC.
 This ectool only works with the Intel-based Framework laptops at present, as the Framework EC for AMD-based mainboards
 is based on the Zephyr port of the ChromeOS EC, which involves a slightly changed communication interface.
-
