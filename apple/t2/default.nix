@@ -24,7 +24,7 @@ let
 
   pipewirePackage = overrideAudioFiles pkgs.pipewire "spa/plugins/";
 
-  tiny-dfrPackage = pkgs.callPackage ./pkgs/tiny-dfr.nix { };
+  tiny-dfrPackage = pkgs.callPackage ./pkgs/tiny-dfr { };
 
   apple-set-os-loader-installer = pkgs.stdenv.mkDerivation {
     name = "apple-set-os-loader-installer-1.0";
