@@ -9,6 +9,8 @@
     ../../../common/pc/ssd
   ];
 
-  # Bluetooth driver for Intel AX200 802.11ax
-  boot.kernelModules = [ "btintel" ];
+  boot.kernelModules = [
+    "btintel" # Bluetooth driver for Intel AX200 802.11ax
+    "nct6775" # Temperature and Fan Sensor for Nuvoton NCT6798D-R
+  ];
 }
