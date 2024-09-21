@@ -42,15 +42,7 @@ Link the profile in the table in README.md and in flake.nix.
 
 ## 3. Testing
 
-Run ./tests/run.py to test building. The test script script will parse all the
-profiles from the README.md.
-
-You can also just specify a single profile like this:
-
-```
- ./tests/run.py '<nixos-hardware/purism/librem/15v3>'
-```
-
+Run `nix run ./tests#run .` to evaluate all hardware profiles.
 Because profiles can only be tested with the appropriate hardware, quality
 assurance is up to *you*.
 
