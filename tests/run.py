@@ -3,7 +3,6 @@
 import argparse
 import json
 import multiprocessing
-import re
 import shlex
 import subprocess
 import sys
@@ -16,9 +15,6 @@ ROOT = TEST_ROOT.parent
 GREEN = "\033[92m"
 RED = "\033[91m"
 RESET = "\033[0m"
-
-re_nixos_hardware = re.compile(r"<nixos-hardware/([^>]+)>")
-
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run hardware tests")
@@ -60,7 +56,7 @@ def run_eval_test(nixos_hardware: str, gcroot_dir: Path, jobs: int) -> list[str]
         str(TEST_ROOT) + "#checks",
         "--force-recurse",
     ]
-    print(" ".join(map(shlex.quote,cmd)))
+    print(" ".join(map(shlex.quote, cmd)))
     proc = subprocess.Popen(
         cmd,
         stdout=subprocess.PIPE,
