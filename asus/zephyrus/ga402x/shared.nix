@@ -32,6 +32,12 @@ in {
     keyboard.autosuspend.enable = (
       mkEnableOption "Enable auto-suspend on the internal USB keyboard (ASUS N-KEY Device) on Zephyrus GA402X"
     ) // { default = defaultAutosuspendEnable; };
+    # The ASUS 8295 ITE device will cause an immediate wake-up when trying to suspend the laptop.
+    # After the first successful hibernate, it will work as expected, however.
+    # NOTE: I'm not actually sure what this device, as neither the touchpad nor the M1-M4 keys cause a wake-up.
+    ite-device.wakeup.enable = (
+      mkEnableOption "Enable power wakeup on the internal USB keyboard-like device (8295 ITE Device) on Zephyrus GA402X"
+    ) // { default = false; };
   };
 
   config = mkMerge [
@@ -59,14 +65,26 @@ in {
             evdev:name:*:dmi:bvn*:bvr*:bd*:svnASUS*:pn*:*
             KEYBOARD_KEY_ff31007c=f20
           '';
-          extraRules = mkIf (! cfg.keyboard.autosuspend.enable) ''
-            # Disable auto-suspend for the ASUS N-KEY Device, i.e. USB Keyboard
-            # Otherwise on certain kernel-versions, it will tend to take 1-2 key-presses to wake-up after the device suspends
-            ACTION=="add", SUBSYSTEM=="usb", TEST=="power/autosuspend", ATTR{idVendor}=="0b05", ATTR{idProduct}=="19b6", ATTR{power/autosuspend}="-1"
-          '';
         };
       };
     }
+
+    (mkIf (! cfg.keyboard.autosuspend.enable) {
+      services.udev.extraRules = ''
+        # Disable power auto-suspend for the ASUS N-KEY device, i.e. USB Keyboard.
+        # Otherwise on certain kernel-versions, it will tend to take 1-2 key-presses to wake-up after the device suspends.
+        ACTION=="add", SUBSYSTEM=="usb", TEST=="power/autosuspend", ATTR{idVendor}=="0b05", ATTR{idProduct}=="19b6", ATTR{power/autosuspend}="-1"
+      '';
+    })
+
+    (mkIf (! cfg.ite-device.wakeup.enable) {
+      services.udev.extraRules = ''
+        # Disable power wakeup for the 8295 ITE device.
+        # Otherwise on certain kernel-versions, it will tend to cause the laptop to immediately wake-up when suspending.
+        # ACTION=="add|change", SUBSYSTEM=="usb", DRIVER="usb", TEST="power/wakeup", ATTR{idVendor}=="0b05", ATTR{idProduct}=="193b", ATTR{power/wakeup}="disabled"
+        ACTION=="add|change", SUBSYSTEM=="usb", ATTR{idVendor}=="0b05", ATTR{idProduct}=="193b", ATTR{power/wakeup}="disabled"
+      '';
+    })
 
     (mkIf (versionOlder version "23.11") {
       # See https://asus-linux.org/wiki/nixos/ for info about some problems
