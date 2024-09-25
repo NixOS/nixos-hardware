@@ -51,7 +51,7 @@ in {
           enableUserService = mkDefault true;
         };
 
-        supergfxd.enable = true;
+        supergfxd.enable = mkDefault true;
 
         udev = {
           extraHwdb = ''
