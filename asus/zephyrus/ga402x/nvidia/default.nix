@@ -27,16 +27,16 @@ in {
 
   hardware = {
     ## Enable the Nvidia card, as well as Prime and Offload:
-    amdgpu.initrd.enable = lib.mkDefault true;
+    amdgpu.initrd.enable = mkDefault true;
 
     nvidia = {
       modesetting.enable = true;
-      nvidiaSettings = true;
+      nvidiaSettings = mkDefault true;
 
       prime = {
         offload = {
-          enable = true;
-          enableOffloadCmd = true;
+          enable = mkDefault true;
+          enableOffloadCmd = mkDefault true;
         };
         amdgpuBusId = "PCI:101:0:0";
         nvidiaBusId = "PCI:1:0:0";
