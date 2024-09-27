@@ -11,12 +11,8 @@
   hardware.enableRedistributableFirmware = lib.mkDefault true;
 
   boot = {
-    blacklistedKernelModules = [ "nouveau" ];
-    kernelModules = [ "kvm-intel" ];
     kernelParams = [ "i915.modeset=1" ];
   };
-
-  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia.prime = {
     intelBusId = "PCI:0:2:0";
