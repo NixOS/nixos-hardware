@@ -21,7 +21,7 @@
 
         reverseSync.enable = lib.mkDefault true; # Turning this on meant the Thunderbolt port was able to be used for video
       };
-    dynamicBoost.enable=false; # Doesn't work on this GPU - causes error rebuilding
+      dynamicBoost.enable=false; # Doesn't work on this GPU - causes error rebuilding
     };
 
     powerManagement.powertop.enable = lib.mkDefault false; # This caused issues with USB ports losing power while the device was on
