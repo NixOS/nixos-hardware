@@ -1,0 +1,18 @@
+= Dell XPS 13 9315 =
+
+See also 
+
+== Firmware upgrades ==
+
+Note that this device is supported by [https://fwupd.org/ fwupd].
+To perform firmware upgrades just activate the service
+
+<code>
+services.fwupd.enable = true;
+</code>
+
+Then use <code>fwupdmgr</code> to perform updates.
+
+== Additional resources ==
+
+* Arch linux wiki: [https://wiki.archlinux.org/title/Dell_XPS_13_(9315) Dell XPS 13 9315]
