@@ -1,8 +1,6 @@
 {
   config,
   lib,
-  pkgs,
-  inputs,
   ...
 }:
 {
@@ -12,6 +10,9 @@
     ../../../common/pc/laptop/ssd
     ../../battery.nix
   ];
+
+  # while tiger-lake in general not supported by xe, some chipsets like this one are.
+  hardware.intelgpu.driver = lib.mkIf (lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.8") "xe";
 
   boot.kernelParams = lib.mkIf (config.hardware.intelgpu.driver == "xe") [
     "i915.force_probe=!9a49"
