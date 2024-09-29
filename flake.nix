@@ -119,6 +119,7 @@
         hp-elitebook-845g7 = import ./hp/elitebook/845/g7;
         hp-elitebook-845g8 = import ./hp/elitebook/845/g8;
         hp-elitebook-845g9 = import ./hp/elitebook/845/g9;
+        hp-laptop-14s-dq2024nf = import ./hp/laptop/14s-dq2024nf;
         huawei-machc-wa = import ./huawei/machc-wa;
         hp-notebook-14-df0023 = import ./hp/notebook/14-df0023;
         intel-nuc-8i7beh = import ./intel/nuc/8i7beh;
