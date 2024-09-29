@@ -35,9 +35,7 @@ in {
     # The ASUS 8295 ITE device will cause an immediate wake-up when trying to suspend the laptop.
     # After the first successful hibernate, it will work as expected, however.
     # NOTE: I'm not actually sure what this device, as neither the touchpad nor the M1-M4 keys cause a wake-up.
-    ite-device.wakeup.enable = (
-      mkEnableOption "Enable power wakeup on the internal USB keyboard-like device (8295 ITE Device) on Zephyrus GA402X"
-    ) // { default = false; };
+    ite-device.wakeup.enable = mkEnableOption "Enable power wakeup on the internal USB keyboard-like device (8295 ITE Device) on Zephyrus GA402X";
   };
 
   config = mkMerge [
