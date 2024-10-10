@@ -6,4 +6,6 @@
   boot.kernelParams = [
     "i915.enable_rc6=7"
   ];
+
+  hardware.intelgpu.vaapiDriver = "intel-vaapi-driver";
 }

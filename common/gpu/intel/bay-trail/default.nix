@@ -12,4 +12,6 @@
         { intel-vaapi-driver = super.intel-vaapi-driver.override { enableHybridCodec = true; }; }
     )
   ];
+
+  hardware.intelgpu.vaapiDriver = "intel-vaapi-driver";
 }
