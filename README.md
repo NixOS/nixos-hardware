@@ -335,6 +335,7 @@ See code for all available configurations.
 | [System76 Galago Pro 5](system76/galp5-1650)                           | `<nixos-hardware/system76/galp5-1650>`                  | 
 | [Toshiba Chromebook 2 `swanky`](toshiba/swanky)                        | `<nixos-hardware/toshiba/swanky>`                       |
 | [Tuxedo InfinityBook v4](tuxedo/infinitybook/v4)                       | `<nixos-hardware/tuxedo/infinitybook/v4>`               |
+| [TUXEDO Aura 15 - Gen1](tuxedo/aura/15/gen1)                           | `<nixos-hardware/tuxedo/aura/15/gen1>`                  |
 | [TUXEDO InfinityBook Pro 14 - Gen7](tuxedo/infinitybook/pro14/gen7)    | `<nixos-hardware/tuxedo/infinitybook/pro14/gen7>`       |
 | [TUXEDO Pulse 14 - Gen3](tuxedo/pulse/14/gen3)                         | `<nixos-hardware/tuxedo/pulse/14/gen3>`                 |
 | [TUXEDO Pulse 15 - Gen2](tuxedo/pulse/15/gen2)                         | `<nixos-hardware/tuxedo/pulse/15/gen2>`                 |

@@ -287,6 +287,7 @@
         system76-galp5-1650 = import ./system76/galp5-1650;
         system76-darp6 = import ./system76/darp6;
         toshiba-swanky = import ./toshiba/swanky;
+        tuxedo-aura-15-gen1 = import ./tuxedo/aura/15/gen1;
         tuxedo-infinitybook-v4 = import ./tuxedo/infinitybook/v4;
         tuxedo-infinitybook-pro14-gen7 = import ./tuxedo/infinitybook/pro14/gen7;
         tuxedo-pulse-14-gen3 = import ./tuxedo/pulse/14/gen3;
