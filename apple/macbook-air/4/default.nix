@@ -3,7 +3,7 @@
 {
   imports = [
     ../.
-    ../../../common/gpu/intel/sandy-bridge
+    ../../../common/cpu/intel/sandy-bridge
   ];
 
   boot.kernelParams = [

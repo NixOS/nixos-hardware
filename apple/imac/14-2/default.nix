@@ -7,7 +7,7 @@
 {
   imports = [
     ../.
-    ../../../common/gpu/intel
+    ../../../common/cpu/intel
     ../../../common/gpu/nvidia
     ../../../common/gpu/nvidia/kepler
     ../../../common/hidpi.nix
