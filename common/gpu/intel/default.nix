@@ -28,22 +28,42 @@
 
     hardware.graphics.extraPackages = with pkgs; [
       (
-        if (lib.versionOlder (lib.versions.majorMinor lib.version) "23.11") then
+        if pkgs?intel-vaapi-driver then
+          intel-vaapi-driver
+        else if pkgs?vaapiIntel then
           vaapiIntel
         else
-          intel-vaapi-driver.override { enableHybridCodec = true; }
+          builtins.throw "Unable to find Intel VAAPI driver"
       )
       intel-media-driver
+      (
+        if pkgs?vpl-gpu-rt then
+          vpl-gpu-rt
+        else if pkgs?onevpl-intel-gpu then
+          onevpl-intel-gpu
+        else
+          builtins.throw "Unable to find OneAPI VAAPI driver"
+      )
     ];
 
     hardware.graphics.extraPackages32 = with pkgs.driversi686Linux; [
       (
-        if (lib.versionOlder (lib.versions.majorMinor lib.version) "23.11") then
+        if pkgs?intel-vaapi-driver then
+          intel-vaapi-driver
+        else if pkgs?vaapiIntel then
           vaapiIntel
         else
-          intel-vaapi-driver.override { enableHybridCodec = true; }
+          builtins.throw "Unable to find Intel VAAPI driver"
       )
       intel-media-driver
+      (
+        if pkgs?vpl-gpu-rt then
+          vpl-gpu-rt
+        else if pkgs?onevpl-intel-gpu then
+          onevpl-intel-gpu
+        else
+          builtins.throw "Unable to find OneAPI VAAPI driver"
+      )
     ];
 
     assertions = [
