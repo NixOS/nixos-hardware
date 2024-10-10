@@ -1,7 +1,7 @@
 { lib, ... }:
 {
   imports = [
-    ../../../common/gpu/intel/tiger-lake
+    ../../../common/cpu/intel/tiger-lake
     ../../../common/pc/laptop
     ../../../common/pc/ssd
   ];
