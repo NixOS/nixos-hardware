@@ -49,71 +49,82 @@ let
 
 in
 {
-  options = {
-    hardware.apple-t2.enableAppleSetOsLoader = lib.mkOption {
+  options.hardware.apple-t2 = {
+    enableAppleSetOsLoader = lib.mkOption {
       default = false;
       type = lib.types.bool;
       description = "Whether to enable the appleSetOsLoader activation script.";
     };
+
+    enableTinyDfr = lib.mkOption {
+      default = true;
+      type = lib.types.bool;
+      description = "Whether to enable the tiny-dfr touchbar service.";
+    };
   };
 
-  config = {
-    # For keyboard and touchbar
-    boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.callPackage ./pkgs/linux-t2.nix { });
-    boot.initrd.kernelModules = [ "apple-bce" ];
+  config = lib.mkMerge [
+    {
+      # For keyboard and touchbar
+      boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.callPackage ./pkgs/linux-t2.nix { });
+      boot.initrd.kernelModules = [ "apple-bce" ];
 
-    services.udev.packages = [ audioFilesUdevRules tiny-dfrPackage ];
+      services.udev.packages = [ audioFilesUdevRules ];
 
-    # For audio
-    boot.kernelParams = [ "pcie_ports=compat" "intel_iommu=on" "iommu=pt" ];
+      # For audio
+      boot.kernelParams = [ "pcie_ports=compat" "intel_iommu=on" "iommu=pt" ];
 
-    hardware.pulseaudio.package = overrideAudioFiles pkgs.pulseaudio "src/modules/";
+      hardware.pulseaudio.package = overrideAudioFiles pkgs.pulseaudio "src/modules/";
 
-    services.pipewire.package = pipewirePackage;
-    services.pipewire.wireplumber.package = pkgs.wireplumber.override {
-      pipewire = pipewirePackage;
-    };
+      services.pipewire.package = pipewirePackage;
+      services.pipewire.wireplumber.package = pkgs.wireplumber.override {
+        pipewire = pipewirePackage;
+      };
 
-    # For tiny-dfr
-    systemd.services.tiny-dfr = {
-      enable = true;
-      description = "Tiny Apple silicon touch bar daemon";
-      after = [ "systemd-user-sessions.service" "getty@tty1.service" "plymouth-quit.service" "systemd-logind.service" ];
-      bindsTo = [ "dev-tiny_dfr_display.device" "dev-tiny_dfr_backlight.device" ];
-      startLimitIntervalSec = 30;
-      startLimitBurst = 2;
-      script = "${tiny-dfrPackage}/bin/tiny-dfr";
-      restartTriggers = [ tiny-dfrPackage ];
-    };
+      # Make sure post-resume.service exists
+      powerManagement.enable = true;
+    }
+    (lib.mkIf t2Cfg.enableAppleSetOsLoader {
+      # Activation script to install apple-set-os-loader in order to unlock the iGPU
+      system.activationScripts.appleSetOsLoader = ''
+        if [[ -e /boot/efi/efi/boot/bootx64_original.efi ]]; then
+          true # It's already installed, no action required
+        elif [[ -e /boot/efi/efi/boot/bootx64.efi ]]; then
+          # Copy the new bootloader to a temporary location
+          cp ${apple-set-os-loader-installer}/bootx64.efi /boot/efi/efi/boot/bootx64_temp.efi
 
-    environment.etc."tiny-dfr/config.toml" = {
-      source = "${tiny-dfrPackage}/share/tiny-dfr/config.toml";
-    };
+          # Rename the original bootloader
+          mv /boot/efi/efi/boot/bootx64.efi /boot/efi/efi/boot/bootx64_original.efi
 
-    # Make sure post-resume.service exists
-    powerManagement.enable = true;
+          # Move the new bootloader to the final destination
+          mv /boot/efi/efi/boot/bootx64_temp.efi /boot/efi/efi/boot/bootx64.efi
+        else
+          echo "Error: /boot/efi/efi/boot/bootx64.efi is missing" >&2
+        fi
+      '';
 
-    # Activation script to install apple-set-os-loader in order to unlock the iGPU
-    system.activationScripts.appleSetOsLoader = lib.optionalString t2Cfg.enableAppleSetOsLoader ''
-      if [[ -e /boot/efi/efi/boot/bootx64_original.efi ]]; then
-        true # It's already installed, no action required
-      elif [[ -e /boot/efi/efi/boot/bootx64.efi ]]; then
-        # Copy the new bootloader to a temporary location
-        cp ${apple-set-os-loader-installer}/bootx64.efi /boot/efi/efi/boot/bootx64_temp.efi
+      # Enable the iGPU by default if present
+      environment.etc."modprobe.d/apple-gmux.conf".text = ''
+        options apple-gmux force_igd=y
+      '';
+    })
+    (lib.mkIf t2Cfg.enableTinyDfr {
+      services.udev.packages = [ tiny-dfrPackage ];
 
-        # Rename the original bootloader
-        mv /boot/efi/efi/boot/bootx64.efi /boot/efi/efi/boot/bootx64_original.efi
+      systemd.services.tiny-dfr = {
+        enable = true;
+        description = "Tiny Apple silicon touch bar daemon";
+        after = [ "systemd-user-sessions.service" "getty@tty1.service" "plymouth-quit.service" "systemd-logind.service" ];
+        bindsTo = [ "dev-tiny_dfr_display.device" "dev-tiny_dfr_backlight.device" ];
+        startLimitIntervalSec = 30;
+        startLimitBurst = 2;
+        script = "${tiny-dfrPackage}/bin/tiny-dfr";
+        restartTriggers = [ tiny-dfrPackage ];
+      };
 
-        # Move the new bootloader to the final destination
-        mv /boot/efi/efi/boot/bootx64_temp.efi /boot/efi/efi/boot/bootx64.efi
-      else
-        echo "Error: /boot/efi/efi/boot/bootx64.efi is missing" >&2
-      fi
-    '';
-
-    # Enable the iGPU by default if present
-    environment.etc."modprobe.d/apple-gmux.conf".text = lib.optionalString t2Cfg.enableAppleSetOsLoader ''
-      options apple-gmux force_igd=y
-    '';
-  };
+      environment.etc."tiny-dfr/config.toml" = {
+        source = "${tiny-dfrPackage}/share/tiny-dfr/config.toml";
+      };
+    })
+  ];
 }
