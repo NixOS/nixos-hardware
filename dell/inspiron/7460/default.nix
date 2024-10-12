@@ -1,6 +1,4 @@
-{lib, ...}:
-
-with lib;
+{ lib, ... }:
 
 {
   imports = [
@@ -11,21 +9,13 @@ with lib;
     ../../../common/gpu/nvidia/prime.nix
   ];
 
-  # Essential Firmware
-  hardware.enableRedistributableFirmware = mkDefault true;
-
   hardware.nvidia.prime = {
     intelBusId = "PCI:0:2:0";
     nvidiaBusId = "PCI:1:0:0";
   };
 
   services = {
-    thermald = {
-      enable = lib.mkDefault true;
-    };
-
-    fwupd =	{
-	  enable = lib.mkDefault true;
-    };
+    thermald.enable = lib.mkDefault true;
+    fwupd.enable = lib.mkDefault true;
   };
 }
