@@ -25,7 +25,7 @@ with lib;
     };
 
     fwupd =	{
-			enable = lib.mkDefault true;
-		};
+	  enable = lib.mkDefault true;
+    };
   };
 }
