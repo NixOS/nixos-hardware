@@ -5,6 +5,7 @@ with lib;
     ./..
     ../../../common/cpu/amd
     ../../../common/cpu/amd/pstate.nix
+    ../../../common/cpu/amd/zenpower.nix
     ../../../common/gpu/amd
     ./bmi260
   ];
