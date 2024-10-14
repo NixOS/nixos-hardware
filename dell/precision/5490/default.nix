@@ -1,13 +1,11 @@
-{ lib, ... }:
+{ config, lib, ... }:
 {
   imports = [
-    ../../../common/gpu/nvidia
+    ../../../common/gpu/nvidia/ada-lovelace
   ];
 
-  # or even better: boot.kernelParams = pkgs.linuxPackages_latest;
-  boot.kernelParams = [ "i915.force_probe=7d55" ];
+  boot.kernelParams = lib.mkIf (lib.versionOlder config.boot.kernelPackages.kernel.version "6.7") [ "i915.force_probe=7d55" ];
 
-  hardware.nvidia.open = true;
   hardware.nvidia.prime = {
     intelBusId = "PCI:0:2:0";
     nvidiaBusId = "PCI:1:0:0";
