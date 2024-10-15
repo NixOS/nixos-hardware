@@ -7,7 +7,7 @@ let
 
   cfg = config.microsoft-surface;
 
-  version = "6.10.5";
+  version = "6.10.10";
   kernelPatches = surfacePatches {
     inherit version;
     patchFn = ./patches.nix;
