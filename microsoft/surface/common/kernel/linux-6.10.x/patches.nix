@@ -11,9 +11,9 @@
     extraStructuredConfig = with kernel; {
       STAGING_MEDIA = yes;
 
-      #
-      # Surface Aggregator Module
-      #
+      ##
+      ## Surface Aggregator Module
+      ##
       SURFACE_AGGREGATOR = module;
       # SURFACE_AGGREGATOR_ERROR_INJECTION is not set
       SURFACE_AGGREGATOR_BUS = yes;
@@ -31,6 +31,9 @@
 
       BATTERY_SURFACE = module;
       CHARGER_SURFACE = module;
+
+      SENSORS_SURFACE_TEMP = module;
+      SENSORS_SURFACE_FAN = module;
 
       ##
       ## Surface Hotplug
@@ -74,6 +77,12 @@
       ## ALS Sensor for Surface Book 3, Surface Laptop 3, Surface Pro 7
       ##
       APDS9960 = module;
+
+      ##
+      ## Build-in UFS support (required for some Surface Go devices)
+      ##
+      SCSI_UFSHCD = module;
+      SCSI_UFSHCD_PCI = module;
 
       ##
       ## Other Drivers
