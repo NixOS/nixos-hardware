@@ -16,6 +16,7 @@
       inherit rev sha256;
     };
 
+  # This repo has been obsoleted:
   ath10k-firmware = fetchFromGitHub {
     owner = "kvalo";
     repo = "ath10k-firmware";
