@@ -13,8 +13,8 @@ let
 
   linuxPackage =
     { url ? "mirror://kernel/linux/kernel/v${versions.major version}.x/linux-${version}.tar.xz",
-      sha256 ? null,
-      src ? (fetchurl { inherit url sha256; }),
+      hash ? null,
+      src ? (fetchurl { inherit url hash; }),
       version,
       modDirVersion ? (versions.pad 3 version),
       kernelPatches ? [],
@@ -24,7 +24,7 @@ let
 
       args' = {
         inherit src version modDirVersion kernelPatches;
-      } // removeAttrs args [ "url" "sha256" ];
+      } // removeAttrs args [ "url" "hash" ];
       linuxPackage = buildLinux args';
       linuxPackages' = recurseIntoAttrs (linuxPackagesFor linuxPackage);
     in linuxPackages';
