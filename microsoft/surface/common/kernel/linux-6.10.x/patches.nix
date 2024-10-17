@@ -110,10 +110,6 @@
     patch = patchSrc + "/0006-ithc.patch";
   }
   {
-    name = "ms-surface/0007-surface-sam";
-    patch = patchSrc + "/0007-surface-sam.patch";
-  }
-  {
     name = "ms-surface/0008-surface-sam-over-hid";
     patch = patchSrc + "/0008-surface-sam-over-hid.patch";
   }
