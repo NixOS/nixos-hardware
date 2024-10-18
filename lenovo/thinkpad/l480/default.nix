@@ -2,7 +2,7 @@
 {
   imports = [
     ../.
-    ../../../common/gpu/intel/kaby-lake
+    ../../../common/cpu/intel/kaby-lake
     ../../../common/pc/laptop/ssd
   ];
 
