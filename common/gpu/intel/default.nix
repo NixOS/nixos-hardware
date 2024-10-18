@@ -22,6 +22,7 @@
     ]);
     default = null; # Use both drivers when we don't know which one to use
   };
+  options.hardware.intelgpu.enableHybridCodec = lib.mkEnableOption "hybrid codec support for Intel GPUs";
 
   options.hardware.intelgpu.loadInInitrd =
     lib.mkEnableOption "Load the Intel GPU kernel module at stage 1 boot. (Added to `boot.initrd.kernelModules`)"
@@ -32,6 +33,19 @@
   config = {
     boot.initrd.kernelModules = lib.optionals config.hardware.intelgpu.loadInInitrd [
       config.hardware.intelgpu.driver
+    ];
+
+    nixpkgs.overlays = lib.optionals config.hardware.intelgpu.enableHybridCodec [
+      (
+        self: super: (
+          if pkgs?intel-vaapi-driver then {
+            intel-vaapi-driver = super.intel-vaapi-driver.override { enableHybridCodec = true; };
+          } else if pkgs?vaapiIntel then {
+            vaapiIntel = super.vaapiIntel.override { enableHybridCodec = true; };
+          } else
+            builtins.throw "Unable to find Intel VAAPI driver"
+        )
+      )
     ];
 
     hardware.graphics.extraPackages = lib.optionals (config.hardware.intelgpu.vaapiDriver == "intel-vaapi-driver" || config.hardware.intelgpu.vaapiDriver == null) (with pkgs; [
