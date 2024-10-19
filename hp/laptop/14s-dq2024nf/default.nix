@@ -8,4 +8,8 @@
     ../../../common/pc/laptop
     ../../../common/pc/laptop/ssd
   ];
+
+  config = {
+    services.thermald.enable = lib.mkDefault true;
+  };
 }
