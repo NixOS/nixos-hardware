@@ -16,13 +16,6 @@
       inherit rev sha256;
     };
 
-  ath10k-firmware = fetchFromGitHub {
-    owner = "kvalo";
-    repo = "ath10k-firmware";
-    rev = "c987e38cbdb90dcb4e477d5dd21de66c77996435";
-    sha256 = "16a67baxlga8vb43zbby2s7kpp4488vczg3manmr9g3wxnhhb9n3";
-  };
-
   surface-go-ath10k-firmware_backup = fetchFromGitHub {
     owner = "mexisme";
     repo = "linux-surface_ath10k-firmware";
