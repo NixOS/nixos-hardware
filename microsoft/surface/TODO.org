@@ -11,6 +11,8 @@
 - State "DONE"       from "DOING"      [2021-03-06 Sat 20:55]
 :END:
 * Firmware
+** DONE Remove archived kvalo/ath10k-firmware repo
+- The QCA6174 firmware appears to be in the standard Linux firmware repo, now
 ** DONE Remove old firmware binaries
    - Looks like the ath10k files aren't needed, any more
 ** DONE Create derivative for `ipts` firmware
