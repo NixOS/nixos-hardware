@@ -45,5 +45,5 @@ Most "common" modules now have an `enable` option, which is `false` by default.
 This hasn't been finalised, partly as I now only have access to a Surface Go 1, these days, so I'm
 maybe not the best custodian of this code any longer.
 
-However, hopefully the (imminent) `surface-go/` module is a reasonable exmample, and we should be
+However, hopefully the `surface-go/` module is a reasonable exmample, and we should be
 able to gather more examples for more model specialisations over time.
