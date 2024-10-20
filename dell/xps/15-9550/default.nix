@@ -3,7 +3,6 @@
 {
   imports = [
     ../../../common/cpu/intel
-    ../../../common/gpu/intel/alder-lake
     ../../../common/pc/laptop
     # To just use Intel integrated graphics with Intel's open source driver
     # ../../../common/gpu/nvidia/disable.nix
