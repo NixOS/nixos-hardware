@@ -6,8 +6,7 @@
 }: {
   imports = [
     ../.
-    ../../../common/gpu/intel/kaby-lake
-    ../../../common/gpu/intel
+    ../../../common/cpu/intel/kaby-lake
     ../../../common/gpu/amd
     ../../../common/hidpi.nix
     ../../../common/pc/laptop/ssd

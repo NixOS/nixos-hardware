@@ -1,6 +1,6 @@
 {
   imports = [
-    ../../common/gpu/intel/comet-lake
+    ../../common/cpu/intel/comet-lake
   ];
 
   boot.initrd.kernelModules = [
