@@ -17,7 +17,7 @@
     # Also brcmfmac could randomly crash on resume from sleep.
     powerUpCommands = lib.mkBefore "${pkgs.kmod}/bin/modprobe brcmfmac";
     powerDownCommands = lib.mkBefore ''
-      ${pkgs.kmod}/bin/lsmod | ${pkgs.gnugrep}/bin/grep -q "^brcmfmac_wcc" && ${pkgs.kmod}/bin/rmmod -f -v brcmfmac_wcc
+      ${pkgs.kmod}/bin/rmmod -f -v brcmfmac_wcc 2>/dev/null || true
       ${pkgs.kmod}/bin/rmmod brcmfmac
       '';
   };
