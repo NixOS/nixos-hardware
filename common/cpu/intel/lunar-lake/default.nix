@@ -1,6 +1,6 @@
 {
   imports = [
     ./cpu-only.nix
-    ../../../gpu/intel/tiger-lake
+    ../../../gpu/intel/lunar-lake
   ];
 }
