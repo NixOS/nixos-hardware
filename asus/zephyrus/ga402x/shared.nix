@@ -8,8 +8,6 @@ let
   inherit (lib) mkDefault mkEnableOption mkIf mkMerge version versionAtLeast versionOlder;
 
   cfg = config.hardware.asus.zephyrus.ga402x;
-  defaultAutosuspendEnable = versionAtLeast config.boot.kernelPackages.kernel.version "6.9";
-
 in {
 
   imports = [
@@ -31,7 +29,10 @@ in {
     # Note: the device name is "ASUS N-KEY Device".
     keyboard.autosuspend.enable = (
       mkEnableOption "Enable auto-suspend on the internal USB keyboard (ASUS N-KEY Device) on Zephyrus GA402X"
-    ) // { default = defaultAutosuspendEnable; };
+    ) // {
+      default = versionAtLeast config.boot.kernelPackages.kernel.version "6.9";
+      defaultText = lib.literalExpression "lib.versionAtLeast config.boot.kernelPackages.kernel.version \"6.9\"";
+    };
     # The ASUS 8295 ITE device will cause an immediate wake-up when trying to suspend the laptop.
     # After the first successful hibernate, it will work as expected, however.
     # NOTE: I'm not actually sure what this device, as neither the touchpad nor the M1-M4 keys cause a wake-up.
