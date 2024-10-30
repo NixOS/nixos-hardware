@@ -1,0 +1,31 @@
+--- dsdt.dsl	2024-08-10 06:24:09.143777067 +0200
++++ patched/dsdt.dsl	2024-08-10 04:58:50.191036154 +0200
+@@ -18,7 +18,7 @@
+  *     Compiler ID      "INTL"
+  *     Compiler Version 0x20220331 (539099953)
+  */
+-DefinitionBlock ("", "DSDT", 2, "ALASKA", "A M I ", 0x01072009)
++DefinitionBlock ("", "DSDT", 2, "ALASKA", "A M I ", 0x01072019)
+ {
+     External (_SB_.APTS, MethodObj)    // 1 Arguments
+     External (_SB_.AWAK, MethodObj)    // 1 Arguments
+@@ -7341,7 +7341,7 @@
+ 
+         Device (CIND)
+         {
+-            Name (_HID, "ID9001")  // _HID: Hardware ID
++            Name (_HID, "INT33D3")  // _HID: Hardware ID
+             Name (_CID, "PNP0C60" /* Display Sensor Device */)  // _CID: Compatible ID
+             Method (_STA, 0, Serialized)  // _STA: Status
+             {
+@@ -7364,8 +7364,8 @@
+     {
+         Device (STS)
+         {
+-            Name (_HID, EisaId ("SMOCF05"))  // _HID: Hardware ID
+-            Name (_CID, EisaId ("SMOCF05"))  // _CID: Compatible ID
++            Name (_HID, EisaId ("SMO8B30"))  // _HID: Hardware ID
++            Name (_CID, EisaId ("SMO8B30"))  // _CID: Compatible ID
+             Name (_UID, Zero)  // _UID: Unique ID
+             Method (_STA, 0, NotSerialized)  // _STA: Status
+             {

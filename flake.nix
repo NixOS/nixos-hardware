@@ -244,6 +244,7 @@
         microsoft-surface-pro-3 = import ./microsoft/surface-pro/3;
         microsoft-surface-pro-9 = import ./microsoft/surface-pro/9;
         milkv-pioneer = import ./milkv/pioneer;
+        minisforum-v3 = import ./minisforum/v3;
         morefine-m600 = import ./morefine/m600;
         msi-b350-tomahawk = import ./msi/b350-tomahawk;
         msi-b550-a-pro = import ./msi/b550-a-pro;
