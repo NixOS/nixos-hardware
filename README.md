@@ -301,6 +301,7 @@ See code for all available configurations.
 | [Microsoft Surface Pro 3](microsoft/surface-pro/3)                     | `<nixos-hardware/microsoft/surface-pro/3>`              |
 | [Microsoft Surface Pro 9](microsoft/surface-pro/9)                     | `<nixos-hardware/microsoft/surface-pro/9>`              |
 | [Morefine M600](morefine/m600)                                         | `<nixos-hardware/morefine/m600>`                        |
+| [Minisforum V3](minisforum/v3)                                         | `<nixos-hardware/minisforum/v3>`                        |
 | [NXP iMX8 MPlus Evaluation Kit](nxp/imx8mp-evk)                        | `<nixos-hardware/nxp/imx8mp-evk>`                       |
 | [NXP iMX8 MQuad Evaluation Kit](nxp/imx8mq-evk)                        | `<nixos-hardware/nxp/imx8mq-evk>`                       |
 | [Hardkernel Odroid HC4](hardkernel/odroid-hc4/default.nix)             | `<nixos-hardware/hardkernel/odroid-hc4>`                |
@@ -328,15 +329,15 @@ See code for all available configurations.
 | [Samsung Series 9 NP900X3C](samsung/np900x3c)                          | `<nixos-hardware/samsung/np900x3c>`                     |
 | [StarFive VisionFive v1](starfive/visionfive/v1)                       | `<nixos-hardware/starfive/visionfive/v1>`               |
 | [StarFive VisionFive 2](starfive/visionfive/v2)                        | `<nixos-hardware/starfive/visionfive/v2>`               |
-| [StarLabs StarLite 5 (I5)](starlabs/starlite/i5)                    | `<nixos-hardware/starlabs/starlite/i5>`                 |
+| [StarLabs StarLite 5 (I5)](starlabs/starlite/i5)                       | `<nixos-hardware/starlabs/starlite/i5>`                 |
 | [Supermicro A1SRi-2758F](supermicro/a1sri-2758f)                       | `<nixos-hardware/supermicro/a1sri-2758f>`               |
 | [Supermicro M11SDV-8C-LN4F](supermicro/m11sdv-8c-ln4f)                 | `<nixos-hardware/supermicro/m11sdv-8c-ln4f>`            |
 | [Supermicro X10SLL-F](supermicro/x10sll-f)                             | `<nixos-hardware/supermicro/x10sll-f>`                  |
 | [Supermicro X12SCZ-TLN4F](supermicro/x12scz-tln4f)                     | `<nixos-hardware/supermicro/x12scz-tln4f>`              |
 | [System76 (generic)](system76)                                         | `<nixos-hardware/system76>`                             |
 | [System76 Darter Pro 6](system76/darp6)                                | `<nixos-hardware/system76/darp6>`                       |
-| [System76 Gazelle 18](system76/gaze18)                             | `<nixos-hardware/system76/gaze18>`                      |
-| [System76 Galago Pro 5](system76/galp5-1650)                           | `<nixos-hardware/system76/galp5-1650>`                  | 
+| [System76 Gazelle 18](system76/gaze18)                                 | `<nixos-hardware/system76/gaze18>`                      |
+| [System76 Galago Pro 5](system76/galp5-1650)                           | `<nixos-hardware/system76/galp5-1650>`                  |
 | [Toshiba Chromebook 2 `swanky`](toshiba/swanky)                        | `<nixos-hardware/toshiba/swanky>`                       |
 | [Tuxedo InfinityBook v4](tuxedo/infinitybook/v4)                       | `<nixos-hardware/tuxedo/infinitybook/v4>`               |
 | [TUXEDO Aura 15 - Gen1](tuxedo/aura/15/gen1)                           | `<nixos-hardware/tuxedo/aura/15/gen1>`                  |
