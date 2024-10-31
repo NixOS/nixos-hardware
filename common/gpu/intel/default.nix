@@ -49,8 +49,7 @@
         enableHybridCodec = cfg.enableHybridCodec;
       };
 
-      # useIntelOcl = useIntelVaapiDriver && (config.hardware.enableAllFirmware or config.nixpkgs.config.allowUnfree or false);
-      useIntelOcl = false; # web.archive.org currently isn't serving the source; for the time being, we'll disable this
+      useIntelOcl = useIntelVaapiDriver && (config.hardware.enableAllFirmware or config.nixpkgs.config.allowUnfree or false);
       intel-ocl = pkgs.intel-ocl;
 
       useIntelMediaDriver = cfg.vaapiDriver == "intel-media-driver" || cfg.vaapiDriver == null;
