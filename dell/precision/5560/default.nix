@@ -3,8 +3,7 @@
   imports = [
     ../../../common/pc/laptop
     ../../../common/pc/laptop/ssd
-    ../../../common/cpu/intel
-    ../../../common/gpu/intel/tiger-lake
+    ../../../common/cpu/intel/tiger-lake
     ../../../common/gpu/nvidia/turing
   ];
 

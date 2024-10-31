@@ -108,6 +108,7 @@ See code for all available configurations.
 | [Asus TUF FA507RM](asus/fa507rm)                                       | `<nixos-hardware/asus/fa507rm>`                         |
 | [Asus TUF FA507NV](asus/fa507nv)                                       | `<nixos-hardware/asus/fa507nv>`                         |
 | [Asus Zenbook Flip S13 UX371](asus/zenbook/ux371/)                     | `<nixos-hardware/asus/zenbook/ux371>`                   |
+| [Asus Zenbook Pro 15 UX535](asus/zenbook/ux535/)                       | `<nixos-hardware/asus/zenbook/ux535>`                   |
 | [BeagleBoard PocketBeagle](beagleboard/pocketbeagle)                   | `<nixos-hardware/beagleboard/pocketbeagle>`             |
 | [Chuwi MiniBook X](chuwi/minibook-x)                                   | `<nixos-hardware/chuwi/minibook-x>`                     |
 | [Deciso DEC series](deciso/dec)                                        | `<nixos-hardware/deciso/dec>`                           |
@@ -128,6 +129,7 @@ See code for all available configurations.
 | [Dell Optiplex 3050](dell/optiplex/3050)                               | `<nixos-hardware/dell/optiplex/3050>`                   |
 | [Dell Poweredge R7515](dell/poweredge/r7515)                           | `<nixos-hardware/dell/poweredge/r7515>`                 |
 | [Dell Precision 3541](dell/precision/3541)                             | `<nixos-hardware/dell/precision/3541>`                  |
+| [Dell Precision 5490](dell/precision/5490)                             | `<nixos-hardware/dell/precision/5490>`                  |
 | [Dell Precision 5530](dell/precision/5530)                             | `<nixos-hardware/dell/precision/5530>`                  |
 | [Dell Precision 7520](dell/precision/7520)                             | `<nixos-hardware/dell/precision/7520>`                  |
 | [Dell XPS 13 7390](dell/xps/13-7390)                                   | `<nixos-hardware/dell/xps/13-7390>`                     |
