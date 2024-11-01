@@ -21,6 +21,7 @@
         apple-macbook-pro = import ./apple/macbook-pro;
         apple-macbook-pro-8-1 = import ./apple/macbook-pro/8-1;
         apple-macbook-pro-10-1 = import ./apple/macbook-pro/10-1;
+        apple-macbook-pro-11-1 = import ./apple/macbook-pro/11-1;
         apple-macbook-pro-11-5 = import ./apple/macbook-pro/11-5;
         apple-macbook-pro-12-1 = import ./apple/macbook-pro/12-1;
         apple-macbook-pro-14-1 = import ./apple/macbook-pro/14-1;
