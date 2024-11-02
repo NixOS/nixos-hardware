@@ -109,6 +109,16 @@ in
       '';
     })
     (lib.mkIf t2Cfg.enableTinyDfr {
+      warnings = [
+        ''
+          hardware.apple-t2.enableTinyDfr is deprecated since the module has been upstreamed as hardware.apple.touchBar. 
+          This option will be removed from the apple/t2 profile when NixOS 24.11 is released.
+        ''
+      ];
+      assertions = lib.optionals (lib.versionAtLeast (lib.versions.majorMinor lib.version) "24.11") [{
+        assertion = !config.hardware.apple.touchBar.enable;
+        message = "hardware.apple-t2.enableTinyDfr conflicts with hardware.apple.touchBar.enable. Please disable one of them.";
+      }];
       services.udev.packages = [ tiny-dfrPackage ];
 
       systemd.services.tiny-dfr = {
