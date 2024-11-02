@@ -74,7 +74,7 @@ For questions and discussions, come join us in the [nixos-anywhere matrix](https
 See code for all available configurations.
 
 | Model                                                                  | Path                                                    |
-|------------------------------------------------------------------------|---------------------------------------------------------|
+| ---------------------------------------------------------------------- | ------------------------------------------------------- |
 | [Acer Aspire 4810T](acer/aspire/4810t)                                 | `<nixos-hardware/acer/aspire/4810t>`                    |
 | [Airis N990](airis/n990)                                               | `<nixos-hardware/airis/n990>`                           |
 | [Apple iMac 14.2](apple/imac/14-2)                                     | `<nixos-hardware/apple/imac/14-2>`                      |
@@ -98,8 +98,8 @@ See code for all available configurations.
 | [Asus ROG Strix X570-E GAMING](asus/rog-strix/x570e)                   | `<nixos-hardware/asus/rog-strix/x570e>`                 |
 | [Asus ROG Zephyrus G14 GA401](asus/zephyrus/ga401)                     | `<nixos-hardware/asus/zephyrus/ga401>`                  |
 | [Asus ROG Zephyrus G14 GA402](asus/zephyrus/ga402)                     | `<nixos-hardware/asus/zephyrus/ga402>`                  |
-| [Asus ROG Zephyrus G14 GA402X* (2023)](asus/zephyrus/ga402x/amdgpu)    | `<nixos-hardware/asus/zephyrus/ga402x/amdgpu>`          |
-| [Asus ROG Zephyrus G14 GA402X* (2023)](asus/zephyrus/ga402x/nvidia)    | `<nixos-hardware/asus/zephyrus/ga402x/nvidia>`          |
+| [Asus ROG Zephyrus G14 GA402X\* (2023)](asus/zephyrus/ga402x/amdgpu)   | `<nixos-hardware/asus/zephyrus/ga402x/amdgpu>`          |
+| [Asus ROG Zephyrus G14 GA402X\* (2023)](asus/zephyrus/ga402x/nvidia)   | `<nixos-hardware/asus/zephyrus/ga402x/nvidia>`          |
 | [Asus ROG Zephyrus G15 GA502](asus/zephyrus/ga502)                     | `<nixos-hardware/asus/zephyrus/ga502>`                  |
 | [Asus ROG Zephyrus G15 GA503](asus/zephyrus/ga503)                     | `<nixos-hardware/asus/zephyrus/ga503>`                  |
 | [Asus ROG Zephyrus G16 GU605MY](asus/zephyrus/gu605my)                 | `<nixos-hardware/asus/zephyrus/gu605my>`                |
@@ -195,6 +195,8 @@ See code for all available configurations.
 | [Lenovo IdeaPad 5 Pro 16ach6](lenovo/ideapad/16ach6)                   | `<nixos-hardware/lenovo/ideapad/16ach6>`                |
 | [Lenovo IdeaPad Z510](lenovo/ideapad/z510)                             | `<nixos-hardware/lenovo/ideapad/z510>`                  |
 | [Lenovo IdeaPad Slim 5](lenovo/ideapad/slim-5)                         | `<nixos-hardware/lenovo/ideapad/slim-5>`                |
+| [Lenovo IdeaPad Slim 5 16iah8](lenovo/ideapad/16iah8)                  | `<nixos-hardware/lenovo/ideapad/16iah8`                 |
+| [Lenovo IdeaPad 2-in-1 16ahp9](lenovo/ideapad/16ah09)                  | `<nixos-hardware/lenovo/ideapad/16ahp9`                 |
 | [Lenovo IdeaPad S145 15api](lenovo/ideapad/s145-15api)                 | `<nixos-hardware/lenovo/ideapad/s145-15api>`            |
 | [Lenovo Legion 5 15ach6h](lenovo/legion/15ach6h)                       | `<nixos-hardware/lenovo/legion/15ach6h>`                |
 | [Lenovo Legion 5 15arh05h](lenovo/legion/15arh05h)                     | `<nixos-hardware/lenovo/legion/15arh05h>`               |
