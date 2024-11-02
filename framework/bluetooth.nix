@@ -9,6 +9,7 @@
   lib,
   pkgs,
   ...
+# TODO: drop this if linux 6.11 goes EOL
 }: lib.mkIf ((config.boot.kernelPackages.kernelAtLeast "6.11") && (config.boot.kernelPackages.kernelOlder "6.12")) {
   systemd.services = {
     bluetooth-rfkill-suspend = {
