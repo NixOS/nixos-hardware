@@ -62,7 +62,7 @@
 
           unfreeNixpkgs =
             importPath:
-            import inputs.nixos-unstable-small {
+            import importPath {
               config = {
                 allowBroken = true;
                 allowUnfree = true;
@@ -71,7 +71,7 @@
               overlays = [ ];
               inherit system;
             };
-          nixpkgsUnstable = unfreeNixpkgs inputs'.nixos-unstable-small;
+          nixpkgsUnstable = unfreeNixpkgs inputs.nixos-unstable-small;
           nixpkgsStable = unfreeNixpkgs inputs.nixos-stable;
 
           checksForNixpkgs =
