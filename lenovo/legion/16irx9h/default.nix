@@ -25,6 +25,13 @@
     };
   };
 
+  # Sound speaker fix, see #1039
+  boot.extraModprobeConfig = ''
+    options snd-hda-intel model=auto
+  '';
+
+  boot.blacklistedKernelModules = [ "snd_soc_avs" ];
+
   # Cooling management
   services.thermald.enable = lib.mkDefault true;
 
