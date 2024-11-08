@@ -304,6 +304,7 @@
         common-cpu-amd-zenpower = import ./common/cpu/amd/zenpower.nix;
         common-cpu-amd-raphael-igpu = import ./common/cpu/amd/raphael/igpu.nix;
         common-cpu-intel = import ./common/cpu/intel;
+        common-cpu-intel-coffee-lake = import ./common/cpu/intel/coffee-lake;
         common-gpu-intel-comet-lake =
           deprecated "992" "common-gpu-intel-comet-lake"
             (import ./common/gpu/intel/comet-lake);
@@ -314,6 +315,7 @@
         common-gpu-intel-sandy-bridge =
           deprecated "992" "common-gpu-intel-sandy-bridge"
             (import ./common/gpu/intel/sandy-bridge);
+        common-gpu-intel-coffee-lake = import ./common/gpu/intel/coffee-lake;
         common-gpu-amd = import ./common/gpu/amd;
         common-gpu-amd-sea-islands = import ./common/gpu/amd/sea-islands;
         common-gpu-amd-southern-islands = import ./common/gpu/amd/southern-islands;
