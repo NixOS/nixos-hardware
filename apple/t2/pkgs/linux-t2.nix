@@ -2,19 +2,19 @@
 , ... } @ args:
 
 let
-  version = "6.11";
+  version = "6.11.7";
   majorVersion = with lib; (elemAt (take 1 (splitVersion version)) 0);
 
   patchRepo = fetchFromGitHub {
     owner = "t2linux";
     repo = "linux-t2-patches";
-    rev = "54b4f914930d92cf0b94601b402ec93f54a76390";
-    hash = "sha256-mpGWcx+zE5kb5USE4CPGrrleZRNGxVUGxc9eQY5IIfY=";
+    rev = "ec4545c603cf2ef315818eccce62d06ee18e5c60";
+    hash = "sha256-Nm7WiLjotwk5NDrpKTgcKtyQTOUG7A88ZgtzD460qY0=";
   };
 
   kernel = fetchzip {
     url = "mirror://kernel/linux/kernel/v${majorVersion}.x/linux-${version}.tar.xz";
-    hash = "sha256-QIbHTLWI5CaStQmuoJ1k7odQUDRLsWNGY10ek0eKo8M=";
+    hash = "sha256-wHWd8xfEFOTy0FkFBtn30+6816XC4uhgn0G9b40n9Co=";
   };
 in
 buildLinux (args // {
