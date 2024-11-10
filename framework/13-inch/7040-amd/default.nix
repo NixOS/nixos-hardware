@@ -27,7 +27,7 @@ in
   config = {
     # Workaround applied upstream in Linux >=6.7 (on BIOS 03.03)
     # https://github.com/torvalds/linux/commit/a55bdad5dfd1efd4ed9ffe518897a21ca8e4e193
-    services.udev.extraRules = lib.mkIf (lib.versionOlder pkgs.linux.version "6.7" && cfg.preventWakeOnAC) ''
+    services.udev.extraRules = lib.mkIf (lib.versionOlder config.boot.kernelPackages.kernel.version "6.7" && cfg.preventWakeOnAC) ''
       # Prevent wake when plugging in AC during suspend. Trade-off: keyboard wake disabled. See:
       # https://community.frame.work/t/tracking-framework-amd-ryzen-7040-series-lid-wakeup-behavior-feedback/39128/45
       ACTION=="add", SUBSYSTEM=="serio", DRIVERS=="atkbd", ATTR{power/wakeup}="disabled"
