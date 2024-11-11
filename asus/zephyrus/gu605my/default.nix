@@ -15,7 +15,7 @@
       nvidiaBusId = "PCI:1:0:0";
     };
 
-    modesetting.enable = true;
+    modesetting.enable = lib.mkDefault true;
     dynamicBoost.enable = lib.mkDefault true;
   };
 
