@@ -45,6 +45,7 @@
         asus-zephyrus-ga402x = import ./asus/zephyrus/ga402x;
         asus-zephyrus-ga402x-amdgpu = import ./asus/zephyrus/ga402x/amdgpu;
         asus-zephyrus-ga402x-nvidia = import ./asus/zephyrus/ga402x/nvidia;
+        asus-zephyrus-ga403 = import ./asus/zephyrus/ga403;
         asus-zephyrus-ga502 = import ./asus/zephyrus/ga502;
         asus-zephyrus-ga503 = import ./asus/zephyrus/ga503;
         asus-zephyrus-gu603h = import ./asus/zephyrus/gu603h;
