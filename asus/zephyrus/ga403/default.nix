@@ -5,7 +5,7 @@
 }:
 
 let
-  inherit (lib) mkDefault mkEnableOption mkIf mkMerge version versionAtLeast versionOlder;
+  inherit (lib) mkDefault mkEnableOption mkIf mkMerge mkForce version versionAtLeast versionOlder;
 in {
 
   imports = [
@@ -15,15 +15,15 @@ in {
     ../../../common/pc/laptop
     ../../../common/pc/laptop/acpi_call.nix
     ../../../common/pc/ssd
-    ../../../../common/gpu/nvidia/prime.nix
-    ../../../../common/gpu/nvidia/ada-lovelace
+    ../../../common/gpu/nvidia/prime.nix
+    ../../../common/gpu/nvidia/ada-lovelace
   ];
 
   config = mkMerge [
     {
       # Configure basic system settings:
       boot = {
-        kernelPackages = mkDefault pkgs.linuxPackages_latest; 
+        kernelPackages = mkDefault pkgs.linuxPackages_latest;
         kernelModules = [ "kvm-amd" ];
         kernelParams = [
           "mem_sleep_default=deep"
@@ -43,7 +43,7 @@ in {
       # Enable the Nvidia card, as well as Prime and Offload: NVIDIA GeForce RTX 4060 Mobile
       boot.blacklistedKernelModules = [ "nouveau" ];
 
-      services.xserver.videoDrivers = mkDefault [ "nvidia" ];
+      services.xserver.videoDrivers = mkForce [ "amdgpu" "nvidia" ];
 
       hardware = {
         amdgpu.initrd.enable = mkDefault true;
@@ -63,7 +63,7 @@ in {
 
           powerManagement = {
             enable = true;
-            finegrained = true
+            finegrained = true;
           };
         };
       };
