@@ -335,6 +335,7 @@ See code for all available configurations.
 | [Raspberry Pi 4](raspberry-pi/4)                                                  | `<nixos-hardware/raspberry-pi/4>`                       |
 | [Raspberry Pi 5](raspberry-pi/5)                                                  | `<nixos-hardware/raspberry-pi/5>`                       |
 | [Samsung Series 9 NP900X3C](samsung/np900x3c)                                     | `<nixos-hardware/samsung/np900x3c>`                     |
+| [Slimbook Hero RPL-RTX](slimbook/hero/rpl-rtx)                                    | `<nixos-hardware/slimbook/hero/rpl-rtx>`                |
 | [StarFive VisionFive v1](starfive/visionfive/v1)                                  | `<nixos-hardware/starfive/visionfive/v1>`               |
 | [StarFive VisionFive 2](starfive/visionfive/v2)                                   | `<nixos-hardware/starfive/visionfive/v2>`               |
 | [StarLabs StarLite 5 (I5)](starlabs/starlite/i5)                                  | `<nixos-hardware/starlabs/starlite/i5>`                 |
