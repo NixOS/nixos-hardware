@@ -134,6 +134,7 @@
         lenovo-ideapad-15arh05 = import ./lenovo/ideapad/15arh05;
         lenovo-ideapad-15ach6 = import ./lenovo/ideapad/15ach6;
         lenovo-ideapad-16ach6 = import ./lenovo/ideapad/16ach6;
+        lenovo-ideapad-16ahp9 = import ./lenovo/ideapad/16ahp9;
         lenovo-ideapad-z510 = import ./lenovo/ideapad/z510;
         lenovo-ideapad-slim-5 = import ./lenovo/ideapad/slim-5;
         lenovo-ideapad-s145-15api = import ./lenovo/ideapad/s145-15api;
