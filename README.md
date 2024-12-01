@@ -198,7 +198,7 @@ See code for all available configurations.
 | [Lenovo IdeaPad Z510](lenovo/ideapad/z510)                             | `<nixos-hardware/lenovo/ideapad/z510>`                  |
 | [Lenovo IdeaPad Slim 5](lenovo/ideapad/slim-5)                         | `<nixos-hardware/lenovo/ideapad/slim-5>`                |
 | [Lenovo IdeaPad Slim 5 16iah8](lenovo/ideapad/16iah8)                  | `<nixos-hardware/lenovo/ideapad/16iah8`                 |
-| [Lenovo IdeaPad 2-in-1 16ahp9](lenovo/ideapad/16ah09)                  | `<nixos-hardware/lenovo/ideapad/16ahp9`                 |
+| [Lenovo IdeaPad 2-in-1 16ahp9](lenovo/ideapad/16ahp09)                  | `<nixos-hardware/lenovo/ideapad/16ahp9`                 |
 | [Lenovo IdeaPad S145 15api](lenovo/ideapad/s145-15api)                 | `<nixos-hardware/lenovo/ideapad/s145-15api>`            |
 | [Lenovo Legion 5 15ach6h](lenovo/legion/15ach6h)                       | `<nixos-hardware/lenovo/legion/15ach6h>`                |
 | [Lenovo Legion 5 15arh05h](lenovo/legion/15arh05h)                     | `<nixos-hardware/lenovo/legion/15arh05h>`               |
