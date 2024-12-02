@@ -151,6 +151,7 @@
         lenovo-legion-16arha7 = import ./lenovo/legion/16arha7;
         lenovo-legion-16ithg6 = import ./lenovo/legion/16ithg6;
         lenovo-legion-16irx8h = import ./lenovo/legion/16irx8h;
+        lenovo-legion-16irx9h = import ./lenovo/legion/16irx9h;
         lenovo-legion-t526amr5 = import ./lenovo/legion/t526amr5;
         lenovo-legion-y530-15ich = import ./lenovo/legion/15ich;
         lenovo-thinkpad = import ./lenovo/thinkpad;
@@ -330,7 +331,7 @@
         common-pc = import ./common/pc;
         common-pc-hdd = import ./common/pc/hdd;
         common-pc-laptop = import ./common/pc/laptop;
-        common-pc-laptop-acpi_call = import ./common/pc/laptop/acpi_call.nix;
+        common-pc-laptop-acpi_call = throw "common-pc-laptop-acpi_call has been removed because it is obsolete: https://github.com/NixOS/nixos-hardware/issues/1114";
         common-pc-laptop-hdd = import ./common/pc/laptop/hdd;
         common-pc-laptop-ssd = import ./common/pc/ssd;
         common-pc-ssd = import ./common/pc/ssd;

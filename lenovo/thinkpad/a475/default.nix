@@ -4,7 +4,6 @@
     ../../../common/gpu/amd
     ../../../common/cpu/amd
     ../../../common/cpu/amd/pstate.nix
-    ../../../common/pc/laptop/acpi_call.nix
     ../../../common/pc/ssd
     ../../../common/pc/laptop/hdd
     #../../../common/hidpi.nix                #hidpi

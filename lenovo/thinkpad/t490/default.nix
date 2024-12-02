@@ -2,7 +2,6 @@
 {
   imports = [
     ../../../common/cpu/intel
-    ../../../common/pc/laptop/acpi_call.nix
     ../.
   ];
 
@@ -25,7 +24,7 @@
 
     LABEL="pulseaudio_end"
     '';
-    
+
     throttled.enable = lib.mkDefault true;
   };
 }
