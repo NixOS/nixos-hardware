@@ -4,7 +4,6 @@
     ../../../common/gpu/nvidia/prime.nix
     ../../../common/gpu/nvidia/maxwell
     ../../../common/cpu/intel/kaby-lake
-    ../../../common/pc/laptop/acpi_call.nix
     ../.
   ];
 

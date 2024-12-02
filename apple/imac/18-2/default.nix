@@ -10,7 +10,6 @@
     ../../../common/gpu/amd
     ../../../common/hidpi.nix
     ../../../common/pc/laptop/ssd
-    ../../../common/pc/laptop/acpi_call.nix
   ];
 
   # apple smc (TODO: check spi)

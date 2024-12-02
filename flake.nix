@@ -330,7 +330,7 @@
         common-pc = import ./common/pc;
         common-pc-hdd = import ./common/pc/hdd;
         common-pc-laptop = import ./common/pc/laptop;
-        common-pc-laptop-acpi_call = import ./common/pc/laptop/acpi_call.nix;
+        common-pc-laptop-acpi_call = throw "common-pc-laptop-acpi_call has been removed because it is obsolete: https://github.com/NixOS/nixos-hardware/issues/1114";
         common-pc-laptop-hdd = import ./common/pc/laptop/hdd;
         common-pc-laptop-ssd = import ./common/pc/ssd;
         common-pc-ssd = import ./common/pc/ssd;

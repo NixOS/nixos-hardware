@@ -4,7 +4,6 @@
   imports = [
     ../../../common/cpu/intel/kaby-lake
     ../../../common/pc/laptop
-    ../../../common/pc/laptop/acpi_call.nix
   ];
 
   # Force S3 sleep mode. See README.wiki for details.
