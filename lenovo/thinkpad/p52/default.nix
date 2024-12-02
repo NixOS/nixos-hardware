@@ -4,7 +4,6 @@
     ../../../common/gpu/nvidia/prime.nix
     ../../../common/gpu/nvidia/pascal
     ../../../common/cpu/intel
-    ../../../common/pc/laptop/acpi_call.nix
     ../.
   ];
 

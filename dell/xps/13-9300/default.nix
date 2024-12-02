@@ -7,7 +7,6 @@ in {
   imports = [
     ../../../common/cpu/intel
     ../../../common/pc/laptop
-    ../../../common/pc/laptop/acpi_call.nix
     ../../../common/pc/ssd
     ../sleep-resume/i2c-designware
   ];

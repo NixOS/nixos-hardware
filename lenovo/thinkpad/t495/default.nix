@@ -4,7 +4,6 @@
   imports = [
     ../.
     ../../../common/cpu/amd
-    ../../../common/pc/laptop/acpi_call.nix
   ];
 
   # Force use of the thinkpad_acpi driver for backlight control.

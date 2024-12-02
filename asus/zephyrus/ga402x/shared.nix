@@ -16,7 +16,6 @@ in {
     ../../../common/cpu/amd/pstate.nix
     ../../../common/gpu/amd
     ../../../common/pc/laptop
-    ../../../common/pc/laptop/acpi_call.nix
     ../../../common/pc/ssd
   ];
 
