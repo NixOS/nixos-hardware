@@ -6,7 +6,6 @@
     ../../../common/gpu/nvidia/prime.nix
     ../../../common/gpu/nvidia/turing
     ../../../common/pc/laptop
-    ../../../common/pc/laptop/acpi_call.nix
     ../../../common/pc/laptop/ssd
   ];
 
