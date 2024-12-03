@@ -69,12 +69,6 @@ in {
       };
     }
 
-    (mkIf (versionOlder version "23.11") {
-      # See https://asus-linux.org/wiki/nixos/ for info about some problems
-      # detecting the dGPU:
-      systemd.services.supergfxd.path = [ pkgs.pciutils ];
-    })
-
     (mkIf (config.networking.wireless.iwd.enable && config.networking.wireless.scanOnLowSignal) {
       # Meditek doesn't seem to be quite sensitive enough on the default roaming settings:
       #   https://wiki.archlinux.org/title/Wpa_supplicant#Roaming
