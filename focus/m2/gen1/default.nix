@@ -6,7 +6,6 @@
     ../../../common/gpu/nvidia/prime.nix
     ../../../common/gpu/nvidia/turing
     ../../../common/pc/laptop
-gc
     ../../../common/pc/laptop/ssd
   ];
 
