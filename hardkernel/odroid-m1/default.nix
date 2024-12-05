@@ -7,7 +7,7 @@
 {
   imports = [
     ./kboot-conf
-  ]
+  ];
 
   #boot.loader.grub.enable = false;
   boot.loader.kboot-conf.enable = true;
