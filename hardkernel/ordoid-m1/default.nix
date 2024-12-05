@@ -24,6 +24,7 @@
     "phy-rockchip-naneng-combphy"
     "phy-rockchip-snps-pcie3"
   ];
+  
   # Petitboot uses this port and baud rate on the boards serial port,
   # it's probably good to keep the options same for the running
   # kernel for serial console access to work well
