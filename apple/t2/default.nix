@@ -24,8 +24,6 @@ let
 
   pipewirePackage = overrideAudioFiles pkgs.pipewire "spa/plugins/";
 
-  tiny-dfrPackage = pkgs.callPackage ./pkgs/tiny-dfr { };
-
   apple-set-os-loader-installer = pkgs.stdenv.mkDerivation {
     name = "apple-set-os-loader-installer-1.0";
     src = pkgs.fetchFromGitHub {
@@ -49,17 +47,17 @@ let
 
 in
 {
+  imports = [
+    (lib.mkRemovedOptionModule ["hardware" "apple-t2" "enableTinyDfr"] ''
+      The hardware.apple-t2.enableTinyDfr option was deprecated and removed since upstream Nixpkgs now has an identical module.
+      Please migrate to hardware.apple.touchBar.
+    '')
+  ];
   options.hardware.apple-t2 = {
     enableAppleSetOsLoader = lib.mkOption {
       default = false;
       type = lib.types.bool;
       description = "Whether to enable the appleSetOsLoader activation script.";
-    };
-
-    enableTinyDfr = lib.mkOption {
-      default = true;
-      type = lib.types.bool;
-      description = "Whether to enable the tiny-dfr touchbar service.";
     };
   };
 
@@ -107,34 +105,6 @@ in
       environment.etc."modprobe.d/apple-gmux.conf".text = ''
         options apple-gmux force_igd=y
       '';
-    })
-    (lib.mkIf t2Cfg.enableTinyDfr {
-      warnings = [
-        ''
-          hardware.apple-t2.enableTinyDfr is deprecated since the module has been upstreamed as hardware.apple.touchBar. 
-          This option will be removed from the apple/t2 profile when NixOS 24.11 is released.
-        ''
-      ];
-      assertions = lib.optionals (lib.versionAtLeast (lib.versions.majorMinor lib.version) "24.11") [{
-        assertion = !config.hardware.apple.touchBar.enable;
-        message = "hardware.apple-t2.enableTinyDfr conflicts with hardware.apple.touchBar.enable. Please disable one of them.";
-      }];
-      services.udev.packages = [ tiny-dfrPackage ];
-
-      systemd.services.tiny-dfr = {
-        enable = true;
-        description = "Tiny Apple silicon touch bar daemon";
-        after = [ "systemd-user-sessions.service" "getty@tty1.service" "plymouth-quit.service" "systemd-logind.service" ];
-        bindsTo = [ "dev-tiny_dfr_display.device" "dev-tiny_dfr_backlight.device" ];
-        startLimitIntervalSec = 30;
-        startLimitBurst = 2;
-        script = "${tiny-dfrPackage}/bin/tiny-dfr";
-        restartTriggers = [ tiny-dfrPackage ];
-      };
-
-      environment.etc."tiny-dfr/config.toml" = {
-        source = "${tiny-dfrPackage}/share/tiny-dfr/config.toml";
-      };
     })
   ];
 }
