@@ -58,7 +58,6 @@ addEntry() {
     echo "'"
 }
 
-echo "# Hola!" > $tmp
 addEntry $default default >> $tmp
 
 if [ "$numGenerations" -gt 0 ]; then
