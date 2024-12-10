@@ -2,7 +2,7 @@
 , ... } @ args:
 
 let
-  version = "6.12.2";
+  version = "6.12.4";
   majorVersion = lib.elemAt (lib.take 1 (lib.splitVersion version)) 0;
 
   patchRepo = fetchFromGitHub {
@@ -14,7 +14,7 @@ let
 
   kernel = fetchzip {
     url = "mirror://kernel/linux/kernel/v${majorVersion}.x/linux-${version}.tar.xz";
-    hash = "sha256-2xfXs++pJiNgFCdpfYsNy3HE6rCyztbOwAlMObLCgAI=";
+    hash = "sha256-SiQzaqraT/5s6Mown8/DeOWU7VR3IG0ojvkqThO09+0=";
   };
 in
 buildLinux (args // {
