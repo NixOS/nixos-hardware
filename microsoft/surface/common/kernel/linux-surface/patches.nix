@@ -119,39 +119,35 @@ CONFIG_SURFACE_BOOK1_DGPU_SWITCH= module;
     patch = patchSrc + "/0006-ithc.patch";
   }
   {
-    name = "ms-surface/0007-surface-sam";
-    patch = patchSrc + "/0007-surface-sam.patch";
+    name = "ms-surface/0007-surface-sam-over-hid";
+    patch = patchSrc + "/0007-surface-sam-over-hid.patch";
   }
   {
-    name = "ms-surface/0008-surface-sam-over-hid";
-    patch = patchSrc + "/0008-surface-sam-over-hid.patch";
+    name = "ms-surface/0008-surface-button";
+    patch = patchSrc + "/0008-surface-button.patch";
   }
   {
-    name = "ms-surface/0009-surface-button";
-    patch = patchSrc + "/0009-surface-button.patch";
+    name = "ms-surface/0009-surface-typecover";
+    patch = patchSrc + "/0009-surface-typecover.patch";
   }
   {
-    name = "ms-surface/0010-surface-typecover";
-    patch = patchSrc + "/0010-surface-typecover.patch";
+    name = "ms-surface/0010-surface-shutdown";
+    patch = patchSrc + "/0010-surface-shutdown.patch";
   }
   {
-    name = "ms-surface/0011-surface-shutdown";
-    patch = patchSrc + "/0011-surface-shutdown.patch";
+    name = "ms-surface/0011-surface-gpe";
+    patch = patchSrc + "/0011-surface-gpe.patch";
   }
   {
-    name = "ms-surface/0012-surface-gpe";
-    patch = patchSrc + "/0012-surface-gpe.patch";
+    name = "ms-surface/0012-cameras";
+    patch = patchSrc + "/0012-cameras.patch";
   }
   {
-    name = "ms-surface/0013-cameras";
-    patch = patchSrc + "/0013-cameras.patch";
+    name = "ms-surface/0013-amd-gpio";
+    patch = patchSrc + "/0013-amd-gpio.patch";
   }
   {
-    name = "ms-surface/0014-amd-gpio";
-    patch = patchSrc + "/0014-amd-gpio.patch";
-  }
-  {
-    name = "ms-surface/0015-rtc";
-    patch = patchSrc + "/0015-rtc.patch";
+    name = "ms-surface/0014-rtc";
+    patch = patchSrc + "/0014-rtc.patch";
   }
 ]
