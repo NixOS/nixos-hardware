@@ -18,7 +18,6 @@ in
     ../../../common/cpu/amd/pstate.nix
     ../../../common/gpu/amd
     ../../../common/pc/laptop
-    ../../../common/pc/laptop/acpi_call.nix
     ../../../common/pc/ssd
     ../../../common/gpu/nvidia/prime.nix
     ../../../common/gpu/nvidia/ada-lovelace
