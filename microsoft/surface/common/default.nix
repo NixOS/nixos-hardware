@@ -8,7 +8,7 @@ in {
     ./kernel
   ];
 
-  microsoft-surface.kernelVersion = mkDefault "6.11";
+  microsoft-surface.kernelVersion = mkDefault "6.12";
 
   # Seems to be required to properly enable S0ix "Modern Standby":
   boot.kernelParams = mkDefault [ "mem_sleep_default=deep" ];
