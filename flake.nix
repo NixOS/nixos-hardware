@@ -191,6 +191,7 @@
           google-pixelbook = import ./google/pixelbook;
           google-brya = import ./google/brya;
           google-rex = import ./google/rex;
+          gpd-duo = import ./gpd/duo;
           gpd-micropc = import ./gpd/micropc;
           gpd-p2-max = import ./gpd/p2-max;
           gpd-pocket-3 = import ./gpd/pocket-3;
