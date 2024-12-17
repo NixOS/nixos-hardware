@@ -31,7 +31,9 @@ in
       # https://community.frame.work/t/tracking-framework-amd-ryzen-7040-series-lid-wakeup-behavior-feedback/39128/45
       ACTION=="add", SUBSYSTEM=="serio", DRIVERS=="atkbd", ATTR{power/wakeup}="disabled"
     '';
-
-#    hardware.framework.laptop13.audioEnhancement.rawDeviceName = lib.mkDefault "alsa_output.pci-0000_c1_00.6.analog-stereo";
+  
+  # Replace 'left' with 'right' or 'inverted' as needed
+  # Fixes DUO stupid inverted display at boot
+  boot.kernelParams = [ "video=eDP-1:rotate=inverted" ];  
   };
 }
