@@ -6,6 +6,7 @@ in
 {
   imports = [
     ./common/amd.nix
+    ./common/audio.nix
     ../../common/cpu/amd/raphael/igpu.nix
   ];
 
@@ -44,6 +45,9 @@ in
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_6_12;
+
+  hardware.gpd.duo.audioEnhancement.rawDeviceName = lib.mkDefault "alsa_output.pci-0000_c1_00.6.analog-stereo";
+
 
   };
 }
