@@ -26,6 +26,8 @@ in
   config = {
     # Configure basic system settings:
     boot = {
+      # Note: it seems being on the latest kernel is important for CPPC to work, which is required for the amd_pstate
+      # https://bugzilla.kernel.org/show_bug.cgi?id=218686
       kernelPackages = mkDefault pkgs.linuxPackages_latest;
       kernelModules = [ "kvm-amd" ];
       kernelParams = [
