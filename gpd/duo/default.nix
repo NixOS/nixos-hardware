@@ -5,6 +5,7 @@ let
 in
 {
   imports = [
+    ./common
     ./common/amd.nix
     ./common/audio.nix
     ../../common/cpu/amd/raphael/igpu.nix
