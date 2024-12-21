@@ -12,6 +12,7 @@ in {
   };
   config = lib.mkIf cfg.enable {
     hardware.raspberry-pi."4".apply-overlays-dtmerge.enable = lib.mkDefault true;
+    hardware.deviceTree.filter = "*-rpi-4-*.dtb";
     hardware.deviceTree.overlays = [
       # https://github.com/raspberrypi/linux/blob/rpi-6.1.y/arch/arm/boot/dts/overlays/spi0-0cs-overlay.dts
       # https://github.com/raspberrypi/linux/blob/rpi-6.1.y/arch/arm/boot/dts/overlays/rpi-tv-overlay.dts
