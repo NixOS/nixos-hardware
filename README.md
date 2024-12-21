@@ -290,8 +290,10 @@ See code for all available configurations.
 | [Lenovo ThinkPad Z13 Gen 1](lenovo/thinkpad/z/gen1/z13)                | `<nixos-hardware/lenovo/thinkpad/z/gen1/z13>`           |
 | [Lenovo ThinkPad Z13 Gen 2](lenovo/thinkpad/z/gen2/z13)                | `<nixos-hardware/lenovo/thinkpad/z/gen2/z13>`           |
 | [LENOVO Yoga 6 13ALC6 82ND](lenovo/yoga/6/13ALC6)                      | `<nixos-hardware/lenovo/yoga/6/13ALC6>`                 |
-| [LENOVO Yoga Slim 7 Pro-X 14ARH7 82ND](lenovo/yoga/7/14ARH7/amdgpu)    | `<nixos-hardware/lenovo/yoga/7/14ARH7/amdgpu>`          |
-| [LENOVO Yoga Slim 7 Pro-X 14ARH7 82ND](lenovo/yoga/7/14ARH7/nvidia)    | `<nixos-hardware/lenovo/yoga/7/14ARH7/nvidia>`          |
+| [Lenovo Yoga Slim 7 Pro X (AMD only)](lenovo/yoga/7/pro-x/14ARH7/amdgpu) | `<nixos-hardware/lenovo/yoga/7/pro-x/14ARH7/amdgpu>` |
+| [Lenovo Yoga Slim 7 Pro X (AMD + NVIDIA)](lenovo/yoga/7/pro-x/14ARH7/nvidia) | `<nixos-hardware/lenovo/yoga/7/pro-x/14ARH7/nvidia>` |
+| [Lenovo Yoga Slim 7i Pro X (Intel only)](lenovo/yoga/7/pro-x/14IAH7/intelgpu) | `<nixos-hardware/lenovo/yoga/7/pro-x/14IAH7/intelgpu>` |
+| [Lenovo Yoga Slim 7i Pro X (Intel + NVIDIA)](lenovo/yoga/7/pro-x/14IAH7/nvidia) | `<nixos-hardware/lenovo/yoga/7/pro-x/14IAH7/nvidia>` |
 | [LENOVO Yoga 7 Slim Gen8](lenovo/yoga/7/slim/gen8)                     | `<nixos-hardware/lenovo/yoga/7/slim/gen8>`              |
 | [MSI B550-A PRO](msi/b550-a-pro)                                       | `<nixos-hardware/msi/b550-a-pro>`                       |
 | [MSI B350 TOMAHAWK](msi/b350-tomahawk)                                 | `<nixos-hardware/msi/b350-tomahawk>`                    |

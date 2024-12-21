@@ -235,9 +235,11 @@
         lenovo-thinkpad-z13-gen1 = import ./lenovo/thinkpad/z/gen1/z13;
         lenovo-thinkpad-z13-gen2 = import ./lenovo/thinkpad/z/gen2/z13;
         lenovo-yoga-6-13ALC6 = import ./lenovo/yoga/6/13ALC6;
-        lenovo-yoga-7-14ARH7 = import ./lenovo/yoga/7/14ARH7;
-        lenovo-yoga-7-14ARH7-amdgpu = import ./lenovo/yoga/7/14ARH7/amdgpu;
-        lenovo-yoga-7-14ARH7-nvidia = import ./lenovo/yoga/7/14ARH7/nvidia;
+        lenovo-yoga-7-14ARH7 = import ./lenovo/yoga/7/pro-x/14ARH7;
+        lenovo-yoga-7-14ARH7-amdgpu = import ./lenovo/yoga/7/pro-x/14ARH7/amdgpu;
+        lenovo-yoga-7-14ARH7-nvidia = import ./lenovo/yoga/7/pro-x/14ARH7/nvidia;
+        lenovo-yoga-7-14IAH7-intelgpu = import ./lenovo/yoga/7/pro-x/14IAH7/intelgpu;
+        lenovo-yoga-7-14IAH7-nvidia = import ./lenovo/yoga/7/pro-x/14IAH7/nvidia;
         lenovo-yoga-7-slim-gen8 = import ./lenovo/yoga/7/slim/gen8;
         letsnote-cf-lx4 = import ./panasonic/letsnote/cf-lx4;
         malibal-aon-s1-intel = import ./malibal/aon/s1;
