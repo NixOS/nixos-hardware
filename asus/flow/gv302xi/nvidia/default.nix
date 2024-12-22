@@ -44,7 +44,7 @@ in {
 
       powerManagement = {
         enable = true;
-        finegrained = true
+        finegrained = true;
       };
 
       dynamicBoost.enable = true;
