@@ -38,7 +38,7 @@ in {
           enable = mkDefault true;
           enableOffloadCmd = mkDefault true;
         };
-        amdgpuBusId = "PCI:101:0:0";
+        amdgpuBusId = "PCI:69:0:0";
         nvidiaBusId = "PCI:1:0:0";
       };
 
