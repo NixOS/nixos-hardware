@@ -17,6 +17,7 @@
     ./pwm0.nix
     ./tc358743.nix
     ./touch-ft5406.nix
+    ./tv-hat.nix
     ./xhci.nix
   ];
 
