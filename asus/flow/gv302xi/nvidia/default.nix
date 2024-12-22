@@ -43,10 +43,12 @@ in {
       };
 
       powerManagement = {
-        # This is unreliable on the 4070;  works a few times, then hangs:
-        # enable = true;
-        # finegrained = true
+        enable = true;
+        finegrained = true
       };
+
+      dynamicBoost.enable = true;
+      
     };
   };
 }
