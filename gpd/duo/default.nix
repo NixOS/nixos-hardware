@@ -39,10 +39,9 @@ in
   # Enable kernel module for your graphics (adjust if needed)
   boot.kernelModules = [ "amdgpu" ];
 
-  # Set the framebuffer or video parameters for display rotation
+  # Set the eDP-1 panel video parameters for display rotation
   boot.kernelParams = [
-    "video=eDP-1"  # Replace with correct resolution and refresh rate for your display
-    "fbcon=rotate:2"            # Rotate the display 90 degrees (other options: 0 = normal, 1 = 90 degrees, 2 = 180 degrees, 3 = 270 degrees)
+     "video=eDP-1:panel_orientation=upside_down"
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_6_12;
