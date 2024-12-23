@@ -213,6 +213,7 @@ See code for all available configurations.
 | [Lenovo Legion Slim 7 Gen 7 (AMD)](lenovo/legion/16arha7/)             | `<nixos-hardware/lenovo/legion/16arha7>`                |
 | [Lenovo Legion T5 AMR5](lenovo/legion/t526amr5)                        | `<nixos-hardware/lenovo/legion/t526amr5>`               |
 | [Lenovo Legion Y530 15ICH](lenovo/legion/15ich)                        | `<nixos-hardware/lenovo/legion/15ich>`                  |
+| [Lenovo LOQ 15APH8 (lenovo/loq/15aph8)                                 | `<nixos-hardware/lenovo/loq/15aph8>`                    |
 | [Lenovo ThinkPad A475](lenovo/thinkpad/a475)                           | `<nixos-hardware/lenovo/thinkpad/a475>`                 |
 | [Lenovo ThinkPad E14 (AMD)](lenovo/thinkpad/e14/amd)                   | `<nixos-hardware/lenovo/thinkpad/e14/amd>`              |
 | [Lenovo ThinkPad E14 (Intel)](lenovo/thinkpad/e14/intel)               | `<nixos-hardware/lenovo/thinkpad/e14/intel>`            |
