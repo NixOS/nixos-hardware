@@ -5,14 +5,14 @@
 
 let
   inherit (lib) mkEnableOption mkIf mkMerge;
-  cfg = config.hardware.asus.flow.gv302xi;
+  cfg = config.hardware.asus.flow.gv302x;
 
 in {
   imports = [
     ../shared.nix
   ];
 
-  options.hardware.asus.flow.gv302xi.amdgpu = {
+  options.hardware.asus.flow.gv302x.amdgpu = {
     recovery.enable = (mkEnableOption "Enable amdgpu.gpu_recovery kernel boot param") // { default = false; };
     sg_display.enable = (mkEnableOption "Enable amdgpu.gpu_recovery kernel boot param") // { default = true; };
     psr.enable = (mkEnableOption "Enable amdgpu.dcdebugmask=0x10 kernel boot param") // { default = true; };
