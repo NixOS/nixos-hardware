@@ -15,6 +15,3 @@ boot.extraModprobeConfig = ''
 And you should decide what you want to do with the NVIDIA GPU, either sync or offload.
 
 Fwupd works, you can update the BIOS and DBX.
-```nix
-services.fwupd.enable = true;
-```
