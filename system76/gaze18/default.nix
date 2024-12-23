@@ -6,7 +6,7 @@
     ../../common/gpu/nvidia/ampere
   ];
 
-  boot.initrd.kernelModules = [ "nvidia" ];
+  boot.initrd.kernelModules = [ "nvidia" "i915" "nvidia_modeset" "nvidia_drm" ];
 
   hardware.graphics = {
     enable = lib.mkDefault true;
