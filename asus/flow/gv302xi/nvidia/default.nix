@@ -22,7 +22,7 @@ in {
     blacklistedKernelModules = [ "nouveau" ];
   };
 
-  # Also in nvidia/default.nix
+  
   services.xserver.videoDrivers = mkDefault [ "nvidia" ];
 
   hardware = {
