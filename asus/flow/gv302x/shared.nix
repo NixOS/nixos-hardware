@@ -63,13 +63,12 @@ in {
             evdev:name:*:dmi:bvn*:bvr*:bd*:svnASUS*:pn*:*
             KEYBOARD_KEY_ff31007c=f20
           '';
-        };
-        
-        #flow devices are 2 in 1 laptops
-        hardware.sensor.iio.enable = true;
-
-
+        }; 
       };
+
+      #flow devices are 2 in 1 laptops
+      hardware.sensor.iio.enable = mkDefault true;
+
     }
 
     (mkIf (! cfg.keyboard.autosuspend.enable) {
