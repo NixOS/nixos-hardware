@@ -64,6 +64,11 @@ in {
             KEYBOARD_KEY_ff31007c=f20
           '';
         };
+        
+        #flow devices are 2 in 1 laptops
+        hardware.sensor.iio.enable = true;
+
+
       };
     }
 
