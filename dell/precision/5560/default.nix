@@ -9,9 +9,7 @@
 
   hardware.enableRedistributableFirmware = lib.mkDefault true;
 
-  boot = {
-    kernelParams = [ "i915.modeset=1" ];
-  };
+  services.fwupd.enable = true;
 
   hardware.nvidia.prime = {
     intelBusId = "PCI:0:2:0";
