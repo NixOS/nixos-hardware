@@ -43,11 +43,11 @@ in {
       };
 
       powerManagement = {
-        enable = true;
-        finegrained = true;
+        enable = mkDefault true;
+        finegrained = mkDefault true;
       };
 
-      dynamicBoost.enable = true;
+      dynamicBoost.enable = mkDefault true;
       
     };
   };
