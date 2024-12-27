@@ -13,7 +13,7 @@
   boot.loader.kboot-conf.enable = true;
   # Use kernel >6.6 The devicetree is missing from kernel versions older than this.
   boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "6.6") (lib.mkDefault pkgs.linuxPackages_latest);
-
+  boot.supportedFilesystems = lib.mkForce ["btrfs" "cifs" "f2fs" "jfs" "ntfs" "reiserfs" "vfat" "xfs"];
   # I'm not completely sure if some of these could be omitted,
   # but want to make sure disk access works
   boot.initrd.availableKernelModules = [
