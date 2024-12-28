@@ -20,6 +20,10 @@ in
 
   # Adapted from: https://gist.github.com/SFrijters/206d2c09656affb04284f076c75a1969
   config = lib.mkMerge [
+    (lib.mkIf (cfg.eth.disable || cfg.act.disable || cfg.pwr.disable) {
+      hardware.raspberry-pi."4".apply-overlays-dtmerge.enable = lib.mkDefault true;
+      hardware.deviceTree.filter = "*-rpi-4-*.dtb";
+    })
     (lib.mkIf cfg.eth.disable {
       hardware.deviceTree = {
         overlays = [
@@ -73,7 +77,7 @@ in
               /{
                   compatible = "raspberrypi,4-model-b";
                   fragment@0 {
-                      target = <&act_led>;
+                      target = <&led_act>;
                       __overlay__ {
                           gpios = <&gpio 42 0>; /* first two values copied from bcm2711-rpi-4-b.dts */
                           linux,default-trigger = "none";
@@ -100,7 +104,7 @@ in
               /{
                   compatible = "raspberrypi,4-model-b";
                   fragment@0 {
-                      target = <&pwr_led>;
+                      target = <&led_pwr>;
                       __overlay__ {
                           gpios = <&expgpio 2 0>; /* first two values copied from bcm2711-rpi-4-b.dts */
                           linux,default-trigger = "default-on";
