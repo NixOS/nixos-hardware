@@ -77,7 +77,7 @@ in
               /{
                   compatible = "raspberrypi,4-model-b";
                   fragment@0 {
-                      target = <&act_led>;
+                      target = <&led_act>;
                       __overlay__ {
                           gpios = <&gpio 42 0>; /* first two values copied from bcm2711-rpi-4-b.dts */
                           linux,default-trigger = "none";
@@ -104,7 +104,7 @@ in
               /{
                   compatible = "raspberrypi,4-model-b";
                   fragment@0 {
-                      target = <&pwr_led>;
+                      target = <&led_pwr>;
                       __overlay__ {
                           gpios = <&expgpio 2 0>; /* first two values copied from bcm2711-rpi-4-b.dts */
                           linux,default-trigger = "default-on";
