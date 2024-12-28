@@ -20,6 +20,10 @@ in
 
   # Adapted from: https://gist.github.com/SFrijters/206d2c09656affb04284f076c75a1969
   config = lib.mkMerge [
+    (lib.mkIf (cfg.eth.disable || cfg.act.disable || cfg.pwr.disable) {
+      hardware.raspberry-pi."4".apply-overlays-dtmerge.enable = lib.mkDefault true;
+      hardware.deviceTree.filter = "*-rpi-4-*.dtb";
+    })
     (lib.mkIf cfg.eth.disable {
       hardware.deviceTree = {
         overlays = [
