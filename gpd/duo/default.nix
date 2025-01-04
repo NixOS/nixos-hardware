@@ -40,9 +40,9 @@ in
   boot.kernelModules = [ "amdgpu" ];
 
   # Set the eDP-1 panel video parameters for display rotation
-  boot.kernelParams = [
-     "video=eDP-1:panel_orientation=upside_down"
-  ];
+#  boot.kernelParams = [
+#     "video=eDP-1:panel_orientation=upside_down"
+#  ];
 
   hardware.gpd.duo.audioEnhancement.rawDeviceName = lib.mkDefault "alsa_output.pci-0000_c1_00.6.analog-stereo";
 
