@@ -5,6 +5,10 @@
   ...
 }:
 {
+  imports = [
+    ./firmware.nix
+  ];
+
   boot = {
     consoleLogLevel = lib.mkDefault 7;
     # Switch to default as soon they reach >= 6.11
