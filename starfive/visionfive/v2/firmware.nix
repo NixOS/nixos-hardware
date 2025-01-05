@@ -5,15 +5,29 @@ in
 {
   options = {
     hardware.visionfive2 = {
-      opensbi.src = lib.mkOption {
-        description = "VisionFive2 OpenSBI source";
-        type = lib.types.nullOr lib.types.package;
-        default = null;
+      opensbi = {
+        src = lib.mkOption {
+          description = "VisionFive2 OpenSBI source";
+          type = lib.types.nullOr lib.types.package;
+          default = null;
+        };
+        patches = lib.mkOption {
+          description = "List of patches to apply to the VisionFive2 OpenSBI source";
+          type = lib.types.nullOr (lib.types.listOf lib.types.package);
+          default = null;
+        };
       };
-      uboot.src = lib.mkOption {
-        description = "VisionFive2 U-boot source";
-        type = lib.types.nullOr lib.types.package;
-        default = null;
+      uboot = {
+        src = lib.mkOption {
+          description = "VisionFive2 U-boot source";
+          type = lib.types.nullOr lib.types.package;
+          default = null;
+        };
+        patches = lib.mkOption {
+          description = "List of patches to apply to the VisionFive2 U-boot source";
+          type = lib.types.nullOr (lib.types.listOf lib.types.package);
+          default = null;
+        };
       };
     };
   };
@@ -22,10 +36,12 @@ in
     system.build = {
       opensbi = (pkgs.callPackage ./opensbi.nix {}).overrideAttrs (f: p: {
         src = if cfg.opensbi.src != null then cfg.opensbi.src else p.src;
+        patches = if cfg.opensbi.patches != null then cfg.opensbi.patches else (p.patches or []);
       });
 
       uboot = (pkgs.callPackage ./uboot.nix { inherit (config.system.build) opensbi; }).overrideAttrs (f: p: {
         src = if cfg.uboot.src != null then cfg.uboot.src else p.src;
+        patches = if cfg.uboot.patches != null then cfg.uboot.patches else (p.patches or []);
       });
 
       updater-flash = pkgs.writeShellApplication {
