@@ -14,7 +14,6 @@ in
 
 	# GPU is an Intel Iris Xe, on a “TigerLake” mobile CPU
 	boot.initrd.kernelModules = [ "i915" ];  # Early loading so the passphrase prompt appears on external displays
-	services.xserver.videoDrivers = [ "intel" ];
 	hardware.graphics.extraPackages = with pkgs; [
 		intel-media-driver
 		(if (lib.versionOlder (lib.versions.majorMinor lib.version) "23.11") then vaapiIntel else intel-vaapi-driver)

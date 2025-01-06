@@ -9,6 +9,4 @@
 
   # touchpad goes over i2c
   boot.blacklistedKernelModules = [ "psmouse" ];
-
-  services.xserver.videoDrivers = lib.mkDefault [ "intel" ];
 }

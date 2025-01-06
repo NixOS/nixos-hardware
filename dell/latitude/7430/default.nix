@@ -16,6 +16,4 @@
     "i8042.dumbkbd=1" 
     "i8042.nopnp=1" 
   ];
-
-  services.xserver.videoDrivers = lib.mkDefault [ "intel" ];
 }
