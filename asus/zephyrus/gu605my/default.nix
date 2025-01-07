@@ -7,6 +7,7 @@
     ../../../common/gpu/nvidia/ada-lovelace
     ../../../common/pc/laptop
     ../../../common/pc/laptop/ssd
+    ../shared/backlight.nix
   ];
 
   hardware.nvidia = {
