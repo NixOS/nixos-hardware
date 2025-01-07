@@ -1,6 +1,6 @@
 { stdenv, fetchFromGitHub }:
 
-stdenv.mkDerivation rec{
+stdenv.mkDerivation (finalAttrs: {
   pname = "spi_tool";
   version = "0x01010101";
   src = fetchFromGitHub {
@@ -15,4 +15,4 @@ stdenv.mkDerivation rec{
     mkdir -p $out/bin
     cp spl_tool $out/bin
   '';
-}
+})

@@ -1,7 +1,5 @@
 { config, pkgs, modulesPath, ... }:
-
-let firmware = pkgs.callPackage ./firmware.nix { };
-in {
+{
   imports = [
     "${modulesPath}/profiles/base.nix"
     "${modulesPath}/installer/sd-card/sd-image.nix"
@@ -36,10 +34,10 @@ in {
       EOF
 
       eval $(partx $img -o START,SECTORS --nr 1 --pairs)
-      dd conv=notrunc if=${firmware.uboot}/u-boot-spl.bin.normal.out of=$img seek=$START count=$SECTORS
+      dd conv=notrunc if=${config.system.build.uboot}/u-boot-spl.bin.normal.out of=$img seek=$START count=$SECTORS
 
       eval $(partx $img -o START,SECTORS --nr 2 --pairs)
-      dd conv=notrunc if=${firmware.uboot}/u-boot.itb of=$img seek=$START count=$SECTORS
+      dd conv=notrunc if=${config.system.build.uboot}/u-boot.itb of=$img seek=$START count=$SECTORS
     '';
 
     populateRootCommands = ''
@@ -48,5 +46,5 @@ in {
     '';
   };
 
-  environment.systemPackages = [ firmware.updater-flash ];
+  environment.systemPackages = [ config.system.build.updater-flash ];
 }
