@@ -13,10 +13,7 @@
     loader = {
       grub.enable = lib.mkDefault false;
       generationsDir.enable = lib.mkDefault false;
-      raspberryPi = {
-        enable = lib.mkDefault true;
-        version = lib.mkDefault 2;
-      };
+      generic-extlinux-compatible.enable = lib.mkDefault true;
     };
   };
 
