@@ -1,0 +1,41 @@
+= Dell XPS 15 9530 =
+
+== Tested Hardware ==
+
+* CPU: 13th Gen Intel(R) Core(TM) i9-13900H
+* RAM: 32 GB
+* HDD: 1 TiB SSD (NVME)
+* Screen: 15" 4k (3456 x 2160)
+* Graphics: NVIDIA GeForce RTX 4070 Laptop GPU, with Intel Graphics too.
+* Input: Touchscreen and trackpad.
+* Fingerprint Reader: Goodix
+
+== Notes ==
+
+== NVIDIA Offload ==
+
+In order to run a program on the NVIDIA gpu, you can use the `nvidia-offload` function, for example:
+```
+nvidia-offload `nix-shell -p glxinfo --run 'glxgears'`
+```
+This is a short bash script that sets the proper environment variables and calls your command.
+
+== Fingerprint Reader ==
+
+I have added support for the fingerprint reader. It has however been tested on Gnome  only.
+
+- After Installation, I had to reboot once before the fingerprint options  would showin the Users module in Gnome Settings
+- You will need to register your fingerprints in the Users module in Gnome Settings
+- When logging in I suggest using your password otherwise the keyring is not unlocked at login. You can use the fingerprint reader at all other times.
+
+== Touchpad ==
+
+This is a matter of preference, but I do recommend disabling the Touchpad while typing. I hit it with my palm all the time.
+
+Since I am using Gnome, I have done this through Home-Manager using `dconf`.
+
+```
+"org/gnome/desktop/peripherals/touchpad" = {
+      disable-while-typing = true;
+    };
+```
