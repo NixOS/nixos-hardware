@@ -121,6 +121,7 @@
         gpd-micropc = import ./gpd/micropc;
         gpd-p2-max = import ./gpd/p2-max;
         gpd-pocket-3 = import ./gpd/pocket-3;
+        gpd-pocket-4 = import ./gpd/pocket-4;
         gpd-win-2 = import ./gpd/win-2;
         gpd-win-max-2-2023 = import ./gpd/win-max-2/2023;
         gpd-win-mini-2024 = import ./gpd/win-mini/2024;
