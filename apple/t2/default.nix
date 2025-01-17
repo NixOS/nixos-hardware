@@ -23,6 +23,7 @@ let
     });
 
   pipewirePackage = overrideAudioFiles pkgs.pipewire "spa/plugins/";
+  esmp = config.boot.loader.efi.efiSysMountPoint;
 
   apple-set-os-loader-installer = pkgs.stdenv.mkDerivation {
     name = "apple-set-os-loader-installer-1.0";
@@ -85,19 +86,19 @@ in
     (lib.mkIf t2Cfg.enableAppleSetOsLoader {
       # Activation script to install apple-set-os-loader in order to unlock the iGPU
       system.activationScripts.appleSetOsLoader = ''
-        if [[ -e /boot/efi/efi/boot/bootx64_original.efi ]]; then
+        if [[ -e ${esmp}/efi/boot/bootx64_original.efi ]]; then
           true # It's already installed, no action required
-        elif [[ -e /boot/efi/efi/boot/bootx64.efi ]]; then
+        elif [[ -e ${esmp}/efi/boot/bootx64.efi ]]; then
           # Copy the new bootloader to a temporary location
-          cp ${apple-set-os-loader-installer}/bootx64.efi /boot/efi/efi/boot/bootx64_temp.efi
+          cp ${apple-set-os-loader-installer}/bootx64.efi ${esmp}/efi/boot/bootx64_temp.efi
 
           # Rename the original bootloader
-          mv /boot/efi/efi/boot/bootx64.efi /boot/efi/efi/boot/bootx64_original.efi
+          mv ${esmp}/efi/boot/bootx64.efi ${esmp}/efi/boot/bootx64_original.efi
 
           # Move the new bootloader to the final destination
-          mv /boot/efi/efi/boot/bootx64_temp.efi /boot/efi/efi/boot/bootx64.efi
+          mv ${esmp}/efi/boot/bootx64_temp.efi ${esmp}/efi/boot/bootx64.efi
         else
-          echo "Error: /boot/efi/efi/boot/bootx64.efi is missing" >&2
+          echo "Error: ${esmp}/efi/boot/bootx64.efi is missing" >&2
         fi
       '';
 
