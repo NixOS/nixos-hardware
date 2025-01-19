@@ -357,3 +357,4 @@ See code for all available configurations.
 | [TUXEDO InfinityBook Pro 14 - Gen7](tuxedo/infinitybook/pro14/gen7)               | `<nixos-hardware/tuxedo/infinitybook/pro14/gen7>`       |
 | [TUXEDO Pulse 14 - Gen3](tuxedo/pulse/14/gen3)                                    | `<nixos-hardware/tuxedo/pulse/14/gen3>`                 |
 | [TUXEDO Pulse 15 - Gen2](tuxedo/pulse/15/gen2)                                    | `<nixos-hardware/tuxedo/pulse/15/gen2>`                 |
+| [Xiaomi Redmibook 16 Pro 2024](xiaomi/redmibook/16-pro-2024)                      | `<nixos-hardware/xiaomi/redmibook/16-pro-2024>`         |
