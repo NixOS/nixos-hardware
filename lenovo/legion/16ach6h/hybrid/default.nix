@@ -28,6 +28,7 @@
     nvidia = {
       modesetting.enable = lib.mkDefault true;
       powerManagement.enable = lib.mkDefault true;
+      dynamicBoost.enable = lib.mkDefault true;
 
       prime = {
         amdgpuBusId = lib.mkDefault "PCI:5:0:0";
