@@ -308,6 +308,7 @@
         tuxedo-infinitybook-pro14-gen7 = import ./tuxedo/infinitybook/pro14/gen7;
         tuxedo-pulse-14-gen3 = import ./tuxedo/pulse/14/gen3;
         tuxedo-pulse-15-gen2 = import ./tuxedo/pulse/15/gen2;
+        xiaomi-redmibook-16-pro-2024 = import ./xiaomi/redmibook/16-pro-2024;
 
         common-cpu-amd = import ./common/cpu/amd;
         common-cpu-amd-pstate = import ./common/cpu/amd/pstate.nix;
