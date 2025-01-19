@@ -180,6 +180,7 @@ See code for all available configurations.
 | [GPD MicroPC](gpd/micropc)                                                        | `<nixos-hardware/gpd/micropc>`                          |
 | [GPD P2 Max](gpd/p2-max)                                                          | `<nixos-hardware/gpd/p2-max>`                           |
 | [GPD Pocket 3](gpd/pocket-3)                                                      | `<nixos-hardware/gpd/pocket-3>`                         |
+| [GPD Pocket 4](gpd/pocket-4)                                                      | `<nixos-hardware/gpd/pocket-4>`                         |
 | [GPD WIN 2](gpd/win-2)                                                            | `<nixos-hardware/gpd/win-2>`                            |
 | [GPD WIN Max 2 2023](gpd/win-max-2/2023)                                          | `<nixos-hardware/gpd/win-max-2/2023>`                   |
 | [GPD WIN Mini 2024](gpd/win-mini/2024)                                            | `<nixos-hardware/gpd/win-mini/2024>`                    |
