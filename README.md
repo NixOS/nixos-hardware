@@ -136,6 +136,7 @@ See code for all available configurations.
 | [Dell Latitude 7430](dell/latitude/7430)                                          | `<nixos-hardware/dell/latitude/7430>`                   |
 | [Dell Latitude 7490](dell/latitude/7490)                                          | `<nixos-hardware/dell/latitude/7490>`                   |
 | [Dell Latitude 9430](dell/latitude/9430)                                          | `<nixos-hardware/dell/latitude/9430>`                   |
+| [Dell Latitude E7240](dell/latitude/e7240)                                        | `<nixos-hardware/dell/latitude/e7240>`                  |
 | [Dell Optiplex 3050](dell/optiplex/3050)                                          | `<nixos-hardware/dell/optiplex/3050>`                   |
 | [Dell Poweredge R7515](dell/poweredge/r7515)                                      | `<nixos-hardware/dell/poweredge/r7515>`                 |
 | [Dell Precision 3541](dell/precision/3541)                                        | `<nixos-hardware/dell/precision/3541>`                  |
@@ -173,7 +174,6 @@ See code for all available configurations.
 | [Dell XPS 17 9700, intel](dell/xps/17-9700/intel)                                 | `<nixos-hardware/dell/xps/17-9700/intel`                |
 | [Dell XPS 17 9700, nvidia](dell/xps/17-9700/nvidia)                               | `<nixos-hardware/dell/xps/17-9700/nvidia>`              |
 | [Dell XPS 17 9710, intel only](dell/xps/17-9710/intel)                            | `<nixos-hardware/dell/xps/17-9710/intel>`               |
-| [Dell XPS E7240](dell/e7240)                                                      | `<nixos-hardware/dell/e7240>`                           |
 | [Framework 11th Gen Intel Core](framework/13-inch/11th-gen-intel)                 | `<nixos-hardware/framework/13-inch/11th-gen-intel>`     |
 | [Framework 12th Gen Intel Core](framework/13-inch/12th-gen-intel)                 | `<nixos-hardware/framework/13-inch/12th-gen-intel>`     |
 | [Framework 13th Gen Intel Core](framework/13-inch/13th-gen-intel)                 | `<nixos-hardware/framework/13-inch/13th-gen-intel>`     |
