@@ -291,6 +291,7 @@
         raspberry-pi-3 = import ./raspberry-pi/3;
         raspberry-pi-4 = import ./raspberry-pi/4;
         raspberry-pi-5 = import ./raspberry-pi/5;
+        rock-4c-plus = import ./radxa/rock-4c-plus;
         kobol-helios4 = import ./kobol/helios4;
         samsung-np900x3c = import ./samsung/np900x3c;
         slimbook-hero-rpl-rtx = import ./slimbook/hero/rpl-rtx;
