@@ -2,8 +2,8 @@
 {
 
   imports = [ 
-    ../../../../common/cpu/intel/coffee-lake
-    ../../../../common/pc/laptop
+    ../../../common/cpu/intel/coffee-lake
+    ../../../common/pc/laptop
   ];
 
   # Solution to rcu_sched freezing
