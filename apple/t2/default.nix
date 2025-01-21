@@ -72,7 +72,7 @@ in
       # For audio
       boot.kernelParams = [ "pcie_ports=compat" "intel_iommu=on" "iommu=pt" ];
 
-      hardware.pulseaudio.package = overrideAudioFiles pkgs.pulseaudio "src/modules/";
+      services.pulseaudio.package = overrideAudioFiles pkgs.pulseaudio "src/modules/";
 
       services.pipewire.package = pipewirePackage;
       services.pipewire.wireplumber.package = pkgs.wireplumber.override {
