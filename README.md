@@ -129,6 +129,7 @@ See code for all available configurations.
 | [Dell Latitude 5520](dell/latitude/5520)                                          | `<nixos-hardware/dell/latitude/5520>`                   |
 | [Dell Latitude 7280](dell/latitude/7280)                                          | `<nixos-hardware/dell/latitude/7280>`                   |
 | [Dell Latitude 7390](dell/latitude/7390)                                          | `<nixos-hardware/dell/latitude/7390>`                   |
+| [Dell Latitude 7420](dell/latitude/7420)                                          | `<nixos-hardware/dell/latitude/7420>`                   |
 | [Dell Latitude 7430](dell/latitude/7430)                                          | `<nixos-hardware/dell/latitude/7430>`                   |
 | [Dell Latitude 7490](dell/latitude/7490)                                          | `<nixos-hardware/dell/latitude/7490>`                   |
 | [Dell Latitude 9430](dell/latitude/9430)                                          | `<nixos-hardware/dell/latitude/9430>`                   |
