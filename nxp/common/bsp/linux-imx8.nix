@@ -10,6 +10,13 @@ buildLinux (args // rec {
 
   defconfig = "imx_v8_defconfig";
 
+  # https://github.com/NixOS/nixpkgs/pull/366004
+  # introduced a breaking change that if a module is declared but it is not being used it will fail
+  # if you try to suppress each of he errors e.g.
+  # REISERFS_FS_SECURITY = lib.mkForce unset; within structuredExtraConfig
+  # that list runs to a long 100+ modules so we go back to the previous default and ignore them
+  ignoreConfigErrors = true;
+
   kernelPatches = [
   ];
 
