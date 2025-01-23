@@ -319,6 +319,9 @@
         common-cpu-amd-zenpower = import ./common/cpu/amd/zenpower.nix;
         common-cpu-amd-raphael-igpu = import ./common/cpu/amd/raphael/igpu.nix;
         common-cpu-intel = import ./common/cpu/intel;
+        common-gpu-intel-tiger-lake =
+          deprecated "992" "common-gpu-intel-tiger-lake"
+            (import ./common/gpu/intel/tiger-lake);
         common-gpu-intel-comet-lake =
           deprecated "992" "common-gpu-intel-comet-lake"
             (import ./common/gpu/intel/comet-lake);
