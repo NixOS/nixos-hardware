@@ -9,6 +9,7 @@ in {
     default = lib.and
       (lib.versionAtLeast (lib.versions.majorMinor lib.version) "24.05")
       kernel_version_compatible;
+    defaultText = "enabled by default on NixOS >= 24.05 and kernel >= 6.10";
   };
 
 
