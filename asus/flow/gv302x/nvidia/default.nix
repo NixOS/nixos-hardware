@@ -30,9 +30,6 @@ in {
     amdgpu.initrd.enable = mkDefault true;
 
     nvidia = {
-      
-      #to avoid problems with gnome 47 vulkan 
-      package = mkDefault config.boot.kernelPackages.nvidiaPackages.beta;
 
       modesetting.enable = true;
       nvidiaSettings = mkDefault true;
