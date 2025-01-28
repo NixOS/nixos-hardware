@@ -206,6 +206,7 @@
         lenovo-thinkpad-t480 = import ./lenovo/thinkpad/t480;
         lenovo-thinkpad-t480s = import ./lenovo/thinkpad/t480s;
         lenovo-thinkpad-t490 = import ./lenovo/thinkpad/t490;
+        lenovo-thinkpad-t490s = import ./lenovo/thinkpad/t490s;
         lenovo-thinkpad-t495 = import ./lenovo/thinkpad/t495;
         lenovo-thinkpad-t520 = import ./lenovo/thinkpad/t520;
         lenovo-thinkpad-w520 = import ./lenovo/thinkpad/w520;

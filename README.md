@@ -265,6 +265,7 @@ See code for all available configurations.
 | [Lenovo ThinkPad T480](lenovo/thinkpad/t480)                                      | `<nixos-hardware/lenovo/thinkpad/t480>`                 |
 | [Lenovo ThinkPad T480s](lenovo/thinkpad/t480s)                                    | `<nixos-hardware/lenovo/thinkpad/t480s>`                |
 | [Lenovo ThinkPad T490](lenovo/thinkpad/t490)                                      | `<nixos-hardware/lenovo/thinkpad/t490>`                 |
+| [Lenovo ThinkPad T490s](lenovo/thinkpad/t490s)                                    | `<nixos-hardware/lenovo/thinkpad/t490s>`                |
 | [Lenovo ThinkPad T495](lenovo/thinkpad/t495)                                      | `<nixos-hardware/lenovo/thinkpad/t495>`                 |
 | [Lenovo ThinkPad T520](lenovo/thinkpad/t520)                                      | `<nixos-hardware/lenovo/thinkpad/t520>`                 |
 | [Lenovo ThinkPad T550](lenovo/thinkpad/t550)                                      | `<nixos-hardware/lenovo/thinkpad/t550>`                 |
