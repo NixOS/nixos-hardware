@@ -24,25 +24,6 @@ let
 
   pipewirePackage = overrideAudioFiles pkgs.pipewire "spa/plugins/";
 
-  apple-set-os-loader-installer = pkgs.stdenv.mkDerivation {
-    name = "apple-set-os-loader-installer-1.0";
-    src = pkgs.fetchFromGitHub {
-      owner = "Redecorating";
-      repo = "apple_set_os-loader";
-      rev = "r33.9856dc4";
-      sha256 = "hvwqfoF989PfDRrwU0BMi69nFjPeOmSaD6vR6jIRK2Y=";
-    };
-    buildInputs = [ pkgs.gnu-efi ];
-    buildPhase = ''
-      substituteInPlace Makefile --replace "/usr" '$(GNU_EFI)'
-      export GNU_EFI=${pkgs.gnu-efi}
-      make
-    '';
-    installPhase = ''
-      install -D bootx64_silent.efi $out/bootx64.efi
-    '';
-  };
-
   t2Cfg = config.hardware.apple-t2;
 
 in
@@ -52,13 +33,16 @@ in
       The hardware.apple-t2.enableTinyDfr option was deprecated and removed since upstream Nixpkgs now has an identical module.
       Please migrate to hardware.apple.touchBar.
     '')
+
+    (lib.mkRemovedOptionModule ["hardware" "apple-t2" "enableAppleSetOsLoader"] ''
+      The hardware.apple-t2.enableAppleSetOsLoader option was removed as the apple_set_os functionality was integrated into the kernel.
+      Please uninstall the loader by replacing /esp/EFI/BOOTX64.EFI with /esp/EFI/BOOTX64_original.EFI, where esp is the EFI partition mount point.
+
+      If you have a device with an AMD dGPU and would like to keep using the iGPU, please set hardware.apple-t2.enableIGPU to true.
+    '')
   ];
   options.hardware.apple-t2 = {
-    enableAppleSetOsLoader = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Whether to enable the appleSetOsLoader activation script.";
-    };
+    enableIGPU = lib.mkEnableOption "the usage of the iGPU on specific Apple devices with an AMD dGPU";
   };
 
   config = lib.mkMerge [
@@ -82,25 +66,7 @@ in
       # Make sure post-resume.service exists
       powerManagement.enable = true;
     }
-    (lib.mkIf t2Cfg.enableAppleSetOsLoader {
-      # Activation script to install apple-set-os-loader in order to unlock the iGPU
-      system.activationScripts.appleSetOsLoader = ''
-        if [[ -e /boot/efi/efi/boot/bootx64_original.efi ]]; then
-          true # It's already installed, no action required
-        elif [[ -e /boot/efi/efi/boot/bootx64.efi ]]; then
-          # Copy the new bootloader to a temporary location
-          cp ${apple-set-os-loader-installer}/bootx64.efi /boot/efi/efi/boot/bootx64_temp.efi
-
-          # Rename the original bootloader
-          mv /boot/efi/efi/boot/bootx64.efi /boot/efi/efi/boot/bootx64_original.efi
-
-          # Move the new bootloader to the final destination
-          mv /boot/efi/efi/boot/bootx64_temp.efi /boot/efi/efi/boot/bootx64.efi
-        else
-          echo "Error: /boot/efi/efi/boot/bootx64.efi is missing" >&2
-        fi
-      '';
-
+    (lib.mkIf t2Cfg.enableIGPU {
       # Enable the iGPU by default if present
       environment.etc."modprobe.d/apple-gmux.conf".text = ''
         options apple-gmux force_igd=y
