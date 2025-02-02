@@ -55,7 +55,6 @@
         beagleboard-pocketbeagle = import ./beagleboard/pocketbeagle;
         chuwi-minibook-x = import ./chuwi/minibook-x;
         deciso-dec = import ./deciso/dec;
-        dell-e7240 = import ./dell/e7240;
         dell-g3-3779 = import ./dell/g3/3779;
         dell-inspiron-14-5420 = import ./dell/inspiron/14-5420;
         dell-inspiron-5509 = import ./dell/inspiron/5509;
@@ -72,6 +71,7 @@
         dell-latitude-7430 = import ./dell/latitude/7430;
         dell-latitude-7490 = import ./dell/latitude/7490;
         dell-latitude-9430 = import ./dell/latitude/9430;
+        dell-latitude-e7240 = import ./dell/latitude/e7240;
         dell-optiplex-3050 = import ./dell/optiplex/3050;
         dell-poweredge-r7515 = import ./dell/poweredge/r7515;
         dell-precision-3541 = import ./dell/precision/3541;
