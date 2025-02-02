@@ -1,12 +1,9 @@
 { ... }:
-
 {
   imports = [
-    ../../../../common/cpu/intel
     ../../../../common/gpu/nvidia/prime.nix
     ../../../../common/gpu/nvidia/pascal
-    ../../../../common/pc/laptop
-    ../xps-common.nix
+    ../shared.nix
   ];
 
 
