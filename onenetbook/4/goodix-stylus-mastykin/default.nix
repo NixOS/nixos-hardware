@@ -18,8 +18,16 @@ let
       cat ${patch1_original} > $out
       ${patch}/bin/patch $out < ${./6.1.patch.patch}
     '';
+  patch1_updated_6_12 = runCommand
+    "goodix-stylus-mastykin-1-pen-support-6.12.patch" {}
+    ''
+      cat ${patch1_original} > $out
+      ${patch}/bin/patch $out < ${./6.12.patch.patch}
+    '';
   patch1 =
-    if (lib.versionAtLeast kernel.version "6.1") then
+    if (lib.versionAtLeast kernel.version "6.12") then
+      patch1_updated_6_12
+    else if (lib.versionAtLeast kernel.version "6.1") then
       patch1_updated_6_1
     else if (lib.versionAtLeast kernel.version "5.12.12") then
       patch1_updated_5_12_12

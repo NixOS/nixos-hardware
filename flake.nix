@@ -64,9 +64,11 @@
         dell-inspiron-7460 = import ./dell/inspiron/7460;
         dell-latitude-3340 = import ./dell/latitude/3340;
         dell-latitude-3480 = import ./dell/latitude/3480;
+        dell-latitude-5490 = import ./dell/latitude/5490;
         dell-latitude-5520 = import ./dell/latitude/5520;
         dell-latitude-7280 = import ./dell/latitude/7280;
         dell-latitude-7390 = import ./dell/latitude/7390;
+        dell-latitude-7420 = import ./dell/latitude/7420;
         dell-latitude-7430 = import ./dell/latitude/7430;
         dell-latitude-7490 = import ./dell/latitude/7490;
         dell-latitude-9430 = import ./dell/latitude/9430;
@@ -121,6 +123,7 @@
         gpd-micropc = import ./gpd/micropc;
         gpd-p2-max = import ./gpd/p2-max;
         gpd-pocket-3 = import ./gpd/pocket-3;
+        gpd-pocket-4 = import ./gpd/pocket-4;
         gpd-win-2 = import ./gpd/win-2;
         gpd-win-max-2-2023 = import ./gpd/win-max-2/2023;
         gpd-win-mini-2024 = import ./gpd/win-mini/2024;
@@ -129,10 +132,12 @@
         hp-elitebook-845g7 = import ./hp/elitebook/845/g7;
         hp-elitebook-845g8 = import ./hp/elitebook/845/g8;
         hp-elitebook-845g9 = import ./hp/elitebook/845/g9;
+        hp-probook-440G5 = import ./hp/probook/440G5;
         hp-laptop-14s-dq2024nf = import ./hp/laptop/14s-dq2024nf;
         huawei-machc-wa = import ./huawei/machc-wa;
         hp-notebook-14-df0023 = import ./hp/notebook/14-df0023;
         intel-nuc-8i7beh = import ./intel/nuc/8i7beh;
+        lenovo-ideacentre-k330 = import ./lenovo/ideacentre/k330;
         lenovo-ideapad-15alc6 = import ./lenovo/ideapad/15alc6;
         lenovo-ideapad-15arh05 = import ./lenovo/ideapad/15arh05;
         lenovo-ideapad-15ach6 = import ./lenovo/ideapad/15ach6;
@@ -201,6 +206,7 @@
         lenovo-thinkpad-t480 = import ./lenovo/thinkpad/t480;
         lenovo-thinkpad-t480s = import ./lenovo/thinkpad/t480s;
         lenovo-thinkpad-t490 = import ./lenovo/thinkpad/t490;
+        lenovo-thinkpad-t490s = import ./lenovo/thinkpad/t490s;
         lenovo-thinkpad-t495 = import ./lenovo/thinkpad/t495;
         lenovo-thinkpad-t520 = import ./lenovo/thinkpad/t520;
         lenovo-thinkpad-w520 = import ./lenovo/thinkpad/w520;
@@ -267,6 +273,7 @@
         hardkernel-odroid-hc4 = import ./hardkernel/odroid-hc4;
         hardkernel-odroid-h3 = import ./hardkernel/odroid-h3;
         omen-14-fb0798ng = import ./omen/14-fb0798ng;
+        omen-15-ce002ns = import ./omen/15-ce002ns;
         omen-15-en0010ca = import ./omen/15-en0010ca;
         omen-16-n0005ne = import ./omen/16-n0005ne;
         omen-16-n0280nd = import ./omen/16-n0280nd;
@@ -307,6 +314,7 @@
         tuxedo-infinitybook-pro14-gen7 = import ./tuxedo/infinitybook/pro14/gen7;
         tuxedo-pulse-14-gen3 = import ./tuxedo/pulse/14/gen3;
         tuxedo-pulse-15-gen2 = import ./tuxedo/pulse/15/gen2;
+        xiaomi-redmibook-16-pro-2024 = import ./xiaomi/redmibook/16-pro-2024;
 
         common-cpu-amd = import ./common/cpu/amd;
         common-cpu-amd-pstate = import ./common/cpu/amd/pstate.nix;
