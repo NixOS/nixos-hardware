@@ -9,7 +9,7 @@ let
 in {
   imports = [
     ../.
-    ../../rockchip/rk3399
+    ../../rockchip
   ];
 
   options.hardware.radxa.rock-4c-plus = {

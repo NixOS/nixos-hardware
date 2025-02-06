@@ -6,6 +6,10 @@
 let
   cfg = config.hardware.rockchip;
 in {
+  imports = [
+    ./rk3399
+  ];
+
   options.hardware.rockchip = {
     enable = lib.mkEnableOption "Rockchip SoC support";
     diskoImageName = lib.mkOption {
