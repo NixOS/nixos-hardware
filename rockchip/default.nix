@@ -8,6 +8,7 @@ let
 in {
   imports = [
     ./rk3399
+    ./rk3588
   ];
 
   options.hardware.rockchip = {
