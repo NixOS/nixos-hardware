@@ -11,13 +11,6 @@
       # same as 13th gen framework 13-inch
       hardware.framework.laptop13.audioEnhancement.rawDeviceName = lib.mkDefault "alsa_output.pci-0000_00_1f.3.analog-stereo";
     }
-    {
-      # fix hdmi audio
-      # src https://community.frame.work/t/hdmi-audio-output/9523/23
-      boot.extraModprobeConfig = ''
-        options snd-intel-dspcfg dsp_driver=3
-      '';
-    }
     # https://community.frame.work/t/tracking-hard-freezing-on-fedora-36-with-the-new-12th-gen-system/20675/391
     (lib.mkIf (lib.versionOlder config.boot.kernelPackages.kernel.version "6.2") {
       boot.kernelParams = [
