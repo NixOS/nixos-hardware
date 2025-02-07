@@ -13,7 +13,7 @@
       radxa.enable = true;
       rockchip = {
         rk3399.enable = true;
-        platformFirmware = pkgs.ubootRockPi4;
+        platformFirmware = lib.mkDefault pkgs.ubootRockPi4;
       };
     };
   };
