@@ -57,6 +57,14 @@ Below is an annoated flake example to create the initial boot image.
         system = "aarch64-linux";
         modules = [
           nixos-hardware.nixosModules.rock-4c-plus  # Update the system according to your device.
+
+          # Or, if the default platform firmware is not available in the NixOS version you are using:
+          # (import nixos-hardware.nixosModules.rock-pi-e {
+          #   lib = nixpkgs-unfree.lib;
+          #   config = nixpkgs-unfree.config;
+          #   pkgs = nixpkgs-unfree.legacyPackages.aarch64-linux;
+          # })
+
           disko.nixosModules.disko                  # disko usage is optional in the running system, but we need it to generate the initial boot image.
           "${nixos-hardware}/radxa/disko.nix"       # Common Radxa Disko profile. It is system-agnostic.
           {
