@@ -7,6 +7,7 @@ let
   cfg = config.hardware.rockchip;
 in {
   imports = [
+    ./rk3328
     ./rk3399
     ./rk3588
   ];
