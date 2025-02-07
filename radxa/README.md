@@ -74,8 +74,8 @@ Below is an annoated flake example to create the initial boot image.
             # Override the default bootloader with a cross built one.
             # Use this if you do not have binfmt configured on your system.
             # For NixOS, please add `boot.binfmt.emulatedSystems = [ "aarch64-linux" ];` to your system configuration.
-            # Update the system and the firmware package according to your device.
-            # hardware.radxa.rock-4c-plus.platformFirmware = nixpkgs-unfree.legacyPackages.x86_64-linux.pkgsCross.aarch64-multiplatform.ubootRock4CPlus;
+            # Read the device module to see how it was configured.
+            # hardware.rockchip.platformFirmware = nixpkgs-unfree.legacyPackages.x86_64-linux.pkgsCross.aarch64-multiplatform.ubootRock4CPlus;
 
             users.users.radxa = {
               isNormalUser = true;
