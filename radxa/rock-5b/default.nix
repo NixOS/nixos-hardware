@@ -13,7 +13,7 @@
       radxa.enable = true;
       rockchip = {
         rk3588.enable = true;
-        platformFirmware = pkgs.ubootRock5ModelB;
+        platformFirmware = lib.mkDefault pkgs.ubootRock5ModelB;
       };
     };
   };
