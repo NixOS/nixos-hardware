@@ -58,7 +58,7 @@ Below is an annoated flake example to create the initial boot image.
         modules = [
           nixos-hardware.nixosModules.rock-4c-plus  # Update the system according to your device.
           disko.nixosModules.disko                  # disko usage is optional in the running system, but we need it to generate the initial boot image.
-          "${nixos-hardware}/radxa/disko.nix"       # Common Radxa Disko profile. it is system-agnostic.
+          "${nixos-hardware}/radxa/disko.nix"       # Common Radxa Disko profile. It is system-agnostic.
           {
             disko = {
               imageBuilder = {
@@ -92,3 +92,13 @@ Below is an annoated flake example to create the initial boot image.
   };
 }
 ```
+
+For most of the supported products, you only need to change the device module (
+i.e. `nixos-hardware.nixosModules.rock-4c-plus`) to match the one you are using.
+
+## Known issues
+
+* Currently, the `hardware.radxa` module and Radxa-maintained SoC vendor modules
+(eg. `hardware.rockchip`) are tightly coupled and not intended for end-user to
+use. Those options are currently used internally for hardware enablement, and
+end-user should not need to modify them. Consider those interfaces **unstable**.
