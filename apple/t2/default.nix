@@ -47,8 +47,8 @@ in
 
   config = lib.mkMerge [
     {
-      # For keyboard and touchbar
-      boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.callPackage ./pkgs/linux-t2.nix { });
+      # For keyboard, touchpad, touchbar and audio.
+      boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.callPackage ./pkgs/linux-t2 { });
       boot.initrd.kernelModules = [ "apple-bce" ];
 
       services.udev.packages = [ audioFilesUdevRules ];
