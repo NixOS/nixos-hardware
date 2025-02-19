@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) types;
@@ -9,19 +14,22 @@ let
     hash = "sha256-x7K0qa++P1e1vuCGxnsFxL1d9+nwMtZUJ6Kd9e27TFs=";
   };
 
-  audioFilesUdevRules = pkgs.runCommand "audio-files-udev-rules" {} ''
+  audioFilesUdevRules = pkgs.runCommand "audio-files-udev-rules" { } ''
     mkdir -p $out/lib/udev/rules.d
     cp ${audioFiles}/files/*.rules $out/lib/udev/rules.d
     substituteInPlace $out/lib/udev/rules.d/*.rules --replace "/usr/bin/sed" "${pkgs.gnused}/bin/sed"
   '';
 
-  overrideAudioFiles = package: pluginsPath:
-    package.overrideAttrs (new: old: {
-      preConfigurePhases = old.preConfigurePhases or [ ] ++ [ "postPatchPhase" ];
-      postPatchPhase = ''
-        cp -r ${audioFiles}/files/{profile-sets,paths} ${pluginsPath}/alsa/mixer/
-      '';
-    });
+  overrideAudioFiles =
+    package: pluginsPath:
+    package.overrideAttrs (
+      new: old: {
+        preConfigurePhases = old.preConfigurePhases or [ ] ++ [ "postPatchPhase" ];
+        postPatchPhase = ''
+          cp -r ${audioFiles}/files/{profile-sets,paths} ${pluginsPath}/alsa/mixer/
+        '';
+      }
+    );
 
   pipewirePackage = overrideAudioFiles pkgs.pipewire "spa/plugins/";
 
@@ -30,12 +38,12 @@ let
 in
 {
   imports = [
-    (lib.mkRemovedOptionModule ["hardware" "apple-t2" "enableTinyDfr"] ''
+    (lib.mkRemovedOptionModule [ "hardware" "apple-t2" "enableTinyDfr" ] ''
       The hardware.apple-t2.enableTinyDfr option was deprecated and removed since upstream Nixpkgs now has an identical module.
       Please migrate to hardware.apple.touchBar.
     '')
 
-    (lib.mkRemovedOptionModule ["hardware" "apple-t2" "enableAppleSetOsLoader"] ''
+    (lib.mkRemovedOptionModule [ "hardware" "apple-t2" "enableAppleSetOsLoader" ] ''
       The hardware.apple-t2.enableAppleSetOsLoader option was removed as the apple_set_os functionality was integrated into the kernel.
       Please uninstall the loader by replacing /esp/EFI/BOOTX64.EFI with /esp/EFI/BOOTX64_original.EFI, where esp is the EFI partition mount point.
 
@@ -68,7 +76,11 @@ in
       services.udev.packages = [ audioFilesUdevRules ];
 
       # For audio
-      boot.kernelParams = [ "pcie_ports=compat" "intel_iommu=on" "iommu=pt" ];
+      boot.kernelParams = [
+        "pcie_ports=compat"
+        "intel_iommu=on"
+        "iommu=pt"
+      ];
 
       hardware.pulseaudio.package = overrideAudioFiles pkgs.pulseaudio "src/modules/";
 
