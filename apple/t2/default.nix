@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
+  inherit (lib) types;
   audioFiles = pkgs.fetchFromGitHub {
     owner = "kekrby";
     repo = "t2-better-audio";
@@ -43,12 +44,25 @@ in
   ];
   options.hardware.apple-t2 = {
     enableIGPU = lib.mkEnableOption "the usage of the iGPU on specific Apple devices with an AMD dGPU";
+    kernelChannel = lib.mkOption {
+      type = types.enum [
+        "stable"
+        "latest"
+      ];
+      default = "stable";
+      example = "latest";
+      description = "The kernel release stream to use.";
+    };
   };
 
   config = lib.mkMerge [
     {
-      # For keyboard, touchpad, touchbar and audio.
-      boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.callPackage ./pkgs/linux-t2 { });
+      # Specialized kernel for keyboard, touchpad, touchbar and audio.
+      boot.kernelPackages = pkgs.linuxPackagesFor (
+        pkgs.callPackage (
+          if t2Cfg.kernelChannel == "stable" then ./pkgs/linux-t2 else ./pkgs/linux-t2/latest.nix
+        ) { }
+      );
       boot.initrd.kernelModules = [ "apple-bce" ];
 
       services.udev.packages = [ audioFilesUdevRules ];
