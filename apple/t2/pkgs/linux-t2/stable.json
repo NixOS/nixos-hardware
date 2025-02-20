@@ -1,0 +1,113 @@
+{
+  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/19c29ff4bbda9f512b7b69d63d249de269dc66ab/",
+  "patches": [
+    {
+      "name": "1001-Add-apple-bce-driver.patch",
+      "hash": "sha256-e3RPvWPj2QASGOS4kieO8YFekrXsBCJtfF82OPlOn2E="
+    },
+    {
+      "name": "1002-Put-apple-bce-in-drivers-staging.patch",
+      "hash": "sha256-DXj4CmE7TKMGrAhQDOR5RVw9YHmyQMiXZsmxYfkKAEA="
+    },
+    {
+      "name": "1005-HID-hid-appletb-bl-add-driver-for-the-backlight-of-A.patch",
+      "hash": "sha256-kEscS1FAyDxLZPOPInYTXFEf4fouBEa4zGctX14hSu8="
+    },
+    {
+      "name": "1006-HID-hid-appletb-kbd-add-driver-for-the-keyboard-mode.patch",
+      "hash": "sha256-eVEuvnoRItaDjwWu41nn9bTkgHgY+1SL/hFAvUR2IlY="
+    },
+    {
+      "name": "1007-HID-multitouch-support-getting-the-contact-ID-from.patch",
+      "hash": "sha256-A4tExJafroVAv/Hbdt7farJM6RYl/DU5KwSbzqcdEVY="
+    },
+    {
+      "name": "1008-HID-multitouch-support-getting-the-tip-state-from-HI.patch",
+      "hash": "sha256-GwK+d87p3UMy66037dzq6/Zearj8gnRHhqSdZczRadY="
+    },
+    {
+      "name": "1009-HID-multitouch-take-cls-maxcontacts-into-account-for.patch",
+      "hash": "sha256-fywzHnCQ657UFye1ckiufral3pBwBGtKdxWqWqaFHM0="
+    },
+    {
+      "name": "1010-HID-multitouch-allow-specifying-if-a-device-is-direc.patch",
+      "hash": "sha256-87SOnLgeG60Svu2Z9QUyP9P6cZ1Gznt6ZYLFImfx+vY="
+    },
+    {
+      "name": "1011-HID-multitouch-add-device-ID-for-Apple-Touch-Bars.patch",
+      "hash": "sha256-TJjXAlQ4WEROnq/xd6/4JHTuEJjqT7dLLcE4etKdzc0="
+    },
+    {
+      "name": "1012-lib-vsprintf-Add-support-for-generic-FOURCCs-by-exte.patch",
+      "hash": "sha256-cMl4WJcT/nM/z12LEsnLxssQgnRqKE+d/P2uMr5PUDQ="
+    },
+    {
+      "name": "1014-drm-format-helper-add-helper-for-BGR888-to-XRGB8888-.patch",
+      "hash": "sha256-iBM2z+/jZb/3+c9wHjC7W359oRl+DzFDZ1KL5eUc3qo="
+    },
+    {
+      "name": "1015-drm-tiny-add-driver-for-Apple-Touch-Bars-in-x86-Macs.patch",
+      "hash": "sha256-sTb+ruY6W18wz9XRJzZKlfl4a8fGo1nrtCoOYNaPAjI="
+    },
+    {
+      "name": "2008-i915-4-lane-quirk-for-mbp15-1.patch",
+      "hash": "sha256-lZ7MWXZubmAlJCqBmuzueg7agENJbikxP1SE46SmwNw="
+    },
+    {
+      "name": "2009-apple-gmux-allow-switching-to-igpu-at-probe.patch",
+      "hash": "sha256-XKwlyJZjJLQz39mc0/S7sPnRnwrqMsq9OKy+QCO+oho="
+    },
+    {
+      "name": "3001-applesmc-convert-static-structures-to-drvdata.patch",
+      "hash": "sha256-7KGC0pCos351wKNhwJI/Qoc7w+orOPpiTkdCN50G8nI="
+    },
+    {
+      "name": "3002-applesmc-make-io-port-base-addr-dynamic.patch",
+      "hash": "sha256-1fnmMP/3WSy2JqjdCvxu8tWoshCPr8eiG6ttYK/N9WA="
+    },
+    {
+      "name": "3003-applesmc-switch-to-acpi_device-from-platform.patch",
+      "hash": "sha256-3S6BzyoPLoirfyAu4yDyE9aYjUYr/7etmAvN3uKSDLE="
+    },
+    {
+      "name": "3004-applesmc-key-interface-wrappers.patch",
+      "hash": "sha256-9Bq28WcqiOnef0br6bATOudr1ViSpajQs7fv7o8Tg0I="
+    },
+    {
+      "name": "3005-applesmc-basic-mmio-interface-implementation.patch",
+      "hash": "sha256-Hh9DymQ+Y74oSs1zv9F0lTU3jfAenKTM+cmFH9tmN9Q="
+    },
+    {
+      "name": "3006-applesmc-fan-support-on-T2-Macs.patch",
+      "hash": "sha256-D5IQHE8QFo49mnUawSau7xUsMFkHKayyhnHW4hi+fWE="
+    },
+    {
+      "name": "3007-applesmc-Add-iMacPro-to-applesmc_whitelist.patch",
+      "hash": "sha256-rLDuyQYzAaWuu/u6nRRVvGdwyfpLvkGPu1OoD8KS0os="
+    },
+    {
+      "name": "3008-applesmc-make-applesmc_remove-void.patch",
+      "hash": "sha256-j2Rj1PW/bFEYh9IkGkkG9b+G27IAPCInyd828z4WE1s="
+    },
+    {
+      "name": "3009-applesmc-battery-charge-limiter.patch",
+      "hash": "sha256-skYKmLsJ6O42/wINLccZWoKS0XhVlC1Nfxi1Ekloxns="
+    },
+    {
+      "name": "4001-Input-bcm5974-Add-support-for-the-T2-Macs.patch",
+      "hash": "sha256-CaviinY3rYqQh+/DGyeBTzLL/ZfIvguOQlWCs3KN4zc="
+    },
+    {
+      "name": "7001-drm-i915-fbdev-Discard-BIOS-framebuffers-exceeding-h.patch",
+      "hash": "sha256-O6RHFxmKZn7aCq1D+r5z2T3jLt0r5+01EABD9rs0E5M="
+    },
+    {
+      "name": "8001-Add-APFS-driver.patch",
+      "hash": "sha256-RjEhzCqGvwRSGFjMgg1Z1kFwbxB9VT3SkVKoOdtDvP0="
+    },
+    {
+      "name": "8002-Necessary-modifications-to-build-APFS-with-the-kerne.patch",
+      "hash": "sha256-n1SH5vC//LRJdWOavH9/BHqBTjkUj5f+dFGitSeHksw="
+    }
+  ]
+}
