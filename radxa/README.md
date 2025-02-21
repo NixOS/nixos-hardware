@@ -57,8 +57,16 @@ Below is an annoated flake example to create the initial boot image.
         system = "aarch64-linux";
         modules = [
           nixos-hardware.nixosModules.rock-4c-plus  # Update the system according to your device.
+
+          # Or, if the default platform firmware is not available in the NixOS version you are using:
+          # (import nixos-hardware.nixosModules.rock-pi-e {
+          #   lib = nixpkgs-unfree.lib;
+          #   config = nixpkgs-unfree.config;
+          #   pkgs = nixpkgs-unfree.legacyPackages.aarch64-linux;
+          # })
+
           disko.nixosModules.disko                  # disko usage is optional in the running system, but we need it to generate the initial boot image.
-          "${nixos-hardware}/radxa/disko.nix"       # Common Radxa Disko profile. it is system-agnostic.
+          "${nixos-hardware}/radxa/disko.nix"       # Common Radxa Disko profile. It is system-agnostic.
           {
             disko = {
               imageBuilder = {
@@ -74,8 +82,8 @@ Below is an annoated flake example to create the initial boot image.
             # Override the default bootloader with a cross built one.
             # Use this if you do not have binfmt configured on your system.
             # For NixOS, please add `boot.binfmt.emulatedSystems = [ "aarch64-linux" ];` to your system configuration.
-            # Update the system and the firmware package according to your device.
-            # hardware.radxa.rock-4c-plus.platformFirmware = nixpkgs-unfree.legacyPackages.x86_64-linux.pkgsCross.aarch64-multiplatform.ubootRock4CPlus;
+            # Read the device module to see how it was configured.
+            # hardware.rockchip.platformFirmware = nixpkgs-unfree.legacyPackages.x86_64-linux.pkgsCross.aarch64-multiplatform.ubootRock4CPlus;
 
             users.users.radxa = {
               isNormalUser = true;
@@ -92,3 +100,13 @@ Below is an annoated flake example to create the initial boot image.
   };
 }
 ```
+
+For most of the supported products, you only need to change the device module (
+i.e. `nixos-hardware.nixosModules.rock-4c-plus`) to match the one you are using.
+
+## Known issues
+
+* Currently, the `hardware.radxa` module and Radxa-maintained SoC vendor modules
+(eg. `hardware.rockchip`) are tightly coupled and not intended for end-user to
+use. Those options are currently used internally for hardware enablement, and
+end-user should not need to modify them. Consider those interfaces **unstable**.
