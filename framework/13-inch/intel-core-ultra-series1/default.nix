@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -12,7 +12,7 @@
 
   # Intel NPU Driver
   # https://discourse.nixos.org/t/new-installation-on-asus-zenbook-ux5406-intel-vpu-firmware-error-2/58732/2
-  hardware.firmware = [
+  hardware.firmware = lib.optionals (config.hardware.enableRedistributableFirmware) [
     (
       let
         model = "37xx";
@@ -29,4 +29,9 @@
       ''
     )
   ];
+
+  warnings = lib.mkIf (!config.hardware.enableRedistributableFirmware) [
+    ''For Intel NPU support, set the option: hardware.enableRedistributableFirmware = true;''
+ ];
+
 }
