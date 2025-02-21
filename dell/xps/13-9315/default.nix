@@ -27,4 +27,7 @@
 
   # enable cooling management, see NixOS/nixos-hardware#127
   services.thermald.enable = lib.mkDefault true;
+
+  # fix laptop's screen flickering, see https://wiki.archlinux.org/title/Intel_graphics#Screen_flickering
+  boot.kernelParams = ["i915.enable_psr=0"];
 }
