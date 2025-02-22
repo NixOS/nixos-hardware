@@ -7,14 +7,14 @@ let
 
   cfg = config.microsoft-surface;
 
-  version = "6.12.14";
+  version = "6.12.16";
   kernelPatches = surfacePatches {
     inherit version;
     patchFn = ./patches.nix;
   };
   kernelPackages = linuxPackage {
     inherit version kernelPatches;
-    sha256 = "sha256-lCP0v7TYdUF+OcsLAXtUmf6kfaVhGfDNKKIBc12JjxQ=";
+    sha256 = "sha256-X4E2KmlPUVIL/5+uy3PxzJvHvs5v3RDVwn40jfOdfcQ=";
     ignoreConfigErrors=true;
   };
 
