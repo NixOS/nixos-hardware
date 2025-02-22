@@ -1,8 +1,8 @@
 {
   imports = [
-    ../../../../common/cpu/intel
-    ../../../../common/pc/laptop
     ../../../../common/gpu/nvidia/disable.nix
-    ../xps-common.nix
+    ../shared.nix
   ];
+
+  # Disables the Nvidia GPU, better for battery life
 }
