@@ -12,3 +12,13 @@ firmware.
 
 Alternatively, starting from the _Tow-Boot_ disk image on eMMC is easier to
 deal with and understand than having to deal with _U-Boot_ manually.
+
+## Console
+
+To configure default console I/O use:
+
+```nix
+hardware."rockpro64".console = "hdmi";
+# or
+hardware."rockpro64".console = "serial";
+```
