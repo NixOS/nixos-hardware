@@ -12,6 +12,7 @@
       {
         acer-aspire-4810t = import ./acer/aspire/4810t;
         airis-n990 = import ./airis/n990;
+        aoostar-r1-n100 = import ./aoostar/r1/n100;
         apple-imac-14-2 = import ./apple/imac/14-2;
         apple-imac-18-2 = import ./apple/imac/18-2;
         apple-macbook-air-3 = import ./apple/macbook-air/3;
@@ -55,7 +56,9 @@
         beagleboard-pocketbeagle = import ./beagleboard/pocketbeagle;
         chuwi-minibook-x = import ./chuwi/minibook-x;
         deciso-dec = import ./deciso/dec;
-        dell-e7240 = import ./dell/e7240;
+        dell-e7240 =
+          deprecated "1326" "dell-e7240"
+            (import ./dell/e7240);
         dell-g3-3779 = import ./dell/g3/3779;
         dell-g3-3579 = import ./dell/g3/3579;
         dell-inspiron-14-5420 = import ./dell/inspiron/14-5420;
@@ -74,6 +77,7 @@
         dell-latitude-7430 = import ./dell/latitude/7430;
         dell-latitude-7490 = import ./dell/latitude/7490;
         dell-latitude-9430 = import ./dell/latitude/9430;
+        dell-latitude-e7240 = import ./dell/latitude/e7240;
         dell-optiplex-3050 = import ./dell/optiplex/3050;
         dell-poweredge-r7515 = import ./dell/poweredge/r7515;
         dell-precision-3541 = import ./dell/precision/3541;
@@ -123,6 +127,7 @@
         friendlyarm-nanopi-r5s = import ./friendlyarm/nanopi-r5s;
         focus-m2-gen1 = import ./focus/m2/gen1;
         gigabyte-b550 = import ./gigabyte/b550;
+        gigabyte-b650 = import ./gigabyte/b650;
         google-pixelbook = import ./google/pixelbook;
         gpd-micropc = import ./gpd/micropc;
         gpd-p2-max = import ./gpd/p2-max;
@@ -184,6 +189,7 @@
         lenovo-thinkpad-p14s-amd-gen4 = import ./lenovo/thinkpad/p14s/amd/gen4;
         lenovo-thinkpad-p14s-intel-gen3 = import ./lenovo/thinkpad/p14s/intel/gen3;
         lenovo-thinkpad-p16s-amd-gen1 = import ./lenovo/thinkpad/p16s/amd/gen1;
+        lenovo-thinkpad-p16s-amd-gen2 = import ./lenovo/thinkpad/p16s/amd/gen2;
         lenovo-thinkpad-p50 = import ./lenovo/thinkpad/p50;
         lenovo-thinkpad-p51 = import ./lenovo/thinkpad/p51;
         lenovo-thinkpad-p52 = import ./lenovo/thinkpad/p52;
@@ -299,6 +305,9 @@
         raspberry-pi-4 = import ./raspberry-pi/4;
         raspberry-pi-5 = import ./raspberry-pi/5;
         rock-4c-plus = import ./radxa/rock-4c-plus;
+        rock-5b = import ./radxa/rock-5b;
+        rock-pi-4 = import ./radxa/rock-pi-4;
+        rock-pi-e = import ./radxa/rock-pi-e;
         kobol-helios4 = import ./kobol/helios4;
         samsung-np900x3c = import ./samsung/np900x3c;
         slimbook-hero-rpl-rtx = import ./slimbook/hero/rpl-rtx;

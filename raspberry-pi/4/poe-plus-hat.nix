@@ -19,8 +19,8 @@ in {
     hardware.deviceTree = {
       overlays = [
         # Combined equivalent to:
-        # * https://github.com/raspberrypi/linux/blob/rpi-6.1.y/arch/arm/boot/dts/overlays/rpi-poe-overlay.dts
-        # * https://github.com/raspberrypi/linux/blob/rpi-6.1.y/arch/arm/boot/dts/overlays/rpi-poe-plus-overlay.dts
+        # * https://github.com/raspberrypi/linux/blob/rpi-6.6.y/arch/arm/boot/dts/overlays/rpi-poe-overlay.dts
+        # * https://github.com/raspberrypi/linux/blob/rpi-6.6.y/arch/arm/boot/dts/overlays/rpi-poe-plus-overlay.dts
         {
           name = "rpi-poe-plus-overlay";
           dtsText = ''
@@ -40,7 +40,7 @@ in {
                     compatible = "pwm-fan";
                     cooling-levels = <0 1 10 100 255>;
                     #cooling-cells = <2>;
-                    pwms = <&fwpwm 0 80000>;
+                    pwms = <&fwpwm 0 80000 0>;
                   };
                 };
               };
