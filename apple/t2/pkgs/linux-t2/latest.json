@@ -1,5 +1,5 @@
 {
-  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/8f138bc16772fdeb0fc68b631fb6f66ddae1a0a1/",
+  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/73bbcb413e8c9294c27ec9b53f84d8b19ecd3f05/",
   "patches": [
     {
       "name": "1001-Add-apple-bce-driver.patch",
@@ -96,10 +96,6 @@
     {
       "name": "4001-Input-bcm5974-Add-support-for-the-T2-Macs.patch",
       "hash": "sha256-CaviinY3rYqQh+/DGyeBTzLL/ZfIvguOQlWCs3KN4zc="
-    },
-    {
-      "name": "5001-wifi-brcmfmac-use-random-seed-flag-for-BCM4355-and-B.patch",
-      "hash": "sha256-tlKhUNmDfsKat6O8eK1h84qikUj1Kiv9bbBQaZuDQK4="
     },
     {
       "name": "7001-drm-i915-fbdev-Discard-BIOS-framebuffers-exceeding-h.patch",
