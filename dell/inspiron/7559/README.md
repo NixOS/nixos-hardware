@@ -35,10 +35,24 @@ $ lspci -nn
 
 To enable bluetooth support, set `hardware.bluetooth.enable = true;`.
 
+#### Prime Offloading
+
+This configuration uses Nvidia Prime offloading, which allows use of the `nvidia-offload` script for running commands on the dGPU. For example, you can instruct Steam to launch a game offloaded to the GPU by setting the launch options for that game to `nvidia-offload %command%`.
+
 #### SSD
 
-This laptop has an optional M.2 SSD slot, which isn't accounted for here. If you are using the SSD, you could look into implementing the options in [ssd](common/pc/laptop/ssd) manually.
+This laptop has an optional M.2 SSD slot, which isn't accounted for here. If you are using the SSD, you could look into implementing the options in [ssd](common/pc/laptop/ssd) manually. Some sources also say you should ensure your SATA Mode is set to AHCI in your BIOS for it to be detected, however I think this is a prerequisite to installing Linux on this laptop in the first place so you probably already have that set.
 
 #### Subwoofer
 
-Tested with the default PipeWire configuration on Plasma, the subwoofer appears to work depending on the device Profile in sound settings. I have had issues with it in the past on other distros, so if it's not working on your system you could try the solution in [this thread](https://bbs.archlinux.org/viewtopic.php?id=207222).
+Tested with the default PipeWire configuration on Plasma, the subwoofer appears to work depending on the device Profile in sound settings ("Analog Stereo Duplex" works best for me). I have had issues with it in the past on other distros, so if it's not working on your system you could try the solution in [this thread](https://bbs.archlinux.org/viewtopic.php?id=207222).
+
+#### Other issues
+
+There are plenty of documented bugs and threads around issues on Dell laptops like this. Some of them stem from using the nouveau drivers, but we're using the proprietary Nvidia drivers here. Some things to look into if you're experiencing issues:
+
+* I/O is slow: `nouveau` could be added as a kernel blocklist item: searching this repo shows other laptops with this configuration
+* Power drain while sleeping: add the following as boot.kernelParams: `"mem_sleep_default=deep"`
+* Issues coming back from suspend (particularly if the previous kernelParam is applied): add the following as boot.kernelParams: `"acpi_rev_override=1"` `"acpi_osi=Linux"`
+  * I also spotted [one person recommending](https://connorkuehl.github.io/dell-inspiron-7559-linux-guide/) setting just `"acpi_osi="`. This article is quite old though and I haven't tested the difference.
+* Brightness function keys don't work: add the following as boot.kernelParams: `"acpi_backlight=vendor"` or `"acpi_backlight=native"`
