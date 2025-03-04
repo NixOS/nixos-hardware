@@ -1,5 +1,5 @@
 {
-  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/19c29ff4bbda9f512b7b69d63d249de269dc66ab/",
+  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/361d2cef87bb76ba14a24d30ed1479393d92be6f/",
   "patches": [
     {
       "name": "1001-Add-apple-bce-driver.patch",
@@ -38,16 +38,12 @@
       "hash": "sha256-TJjXAlQ4WEROnq/xd6/4JHTuEJjqT7dLLcE4etKdzc0="
     },
     {
-      "name": "1012-lib-vsprintf-Add-support-for-generic-FOURCCs-by-exte.patch",
-      "hash": "sha256-cMl4WJcT/nM/z12LEsnLxssQgnRqKE+d/P2uMr5PUDQ="
-    },
-    {
-      "name": "1014-drm-format-helper-add-helper-for-BGR888-to-XRGB8888-.patch",
-      "hash": "sha256-iBM2z+/jZb/3+c9wHjC7W359oRl+DzFDZ1KL5eUc3qo="
+      "name": "1014-drm-format-helper-Add-conversion-from-XRGB8888-to-BG.patch",
+      "hash": "sha256-Ky19+cCiYDaHBh2o5IhZO8J1ExDT7o8K9cgPz+AL8Cg="
     },
     {
       "name": "1015-drm-tiny-add-driver-for-Apple-Touch-Bars-in-x86-Macs.patch",
-      "hash": "sha256-sTb+ruY6W18wz9XRJzZKlfl4a8fGo1nrtCoOYNaPAjI="
+      "hash": "sha256-wlMVeoDQtSRtGuquHKtAHvrGUzZOLxiwkmHj12ZQ8o0="
     },
     {
       "name": "2008-i915-4-lane-quirk-for-mbp15-1.patch",
@@ -103,7 +99,7 @@
     },
     {
       "name": "8001-Add-APFS-driver.patch",
-      "hash": "sha256-RjEhzCqGvwRSGFjMgg1Z1kFwbxB9VT3SkVKoOdtDvP0="
+      "hash": "sha256-oyk6K8smAWkNS2aFauCugP+9R5hJRaIhNBa9oEreIBU="
     },
     {
       "name": "8002-Necessary-modifications-to-build-APFS-with-the-kerne.patch",
