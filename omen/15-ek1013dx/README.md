@@ -3,9 +3,10 @@
 ## ACPI platform profiles
 This config enables `hp-wmi`, which allows switch between cool, balanced, and performance modes on the platform EC, used by power management tools like `power-profile-daemon` and `tlp`.
 
-## Product support https://support.hp.com/us-en/product/details/omen-15.6-inch-gaming-laptop-pc-15-ek1000/model/2100045567?sku=350D5UA
+# [Product support](https://support.hp.com/us-en/product/details/omen-15.6-inch-gaming-laptop-pc-15-ek1000/model/2100045567?sku=350D5UA) 
 
-'''bash
+
+```bash
 $ lspci -nn
 00:00.0 Host bridge [0600]: Intel Corporation 10th Gen Core Processor Host Bridge/DRAM Registers [8086:9b54] (rev 02)
 00:01.0 PCI bridge [0604]: Intel Corporation 6th-10th Gen Core Processor PCIe Controller (x16) [8086:1901] (rev 02)
@@ -37,5 +38,4 @@ $ lspci -nn
 3b:00.0 Non-Volatile memory controller [0108]: Toshiba Corporation XG6 NVMe SSD Controller [1179:011a]
 3c:00.0 Ethernet controller [0200]: Realtek Semiconductor Co., Ltd. RTL8111/8168/8211/8411 PCI Express Gigabit Ethernet Controller [10ec:8168] (rev 16)
 3d:00.0 SD Host controller [0805]: Genesys Logic, Inc GL9750 SD Host Controller [17a0:9750] (rev 01)
-
-'''
+ ```
