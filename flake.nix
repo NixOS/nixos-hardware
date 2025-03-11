@@ -163,6 +163,7 @@
         lenovo-legion-16ach6h-nvidia = import ./lenovo/legion/16ach6h/nvidia;
         lenovo-legion-16achg6-hybrid = import ./lenovo/legion/16achg6/hybrid;
         lenovo-legion-16achg6-nvidia = import ./lenovo/legion/16achg6/nvidia;
+        lenovo-legion-16ahp9 = import ./lenovo/legion/16ahp9;
         lenovo-legion-16aph8 = import ./lenovo/legion/16aph8;
         lenovo-legion-16arha7 = import ./lenovo/legion/16arha7;
         lenovo-legion-16ithg6 = import ./lenovo/legion/16ithg6;
