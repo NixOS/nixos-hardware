@@ -1,5 +1,5 @@
 {
-  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/2f093ab779b24997c3cbd9c2abb2e114bc34addb/",
+  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/4109f2144b626097a34b21def849a5d8cbcf3f7c/",
   "patches": [
     {
       "name": "1001-Add-apple-bce-driver.patch",
@@ -43,7 +43,7 @@
     },
     {
       "name": "1015-drm-tiny-add-driver-for-Apple-Touch-Bars-in-x86-Macs.patch",
-      "hash": "sha256-wlMVeoDQtSRtGuquHKtAHvrGUzZOLxiwkmHj12ZQ8o0="
+      "hash": "sha256-zFeDJeoM/XS+Ds3DBLEcv4JbUhlEk9z4rHQ4t6XaghA="
     },
     {
       "name": "2008-i915-4-lane-quirk-for-mbp15-1.patch",
@@ -90,8 +90,20 @@
       "hash": "sha256-skYKmLsJ6O42/wINLccZWoKS0XhVlC1Nfxi1Ekloxns="
     },
     {
-      "name": "4001-Input-bcm5974-Add-support-for-the-T2-Macs.patch",
-      "hash": "sha256-CaviinY3rYqQh+/DGyeBTzLL/ZfIvguOQlWCs3KN4zc="
+      "name": "4001-asahi-trackpad.patch",
+      "hash": "sha256-NOuGgUxDQEfFPlij/EnhWmgqeG3/l+j+r2T1YJG7raY="
+    },
+    {
+      "name": "4002-HID-quirks-remove-T2-devices-from-hid_mouse_ignore_l.patch",
+      "hash": "sha256-DdUo4/4254VD+MzEaLI3opSS0Z7+UwsitJaS2lAlpI8="
+    },
+    {
+      "name": "4003-HID-apple-ignore-the-trackpad-on-T2-Macs.patch",
+      "hash": "sha256-PZpdvPKvVsLsg3vx3jmq3QCapBUcUVE35N37usBRb6g="
+    },
+    {
+      "name": "4004-HID-magicmouse-Add-support-for-trackpads-found-on-T2.patch",
+      "hash": "sha256-pmGR0JdMMwGWG3zwMwMBuSyzltLvvzjTgfi1Ii1cglk="
     },
     {
       "name": "7001-drm-i915-fbdev-Discard-BIOS-framebuffers-exceeding-h.patch",
@@ -99,7 +111,7 @@
     },
     {
       "name": "8001-Add-APFS-driver.patch",
-      "hash": "sha256-qwLxBY0wDEPBqP32IcGS1Jd/5BlgMFxXu1z2N7+Ti50="
+      "hash": "sha256-T0ZmO99nmnpNVLjlzMRc7wrkBON7w2F6HaPk4pQVV7A="
     },
     {
       "name": "8002-Necessary-modifications-to-build-APFS-with-the-kerne.patch",

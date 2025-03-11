@@ -40,6 +40,7 @@ kernel.override (
       HID_APPLETB_BL = module;
       HID_APPLETB_KBD = module;
       HID_APPLE = module;
+      HID_MAGICMOUSE = module;
       DRM_APPLETBDRM = module;
       HID_SENSOR_ALS = module;
       SND_PCM = module;
