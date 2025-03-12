@@ -9,9 +9,10 @@ Symptoms:
 - It goes into suspend, then seems to boot and hang.  Sometimes it suspends successfully, but waking it from suspend puts it in the "zombie" state.
 - By playing chicken with volatile storage and flicking the power switch on the back of power supply, you can sometimes get it to wake from suspend as the card un-powers before volatile storage does.
 
-Fix: disable GPP0 and GPP8 (And, for some cards, potentially PTXH, I can't test) in /proc/acpi/wakeup
-    - To do this permanently, a systemd service is provided
+This can be fixed by disabling GPP0 and GPP8 (And, for some cards, potentially PTXH, I can't test) in /proc/acpi/wakeup.
 
+But because /proc/acpi/wakeup only supports toggling (not disabling) wakeups, we use a udev rule to disable wakeups for
+the same device by PCI device ID instead.
 
 ## This affects at least:
 - Gigabyte b550m-d3sh (my machine)
