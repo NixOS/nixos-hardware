@@ -4,7 +4,7 @@
   imports = [ ./. ];
 
   options = {
-    hardware.nvidia.primeBatterySaverSpecialisation = lib.mkEnableOption "Enable the battery saver specialisation for NVIDIA Prime";
+    hardware.nvidia.primeBatterySaverSpecialisation = lib.mkEnableOption "Configure a specialisation which turns on NVIDIA Prime battery saver";
   };
 
   config = {
@@ -17,8 +17,7 @@
       # Hardware should specify the bus ID for intel/nvidia devices
     };
 
-    # A specialisation for optimal battery life
-    specialisation = lib.optionalAttrs config.hardware.nvidia.primeBatterySaverSpecialisation {
+    specialisation = lib.mkIf config.hardware.nvidia.primeBatterySaverSpecialisation {
       battery-saver.configuration = {
         system.nixos.tags = ["battery-saver"];
         imports = [
