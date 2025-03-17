@@ -1,5 +1,5 @@
 {
-  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/dd2e78d234fc289d3ebadf1852d761498e668a02/",
+  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/0543a832ecf1400798e8aef6727110ec21c3484a/",
   "patches": [
     {
       "name": "1001-Add-apple-bce-driver.patch",
@@ -95,15 +95,23 @@
     },
     {
       "name": "4002-HID-quirks-remove-T2-devices-from-hid_mouse_ignore_l.patch",
-      "hash": "sha256-DdUo4/4254VD+MzEaLI3opSS0Z7+UwsitJaS2lAlpI8="
+      "hash": "sha256-0PMCE3IWHekir5YV1BD6Jakc7dOV6Fj2HfIGWZnXZV0="
     },
     {
       "name": "4003-HID-apple-ignore-the-trackpad-on-T2-Macs.patch",
-      "hash": "sha256-PZpdvPKvVsLsg3vx3jmq3QCapBUcUVE35N37usBRb6g="
+      "hash": "sha256-JTeYtaBqMyTu5IdGb8x7wbP9ZE1rXT4lpEjudR1ySFI="
     },
     {
       "name": "4004-HID-magicmouse-Add-support-for-trackpads-found-on-T2.patch",
-      "hash": "sha256-pmGR0JdMMwGWG3zwMwMBuSyzltLvvzjTgfi1Ii1cglk="
+      "hash": "sha256-HcPX7gY3hnlwM/tY06pbtXnch04AqwHgC596E8ZqGY8="
+    },
+    {
+      "name": "4005-HID-apple-Add-necessary-IDs-and-support-for-replacem.patch",
+      "hash": "sha256-SRKESCbpxSYm7U0VyCmvkmT/er6/GEHhwo8tgJDO6mQ="
+    },
+    {
+      "name": "4006-HID-magicmouse-Add-MacBookPro15-1-replacement-trackp.patch",
+      "hash": "sha256-uAlT/4ADwYyKvbuPQaGwqCjZ2/myruC63etVV6cfFLk="
     },
     {
       "name": "7001-drm-i915-fbdev-Discard-BIOS-framebuffers-exceeding-h.patch",
@@ -111,7 +119,7 @@
     },
     {
       "name": "8001-Add-APFS-driver.patch",
-      "hash": "sha256-xjB7lqE4bweUvDa6Tx6LurxWlUlX4nUN+DbTRQb5bQI="
+      "hash": "sha256-1VHKrO2haBqXDCef2xt2fHfCCPv2q/AhFmmM4Xxu24E="
     },
     {
       "name": "8002-Necessary-modifications-to-build-APFS-with-the-kerne.patch",
