@@ -7,6 +7,8 @@
 
 let
   inherit (lib) types;
+  nixosVersion = lib.versions.majorMinor lib.version;
+
   audioFiles = pkgs.fetchFromGitHub {
     owner = "kekrby";
     repo = "t2-better-audio";
@@ -82,8 +84,6 @@ in
         "iommu=pt"
       ];
 
-      hardware.pulseaudio.package = overrideAudioFiles pkgs.pulseaudio "src/modules/";
-
       services.pipewire.package = pipewirePackage;
       services.pipewire.wireplumber.package = pkgs.wireplumber.override {
         pipewire = pipewirePackage;
@@ -92,6 +92,13 @@ in
       # Make sure post-resume.service exists
       powerManagement.enable = true;
     }
+
+    (if lib.versionAtLeast nixosVersion "25.05" then {
+      services.pulseaudio.package = overrideAudioFiles pkgs.pulseaudio "src/modules/";
+    } else {
+      hardware.pulseaudio.package = overrideAudioFiles pkgs.pulseaudio "src/modules/";
+    })
+
     (lib.mkIf t2Cfg.enableIGPU {
       # Enable the iGPU by default if present
       environment.etc."modprobe.d/apple-gmux.conf".text = ''
