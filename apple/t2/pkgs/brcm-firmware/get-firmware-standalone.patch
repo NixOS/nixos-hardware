@@ -1,0 +1,133 @@
+diff --git a/asahi_firmware/bluetooth.py b/asahi_firmware/bluetooth.py
+index 0934225..3eaa442 100644
+--- a/asahi_firmware/bluetooth.py
++++ b/asahi_firmware/bluetooth.py
+@@ -1,8 +1,25 @@
++#!/usr/bin/env python3
+ # SPDX-License-Identifier: MIT
+ import logging, os, os.path, re, sys
+ from collections import namedtuple, defaultdict
++from hashlib import sha256
+ 
+-from .core import FWFile
++class FWFile(object):
++    def __init__(self, name, data):
++        self.name = name
++        self.data = data
++        self.sha = sha256(data).hexdigest()
++
++    def __repr__(self):
++        return f"FWFile({self.name!r}, <{self.sha[:16]}>)"
++
++    def __eq__(self, other):
++        if other is None:
++            return False
++        return self.sha == other.sha
++
++    def __hash__(self):
++        return hash(self.sha)
+ 
+ log = logging.getLogger("asahi_firmware.bluetooth")
+ 
+@@ -127,16 +144,16 @@ class BluetoothFWCollection(object):
+ 
+ if __name__ == "__main__":
+     col = BluetoothFWCollection(sys.argv[1])
+-
+-    if len(sys.argv) > 2:
+-        from . import FWPackage
+-
+-        pkg = FWPackage(sys.argv[2])
+-        pkg.add_files(sorted(col.files()))
+-        pkg.close()
+-
+-        for i in pkg.manifest:
+-            print(i)
+-    else:
+-        for name, fwfile in col.files():
+-            print(name, f"{fwfile.name} ({len(fwfile.data)} bytes)")
++    
++    dir = os.path.join(sys.argv[2], "brcm")
++    os.makedirs(dir)
++
++    hashes = {}
++    for name, data in sorted(col.files()):
++        path = os.path.join(sys.argv[2], name)
++        if data.sha in hashes:
++            os.link(hashes[data.sha], path)
++        else:
++            with open(path, "wb") as f:
++                f.write(data.data)
++            hashes[data.sha] = path
+diff --git a/asahi_firmware/wifi.py b/asahi_firmware/wifi.py
+index 346965c..261aa32 100644
+--- a/asahi_firmware/wifi.py
++++ b/asahi_firmware/wifi.py
+@@ -1,6 +1,24 @@
++#!/usr/bin/env python3
+ # SPDX-License-Identifier: MIT
+ import sys, os, os.path, pprint, statistics, logging
+-from .core import FWFile
++from hashlib import sha256
++
++class FWFile(object):
++    def __init__(self, name, data):
++        self.name = name
++        self.data = data
++        self.sha = sha256(data).hexdigest()
++
++    def __repr__(self):
++        return f"FWFile({self.name!r}, <{self.sha[:16]}>)"
++
++    def __eq__(self, other):
++        if other is None:
++            return False
++        return self.sha == other.sha
++
++    def __hash__(self):
++        return hash(self.sha)
+ 
+ log = logging.getLogger("asahi_firmware.wifi")
+ 
+@@ -40,7 +58,9 @@ class WiFiFWCollection(object):
+         self.prune()
+ 
+     def load(self, source_path):
++        included_folders = ["C-4355__s-C1", "C-4364__s-B2", "C-4364__s-B3", "C-4377__s-B3"]
+         for dirpath, dirnames, filenames in os.walk(source_path):
++            dirnames[:] = [d for d in dirnames if d in included_folders]
+             if "perf" in dirnames:
+                 dirnames.remove("perf")
+             if "assert" in dirnames:
+@@ -141,18 +161,16 @@ class WiFiFWCollection(object):
+ 
+ if __name__ == "__main__":
+     col = WiFiFWCollection(sys.argv[1])
+-    if len(sys.argv) > 2:
+-        from .core import FWPackage
+-
+-        pkg = FWPackage(sys.argv[2])
+-        pkg.add_files(sorted(col.files()))
+-        pkg.close()
+-
+-        for i in pkg.manifest:
+-            print(i)
+-    else:
+-        for name, fwfile in col.files():
+-            if isinstance(fwfile, str):
+-                print(name, "->", fwfile)
+-            else:
+-                print(name, f"({len(fwfile.data)} bytes)")
++
++    dir = os.path.join(sys.argv[2], "brcm")
++    os.makedirs(dir)
++
++    hashes = {}
++    for name, data in sorted(col.files()):
++        path = os.path.join(sys.argv[2], name)
++        if data.sha in hashes:
++            os.link(hashes[data.sha], path)
++        else:
++            with open(path, "wb") as f:
++                f.write(data.data)
++            hashes[data.sha] = path

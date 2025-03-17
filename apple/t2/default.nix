@@ -61,6 +61,19 @@ in
       example = "latest";
       description = "The kernel release stream to use.";
     };
+    firmware = {
+      enable = lib.mkEnableOption "automatic and declarative Wi-Fi and Bluetooth firmware configuration";
+      version = lib.mkOption {
+        type = types.enum [
+          "monterey"
+          "ventura"
+          "sonoma"
+        ];
+        default = "sonoma";
+        example = "ventura";
+        description = "The macOS version to use.";
+      };
+    };
   };
 
   config = lib.mkMerge [
@@ -97,6 +110,12 @@ in
       environment.etc."modprobe.d/apple-gmux.conf".text = ''
         options apple-gmux force_igd=y
       '';
+    })
+    (lib.mkIf t2Cfg.firmware.enable {
+      # Configure Wi-Fi and Bluetooth firmware
+      hardware.firmware = [
+        (pkgs.callPackage ./pkgs/brcm-firmware { version = t2Cfg.firmware.version; })
+      ];
     })
   ];
 }
