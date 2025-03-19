@@ -11,6 +11,11 @@ in
     ../../common/hidpi.nix
   ];
 
+  # Add firmware blobs for GPU, wifi, bluetooth.
+  # Non-required amdgpu/isp_4_1_0.bin still fails with no impact on usage.
+  # Kernel fix coming in https://github.com/torvalds/linux/commit/ea5d49349894a7a74ce8dba242e3a487d24b6c0e
+  hardware.firmware = [(import ./firmware.nix { inherit pkgs; })];
+
   boot = {
     # As of kernel version 6.6.72, amdgpu throws a fatal error during init, resulting in a barely-working display
     kernelPackages = mkIf (lib.versionOlder pkgs.linux.version "6.12") pkgs.linuxPackages_latest;
