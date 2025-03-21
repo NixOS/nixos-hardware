@@ -1,6 +1,8 @@
+{ lib, ... }:
 {
   imports = [
-    ../../../common/gpu/intel/comet-lake
-    ../../../common/gpu/nvidia/disable.nix # Disabling nvidia
+    ../shared.nix
+    ../../../../common/gpu/intel/comet-lake
+    ../../../../common/gpu/nvidia/disable.nix # Disabling nvidia
   ];
 }

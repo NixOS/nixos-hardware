@@ -1,15 +1,13 @@
 # Asus Zenbook Duo 14 UX481
 
-These profiles has been tested on a slightly modified device as I have swapped the Intel Optane for a Kingston with a higher capacity.
+These profiles has been tested on a slightly modified device as I have swapped the Intel Optane NVME for a Kingston NVME with a higher capacity.
 
 # GPU
 
-You need to pick between running only Intel iGPU or running both Intel iGPU and Nvidia dGPU.
+You need to pick between running only Intel iGPU or running both Intel iGPU and NVIDIA dGPU. By only running iGPU the battery life is a bit better as the dGPU is turned off. You can offload applications if running on NVIDIA dGPU using
 
-If you prefer to use the nouveau drivers instead of the proprietary you need to add the following in your config:
-
-```nix
-
+```bash
+nvidia-offload
 ```
 
 ## Battery charging limit:
@@ -49,6 +47,7 @@ $ lspci -nn
 00:1f.3 Audio device [0403]: Intel Corporation Comet Lake PCH-LP cAVS [8086:02c8]
 00:1f.4 SMBus [0c05]: Intel Corporation Comet Lake PCH-LP SMBus Host Controller [8086:02a3]
 00:1f.5 Serial bus controller [0c80]: Intel Corporation Comet Lake SPI (flash) Controller [8086:02a4]
+02:00.0 3D controller [0302]: NVIDIA Corporation GP108BM [GeForce MX250] [10de:1d52] (rev a1)
 03:00.0 Unassigned class [ff00]: Realtek Semiconductor Co., Ltd. RTS522A PCI Express Card Reader [10ec:522a] (rev 01)
 04:00.0 Non-Volatile memory controller [0108]: Kingston Technology Company, Inc. NV2 NVMe SSD [TC2200] (DRAM-less) [2646:501d]
 ```

@@ -1,15 +1,17 @@
+{lib, ...}:
 {
   imports = [
-    ../../../common/gpu/nvidia/pascal
-    ../../../common/gpu/nvidia/prime.nix
+    ../shared.nix
+    ../../../../common/gpu/nvidia/pascal
+    ../../../../common/gpu/nvidia/prime.nix
   ];
 
   hardware.nvidia = {
       prime = {
         intelBusId = "PCI:0:2:0";
-        nvidiaBusId = "PCI:1:0:0";
+        nvidiaBusId = "PCI:2:0:0";
       };
 
-      dynamicBoost.enable = lib.mkDefault true;
+      dynamicBoost.enable = lib.mkForce false; # Dynamic boosst is not supported on Pascal architeture
   };
 }
