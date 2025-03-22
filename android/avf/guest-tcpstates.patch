@@ -1,0 +1,15 @@
+diff --git a/src/main.rs b/src/main.rs
+index 3cb557aed..b42e54eb9 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -112,9 +112,7 @@ async fn report_active_ports(
+     mut client: DebianServiceClient<Channel>,
+ ) -> Result<(), Box<dyn std::error::Error>> {
+     // TODO: we can remove python3 -u when https://github.com/iovisor/bcc/pull/5142 is deployed
+-    let mut cmd = Command::new("python3")
+-        .arg("-u")
+-        .arg("/usr/sbin/tcpstates-bpfcc")
++    let mut cmd = Command::new("tcpstates")
+         .arg("-s")
+         .stdout(Stdio::piped())
+         .spawn()?;
