@@ -11,6 +11,9 @@ in
     ../../common/hidpi.nix
   ];
 
+  # Needed for wifi
+  hardware.enableRedistributableFirmware = mkDefault true;
+
   boot = {
     # As of kernel version 6.6.72, amdgpu throws a fatal error during init, resulting in a barely-working display
     kernelPackages = mkIf (lib.versionOlder pkgs.linux.version "6.12") pkgs.linuxPackages_latest;
