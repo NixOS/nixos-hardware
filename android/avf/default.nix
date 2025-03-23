@@ -9,8 +9,8 @@
 let
   base = pkgs.fetchgit {
     url = "https://android.googlesource.com/platform/packages/modules/Virtualization/";
-    rev = "f3ae17a45df25d1c0913b5cca68fcea6e5a5ce05";
-    hash = "sha256-BcfGSMOKc3Ku3GhpFgdOVM6VT3tj0ujbDIxR2MfZAxE=";
+    rev = "47193d2974e98787708cab692a7d2b51984f32b6";
+    hash = "sha256-4zXN8EyZOHY/Op6b6Hr6h3EnjCBbIJnoDP/wNZ3A7TY=";
   };
   extraPkgs = pkgs.callPackage ./pkgs.nix { inherit base; };
 
@@ -254,6 +254,18 @@ with lib;
           touch /_setup
         fi
       '';
+    };
+
+    services.zram-generator = {
+      enable = true;
+      settings = {
+        "zram0" = {
+          zram-size = "ram / 4";
+        };
+        "" = {
+          compression-algorithm = "zstd";
+        };
+      };
     };
 
     users.users.droid = {
