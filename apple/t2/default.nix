@@ -7,6 +7,8 @@
 
 let
   inherit (lib) types;
+  nixosVersion = lib.versions.majorMinor lib.version;
+
   audioFiles = pkgs.fetchFromGitHub {
     owner = "kekrby";
     repo = "t2-better-audio";
@@ -61,6 +63,19 @@ in
       example = "latest";
       description = "The kernel release stream to use.";
     };
+    firmware = {
+      enable = lib.mkEnableOption "automatic and declarative Wi-Fi and Bluetooth firmware configuration";
+      version = lib.mkOption {
+        type = types.enum [
+          "monterey"
+          "ventura"
+          "sonoma"
+        ];
+        default = "sonoma";
+        example = "ventura";
+        description = "The macOS version to use.";
+      };
+    };
   };
 
   config = lib.mkMerge [
@@ -82,8 +97,6 @@ in
         "iommu=pt"
       ];
 
-      hardware.pulseaudio.package = overrideAudioFiles pkgs.pulseaudio "src/modules/";
-
       services.pipewire.package = pipewirePackage;
       services.pipewire.wireplumber.package = pkgs.wireplumber.override {
         pipewire = pipewirePackage;
@@ -92,11 +105,24 @@ in
       # Make sure post-resume.service exists
       powerManagement.enable = true;
     }
+
+    (if lib.versionAtLeast nixosVersion "25.05" then {
+      services.pulseaudio.package = overrideAudioFiles pkgs.pulseaudio "src/modules/";
+    } else {
+      hardware.pulseaudio.package = overrideAudioFiles pkgs.pulseaudio "src/modules/";
+    })
+
     (lib.mkIf t2Cfg.enableIGPU {
       # Enable the iGPU by default if present
       environment.etc."modprobe.d/apple-gmux.conf".text = ''
         options apple-gmux force_igd=y
       '';
+    })
+    (lib.mkIf t2Cfg.firmware.enable {
+      # Configure Wi-Fi and Bluetooth firmware
+      hardware.firmware = [
+        (pkgs.callPackage ./pkgs/brcm-firmware { version = t2Cfg.firmware.version; })
+      ];
     })
   ];
 }

@@ -7,6 +7,7 @@ import re
 import subprocess
 import sys
 from tempfile import NamedTemporaryFile
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import requests
 
@@ -50,6 +51,11 @@ def get_sri_hash(data: bytes):
         )
         return proc.stdout.decode("utf8").strip()
 
+def download_task(patch: dict):
+    patch_content = requests.get(patch["download_url"])
+    patch_hash = get_sri_hash(patch_content.content)
+    print(f"{patch['name']}: {patch_hash}")
+    return {"name": patch["name"], "hash": patch_hash}
 
 def main():
     args = parser.parse_args()
@@ -73,13 +79,13 @@ def main():
     patches = filter(lambda e: PATCH_PATTERN.match(e.get("name")), contents)
 
     patches_with_hash = []
-    for patch in patches:
-        patch_content = requests.get(patch["download_url"])
-        patch_hash = get_sri_hash(patch_content.content)
-        print(f"{patch['name']}: {patch_hash}")
-        patches_with_hash.append({"name": patch["name"], "hash": patch_hash})
+    with ThreadPoolExecutor() as executor:
+        futures = {executor.submit(download_task, patch) for patch in patches}
 
-    result = {"base_url": base_url, "patches": patches_with_hash}
+        for future in as_completed(futures):
+            patches_with_hash.append(future.result())
+
+    result = {"base_url": base_url, "patches": sorted(patches_with_hash, key=lambda p: p["name"])}
 
     with open(args.filename, "w+") as f:
         json.dump(result, f, indent=2)
