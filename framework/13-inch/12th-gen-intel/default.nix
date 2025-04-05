@@ -3,6 +3,7 @@
   imports = [
     ../common
     ../common/intel.nix
+    ../common/intel-legacy.nix
   ];
 
   config = lib.mkMerge [
