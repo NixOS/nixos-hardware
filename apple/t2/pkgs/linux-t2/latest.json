@@ -1,5 +1,5 @@
 {
-  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/4109f2144b626097a34b21def849a5d8cbcf3f7c/",
+  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/60a2912ad2d05f8a2d6c68a94641d912c3a555fd/",
   "patches": [
     {
       "name": "1001-Add-apple-bce-driver.patch",
@@ -43,11 +43,11 @@
     },
     {
       "name": "1015-drm-tiny-add-driver-for-Apple-Touch-Bars-in-x86-Macs.patch",
-      "hash": "sha256-zFeDJeoM/XS+Ds3DBLEcv4JbUhlEk9z4rHQ4t6XaghA="
+      "hash": "sha256-Ga0LlaS1jWTXSKh1ClcETPJctAymC6jYBQK9wwDU4Xs="
     },
     {
       "name": "2008-i915-4-lane-quirk-for-mbp15-1.patch",
-      "hash": "sha256-f/PTDwRGEyVkGHFyypTKi+gIni3R4TmcsOneGc7Ay5A="
+      "hash": "sha256-Ui9tK4IGSWfEscmD92emX/NfulO0m8zwLc9ivIClCFQ="
     },
     {
       "name": "2009-apple-gmux-allow-switching-to-igpu-at-probe.patch",
@@ -91,19 +91,27 @@
     },
     {
       "name": "4001-asahi-trackpad.patch",
-      "hash": "sha256-NOuGgUxDQEfFPlij/EnhWmgqeG3/l+j+r2T1YJG7raY="
+      "hash": "sha256-yfkTKKokb/+JtTwE0Dzht14S0nrSIwLFAFND90P/Cis="
     },
     {
       "name": "4002-HID-quirks-remove-T2-devices-from-hid_mouse_ignore_l.patch",
-      "hash": "sha256-DdUo4/4254VD+MzEaLI3opSS0Z7+UwsitJaS2lAlpI8="
+      "hash": "sha256-0PMCE3IWHekir5YV1BD6Jakc7dOV6Fj2HfIGWZnXZV0="
     },
     {
       "name": "4003-HID-apple-ignore-the-trackpad-on-T2-Macs.patch",
-      "hash": "sha256-PZpdvPKvVsLsg3vx3jmq3QCapBUcUVE35N37usBRb6g="
+      "hash": "sha256-JTeYtaBqMyTu5IdGb8x7wbP9ZE1rXT4lpEjudR1ySFI="
     },
     {
       "name": "4004-HID-magicmouse-Add-support-for-trackpads-found-on-T2.patch",
-      "hash": "sha256-pmGR0JdMMwGWG3zwMwMBuSyzltLvvzjTgfi1Ii1cglk="
+      "hash": "sha256-HcPX7gY3hnlwM/tY06pbtXnch04AqwHgC596E8ZqGY8="
+    },
+    {
+      "name": "4005-HID-apple-Add-necessary-IDs-and-support-for-replacem.patch",
+      "hash": "sha256-SRKESCbpxSYm7U0VyCmvkmT/er6/GEHhwo8tgJDO6mQ="
+    },
+    {
+      "name": "4006-HID-magicmouse-Add-MacBookPro15-1-replacement-trackp.patch",
+      "hash": "sha256-uAlT/4ADwYyKvbuPQaGwqCjZ2/myruC63etVV6cfFLk="
     },
     {
       "name": "7001-drm-i915-fbdev-Discard-BIOS-framebuffers-exceeding-h.patch",
@@ -111,7 +119,7 @@
     },
     {
       "name": "8001-Add-APFS-driver.patch",
-      "hash": "sha256-T0ZmO99nmnpNVLjlzMRc7wrkBON7w2F6HaPk4pQVV7A="
+      "hash": "sha256-py4DNKBsUWvw6o730ApmNdUlSyabOFnFDoAPrF40DNE="
     },
     {
       "name": "8002-Necessary-modifications-to-build-APFS-with-the-kerne.patch",
