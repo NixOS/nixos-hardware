@@ -25,10 +25,16 @@ in
       sha256 = "sha256-96EddJXlFEkP/LIGVgNBvUP4IDI3BbDE/c9Yub22gnc=";
     };
 
-    extraMakeFlags = lib.concatLists [
-      (lib.optional (lib.versionAtLeast pkgs.binutils.version "2.39") "LDFLAGS=--no-warn-rwx-segments")
-      ["PLAT=${platform}" "bl31" "${opteedflag}"]
-    ];
+    makeFlags = [ 
+      "HOSTCC=$(CC_FOR_BUILD)"
+      "M0_CROSS_COMPILE=arm-none-eabi-"
+      "CROSS_COMPILE=aarch64-unknown-linux-gnu-"
+      # binutils 2.39 regression
+      # `warning: /build/source/build/rk3399/release/bl31/bl31.elf has a LOAD segment with RWX permissions`
+      # See also: https://developer.trustedfirmware.org/T996
+      "LDFLAGS=-no-warn-rwx-segments"
+      "PLAT=${platform}" "bl31" "${opteedflag}"
+    ];  
 
     filesToInstall = ["build/${target-board}/release/bl31.bin"];
   }
