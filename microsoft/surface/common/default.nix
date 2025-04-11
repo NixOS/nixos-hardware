@@ -3,32 +3,41 @@
 let
   inherit (lib) mkDefault mkOption types;
 
-  version = config.microsoft-surface.kernelVersion;
-  rev = 
-    if version == "6.12" then
-      "arch-6.12.19-1"
-    else if version == "6.13" then
-      "arch-6.13.6-1"
+  shortVersion = config.microsoft-surface.kernelVersion;
+  version = if shortVersion == "6.12" then
+      "6.12.19"
+    else if shortVersion == "6.13" then
+      "6.13.6"
     else
-      abort "Invalid kernel version: ${version}";
+      abort "Invalid kernel version: ${shortVersion}";
+
+  rev = "arch-${version}-1";
   
   hash =
-    if version == "6.12" then
+    if shortVersion == "6.12" then
       "sha256-Pv7O8D8ma+MPLhYP3HSGQki+Yczp8b7d63qMb6l4+mY="
-    else if version == "6.13" then
+    else if shortVersion == "6.13" then
       "sha256-otD1ckNxNnvV8xipf9SZpbfg+bBq5EPwyieYtLIV4Ck="
     else
-      abort "Invalid kernel version: ${version}";
+      abort "Invalid kernel version: ${shortVersion}";
+
+  srcHash =
+    if shortVersion == "6.12" then
+      "sha256-1zvwV77ARDSxadG2FkGTb30Ml865I6KB8y413U3MZTE="
+    else if shortVersion == "6.13" then
+      "sha256-3gBTy0E9QI8g/R1XiCGZUbikQD5drBsdkDIJCTis0Zk="
+    else
+      abort "Invalid kernel version: ${shortVersion}";
 
   inherit (pkgs.callPackage ./kernel/linux-package.nix { repos = pkgs.callPackage ./kernel/repos.nix { rev = rev; hash = hash; }; }) linuxPackage surfacePatches;
 
   kernelPatches = surfacePatches {
     inherit version;
-    patchFn = ./kernel/${version}/patches.nix;
+    patchFn = ./kernel/${shortVersion}/patches.nix;
   };
   kernelPackages = linuxPackage {
     inherit version kernelPatches;
-    sha256 = "sha256-1zvwV77ARDSxadG2FkGTb30Ml865I6KB8y413U3MZTE=";
+    sha256 = srcHash;
     ignoreConfigErrors=true;
   };
 
