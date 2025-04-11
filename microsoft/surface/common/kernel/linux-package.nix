@@ -3,13 +3,12 @@
   fetchurl,
   buildLinux,
   linuxPackagesFor,
+  repos,
 }:
 
 let
   inherit (builtins) elem;
   inherit (lib) recurseIntoAttrs types versions;
-
-  repos = pkgs.callPackage ../repos.nix {};
 
   linuxPackage =
     { url ? "mirror://kernel/linux/kernel/v${versions.major version}.x/linux-${version}.tar.xz",
