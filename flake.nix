@@ -244,6 +244,7 @@
         lenovo-thinkpad-x13-amd = import ./lenovo/thinkpad/x13/amd;
         lenovo-thinkpad-x13-yoga = import ./lenovo/thinkpad/x13/yoga;
         lenovo-thinkpad-x13-yoga-3th-gen = import ./lenovo/thinkpad/x13/yoga/3th-gen;
+        lenovo-thinkpad-x13s = import ./lenovo/thinkpad/x13s;
         lenovo-thinkpad-x140e = import ./lenovo/thinkpad/x140e;
         lenovo-thinkpad-x200s = import ./lenovo/thinkpad/x200s;
         lenovo-thinkpad-x220 = import ./lenovo/thinkpad/x220;
