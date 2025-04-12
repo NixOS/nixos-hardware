@@ -3,51 +3,58 @@
 let
   inherit (lib) mkDefault mkOption types versions;
 
-  # Set the full kernel version and hashes
-  version =
-    if config.microsoft-surface.kernelVersion == "longterm" then
+  # Set the version and hash for the kernel sources
+  srcVersion = with config.microsoft-surface;
+    if kernelVersion == "longterm" then
       "6.12.19"
-    else if config.microsoft-surface.kernelVersion == "stable" then
+    else if kernelVersion == "stable" then
       "6.13.6"
     else
-      abort "Invalid kernel version: ${config.microsoft-surface.kernelVersion}";
-  
-  shortVersion = versions.majorMinor version;
-  packageHash =
-    if shortVersion == "6.12" then
-      "sha256-Pv7O8D8ma+MPLhYP3HSGQki+Yczp8b7d63qMb6l4+mY="
-    else if shortVersion == "6.13" then
-      "sha256-otD1ckNxNnvV8xipf9SZpbfg+bBq5EPwyieYtLIV4Ck="
-    else
-      abort "Invalid kernel version: ${shortVersion}";
+      abort "Invalid kernel version: ${kernelVersion}";
 
-  srcHash =
-    if shortVersion == "6.12" then
+  srcHash = with config.microsoft-surface;
+    if kernelVersion == "longterm" then
       "sha256-1zvwV77ARDSxadG2FkGTb30Ml865I6KB8y413U3MZTE="
-    else if shortVersion == "6.13" then
+    else if kernelVersion == "stable" then
       "sha256-3gBTy0E9QI8g/R1XiCGZUbikQD5drBsdkDIJCTis0Zk="
     else
-      abort "Invalid kernel version: ${shortVersion}";
+      abort "Invalid kernel version: ${kernelVersion}";
 
-  # Fetch the release from the linux-surface project
-  rev = "arch-${version}-1";
-  repos = pkgs.callPackage ({ fetchFromGitHub, rev, packageHash }: {
+  # Set the version and hash for the linux-surface releases
+  pkgVersion = with config.microsoft-surface;
+    if kernelVersion == "longterm" then
+      "6.12.7"
+    else if kernelVersion == "stable" then
+      "6.13.6"
+    else
+      abort "Invalid kernel version: ${kernelVersion}";
+  
+  pkgHash = with config.microsoft-surface;
+    if kernelVersion == "longterm" then
+      "sha256-Pv7O8D8ma+MPLhYP3HSGQki+Yczp8b7d63qMb6l4+mY="
+    else if kernelVersion == "stable" then
+      "sha256-otD1ckNxNnvV8xipf9SZpbfg+bBq5EPwyieYtLIV4Ck="
+    else
+      abort "Invalid kernel version: ${kernelVersion}";
+
+  # Fetch the linux-surface package
+  repos = pkgs.callPackage ({ fetchFromGitHub, rev, hash }: {
     linux-surface = fetchFromGitHub {
       owner = "linux-surface";
       repo = "linux-surface";
       rev = rev;
-      hash = packageHash;
+      hash = hash;
     };
-  }) { inherit rev packageHash; };
+  }) { hash = pkgHash; rev = "arch-${pkgVersion}-1"; };
 
-  # Build the kernel package
+  # Fetch and build the kernel package
   inherit (pkgs.callPackage ./kernel/linux-package.nix { inherit repos; }) linuxPackage surfacePatches;
   kernelPatches = surfacePatches {
-    inherit version;
-    patchFn = ./kernel/${shortVersion}/patches.nix;
+    version = pkgVersion;
+    patchFn = ./kernel/${versions.majorMinor pkgVersion}/patches.nix;
   };
   kernelPackages = linuxPackage {
-    inherit version kernelPatches;
+    inherit kernelPatches; version = srcVersion;
     sha256 = srcHash;
     ignoreConfigErrors=true;
   };
