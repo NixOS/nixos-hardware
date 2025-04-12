@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) fetchFromGitHub mkDefault mkOption types versions;
+  inherit (lib) mkDefault mkOption types versions;
 
   # Set the full kernel version and hashes
   version =
@@ -48,7 +48,7 @@ let
   };
   kernelPackages = linuxPackage {
     inherit version kernelPatches;
-    hash = srcHash;
+    sha256 = srcHash;
     ignoreConfigErrors=true;
   };
 
