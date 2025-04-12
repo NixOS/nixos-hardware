@@ -5,9 +5,9 @@ let
 
   # Set the full kernel version and hashes
   version =
-    if config.microsoft-surface.kernelVersion == "lts" then
+    if config.microsoft-surface.kernelVersion == "longterm" then
       "6.12.19"
-    else if config.microsoft-surface.kernelVersion == "latest" then
+    else if config.microsoft-surface.kernelVersion == "stable" then
       "6.13.6"
     else
       abort "Invalid kernel version: ${config.microsoft-surface.kernelVersion}";
@@ -56,10 +56,10 @@ in {
   options.microsoft-surface.kernelVersion = mkOption {
     description = "Kernel Version to use (patched for MS Surface)";
     type = types.enum [
-      "lts"
-      "latest"
+      "longterm"
+      "stable"
     ];
-    default = "lts";
+    default = "longterm";
   };
 
   config = {

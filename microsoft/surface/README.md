@@ -36,13 +36,13 @@ _*NOTE:*_ Some built-in Kernel config items need to be set, that aren't set by d
 
 There are multiple versions of the Surface kernel available:
 
-- `lts`, which tracks the latest LTS release.
-- `latest`, which tracks the most recent release.
+- `longterm`, which tracks the latest long term support (LTS) release.
+- `stable`, which tracks the most recent stable release.
 
-This repo uses `lts` by default, but you can switch it to `latest` by adding this to your configuration file:
+This repo uses `longterm` by default, but you can switch it to `stable` by adding this to your configuration file:
 
 ```nix
-microsoft-surface.kernelVersion = "latest";
+microsoft-surface.kernelVersion = "stable";
 ```
 
 ### Support Tools
