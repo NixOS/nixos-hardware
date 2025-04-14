@@ -10,7 +10,6 @@ with pkgs; let
     else "";
 
   imx8mp-atf = pkgs.callPackage ./imx8mp-atf.nix {
-    inherit (pkgs) buildArmTrustedFirmware;
     inherit enable-tee;
   };
   imx8mp-firmware = pkgs.callPackage ./imx8mp-firmware.nix {};

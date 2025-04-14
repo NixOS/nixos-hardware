@@ -9,7 +9,6 @@ with pkgs; let
     else "";
 
   imx8mq-atf = pkgs.callPackage ./imx8mq-atf.nix {
-    inherit (pkgs) buildArmTrustedFirmware;
     inherit enable-tee;
   };
   imx8mq-firmware = pkgs.callPackage ./imx8mq-firmware.nix {};
