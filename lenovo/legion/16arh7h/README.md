@@ -1,3 +1,4 @@
 # Useful Links
 
-[NixOS Wiki - Nvidia](https://nixos.wiki/wiki/Nvidia)
+[NixOS Wiki - Nvidia](https://wiki.nixos.org/wiki/NVIDIA)
+
