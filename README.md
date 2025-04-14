@@ -114,6 +114,8 @@ See code for all available configurations.
 | [Asus TUF FA507RM](asus/fa507rm)                                                  | `<nixos-hardware/asus/fa507rm>`                         |
 | [Asus TUF FA507NV](asus/fa507nv)                                                  | `<nixos-hardware/asus/fa507nv>`                         |
 | [Asus Zenbook Flip S13 UX371](asus/zenbook/ux371/)                                | `<nixos-hardware/asus/zenbook/ux371>`                   |
+| [Asus Zenbook Duo 14 UX481](asus/zenbook/ux481/intelgpu/)                         | `<nixos-hardware/asus/zenbook/ux481/intelgpu>`          |
+| [Asus Zenbook Duo 14 UX481](asus/zenbook/ux481/nvidia/)                           | `<nixos-hardware/asus/zenbook/ux481/nvidia>`            |
 | [Asus Zenbook Pro 15 UX535](asus/zenbook/ux535/)                                  | `<nixos-hardware/asus/zenbook/ux535>`                   |
 | [BeagleBoard PocketBeagle](beagleboard/pocketbeagle)                              | `<nixos-hardware/beagleboard/pocketbeagle>`             |
 | [Chuwi MiniBook X](chuwi/minibook-x)                                              | `<nixos-hardware/chuwi/minibook-x>`                     |
