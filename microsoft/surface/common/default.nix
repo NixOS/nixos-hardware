@@ -6,17 +6,17 @@ let
   # Set the version and hash for the kernel sources
   srcVersion = with config.microsoft-surface;
     if kernelVersion == "longterm" then
-      "6.12.19"
+      "6.12.22"
     else if kernelVersion == "stable" then
-      "6.13.6"
+      "6.14.2"
     else
       abort "Invalid kernel version: ${kernelVersion}";
 
   srcHash = with config.microsoft-surface;
     if kernelVersion == "longterm" then
-      "sha256-1zvwV77ARDSxadG2FkGTb30Ml865I6KB8y413U3MZTE="
+      "sha256-q0iACrSZhaeNIxiuisXyj9PhI+oXNX7yFJgQWlMzczY="
     else if kernelVersion == "stable" then
-      "sha256-3gBTy0E9QI8g/R1XiCGZUbikQD5drBsdkDIJCTis0Zk="
+      "sha256-xcaCo1TqMZATk1elfTSnnlw3IhrOgjqTjhARa1d6Lhs="
     else
       abort "Invalid kernel version: ${kernelVersion}";
 
@@ -25,7 +25,7 @@ let
     if kernelVersion == "longterm" then
       "6.12.7"
     else if kernelVersion == "stable" then
-      "6.13.6"
+      "6.14.2"
     else
       abort "Invalid kernel version: ${kernelVersion}";
   
@@ -33,7 +33,7 @@ let
     if kernelVersion == "longterm" then
       "sha256-Pv7O8D8ma+MPLhYP3HSGQki+Yczp8b7d63qMb6l4+mY="
     else if kernelVersion == "stable" then
-      "sha256-otD1ckNxNnvV8xipf9SZpbfg+bBq5EPwyieYtLIV4Ck="
+      "sha256-Pzn+C52TtDcqDVepM5z2cVNCsnRDy0Wwn+FLwgsuicQ="
     else
       abort "Invalid kernel version: ${kernelVersion}";
 
