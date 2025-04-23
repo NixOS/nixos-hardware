@@ -6,7 +6,7 @@ let
   # Set the version and hash for the kernel sources
   srcVersion = with config.hardware.microsoft-surface;
     if kernelVersion == "longterm" then
-      "6.12.22"
+      "6.12.19"
     else if kernelVersion == "stable" then
       "6.14.2"
     else
@@ -14,7 +14,7 @@ let
 
   srcHash = with config.hardware.microsoft-surface;
     if kernelVersion == "longterm" then
-      "sha256-q0iACrSZhaeNIxiuisXyj9PhI+oXNX7yFJgQWlMzczY="
+      "sha256-1zvwV77ARDSxadG2FkGTb30Ml865I6KB8y413U3MZTE="
     else if kernelVersion == "stable" then
       "sha256-xcaCo1TqMZATk1elfTSnnlw3IhrOgjqTjhARa1d6Lhs="
     else
