@@ -3,7 +3,7 @@
 {
   imports = [
     ../.
-    ../../../../common/cpu/intel
+    ../../../../common/cpu/intel/comet-lake
   ];
 
   services.throttled.enable = lib.mkDefault true;
