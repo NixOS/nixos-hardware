@@ -42,7 +42,7 @@ There are multiple versions of the Surface kernel available:
 This repo uses `longterm` by default, but you can switch it to `stable` by adding this to your configuration file:
 
 ```nix
-microsoft-surface.kernelVersion = "stable";
+hardware.microsoft-surface.kernelVersion = "stable";
 ```
 
 ### Support Tools

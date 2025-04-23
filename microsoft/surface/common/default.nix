@@ -4,7 +4,7 @@ let
   inherit (lib) mkDefault mkOption types versions;
 
   # Set the version and hash for the kernel sources
-  srcVersion = with config.microsoft-surface;
+  srcVersion = with config.hardware.microsoft-surface;
     if kernelVersion == "longterm" then
       "6.12.22"
     else if kernelVersion == "stable" then
@@ -12,7 +12,7 @@ let
     else
       abort "Invalid kernel version: ${kernelVersion}";
 
-  srcHash = with config.microsoft-surface;
+  srcHash = with config.hardware.microsoft-surface;
     if kernelVersion == "longterm" then
       "sha256-q0iACrSZhaeNIxiuisXyj9PhI+oXNX7yFJgQWlMzczY="
     else if kernelVersion == "stable" then
@@ -21,7 +21,7 @@ let
       abort "Invalid kernel version: ${kernelVersion}";
 
   # Set the version and hash for the linux-surface releases
-  pkgVersion = with config.microsoft-surface;
+  pkgVersion = with config.hardware.microsoft-surface;
     if kernelVersion == "longterm" then
       "6.12.7"
     else if kernelVersion == "stable" then
@@ -29,7 +29,7 @@ let
     else
       abort "Invalid kernel version: ${kernelVersion}";
   
-  pkgHash = with config.microsoft-surface;
+  pkgHash = with config.hardware.microsoft-surface;
     if kernelVersion == "longterm" then
       "sha256-Pv7O8D8ma+MPLhYP3HSGQki+Yczp8b7d63qMb6l4+mY="
     else if kernelVersion == "stable" then
@@ -60,7 +60,7 @@ let
   };
 
 in {
-  options.microsoft-surface.kernelVersion = mkOption {
+  options.hardware.microsoft-surface.kernelVersion = mkOption {
     description = "Kernel Version to use (patched for MS Surface)";
     type = types.enum [
       "longterm"
