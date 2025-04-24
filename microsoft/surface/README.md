@@ -1,8 +1,3 @@
-# NOTE: Structure changes from 2023-01-10
-
-Please read the [Deprecated Behaviour README](./OLD-BEHAVIOUR-DEPRECATION.md) to understand how some structural changes to
-the code might affect you!
-
 # Derivations for Microsoft Surface notebooks
 
 These derivatives use the patches from the [linux-surface repo](https://github.com/linux-surface/linux-surface/tree/master/patches).
@@ -32,12 +27,23 @@ Not all hardware is fully supported, but the
 [linux-surface feature matrix](https://github.com/linux-surface/linux-surface/wiki/Supported-Devices-and-Features#feature-matrix)
 provides details on which devices are supported on which types of machine.
 
-The kernel-specific derivations are under the [`common/kernel/`](./common/kernel/) sub-directory.
-In order to simplify maintenance of the Nix code, only the most-recent kernel patch-set is expected
-to be maintained in this repo.
+The kernel-specific derivations are under the [`common/kernel/`](./common/kernel/) sub-directory. This directory defines patch sets for each supported kernel release (see Kernel versions below for more information).
 
 _*NOTE:*_ Some built-in Kernel config items need to be set, that aren't set by default:
 - https://github.com/linux-surface/surface-aggregator-module/wiki/Testing-and-Installing
+
+#### Kernel versions
+
+There are multiple versions of the Surface kernel available:
+
+- `longterm`, which tracks the latest long term support (LTS) release.
+- `stable`, which tracks the most recent stable release.
+
+This repo uses `longterm` by default, but you can switch it to `stable` by adding this to your configuration file:
+
+```nix
+hardware.microsoft-surface.kernelVersion = "stable";
+```
 
 ### Support Tools
 
@@ -120,3 +126,7 @@ References:
 - https://github.com/thebitstick/surfacego-wifi
 - https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/tree/ath10k
 - https://wireless.wiki.kernel.org/en/users/drivers/ath10k/firmware
+
+## Structural changes from earlier versions (2023-01-10 and earlier)
+
+If you're upgrading from an older version of nixos-hardware, please read the [Deprecated Behaviour README](./OLD-BEHAVIOUR-DEPRECATION.md) to understand how some structural changes to the code might affect you!
