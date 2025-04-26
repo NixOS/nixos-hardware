@@ -230,6 +230,7 @@
         lenovo-thinkpad-x1 = import ./lenovo/thinkpad/x1;
         lenovo-thinkpad-x1-yoga = import ./lenovo/thinkpad/x1/yoga;
         lenovo-thinkpad-x1-yoga-7th-gen = import ./lenovo/thinkpad/x1/yoga/7th-gen;
+        lenovo-thinkpad-x1-2nd-gen = import ./lenovo/thinkpad/x1/2nd-gen;
         lenovo-thinkpad-x1-6th-gen = import ./lenovo/thinkpad/x1/6th-gen;
         lenovo-thinkpad-x1-7th-gen = import ./lenovo/thinkpad/x1/7th-gen;
         lenovo-thinkpad-x1-9th-gen = import ./lenovo/thinkpad/x1/9th-gen;
