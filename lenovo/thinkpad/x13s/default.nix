@@ -1,10 +1,12 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
+  inherit (config.boot.kernelPackages) kernel;
+
   dtbName = "sc8280xp-lenovo-thinkpad-x13s.dtb";
-  dtb = "${pkgs.linux}/dtbs/qcom/${dtbName}";
+  dtb = "${kernel}/dtbs/qcom/${dtbName}";
   # Version the dtb based on the kernel
-  dtbEfiPath = "dtbs/x13s-${pkgs.linux.version}.dtb";
+  dtbEfiPath = "dtbs/x13s-${kernel.version}.dtb";
   cfg = {
    wifiMac = "e4:65:38:52:22:a9";
    bluetoothMac = "E4:25:18:22:44:AA";
