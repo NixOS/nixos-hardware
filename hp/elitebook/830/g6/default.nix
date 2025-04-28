@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ config, lib, ... }:
 {
   imports = [
     ../../../../common/cpu/intel
@@ -16,7 +16,7 @@
   services.fwupd.enable = lib.mkDefault true;
 
   # Enables ACPI platform profiles
-  boot = lib.mkIf (lib.versionAtLeast pkgs.linux.version "6.1") {
+  boot = lib.mkIf (lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.1") {
     kernelModules = [ "hp-wmi" ];
   };
 
