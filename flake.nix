@@ -130,6 +130,7 @@
         focus-m2-gen1 = import ./focus/m2/gen1;
         gigabyte-b550 = import ./gigabyte/b550;
         gigabyte-b650 = import ./gigabyte/b650;
+        gmktec-nucbox-g3-plus = import ./gmktec/nucbox/g3-plus;
         google-pixelbook = import ./google/pixelbook;
         gpd-micropc = import ./gpd/micropc;
         gpd-p2-max = import ./gpd/p2-max;
