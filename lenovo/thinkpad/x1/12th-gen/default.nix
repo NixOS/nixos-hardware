@@ -1,7 +1,7 @@
 {
   imports = [
     ../.
-    ../../../../common/pc/laptop/ssd
+    ../../../../common/pc/ssd
   ];
 
   hardware.trackpoint.device = "TPPS/2 Synaptics TrackPoint";

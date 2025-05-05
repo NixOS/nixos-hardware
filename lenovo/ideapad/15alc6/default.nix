@@ -5,6 +5,6 @@
     ../../../common/cpu/amd
     ../../../common/gpu/amd
     ../../../common/pc/laptop
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
   ];
 }

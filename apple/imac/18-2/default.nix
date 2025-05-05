@@ -9,7 +9,7 @@
     ../../../common/cpu/intel/kaby-lake
     ../../../common/gpu/amd
     ../../../common/hidpi.nix
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
   ];
 
   # apple smc (TODO: check spi)

@@ -1,7 +1,7 @@
 { lib, pkgs, ... }: {
   imports = [
     ../.
-    ../../../../../common/pc/laptop/ssd
+    ../../../../../common/pc/ssd
   ];
 
   # At least kernel 5.19 is required for the system to work properly.

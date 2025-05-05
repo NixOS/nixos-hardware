@@ -9,7 +9,7 @@
     ../../../../common/gpu/nvidia/prime.nix
     ../../../../common/gpu/nvidia/ampere
     ../../../../common/pc/laptop
-    ../../../../common/pc/laptop/ssd
+    ../../../../common/pc/ssd
     ../edid
   ];
 

@@ -7,7 +7,7 @@
     ../../../common/cpu/intel/kaby-lake
     ../../../common/pc
     ../../../common/pc/laptop
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
   ];
 
   config = {

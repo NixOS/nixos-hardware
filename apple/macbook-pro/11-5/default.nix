@@ -9,7 +9,7 @@ in
 {
   imports = [
     ../.
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
   ];
 
   # Enable broadcom-43xx firmware

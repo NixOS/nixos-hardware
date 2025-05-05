@@ -7,12 +7,12 @@
   imports = [
     ../../../common/cpu/intel/comet-lake/cpu-only.nix
     ../../../common/pc/laptop
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
     ../../battery.nix
   ];
 
-  boot.kernelParams = [ 
-    # These options are needed for suspend to work, 
+  boot.kernelParams = [
+    # These options are needed for suspend to work,
     # otherwise the nvme will be mounted read-only on resume
     "pcie_aspm=off"
     "pcie_port_pm=off"

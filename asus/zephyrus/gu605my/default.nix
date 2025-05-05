@@ -6,7 +6,7 @@
     ../../../common/gpu/nvidia/prime.nix
     ../../../common/gpu/nvidia/ada-lovelace
     ../../../common/pc/laptop
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
     ../shared/backlight.nix
   ];
 
