@@ -9,7 +9,7 @@
     ../../../../common/cpu/amd/pstate.nix
     ../../../../common/cpu/amd/raphael/igpu.nix
     ../../../../common/pc/laptop
-    ../../../../common/pc/laptop/ssd
+    ../../../../common/pc/ssd
   ];
 
   # Fixing a power-issue with older kernels.

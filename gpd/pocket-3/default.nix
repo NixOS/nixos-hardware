@@ -4,7 +4,7 @@ in
 {
 	imports = [
 		../../common/pc/laptop
-		../../common/pc/laptop/ssd
+		../../common/pc/ssd
     ../../common/hidpi.nix
     ../../common/gpu/24.05-compat.nix
 	];

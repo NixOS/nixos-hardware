@@ -5,7 +5,7 @@
     ../../common/cpu/intel/kaby-lake
     ../../common/gpu/nvidia/pascal
     ../../common/pc/laptop
-    ../../common/pc/laptop/ssd
+    ../../common/pc/ssd
     ../../common/pc/laptop/hdd
   ];
 }

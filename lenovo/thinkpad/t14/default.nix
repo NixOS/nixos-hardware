@@ -3,7 +3,7 @@
 {
   imports = [
     ../.
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
   ];
 
   # For suspending to RAM to work, set Config -> Power -> Sleep State to "Linux" in EFI.

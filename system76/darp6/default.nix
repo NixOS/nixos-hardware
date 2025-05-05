@@ -28,7 +28,7 @@ in
   imports = [
     ../.
     ../../common/pc/laptop
-    ../../common/pc/laptop/ssd
+    ../../common/pc/ssd
   ];
 
   options.hardware.system76.darp6 = {

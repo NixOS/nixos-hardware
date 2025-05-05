@@ -2,7 +2,7 @@
 {
   imports = [
     ../.
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
     ../../../common/cpu/intel/haswell
   ];
 

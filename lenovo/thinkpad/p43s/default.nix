@@ -2,7 +2,7 @@
   imports = [
     ../.
     ../../../common/cpu/intel/whiskey-lake
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
     ../../../common/gpu/nvidia/pascal
     ../../../common/gpu/nvidia/prime-sync.nix
   ];

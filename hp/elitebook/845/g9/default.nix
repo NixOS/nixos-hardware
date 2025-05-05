@@ -7,7 +7,7 @@
       ../../../../common/cpu/amd/pstate.nix
       ../../../../common/gpu/amd
       ../../../../common/pc/laptop
-      ../../../../common/pc/laptop/ssd
+      ../../../../common/pc/ssd
     ];
 
   hardware.enableRedistributableFirmware = lib.mkDefault true;

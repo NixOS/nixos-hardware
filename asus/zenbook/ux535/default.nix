@@ -8,7 +8,7 @@
     ../../../common/gpu/nvidia/prime.nix
     ../../../common/cpu/intel
     ../../../common/gpu/intel/comet-lake
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
     ../../../common/hidpi.nix # 4K screen is HiDPI
     ../../battery.nix
   ];

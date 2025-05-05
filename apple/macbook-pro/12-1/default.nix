@@ -3,7 +3,7 @@
 {
   imports = [
     ../.
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
     "${modulesPath}/hardware/network/broadcom-43xx.nix"
   ];
 

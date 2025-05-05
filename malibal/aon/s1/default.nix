@@ -3,7 +3,7 @@
 {
   imports = [
     ../../../common/pc/laptop
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
 
     ../../../common/cpu/intel
 

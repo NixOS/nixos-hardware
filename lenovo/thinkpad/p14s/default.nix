@@ -6,7 +6,7 @@
 
   imports = [
     ../.
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
   ];
 
   # Force use of the amdgpu driver for backlight control on kernel versions where the
