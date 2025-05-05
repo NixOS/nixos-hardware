@@ -7,7 +7,7 @@
   imports = [
     ../../../common/cpu/intel/tiger-lake
     ../../../common/pc/laptop
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
     ../../battery.nix
   ];
 

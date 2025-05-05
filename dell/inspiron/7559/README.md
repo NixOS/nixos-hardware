@@ -41,7 +41,7 @@ This configuration uses Nvidia Prime offloading, which allows use of the `nvidia
 
 #### SSD
 
-This laptop has an optional M.2 SSD slot, which isn't accounted for here. If you are using the SSD, you could look into implementing the options in [ssd](common/pc/laptop/ssd) manually. Some sources also say you should ensure your SATA Mode is set to AHCI in your BIOS for it to be detected, however I think this is a prerequisite to installing Linux on this laptop in the first place so you probably already have that set.
+This laptop has an optional M.2 SSD slot, which isn't accounted for here. If you are using the SSD, you could look into implementing the options in [ssd](common/pc/ssd) manually. Some sources also say you should ensure your SATA Mode is set to AHCI in your BIOS for it to be detected, however I think this is a prerequisite to installing Linux on this laptop in the first place so you probably already have that set.
 
 #### Subwoofer
 

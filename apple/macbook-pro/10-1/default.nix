@@ -3,7 +3,7 @@
 {
   imports = [
     ../.
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
     ../../../common/gpu/24.05-compat.nix
     ../../../common/gpu/nvidia/kepler
   ];

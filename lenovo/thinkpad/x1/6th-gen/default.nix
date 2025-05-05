@@ -10,7 +10,7 @@
   imports = [
     ../.
     ../../../../common/cpu/intel/kaby-lake
-    ../../../../common/pc/laptop/ssd
+    ../../../../common/pc/ssd
   ];
 
   # New ThinkPads have a different TrackPoint manufacturer/name.

@@ -4,7 +4,7 @@
   imports = [
     ../../../common/cpu/intel/lunar-lake
     ../../../common/pc/laptop
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
   ];
 
   # The touchpad uses I²C, so PS/2 is unnecessary

@@ -4,7 +4,7 @@
   imports = [
     ../../common/cpu/intel
     ../../common/pc/laptop
-    ../../common/pc/laptop/ssd
+    ../../common/pc/ssd
   ];
 
   # OneNetbook 4 has `GXTP7386:00 27C6:011A Stylus` exporting no buttons in 5.12

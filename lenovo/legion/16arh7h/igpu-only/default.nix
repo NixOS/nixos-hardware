@@ -6,6 +6,6 @@
     ../../../../common/gpu/amd
     ../../../../common/gpu/nvidia/disable.nix
     ../../../../common/pc/laptop
-    ../../../../common/pc/laptop/ssd
+    ../../../../common/pc/ssd
   ];
 }

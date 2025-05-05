@@ -4,7 +4,7 @@
     # might need nvidia module but we don't know the PCI ids:
     # https://github.com/NixOS/nixos-hardware/pull/274#discussion_r650483740
     #../../../common/gpu/nvidia/prime.nix
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
   ];
 
   # Need to set Thunderbolt to "BIOS Assist Mode"

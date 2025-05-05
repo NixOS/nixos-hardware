@@ -9,7 +9,7 @@
     ../../../../common/gpu/nvidia/prime.nix # prime offload
     ../../../../common/gpu/nvidia/ampere # use open drivers
     ../../../../common/pc/laptop
-    ../../../../common/pc/laptop/ssd
+    ../../../../common/pc/ssd
   ];
 
   boot.kernelModules = ["amdgpu"];

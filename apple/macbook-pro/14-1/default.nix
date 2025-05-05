@@ -8,7 +8,7 @@
     ../.
     ../../../common/cpu/intel/kaby-lake
     ../../../common/hidpi.nix
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
   ];
 
   # Make the keyboard work in stage1, enable iommu

@@ -1,7 +1,7 @@
 { ... }: {
   imports = [
     ../.
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
   ];
 
   # Somehow psmouse does not load automatically on boot for me

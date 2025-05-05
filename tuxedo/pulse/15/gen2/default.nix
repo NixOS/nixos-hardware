@@ -2,7 +2,7 @@
   imports = [
     ../../../../common/cpu/amd
     ../../../../common/gpu/amd
-    ../../../../common/pc/laptop/ssd
+    ../../../../common/pc/ssd
   ];
 
   services.udev.extraRules = builtins.concatStringsSep "\n" (

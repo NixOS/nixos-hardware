@@ -4,7 +4,7 @@ in
 {
   imports = [
     ../../common/pc/laptop
-    ../../common/pc/laptop/ssd
+    ../../common/pc/ssd
     ../../common/cpu/amd
     ../../common/cpu/amd/pstate.nix
     ../../common/gpu/amd
