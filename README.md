@@ -237,7 +237,8 @@ See code for all available configurations.
 | [Lenovo Legion Y530 15ICH](lenovo/legion/15ich)                                   | `<nixos-hardware/lenovo/legion/15ich>`                  |
 | [Lenovo ThinkPad A475](lenovo/thinkpad/a475)                                      | `<nixos-hardware/lenovo/thinkpad/a475>`                 |
 | [Lenovo ThinkPad E14 (AMD)](lenovo/thinkpad/e14/amd)                              | `<nixos-hardware/lenovo/thinkpad/e14/amd>`              |
-| [Lenovo ThinkPad E14 (Intel)](lenovo/thinkpad/e14/intel)                          | `<nixos-hardware/lenovo/thinkpad/e14/intel>`            |
+| [Lenovo ThinkPad E14 (Intel - Gen 1)](lenovo/thinkpad/e14/intel)                  | `<nixos-hardware/lenovo/thinkpad/e14/intel>`            |
+| [Lenovo ThinkPad E14 (Intel - Gen 4)](lenovo/thinkpad/e14/intel/gen4)             | `<nixos-hardware/lenovo/thinkpad/e14/intel/gen4>`       |
 | [Lenovo ThinkPad E14 (Intel - Gen 6)](lenovo/thinkpad/e14/intel/gen6)             | `<nixos-hardware/lenovo/thinkpad/e14/intel/gen6>`       |
 | [Lenovo ThinkPad E15 (Intel)](lenovo/thinkpad/e15/intel)                          | `<nixos-hardware/lenovo/thinkpad/e15/intel>`            |
 | [Lenovo ThinkPad E470](lenovo/thinkpad/e470)                                      | `<nixos-hardware/lenovo/thinkpad/e470>`                 |
@@ -258,7 +259,7 @@ See code for all available configurations.
 | [Lenovo ThinkPad P16s AMD Gen 2](lenovo/thinkpad/p16s/amd/gen2)                   | `<nixos-hardware/lenovo/thinkpad/p16s/amd/gen2>`        |
 | [Lenovo ThinkPad P16s Intel Gen 2](lenovo/thinkpad/p16s/intel/gen2)               | `<nixos-hardware/lenovo/thinkpad/p16s/intel/gen2>`      |
 | [Lenovo ThinkPad P1](lenovo/thinkpad/p1)                                          | `<nixos-hardware/lenovo/thinkpad/p1>`                   |
-| [Lenovo ThinkPad P43s](lenovo/thinkpad/p43s)                                      | `<nixos-hardware/lenovo/thinkpad/p43s>`                   |
+| [Lenovo ThinkPad P43s](lenovo/thinkpad/p43s)                                      | `<nixos-hardware/lenovo/thinkpad/p43s>`                 |
 | [Lenovo ThinkPad P50](lenovo/thinkpad/p50)                                        | `<nixos-hardware/lenovo/thinkpad/p50>`                  |
 | [Lenovo ThinkPad P51](lenovo/thinkpad/p51)                                        | `<nixos-hardware/lenovo/thinkpad/p51>`                  |
 | [Lenovo ThinkPad P52](lenovo/thinkpad/p52)                                        | `<nixos-hardware/lenovo/thinkpad/p52>`                  |
