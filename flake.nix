@@ -86,6 +86,7 @@
         dell-precision-3490 = import ./dell/precision/3490;
         dell-precision-3541 = import ./dell/precision/3541;
         dell-precision-5490 = import ./dell/precision/5490;
+        dell-precision-5520 = import ./dell/precision/5520;
         dell-precision-5530 = import ./dell/precision/5530;
         dell-precision-5560 = import ./dell/precision/5560;
         dell-precision-7520 = import ./dell/precision/7520;
