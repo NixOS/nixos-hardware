@@ -2,8 +2,8 @@
   description = "Test flake for nixos-hardware";
 
   inputs = {
-    nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
-    nixos-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixos-unstable-small.url = "git+https://github.com/NixOS/nixpkgs?shallow=1&ref=nixos-unstable-small";
+    nixos-stable.url = "git+https://github.com/NixOS/nixpkgs?shallow=1&ref=nixos-24.11";
     # override in the test
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -23,7 +23,6 @@
           system,
           lib,
           pkgs,
-          inputs',
           ...
         }:
         let
