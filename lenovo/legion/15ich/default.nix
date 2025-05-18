@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../../../common/cpu/intel
+    ../../../common/cpu/intel/coffee-lake
     ../../../common/gpu/nvidia/prime.nix
     ../../../common/gpu/nvidia/pascal
     ../../../common/pc/laptop
