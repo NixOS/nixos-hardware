@@ -4,5 +4,9 @@
     ../../yoga.nix
   ];
 
-  services.xserver.wacom.enable = lib.mkDefault config.services.xserver.enable;
+  services = {
+    fprintd.enable = lib.mkDefault true;
+    fwupd.enable = lib.mkDefault true;
+    xserver.wacom.enable = lib.mkDefault config.services.xserver.enable;
+  };
 }
