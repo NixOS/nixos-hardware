@@ -5,8 +5,12 @@
     ../../common/pc/ssd
   ];
 
-  # Enable TUXEDO's kernel drivers if they are available
-  hardware = lib.optionalAttrs (options.hardware ? tuxedo-drivers) {
-    tuxedo-drivers.enable = lib.mkDefault true;
-  };
+  hardware =
+    lib.mkDefault {
+      bluetooth.enable = true;
+    }
+    # Enable TUXEDO's kernel drivers if they are available
+    // lib.optionalAttrs (options.hardware ? tuxedo-drivers) {
+      tuxedo-drivers.enable = true;
+    };
 }
