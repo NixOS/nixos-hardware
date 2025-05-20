@@ -216,6 +216,7 @@ See code for all available configurations.
 | [Lenovo IdeaPad 3 15alc6](lenovo/ideapad/15alc6)                                  | `<nixos-hardware/lenovo/ideapad/15alc6>`                |
 | [Lenovo IdeaPad Gaming 3 15arh05](lenovo/ideapad/15arh05)                         | `<nixos-hardware/lenovo/ideapad/15arh05>`               |
 | [Lenovo IdeaPad Gaming 3 15ach6](lenovo/ideapad/15ach6)                           | `<nixos-hardware/lenovo/ideapad/15ach6>`                |
+| [Lenovo IdeaPad 5 Pro 14imh9](lenovo/ideapad/14imh9)                              | `<nixos-hardware/lenovo/ideapad/14imh9>`                |
 | [Lenovo IdeaPad 5 Pro 16ach6](lenovo/ideapad/16ach6)                              | `<nixos-hardware/lenovo/ideapad/16ach6>`                |
 | [Lenovo IdeaPad Z510](lenovo/ideapad/z510)                                        | `<nixos-hardware/lenovo/ideapad/z510>`                  |
 | [Lenovo IdeaPad Slim 5](lenovo/ideapad/slim-5)                                    | `<nixos-hardware/lenovo/ideapad/slim-5>`                |
@@ -325,6 +326,7 @@ See code for all available configurations.
 | [Lenovo ThinkPad Z Series](lenovo/thinkpad/z)                                     | `<nixos-hardware/lenovo/thinkpad/z>`                    |
 | [Lenovo ThinkPad Z13 Gen 1](lenovo/thinkpad/z/gen1/z13)                           | `<nixos-hardware/lenovo/thinkpad/z/gen1/z13>`           |
 | [Lenovo ThinkPad Z13 Gen 2](lenovo/thinkpad/z/gen2/z13)                           | `<nixos-hardware/lenovo/thinkpad/z/gen2/z13>`           |
+| [Lenovo XiaoXin Pro 14imh9 2024](lenovo/ideapad/14imh9)                           | `<nixos-hardware/lenovo/ideapad/14imh9>`                |
 | [LENOVO Yoga 6 13ALC6 82ND](lenovo/yoga/6/13ALC6)                                 | `<nixos-hardware/lenovo/yoga/6/13ALC6>`                 |
 | [LENOVO Yoga Slim 7 Pro-X 14ARH7 82ND](lenovo/yoga/7/14ARH7/amdgpu)               | `<nixos-hardware/lenovo/yoga/7/14ARH7/amdgpu>`          |
 | [LENOVO Yoga Slim 7 Pro-X 14ARH7 82ND](lenovo/yoga/7/14ARH7/nvidia)               | `<nixos-hardware/lenovo/yoga/7/14ARH7/nvidia>`          |
