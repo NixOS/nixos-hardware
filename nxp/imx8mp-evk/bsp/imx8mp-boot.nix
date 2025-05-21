@@ -22,7 +22,7 @@ in {
     src = pkgs.fetchgit {
       url = "https://github.com/nxp-imx/imx-mkimage.git";
       rev = "c4365450fb115d87f245df2864fee1604d97c06a";
-      sha256 = "sha256-xycEaWKVM63BlDyBKNN0OefyK6iX/fQOTvv4fRVM55U=";
+      sha256 = "sha256-sCih7KWjCfGPZKX3ZHp7XsaLzRo7GsMdLr8Vk/5mYKQ=";
       leaveDotGit = true;
     };
 
