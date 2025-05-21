@@ -14,7 +14,7 @@ in
           This option requires PipeWire and WirePlumber.
 
           The filter chain includes the following:
-            - Pyschoacoustic bass enhancement
+            - Psychoacoustic bass enhancement
             - Loudness compensation
             - Equalizer
             - Slight compression
