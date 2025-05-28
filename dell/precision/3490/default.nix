@@ -1,21 +1,16 @@
 {
+  warnings = [
+    ''
+      DEPRECATED: The <nixos-hardware/dell/precision/3490> module has been deprecated.
+
+      Either use
+        <nixos-hardware/dell/precision/3490/nvidia>
+      for NVIDIA graphics or
+        <nixos-hardware/dell/precision/3490/intel>
+      for Intel graphics.
+    ''
+  ];
   imports = [
-    ../../../common/cpu/intel/meteor-lake
-    ../../../common/gpu/nvidia/ada-lovelace
-    ../../../common/pc/laptop
+    ./nvidia/default.nix
   ];
-
-  boot.initrd.availableKernelModules = [
-    "nvme"
-    "sd_mod"
-    "thunderbolt"
-    "usb_storage"
-    "vmd"
-    "xhci_pci"
-  ];
-
-  hardware.nvidia.prime = {
-    intelBusId = "PCI:0:2:0";
-    nvidiaBusId = "PCI:1:0:0";
-  };
 }
