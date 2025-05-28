@@ -1,8 +1,8 @@
 {
   imports = [
-    ../../../common/cpu/intel/meteor-lake
-    ../../../common/gpu/nvidia/ada-lovelace
-    ../../../common/pc/laptop
+    ../../../../common/cpu/intel/meteor-lake
+    ../../../../common/gpu/nvidia/ada-lovelace
+    ../../../../common/pc/laptop
   ];
 
   boot.initrd.availableKernelModules = [
