@@ -84,7 +84,7 @@
         dell-optiplex-3050 = import ./dell/optiplex/3050;
         dell-poweredge-r7515 = import ./dell/poweredge/r7515;
         dell-precision-3490 =
-          deprecated "xxxx" "dell-precision-3490"
+          deprecated "1491" "dell-precision-3490"
             (import ./dell/precision/3490);
         dell-precision-3490-nvidia = import ./dell/precision/3490/nvidia;
         dell-precision-3490-intel = import ./dell/precision/3490/intel;
