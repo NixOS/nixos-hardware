@@ -5,14 +5,6 @@
     ../../../../common/pc/laptop
   ];
 
-  boot.initrd.availableKernelModules = [
-    "nvme"
-    "sd_mod"
-    "thunderbolt"
-    "usb_storage"
-    "vmd"
-    "xhci_pci"
-  ];
 
   hardware.nvidia.prime = {
     intelBusId = "PCI:0:2:0";
