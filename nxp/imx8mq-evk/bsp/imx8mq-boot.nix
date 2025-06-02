@@ -14,18 +14,21 @@ with pkgs; let
   imx8mq-firmware = pkgs.callPackage ./imx8mq-firmware.nix {};
   imx8mq-uboot = pkgs.callPackage ./imx8mq-uboot.nix {};
   imx8mq-optee-os = pkgs.callPackage ./imx8mq-optee-os.nix {};
+  src = pkgs.fetchgit {
+    url = "https://github.com/nxp-imx/imx-mkimage.git";
+    rev = "c4365450fb115d87f245df2864fee1604d97c06a";
+    sha256 = "sha256-KVIVHwBpAwd1RKy3RrYxGIniE45CDlN5RQTXsMg1Jwk=";
+  };
+  shortRev = builtins.substring 0 8 src.rev;
 in {
   imx8m-boot = pkgs.stdenv.mkDerivation rec {
+    inherit src;
     name = "imx8mq-mkimage";
     version = "lf-6.1.55-2.2.0";
-    src = pkgs.fetchgit {
-      url = "https://github.com/nxp-imx/imx-mkimage.git";
-      rev = "c4365450fb115d87f245df2864fee1604d97c06a";
-      sha256 = "sha256-xycEaWKVM63BlDyBKNN0OefyK6iX/fQOTvv4fRVM55U=";
-      leaveDotGit = true;
-    };
 
     postPatch = ''
+      substituteInPlace Makefile \
+          --replace 'git rev-parse --short=8 HEAD' 'echo ${shortRev}'
       substituteInPlace Makefile \
           --replace 'CC = gcc' 'CC = clang'
       patchShebangs scripts
