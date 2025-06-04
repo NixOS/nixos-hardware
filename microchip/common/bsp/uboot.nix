@@ -1,9 +1,12 @@
 {
-  pkgs, targetBoard, ...
+  pkgs,
+  targetBoard,
+  ...
 }:
 
-with pkgs; let
-  payload-generator = pkgs.callPackage ./hss-payload-generator.nix {};
+with pkgs;
+let
+  payload-generator = pkgs.callPackage ./hss-payload-generator.nix { };
   payload_config = ./uboot.yaml;
 in
 buildUBoot rec {
@@ -19,7 +22,7 @@ buildUBoot rec {
   };
 
   extraMakeFlags = [
-          "OPENSBI=${opensbi}/share/opensbi/lp64/generic/firmware/fw_dynamic.bin"
+    "OPENSBI=${opensbi}/share/opensbi/lp64/generic/firmware/fw_dynamic.bin"
   ];
 
   patches = [
@@ -27,9 +30,9 @@ buildUBoot rec {
   ];
   defconfig = "${targetBoard}_defconfig";
   enableParallelBuilding = true;
-  extraMeta.platforms = ["riscv64-linux"];
+  extraMeta.platforms = [ "riscv64-linux" ];
   postBuild = ''
-        ${payload-generator}/hss-payload-generator -c ${payload_config} payload.bin
-        '';
+    ${payload-generator}/hss-payload-generator -c ${payload_config} payload.bin
+  '';
   filesToInstall = [ "payload.bin" ];
 }

@@ -1,4 +1,9 @@
-{ config, pkgs, modulesPath, ... }:
+{
+  config,
+  pkgs,
+  modulesPath,
+  ...
+}:
 {
   imports = [
     "${modulesPath}/profiles/base.nix"
@@ -7,8 +12,7 @@
   ];
 
   sdImage = {
-    imageName =
-      "${config.sdImage.imageBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}-starfive-visionfive2.img";
+    imageName = "${config.sdImage.imageBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}-starfive-visionfive2.img";
 
     # Overridden by postBuildCommands
     populateFirmwareCommands = "";

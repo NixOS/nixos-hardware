@@ -2,9 +2,11 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.hardware.raspberry-pi."4".xhci;
-in {
+in
+{
   options.hardware = {
     raspberry-pi."4".xhci = {
       enable = lib.mkEnableOption ''

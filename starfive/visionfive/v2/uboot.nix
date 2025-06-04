@@ -1,5 +1,6 @@
-{ buildUBoot
-, opensbi
+{
+  buildUBoot,
+  opensbi,
 }:
 
 buildUBoot {

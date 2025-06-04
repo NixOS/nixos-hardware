@@ -1,4 +1,9 @@
-{ stdenv, fetchFromGitHub, xxd, libusb1 }:
+{
+  stdenv,
+  fetchFromGitHub,
+  xxd,
+  libusb1,
+}:
 
 stdenv.mkDerivation {
   pname = "pinebook-pro-keyboard-updater";

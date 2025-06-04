@@ -1,4 +1,10 @@
-{ stdenv, fetchFromGitLab, shellcheck, kmod, lib }:
+{
+  stdenv,
+  fetchFromGitLab,
+  shellcheck,
+  kmod,
+  lib,
+}:
 stdenv.mkDerivation {
   pname = "librem5-base";
   version = "unstable";

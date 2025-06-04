@@ -3,7 +3,8 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   imports = [
     ../../common/cpu/intel/comet-lake
     ../../common/gpu/nvidia

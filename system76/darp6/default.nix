@@ -10,19 +10,24 @@
 # system76-io-dkms also appears to be loaded on darp6 with Pop!_OS, and
 # system76-dkms does not, and in fact refuses to load.
 
-{ config, lib, options, pkgs, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  ...
+}:
 let
   cfg = config.hardware.system76.darp6;
 
   # Allow silencing the warning about these options if either is defined.
   soundSettingsDefined =
-    options.hardware.system76.darp6.soundVendorId.isDefined ||
-    options.hardware.system76.darp6.soundSubsystemId.isDefined;
+    options.hardware.system76.darp6.soundVendorId.isDefined
+    || options.hardware.system76.darp6.soundSubsystemId.isDefined;
 
   # We neeed both options non-null to be able to apply the headset fixup though.
   soundSettingsAvailable =
-    soundSettingsDefined &&
-    (cfg.soundVendorId != null && cfg.soundSubsystemId != null);
+    soundSettingsDefined && (cfg.soundVendorId != null && cfg.soundSubsystemId != null);
 in
 {
   imports = [

@@ -1,4 +1,9 @@
-{config, lib, pkgs, ...}:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkIf mkOption types;
@@ -23,7 +28,8 @@ let
   };
 
   cfg = config.services.sleep-resume.bluetooth;
-in {
+in
+{
   options = {
     services.sleep-resume.bluetooth = {
       enable = mkOption {

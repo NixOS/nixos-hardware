@@ -85,10 +85,17 @@
         in
         {
           _module.args.pkgs = nixpkgsUnstable;
-          checks = checksForNixpkgs "nixos-unstable" nixpkgsUnstable // checksForNixpkgs "nixos-stable" nixpkgsStable;
+          checks =
+            checksForNixpkgs "nixos-unstable" nixpkgsUnstable
+            // checksForNixpkgs "nixos-stable" nixpkgsStable;
           packages.run = pkgs.writeShellScriptBin "run.py" ''
             #!${pkgs.bash}/bin/bash
-            export PATH=${lib.makeBinPath [ pkgs.nix-eval-jobs pkgs.nix-eval-jobs.nix ]}
+            export PATH=${
+              lib.makeBinPath [
+                pkgs.nix-eval-jobs
+                pkgs.nix-eval-jobs.nix
+              ]
+            }
             exec ${pkgs.python3.interpreter} ${./.}/run.py --nixos-hardware "$@"
           '';
         };

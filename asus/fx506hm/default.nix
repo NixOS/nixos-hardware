@@ -1,8 +1,7 @@
 { config, lib, ... }:
 
 {
-  imports =
-  [
+  imports = [
     ../../common/cpu/intel
     ../../common/gpu/nvidia
     ../../common/gpu/nvidia/prime.nix
@@ -11,14 +10,12 @@
     ../battery.nix
   ];
 
-  hardware.nvidia =
-  {
+  hardware.nvidia = {
     modesetting.enable = lib.mkDefault true;
     open = lib.mkIf (lib.versionAtLeast config.hardware.nvidia.package.version "555") true;
 
-    prime =
-    {
-      intelBusId  = "PCI:0:2:0";
+    prime = {
+      intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:1:0:0";
     };
   };

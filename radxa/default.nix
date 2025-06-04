@@ -1,11 +1,13 @@
-{ lib
-, pkgs
-, config
-, ...
+{
+  lib,
+  pkgs,
+  config,
+  ...
 }:
 let
   cfg = config.hardware.radxa;
-in {
+in
+{
   options.hardware.radxa = {
     enable = lib.mkEnableOption "Radxa system support";
   };

@@ -1,14 +1,23 @@
-{ config,
+{
+  config,
   pkgs,
   lib,
   ...
 }:
 
 let
-  inherit (lib) mkDefault mkEnableOption mkIf mkMerge version versionAtLeast versionOlder;
+  inherit (lib)
+    mkDefault
+    mkEnableOption
+    mkIf
+    mkMerge
+    version
+    versionAtLeast
+    ;
 
   cfg = config.hardware.asus.flow.gv302x;
-in {
+in
+{
 
   imports = [
     ../../../common/cpu/amd
@@ -26,12 +35,12 @@ in {
     # enables it for kernel 6.9.x onwards.
     #
     # Note: the device name is "ASUS N-KEY Device".
-    keyboard.autosuspend.enable = (
-      mkEnableOption "Enable auto-suspend on the internal USB keyboard (ASUS N-KEY Device) on Flow GV302X"
-    ) // {
-      default = versionAtLeast config.boot.kernelPackages.kernel.version "6.9";
-      defaultText = lib.literalExpression "lib.versionAtLeast config.boot.kernelPackages.kernel.version \"6.9\"";
-    };
+    keyboard.autosuspend.enable =
+      (mkEnableOption "Enable auto-suspend on the internal USB keyboard (ASUS N-KEY Device) on Flow GV302X")
+      // {
+        default = versionAtLeast config.boot.kernelPackages.kernel.version "6.9";
+        defaultText = lib.literalExpression "lib.versionAtLeast config.boot.kernelPackages.kernel.version \"6.9\"";
+      };
     # The ASUS 8295 ITE device will cause an immediate wake-up when trying to suspend the laptop.
     # After the first successful hibernate, it will work as expected, however.
     # NOTE: I'm not actually sure what this device, as neither the touchpad nor the M1-M4 keys cause a wake-up.
@@ -63,7 +72,7 @@ in {
             evdev:name:*:dmi:bvn*:bvr*:bd*:svnASUS*:pn*:*
             KEYBOARD_KEY_ff31007c=f20
           '';
-        }; 
+        };
       };
 
       #flow devices are 2 in 1 laptops
@@ -71,7 +80,7 @@ in {
 
     }
 
-    (mkIf (! cfg.keyboard.autosuspend.enable) {
+    (mkIf (!cfg.keyboard.autosuspend.enable) {
       services.udev.extraRules = ''
         # Disable power auto-suspend for the ASUS N-KEY device, i.e. USB Keyboard.
         # Otherwise on certain kernel-versions, it will tend to take 1-2 key-presses to wake-up after the device suspends.
@@ -79,7 +88,7 @@ in {
       '';
     })
 
-    (mkIf (! cfg.ite-device.wakeup.enable) {
+    (mkIf (!cfg.ite-device.wakeup.enable) {
       services.udev.extraRules = ''
         # Disable power wakeup for the 8295 ITE device.
         # Otherwise on certain kernel-versions, it will tend to cause the laptop to immediately wake-up when suspending.

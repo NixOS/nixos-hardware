@@ -28,7 +28,10 @@
       "i915.i915_enable_rc6=1"
     ];
     blacklistedKernelModules = [
-      "sierra_net" "cdc_mbim" "cdc_ncm" "btusb"
+      "sierra_net"
+      "cdc_mbim"
+      "cdc_ncm"
+      "btusb"
     ];
   };
 }

@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 lib.mkIf config.hardware.librem5.lockdownFix {
   # We blacklist the drivers so they don't load during early boot when the sensors are disconnected,
   boot.blacklistedKernelModules = [
@@ -17,10 +22,10 @@ lib.mkIf config.hardware.librem5.lockdownFix {
   };
 
   # udev rules from librem5-base handle going into "lockdown mode" and back.
-  assertions = [{
-    assertion = with config.hardware.librem5;
-      lockdownFix -> installUdevPackages;
-    message =
-      "'hardware.librem5.lockdownFix' requires 'hardware.librem5.installUdevPackages', but it is not enabled.";
-  }];
+  assertions = [
+    {
+      assertion = with config.hardware.librem5; lockdownFix -> installUdevPackages;
+      message = "'hardware.librem5.lockdownFix' requires 'hardware.librem5.installUdevPackages', but it is not enabled.";
+    }
+  ];
 }

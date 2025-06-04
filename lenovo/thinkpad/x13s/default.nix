@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (config.boot.kernelPackages) kernel;
@@ -8,8 +13,8 @@ let
   # Version the dtb based on the kernel
   dtbEfiPath = "dtbs/x13s-${kernel.version}.dtb";
   cfg = {
-   wifiMac = "e4:65:38:52:22:a9";
-   bluetoothMac = "E4:25:18:22:44:AA";
+    wifiMac = "e4:65:38:52:22:a9";
+    bluetoothMac = "E4:25:18:22:44:AA";
   };
   inherit (lib) mkDefault;
 in

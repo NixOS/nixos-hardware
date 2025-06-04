@@ -39,7 +39,7 @@
   };
   services = {
     fwupd.enable = lib.mkDefault true;
-     # This will save you money and possibly your life!
+    # This will save you money and possibly your life!
     thermald.enable = lib.mkDefault true;
   };
 }

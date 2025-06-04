@@ -1,4 +1,5 @@
-{ lib, config, ... }: {
+{ lib, config, ... }:
+{
   imports = [
     ../.
     ../../../common/cpu/intel/whiskey-lake

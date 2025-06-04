@@ -1,9 +1,15 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   cfg = config.hardware.librem5;
   linuxPackages_librem5 = pkgs.linuxPackagesFor (pkgs.callPackage ./kernel.nix { });
   ubootLibrem5 = pkgs.callPackage ./u-boot { };
-in {
+in
+{
   options = {
     hardware.librem5 = {
       package = lib.mkOption {
@@ -11,7 +17,11 @@ in {
         default = pkgs.callPackage ./librem5-base { };
       };
       wifiCard = lib.mkOption {
-        type = lib.types.enum [ "redpine" "sparklan" "none" ];
+        type = lib.types.enum [
+          "redpine"
+          "sparklan"
+          "none"
+        ];
         description = ''
           Which wi-fi card is installed in your phone.
 
