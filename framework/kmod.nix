@@ -1,17 +1,17 @@
 { config, lib, pkgs, ... }:
 let
   kernel_version_compatible = lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.10";
-in {
-  options.hardware.framework.enableKmod = (lib.mkEnableOption
-    "Enable the community created Framework kernel module that allows interacting with the embedded controller from sysfs."
-  ) // {
-    # enable by default on NixOS >= 24.05 and kernel >= 6.10
-    default = lib.and
-      (lib.versionAtLeast (lib.versions.majorMinor lib.version) "24.05")
-      kernel_version_compatible;
-    defaultText = "enabled by default on NixOS >= 24.05 and kernel >= 6.10";
-  };
-
+in
+{
+  options.hardware.framework.enableKmod =
+    (lib.mkEnableOption "Enable the community created Framework kernel module that allows interacting with the embedded controller from sysfs.")
+    // {
+      # enable by default on NixOS >= 24.05 and 6.10 <= kernel <= 6.12
+      default = lib.versionAtLeast (lib.versions.majorMinor lib.version) "24.05" &&
+               kernel_version_compatible &&
+               !lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.12";
+      defaultText = "enabled by default on NixOS >= 24.05 and kernel >= 6.10";
+    };
 
   config.boot = lib.mkIf config.hardware.framework.enableKmod {
     extraModulePackages = with config.boot.kernelPackages; [
