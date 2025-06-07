@@ -2,12 +2,14 @@
 
 let
   cfg = config.hardware.raspberry-pi."4".leds;
-  mkDisableOption = name: lib.mkOption {
-    default = false;
-    example = true;
-    description = "Whether to disable ${name}.";
-    type = lib.types.bool;
-  };
+  mkDisableOption =
+    name:
+    lib.mkOption {
+      default = false;
+      example = true;
+      description = "Whether to disable ${name}.";
+      type = lib.types.bool;
+    };
 in
 {
   options.hardware = {
@@ -71,23 +73,25 @@ in
           {
             name = "disable-act-led";
             filter = "*rpi-4-b*";
-            dtsText = let
-              kernelVersion = lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.2";
-              target = if kernelVersion then "<&led_act>" else "<&act_led>";
-            in ''
-              /dts-v1/;
-              /plugin/;
-              /{
-                  compatible = "raspberrypi,4-model-b";
-                  fragment@0 {
-                      target = ${target};
-                      __overlay__ {
-                          gpios = <&gpio 42 0>; /* first two values copied from bcm2711-rpi-4-b.dts */
-                          linux,default-trigger = "none";
-                      };
-                  };
-              };
-            '';
+            dtsText =
+              let
+                kernelVersion = lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.2";
+                target = if kernelVersion then "<&led_act>" else "<&act_led>";
+              in
+              ''
+                /dts-v1/;
+                /plugin/;
+                /{
+                    compatible = "raspberrypi,4-model-b";
+                    fragment@0 {
+                        target = ${target};
+                        __overlay__ {
+                            gpios = <&gpio 42 0>; /* first two values copied from bcm2711-rpi-4-b.dts */
+                            linux,default-trigger = "none";
+                        };
+                    };
+                };
+              '';
           }
         ];
       };
@@ -101,23 +105,25 @@ in
           {
             name = "disable-pwr-led";
             filter = "*rpi-4-b*";
-            dtsText = let
-              kernelVersion = lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.2";
-              target = if kernelVersion then "<&led_pwr>" else "<&pwr_led>";
-            in ''
-              /dts-v1/;
-              /plugin/;
-              /{
-                  compatible = "raspberrypi,4-model-b";
-                  fragment@0 {
-                      target = ${target};
-                      __overlay__ {
-                          gpios = <&expgpio 2 0>; /* first two values copied from bcm2711-rpi-4-b.dts */
-                          linux,default-trigger = "default-on";
-                      };
-                  };
-              };
-            '';
+            dtsText =
+              let
+                kernelVersion = lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.2";
+                target = if kernelVersion then "<&led_pwr>" else "<&pwr_led>";
+              in
+              ''
+                /dts-v1/;
+                /plugin/;
+                /{
+                    compatible = "raspberrypi,4-model-b";
+                    fragment@0 {
+                        target = ${target};
+                        __overlay__ {
+                            gpios = <&expgpio 2 0>; /* first two values copied from bcm2711-rpi-4-b.dts */
+                            linux,default-trigger = "default-on";
+                        };
+                    };
+                };
+              '';
           }
         ];
       };

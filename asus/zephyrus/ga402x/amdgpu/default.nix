@@ -1,4 +1,5 @@
-{ config,
+{
+  config,
   lib,
   ...
 }:
@@ -7,15 +8,22 @@ let
   inherit (lib) mkEnableOption mkIf mkMerge;
   cfg = config.hardware.asus.zephyrus.ga402x;
 
-in {
+in
+{
   imports = [
     ../shared.nix
   ];
 
   options.hardware.asus.zephyrus.ga402x.amdgpu = {
-    recovery.enable = (mkEnableOption "Enable amdgpu.gpu_recovery kernel boot param") // { default = false; };
-    sg_display.enable = (mkEnableOption "Enable amdgpu.gpu_recovery kernel boot param") // { default = true; };
-    psr.enable = (mkEnableOption "Enable amdgpu.dcdebugmask=0x10 kernel boot param") // { default = true; };
+    recovery.enable = (mkEnableOption "Enable amdgpu.gpu_recovery kernel boot param") // {
+      default = false;
+    };
+    sg_display.enable = (mkEnableOption "Enable amdgpu.gpu_recovery kernel boot param") // {
+      default = true;
+    };
+    psr.enable = (mkEnableOption "Enable amdgpu.dcdebugmask=0x10 kernel boot param") // {
+      default = true;
+    };
   };
 
   config = mkMerge [

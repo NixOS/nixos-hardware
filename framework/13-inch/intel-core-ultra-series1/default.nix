@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -8,7 +13,9 @@
 
   # Need at least 6.9 to make suspend properly
   # Specifically this patch: https://github.com/torvalds/linux/commit/073237281a508ac80ec025872ad7de50cfb5a28a
-  boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "6.9") (lib.mkDefault pkgs.linuxPackages_latest);
+  boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "6.9") (
+    lib.mkDefault pkgs.linuxPackages_latest
+  );
 
   # Intel NPU Driver
   # https://discourse.nixos.org/t/new-installation-on-asus-zenbook-ux5406-intel-vpu-firmware-error-2/58732/2
@@ -32,6 +39,6 @@
 
   warnings = lib.mkIf (!config.hardware.enableRedistributableFirmware) [
     ''For Intel NPU support, set the option: hardware.enableRedistributableFirmware = true;''
- ];
+  ];
 
 }

@@ -1,6 +1,6 @@
 { stdenv, fetchFromGitHub }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (_finalAttrs: {
   pname = "spi_tool";
   version = "0x01010101";
   src = fetchFromGitHub {

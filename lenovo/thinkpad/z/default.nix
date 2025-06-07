@@ -1,4 +1,5 @@
-{ lib, pkgs, ... }: {
+{ lib, pkgs, ... }:
+{
   imports = [
     ../../../lenovo/thinkpad
     ../../../common/cpu/amd
@@ -15,5 +16,7 @@
 
   # kernel versions below 6.0 don’t contain ACPI suspend2idle drivers for the Z-series’ AMD hardware
   # my Z13 froze after waking up from suspend/ hibernate
-  services.logind.lidSwitch = lib.mkIf (lib.versionOlder pkgs.linux.version "6.00") (lib.mkDefault "lock");
+  services.logind.lidSwitch = lib.mkIf (lib.versionOlder pkgs.linux.version "6.00") (
+    lib.mkDefault "lock"
+  );
 }

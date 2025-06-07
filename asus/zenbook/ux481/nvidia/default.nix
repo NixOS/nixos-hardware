@@ -1,4 +1,4 @@
-{lib, ...}:
+{ lib, ... }:
 {
   imports = [
     ../shared.nix
@@ -7,11 +7,11 @@
   ];
 
   hardware.nvidia = {
-      prime = {
-        intelBusId = "PCI:0:2:0";
-        nvidiaBusId = "PCI:2:0:0";
-      };
+    prime = {
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:2:0:0";
+    };
 
-      dynamicBoost.enable = lib.mkForce false; # Dynamic boost is not supported on Pascal architeture
+    dynamicBoost.enable = lib.mkForce false; # Dynamic boost is not supported on Pascal architeture
   };
 }

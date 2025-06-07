@@ -2,7 +2,8 @@
   config,
   lib,
   ...
-}: {
+}:
+{
   imports = [
     ../../../../common/cpu/amd
     ../../../../common/cpu/amd/pstate.nix
@@ -12,8 +13,8 @@
     ../../../../common/pc/ssd
   ];
 
-  boot.kernelModules = ["amdgpu"];
-  services.xserver.videoDrivers = ["nvidia"];
+  boot.kernelModules = [ "amdgpu" ];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware = {
     amdgpu.initrd.enable = false;

@@ -3,7 +3,8 @@
 let
   inherit (lib) mkDefault;
 
-in {
+in
+{
   imports = [
     ../../../common/cpu/intel
     ../../../common/pc/laptop

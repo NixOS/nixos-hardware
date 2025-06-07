@@ -10,29 +10,46 @@
   pkgs,
   ...
 # TODO: drop this if linux 6.11 goes EOL
-}: lib.mkIf ((config.boot.kernelPackages.kernelAtLeast "6.11") && (config.boot.kernelPackages.kernelOlder "6.12")) {
-  systemd.services = {
-    bluetooth-rfkill-suspend = {
-      description = "Soft block Bluetooth on suspend/hibernate";
-      before = ["sleep.target"];
-      unitConfig.StopWhenUnneeded = true;
-      serviceConfig = {
-        Type = "oneshot";
-        ExecStart = "${pkgs.util-linux}/bin/rfkill block bluetooth";
-        ExecStartPost = "${pkgs.coreutils}/bin/sleep 3";
-        RemainAfterExit = true;
+}:
+lib.mkIf
+  (
+    (config.boot.kernelPackages.kernelAtLeast "6.11") && (config.boot.kernelPackages.kernelOlder "6.12")
+  )
+  {
+    systemd.services = {
+      bluetooth-rfkill-suspend = {
+        description = "Soft block Bluetooth on suspend/hibernate";
+        before = [ "sleep.target" ];
+        unitConfig.StopWhenUnneeded = true;
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = "${pkgs.util-linux}/bin/rfkill block bluetooth";
+          ExecStartPost = "${pkgs.coreutils}/bin/sleep 3";
+          RemainAfterExit = true;
+        };
+        wantedBy = [
+          "suspend.target"
+          "hibernate.target"
+          "suspend-then-hibernate.target"
+        ];
       };
-      wantedBy = ["suspend.target" "hibernate.target" "suspend-then-hibernate.target"];
-    };
 
-    bluetooth-rfkill-resume = {
-      description = "Unblock Bluetooth on resume";
-      after = ["suspend.target" "hibernate.target" "suspend-then-hibernate.target"];
-      serviceConfig = {
-        Type = "oneshot";
-        ExecStart = "${pkgs.util-linux}/bin/rfkill unblock bluetooth";
+      bluetooth-rfkill-resume = {
+        description = "Unblock Bluetooth on resume";
+        after = [
+          "suspend.target"
+          "hibernate.target"
+          "suspend-then-hibernate.target"
+        ];
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = "${pkgs.util-linux}/bin/rfkill unblock bluetooth";
+        };
+        wantedBy = [
+          "suspend.target"
+          "hibernate.target"
+          "suspend-then-hibernate.target"
+        ];
       };
-      wantedBy = ["suspend.target" "hibernate.target" "suspend-then-hibernate.target"];
     };
-  };
-}
+  }

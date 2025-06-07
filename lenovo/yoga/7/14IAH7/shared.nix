@@ -1,8 +1,8 @@
 /*
- * Here are configurations for the
- * Intel Core i7-12700H CPU, along
- * with a few others.
- */
+  Here are configurations for the
+  Intel Core i7-12700H CPU, along
+  with a few others.
+*/
 {
   imports = [
     ../../../../common/cpu/intel/alder-lake
