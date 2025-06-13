@@ -1,8 +1,5 @@
 # Xiaomi Redmibook 16 Pro (2024)
 
-Note that the boot fix requires building the kernel. As such, you might run out
-of space during nixos-rebuild if you mount tmpfs on `/tmp`.
-
 ## Tested Hardware
 
 ```shellsession
