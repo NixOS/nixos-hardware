@@ -402,4 +402,5 @@ See code for all available configurations.
 | [TUXEDO InfinityBook Pro 14 - Gen9 - INTEL](tuxedo/infinitybook/pro14/gen9/intel) | `<nixos-hardware/tuxedo/infinitybook/pro14/gen9/intel>` |
 | [TUXEDO Pulse 14 - Gen3](tuxedo/pulse/14/gen3)                                    | `<nixos-hardware/tuxedo/pulse/14/gen3>`                 |
 | [TUXEDO Pulse 15 - Gen2](tuxedo/pulse/15/gen2)                                    | `<nixos-hardware/tuxedo/pulse/15/gen2>`                 |
+| [Xiaomi Redmibook 15 Pro 2021](xiaomi/redmibook/15-pro-2021)                      | `<nixos-hardware/xiaomi/redmibook/15-pro-2021>`         |
 | [Xiaomi Redmibook 16 Pro 2024](xiaomi/redmibook/16-pro-2024)                      | `<nixos-hardware/xiaomi/redmibook/16-pro-2024>`         |
