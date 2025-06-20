@@ -28,7 +28,7 @@ let
       "6.14.2"
     else
       abort "Invalid kernel version: ${kernelVersion}";
-  
+
   pkgHash = with config.hardware.microsoft-surface;
     if kernelVersion == "longterm" then
       "sha256-Pv7O8D8ma+MPLhYP3HSGQki+Yczp8b7d63qMb6l4+mY="
@@ -76,9 +76,6 @@ in {
       # Seems to be required to properly enable S0ix "Modern Standby":
       kernelParams = mkDefault [ "mem_sleep_default=deep" ];
     };
-
-    # NOTE: Check the README before enabling TLP:
-    services.tlp.enable = mkDefault false;
 
     # Needed for wifi firmware, see https://github.com/NixOS/nixos-hardware/issues/364
     hardware = {
