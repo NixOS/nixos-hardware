@@ -167,6 +167,7 @@
         lenovo-ideapad-16ahp9 = import ./lenovo/ideapad/16ahp9;
         lenovo-ideapad-z510 = import ./lenovo/ideapad/z510;
         lenovo-ideapad-slim-5 = import ./lenovo/ideapad/slim-5;
+        lenovo-ideapad-s5-16iah8 = import ./lenovo/ideapad/16iah8;
         lenovo-ideapad-s145-15api = import ./lenovo/ideapad/s145-15api;
         lenovo-legion-15ach6 = import ./lenovo/legion/15ach6;
         lenovo-legion-15ach6h = import ./lenovo/legion/15ach6h;
@@ -383,7 +384,15 @@
         common-gpu-intel = import ./common/gpu/intel;
         common-gpu-intel-disable = import ./common/gpu/intel/disable.nix;
         common-gpu-nvidia = import ./common/gpu/nvidia/prime.nix;
+        common-gpu-nvidia-ada-lovelace = import ./common/gpu/nvidia/ada-lovelace;
+        common-gpu-nvidia-ampere = import ./common/gpu/nvidia/ampere;
+        common-gpu-nvidia-fermi = import ./common/gpu/nvidia/fermi;
+        common-gpu-nvidia-kepler = import ./common/gpu/nvidia/kepler;
+        common-gpu-nvidia-maxwell = import ./common/gpu/nvidia/maxwell;
+        common-gpu-nvidia-pascal = import ./common/gpu/nvidia/pascal;
+        common-gpu-nvidia-turing = import ./common/gpu/nvidia/turing;
         common-gpu-nvidia-sync = import ./common/gpu/nvidia/prime-sync.nix;
+        common-gpu-nvidia-prime = import ./common/gpu/nvidia/prime.nix;
         common-gpu-nvidia-nonprime = import ./common/gpu/nvidia;
         common-gpu-nvidia-disable = import ./common/gpu/nvidia/disable.nix;
         common-hidpi = import ./common/hidpi.nix;
