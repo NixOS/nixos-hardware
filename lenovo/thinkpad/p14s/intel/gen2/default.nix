@@ -23,17 +23,10 @@
     intelgpu.driver = "xe";
 
     nvidia = {
+      modesetting = lib.mkDefault true;
       prime = {
         intelBusId = "PCI:0:2:0";
         nvidiaBusId = "PCI:1:0:0";
-      };
-
-      powerManagement = lib.mkIf config.hardware.nvidia.prime.sync.enable {
-        enable = lib.mkDefault true;
-      };
-
-      modesetting = lib.mkIf config.hardware.nvidia.prime.sync.enable {
-        enable = lib.mkDefault true;
       };
     };
 
