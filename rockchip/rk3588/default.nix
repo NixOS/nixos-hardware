@@ -1,11 +1,13 @@
-{ lib
-, pkgs
-, config
-, ...
+{
+  lib,
+  pkgs,
+  config,
+  ...
 }:
 let
   cfg = config.hardware.rockchip.rk3588;
-in {
+in
+{
   options.hardware.rockchip.rk3588 = {
     enable = lib.mkEnableOption "Rockchip RK3588 support";
   };

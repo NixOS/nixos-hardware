@@ -19,7 +19,7 @@
 
     specialisation = lib.mkIf config.hardware.nvidia.primeBatterySaverSpecialisation {
       battery-saver.configuration = {
-        system.nixos.tags = ["battery-saver"];
+        system.nixos.tags = [ "battery-saver" ];
         imports = [
           # Leave only the integrated GPU enabled
           ./disable.nix
@@ -28,7 +28,7 @@
           prime.offload.enable = lib.mkForce false;
           powerManagement = {
             enable = lib.mkForce false;
-          	finegrained = lib.mkForce false;
+            finegrained = lib.mkForce false;
           };
         };
       };

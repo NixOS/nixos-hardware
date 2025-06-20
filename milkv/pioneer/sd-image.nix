@@ -1,4 +1,10 @@
-{ config, lib, modulesPath, pkgs, ... }:
+{
+  config,
+  lib,
+  modulesPath,
+  pkgs,
+  ...
+}:
 
 let
   inherit (pkgs) callPackage;
@@ -10,7 +16,14 @@ let
   linuxboot-initrd = callPackage ./linuxboot-initrd.nix { };
   dtbs = config.hardware.deviceTree.package;
   firmware = callPackage ./firmware.nix {
-    inherit fip zsbl opensbi linuxboot-kernel linuxboot-initrd dtbs;
+    inherit
+      fip
+      zsbl
+      opensbi
+      linuxboot-kernel
+      linuxboot-initrd
+      dtbs
+      ;
   };
 in
 {

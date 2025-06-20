@@ -2,7 +2,8 @@
 
 let
   cfg = config.hardware.raspberry-pi."4".poe-plus-hat;
-in {
+in
+{
   options.hardware = {
     raspberry-pi."4".poe-plus-hat = {
       enable = lib.mkEnableOption ''

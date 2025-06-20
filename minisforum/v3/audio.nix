@@ -1,7 +1,7 @@
 { ... }:
 {
   # Fix microphone.
-  # Based on https://github.com/mudkipme/awesome-minisforum-v3/issues/10#issuecomment-2317474057 (Volume control workaround doesn't work on Arch) 
+  # Based on https://github.com/mudkipme/awesome-minisforum-v3/issues/10#issuecomment-2317474057 (Volume control workaround doesn't work on Arch)
   boot.extraModprobeConfig = ''
     options snd-hda-intel model=alc256-asus-aio
   '';

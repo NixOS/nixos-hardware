@@ -2,7 +2,8 @@
   lib,
   config,
   ...
-}: {
+}:
+{
   imports = [
     ../../../common/cpu/intel
     ../../../common/gpu/nvidia/prime.nix
@@ -12,8 +13,11 @@
     ../../../common/hidpi.nix
   ];
 
-  boot.initrd.kernelModules = ["nvidia"];
-  boot.extraModulePackages = [config.boot.kernelPackages.lenovo-legion-module config.boot.kernelPackages.nvidia_x11];
+  boot.initrd.kernelModules = [ "nvidia" ];
+  boot.extraModulePackages = [
+    config.boot.kernelPackages.lenovo-legion-module
+    config.boot.kernelPackages.nvidia_x11
+  ];
 
   hardware = {
     nvidia = {

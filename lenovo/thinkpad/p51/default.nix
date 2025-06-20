@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   imports = [
     ../../../common/gpu/24.05-compat.nix
     ../../../common/gpu/nvidia/prime.nix
@@ -25,16 +26,14 @@
   hardware.enableAllFirmware = lib.mkDefault true;
 
   # fix suspend/resume screen corruption in sync mode
-  hardware.nvidia.powerManagement =
-    lib.mkIf config.hardware.nvidia.prime.sync.enable {
-      enable = lib.mkDefault true;
-    };
+  hardware.nvidia.powerManagement = lib.mkIf config.hardware.nvidia.prime.sync.enable {
+    enable = lib.mkDefault true;
+  };
 
   # fix screen tearing in sync mode
-  hardware.nvidia.modesetting =
-    lib.mkIf config.hardware.nvidia.prime.sync.enable {
-      enable = lib.mkDefault true;
-    };
+  hardware.nvidia.modesetting = lib.mkIf config.hardware.nvidia.prime.sync.enable {
+    enable = lib.mkDefault true;
+  };
 
   # Make the DPI the same in sync mode as in offload mode (disabled because
   # these thinkpads come with many kinds of screens, but this is valid for the

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   boot = {
@@ -11,9 +16,11 @@
         "sdhci_sophgo"
       ];
     };
-    kernelPackages = pkgs.linuxPackagesFor (pkgs.callPackage ./linux.nix {
-      inherit (config.boot) kernelPatches;
-    });
+    kernelPackages = pkgs.linuxPackagesFor (
+      pkgs.callPackage ./linux.nix {
+        inherit (config.boot) kernelPatches;
+      }
+    );
     kernelParams = lib.mkDefault [
       "earlycon"
       "console=ttyS0,115200"

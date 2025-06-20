@@ -9,10 +9,10 @@
     kernelParams = [
       "apm=on"
       "acpi=on"
-      "vga=0x317"  # 1024x768
+      "vga=0x317" # 1024x768
       "console=tty1"
-      "video=vesafb:ywrap"  # Faster scroll
-     ];
+      "video=vesafb:ywrap" # Faster scroll
+    ];
   };
 
   hardware.firmware = with pkgs; [ intel2200BGFirmware ];

@@ -1,5 +1,13 @@
-{ callPackage, pkgsBuildHost, writeText, writeShellApplication
-, stdenv, dtc, mtdutils, coreutils }:
+{
+  callPackage,
+  pkgsBuildHost,
+  writeText,
+  writeShellApplication,
+  stdenv,
+  dtc,
+  mtdutils,
+  coreutils,
+}:
 let
   uboot = callPackage ./uboot.nix { };
   opensbi = callPackage ./opensbi.nix {
@@ -37,7 +45,8 @@ let
       };
     };
   '';
-in rec {
+in
+rec {
   inherit opensbi uboot;
   spl = stdenv.mkDerivation {
     name = "pine64-star64-spl";

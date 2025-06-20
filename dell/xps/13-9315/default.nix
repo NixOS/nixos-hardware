@@ -2,7 +2,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ../../../common/cpu/intel
     ../../../common/pc/laptop
@@ -14,7 +15,7 @@
   hardware.enableRedistributableFirmware = true;
 
   # touchpad uses I²C, so PS/2 is unnecessary
-  boot.blacklistedKernelModules = ["psmouse"];
+  boot.blacklistedKernelModules = [ "psmouse" ];
 
   # enable finger print sensor
   # configure with `sudo fprintd-enroll <username>`
@@ -29,5 +30,5 @@
   services.thermald.enable = lib.mkDefault true;
 
   # fix laptop's screen flickering, see https://wiki.archlinux.org/title/Intel_graphics#Screen_flickering
-  boot.kernelParams = ["i915.enable_psr=0"];
+  boot.kernelParams = [ "i915.enable_psr=0" ];
 }

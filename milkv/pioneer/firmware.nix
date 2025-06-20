@@ -1,12 +1,13 @@
-{ stdenv
-, writeText
-, opensbi
-, fip
-, zsbl
-, linuxboot-kernel
-, linuxboot-initrd
-, dtbs ? "${linuxboot-kernel}/dtbs"
-, ...
+{
+  stdenv,
+  writeText,
+  opensbi,
+  fip,
+  zsbl,
+  linuxboot-kernel,
+  linuxboot-initrd,
+  dtbs ? "${linuxboot-kernel}/dtbs",
+  ...
 }:
 
 let

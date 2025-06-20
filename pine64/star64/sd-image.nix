@@ -1,7 +1,14 @@
-{ config, pkgs, modulesPath, ... }:
+{
+  config,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
-let firmware = pkgs.callPackage ./firmware.nix { };
-in {
+let
+  firmware = pkgs.callPackage ./firmware.nix { };
+in
+{
   imports = [
     "${modulesPath}/profiles/base.nix"
     "${modulesPath}/installer/sd-card/sd-image.nix"
@@ -9,8 +16,7 @@ in {
   ];
 
   sdImage = {
-    imageName =
-      "${config.sdImage.imageBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}-pine64-star64.img";
+    imageName = "${config.sdImage.imageBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}-pine64-star64.img";
 
     # Overridden by postBuildCommands
     populateFirmwareCommands = "";
