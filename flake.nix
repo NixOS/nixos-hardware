@@ -59,9 +59,7 @@
         beagleboard-pocketbeagle = import ./beagleboard/pocketbeagle;
         chuwi-minibook-x = import ./chuwi/minibook-x;
         deciso-dec = import ./deciso/dec;
-        dell-e7240 =
-          deprecated "1326" "dell-e7240"
-            (import ./dell/e7240);
+        dell-e7240 = deprecated "1326" "dell-e7240" (import ./dell/e7240);
         dell-g3-3779 = import ./dell/g3/3779;
         dell-g3-3579 = import ./dell/g3/3579;
         dell-inspiron-3442 = import ./dell/inspiron/3442;
@@ -84,9 +82,7 @@
         dell-latitude-e7240 = import ./dell/latitude/e7240;
         dell-optiplex-3050 = import ./dell/optiplex/3050;
         dell-poweredge-r7515 = import ./dell/poweredge/r7515;
-        dell-precision-3490 =
-          deprecated "1491" "dell-precision-3490"
-            (import ./dell/precision/3490);
+        dell-precision-3490 = deprecated "1491" "dell-precision-3490" (import ./dell/precision/3490);
         dell-precision-3490-nvidia = import ./dell/precision/3490/nvidia;
         dell-precision-3490-intel = import ./dell/precision/3490/intel;
         dell-precision-3541 = import ./dell/precision/3541;
@@ -208,6 +204,7 @@
         lenovo-thinkpad-p14s-amd-gen3 = import ./lenovo/thinkpad/p14s/amd/gen3;
         lenovo-thinkpad-p14s-amd-gen4 = import ./lenovo/thinkpad/p14s/amd/gen4;
         lenovo-thinkpad-p14s-amd-gen5 = import ./lenovo/thinkpad/p14s/amd/gen5;
+        lenovo-thinkpad-p14s-intel-gen2 = import ./lenovo/thinkpad/p14s/intel/gen2;
         lenovo-thinkpad-p14s-intel-gen3 = import ./lenovo/thinkpad/p14s/intel/gen3;
         lenovo-thinkpad-p14s-intel-gen5 = import ./lenovo/thinkpad/p14s/intel/gen5;
         lenovo-thinkpad-p16s-amd-gen1 = import ./lenovo/thinkpad/p16s/amd/gen1;
