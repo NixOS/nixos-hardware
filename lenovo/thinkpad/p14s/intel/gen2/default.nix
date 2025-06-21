@@ -80,13 +80,23 @@
       nvidia-suspend.enable = lib.mkDefault true;
       nvidia-resume.enable = lib.mkDefault true;
       nvidia-hibernate.enable = lib.mkDefault true;
+      suspend-debug = {
+        description = "Enable suspend debugging";
+        wantedBy = [ "multi-user.target" ];
+        script = ''
+          echo 1 > /sys/power/pm_debug_messages || true
+        '';
+        serviceConfig.Type = "oneshot";
+        serviceConfig.RemainAfterExit = true;
+      };
+      tmpfiles.rules = [
+        "d /var/tmp 1777 root root 10d"
+      ];
     };
-
     # Systemd sleep configuration
     sleep.extraConfig = ''
       HibernateDelaySec=30m
       SuspendState=mem
-      SuspendMode=suspend
     '';
   };
 
