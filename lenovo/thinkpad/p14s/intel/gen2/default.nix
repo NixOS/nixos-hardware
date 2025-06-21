@@ -16,25 +16,25 @@
   # For suspending to RAM to work, set Config -> Power -> Sleep State to "Linux S3" in EFI.
 
   hardware = {
-    enableAllFirmware = lib.mkDefault true;
+    enableAllFirmware = true;
     graphics = {
-      enable = lib.mkDefault true;
-      enable32Bit = lib.mkDefault true;
+      enable = true;
+      enable32Bit = true;
     };
 
     intelgpu.driver = "xe";
     nvidia = {
-      modesetting.enable = lib.mkDefault false; # Disabled for X11
+      modesetting.enable = false; # Disabled for X11
       powerManagement = {
-        enable = lib.mkDefault false;
-        finegrained = lib.mkDefault false;
+        enable = false;
+        finegrained = false;
       };
-      open = lib.mkDefault false;
-      nvidiaSettings = lib.mkDefault true;
+      open = false;
+      nvidiaSettings = true;
       package = config.boot.kernelPackages.nvidiaPackages.production;
 
       # Force performance mode for X11
-      forceFullCompositionPipeline = lib.mkDefault true;
+      forceFullCompositionPipeline = true;
 
       prime = {
         sync.enable = true;
