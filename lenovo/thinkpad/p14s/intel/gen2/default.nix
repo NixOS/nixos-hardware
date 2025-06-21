@@ -6,8 +6,8 @@
 }:
 {
   imports = [
-    ../../../../../common/gpu/nvidia/prime-sync.nix
-    # ../../../../../common/gpu/nvidia/prime.nix
+    # ../../../../../common/gpu/nvidia/prime-sync.nix
+    ../../../../../common/gpu/nvidia/prime.nix
     ../../../../../common/gpu/nvidia/turing
     ../../../../../common/cpu/intel/tiger-lake
     ../.
@@ -24,20 +24,7 @@
 
     intelgpu.driver = "xe";
     nvidia = {
-      modesetting.enable = false; # Disabled for X11
-      powerManagement = {
-        enable = false;
-        finegrained = false;
-      };
-      open = false;
-      nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.production;
-
-      # Force performance mode for X11
-      forceFullCompositionPipeline = true;
-
       prime = {
-        sync.enable = true;
         intelBusId = "PCI:0:2:0";
         nvidiaBusId = "PCI:1:0:0";
       };
@@ -88,6 +75,7 @@
 
   services = {
     xserver.videoDrivers = [
+      "modesetting"
       "nvidia"
     ];
 
