@@ -91,7 +91,7 @@
   };
 
   services = {
-    power-profile-daemon.enable = lib.mkDefault true;
+    power-profiles-daemon.enable = lib.mkDefault true;
     xserver.videoDrivers = [ "nvidia" ];
 
     # Lid behavior configuration
