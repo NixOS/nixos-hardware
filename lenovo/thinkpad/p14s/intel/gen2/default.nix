@@ -35,6 +35,11 @@
       package = config.boot.kernelPackages.nvidiaPackages.stable;
 
       prime = {
+        offload = {
+          enable = lib.mkDefault true;
+          enableOffloadCmd = lib.mkDefault true;
+        };
+
         intelBusId = "PCI:0:2:0";
         nvidiaBusId = "PCI:1:0:0";
       };
@@ -65,14 +70,14 @@
     ];
 
     # Module configuration for hybrid graphics
-    extraModprobeConfig = ''
-      # NVIDIA video memory preservation
-      options nvidia NVreg_PreserveVideoMemoryAllocations=1
-      options nvidia NVreg_TemporaryFilePath=/var/tmp
-
-      # Blacklist conflicting framebuffer drivers
-      blacklist nvidiafb
-    '';
+    # extraModprobeConfig = ''
+    #   # NVIDIA video memory preservation
+    #   options nvidia NVreg_PreserveVideoMemoryAllocations=1
+    #   options nvidia NVreg_TemporaryFilePath=/var/tmp
+    #
+    #   # Blacklist conflicting framebuffer drivers
+    #   blacklist nvidiafb
+    # '';
   };
 
   systemd = {
@@ -102,7 +107,10 @@
 
   services = {
     power-profiles-daemon.enable = lib.mkDefault true;
-    xserver.videoDrivers = [ "nvidia" ];
+    xserver.videoDrivers = [
+      "modesetting"
+      "nvidia"
+    ];
 
     # Lid behavior configuration
     logind = {
