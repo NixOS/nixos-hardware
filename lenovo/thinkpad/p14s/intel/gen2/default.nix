@@ -89,10 +89,10 @@
         serviceConfig.Type = "oneshot";
         serviceConfig.RemainAfterExit = true;
       };
-      tmpfiles.rules = [
-        "d /var/tmp 1777 root root 10d"
-      ];
     };
+    tmpfiles.rules = [
+      "d /var/tmp 1777 root root 10d"
+    ];
     # Systemd sleep configuration
     sleep.extraConfig = ''
       HibernateDelaySec=30m
