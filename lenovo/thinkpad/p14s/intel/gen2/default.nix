@@ -7,7 +7,7 @@
 {
   imports = [
     ../../../../../common/gpu/nvidia/prime-sync.nix
-    ../../../../../common/gpu/nvidia/prime.nix
+    # ../../../../../common/gpu/nvidia/prime.nix
     ../../../../../common/gpu/nvidia/turing
     ../../../../../common/cpu/intel/tiger-lake
     ../.
