@@ -71,7 +71,7 @@ For questions and discussions, come join us in the [nixos-anywhere matrix](https
 
 # Community Meetings
 
-The [NixOS hardware](https://nixos.org/community/teams/nix/) team meets regularly to discuss hardware profiles and maintenance:
+The [NixOS hardware](https://github.com/orgs/NixOS/teams/nixos-hardware) team meets regularly to discuss hardware profiles and maintenance:
 
 - **When**: Every 3rd Friday of the month
 - **Time**: 04:00 pm (UTC) / 16:00 (UTC)
