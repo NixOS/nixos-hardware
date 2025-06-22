@@ -2,9 +2,8 @@
 
 {
   imports = [
-    ../../../common/cpu/intel
+    ../../../common/cpu/intel/haswell
     ../../../common/pc/laptop
-    ../../../common/gpu/intel/haswell
   ];
 
   hardware.enableAllFirmware = lib.mkDefault true;
