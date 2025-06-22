@@ -6,23 +6,19 @@
 }:
 {
   imports = [
-    # ../../../../../common/gpu/nvidia/prime-sync.nix
     ../../../../../common/gpu/nvidia/prime.nix
     ../../../../../common/gpu/nvidia/turing
     ../../../../../common/cpu/intel/tiger-lake
+    ../../../../../common/gpu/intel/tiger-lake
+    ../../../../../common/pc/laptop
+    ../../../../../common/pc/ssd
+    ../../../../../common/pc
     ../.
   ];
 
   # For suspending to RAM to work, set Config -> Power -> Sleep State to "Linux S3" in EFI.
 
   hardware = {
-    enableAllFirmware = true;
-    graphics = {
-      enable = true;
-      enable32Bit = true;
-    };
-
-    intelgpu.driver = "xe";
     nvidia = {
       prime = {
         intelBusId = "PCI:0:2:0";
@@ -31,61 +27,9 @@
     };
   };
 
-  # Critical kernel parameters for ThinkPad P14s Intel Gen 2
-  # boot = {
-  #   kernelParams = [
-  #     # Intel IOMMU conflict resolution
-  #     "intel_iommu=off"
-  #
-  #     # Force S3 deep sleep instead of problematic S0ix
-  #     "mem_sleep_default=deep"
-  #
-  #     # NVIDIA hybrid graphics suspend support
-  #     "nvidia-drm.modeset=1" # This is hardware.nvidia.modesetting.enable = true;
-  #     "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
-  #
-  #     # Disable asynchronous power management
-  #     "pm_async=0"
-  #
-  #     # PCIe power management fixes
-  #     "pcie_aspm=off"
-  #
-  #     # ACPI compatibility improvements
-  #     "acpi_osi=linux"
-  #   ];
-  #
-  #   # Module configuration for hybrid graphics
-  #   extraModprobeConfig = ''
-  #     # NVIDIA video memory preservation
-  #     options nvidia NVreg_PreserveVideoMemoryAllocations=1
-  #     options nvidia NVreg_TemporaryFilePath=/var/tmp
-  #
-  #     # Blacklist conflicting framebuffer drivers
-  #     blacklist nvidiafb
-  #   '';
-  # };
-
-  # systemd = {
-  #   services = {
-  #     nvidia-suspend.enable = lib.mkDefault true;
-  #     nvidia-resume.enable = lib.mkDefault true;
-  #     nvidia-hibernate.enable = lib.mkDefault true;
-  #   };
-  # };
-
   services = {
     xserver.videoDrivers = [
-      "modesetting"
-      "nvidia"
+      "modesetting" # apparently required for offload, should this be added into common? https://wiki.nixos.org/wiki/NVIDIA#Offload_mode
     ];
-
-    # Lid behavior configuration
-    logind = {
-      lidSwitch = "suspend-then-hibernate";
-      lidSwitchExternalPower = "lock";
-      powerKey = "suspend";
-    };
   };
-
-  # powerManagement.enable = lib.mkDefault true;
 }
