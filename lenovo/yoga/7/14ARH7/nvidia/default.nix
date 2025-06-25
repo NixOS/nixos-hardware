@@ -5,7 +5,8 @@
 let
   inherit (lib) mkDefault;
 
-in {
+in
+{
   imports = [
     ../shared.nix
     ## "prime.nix" loads this, aleady:

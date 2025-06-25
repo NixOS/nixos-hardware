@@ -1,8 +1,10 @@
-{ pkgs ,
+{
+  pkgs,
   targetBoard,
 }:
 
-with pkgs; let
+with pkgs;
+let
   inherit buildUBoot;
 
   imx8qxp-attrs = {
@@ -21,14 +23,25 @@ with pkgs; let
     patches = [ ../patches/0001-Add-UEFI-boot-for-imx8qm.patch ];
   };
 
-  imx8-attrs = if (targetBoard == "imx8qxp") then imx8qxp-attrs
-          else if (targetBoard == "imx8qm")  then imx8qm-attrs
-          else {};
+  imx8-attrs =
+    if (targetBoard == "imx8qxp") then
+      imx8qxp-attrs
+    else if (targetBoard == "imx8qm") then
+      imx8qm-attrs
+    else
+      { };
 
-  inherit (callPackage ./imx-atf.nix { inherit buildArmTrustedFirmware; targetBoard = imx8-attrs.atf; }) armTrustedFirmwareiMX8;
+  inherit
+    (callPackage ./imx-atf.nix {
+      inherit buildArmTrustedFirmware;
+      targetBoard = imx8-attrs.atf;
+    })
+    armTrustedFirmwareiMX8
+    ;
   imx-firmware = callPackage ./imx-firmware.nix { inherit pkgs targetBoard; };
   imx-mkimage = buildPackages.callPackage ./imx-mkimage.nix { inherit pkgs; };
-in {
+in
+{
   ubootImx8 = buildUBoot {
     version = "2022.04";
     src = fetchgit {
@@ -41,7 +54,7 @@ in {
     patches = imx8-attrs.patches;
     enableParallelBuilding = true;
     defconfig = "${targetBoard}_mek_defconfig";
-    extraMeta.platforms = ["aarch64-linux"];
+    extraMeta.platforms = [ "aarch64-linux" ];
     preBuildPhases = [ "copyBinaries" ];
 
     copyBinaries = ''
@@ -54,10 +67,9 @@ in {
       cat u-boot.bin head.hash > u-boot-hash.bin
       dd if=u-boot-hash.bin of=u-boot-atf.bin bs=1K seek=128
       ${imx-mkimage} -soc ${imx8-attrs.soc} -rev B0 -append ahab-container.img -c -scfw ${imx8-attrs.scfw} -ap u-boot-atf.bin a35 0x80000000 -out flash.bin
-      '';
+    '';
     filesToInstall = [ "flash.bin" ];
   };
 
   inherit imx-firmware;
 }
-

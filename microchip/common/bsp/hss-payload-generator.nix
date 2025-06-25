@@ -1,4 +1,4 @@
-{ pkgs, ...}:
+{ pkgs, ... }:
 with pkgs;
 stdenv.mkDerivation rec {
   pname = "hss";

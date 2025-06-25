@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   lenovo-speaker-fix = pkgs.callPackage ./audio/lenovo-16ARHA7_speaker-fix.nix {
@@ -15,7 +20,9 @@ in
   ];
 
   # Kernel 6.10 includes the speaker fix, so only install this on systems with older kernels.
-  boot.extraModulePackages = lib.mkIf (lib.versionOlder config.boot.kernelPackages.kernel.version "6.10") [ lenovo-speaker-fix ];
+  boot.extraModulePackages =
+    lib.mkIf (lib.versionOlder config.boot.kernelPackages.kernel.version "6.10")
+      [ lenovo-speaker-fix ];
 
   # √(2560² + 1600²) px / 16 in ≃ 189 dpi
   services.xserver.dpi = 189;

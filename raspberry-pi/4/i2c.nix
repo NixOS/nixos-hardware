@@ -2,24 +2,31 @@
 
 let
   cfg = config.hardware.raspberry-pi."4";
-  optionalProperty = name: value: lib.optionalString (value != null) "${name} = <${builtins.toString value}>;";
-  simple-overlay = { target, status, frequency }: {
-    name = "${target}-${status}-overlay";
-    dtsText = ''
-      /dts-v1/;
-      /plugin/;
-      / {
-        compatible = "brcm,bcm2711";
-        fragment@0 {
-          target = <&${target}>;
-          __overlay__ {
-            status = "${status}";
-            ${optionalProperty "clock-frequency" frequency}
+  optionalProperty =
+    name: value: lib.optionalString (value != null) "${name} = <${builtins.toString value}>;";
+  simple-overlay =
+    {
+      target,
+      status,
+      frequency,
+    }:
+    {
+      name = "${target}-${status}-overlay";
+      dtsText = ''
+        /dts-v1/;
+        /plugin/;
+        / {
+          compatible = "brcm,bcm2711";
+          fragment@0 {
+            target = <&${target}>;
+            __overlay__ {
+              status = "${status}";
+              ${optionalProperty "clock-frequency" frequency}
+            };
           };
         };
-      };
-    '';
-  };
+      '';
+    };
 in
 {
   options.hardware.raspberry-pi."4" = {
@@ -54,21 +61,25 @@ in
     (lib.mkIf cfg.i2c0.enable {
       i2c.enable = lib.mkDefault true;
       deviceTree = {
-        overlays = [ (simple-overlay {
-          target = "i2c0if";
-          status = "okay";
-          inherit (cfg.i2c0) frequency;
-        }) ];
+        overlays = [
+          (simple-overlay {
+            target = "i2c0if";
+            status = "okay";
+            inherit (cfg.i2c0) frequency;
+          })
+        ];
       };
     })
     (lib.mkIf cfg.i2c1.enable {
       i2c.enable = lib.mkDefault true;
       deviceTree = {
-        overlays = [ (simple-overlay {
-          target = "i2c1";
-          status = "okay";
-          inherit (cfg.i2c1) frequency;
-        }) ];
+        overlays = [
+          (simple-overlay {
+            target = "i2c1";
+            status = "okay";
+            inherit (cfg.i2c1) frequency;
+          })
+        ];
       };
     })
   ];

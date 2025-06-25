@@ -6,7 +6,8 @@ let
       applyOverlays = _final.callPackage ./apply-overlays-dtmerge.nix { };
     };
   };
-in {
+in
+{
   options.hardware = {
     raspberry-pi."4".apply-overlays-dtmerge = {
       enable = lib.mkEnableOption ''

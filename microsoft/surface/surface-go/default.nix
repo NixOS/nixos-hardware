@@ -6,7 +6,8 @@
 
 let
   inherit (lib) mkDefault;
-in {
+in
+{
   imports = [
     ../common
     ./firmware/ath10k

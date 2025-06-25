@@ -11,7 +11,10 @@ with lib;
   ];
 
   # TSC is unstable
-  boot.kernelParams = [ "notsc" "trace_clock=local" ];
+  boot.kernelParams = [
+    "notsc"
+    "trace_clock=local"
+  ];
 
   hardware.enableRedistributableFirmware = mkDefault true;
 }

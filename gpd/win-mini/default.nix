@@ -5,9 +5,6 @@
   ...
 }:
 with lib;
-let
-  cfg = config.hardware.gpd.ppt;
-in
 {
   imports = [
     ../../common/pc/laptop

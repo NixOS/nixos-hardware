@@ -1,5 +1,6 @@
 { lib, pkgs, ... }:
-let inherit (lib) mkIf mkDefault;
+let
+  inherit (lib) mkIf mkDefault;
 in
 {
   imports = [
@@ -17,7 +18,8 @@ in
 
     kernelParams = [
       # The GPD Pocket 4 uses a tablet LTPS display, that is mounted rotated 90° counter-clockwise
-      "fbcon=rotate:1" "video=eDP-1:panel_orientation=right_side_up"
+      "fbcon=rotate:1"
+      "video=eDP-1:panel_orientation=right_side_up"
     ];
   };
 

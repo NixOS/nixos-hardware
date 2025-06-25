@@ -19,7 +19,11 @@
   services.udev.packages = [
     # Fan control
     (pkgs.callPackage (
-      { stdenv, lib, coreutils }:
+      {
+        stdenv,
+        lib,
+        coreutils,
+      }:
       stdenv.mkDerivation {
         name = "helios4-udev-fancontrol";
 
@@ -39,6 +43,6 @@
           platforms = platforms.linux;
         };
       }
-    ) {})
+    ) { })
   ];
 }

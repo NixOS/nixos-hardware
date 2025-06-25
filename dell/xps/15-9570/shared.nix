@@ -1,7 +1,7 @@
 { lib, ... }:
 {
 
-  imports = [ 
+  imports = [
     ../../../common/cpu/intel/coffee-lake
     ../../../common/pc/laptop
   ];

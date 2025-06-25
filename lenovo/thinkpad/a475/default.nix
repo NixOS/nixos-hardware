@@ -10,6 +10,8 @@
     ../.
   ];
 
-  boot.kernelParams = [ "i8042.nomux=1" "i8042.reset" ]; # Fix trackpoint and touchpad working only after reboot
+  boot.kernelParams = [
+    "i8042.nomux=1"
+    "i8042.reset"
+  ]; # Fix trackpoint and touchpad working only after reboot
 }
-
