@@ -22,32 +22,39 @@
     ./xhci.nix
   ];
 
-  boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxKernel.packages.linux_rpi4;
-    initrd.availableKernelModules = [
-      "usbhid"
-      "usb_storage"
-      "vc4"
-      "pcie_brcmstb" # required for the pcie bus to work
-      "reset-raspberrypi" # required for vl805 firmware to load
-    ];
-
-    loader = {
-      grub.enable = lib.mkDefault false;
-      generic-extlinux-compatible.enable = lib.mkDefault true;
+  options = {
+    hardware.raspberry-pi."4" = {
+      enable = lib.mkEnableOption "basic config for a RaspberryPi 4";
     };
   };
 
-  hardware.deviceTree.filter = lib.mkDefault "bcm2711-rpi-*.dtb";
+  config = lib.mkIf config.hardware.raspberry-pi."4".enable {
+    boot = {
+      kernelPackages = lib.mkDefault pkgs.linuxKernel.packages.linux_rpi4;
+      initrd.availableKernelModules = [
+        "usbhid"
+        "usb_storage"
+        "vc4"
+        "pcie_brcmstb" # required for the pcie bus to work
+        "reset-raspberrypi" # required for vl805 firmware to load
+      ];
 
+      loader = {
+        grub.enable = lib.mkDefault false;
+        generic-extlinux-compatible.enable = lib.mkDefault true;
+      };
+    };
 
-  assertions = [
-    {
-      assertion = (lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.1");
-      message = "This version of raspberry pi 4 dts overlays requires a newer kernel version (>=6.1). Please upgrade nixpkgs for this system.";
-    }
-  ];
+    hardware.deviceTree.filter = lib.mkDefault "bcm2711-rpi-*.dtb";
 
-  # Required for the Wireless firmware
-  hardware.enableRedistributableFirmware = true;
+    assertions = [{
+      assertion =
+        (lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.1");
+      message =
+        "This version of raspberry pi 4 dts overlays requires a newer kernel version (>=6.1). Please upgrade nixpkgs for this system.";
+    }];
+
+    # Required for the Wireless firmware
+    hardware.enableRedistributableFirmware = true;
+  };
 }
