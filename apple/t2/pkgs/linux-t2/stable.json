@@ -1,5 +1,5 @@
 {
-  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/0543a832ecf1400798e8aef6727110ec21c3484a/",
+  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/e08a76e1f1234885b9b68be6c843bf91833e8b0a/",
   "patches": [
     {
       "name": "1001-Add-apple-bce-driver.patch",
@@ -10,6 +10,14 @@
       "hash": "sha256-DXj4CmE7TKMGrAhQDOR5RVw9YHmyQMiXZsmxYfkKAEA="
     },
     {
+      "name": "1003-Fix-sparse-errors.patch",
+      "hash": "sha256-nuCOPWa4Hp+HCCBe6Y++M4g1k4plOWzy2hqHXlJbp9g="
+    },
+    {
+      "name": "1004-Fix-freezing-on-turning-off-camera.patch",
+      "hash": "sha256-rFrSUhiNXgQbfgKjryJktYxYcchXE1PI49Q1gW001+0="
+    },
+    {
       "name": "1005-HID-hid-appletb-bl-add-driver-for-the-backlight-of-A.patch",
       "hash": "sha256-kEscS1FAyDxLZPOPInYTXFEf4fouBEa4zGctX14hSu8="
     },
@@ -18,24 +26,28 @@
       "hash": "sha256-eVEuvnoRItaDjwWu41nn9bTkgHgY+1SL/hFAvUR2IlY="
     },
     {
-      "name": "1007-HID-multitouch-support-getting-the-contact-ID-from.patch",
-      "hash": "sha256-A4tExJafroVAv/Hbdt7farJM6RYl/DU5KwSbzqcdEVY="
+      "name": "1007-HID-multitouch-Get-the-contact-ID-from-HID_DG_TRANSD.patch",
+      "hash": "sha256-JF5PjByo4S1Rd/B5luAzOXDv+iakCnJfmujIQuUiT1A="
     },
     {
       "name": "1008-HID-multitouch-support-getting-the-tip-state-from-HI.patch",
-      "hash": "sha256-GwK+d87p3UMy66037dzq6/Zearj8gnRHhqSdZczRadY="
+      "hash": "sha256-m/NAKoHRC/HwxG5fFZxFl6DtY4Xv8kPBWvdKdtadrrk="
     },
     {
       "name": "1009-HID-multitouch-take-cls-maxcontacts-into-account-for.patch",
-      "hash": "sha256-fywzHnCQ657UFye1ckiufral3pBwBGtKdxWqWqaFHM0="
+      "hash": "sha256-h6jk9yw/4txd8PATpMxB9mIzik9+X1zP6p4K35AqdXw="
     },
     {
-      "name": "1010-HID-multitouch-allow-specifying-if-a-device-is-direc.patch",
-      "hash": "sha256-87SOnLgeG60Svu2Z9QUyP9P6cZ1Gznt6ZYLFImfx+vY="
+      "name": "1010-HID-multitouch-specify-that-Apple-Touch-Bar-is-direc.patch",
+      "hash": "sha256-5PbLynVnQqlJKPTWhcmwXCkYDEopLBQWnxWvZUt0EN4="
     },
     {
-      "name": "1011-HID-multitouch-add-device-ID-for-Apple-Touch-Bars.patch",
-      "hash": "sha256-TJjXAlQ4WEROnq/xd6/4JHTuEJjqT7dLLcE4etKdzc0="
+      "name": "1011-HID-multitouch-add-device-ID-for-Apple-Touch-Bar.patch",
+      "hash": "sha256-dIzEOj89D2rIEc2/mjq3TkIfI3ZHzu0VRDQQOzp+Snc="
+    },
+    {
+      "name": "1013-lib-vsprintf-Add-support-for-generic-FourCCs-by-exte.patch",
+      "hash": "sha256-h3gxaKtvdm/GSd+AP1sPC9avWHOsceUxTmoua/3rIf4="
     },
     {
       "name": "1014-drm-format-helper-Add-conversion-from-XRGB8888-to-BG.patch",
@@ -43,7 +55,7 @@
     },
     {
       "name": "1015-drm-tiny-add-driver-for-Apple-Touch-Bars-in-x86-Macs.patch",
-      "hash": "sha256-zFeDJeoM/XS+Ds3DBLEcv4JbUhlEk9z4rHQ4t6XaghA="
+      "hash": "sha256-tDjK/VipVQbuNOURW38gssqeRLy3s8I+DVq0+4zGnHs="
     },
     {
       "name": "2008-i915-4-lane-quirk-for-mbp15-1.patch",
@@ -119,7 +131,7 @@
     },
     {
       "name": "8001-Add-APFS-driver.patch",
-      "hash": "sha256-1VHKrO2haBqXDCef2xt2fHfCCPv2q/AhFmmM4Xxu24E="
+      "hash": "sha256-O3RNtpeZQENPEfyYi/0ZTLhAWBAw6pmxMS30NUxOTdk="
     },
     {
       "name": "8002-Necessary-modifications-to-build-APFS-with-the-kerne.patch",
