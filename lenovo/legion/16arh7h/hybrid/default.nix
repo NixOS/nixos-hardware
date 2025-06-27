@@ -13,7 +13,7 @@
   ];
 
   boot.kernelModules = ["amdgpu"];
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = ["amdgpu" "nvidia"];
 
   hardware = {
     amdgpu.initrd.enable = false;
