@@ -19,7 +19,7 @@ let
     if kernelVersion == "longterm" then
       "6.12.19"
     else if kernelVersion == "stable" then
-      "6.14.2"
+      "6.15.3"
     else
       abort "Invalid kernel version: ${kernelVersion}";
 
@@ -28,7 +28,7 @@ let
     if kernelVersion == "longterm" then
       "sha256-1zvwV77ARDSxadG2FkGTb30Ml865I6KB8y413U3MZTE="
     else if kernelVersion == "stable" then
-      "sha256-xcaCo1TqMZATk1elfTSnnlw3IhrOgjqTjhARa1d6Lhs="
+      "sha256-ErUMiZJUONnNc4WgyvycQz5lYqxd8AohiJ/On1SNZbA="
     else
       abort "Invalid kernel version: ${kernelVersion}";
 
@@ -38,7 +38,7 @@ let
     if kernelVersion == "longterm" then
       "6.12.7"
     else if kernelVersion == "stable" then
-      "6.14.2"
+      "6.15.3"
     else
       abort "Invalid kernel version: ${kernelVersion}";
 
@@ -47,7 +47,7 @@ let
     if kernelVersion == "longterm" then
       "sha256-Pv7O8D8ma+MPLhYP3HSGQki+Yczp8b7d63qMb6l4+mY="
     else if kernelVersion == "stable" then
-      "sha256-Pzn+C52TtDcqDVepM5z2cVNCsnRDy0Wwn+FLwgsuicQ="
+      "sha256-ozvYrZDiVtMkdCcVnNEdlF2Kdw4jivW0aMJrDynN3Hk="
     else
       abort "Invalid kernel version: ${kernelVersion}";
 
@@ -82,6 +82,7 @@ let
   kernelPatches = surfacePatches {
     version = pkgVersion;
     patchFn = ./kernel/${versions.majorMinor pkgVersion}/patches.nix;
+    patchSrc = (repos.linux-surface + "/patches/${versions.majorMinor pkgVersion}");
   };
   kernelPackages = linuxPackage {
     inherit kernelPatches;

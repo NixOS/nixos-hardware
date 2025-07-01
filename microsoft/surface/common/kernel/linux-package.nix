@@ -44,7 +44,7 @@ let
 
   surfacePatches =
     {
-      patchSrc ? (repos.linux-surface + "/patches/${versions.majorMinor version}"),
+      patchSrc,
       version,
       patchFn,
     }:
