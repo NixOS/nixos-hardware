@@ -8,11 +8,16 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-parts.inputs.nixpkgs-lib.follows = "nixos-unstable-small";
+    treefmt-nix.url = "github:numtide/treefmt-nix";
+    treefmt-nix.inputs.nixpkgs.follows = "nixos-unstable-small";
   };
 
   outputs =
     inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        inputs.treefmt-nix.flakeModule
+      ];
       systems = [
         "aarch64-linux"
         "x86_64-linux"
@@ -85,6 +90,24 @@
         in
         {
           _module.args.pkgs = nixpkgsUnstable;
+
+          treefmt = {
+            projectRootFile = "COPYING";
+            programs = {
+              deadnix = {
+                enable = true;
+                no-lambda-pattern-names = true;
+              };
+              nixfmt = {
+                enable = true;
+                package = pkgs.nixfmt-rfc-style;
+              };
+            };
+            settings = {
+              on-unmatched = "info";
+            };
+          };
+
           checks =
             checksForNixpkgs "nixos-unstable" nixpkgsUnstable
             // checksForNixpkgs "nixos-stable" nixpkgsStable;
