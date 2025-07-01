@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+  merge_group:
 jobs:
   nixfmt:
     runs-on: ubuntu-latest
