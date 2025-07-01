@@ -2,5 +2,5 @@
 
 {
   imports = [ ../24.05-compat.nix ];
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = lib.mkDefault [ "nvidia" ];
 }
