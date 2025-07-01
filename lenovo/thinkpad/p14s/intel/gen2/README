@@ -1,0 +1,7 @@
+# Lenovo ThinkPad P14s Intel Gen 2
+
+Much of the extraneous settings are filled out using the [wiki](https://wiki.nixos.org/wiki/NVIDIA#Hybrid_graphics_with_PRIME), which gives guidance on how to determine the correct PCI bus IDs to assign, aswell as the note to include the `modesetting` driver in `services.xserver.videoDrivers`.
+
+## BIOS Settings to adjust
+
+For suspending to RAM to work, set Config -> Power -> Sleep State to "Linux S3" in EFI.
