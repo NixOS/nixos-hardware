@@ -92,6 +92,7 @@
           _module.args.pkgs = nixpkgsUnstable;
 
           treefmt = {
+            flakeCheck = pkgs.hostPlatform.system != "riscv64-linux";
             projectRootFile = "COPYING";
             programs = {
               deadnix = {
