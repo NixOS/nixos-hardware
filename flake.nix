@@ -1,34 +1,9 @@
 {
   description = "nixos-hardware";
 
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05-small";
-    treefmt-nix.url = "github:numtide/treefmt-nix";
-  };
-
   outputs =
+    { ... }:
     {
-      nixpkgs,
-      self,
-      treefmt-nix,
-    }:
-    let
-      systems = [
-        "aarch64-darwin"
-        "aarch64-linux"
-        "x86_64-darwin"
-        "x86_64-linux"
-      ];
-      forEachSystem =
-        function: nixpkgs.lib.genAttrs (systems) (system: function nixpkgs.legacyPackages.${system});
-
-      treefmtEval = forEachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
-    in
-    {
-      checks = forEachSystem (pkgs: {
-        formatting = treefmtEval.${pkgs.system}.config.build.check self;
-      });
-      formatter = forEachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
 
       nixosModules =
         let
