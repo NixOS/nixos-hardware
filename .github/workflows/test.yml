@@ -6,7 +6,6 @@ on:
       - master
 jobs:
   tests:
-    needs: nixfmt
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
