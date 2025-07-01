@@ -3,7 +3,8 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   imports = [
     ../../../../common/cpu/amd
     ../../../../common/cpu/amd/pstate.nix
@@ -17,8 +18,9 @@
   # Kernel 6.6.35 apparently does not have this issue,
   # the exact version is still unknown which fixed this.
   boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "6.6.35") (
-    if (config.boot.zfs.enabled)
-    then pkgs.zfs.latestCompatibleLinuxPackages
-    else pkgs.linuxPackages_latest
+    if (config.boot.zfs.enabled) then
+      pkgs.zfs.latestCompatibleLinuxPackages
+    else
+      pkgs.linuxPackages_latest
   );
 }

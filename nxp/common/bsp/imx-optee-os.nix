@@ -5,9 +5,9 @@
 let
 
   pkgsCross = import <nixpkgs> {
-     crossSystem = {
-       config = "aarch64-unknown-linux-gnu";
-     };
+    crossSystem = {
+      config = "aarch64-unknown-linux-gnu";
+    };
   };
 
   outdir = "out/arm-plat-imx/core";
@@ -18,7 +18,7 @@ let
 
 in
 pkgs.stdenv.mkDerivation rec {
-  
+
   pname = "imx-optee-os";
   version = "5.15.32_2.0.0";
 

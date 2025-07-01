@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkIf mkOption types;
@@ -22,7 +27,8 @@ let
   };
 
   cfg = config.services.sleep-resume.i2c-designware;
-in {
+in
+{
   options = {
     services.sleep-resume.i2c-designware = {
       enable = mkOption {
@@ -37,6 +43,3 @@ in {
     powerManagement.resumeCommands = "${reloadDesignware}/bin/reload-i2c-designware.sh";
   };
 }
-
-
-

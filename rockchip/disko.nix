@@ -1,11 +1,13 @@
-{ lib
-, pkgs
-, config
-, ...
+{
+  lib,
+  pkgs,
+  config,
+  ...
 }:
 let
   cfg = config.hardware.rockchip;
-in {
+in
+{
   imports = [
     rk3399/disko.nix
   ];

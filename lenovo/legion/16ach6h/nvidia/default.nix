@@ -10,10 +10,12 @@
   # remove all packages for amd igpu. I only removed amdgpu from
   # services.xserver.videoDrivers by overriding. This is because the specialization
   # of nix cannot implement such an operation as canceling an import.
-  hardware = {
-    nvidia.prime.offload.enable = false;
-  } // lib.optionalAttrs (options ? amdgpu.opencl.enable) {
-    # introduced in https://github.com/NixOS/nixpkgs/pull/319865
-    amdgpu.opencl.enable = lib.mkDefault false;
-  };
+  hardware =
+    {
+      nvidia.prime.offload.enable = false;
+    }
+    // lib.optionalAttrs (options ? amdgpu.opencl.enable) {
+      # introduced in https://github.com/NixOS/nixpkgs/pull/319865
+      amdgpu.opencl.enable = lib.mkDefault false;
+    };
 }

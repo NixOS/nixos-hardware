@@ -1,8 +1,17 @@
-{ lib, fetchgit, enable-tee, stdenv, buildPackages, pkgsCross, openssl, }:
+{
+  lib,
+  fetchgit,
+  enable-tee,
+  stdenv,
+  buildPackages,
+  pkgsCross,
+  openssl,
+}:
 let
   opteedflag = if enable-tee then "SPD=opteed" else "";
   target-board = "imx8mp";
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "imx8mp-atf";
   version = "lf6.1.55_2.2.0";
   platform = target-board;
@@ -48,8 +57,7 @@ in stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/nxp-imx/imx-atf";
-    description =
-      "Reference implementation of secure world software for ARMv8-A";
+    description = "Reference implementation of secure world software for ARMv8-A";
     license = [ licenses.bsd3 ];
     maintainers = with maintainers; [ gngram ];
     platforms = [ "aarch64-linux" ];

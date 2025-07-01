@@ -5,5 +5,5 @@
     ../../common/pc
   ];
 
-  boot.kernelModules = ["nct6683"];
+  boot.kernelModules = [ "nct6683" ];
 }

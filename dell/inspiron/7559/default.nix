@@ -17,7 +17,7 @@
 
     enableRedistributableFirmware = lib.mkDefault true;
   };
-  
+
   services = {
     thermald.enable = lib.mkDefault true;
   };

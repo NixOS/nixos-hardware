@@ -1,11 +1,12 @@
-{ buildPackages
-, bison
-, fetchFromGitHub
-, flex
-, lib
-, stdenv
+{
+  buildPackages,
+  bison,
+  fetchFromGitHub,
+  flex,
+  lib,
+  stdenv,
 
-, ...
+  ...
 }:
 stdenv.mkDerivation rec {
   pname = "zsbl-sg2042";

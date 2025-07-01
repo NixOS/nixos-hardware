@@ -1,4 +1,9 @@
-{ lib, pkgs, modulesPath, ... }:
+{
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 {
   imports = [
@@ -19,7 +24,7 @@
     powerDownCommands = lib.mkBefore ''
       ${pkgs.kmod}/bin/rmmod -f -v brcmfmac_wcc 2>/dev/null || true
       ${pkgs.kmod}/bin/rmmod brcmfmac
-      '';
+    '';
   };
 
   # USB subsystem wakes up MBP right after suspend unless we disable it.

@@ -1,4 +1,10 @@
-{ fetchFromGitHub, lib, linuxManualConfig, stdenv, ... }:
+{
+  fetchFromGitHub,
+  lib,
+  linuxManualConfig,
+  stdenv,
+  ...
+}:
 
 linuxManualConfig rec {
   inherit lib stdenv;

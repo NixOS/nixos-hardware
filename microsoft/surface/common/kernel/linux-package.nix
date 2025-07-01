@@ -1,4 +1,5 @@
-{ pkgs,
+{
+  pkgs,
   lib,
   fetchurl,
   buildLinux,
@@ -11,44 +12,73 @@ let
   inherit (lib) recurseIntoAttrs types versions;
 
   linuxPackage =
-    { url ? "mirror://kernel/linux/kernel/v${versions.major version}.x/linux-${version}.tar.xz",
+    {
+      url ? "mirror://kernel/linux/kernel/v${versions.major version}.x/linux-${version}.tar.xz",
       sha256 ? null,
       src ? (fetchurl { inherit url sha256; }),
       version,
       modDirVersion ? (versions.pad 3 version),
-      kernelPatches ? [],
+      kernelPatches ? [ ],
       ...
-    } @ args: let
+    }@args:
+    let
       inherit (builtins) removeAttrs;
 
-      args' = {
-        inherit src version modDirVersion kernelPatches;
-      } // removeAttrs args [ "url" "sha256" ];
+      args' =
+        {
+          inherit
+            src
+            version
+            modDirVersion
+            kernelPatches
+            ;
+        }
+        // removeAttrs args [
+          "url"
+          "sha256"
+        ];
       linuxPackage = buildLinux args';
       linuxPackages' = recurseIntoAttrs (linuxPackagesFor linuxPackage);
-    in linuxPackages';
+    in
+    linuxPackages';
 
   surfacePatches =
-    { patchSrc,
+    {
+      patchSrc,
       version,
       patchFn,
-    }: pkgs.callPackage patchFn {
+    }:
+    pkgs.callPackage patchFn {
       inherit (lib) kernel;
       inherit version patchSrc;
     };
 
-  versionsOf = version:
+  versionsOf =
+    version:
     # Provides a list of versions that can be used as an enum option for this full version:
-    [ version (versions.majorMinor version) ];
+    [
+      version
+      (versions.majorMinor version)
+    ];
 
-  versionsOfEnum = version:
+  versionsOfEnum =
+    version:
     # Provide an enum option for versions of this kernel:
     types.enum (versionsOf version);
 
-  isVersionOf = kernelVersion: version:
+  isVersionOf =
+    kernelVersion: version:
     # Test if the provided version is considered one of the list of versions from above:
     elem kernelVersion (versionsOf version);
 
-in {
-  inherit linuxPackage repos surfacePatches versionsOf isVersionOf versionsOfEnum;
+in
+{
+  inherit
+    linuxPackage
+    repos
+    surfacePatches
+    versionsOf
+    isVersionOf
+    versionsOfEnum
+    ;
 }

@@ -1,10 +1,16 @@
 # To build, use:
 # nix-build "<nixpkgs/nixos>" -I nixos-config=starfive/visionfive/v1/sd-image.nix -A config.system.build.sdImage
-{ config, pkgs, modulesPath, ... }:
+{
+  config,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 let
   firmware = pkgs.callPackage ./firmware.nix { };
-in {
+in
+{
   imports = [
     "${modulesPath}/profiles/base.nix"
     "${modulesPath}/installer/sd-card/sd-image.nix"

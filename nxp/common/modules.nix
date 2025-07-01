@@ -1,4 +1,5 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }:
+{
   nixpkgs.hostPlatform = "aarch64-linux";
 
   boot = {
