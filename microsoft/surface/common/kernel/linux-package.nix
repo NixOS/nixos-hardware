@@ -29,7 +29,7 @@ let
     in linuxPackages';
 
   surfacePatches =
-    { patchSrc ? (repos.linux-surface + "/patches/${versions.majorMinor version}"),
+    { patchSrc,
       version,
       patchFn,
     }: pkgs.callPackage patchFn {
