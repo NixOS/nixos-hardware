@@ -1,4 +1,5 @@
-{ lib, pkgs, ... }: {
+{ lib, pkgs, ... }:
+{
   imports = [
     ../../../../common/gpu/nvidia/prime.nix
     ../../../../common/gpu/nvidia/ampere
@@ -11,7 +12,10 @@
     graphics = {
       enable = lib.mkDefault true;
       enable32Bit = lib.mkDefault true;
-      extraPackages = with pkgs; [ intel-media-driver intel-compute-runtime ];
+      extraPackages = with pkgs; [
+        intel-media-driver
+        intel-compute-runtime
+      ];
     };
     nvidia = {
       prime = {

@@ -25,7 +25,11 @@ in
         https://www.kernel.org/doc/Documentation/usb/gadget-testing.txt
       '';
       dr_mode = lib.mkOption {
-        type = lib.types.enum [ "host" "peripheral" "otg" ];
+        type = lib.types.enum [
+          "host"
+          "peripheral"
+          "otg"
+        ];
         default = "otg";
         description = ''
           Dual role mode setting for the dwc2 USB controller driver.

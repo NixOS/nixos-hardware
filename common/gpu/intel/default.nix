@@ -45,11 +45,15 @@
       intel-vaapi-driver = (pkgs.intel-vaapi-driver or pkgs.vaapiIntel).override {
         enableHybridCodec = cfg.enableHybridCodec;
       };
-      intel-vaapi-driver-32 = (pkgs.driversi686Linux.intel-vaapi-driver or pkgs.driversi686Linux.vaapiIntel).override {
-        enableHybridCodec = cfg.enableHybridCodec;
-      };
+      intel-vaapi-driver-32 =
+        (pkgs.driversi686Linux.intel-vaapi-driver or pkgs.driversi686Linux.vaapiIntel).override
+          {
+            enableHybridCodec = cfg.enableHybridCodec;
+          };
 
-      useIntelOcl = useIntelVaapiDriver && (config.hardware.enableAllFirmware or config.nixpkgs.config.allowUnfree or false);
+      useIntelOcl =
+        useIntelVaapiDriver
+        && (config.hardware.enableAllFirmware or config.nixpkgs.config.allowUnfree or false);
       intel-ocl = pkgs.intel-ocl;
 
       useIntelMediaDriver = cfg.vaapiDriver == "intel-media-driver" || cfg.vaapiDriver == null;

@@ -16,7 +16,7 @@
   # `hid-multitouch-onenetbook4` is the fixed one, don't use `hid-multitouch`.
   boot.blacklistedKernelModules = [ "hid-multitouch" ];
   boot.extraModulePackages = [
-    (config.boot.kernelPackages.callPackage ./goodix-stylus-mastykin {})
+    (config.boot.kernelPackages.callPackage ./goodix-stylus-mastykin { })
   ];
 
   # OneNetbook 4 has an accelerometer,

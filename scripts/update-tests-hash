@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Helper script to update the tests flake hash
+set -euo pipefail
+
+# Go to the root of the repository
+cd "$(dirname "$0")/.."
+
+echo "Updating tests.narHash..." >&2
+
+# Update the flake lock file
+nix --extra-experimental-features 'flakes nix-command' flake lock ./tests
+
+# Generate the hash
+nix --extra-experimental-features 'flakes nix-command' hash path ./tests > ./tests.narHash
+
+echo "Hash updated successfully: $(cat tests.narHash)"

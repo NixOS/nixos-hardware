@@ -1,11 +1,13 @@
-{ lib
-, pkgs
-, config
-, ...
+{
+  lib,
+  pkgs,
+  config,
+  ...
 }:
 let
   cfg = config.hardware.rockchip;
-in {
+in
+{
   imports = [
     ./rk3328
     ./rk3399

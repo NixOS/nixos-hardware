@@ -17,11 +17,13 @@ in
   boot.kernelParams = [ "acpi_backlight=vendor" ];
 
   # Sound requires a custom UCM config:
-  system.replaceRuntimeDependencies = [{
-    original = pkgs.alsa-lib;
+  system.replaceRuntimeDependencies = [
+    {
+      original = pkgs.alsa-lib;
 
-    replacement = pkgs.alsa-lib.overrideAttrs (_super: {
-      postFixup = "cp -r ${ucm}/chtmax98090 $out/share/alsa/ucm";
-    });
-  }];
+      replacement = pkgs.alsa-lib.overrideAttrs (_super: {
+        postFixup = "cp -r ${ucm}/chtmax98090 $out/share/alsa/ucm";
+      });
+    }
+  ];
 }

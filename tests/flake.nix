@@ -3,16 +3,21 @@
 
   inputs = {
     nixos-unstable-small.url = "git+https://github.com/NixOS/nixpkgs?shallow=1&ref=nixos-unstable-small";
-    nixos-stable.url = "git+https://github.com/NixOS/nixpkgs?shallow=1&ref=nixos-24.11";
+    nixos-stable.url = "git+https://github.com/NixOS/nixpkgs?shallow=1&ref=nixos-25.05";
     # override in the test
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-parts.inputs.nixpkgs-lib.follows = "nixos-unstable-small";
+    treefmt-nix.url = "github:numtide/treefmt-nix";
+    treefmt-nix.inputs.nixpkgs.follows = "nixos-unstable-small";
   };
 
   outputs =
     inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        inputs.treefmt-nix.flakeModule
+      ];
       systems = [
         "aarch64-linux"
         "x86_64-linux"
@@ -85,10 +90,36 @@
         in
         {
           _module.args.pkgs = nixpkgsUnstable;
-          checks = checksForNixpkgs "nixos-unstable" nixpkgsUnstable // checksForNixpkgs "nixos-stable" nixpkgsStable;
+
+          treefmt = {
+            flakeCheck = pkgs.hostPlatform.system != "riscv64-linux";
+            projectRootFile = "COPYING";
+            programs = {
+              deadnix = {
+                enable = true;
+                no-lambda-pattern-names = true;
+              };
+              nixfmt = {
+                enable = true;
+                package = pkgs.nixfmt-rfc-style;
+              };
+            };
+            settings = {
+              on-unmatched = "info";
+            };
+          };
+
+          checks =
+            checksForNixpkgs "nixos-unstable" nixpkgsUnstable
+            // checksForNixpkgs "nixos-stable" nixpkgsStable;
           packages.run = pkgs.writeShellScriptBin "run.py" ''
             #!${pkgs.bash}/bin/bash
-            export PATH=${lib.makeBinPath [ pkgs.nix-eval-jobs pkgs.nix-eval-jobs.nix ]}
+            export PATH=${
+              lib.makeBinPath [
+                pkgs.nix-eval-jobs
+                pkgs.nix-eval-jobs.nix
+              ]
+            }
             exec ${pkgs.python3.interpreter} ${./.}/run.py --nixos-hardware "$@"
           '';
         };

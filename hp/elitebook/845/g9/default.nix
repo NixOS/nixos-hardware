@@ -1,18 +1,19 @@
 { pkgs, lib, ... }:
 
 {
-  imports =
-    [
-      ../../../../common/cpu/amd
-      ../../../../common/cpu/amd/pstate.nix
-      ../../../../common/gpu/amd
-      ../../../../common/pc/laptop
-      ../../../../common/pc/ssd
-    ];
+  imports = [
+    ../../../../common/cpu/amd
+    ../../../../common/cpu/amd/pstate.nix
+    ../../../../common/gpu/amd
+    ../../../../common/pc/laptop
+    ../../../../common/pc/ssd
+  ];
 
   hardware.enableRedistributableFirmware = lib.mkDefault true;
   boot.kernelModules = [ "synaptics_usb" ];
-  boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "6.3") (lib.mkDefault pkgs.linuxPackages_latest);
+  boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "6.3") (
+    lib.mkDefault pkgs.linuxPackages_latest
+  );
 
   # disable Scatter/Gather APU recently enabled by default,
   # which results in white screen after display reconfiguration

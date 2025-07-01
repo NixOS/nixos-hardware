@@ -1,4 +1,5 @@
-{ lib,
+{
+  lib,
   pkgs,
   config,
   ...
@@ -7,7 +8,8 @@
 let
   inherit (lib) mkDefault;
 
-in {
+in
+{
   imports = [
     ../shared.nix
     ## "prime.nix" loads this, aleady:
@@ -22,8 +24,6 @@ in {
   boot = {
     blacklistedKernelModules = [ "nouveau" ];
   };
-
-  
 
   hardware = {
     ## Enable the Nvidia card, as well as Prime and Offload:
@@ -49,7 +49,7 @@ in {
       };
 
       dynamicBoost.enable = mkDefault true;
-      
+
     };
   };
 }

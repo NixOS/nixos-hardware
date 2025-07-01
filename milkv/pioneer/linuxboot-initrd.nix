@@ -1,9 +1,10 @@
-{ buildPackages
-, fetchFromGitHub
-, fetchpatch
-, linux-firmware
-, buildGoModule
-, ...
+{
+  buildPackages,
+  fetchFromGitHub,
+  fetchpatch,
+  linux-firmware,
+  buildGoModule,
+  ...
 }:
 
 # Based on

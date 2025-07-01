@@ -2,7 +2,8 @@
   config,
   lib,
   ...
-}: {
+}:
+{
   imports = [
     ../../../common/cpu/intel/kaby-lake
     ../../../common/pc/laptop
@@ -11,13 +12,19 @@
   ];
   hardware.enableRedistributableFirmware = lib.mkDefault true;
 
-  boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "ahci"
+    "usb_storage"
+    "sd_mod"
+    "rtsx_pci_sdmmc"
+  ];
 
   boot = {
-    kernelModules = ["kvm-intel"];
-    blacklistedKernelModules = ["nouveau"];
+    kernelModules = [ "kvm-intel" ];
+    blacklistedKernelModules = [ "nouveau" ];
   };
-  boot.kernelParams = ["i915.modeset=1"];
+  boot.kernelParams = [ "i915.modeset=1" ];
 
   hardware = {
     graphics = {

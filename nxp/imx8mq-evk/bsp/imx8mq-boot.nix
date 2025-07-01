@@ -2,25 +2,24 @@
   pkgs,
   enable-tee ? false,
 }:
-with pkgs; let
-  cp-tee =
-    if enable-tee
-    then "install -m 0644 ${imx8mq-optee-os}/tee.bin ./iMX8M/tee.bin"
-    else "";
+with pkgs;
+let
+  cp-tee = if enable-tee then "install -m 0644 ${imx8mq-optee-os}/tee.bin ./iMX8M/tee.bin" else "";
 
   imx8mq-atf = pkgs.callPackage ./imx8mq-atf.nix {
     inherit enable-tee;
   };
-  imx8mq-firmware = pkgs.callPackage ./imx8mq-firmware.nix {};
-  imx8mq-uboot = pkgs.callPackage ./imx8mq-uboot.nix {};
-  imx8mq-optee-os = pkgs.callPackage ./imx8mq-optee-os.nix {};
+  imx8mq-firmware = pkgs.callPackage ./imx8mq-firmware.nix { };
+  imx8mq-uboot = pkgs.callPackage ./imx8mq-uboot.nix { };
+  imx8mq-optee-os = pkgs.callPackage ./imx8mq-optee-os.nix { };
   src = pkgs.fetchgit {
     url = "https://github.com/nxp-imx/imx-mkimage.git";
     rev = "c4365450fb115d87f245df2864fee1604d97c06a";
     sha256 = "sha256-KVIVHwBpAwd1RKy3RrYxGIniE45CDlN5RQTXsMg1Jwk=";
   };
   shortRev = builtins.substring 0 8 src.rev;
-in {
+in
+{
   imx8m-boot = pkgs.stdenv.mkDerivation rec {
     inherit src;
     name = "imx8mq-mkimage";

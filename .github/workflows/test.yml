@@ -4,8 +4,16 @@ on:
   push:
     branches:
       - master
+  merge_group:
 jobs:
+  nixfmt:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: cachix/install-nix-action@v31
+    - run: cd tests && nix fmt .. -- --fail-on-change
   tests:
+    needs: nixfmt
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4

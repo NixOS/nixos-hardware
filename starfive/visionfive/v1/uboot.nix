@@ -1,5 +1,6 @@
-{ fetchFromGitHub
-, buildUBoot
+{
+  fetchFromGitHub,
+  buildUBoot,
 }:
 
 buildUBoot {
@@ -13,5 +14,8 @@ buildUBoot {
   };
 
   defconfig = "starfive_jh7100_visionfive_smode_defconfig";
-  filesToInstall = [ "u-boot.bin" "u-boot.dtb" ];
+  filesToInstall = [
+    "u-boot.bin"
+    "u-boot.dtb"
+  ];
 }
