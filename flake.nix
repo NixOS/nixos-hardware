@@ -348,6 +348,7 @@
           system76-gaze18 = import ./system76/gaze18;
           system76-galp5-1650 = import ./system76/galp5-1650;
           system76-darp6 = import ./system76/darp6;
+          system76-thelio-mega = import ./system76/thelio-mega;
           toshiba-swanky = import ./toshiba/swanky;
           tuxedo-aura-15-gen1 = import ./tuxedo/aura/15/gen1;
           tuxedo-infinitybook-v4 = import ./tuxedo/infinitybook/v4;
@@ -355,6 +356,7 @@
           tuxedo-infinitybook-pro14-gen9-intel = import ./tuxedo/infinitybook/pro14/gen9/intel;
           tuxedo-pulse-14-gen3 = import ./tuxedo/pulse/14/gen3;
           tuxedo-pulse-15-gen2 = import ./tuxedo/pulse/15/gen2;
+          xiaomi-redmibook-15-pro-2021 = import ./xiaomi/redmibook/15-pro-2021;
           xiaomi-redmibook-16-pro-2024 = import ./xiaomi/redmibook/16-pro-2024;
 
           common-cpu-amd = import ./common/cpu/amd;
