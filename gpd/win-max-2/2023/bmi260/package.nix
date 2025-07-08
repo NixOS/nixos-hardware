@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation (finalAttr: {
   pname = "bmi260";
-  version = "1.0.0";
+  version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "hhd-dev";
     repo = finalAttr.pname;
     rev = "v${finalAttr.version}";
-    hash = "sha256-EFous0pPpCuVoCsFz6/4NryQRSH9Jw9Qng+RY1hiX1c=";
+    hash = "sha256-So8rWDTXYsMUgLBU9WrJp47txA8dI98tcxXNy92AYgg=";
   };
 
   hardeningDisable = [ "pic" ];
@@ -38,6 +38,6 @@ stdenv.mkDerivation (finalAttr: {
       gpl2Only
     ];
     maintainers = with maintainers; [ Cryolitia ];
-    platforms = platforms.linux;
+    platforms = [ "x86_64-linux" ];
   };
 })

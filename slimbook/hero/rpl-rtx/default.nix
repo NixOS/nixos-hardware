@@ -6,7 +6,7 @@
     ../../../common/gpu/nvidia/ada-lovelace
     ../../../common/gpu/nvidia/prime.nix
     ../../../common/pc/laptop
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
   ];
 
   hardware = {

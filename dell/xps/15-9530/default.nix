@@ -3,7 +3,7 @@
   imports = [
     ../../../common/cpu/intel
     ../../../common/pc/laptop
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
   ];
 
   # This will save you money and possibly your life!
@@ -14,7 +14,7 @@
   # - 00:14.3 Network controller: Intel Corporation Raptor Lake PCH CNVi WiFi (rev 01)
   # > sudo lspci -vv -s 00:14.3
   # 00:14.3 Network controller: Intel Corporation Raptor Lake PCH CNVi WiFi (rev 01)
-	# Subsystem: Intel Corporation Wi-Fi 6E AX211 160MHz
+  # Subsystem: Intel Corporation Wi-Fi 6E AX211 160MHz
   #
   # WiFi speed is slow and crashes by default (https://bugzilla.kernel.org/show_bug.cgi?id=213381)
   # disable_11ax - required until ax driver support is fixed

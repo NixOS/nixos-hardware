@@ -12,10 +12,10 @@
   hardware.nvidia.modesetting.enable = true;
 
   hardware.nvidia.prime = {
-  # integrated
+    # integrated
     intelBusId = "PCI:0:2:0";
 
-  # dedicated
+    # dedicated
     nvidiaBusId = "PCI:1:0:0";
   };
 }

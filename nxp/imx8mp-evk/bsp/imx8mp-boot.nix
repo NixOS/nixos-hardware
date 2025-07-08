@@ -2,32 +2,33 @@
   pkgs,
   enable-tee ? true,
 }:
-with pkgs; let
+with pkgs;
+let
   fw-ver = "202006";
-  cp-tee =
-    if enable-tee
-    then "install -m 0644 ${imx8mp-optee-os}/tee.bin ./iMX8M/tee.bin"
-    else "";
+  cp-tee = if enable-tee then "install -m 0644 ${imx8mp-optee-os}/tee.bin ./iMX8M/tee.bin" else "";
 
   imx8mp-atf = pkgs.callPackage ./imx8mp-atf.nix {
-    inherit (pkgs) buildArmTrustedFirmware;
     inherit enable-tee;
   };
-  imx8mp-firmware = pkgs.callPackage ./imx8mp-firmware.nix {};
-  imx8mp-uboot = pkgs.callPackage ./imx8mp-uboot.nix {};
-  imx8mp-optee-os = pkgs.callPackage ./imx8mp-optee-os.nix {};
-in {
+  imx8mp-firmware = pkgs.callPackage ./imx8mp-firmware.nix { };
+  imx8mp-uboot = pkgs.callPackage ./imx8mp-uboot.nix { };
+  imx8mp-optee-os = pkgs.callPackage ./imx8mp-optee-os.nix { };
+  src = pkgs.fetchgit {
+    url = "https://github.com/nxp-imx/imx-mkimage.git";
+    rev = "c4365450fb115d87f245df2864fee1604d97c06a";
+    sha256 = "sha256-KVIVHwBpAwd1RKy3RrYxGIniE45CDlN5RQTXsMg1Jwk=";
+  };
+  shortRev = builtins.substring 0 8 src.rev;
+in
+{
   imx8m-boot = pkgs.stdenv.mkDerivation rec {
+    inherit src;
     name = "imx8mp-mkimage";
     version = "lf-6.1.55-2.2.0";
-    src = pkgs.fetchgit {
-      url = "https://github.com/nxp-imx/imx-mkimage.git";
-      rev = "c4365450fb115d87f245df2864fee1604d97c06a";
-      sha256 = "sha256-xycEaWKVM63BlDyBKNN0OefyK6iX/fQOTvv4fRVM55U=";
-      leaveDotGit = true;
-    };
 
     postPatch = ''
+      substituteInPlace Makefile \
+          --replace 'git rev-parse --short=8 HEAD' 'echo ${shortRev}'
       substituteInPlace Makefile \
           --replace 'CC = gcc' 'CC = clang'
       patchShebangs scripts

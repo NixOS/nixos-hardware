@@ -2,7 +2,8 @@
 
 let
   cfg = config.hardware.raspberry-pi."4".poe-hat;
-in {
+in
+{
   options.hardware = {
     raspberry-pi."4".poe-hat = {
       enable = lib.mkEnableOption ''
@@ -18,7 +19,7 @@ in {
 
     hardware.deviceTree = {
       overlays = [
-        # Equivalent to: https://github.com/raspberrypi/linux/blob/rpi-6.1.y/arch/arm/boot/dts/overlays/rpi-poe-overlay.dts
+        # Equivalent to: https://github.com/raspberrypi/linux/blob/rpi-6.6.y/arch/arm/boot/dts/overlays/rpi-poe-overlay.dts
         {
           name = "rpi-poe-overlay";
           dtsText = ''
@@ -38,7 +39,7 @@ in {
                     compatible = "pwm-fan";
                     cooling-levels = <0 1 10 100 255>;
                     #cooling-cells = <2>;
-                    pwms = <&fwpwm 0 80000>;
+                    pwms = <&fwpwm 0 80000  0>;
                   };
                 };
               };

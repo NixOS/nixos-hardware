@@ -6,7 +6,9 @@
   ];
 
   # Kernel 6.4 is required for the Ryzen 7040 series
-  boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "6.4") (lib.mkDefault pkgs.linuxPackages_latest);
+  boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "6.4") (
+    lib.mkDefault pkgs.linuxPackages_latest
+  );
 
   systemd.services = {
     # Modified from Arch Wiki

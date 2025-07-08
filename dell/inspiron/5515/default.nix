@@ -16,14 +16,16 @@
     serviceConfig.Type = "oneshot";
     description = "reload touchpad driver";
     # must run at boot (and not too early), and after suspend
-    wantedBy = [ "display-manager.service" "post-resume.target" ];
+    wantedBy = [
+      "display-manager.service"
+      "post-resume.target"
+    ];
     # prevent running before suspend
     after = [ "post-resume.target" ];
   };
 
   # so that post-resume.service exists
   powerManagement.enable = true;
-
 
   # fix suspend
   # https://bbs.archlinux.org/viewtopic.php?id=266108 says linux >= 5.12 required

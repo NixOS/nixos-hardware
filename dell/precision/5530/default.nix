@@ -1,9 +1,9 @@
-{ lib, config, ... }:
+{ lib, ... }:
 
 {
   imports = [
     ../../../common/pc/laptop
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
     ../../../common/gpu/nvidia/pascal
     ../../../common/gpu/nvidia/prime.nix
     ../../../common/cpu/intel/coffee-lake
@@ -29,19 +29,17 @@
 
   hardware = {
     nvidia = {
-      open = lib.mkDefault false;
       nvidiaSettings = lib.mkDefault true;
       modesetting.enable = lib.mkDefault true;
-      package = lib.mkDefault config.boot.kernelPackages.nvidiaPackages.stable;
       prime = {
         intelBusId = lib.mkDefault "PCI:0:2:0";
         nvidiaBusId = lib.mkDefault "PCI:1:0:0";
       };
     };
   };
-  # This will save you money and possibly your life!
   services = {
     fwupd.enable = lib.mkDefault true;
+    # This will save you money and possibly your life!
     thermald.enable = lib.mkDefault true;
   };
 }

@@ -6,8 +6,3 @@ bug where the PC will wakeup immediately after going into suspend.
 ## Affects at least
 
 - Gigabyte B650M Aorus Elite AX (Rev. 1.3) (BIOS Version F32b)
-  - Can not be fixed by modifying enabled entries in /proc/acpi/wakeup.
-    Computer wakes up even if all enabled entries are disabled. Therefore, no
-    fix exist currently.
-
-

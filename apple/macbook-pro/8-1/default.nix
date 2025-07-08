@@ -1,10 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
     ../.
     ../../../common/cpu/intel/sandy-bridge
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
   ];
 
   networking.enableB43Firmware = lib.mkDefault true;

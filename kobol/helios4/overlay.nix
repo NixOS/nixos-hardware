@@ -11,6 +11,6 @@ final: _prev: {
       rev = "v${version}";
       sha256 = "sha256-QxrTPcx0n0NWUJ990EuIWyOBtknW/fHDRcrYP0yQzTo=";
     };
-    patches = [];
+    patches = [ ];
   };
 }

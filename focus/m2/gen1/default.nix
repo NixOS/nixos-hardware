@@ -6,10 +6,17 @@
     ../../../common/gpu/nvidia/prime.nix
     ../../../common/gpu/nvidia/turing
     ../../../common/pc/laptop
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
   ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "ahci"
+    "nvme"
+    "usb_storage"
+    "sd_mod"
+    "rtsx_pci_sdmmc"
+  ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.kernelParams = [
     "tpm_tis.interrupts=0" # Upstream bug: https://bugzilla.kernel.org/show_bug.cgi?id=204121

@@ -5,7 +5,7 @@
   hardware.sensor.iio.enable = lib.mkDefault true;
 
   services.fprintd.enable = lib.mkDefault true;
-  
+
   # Override ACPI DSDT to fix the accelerometer.
   # A driver already exists for a similar sensor.
   # This overrides the IDs to make the existing driver work.
@@ -16,7 +16,7 @@
         name = "minisforum-acpi-override";
         CPIO_PATH = "kernel/firmware/acpi";
 
-        src = pkgs.callPackage ./src.nix {};
+        src = pkgs.callPackage ./src.nix { };
         patches = [ ./dsdt.patch ];
 
         nativeBuildInputs = with pkgs; [

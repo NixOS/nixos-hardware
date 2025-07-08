@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 
 {
   imports = [
@@ -8,6 +13,7 @@
     ./cpu-revision.nix
     ./digi-amp-plus.nix
     ./dwc2.nix
+    ./gpio.nix
     ./i2c.nix
     ./leds.nix
     ./modesetting.nix
@@ -38,7 +44,6 @@
   };
 
   hardware.deviceTree.filter = lib.mkDefault "bcm2711-rpi-*.dtb";
-
 
   assertions = [
     {
