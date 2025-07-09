@@ -26,6 +26,10 @@
       #             See https://wiki.archlinux.org/title/Dell_XPS_16_(9640)#Random_freezes
       "iommu.strict=1"
       "iommu.passthrough=1"
+
+      # Workaround: i915 0000:00:02.0: [drm] *ERROR* [CRTC:82:pipe A] flip_done timed out
+      #             See https://github.com/pop-os/pop/issues/3130
+      "i915.dmc_firmware_path=\"\""
     ];
   };
 
