@@ -153,6 +153,7 @@
           hp-elitebook-845g8 = import ./hp/elitebook/845/g8;
           hp-elitebook-845g9 = import ./hp/elitebook/845/g9;
           hp-probook-440G5 = import ./hp/probook/440G5;
+          hp-probook-460G11 = import ./hp/probook/460G11;
           hp-laptop-14s-dq2024nf = import ./hp/laptop/14s-dq2024nf;
           huawei-machc-wa = import ./huawei/machc-wa;
           hp-notebook-14-df0023 = import ./hp/notebook/14-df0023;
