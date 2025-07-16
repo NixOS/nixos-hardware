@@ -223,6 +223,7 @@ See code for all available configurations.
 | [HP Probook 440G5](hp/probook/440g5)                                              | `<nixos-hardware/hp/probook/440g5>`                     | `hp-probook-440G5`                |
 | [Huawei Matebook X Pro (2020)](huawei/machc-wa)                                   | `<nixos-hardware/huawei/machc-wa>`                      | `huawei-machc-wa`                 |
 | [i.MX8QuadMax Multisensory Enablement Kit](nxp/imx8qm-mek/)                       | `<nixos-hardware/nxp/imx8qm-mek>`                       | `nxp-imx8qm-mek`                  |
+| [Intel NUC 5i5RYB](intel/nuc/5i5ryb/)                                             | `<nixos-hardware/intel/nuc/5i5ryb>`                     | `intel-nuc-5i5ryb`                |
 | [Intel NUC 8i7BEH](intel/nuc/8i7beh/)                                             | `<nixos-hardware/intel/nuc/8i7beh>`                     | `intel-nuc-8i7beh`                |
 | [Lenovo IdeaCentre K330](lenovo/ideacentre/k330)                                  | `<nixos-hardware/lenovo/ideacentre/k330>`               | `lenovo-ideacentre-k330`          |
 | [Lenovo IdeaPad 3 15alc6](lenovo/ideapad/15alc6)                                  | `<nixos-hardware/lenovo/ideapad/15alc6>`                | `lenovo-ideapad-15alc6`           |
