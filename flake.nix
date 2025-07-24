@@ -157,6 +157,7 @@
           hp-laptop-14s-dq2024nf = import ./hp/laptop/14s-dq2024nf;
           huawei-machc-wa = import ./huawei/machc-wa;
           hp-notebook-14-df0023 = import ./hp/notebook/14-df0023;
+          intel-nuc-5i5ryb = import ./intel/nuc/5i5ryb;
           intel-nuc-8i7beh = import ./intel/nuc/8i7beh;
           lenovo-ideacentre-k330 = import ./lenovo/ideacentre/k330;
           lenovo-ideapad-14imh9 = import ./lenovo/ideapad/14imh9;
