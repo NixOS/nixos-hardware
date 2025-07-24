@@ -39,7 +39,7 @@
   };
 
   hardware.nvidia = {
-    powerManagement.enable = true;
+    powerManagement.enable = lib.mkDefault true;
     modesetting.enable = lib.mkDefault true;
     open = lib.mkDefault false;
     nvidiaSettings = lib.mkDefault true;
