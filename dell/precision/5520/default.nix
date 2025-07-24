@@ -3,7 +3,7 @@
 {
   imports = [
     ../../../common/pc/laptop
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
     ../../../common/gpu/nvidia/maxwell
     ../../../common/gpu/nvidia/prime.nix
     ../../../common/cpu/intel/kaby-lake
