@@ -65,6 +65,7 @@
           dell-e7240 = deprecated "1326" "dell-e7240" (import ./dell/e7240);
           dell-g3-3779 = import ./dell/g3/3779;
           dell-g3-3579 = import ./dell/g3/3579;
+          dell-inspiron-3442 = import ./dell/inspiron/3442;
           dell-inspiron-14-5420 = import ./dell/inspiron/14-5420;
           dell-inspiron-5509 = import ./dell/inspiron/5509;
           dell-inspiron-5515 = import ./dell/inspiron/5515;
@@ -156,6 +157,7 @@
           hp-laptop-14s-dq2024nf = import ./hp/laptop/14s-dq2024nf;
           huawei-machc-wa = import ./huawei/machc-wa;
           hp-notebook-14-df0023 = import ./hp/notebook/14-df0023;
+          intel-nuc-5i5ryb = import ./intel/nuc/5i5ryb;
           intel-nuc-8i7beh = import ./intel/nuc/8i7beh;
           lenovo-ideacentre-k330 = import ./lenovo/ideacentre/k330;
           lenovo-ideapad-14imh9 = import ./lenovo/ideapad/14imh9;
@@ -349,6 +351,7 @@
           system76-gaze18 = import ./system76/gaze18;
           system76-galp5-1650 = import ./system76/galp5-1650;
           system76-darp6 = import ./system76/darp6;
+          system76-thelio-mega = import ./system76/thelio-mega;
           toshiba-swanky = import ./toshiba/swanky;
           tuxedo-aura-15-gen1 = import ./tuxedo/aura/15/gen1;
           tuxedo-infinitybook-v4 = import ./tuxedo/infinitybook/v4;
@@ -356,6 +359,7 @@
           tuxedo-infinitybook-pro14-gen9-intel = import ./tuxedo/infinitybook/pro14/gen9/intel;
           tuxedo-pulse-14-gen3 = import ./tuxedo/pulse/14/gen3;
           tuxedo-pulse-15-gen2 = import ./tuxedo/pulse/15/gen2;
+          xiaomi-redmibook-15-pro-2021 = import ./xiaomi/redmibook/15-pro-2021;
           xiaomi-redmibook-16-pro-2024 = import ./xiaomi/redmibook/16-pro-2024;
 
           common-cpu-amd = import ./common/cpu/amd;

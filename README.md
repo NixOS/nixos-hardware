@@ -223,6 +223,7 @@ See code for all available configurations.
 | [HP Probook 440G5](hp/probook/440g5)                                              | `<nixos-hardware/hp/probook/440g5>`                     | `hp-probook-440G5`                |
 | [Huawei Matebook X Pro (2020)](huawei/machc-wa)                                   | `<nixos-hardware/huawei/machc-wa>`                      | `huawei-machc-wa`                 |
 | [i.MX8QuadMax Multisensory Enablement Kit](nxp/imx8qm-mek/)                       | `<nixos-hardware/nxp/imx8qm-mek>`                       | `nxp-imx8qm-mek`                  |
+| [Intel NUC 5i5RYB](intel/nuc/5i5ryb/)                                             | `<nixos-hardware/intel/nuc/5i5ryb>`                     | `intel-nuc-5i5ryb`                |
 | [Intel NUC 8i7BEH](intel/nuc/8i7beh/)                                             | `<nixos-hardware/intel/nuc/8i7beh>`                     | `intel-nuc-8i7beh`                |
 | [Lenovo IdeaCentre K330](lenovo/ideacentre/k330)                                  | `<nixos-hardware/lenovo/ideacentre/k330>`               | `lenovo-ideacentre-k330`          |
 | [Lenovo IdeaPad 3 15alc6](lenovo/ideapad/15alc6)                                  | `<nixos-hardware/lenovo/ideapad/15alc6>`                | `lenovo-ideapad-15alc6`           |
@@ -406,6 +407,7 @@ See code for all available configurations.
 | [System76 Darter Pro 6](system76/darp6)                                           | `<nixos-hardware/system76/darp6>`                       | `system76-darp6`|
 | [System76 Gazelle 18](system76/gaze18)                                            | `<nixos-hardware/system76/gaze18>`                      | `system76-gaze18`|
 | [System76 Galago Pro 5](system76/galp5-1650)                                      | `<nixos-hardware/system76/galp5-1650>`                  | `system76-galp5-1650`|
+| [System76 Thelio Mega](system76/thelio-mega)                                      | `<nixos-hardware/system76/thelio-mega>`                 | `system76-thelio-mega`|
 | [Toshiba Chromebook 2 `swanky`](toshiba/swanky)                                   | `<nixos-hardware/toshiba/swanky>`                       | `toshiba-swanky`|
 | [Tuxedo InfinityBook v4](tuxedo/infinitybook/v4)                                  | `<nixos-hardware/tuxedo/infinitybook/v4>`               | `tuxedo-infinitybook-v4`|
 | [TUXEDO Aura 15 - Gen1](tuxedo/aura/15/gen1)                                      | `<nixos-hardware/tuxedo/aura/15/gen1>`                  | `tuxedo-aura-15-gen1`|
