@@ -133,6 +133,7 @@ See code for all available configurations.
 | [Asus Zenbook Duo 14 UX481](asus/zenbook/ux481/nvidia/)                           | `<nixos-hardware/asus/zenbook/ux481/nvidia>`            | `asus-zenbook-ux481-nvidia`            |
 | [Asus Zenbook Flip S13 UX371](asus/zenbook/ux371/)                                | `<nixos-hardware/asus/zenbook/ux371>`                   | `asus-zenbook-ux371`                   |
 | [Asus Zenbook Pro 15 UX535](asus/zenbook/ux535/)                                  | `<nixos-hardware/asus/zenbook/ux535>`                   | `asus-zenbook-ux535`                   |
+| [Asus Zenbook Pro 17 UM6702](asus/zenbook/um6702/)                                | `<nixos-hardware/asus/zenbook/um6702>`                  | `asus-zenbook-um6702`                  |
 | [BeagleBoard PocketBeagle](beagleboard/pocketbeagle)                              | `<nixos-hardware/beagleboard/pocketbeagle>`             | `beagleboard-pocketbeagle`             |
 | [Chuwi MiniBook X](chuwi/minibook-x)                                              | `<nixos-hardware/chuwi/minibook-x>`                     | `chuwi-minibook-x`                     |
 | [Deciso DEC series](deciso/dec)                                                   | `<nixos-hardware/deciso/dec>`                           | `deciso-dec`                           |
@@ -445,4 +446,3 @@ See code for all available configurations.
 | [TUXEDO Pulse 15 - Gen2](tuxedo/pulse/15/gen2)                                    | `<nixos-hardware/tuxedo/pulse/15/gen2>`                 | `tuxedo-pulse-15-gen2`                 |
 | [Xiaomi Redmibook 15 Pro 2021](xiaomi/redmibook/15-pro-2021)                      | `<nixos-hardware/xiaomi/redmibook/15-pro-2021>`         | `xiaomi-redmibook-15-pro-2021`         |
 | [Xiaomi Redmibook 16 Pro 2024](xiaomi/redmibook/16-pro-2024)                      | `<nixos-hardware/xiaomi/redmibook/16-pro-2024>`         | `xiaomi-redmibook-16-pro-2024`         |
-
