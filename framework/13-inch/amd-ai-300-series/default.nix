@@ -10,6 +10,11 @@
     ../common
     ../common/amd.nix
   ];
-  config.hardware.framework.laptop13.audioEnhancement.rawDeviceName =
-    lib.mkDefault "alsa_output.pci-0000_c1_00.6.analog-stereo";
+  config = {
+    hardware.framework.laptop13.audioEnhancement.rawDeviceName =
+      lib.mkDefault "alsa_output.pci-0000_c1_00.6.analog-stereo";
+
+    # suspend works with 6.15
+    boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "6.15") pkgs.linuxPackages_latest;
+  };
 }
