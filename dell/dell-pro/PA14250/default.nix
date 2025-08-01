@@ -1,12 +1,6 @@
 { lib, ... }:
 
-# Xe module fails to load on 6.12.x starting 6.12.35
-# tested to work on 6.13.4 or newer
-#
-# Bisect points at d42b44736ea29fa6d0c3cb9c75569314134b7732 but
-# 6.13 series 30d105577a3319094f8ae5ff1ceea670f1931487 looks identical
-# so it has to be not just that commit but its interactions with 6.12
-# driver version
+# Xe module fails to load on 6.12.x for 6.12.35..6.12.40 and fixed in 6.12.41
 #
 # https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/5373
 let
