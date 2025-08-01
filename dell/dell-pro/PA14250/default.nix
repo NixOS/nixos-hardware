@@ -10,7 +10,7 @@
 #
 # https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/5373
 let
-  brokenXeModule = version: lib.versionAtLeast version "6.12.35" && lib.versionOlder version "6.13.4";
+  brokenXeModule = version: lib.versionAtLeast version "6.12.35" && lib.versionOlder version "6.12.41";
 in
 {
   imports = [
