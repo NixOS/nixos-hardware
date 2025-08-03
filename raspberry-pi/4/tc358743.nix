@@ -17,6 +17,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    hardware.deviceTree.filter = "bcm2711-rpi-4*.dtb";
     hardware.deviceTree.overlays = [
       {
         name = "tc358743-overlay";
