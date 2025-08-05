@@ -9,6 +9,7 @@
     ../.
     ../../common/gpu/nvidia/prime.nix
     ../../common/gpu/nvidia/ampere
+    ../../common/cpu/intel/raptor-lake
   ];
 
   boot.initrd.kernelModules = [ "nvidia" ];
