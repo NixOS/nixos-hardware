@@ -37,6 +37,9 @@
       "reset-raspberrypi" # required for vl805 firmware to load
     ];
 
+    # Allow building kernel
+    initrd.systemd.tpm2.enable = false;
+
     loader = {
       grub.enable = lib.mkDefault false;
       generic-extlinux-compatible.enable = lib.mkDefault true;
