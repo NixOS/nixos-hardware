@@ -30,4 +30,7 @@
   # TODO: Looking for feedback - modern Intel CPUs don't typically need throttled service
   # which can interfere with newer power management on Lunar Lake
   services.throttled.enable = lib.mkDefault false;
+
+  # Enable fingerprint reader support
+  services.fprintd.enable = lib.mkDefault true;
 }
