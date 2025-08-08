@@ -32,13 +32,7 @@
   services.throttled.enable = lib.mkDefault false;
 
   # Enable fingerprint reader support
+  # NOTE: PAM configuration should be done in host config to avoid login issues
+  # See: https://github.com/NixOS/nixpkgs/issues/171136
   services.fprintd.enable = lib.mkDefault true;
-  
-  # Enable PAM fingerprint authentication for login and unlock
-  security.pam.services = {
-    login.fprintAuth = lib.mkDefault true;
-    xscreensaver.fprintAuth = lib.mkDefault true;
-    sudo.fprintAuth = lib.mkDefault true;
-    su.fprintAuth = lib.mkDefault true;
-  };
 }
