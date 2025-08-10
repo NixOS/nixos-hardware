@@ -377,6 +377,7 @@ See code for all available configurations.
 | [Omen 15-en1007sa](omen/15-en1007sa)                                              | `<nixos-hardware/omen/15-en1007sa>`                     | `omen-15-en1007sa`                |
 | [Omen 15-en0002np](omen/15-en0002np)                                              | `<nixos-hardware/omen/15-en0002np>`                     | `omen-15-en0002np`                |
 | [One-Netbook OneNetbook 4](onenetbook/4)                                          | `<nixos-hardware/onenetbook/4>`                         | `onenetbook-4`                    |
+| [Orange Pi 5 Max](orange-pi/5-max)                                                | `<nixos-hardware/orange-pi/5-max>`                      | `orange-pi-5-max`                 |
 | [Panasonic Let's Note CF-LX4](panasonic/letsnote/cf-lx4)                          | `<nixos-hardware/panasonic/letsnote/cf-lx4>`            | `panasonic-letsnote-cf-lx4`       |
 | [PC Engines APU](pcengines/apu)                                                   | `<nixos-hardware/pcengines/apu>`                        | `pcengines-apu`                   |
 | [PINE64 Pinebook Pro](pine64/pinebook-pro/)                                       | `<nixos-hardware/pine64/pinebook-pro>`                  | `pine64-pinebook-pro`             |
