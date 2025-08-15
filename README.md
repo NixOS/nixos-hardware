@@ -97,6 +97,7 @@ See code for all available configurations.
 | [Apple MacBook Pro 8,1](apple/macbook-pro/8-1)                                    | `<nixos-hardware/apple/macbook-pro/8-1>`                | `apple-macbook-pro-8-1`            |
 | [Apple MacBook Pro 10,1](apple/macbook-pro/10-1)                                  | `<nixos-hardware/apple/macbook-pro/10-1>`               | `apple-macbook-pro-10-1`           |
 | [Apple MacBook Pro 11,1](apple/macbook-pro/11-1)                                  | `<nixos-hardware/apple/macbook-pro/11-1>`               | `apple-macbook-pro-11-1`           |
+| [Apple MacBook Pro 11,4](apple/macbook-pro/11-4)                                  | `<nixos-hardware/apple/macbook-pro/11-4>`               | `apple-macbook-pro-11-4`           |
 | [Apple MacBook Pro 11,5](apple/macbook-pro/11-5)                                  | `<nixos-hardware/apple/macbook-pro/11-5>`               | `apple-macbook-pro-11-5`           |
 | [Apple MacBook Pro 12,1](apple/macbook-pro/12-1)                                  | `<nixos-hardware/apple/macbook-pro/12-1>`               | `apple-macbook-pro-12-1`           |
 | [Apple MacBook Pro 14,1](apple/macbook-pro/14-1)                                  | `<nixos-hardware/apple/macbook-pro/14-1>`               | `apple-macbook-pro-14-1`           |
