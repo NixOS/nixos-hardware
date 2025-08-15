@@ -3,13 +3,11 @@
   kernel ? lib.kernel,
   patchSrc,
   version,
-}:
-
-[
+}: [
   {
     name = "microsoft-surface-patches-linux-${version}";
     patch = null;
-    extraStructuredConfig = with kernel; {
+    structuredExtraConfig = with kernel; {
       STAGING_MEDIA = yes;
 
       ##
