@@ -13,6 +13,11 @@ in
         running ustreamer (which starts webservice providing a camera stream):
         ''${pkgs.ustreamer}/bin/ustreamer --persistent --dv-timings
       '';
+      media-controller = lib.mkEnableOption ''
+        Enable support for the Media Controller API.
+
+        See https://forums.raspberrypi.com/viewtopic.php?t=322076 for details
+      '';
     };
   };
 
@@ -60,6 +65,15 @@ in
 
               __overlay__ {
                 status = "okay";
+
+                ${
+                  if cfg.media-controller then
+                    ""
+                  else
+                    ''
+                      compatible = "brcm,bcm2835-unicam-legacy";
+                    ''
+                }
 
                 port {
 
