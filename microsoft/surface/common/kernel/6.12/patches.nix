@@ -3,7 +3,9 @@
   kernel ? lib.kernel,
   patchSrc,
   version,
-}: [
+}:
+
+[
   {
     name = "microsoft-surface-patches-linux-${version}";
     patch = null;
