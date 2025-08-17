@@ -30,22 +30,15 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Print evaluation commands executed",
     )
-    parser.add_argument(
-        "--nixos-hardware",
-        help="Print evaluation commands executed",
-    )
     return parser.parse_args()
 
 
-def run_eval_test(nixos_hardware: str, gcroot_dir: Path, jobs: int) -> list[str]:
+def run_eval_test(gcroot_dir: Path, jobs: int) -> list[str]:
     failed_profiles = []
     cmd = [
         "nix-eval-jobs",
         "--extra-experimental-features",
         "flakes",
-        "--override-input",
-        "nixos-hardware",
-        nixos_hardware,
         "--gc-roots-dir",
         str(gcroot_dir),
         "--max-memory-size",
@@ -53,7 +46,7 @@ def run_eval_test(nixos_hardware: str, gcroot_dir: Path, jobs: int) -> list[str]
         "--workers",
         str(jobs),
         "--flake",
-        str(TEST_ROOT) + "#checks",
+        str(ROOT) + "#checks",
         "--force-recurse",
     ]
     print(" ".join(map(shlex.quote, cmd)))
@@ -84,7 +77,7 @@ def main() -> None:
 
     with TemporaryDirectory() as tmpdir:
         gcroot_dir = Path(tmpdir) / "gcroot"
-        failed_profiles = run_eval_test(args.nixos_hardware, gcroot_dir, args.jobs)
+        failed_profiles = run_eval_test(gcroot_dir, args.jobs)
 
     if len(failed_profiles) > 0:
         print(f"\n{RED}The following {len(failed_profiles)} test(s) failed:{RESET}")
