@@ -139,7 +139,8 @@
           device = "/iso/nix-store.squashfs";
           options = [
             "loop"
-          ] ++ lib.optional (config.boot.kernelPackages.kernel.kernelAtLeast "6.2") "threads=multi";
+          ]
+          ++ lib.optional (config.boot.kernelPackages.kernel.kernelAtLeast "6.2") "threads=multi";
           neededForBoot = true;
         };
 

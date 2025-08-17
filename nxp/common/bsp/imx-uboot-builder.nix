@@ -57,7 +57,8 @@ stdenv.mkDerivation {
     gnutls
     perl
     efitools
-  ] ++ extraNativeBuildInputs;
+  ]
+  ++ extraNativeBuildInputs;
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
   hardeningDisable = [ "all" ];

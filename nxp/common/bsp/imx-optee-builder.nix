@@ -61,20 +61,19 @@ pkgs.stdenv.mkDerivation {
       --replace "\$(CROSS_COMPILE_\$(sm))cpp" ${cpp}/bin/cpp
   '';
 
-  makeFlags =
-    [
-      "PLATFORM=${platform}"
-    ]
-    ++ lib.optionals (!hasFullPlatform) [
-      "PLATFORM_FLAVOR=${flavor}"
-    ]
-    ++ [
-      "CFG_ARM64_core=y"
-      "CFG_TEE_TA_LOG_LEVEL=0"
-      "CFG_TEE_CORE_LOG_LEVEL=0"
-      "CROSS_COMPILE=${toolchain}/bin/${toolchain.targetPrefix}"
-      "CROSS_COMPILE64=${toolchain}/bin/${toolchain.targetPrefix}"
-    ];
+  makeFlags = [
+    "PLATFORM=${platform}"
+  ]
+  ++ lib.optionals (!hasFullPlatform) [
+    "PLATFORM_FLAVOR=${flavor}"
+  ]
+  ++ [
+    "CFG_ARM64_core=y"
+    "CFG_TEE_TA_LOG_LEVEL=0"
+    "CFG_TEE_CORE_LOG_LEVEL=0"
+    "CROSS_COMPILE=${toolchain}/bin/${toolchain.targetPrefix}"
+    "CROSS_COMPILE64=${toolchain}/bin/${toolchain.targetPrefix}"
+  ];
 
   installPhase = ''
     mkdir -p $out
@@ -85,5 +84,6 @@ pkgs.stdenv.mkDerivation {
     homepage = "https://github.com/nxp-imx/imx-optee-os";
     license = [ lib.licenses.bsd2 ];
     platforms = [ "aarch64-linux" ];
-  } // meta;
+  }
+  // meta;
 }
