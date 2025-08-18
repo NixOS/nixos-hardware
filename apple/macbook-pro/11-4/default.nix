@@ -8,9 +8,4 @@
   ];
 
   hardware.graphics.enable = lib.mkDefault true;
-
-  # Faster wakeups from suspend
-  systemd.sleep.extraConfig = ''
-    MemorySleepMode=s2idle
-  '';
 }
