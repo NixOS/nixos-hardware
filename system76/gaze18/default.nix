@@ -10,6 +10,8 @@
     ../../common/gpu/nvidia/prime.nix
     ../../common/gpu/nvidia/ampere
     ../../common/cpu/intel/raptor-lake
+    ../../common/pc/laptop
+    ../../common/pc/ssd
   ];
 
   # For offloading, `modesetting` is needed
