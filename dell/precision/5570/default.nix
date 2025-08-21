@@ -8,14 +8,14 @@
     ../../../common/cpu/intel/alder-lake
     ../../../common/pc/laptop
     ../../../common/pc/ssd
-    ../../../common/gpu/nvidia/prime-sync.nix
+    ../../../common/gpu/nvidia/prime.nix
   ];
 
   hardware.intelgpu.driver = lib.mkIf (lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.8") "xe";
 
   boot.kernelParams = lib.mkIf (config.hardware.intelgpu.driver == "xe") [
-    "i915.force_probe=!9a49"
-    "xe.force_probe=9a49"
+    "i915.force_probe=!46a6"
+    "xe.force_probe=46a6"
   ];
 
   hardware.nvidia = {
