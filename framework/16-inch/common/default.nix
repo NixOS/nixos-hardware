@@ -50,4 +50,7 @@
     MatchDMIModalias=dmi:*svnFramework:pnLaptop16*
     AttrKeyboardIntegration=internal
   '';
+
+  # Everything is updateable through fwupd
+  services.fwupd.enable = true;
 }

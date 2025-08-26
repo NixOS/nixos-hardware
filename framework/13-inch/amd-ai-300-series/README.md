@@ -2,14 +2,13 @@
 
 ## Updating Firmware
 
-First put enable `fwupd`
+Everything is updateable through fwupd, so it's enabled by default.
 
-```nix
-services.fwupd.enable = true;
-```
-
-Then run
+To get the latest firmware, run:
 
 ```sh
- $ fwupdmgr update
+$ fwupdmgr refresh
+$ fwupdmgr update
 ```
+
+- [Latest Update](https://fwupd.org/lvfs/devices/work.frame.Laptop.RyzenAI300.BIOS.firmware)
