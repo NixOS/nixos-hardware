@@ -1,5 +1,5 @@
 {
-  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/7ddb75990d7377d6aebe3f2cd3a718124c61c809/",
+  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/cba79a9fcc64d8cd02e0d6f5ab519034db812648/",
   "patches": [
     {
       "name": "1001-Add-apple-bce-driver.patch",
@@ -103,7 +103,7 @@
     },
     {
       "name": "4001-asahi-trackpad.patch",
-      "hash": "sha256-NOuGgUxDQEfFPlij/EnhWmgqeG3/l+j+r2T1YJG7raY="
+      "hash": "sha256-kfAYVovukZLD5ocHQxhoHJSa9c5XAJ1GhH1RlzGkS+k="
     },
     {
       "name": "4002-HID-quirks-remove-T2-devices-from-hid_mouse_ignore_l.patch",
