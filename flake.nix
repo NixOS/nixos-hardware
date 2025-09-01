@@ -295,6 +295,7 @@
           lenovo-yoga-7-slim-gen8 = import ./lenovo/yoga/7/slim/gen8;
           letsnote-cf-lx4 = import ./panasonic/letsnote/cf-lx4;
           malibal-aon-s1-intel = import ./malibal/aon/s1;
+          mechrevo-gm5hg0a = import ./mechrevo/GM5HG0A;
           microchip-icicle-kit = import ./microchip/icicle-kit;
           microsoft-surface-go = import ./microsoft/surface/surface-go;
           microsoft-surface-pro-intel = import ./microsoft/surface/surface-pro-intel;
