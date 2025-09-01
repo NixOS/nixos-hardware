@@ -1,5 +1,5 @@
 {
-  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/cba79a9fcc64d8cd02e0d6f5ab519034db812648/",
+  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/5eaf1261d069bbc67aba7fe2737a5fe981e05a9e/",
   "patches": [
     {
       "name": "1001-Add-apple-bce-driver.patch",
@@ -48,10 +48,6 @@
     {
       "name": "1013-lib-vsprintf-Add-support-for-generic-FourCCs-by-exte.patch",
       "hash": "sha256-h3gxaKtvdm/GSd+AP1sPC9avWHOsceUxTmoua/3rIf4="
-    },
-    {
-      "name": "1014-drm-format-helper-Add-conversion-from-XRGB8888-to-BG.patch",
-      "hash": "sha256-Ky19+cCiYDaHBh2o5IhZO8J1ExDT7o8K9cgPz+AL8Cg="
     },
     {
       "name": "1015-drm-tiny-add-driver-for-Apple-Touch-Bars-in-x86-Macs.patch",
