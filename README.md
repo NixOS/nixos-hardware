@@ -239,6 +239,8 @@ See code for all available configurations.
 | [Lenovo IdeaPad 2-in-1 16ahp9](lenovo/ideapad/16ahp9)                             | `<nixos-hardware/lenovo/ideapad/16ahp9>`                | `lenovo-ideapad-16ahp9`           |
 | [Lenovo IdeaPad S145 15api](lenovo/ideapad/s145-15api)                            | `<nixos-hardware/lenovo/ideapad/s145-15api>`            | `lenovo-ideapad-s145-15api`       |
 | [Lenovo Legion 5 15ach6h](lenovo/legion/15ach6h)                                  | `<nixos-hardware/lenovo/legion/15ach6h>`                | `lenovo-legion-15ach6h`           |
+| [Lenovo Legion 5 15ach6h (Hybrid)](lenovo/legion/15ach6h/hybrid)                  | `<nixos-hardware/lenovo/legion/15ach6h/hybrid>`         | `lenovo-legion-15ach6h-hybrid`    |
+| [Lenovo Legion 5 15ach6h (Nvidia)](lenovo/legion/15ach6h/hybrid)                  | `<nixos-hardware/lenovo/legion/15ach6h/nvidia>`         | `lenovo-legion-15ach6h-nvidia`    |
 | [Lenovo Legion 5 15arh05h](lenovo/legion/15arh05h)                                | `<nixos-hardware/lenovo/legion/15arh05h>`               | `lenovo-legion-15arh05h`          |
 | [Lenovo Legion 7 Slim 15ach6](lenovo/legion/15ach6)                               | `<nixos-hardware/lenovo/legion/15ach6>`                 | `lenovo-legion-15ach6`            |
 | [Lenovo Legion 5 Pro 16ach6h](lenovo/legion/16ach6h)                              | `<nixos-hardware/lenovo/legion/16ach6h>`                | `lenovo-legion-16ach6h`           |
