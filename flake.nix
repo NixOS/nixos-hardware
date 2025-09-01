@@ -300,6 +300,7 @@
           lenovo-yoga-7-14IAH7-hybrid = import ./lenovo/yoga/7/14IAH7/hybrid;
           lenovo-yoga-7-14ILL10 = import ./lenovo/yoga/7/14ILL10;
           lenovo-yoga-7-slim-gen8 = import ./lenovo/yoga/7/slim/gen8;
+          letsnote-cf-lx3 = import ./panasonic/letsnote/cf-lx3;
           letsnote-cf-lx4 = import ./panasonic/letsnote/cf-lx4;
           malibal-aon-s1-intel = import ./malibal/aon/s1;
           mechrevo-gm5hg0a = import ./mechrevo/GM5HG0A;
