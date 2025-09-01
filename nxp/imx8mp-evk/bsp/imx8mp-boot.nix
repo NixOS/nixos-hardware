@@ -15,8 +15,9 @@ let
   imx8mp-optee-os = pkgs.callPackage ./imx8mp-optee-os.nix { };
   src = pkgs.fetchgit {
     url = "https://github.com/nxp-imx/imx-mkimage.git";
-    rev = "c4365450fb115d87f245df2864fee1604d97c06a";
-    sha256 = "sha256-KVIVHwBpAwd1RKy3RrYxGIniE45CDlN5RQTXsMg1Jwk=";
+    #tag: lf-6.12.20_2.0.0
+    rev = "4c2e5b25232f5aa003976ddca9d1d2fb9667beb1";
+    sha256 = "sha256-bXvM5Q0Fsb18gupw6/ub62/qNE7wGLaZKugp0URWeUk=";
   };
   shortRev = builtins.substring 0 8 src.rev;
 in
