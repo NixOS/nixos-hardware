@@ -226,6 +226,7 @@
           lenovo-thinkpad-t14-amd-gen3 = import ./lenovo/thinkpad/t14/amd/gen3;
           lenovo-thinkpad-t14-amd-gen4 = import ./lenovo/thinkpad/t14/amd/gen4;
           lenovo-thinkpad-t14-amd-gen5 = import ./lenovo/thinkpad/t14/amd/gen5;
+          lenovo-thinkpad-t14-intel-gen6 = import ./lenovo/thinkpad/t14/intel/gen6;
           lenovo-thinkpad-t14s = import ./lenovo/thinkpad/t14s;
           lenovo-thinkpad-t14s-amd-gen1 = import ./lenovo/thinkpad/t14s/amd/gen1;
           lenovo-thinkpad-t14s-amd-gen4 = import ./lenovo/thinkpad/t14s/amd/gen4;
