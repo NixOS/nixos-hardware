@@ -1,5 +1,5 @@
 {
-  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/8ec11f3aaa314d25e18842851a2124c0031e2e3f/",
+  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/6b41c3fd65913e0fa3592ad16ff4a3a5b01efc7a/",
   "patches": [
     {
       "name": "1001-Add-apple-bce-driver.patch",
@@ -38,28 +38,8 @@
       "hash": "sha256-dIzEOj89D2rIEc2/mjq3TkIfI3ZHzu0VRDQQOzp+Snc="
     },
     {
-      "name": "1013-lib-vsprintf-Add-support-for-generic-FourCCs-by-exte.patch",
-      "hash": "sha256-g8M3j1ZPND10/LtPD/txaSoJGV9Lp+g5bgn+vQc56p4="
-    },
-    {
-      "name": "1014-printf-add-tests-for-generic-FourCCs.patch",
-      "hash": "sha256-5Z4cFBMAY695OEU/CxiGQkUz68zmKdxssD+yp1DCYgs="
-    },
-    {
-      "name": "1015-drm-appletbdrm-use-p4cl-instead-of-p4cc.patch",
-      "hash": "sha256-rZej0ZbpPv+8NROuYnf4Jpu9scCsmbKWyz7yf5A3G3s="
-    },
-    {
-      "name": "1016-vsprintf-Use-p4chR-instead-of-p4cn-for-reading-data-.patch",
-      "hash": "sha256-/Ork2CmYk6SG213Owk+nGsw7KTEVDLRzQTeWcKrPZGw="
-    },
-    {
-      "name": "1017-checkpatch-remove-p4cn.patch",
-      "hash": "sha256-lnMnjnMiR9WSNf/XYsiOwFdC9xKv8zSluWiR584xFPU="
-    },
-    {
       "name": "2008-i915-4-lane-quirk-for-mbp15-1.patch",
-      "hash": "sha256-Ui9tK4IGSWfEscmD92emX/NfulO0m8zwLc9ivIClCFQ="
+      "hash": "sha256-PjMVt4u505PXnKFpojov0Uwhj0KxZas1E4NYJGI6lQ4="
     },
     {
       "name": "2009-apple-gmux-allow-switching-to-igpu-at-probe.patch",
@@ -103,7 +83,7 @@
     },
     {
       "name": "4001-asahi-trackpad.patch",
-      "hash": "sha256-QM/FtDft4N4imJBuEHg6cH3e8vEyMPLt0alDhugLPy8="
+      "hash": "sha256-nOpQ3t+QQXco6p7C03fM5EZ3ZfnzwC6UCFwHQd1EnGE="
     },
     {
       "name": "4002-HID-quirks-remove-T2-devices-from-hid_mouse_ignore_l.patch",
@@ -115,7 +95,7 @@
     },
     {
       "name": "4004-HID-magicmouse-Add-support-for-trackpads-found-on-T2.patch",
-      "hash": "sha256-HcPX7gY3hnlwM/tY06pbtXnch04AqwHgC596E8ZqGY8="
+      "hash": "sha256-dNrpDlIE9SaQUOntVQHMOyj7T/dsuRemN56yskKWue0="
     },
     {
       "name": "4005-HID-apple-Add-necessary-IDs-and-support-for-replacem.patch",
@@ -123,15 +103,15 @@
     },
     {
       "name": "4006-HID-magicmouse-Add-MacBookPro15-1-replacement-trackp.patch",
-      "hash": "sha256-uAlT/4ADwYyKvbuPQaGwqCjZ2/myruC63etVV6cfFLk="
+      "hash": "sha256-mMqHhxig+Z9eVPaa1qfcNVCRX16B6/KuEd1KnSZMLLk="
     },
     {
       "name": "7001-drm-i915-fbdev-Discard-BIOS-framebuffers-exceeding-h.patch",
-      "hash": "sha256-O6RHFxmKZn7aCq1D+r5z2T3jLt0r5+01EABD9rs0E5M="
+      "hash": "sha256-/EKN7JsAxcpAgfJFtPp2NLYaGqQ0kl8wjJEXifSzJpY="
     },
     {
       "name": "8001-Add-APFS-driver.patch",
-      "hash": "sha256-io17Kk6FDscDoDshddK9TqSPuXVFTzjvRUwOGTl5cjM="
+      "hash": "sha256-uR5hg75SFFWzfrKyU5UnzPL4U7LkjqGs44rkxM7ur8o="
     },
     {
       "name": "8002-Necessary-modifications-to-build-APFS-with-the-kerne.patch",
