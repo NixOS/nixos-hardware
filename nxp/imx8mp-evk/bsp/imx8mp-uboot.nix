@@ -12,18 +12,19 @@
   which,
   perl,
   buildPackages,
+  efitools,
 }:
 let
   ubsrc = fetchgit {
     url = "https://github.com/nxp-imx/uboot-imx.git";
-    # tag: "lf-6.1.55-2.2.0"
-    rev = "49b102d98881fc28af6e0a8af5ea2186c1d90a5f";
-    sha256 = "sha256-1j6X82DqezEizeWoSS600XKPNwrQ4yT0vZuUImKAVVA=";
+    # tag: lf-6.12.20-2.0.0
+    rev = "9383f8387dc76524524da69992db96c22195a57c";
+    sha256 = "sha256-httRSwN8NiKOdL7fZEvN/4AbypGQfegYtJgxKIea+Zg=";
   };
 in
-(stdenv.mkDerivation {
+stdenv.mkDerivation {
   pname = "imx8mp-uboot";
-  version = "2023.04";
+  version = "2025.04";
   src = ubsrc;
 
   postPatch = ''
@@ -41,6 +42,7 @@ in
     gnutls
     openssl
     perl
+    efitools
   ];
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
@@ -81,11 +83,11 @@ in
     mkdir -p $out
     cp ./u-boot-nodtb.bin $out
     cp ./spl/u-boot-spl.bin $out
-    cp ./arch/arm/dts/imx8mp-evk.dtb $out
+    cp ./dts/upstream/src/arm64/freescale/imx8mp-evk.dtb $out
     cp .config  $out
 
     runHook postInstall
   '';
 
   dontStrip = true;
-})
+}
