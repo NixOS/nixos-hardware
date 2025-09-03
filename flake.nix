@@ -186,6 +186,7 @@
           lenovo-legion-16achg6-nvidia = import ./lenovo/legion/16achg6/nvidia;
           lenovo-legion-16aph8 = import ./lenovo/legion/16aph8;
           lenovo-legion-16arha7 = import ./lenovo/legion/16arha7;
+          lenovo-legion-16iah7h = import ./lenovo/legion/16iah7h;
           lenovo-legion-16ithg6 = import ./lenovo/legion/16ithg6;
           lenovo-legion-16irx8h = import ./lenovo/legion/16irx8h;
           lenovo-legion-16irx9h = import ./lenovo/legion/16irx9h;
@@ -270,8 +271,8 @@
           lenovo-thinkpad-x1-extreme-gen4 = import ./lenovo/thinkpad/x1-extreme/gen4;
           lenovo-thinkpad-x1-nano = import ./lenovo/thinkpad/x1-nano;
           lenovo-thinkpad-x1-nano-gen1 = import ./lenovo/thinkpad/x1-nano/gen1;
-          lenovo-thinkpad-x13 = import ./lenovo/thinkpad/x13/intel;
           lenovo-thinkpad-x13-amd = import ./lenovo/thinkpad/x13/amd;
+          lenovo-thinkpad-x13-intel = import ./lenovo/thinkpad/x13/intel;
           lenovo-thinkpad-x13-yoga = import ./lenovo/thinkpad/x13/yoga;
           lenovo-thinkpad-x13-yoga-3th-gen = import ./lenovo/thinkpad/x13/yoga/3th-gen;
           lenovo-thinkpad-x13s = import ./lenovo/thinkpad/x13s;
@@ -364,6 +365,7 @@
           tuxedo-aura-15-gen1 = import ./tuxedo/aura/15/gen1;
           tuxedo-infinitybook-v4 = import ./tuxedo/infinitybook/v4;
           tuxedo-infinitybook-pro14-gen7 = import ./tuxedo/infinitybook/pro14/gen7;
+          tuxedo-infinitybook-pro14-gen9-amd = import ./tuxedo/infinitybook/pro14/gen9/amd;
           tuxedo-infinitybook-pro14-gen9-intel = import ./tuxedo/infinitybook/pro14/gen9/intel;
           tuxedo-pulse-14-gen3 = import ./tuxedo/pulse/14/gen3;
           tuxedo-pulse-15-gen2 = import ./tuxedo/pulse/15/gen2;
