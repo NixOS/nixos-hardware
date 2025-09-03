@@ -1,6 +1,6 @@
-{ callPackage, linux_6_15, ... }@args:
+{ callPackage, linux_6_16, ... }@args:
 
 callPackage ./generic.nix args {
-  kernel = linux_6_15;
+  kernel = linux_6_16;
   patchesFile = ./latest.json;
 }

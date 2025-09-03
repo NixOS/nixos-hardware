@@ -61,7 +61,10 @@ Then use `fwupdmgr` to perform updates
 
 ## Nvidia Driver
 
-The choice of the `legacy_390` driver is based on looking for PCI Device ID `10de:1436`. On the [nvidia driver site](https://www.nvidia.com/en-us/drivers/unix/legacy-gpu/) which should indicate the
-driver, the exact device isn't listed. However, we can see
-[here](https://linux-hardware.org/?id=pci:10de-1436-103c-1909) has nvidia driver "375.82 and newer" listed. Since the
-newest nvidia drivers don't support legacy devices, the closest version newer than 375.82 was chosen.
+The choice of the `stable` driver is based on looking at the family of the card on [nouveau wiki's code names page](https://nouveau.freedesktop.org/CodeNames.html) obtained with:
+
+```bash
+$ lspci -k -d ::03xx
+```
+
+Both `Quadro M2200 Mobile (GM206GLM)` and `Quadro M1200 Mobile (GM107GLM)` belong to the **Maxwell** family which is still supported by the stable driver.

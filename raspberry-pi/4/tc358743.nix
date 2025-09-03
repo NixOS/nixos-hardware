@@ -23,10 +23,16 @@ in
           Number of CSI lanes available
         '';
       };
+      media-controller = lib.mkEnableOption ''
+        Enable support for the Media Controller API.
+
+        See https://forums.raspberrypi.com/viewtopic.php?t=322076 for details
+      '';
     };
   };
 
   config = lib.mkIf cfg.enable {
+    hardware.deviceTree.filter = "bcm2711-rpi-4*.dtb";
     hardware.deviceTree.overlays = [
       {
         name = "tc358743-overlay";
@@ -70,6 +76,15 @@ in
 
               __overlay__ {
                 status = "okay";
+
+                ${
+                  if cfg.media-controller then
+                    ""
+                  else
+                    ''
+                      compatible = "brcm,bcm2835-unicam-legacy";
+                    ''
+                }
 
                 port {
 
