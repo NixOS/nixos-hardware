@@ -141,6 +141,7 @@
           friendlyarm-nanopc-t4 = import ./friendlyarm/nanopc-t4;
           friendlyarm-nanopi-r5s = import ./friendlyarm/nanopi-r5s;
           focus-m2-gen1 = import ./focus/m2/gen1;
+          fydetab-duo = import ./fydetab/duo;
           gigabyte-b550 = import ./gigabyte/b550;
           gigabyte-b650 = import ./gigabyte/b650;
           gmktec-nucbox-g3-plus = import ./gmktec/nucbox/g3-plus;

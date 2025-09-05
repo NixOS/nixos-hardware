@@ -207,6 +207,7 @@ See code for all available configurations.
 | [FriendlyARM NanoPC-T4](friendlyarm/nanopc-t4)                                    | `<nixos-hardware/friendlyarm/nanopc-t4>`                | `friendlyarm-nanopc-t4`           |
 | [FriendlyARM NanoPi R5s](friendlyarm/nanopi-r5s)                                  | `<nixos-hardware/friendlyarm/nanopi-r5s>`               | `friendlyarm-nanopi-r5s`          |
 | [Focus M2 Gen 1](focus/m2/gen1)                                                   | `<nixos-hardware/focus/m2/gen1>`                        | `focus-m2-gen1`                   |
+| [Fydetab Duo](fydetab/duo)                                                        | `<nixos-hardware/fydetab/duo>`                          | `fydetab-duo`                     |
 | [Gigabyte B550](gigabyte/b550)                                                    | `<nixos-hardware/gigabyte/b550>`                        | `gigabyte-b550`                   |
 | [Gigabyte B650](gigabyte/b650)                                                    | `<nixos-hardware/gigabyte/b650>`                        | `gigabyte-b650`                   |
 | [GMKtec NucBox G3 Plus](gmktec/nucbox/g3-plus)                                    | `<nixos-hardware/gmktec/nucbox/g3-plus>`                | `gmktec-nucbox-g3-plus`           |
