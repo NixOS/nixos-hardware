@@ -6540,7 +6540,7 @@ CONFIG_HID_WIIMOTE=m
 # CONFIG_HID_XINMO is not set
 # CONFIG_HID_ZEROPLUS is not set
 # CONFIG_HID_ZYDACRON is not set
-# CONFIG_HID_SENSOR_HUB is not set
+CONFIG_HID_SENSOR_HUB=m
 # CONFIG_HID_ALPS is not set
 # CONFIG_HID_MCP2221 is not set
 # end of Special HID drivers
