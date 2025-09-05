@@ -9,6 +9,7 @@ stdenv.mkDerivation (_finalAttrs: {
 
   src = fetchurl {
     url = "https://github.com/Linux-for-Fydetab-Duo/pkgbuilds/raw/f4c012bd42d87f677370f987f703982d53cd233d/fydetabduo-post-install/Himax_firmware.bin";
+    hash = "sha256-z0p/zXcNTBdhKCV6GmM2C8C02lu4Wkb2HP+Ir/nQJTc=";
   };
 
   compressFirmware = false;
