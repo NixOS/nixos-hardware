@@ -43,56 +43,68 @@ in
       })
     ];
 
-    hardware = {
-      deviceTree = lib.mkMerge [
-        {
-          name = "rockchip/rk3588s-fydetab-duo.dtb";
-        }
-        (lib.mkIf config.hardware.fydetab.duo.enablePanthor {
-          overlays = [
-            {
-              name = "fydetab-panthor-gpu";
-              dtsText = ''
-                /dts-v1/;
-                /plugin/;
+    hardware = lib.mkMerge [
+      {
+        deviceTree = lib.mkMerge [
+          {
+            name = "rockchip/rk3588s-fydetab-duo.dtb";
+          }
+          (lib.mkIf config.hardware.fydetab.duo.enablePanthor {
+            overlays = [
+              {
+                name = "fydetab-panthor-gpu";
+                dtsText = ''
+                  /dts-v1/;
+                  /plugin/;
 
-                #include <dt-bindings/clock/rk3588-cru.h>
-                #include <dt-bindings/interrupt-controller/arm-gic.h>
-                #include <dt-bindings/power/rk3588-power.h>
+                  #include <dt-bindings/clock/rk3588-cru.h>
+                  #include <dt-bindings/interrupt-controller/arm-gic.h>
+                  #include <dt-bindings/power/rk3588-power.h>
 
-                / {
-                  compatible = "rockchip,rk3588s-tablet-12c-linux";
-                  fragment@0 {
-                    target = <&gpu>;
-                    __overlay__ {
-                      status = "disabled";
+                  / {
+                    compatible = "rockchip,rk3588s-tablet-12c-linux";
+                    fragment@0 {
+                      target = <&gpu>;
+                      __overlay__ {
+                        status = "disabled";
+                      };
+                    };
+
+                    fragment@1 {
+                      target = <&gpu_panthor>;
+                      __overlay__ {
+                        status = "okay";
+                        mali-supply = <&vdd_gpu_s0>;
+                      };
                     };
                   };
-
-                  fragment@1 {
-                    target = <&gpu_panthor>;
-                    __overlay__ {
-                      status = "okay";
-                      mali-supply = <&vdd_gpu_s0>;
-                    };
-                  };
-                };
-              '';
-            }
-          ];
-        })
-      ];
-      rockchip = {
-        rk3588.enable = true;
-        platformFirmware = pkgs.callPackage ./u-boot.nix { };
-      };
-      firmware = lib.mkMerge [
-        # Only iwd is supported by the interface
-        (lib.mkIf config.networking.wireless.iwd.enable ap6275pFirmware)
-        (lib.mkIf config.hardware.graphics.enable (pkgs.callPackage ./mali-g610.nix { }))
-        (lib.mkIf config.hardware.sensor.iio.enable (pkgs.callPackage ./himax.nix { }))
-      ];
-    };
+                '';
+              }
+            ];
+          })
+        ];
+        rockchip = {
+          rk3588.enable = true;
+          platformFirmware = pkgs.callPackage ./u-boot.nix { };
+        };
+      }
+      (lib.mkIf config.networking.wireless.iwd.enable {
+        firmware = [
+          # Only iwd is supported by the interface
+          ap6275pFirmware
+        ];
+      })
+      (lib.mkIf config.hardware.graphics.enable {
+        firmware = [
+          (pkgs.callPackage ./mali-g610.nix { })
+        ];
+      })
+      (lib.mkIf config.hardware.sensor.iio.enable {
+        firmware = [
+          (pkgs.callPackage ./himax.nix { })
+        ];
+      })
+    ];
 
     systemd.services.bluetooth-fydetab = lib.mkIf config.hardware.bluetooth.enable {
       description = "FydeTab Duo Bluetooth fix";
