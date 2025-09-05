@@ -5,6 +5,8 @@ The Fydetab Duo is an open source and hackable tablet by FydeOS.
 ## Features
 
 - Display: **works**
+  - X11: **untested**
+  - Wayland: **not working** (niri, sway, COSMIC)
 - GPU driver: **not working**
 - WiFi: **working**
 - Cellular: **untested**
