@@ -13,7 +13,7 @@ in
   ];
 
   options.hardware.fydetab.duo = {
-    enablePanthor = lib.mkEnable "Panthor GPU driver";
+    enablePanthor = lib.mkEnableOption "Panthor GPU driver";
   };
 
   config = {
