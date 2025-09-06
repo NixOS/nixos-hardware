@@ -1,9 +1,26 @@
 {
   description = "nixos-hardware";
 
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs";
+
   outputs =
-    { ... }:
+    { nixpkgs, ... }:
+    let
+      inherit (nixpkgs.lib)
+        genAttrs
+        ;
+
+      eachSystem = genAttrs [
+        "aarch64-linux"
+        "x86_64-linux"
+        "riscv64-linux"
+      ];
+    in
     {
+
+      hydraJobs = import ./jobs.nix nixpkgs;
+
+      packages = eachSystem (system: import ./. { pkgs = nixpkgs.legacyPackages.${system}; });
 
       nixosModules =
         let
