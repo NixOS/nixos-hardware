@@ -2,7 +2,12 @@
 {
   imports = [
     ../../../../common/cpu/amd
+    ../../../../common/cpu/amd/pstate.nix
+    ../../../../common/cpu/amd/zenpower.nix
     ../../../../common/gpu/amd
+    ../../../../common/hidpi.nix
+    ../../../../common/pc
+    ../../../../common/pc/laptop
     ../../../../common/pc/ssd
   ];
 
