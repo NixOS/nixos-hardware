@@ -7,5 +7,8 @@
     "i915.enable_psr=2"
   ];
 
-  hardware.intelgpu.vaapiDriver = "intel-media-driver";
+  hardware.intelgpu = {
+    computeRuntime = "legacy";
+    vaapiDriver = "intel-media-driver";
+  };
 }
