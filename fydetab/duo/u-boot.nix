@@ -1,9 +1,10 @@
 {
   lib,
   stdenv,
-  buildUboot,
+  buildUBoot,
   armTrustedFirmwareRK3588,
   rkbin,
+  fetchpatch,
   fetchurl,
   fetchFromGitHub,
 }:
@@ -33,7 +34,7 @@ buildUBoot {
       lib.mapAttrs
         (
           name: hash:
-          pkgs.fetchpatch {
+          fetchpatch {
             url = "https://github.com/openFyde/overlay-fydetab_duo-openfyde/raw/fd84c5302908dea6a819c2dcd025a2bf93b5d4e8/sys-boot/rk-uboot/files/rk8/${name}";
             inherit hash;
           }
