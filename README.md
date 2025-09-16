@@ -133,6 +133,7 @@ See code for all available configurations.
 | [Asus Zenbook Duo 14 UX481](asus/zenbook/ux481/nvidia/)                           | `<nixos-hardware/asus/zenbook/ux481/nvidia>`            | `asus-zenbook-ux481-nvidia`            |
 | [Asus Zenbook Flip S13 UX371](asus/zenbook/ux371/)                                | `<nixos-hardware/asus/zenbook/ux371>`                   | `asus-zenbook-ux371`                   |
 | [Asus Zenbook Pro 15 UX535](asus/zenbook/ux535/)                                  | `<nixos-hardware/asus/zenbook/ux535>`                   | `asus-zenbook-ux535`                   |
+| [Asrock Rack ALTRAD8UD-1L2T](asrock-rack/altrad8ud-1l2t)                          | `<nixos-hardware/asrock-rack/altrad8ud-1l2t>`           | `asrock-rack-altrad8ud-1l2t`           |
 | [BeagleBoard PocketBeagle](beagleboard/pocketbeagle)                              | `<nixos-hardware/beagleboard/pocketbeagle>`             | `beagleboard-pocketbeagle`             |
 | [Chuwi MiniBook X](chuwi/minibook-x)                                              | `<nixos-hardware/chuwi/minibook-x>`                     | `chuwi-minibook-x`                     |
 | [Deciso DEC series](deciso/dec)                                                   | `<nixos-hardware/deciso/dec>`                           | `deciso-dec`                           |
