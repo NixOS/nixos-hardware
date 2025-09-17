@@ -1,5 +1,3 @@
-{ pkgs, ... }:
-
 {
   imports = [ ../. ];
 
@@ -12,6 +10,7 @@
   # NixOS Wiki recommends using the legacy intel-vaapi-driver with the hybrid codec over that one for Skylake.
   # https://wiki.nixos.org/wiki/Accelerated_Video_Playback
   hardware.intelgpu = {
+    computeRuntime = "legacy";
     vaapiDriver = "intel-vaapi-driver";
     enableHybridCodec = true;
   };

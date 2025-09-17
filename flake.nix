@@ -94,6 +94,7 @@
           dell-precision-5490 = import ./dell/precision/5490;
           dell-precision-5530 = import ./dell/precision/5530;
           dell-precision-5560 = import ./dell/precision/5560;
+          dell-precision-5570 = import ./dell/precision/5570;
           dell-precision-7520 = import ./dell/precision/7520;
           dell-xps-13-7390 = import ./dell/xps/13-7390;
           dell-xps-13-9300 = import ./dell/xps/13-9300;
@@ -135,10 +136,12 @@
           framework-13-7040-amd = import ./framework/13-inch/7040-amd;
           framework-amd-ai-300-series = import ./framework/13-inch/amd-ai-300-series;
           framework-16-7040-amd = import ./framework/16-inch/7040-amd;
+          framework-16-amd-ai-300-series = import ./framework/16-inch/amd-ai-300-series;
           framework-desktop-amd-ai-max-300-series = import ./framework/desktop/amd-ai-max-300-series;
           friendlyarm-nanopc-t4 = import ./friendlyarm/nanopc-t4;
           friendlyarm-nanopi-r5s = import ./friendlyarm/nanopi-r5s;
           focus-m2-gen1 = import ./focus/m2/gen1;
+          fydetab-duo = import ./fydetab/duo;
           gigabyte-b550 = import ./gigabyte/b550;
           gigabyte-b650 = import ./gigabyte/b650;
           gmktec-nucbox-g3-plus = import ./gmktec/nucbox/g3-plus;
@@ -156,6 +159,7 @@
           hp-elitebook-845g8 = import ./hp/elitebook/845/g8;
           hp-elitebook-845g9 = import ./hp/elitebook/845/g9;
           hp-probook-440G5 = import ./hp/probook/440G5;
+          hp-probook-460G11 = import ./hp/probook/460G11;
           hp-laptop-14s-dq2024nf = import ./hp/laptop/14s-dq2024nf;
           huawei-machc-wa = import ./huawei/machc-wa;
           hp-notebook-14-df0023 = import ./hp/notebook/14-df0023;
@@ -186,6 +190,7 @@
           lenovo-legion-16achg6-nvidia = import ./lenovo/legion/16achg6/nvidia;
           lenovo-legion-16aph8 = import ./lenovo/legion/16aph8;
           lenovo-legion-16arha7 = import ./lenovo/legion/16arha7;
+          lenovo-legion-16iah7h = import ./lenovo/legion/16iah7h;
           lenovo-legion-16ithg6 = import ./lenovo/legion/16ithg6;
           lenovo-legion-16irx8h = import ./lenovo/legion/16irx8h;
           lenovo-legion-16irx9h = import ./lenovo/legion/16irx9h;
@@ -271,8 +276,8 @@
           lenovo-thinkpad-x1-extreme-gen4 = import ./lenovo/thinkpad/x1-extreme/gen4;
           lenovo-thinkpad-x1-nano = import ./lenovo/thinkpad/x1-nano;
           lenovo-thinkpad-x1-nano-gen1 = import ./lenovo/thinkpad/x1-nano/gen1;
-          lenovo-thinkpad-x13 = import ./lenovo/thinkpad/x13/intel;
           lenovo-thinkpad-x13-amd = import ./lenovo/thinkpad/x13/amd;
+          lenovo-thinkpad-x13-intel = import ./lenovo/thinkpad/x13/intel;
           lenovo-thinkpad-x13-yoga = import ./lenovo/thinkpad/x13/yoga;
           lenovo-thinkpad-x13-yoga-3th-gen = import ./lenovo/thinkpad/x13/yoga/3th-gen;
           lenovo-thinkpad-x13s = import ./lenovo/thinkpad/x13s;
@@ -365,6 +370,7 @@
           tuxedo-aura-15-gen1 = import ./tuxedo/aura/15/gen1;
           tuxedo-infinitybook-v4 = import ./tuxedo/infinitybook/v4;
           tuxedo-infinitybook-pro14-gen7 = import ./tuxedo/infinitybook/pro14/gen7;
+          tuxedo-infinitybook-pro14-gen9-amd = import ./tuxedo/infinitybook/pro14/gen9/amd;
           tuxedo-infinitybook-pro14-gen9-intel = import ./tuxedo/infinitybook/pro14/gen9/intel;
           tuxedo-pulse-14-gen3 = import ./tuxedo/pulse/14/gen3;
           tuxedo-pulse-15-gen2 = import ./tuxedo/pulse/15/gen2;
