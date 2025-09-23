@@ -42,7 +42,7 @@ Link the profile in the table in README.md and in flake.nix.
 
 ## 3. Testing
 
-Run `nix run ./tests#run .` to evaluate all hardware profiles.
+Run `nix run .#run-tests` to evaluate all hardware profiles.
 Because profiles can only be tested with the appropriate hardware, quality
 assurance is up to *you*.
 
