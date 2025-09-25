@@ -22,6 +22,4 @@
   hardware.enableRedistributableFirmware = lib.mkDefault true;
   hardware.graphics.enable = lib.mkDefault true;
   hardware.graphics.enable32Bit = lib.mkDefault true;
-
-  hardware.amdgpu.opencl.enable = lib.mkDefault true;
 }
