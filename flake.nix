@@ -20,6 +20,7 @@
           apple-imac-18-2 = import ./apple/imac/18-2;
           apple-macbook-air-3 = import ./apple/macbook-air/3;
           apple-macbook-air-4 = import ./apple/macbook-air/4;
+          apple-macbook-air-5 = import ./apple/macbook-air/5;
           apple-macbook-air-6 = import ./apple/macbook-air/6;
           apple-macbook-air-7 = import ./apple/macbook-air/7;
           apple-macbook-pro = import ./apple/macbook-pro;
