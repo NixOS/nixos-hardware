@@ -322,6 +322,7 @@
           morefine-m600 = import ./morefine/m600;
           msi-b350-tomahawk = import ./msi/b350-tomahawk;
           msi-b550-a-pro = import ./msi/b550-a-pro;
+          msi-b550-tomahawk = import ./msi/b550-tomahawk;
           msi-gs60 = import ./msi/gs60;
           msi-gl62 = import ./msi/gl62;
           msi-gl65-10SDR-492 = import ./msi/gl65/10SDR-492;
