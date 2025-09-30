@@ -304,6 +304,7 @@
           lenovo-yoga-7-14ILL10 = import ./lenovo/yoga/7/14ILL10;
           lenovo-yoga-7-slim-gen8 = import ./lenovo/yoga/7/slim/gen8;
           letsnote-cf-lx4 = import ./panasonic/letsnote/cf-lx4;
+          linglong-nova-studio = import ./linglong/nova-studio;
           malibal-aon-s1-intel = import ./malibal/aon/s1;
           mechrevo-gm5hg0a = import ./mechrevo/GM5HG0A;
           microchip-icicle-kit = import ./microchip/icicle-kit;

@@ -364,6 +364,7 @@ See code for all available configurations.
 | [Lenovo Yoga Slim 7i Pro X 14IAH7 (Hybrid)](lenovo/yoga/7/14IAH7/hybrid)          | `<nixos-hardware/lenovo/yoga/7/14IAH7/hybrid>`          | `lenovo-yoga-7-14IAH7-hybrid`     |
 | [Lenovo Yoga Slim 7 14ILL10](lenovo/yoga/7/14ILL10)                               | `<nixos-hardware/lenovo/yoga/7/14ILL10>`                | `lenovo-yoga-7-14ILL10`           |
 | [LENOVO Yoga 7 Slim Gen8](lenovo/yoga/7/slim/gen8)                                | `<nixos-hardware/lenovo/yoga/7/slim/gen8>`              | `lenovo-yoga-7-slim-gen8`         |
+| [Linglong Nova Studio](linglong/nova-studio)                                      | `<nixos-hardware/linglong/nova-studio>`                 | `linglong-nova-studio`            |
 | [MSI B550-A PRO](msi/b550-a-pro)                                                  | `<nixos-hardware/msi/b550-a-pro>`                       | `msi-b550-a-pro`                  |
 | [MSI B350 TOMAHAWK](msi/b350-tomahawk)                                            | `<nixos-hardware/msi/b350-tomahawk>`                    | `msi-b350-tomahawk`               |
 | [MSI GS60 2QE](msi/gs60)                                                          | `<nixos-hardware/msi/gs60>`                             | `msi-gs60`                        |
