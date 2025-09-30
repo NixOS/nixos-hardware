@@ -165,6 +165,7 @@ See code for all available configurations.
 | [Dell Precision 5560](dell/precision/5560)                                        | `<nixos-hardware/dell/precision/5560>`                  | `dell-precision-5560`              |
 | [Dell Precision 5570](dell/precision/5570)                                        | `<nixos-hardware/dell/precision/5570>`                  | `dell-precision-5570`              |
 | [Dell Precision 7520](dell/precision/7520)                                        | `<nixos-hardware/dell/precision/7520>`                  | `dell-precision-7520`              |
+| [Dell Pro 14 PA14250](dell/dell-pro/PA14250)                                      | `<nixos-hardware/dell/dell-pro/PA14250>`                | `dell-pro-14-PA14250`              |
 | [Dell XPS 13 7390](dell/xps/13-7390)                                              | `<nixos-hardware/dell/xps/13-7390>`                     | `dell-xps-13-7390`                 |
 | [Dell XPS 13 9300](dell/xps/13-9300)                                              | `<nixos-hardware/dell/xps/13-9300>`                     | `dell-xps-13-9300`                 |
 | [Dell XPS 13 9310](dell/xps/13-9310)                                              | `<nixos-hardware/dell/xps/13-9310>`                     | `dell-xps-13-9310`                 |
