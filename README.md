@@ -92,6 +92,7 @@ See code for all available configurations.
 | [Apple iMac 18.2](apple/imac/18-2)                                                | `<nixos-hardware/apple/imac/18-2>`                      | `apple-imac-18-2`                  |
 | [Apple MacBook Air 3,X](apple/macbook-air/3)                                      | `<nixos-hardware/apple/macbook-air/3>`                  | `apple-macbook-air-3`              |
 | [Apple MacBook Air 4,X](apple/macbook-air/4)                                      | `<nixos-hardware/apple/macbook-air/4>`                  | `apple-macbook-air-4`              |
+| [Apple MacBook Air 5,X](apple/macbook-air/5)                                      | `<nixos-hardware/apple/macbook-air/5>`                  | `apple-macbook-air-5`              |
 | [Apple MacBook Air 6,X](apple/macbook-air/6)                                      | `<nixos-hardware/apple/macbook-air/6>`                  | `apple-macbook-air-6`              |
 | [Apple MacBook Air 7,X](apple/macbook-air/7)                                      | `<nixos-hardware/apple/macbook-air/7>`                  | `apple-macbook-air-7`              |
 | [Apple MacBook Pro 8,1](apple/macbook-pro/8-1)                                    | `<nixos-hardware/apple/macbook-pro/8-1>`                | `apple-macbook-pro-8-1`            |
