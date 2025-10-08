@@ -6,9 +6,7 @@ in
 {
   options.hardware = {
     raspberry-pi."4".backlight = {
-      enable = lib.mkEnableOption ''
-        Enable the backlight support for the Raspberry Pi official Touch Display
-      '';
+      enable = lib.mkEnableOption "the backlight support for the Raspberry Pi official Touch Display";
     };
   };
 

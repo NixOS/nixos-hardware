@@ -6,9 +6,7 @@ in
 {
   options.hardware = {
     raspberry-pi."4".pwm0 = {
-      enable = lib.mkEnableOption ''
-        Enable support for the hardware pwm0 channel on GPIO_18
-      '';
+      enable = lib.mkEnableOption "support for the hardware pwm0 channel on GPIO_18";
     };
   };
 
