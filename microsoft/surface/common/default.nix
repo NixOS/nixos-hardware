@@ -19,7 +19,7 @@ let
     if kernelVersion == "longterm" then
       "6.12.19"
     else if kernelVersion == "stable" then
-      "6.15.9"
+      "6.16.9"
     else
       abort "Invalid kernel version: ${kernelVersion}";
 
@@ -28,7 +28,7 @@ let
     if kernelVersion == "longterm" then
       "sha256-1zvwV77ARDSxadG2FkGTb30Ml865I6KB8y413U3MZTE="
     else if kernelVersion == "stable" then
-      "sha256-6U86+FSSMC96gZRBRY+AvKCtmRLlpMg8aZ/zxjxSlX0="
+      "sha256-esjIo88FR2N13qqoXfzuCVqCb/5Ve0N/Q3dPw7ZM5Y0="
     else
       abort "Invalid kernel version: ${kernelVersion}";
 
@@ -38,7 +38,7 @@ let
     if kernelVersion == "longterm" then
       "6.12.7"
     else if kernelVersion == "stable" then
-      "6.15.3"
+      "6.16.9"
     else
       abort "Invalid kernel version: ${kernelVersion}";
 
@@ -47,11 +47,21 @@ let
     if kernelVersion == "longterm" then
       "sha256-Pv7O8D8ma+MPLhYP3HSGQki+Yczp8b7d63qMb6l4+mY="
     else if kernelVersion == "stable" then
-      "sha256-ozvYrZDiVtMkdCcVnNEdlF2Kdw4jivW0aMJrDynN3Hk="
+      "sha256-grZY2DvEjRrr55D9Ov3I5NpXjgxB7z6bYn8K7iO8fOk="
     else
       abort "Invalid kernel version: ${kernelVersion}";
 
-  # Fetch the linux-surface package
+  # Set the commit for the linux-surface release
+  pkgRev =
+    with config.hardware.microsoft-surface;
+    if kernelVersion == "longterm" then
+      "add4c31a06d80393e34b6cae07f0f6c92fb2ec31"
+    else if kernelVersion == "stable" then
+      "94217c2dc8818afd2296c3776223fc1c093f78fb"
+    else
+      abort "Invalid kernel version: ${kernelVersion}";
+
+  # Fetch the linux-surface repository
   repos =
     pkgs.callPackage
       (
@@ -71,10 +81,10 @@ let
       )
       {
         hash = pkgHash;
-        rev = "arch-${pkgVersion}-1";
+        rev = pkgRev;
       };
 
-  # Fetch and build the kernel package
+  # Fetch and build the kernel source after applying the linux-surface patches
   inherit (pkgs.callPackage ./kernel/linux-package.nix { inherit repos; })
     linuxPackage
     surfacePatches
