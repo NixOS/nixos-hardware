@@ -91,6 +91,8 @@
         lib.optionals useIntelVaapiDriver [ intel-vaapi-driver-32 ]
         ++ lib.optionals useIntelMediaDriver [ intel-media-driver-32 ];
 
+      hardware.intel-gpu-tools.enable = true;
+
       assertions = [
         {
           assertion = (
