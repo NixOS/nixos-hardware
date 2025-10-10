@@ -110,9 +110,6 @@ in
       kernelParams = mkDefault [ "mem_sleep_default=deep" ];
     };
 
-    # NOTE: Check the README before enabling TLP:
-    services.tlp.enable = mkDefault false;
-
     # Needed for wifi firmware, see https://github.com/NixOS/nixos-hardware/issues/364
     hardware = {
       enableRedistributableFirmware = mkDefault true;
