@@ -6,16 +6,18 @@ in
 {
   options.hardware = {
     raspberry-pi."4".touch-ft5406 = {
-      enable = lib.mkEnableOption ''
-        Enable the touch controller of the official Raspberry Pi touch diplay.
+      enable = lib.mkEnableOption "" // {
+        description = ''
+          Enable the touch controller of the official Raspberry Pi touch diplay.
 
-        The overlay is taken from the official Raspberry Pi Linux fork, and
-        the `compatible` field is updated to match the target device tree.
-        https://github.com/raspberrypi/linux/blob/14b35093ca68bf2c81bbc90aace5007142b40b40/arch/arm/boot/dts/overlays/rpi-ft5406-overlay.dts
+          The overlay is taken from the official Raspberry Pi Linux fork, and
+          the `compatible` field is updated to match the target device tree.
+          https://github.com/raspberrypi/linux/blob/14b35093ca68bf2c81bbc90aace5007142b40b40/arch/arm/boot/dts/overlays/rpi-ft5406-overlay.dts
 
-        For more information about the touch display, please refer to:
-        https://www.raspberrypi.com/documentation/accessories/display.html
-      '';
+          For more information about the touch display, please refer to:
+          https://www.raspberrypi.com/documentation/accessories/display.html
+        '';
+      };
     };
   };
 
