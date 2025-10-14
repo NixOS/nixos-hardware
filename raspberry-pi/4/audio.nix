@@ -11,9 +11,7 @@ in
 {
   options.hardware = {
     raspberry-pi."4".audio = {
-      enable = lib.mkEnableOption ''
-        configuration for audio
-      '';
+      enable = lib.mkEnableOption "configuration for audio";
     };
   };
 

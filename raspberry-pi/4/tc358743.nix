@@ -6,13 +6,15 @@ in
 {
   options.hardware = {
     raspberry-pi."4".tc358743 = {
-      enable = lib.mkEnableOption ''
-        Enable support for the Toshiba TC358743 HDMI-to-CSI-2 converter.
+      enable = lib.mkEnableOption "" // {
+        description = ''
+          Enable support for the Toshiba TC358743 HDMI-to-CSI-2 converter.
 
-        This can be tested with a plugged in converter device and for example
-        running ustreamer (which starts webservice providing a camera stream):
-        ''${pkgs.ustreamer}/bin/ustreamer --persistent --dv-timings
-      '';
+          This can be tested with a plugged in converter device and for example
+          running ustreamer (which starts webservice providing a camera stream):
+          ''${pkgs.ustreamer}/bin/ustreamer --persistent --dv-timings
+        '';
+      };
       lanes = lib.mkOption {
         type = lib.types.enum [
           2
@@ -23,11 +25,13 @@ in
           Number of CSI lanes available
         '';
       };
-      media-controller = lib.mkEnableOption ''
-        Enable support for the Media Controller API.
+      media-controller = lib.mkEnableOption "" // {
+        description = ''
+          Enable support for the Media Controller API.
 
-        See https://forums.raspberrypi.com/viewtopic.php?t=322076 for details
-      '';
+          See https://forums.raspberrypi.com/viewtopic.php?t=322076 for details
+        '';
+      };
     };
   };
 
