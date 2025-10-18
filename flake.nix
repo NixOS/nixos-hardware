@@ -143,6 +143,7 @@
           framework-desktop-amd-ai-max-300-series = import ./framework/desktop/amd-ai-max-300-series;
           friendlyarm-nanopc-t4 = import ./friendlyarm/nanopc-t4;
           friendlyarm-nanopi-r5s = import ./friendlyarm/nanopi-r5s;
+          friendlyarm-cm3588-nas = import ./friendlyarm/cm3588-nas;
           focus-m2-gen1 = import ./focus/m2/gen1;
           fydetab-duo = import ./fydetab/duo;
           gigabyte-b550 = import ./gigabyte/b550;
