@@ -234,6 +234,7 @@ See code for all available configurations.
 | [HP Probook 460G11](hp/probook/460g11)                                            | `<nixos-hardware/hp/probook/460g11>`                    | `hp-probook-46011`                     |
 | [Huawei Matebook X Pro (2020)](huawei/machc-wa)                                   | `<nixos-hardware/huawei/machc-wa>`                      | `huawei-machc-wa`                      |
 | [i.MX8QuadMax Multisensory Enablement Kit](nxp/imx8qm-mek/)                       | `<nixos-hardware/nxp/imx8qm-mek>`                       | `nxp-imx8qm-mek`                       |
+| [Intel Compute Stick STCK1A](intel/compute-stick/stck1a/)                         | `<nixos-hardware/intel/compute-stick/stck1a>`           | `intel-compute-stick-stck1a`           |
 | [Intel NUC 5i5RYB](intel/nuc/5i5ryb/)                                             | `<nixos-hardware/intel/nuc/5i5ryb>`                     | `intel-nuc-5i5ryb`                     |
 | [Intel NUC 8i7BEH](intel/nuc/8i7beh/)                                             | `<nixos-hardware/intel/nuc/8i7beh>`                     | `intel-nuc-8i7beh`                     |
 | [Kobol Helios4](kobol/helios4)                                                    | `<nixos-hardware/kobol/helios4>`                        | `kobol-helios-4`                       |
