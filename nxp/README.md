@@ -21,17 +21,18 @@ Code snippet example that enables imx8qm configuration:
 }
 ```
 
-### 2.2 For imx8mq-evk/imx8mp-evk
+### 2.2 For imx8mq-evk/imx8mp-evk/imx93-evk
 This NXP overlay is used for generating sdimage.
-Current configuration uses uboot as a bootloader. It provides an options to use optee-os which is currently disabled. It can be enabled using `enable-tee` boolean argument avalable in `imx8m<q/p>-boot.nix`, which is `false` by default.  
+Current configuration uses uboot as a bootloader. It provides an options to use optee-os which is currently disabled. It can be enabled using `enable-tee` boolean argument avalable in `imx8m<q/p>-boot.nix`, which is `false` by default in imx8m platform.
 
-Code snippet example that enables 'imx8mp-evk/emx8mq-evk' configuration:
+Code snippet example that enables 'imx8mp-evk/imx8mq-evk/imx93-evk' configuration:
 
 ```
 { nixos-hardware, }: {
   system = "aarch64-linux";
   modules = [
     nixos-hardware.nixosModules.imx8mp-evk  #For imx8mp-evk
+    #nixos-hardware.nixosModules.imx93-evk  #For imx93-evk
     #nixos-hardware.nixosModules.imx8mq-evk  #For imx8mq-evk
   ];
 }

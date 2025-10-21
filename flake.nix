@@ -331,6 +331,7 @@
           nxp-imx8mp-evk = import ./nxp/imx8mp-evk;
           nxp-imx8mq-evk = import ./nxp/imx8mq-evk;
           nxp-imx8qm-mek = import ./nxp/imx8qm-mek;
+          nxp-imx93-evk = import ./nxp/imx93-evk;
           hardkernel-odroid-hc4 = import ./hardkernel/odroid-hc4;
           hardkernel-odroid-h3 = import ./hardkernel/odroid-h3;
           hardkernel-odroid-h4 = import ./hardkernel/odroid-h4;
