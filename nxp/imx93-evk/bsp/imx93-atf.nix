@@ -1,8 +1,16 @@
-{ lib, fetchgit, stdenv, buildPackages, pkgsCross, openssl }:
+{
+  lib,
+  fetchgit,
+  stdenv,
+  buildPackages,
+  pkgsCross,
+  openssl,
+}:
 
 let
   target-board = "imx93";
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "imx93-atf";
   version = "2.10.0";
   platform = target-board;
@@ -47,4 +55,3 @@ in stdenv.mkDerivation rec {
     platforms = [ "aarch64-linux" ];
   };
 }
-

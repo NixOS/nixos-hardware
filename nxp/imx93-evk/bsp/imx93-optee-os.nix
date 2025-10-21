@@ -1,6 +1,6 @@
-{ 
+{
   lib,
-  pkgs
+  pkgs,
 }:
 let
   inherit (pkgs.buildPackages) python3;
@@ -57,7 +57,7 @@ pkgs.stdenv.mkDerivation rec {
       --replace "\$(CROSS_COMPILE_\$(sm))ar" ${binutils}/bin/${toolchain.targetPrefix}ar
     substituteInPlace mk/gcc.mk \
       --replace "\$(CROSS_COMPILE_\$(sm))cpp" ${cpp}/bin/cpp
-    '';
+  '';
 
   makeFlags = [
     "PLATFORM=imx-mx93evk"

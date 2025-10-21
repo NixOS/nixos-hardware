@@ -9,7 +9,9 @@
   ];
 
   boot.loader.grub.extraFiles = {
-    "imx93-11x11-evk.dtb" = "${pkgs.callPackage ./bsp/imx93-linux.nix { }}/dtbs/freescale/imx93-11x11-evk.dtb";
+    "imx93-11x11-evk.dtb" = "${
+      pkgs.callPackage ./bsp/imx93-linux.nix { }
+    }/dtbs/freescale/imx93-11x11-evk.dtb";
   };
 
   hardware.deviceTree = {

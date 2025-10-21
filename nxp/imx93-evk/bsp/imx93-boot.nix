@@ -3,7 +3,6 @@
 }:
 with pkgs;
 let
-  fw-ver = "202406";
 
   imx93-atf = pkgs.callPackage ./imx93-atf.nix { };
   imx93-firmware = pkgs.callPackage ./imx93-firmware.nix { };

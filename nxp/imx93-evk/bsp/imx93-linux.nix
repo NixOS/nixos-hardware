@@ -51,12 +51,12 @@ buildLinux (
       rev = "37d02f4dcbbe6677dc9f5fc17f386c05d6a7bd7a";
       sha256 = "sha256-1oJMbHR8Ho0zNritEJ+TMOAyYHCW0vwhPkDfLctrZa8=";
     };
-   meta = with lib; {
-    homepage = "https://github.com/nxp-imx/linux-imx";
-    license = [ licenses.gpl2Only ];
-    maintainers = with maintainers; [ govindsi ];
-    platforms = [ "aarch64-linux" ];
-  };
- }
+    meta = with lib; {
+      homepage = "https://github.com/nxp-imx/linux-imx";
+      license = [ licenses.gpl2Only ];
+      maintainers = with maintainers; [ govindsi ];
+      platforms = [ "aarch64-linux" ];
+    };
+  }
   // (args.argsOverride or { })
 )
