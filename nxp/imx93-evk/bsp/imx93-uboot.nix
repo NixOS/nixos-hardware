@@ -21,12 +21,6 @@ let
     rev = "e3219a5a73445219df605d1492687918d488055c";
     sha256 = "sha256-6pXwgNzq4/XUUEmJ6sGC5pII4J5uMvlDPE9QJxjJJbQ=";
   };
-  meta = with lib; {
-    homepage = "https://github.com/nxp-imx/uboot-imx";
-    license = [ licenses.gpl2Only ];
-    maintainers = with maintainers; [ govindsi ];
-    platforms = [ "aarch64-linux" ];
-  };
 in
 stdenv.mkDerivation {
   pname = "imx93-uboot";

@@ -5,7 +5,6 @@ stdenv.mkDerivation rec {
   pname = "nxp-firmware";
   version = "nxp-firmware-8.21-0.11";
 
-  # Fetch the two firmware installers from NXP
   ddrFirmware = fetchurl {
     url = "https://www.nxp.com/lgfiles/NMG/MAD/YOCTO/firmware-imx-8.21.bin";
     sha256 = "sha256-w0R/D4E0FczqncLvEggMs6yLvAxnOSp0/H1ZIF61pnI=";
@@ -16,7 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-JpSAQXqK6apMxBAauUcof8M0VakxAh29xNm621ISvOs=";
   };
 
-  nativeBuildInputs = [ coreutils bash ];
+  nativeBuildInputs = [
+    coreutils
+    bash
+  ];
 
   dontUnpack = true;
   dontStrip = true;
@@ -44,4 +46,3 @@ stdenv.mkDerivation rec {
 
   '';
 }
-
