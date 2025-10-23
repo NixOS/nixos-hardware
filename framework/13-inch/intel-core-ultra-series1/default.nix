@@ -20,6 +20,9 @@
     lib.mkDefault pkgs.linuxPackages_latest
   );
 
+  # NPU, GPU
+  hardware.enableRedistributableFirmware = lib.mkDefault true;
+
   # Intel NPU Driver
   # https://discourse.nixos.org/t/new-installation-on-asus-zenbook-ux5406-intel-vpu-firmware-error-2/58732/2
   hardware.firmware = lib.optionals (config.hardware.enableRedistributableFirmware) [
@@ -38,10 +41,6 @@
         cp '${firmware}' "$out/lib/firmware/intel/vpu/vpu_${model}_v${version}.bin"
       ''
     )
-  ];
-
-  warnings = lib.mkIf (!config.hardware.enableRedistributableFirmware) [
-    ''For Intel NPU support, set the option: hardware.enableRedistributableFirmware = true;''
   ];
 
   hardware.framework.laptop13.audioEnhancement.rawDeviceName =
