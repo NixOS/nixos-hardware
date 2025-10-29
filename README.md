@@ -199,7 +199,7 @@ See code for all available configurations.
 | [Dell XPS 17 9700, nvidia](dell/xps/17-9700/nvidia)                               | `<nixos-hardware/dell/xps/17-9700/nvidia>`              | `dell-xps-17-9700-nvidia`              |
 | [Dell XPS 17 9710, intel only](dell/xps/17-9710/intel)                            | `<nixos-hardware/dell/xps/17-9710/intel>`               | `dell-xps-17-9710-intel`               |
 | [Framework 11th Gen Intel Core](framework/13-inch/11th-gen-intel)                 | `<nixos-hardware/framework/13-inch/11th-gen-intel>`     | `framework-11th-gen-intel`             |
-| [Framework 12th Gen Intel Core](framework/12-inch/12th-gen-intel)                 | `<nixos-hardware/framework/12-inch/12th-gen-intel>`     | `framework-12th-gen-intel`             |
+| [Framework 12th Gen Intel Core](framework/13-inch/12th-gen-intel)                 | `<nixos-hardware/framework/13-inch/12th-gen-intel>`     | `framework-12th-gen-intel`             |
 | [Framework 13th Gen Intel Core](framework/13-inch/13th-gen-intel)                 | `<nixos-hardware/framework/13-inch/13th-gen-intel>`     | `framework-13th-gen-intel`             |
 | [Framework Intel Core Ultra Series 1](framework/13-inch/intel-core-ultra-series1) | `<nixos-hardware/framework/13-inch/intel-core-ultra-series1>`     | `framework-intel-core-ultra-series1` |
 | [Framework 13 AMD Ryzen 7040 Series](framework/13-inch/7040-amd)                  | `<nixos-hardware/framework/13-inch/7040-amd>`           | `framework-13-7040-amd`                |
