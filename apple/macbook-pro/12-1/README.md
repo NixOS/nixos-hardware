@@ -9,7 +9,6 @@ This means it might be required to restart your wifi deamon i.e. wpa_supplicant:
 powerManagement.powerUpCommands = ''
   ${pkgs.systemd}/bin/systemctl restart wpa_supplicant.service
 '';
-};
 ```
 
 You can apply this to your network management software of choice.

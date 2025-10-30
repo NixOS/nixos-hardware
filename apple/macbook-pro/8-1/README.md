@@ -12,7 +12,6 @@
     "b43-firmware"
   ];
 }
-
 ```
 
 ### For all packages
