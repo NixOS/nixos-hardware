@@ -16,7 +16,11 @@
         "x86_64-linux"
       ];
 
-      formatSystems = [ "aarch64-linux" "x86_64-linux" ];
+      formatSystems = [
+        "aarch64-linux"
+        "x86_64-linux"
+        "aarch64-darwin"
+      ];
 
       # Helper to iterate over systems
       eachSystem =
