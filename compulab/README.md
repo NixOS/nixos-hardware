@@ -24,6 +24,6 @@ Boot ROM initializes the SoC and loads OEI, which runs in TCM to perform early s
 ```
 
 ### Notes
-- The configuration includes device-tree, kernel, and bootloader components are optimized for the UCM-iMX95 SoM and evk.  
+- The configuration, including device-tree, kernel, and bootloader components, is optimized for the UCM-iMX95 SoM and EVK.  
 - The generated NixOS image supports booting from SD card or eMMC, depending on the hardware configuration.  
 - The boot components (OEI in TCM/DDR, SM, ATF, U-Boot) follow the standard NXP release layout for i.MX95 platforms.

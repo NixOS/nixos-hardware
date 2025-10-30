@@ -2,6 +2,9 @@
   lib,
   pkgs,
 }:
+let
+  metaBspImx95Rev = "5f4c7b5db846fa3a75055054e32215089d15a7b7"; # scarthgap
+in
 pkgs.stdenv.mkDerivation rec {
   pname = "imx95-imx-oei-tcm";
   version = "lf-6.6.36-2.1.0";
@@ -20,15 +23,15 @@ pkgs.stdenv.mkDerivation rec {
 
   patches = [
     (pkgs.fetchpatch {
-      url = "https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx95/scarthgap/recipes-bsp/imx-oei/imx-oei/0001-Add-CompuLab-lpddr5_timing.c.patch";
+      url = "https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx95/${metaBspImx95Rev}/recipes-bsp/imx-oei/imx-oei/0001-Add-CompuLab-lpddr5_timing.c.patch";
       sha256 = "sha256-6ZpBOXw2aIhD2i9Wx368xfHq6NvdZghWHU9u8+gRTj8=";
     })
     (pkgs.fetchpatch {
-      url = "https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx95/scarthgap/recipes-bsp/imx-oei/imx-oei/0002-board-mx95lp5-Fix-default-DDR_CONFIG-timing-name.patch";
+      url = "https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx95/${metaBspImx95Rev}/recipes-bsp/imx-oei/imx-oei/0002-board-mx95lp5-Fix-default-DDR_CONFIG-timing-name.patch";
       sha256 = "sha256-WZ/vYaTC2iKIC+jnHtnPriCxK9gjRsOv2Uy13Ye4698=";
     })
     (pkgs.fetchpatch {
-      url = "https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx95/scarthgap/recipes-bsp/imx-oei/imx-oei/0003-Add-CompuLab-lpddr5_timing_4g.c.patch";
+      url = "https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx95/${metaBspImx95Rev}/recipes-bsp/imx-oei/imx-oei/0003-Add-CompuLab-lpddr5_timing_4g.c.patch";
       sha256 = "sha256-yyierv2USZlM8Cuxf4FDj4+UtILvJQH9BJSj+fmayL8=";
     })
   ];
@@ -57,8 +60,13 @@ pkgs.stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/nxp-imx/imx-oei";
     description = "Optional Executable Image assembler for i.MX95 processors";
-    license = [ licenses.bsd3 ];
-    maintainers = with maintainers; [ govindsi ];
+    license = licenses.bsd3;
+    maintainers = [
+      {
+        name = "Govind Singh";
+        email = "govind.singh@tii.ae";
+      }
+    ];
     platforms = [ "aarch64-linux" ];
   };
 }

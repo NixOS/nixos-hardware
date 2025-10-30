@@ -24,7 +24,7 @@ in
   imx95-boot = pkgs.stdenv.mkDerivation rec {
     inherit src;
     name = "imx95-mkimage";
-    version = "lf-6.6.36";
+    version = "lf-6.6.52-2.2.1";
 
     postPatch = ''
       substituteInPlace Makefile \
@@ -47,7 +47,6 @@ in
     ];
 
     buildInputs = [
-      git
       glibc.static
       zlib
       zlib.static

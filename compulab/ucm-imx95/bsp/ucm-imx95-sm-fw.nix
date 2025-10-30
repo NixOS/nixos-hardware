@@ -2,6 +2,9 @@
   lib,
   pkgs,
 }:
+let
+  metaBspImx95Rev = "224eed17cddc573061150e9d2ce6f9acb39ea50e"; # scarthgap-6.6.36-EVAL-UCM-iMX95-1.0
+in
 pkgs.stdenv.mkDerivation rec {
   pname = "imx95-sm-fw";
   version = "lf-6.6.36-2.1.0";
@@ -26,23 +29,23 @@ pkgs.stdenv.mkDerivation rec {
 
   patches = [
     (pkgs.fetchpatch {
-      url = "https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx95/scarthgap-6.6.36-EVAL-UCM-iMX95-1.0/recipes-bsp/imx-system-manager/imx-system-manager/0001-Add-mcimx95cust-board.patch";
+      url = "https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx95/${metaBspImx95Rev}/recipes-bsp/imx-system-manager/imx-system-manager/0001-Add-mcimx95cust-board.patch";
       sha256 = "sha256-zvZ4bNew+yRPmaZQMrAH087KpCLRqz6zdElfe72Dtuc=";
     })
     (pkgs.fetchpatch {
-      url = "https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx95/scarthgap-6.6.36-EVAL-UCM-iMX95-1.0/recipes-bsp/imx-system-manager/imx-system-manager/0002-Fix-null-pionter-except.patch";
+      url = "https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx95/${metaBspImx95Rev}/recipes-bsp/imx-system-manager/imx-system-manager/0002-Fix-null-pionter-except.patch";
       sha256 = "sha256-q72VEvJqm2CmOxdWMqGibgXS5lY08mC4srEcy00QdrE=";
     })
     (pkgs.fetchpatch {
-      url = "https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx95/scarthgap-6.6.36-EVAL-UCM-iMX95-1.0/recipes-bsp/imx-system-manager/imx-system-manager/0001-update-for-yocto-6.6.36-compatibility.patch";
+      url = "https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx95/${metaBspImx95Rev}/recipes-bsp/imx-system-manager/imx-system-manager/0001-update-for-yocto-6.6.36-compatibility.patch";
       sha256 = "sha256-JzHqDiD/ZOu6VQQI0JxY17RQ3bA2t1aP3O1sjLPguWs=";
     })
     (pkgs.fetchpatch {
-      url = "https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx95/scarthgap-6.6.36-EVAL-UCM-iMX95-1.0/recipes-bsp/imx-system-manager/imx-system-manager/0003-sm-Disable-GPIO1-10-interrupt.patch";
+      url = "https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx95/${metaBspImx95Rev}/recipes-bsp/imx-system-manager/imx-system-manager/0003-sm-Disable-GPIO1-10-interrupt.patch";
       sha256 = "sha256-dhcDv7Uq856+MBonczMPznk+tuqUFxTcHiKLX+myCVA=";
     })
     (pkgs.fetchpatch {
-      url = "https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx95/scarthgap-6.6.36-EVAL-UCM-iMX95-1.0/recipes-bsp/imx-system-manager/imx-system-manager/0004-configs-mx95cust-change-LPTPM1-ownership.patch";
+      url = "https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx95/${metaBspImx95Rev}/recipes-bsp/imx-system-manager/imx-system-manager/0004-configs-mx95cust-change-LPTPM1-ownership.patch";
       sha256 = "sha256-NcLu6+zXpiSz1bHKW14Zuf6F/4pzKsekb+zaRtKjSTY=";
     })
   ];
@@ -73,8 +76,13 @@ pkgs.stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/nxp-imx/imx-sm";
     description = "System Manager firmware for i.MX processors";
-    license = [ licenses.bsd3 ];
-    maintainers = with maintainers; [ govindsi ];
+    license = licenses.bsd3;
+    maintainers = [
+      {
+        name = "Govind Singh";
+        email = "govind.singh@tii.ae";
+      }
+    ];
     platforms = [ "aarch64-linux" ];
   };
 }

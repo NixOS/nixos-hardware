@@ -74,6 +74,7 @@ stdenv.mkDerivation {
 
     make ucm-imx95_defconfig
     cat $extraConfigPath >> .config
+    make olddefconfig
 
     runHook postConfigure
   '';

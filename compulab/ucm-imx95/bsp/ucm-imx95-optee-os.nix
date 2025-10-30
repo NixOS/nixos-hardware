@@ -6,7 +6,7 @@ let
   inherit (pkgs.buildPackages) python3;
   toolchain = pkgs.gccStdenv.cc;
   binutils = pkgs.gccStdenv.cc.bintools.bintools_bin;
-  cpp = pkgs.gcc;
+  cpp = pkgs.gccStdenv.cc;
 in
 pkgs.stdenv.mkDerivation rec {
   pname = "imx95-optee-os";
@@ -32,8 +32,13 @@ pkgs.stdenv.mkDerivation rec {
   };
   meta = with lib; {
     homepage = "https://github.com/nxp-imx/imx-optee-os";
-    license = [ licenses.bsd2 ];
-    maintainers = with maintainers; [ govindsi ];
+    license = licenses.bsd2;
+    maintainers = [
+      {
+        name = "Govind Singh";
+        email = "govind.singh@tii.ae";
+      }
+    ];
     platforms = [ "aarch64-linux" ];
   };
 

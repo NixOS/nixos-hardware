@@ -46,7 +46,13 @@ stdenv.mkDerivation rec {
     ./firmware-imx-8.28-994fa14.bin --auto-accept
 
     mkdir -p $out/ddr
-    cp firmware-imx-8.28-994fa14/firmware/ddr/synopsys/lpddr5*v202409.bin $out/ddr/
+    # Resolve wildcard and verify at least one file matches
+    lpddr5_files=(firmware-imx-8.28-994fa14/firmware/ddr/synopsys/lpddr5*v202409.bin)
+    if [ ''${#lpddr5_files[@]} -eq 0 ]; then
+      echo "ERROR: No lpddr5*v202409.bin file found in firmware/ddr/synopsys/" >&2
+      exit 1
+    fi
+    cp "''${lpddr5_files[@]}" $out/ddr/
 
     # AHAB container
     cp ${ahabFirmware} ./firmware-ele-imx-2.0.2-89161a8.bin
@@ -56,8 +62,11 @@ stdenv.mkDerivation rec {
     mkdir -p $out/ahab
     if [ "$SILICON" = "A0" ]; then
       cp firmware-ele-imx-2.0.2-89161a8/mx95a0-ahab-container.img $out/ahab/
-    else
+    elif [ "$SILICON" = "B0" ]; then
       cp firmware-ele-imx-2.0.2-89161a8/mx95b0-ahab-container.img $out/ahab/
+    else
+      echo "ERROR: Invalid SILICON value '$SILICON'. Must be 'A0' or 'B0'." >&2
+      exit 1
     fi
   '';
 }

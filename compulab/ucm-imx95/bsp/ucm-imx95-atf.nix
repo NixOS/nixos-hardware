@@ -25,9 +25,10 @@ stdenv.mkDerivation rec {
 
   # Compiler dependencies
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ pkgsCross.aarch64-embedded.stdenv.cc ];
-
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [
+    pkgsCross.aarch64-embedded.stdenv.cc
+    openssl
+  ];
 
   makeFlags = [
     "HOSTCC=$(CC_FOR_BUILD)"
@@ -51,8 +52,13 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/nxp-imx/imx-atf";
     description = "Reference implementation of secure world software for ARMv8-A";
-    license = [ licenses.bsd3 ];
-    maintainers = with maintainers; [ govindsi ];
+    license = licenses.bsd3;
+    maintainers = [
+      {
+        name = "Govind Singh";
+        email = "govind.singh@tii.ae";
+      }
+    ];
     platforms = [ "aarch64-linux" ];
   };
 }

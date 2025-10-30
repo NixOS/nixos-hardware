@@ -12,7 +12,7 @@ buildLinux (
     defconfig = "compulab-mx95_defconfig";
 
     # https://github.com/NixOS/nixpkgs/pull/366004
-    # introduced a breaking change that if a module is declared but it is not being used it will faill.
+    # introduced a breaking change that if a module is declared but it is not being used it will fail.
     ignoreConfigErrors = true;
 
     kernelPatches = [
@@ -53,8 +53,13 @@ buildLinux (
     };
     meta = with lib; {
       homepage = "https://github.com/compulab-yokneam/linux-compulab";
-      license = [ licenses.gpl2Only ];
-      maintainers = with maintainers; [ govindsi ];
+      license = licenses.gpl2Only;
+      maintainers = [
+        {
+          name = "Govind Singh";
+          email = "govind.singh@tii.ae";
+        }
+      ];
       platforms = [ "aarch64-linux" ];
     };
   }
