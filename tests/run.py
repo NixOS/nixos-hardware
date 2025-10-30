@@ -69,8 +69,8 @@ def run_eval_test(gcroot_dir: Path, jobs: int) -> list[str]:
     failed_profiles = []
     cmd = [
         "nix-eval-jobs",
-        "--extra-experimental-features",
-        "flakes",
+        "--extra-experimental-features", "flakes",
+        "--option", "eval-cache", "false",
         "--gc-roots-dir",
         str(gcroot_dir),
         "--max-memory-size",
@@ -97,11 +97,11 @@ def run_eval_test(gcroot_dir: Path, jobs: int) -> list[str]:
                 failed_profiles.append(attr)
                 error_msg = data['error']
                 formatted_error = format_nix_error(error_msg)
-                
+
                 # Output for terminal
                 print(f"{RED}FAIL {attr}:{RESET}", file=sys.stderr)
                 print(f"{RED}{error_msg}{RESET}", file=sys.stderr)
-                
+
                 # Output for GitHub Actions
                 if is_github_actions():
                     github_error(
@@ -127,14 +127,14 @@ def main() -> None:
         print(f"\n{RED}{failure_msg}{RESET}")
         for profile in failed_profiles:
             print(f" '{profile}'")
-        
+
         # GitHub Actions summary
         if is_github_actions():
             github_error(
                 f"{failure_msg} {', '.join(failed_profiles)}",
                 title="Hardware Profile Tests Failed"
             )
-        
+
         sys.exit(1)
 
 
