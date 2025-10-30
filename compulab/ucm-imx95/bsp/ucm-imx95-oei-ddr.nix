@@ -11,8 +11,9 @@ pkgs.stdenv.mkDerivation rec {
     pkgs.gcc-arm-embedded
   ];
 
-  src = pkgs.fetchgit {
-    url = "https://github.com/nxp-imx/imx-oei.git";
+  src = pkgs.fetchFromGitHub {
+    owner = "nxp-imx";
+    repo = "imx-oei";
     rev = "5fca9f47544d03c52ca371eadfffbfd2454e6925";
     sha256 = "sha256-Sb6u1NlhJpDCOKBu3HqUb4BLEy0F8LYVnJE0tRSvzWc=";
   };

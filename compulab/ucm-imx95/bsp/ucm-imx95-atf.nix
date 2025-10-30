@@ -1,6 +1,6 @@
 {
   lib,
-  fetchgit,
+  fetchFromGitHub,
   stdenv,
   buildPackages,
   pkgsCross,
@@ -16,8 +16,9 @@ stdenv.mkDerivation rec {
   platform = target-board;
   enableParallelBuilding = true;
 
-  src = fetchgit {
-    url = "https://github.com/nxp-imx/imx-atf.git";
+  src = fetchFromGitHub {
+    owner = "nxp-imx";
+    repo = "imx-atf";
     rev = "28affcae957cb8194917b5246276630f9e6343e1";
     sha256 = "sha256-a8F+Lf8pwML+tCwawS0N/mrSXWPmFhlUeOg0MCRK3VE=";
   };

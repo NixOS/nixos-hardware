@@ -11,8 +11,9 @@ let
   imx95-sm-fw = pkgs.callPackage ./ucm-imx95-sm-fw.nix { };
   imx95-oei-ddr = pkgs.callPackage ./ucm-imx95-oei-ddr.nix { };
   imx95-oei-tcm = pkgs.callPackage ./ucm-imx95-oei-tcm.nix { };
-  src = pkgs.fetchgit {
-    url = "https://github.com/nxp-imx/imx-mkimage.git";
+  src = pkgs.fetchFromGitHub {
+    owner = "nxp-imx";
+    repo = "imx-mkimage";
     #tag: lf-6.6.36
     rev = "4622115cbc037f79039c4522faeced4aabea986b";
     sha256 = "sha256-2gz0GxlB3jwy8PC6+cP3+MpyUzqE1vDTw8nuxK6vo3g=";
@@ -68,9 +69,9 @@ in
       install -m 0644 ${imx95-sm-fw}/m33_image.bin ./iMX95/m33_image.bin
       install -m 0644 ${imx95-oei-ddr}/oei-m33-ddr.bin ./iMX95/oei-m33-ddr.bin
       install -m 0644 ${imx95-oei-tcm}/oei-m33-tcm.bin ./iMX95/oei-m33-tcm.bin
-      install -m 0644 ${imx95-firmware}/ucm-imx95/lpddr5* ./iMX95/
-      install -m 0644 ${imx95-firmware}/ucm-imx95/mx95a0-ahab-container.img ./iMX95/
-      install -m 0644 ${imx95-firmware}/ucm-imx95/m7_image.bin ./iMX95/
+      install -m 0644 ${imx95-firmware}/ddr/lpddr5* ./iMX95/
+      install -m 0644 ${imx95-firmware}/ahab/mx95a0-ahab-container.img ./iMX95/
+      install -m 0644 ${imx95-firmware}/m7_image.bin ./iMX95/
 
       make SOC=iMX95 REV=A0 OEI=YES LPDDR_TYPE=lpddr5 flash_all
 

@@ -24,10 +24,11 @@ pkgs.stdenv.mkDerivation rec {
     cryptography
   ];
 
-  src = pkgs.fetchgit {
-    url = "https://github.com/nxp-imx/imx-optee-os.git";
+  src = pkgs.fetchFromGitHub {
+    owner = "nxp-imx";
+    repo = "imx-optee-os";
     rev = "612bc5a642a4608d282abeee2349d86de996d7ee";
-    sha256 = "sha256-A7p3KPijwipivs9Qw9Mr62RWwaMBGTz7J8WP5JYoSOs=";
+    sha256 = "sha256-l8GKkrlBs5kgw6jrzGLT9WAeTSDqo8XWZDFT2+Fisv4=";
   };
   meta = with lib; {
     homepage = "https://github.com/nxp-imx/imx-optee-os";

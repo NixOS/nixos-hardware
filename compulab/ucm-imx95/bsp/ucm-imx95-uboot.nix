@@ -3,7 +3,7 @@
   lib,
   bison,
   dtc,
-  fetchgit,
+  fetchFromGitHub,
   flex,
   gnutls,
   libuuid,
@@ -15,8 +15,9 @@
   efitools,
 }:
 let
-  ubsrc = fetchgit {
-    url = "https://github.com/compulab-yokneam/u-boot-compulab.git";
+  ubsrc = fetchFromGitHub {
+    owner = "compulab-yokneam";
+    repo = "u-boot-compulab";
     # tag: lf_v2024.04
     rev = "824401fe487d7d3cbcf251bd60270bd7fe8d21d0";
     sha256 = "sha256-m+YW7+XF/jcNKfyb5533LXGyOWvStqY+MCczAdcNGZI=";

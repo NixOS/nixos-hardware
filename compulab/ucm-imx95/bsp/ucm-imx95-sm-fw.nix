@@ -17,8 +17,9 @@ pkgs.stdenv.mkDerivation rec {
     cryptography
   ];
 
-  src = pkgs.fetchgit {
-    url = "https://github.com/nxp-imx/imx-sm.git";
+  src = pkgs.fetchFromGitHub {
+    owner = "nxp-imx";
+    repo = "imx-sm";
     rev = "709deccd9338399eb39b5cf99a60eab4fa60d539";
     sha256 = "sha256-02Cl+XhWGSFswspdBJ/4B/mBm4XTs/qKotx0BXMQpJk=";
   };
