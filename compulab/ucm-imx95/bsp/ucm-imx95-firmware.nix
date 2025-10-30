@@ -1,6 +1,6 @@
 {
   pkgs,
-  silicon ? "A0",
+  siliconRev ? "A0",
   ...
 }:
 
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out
-    export SILICON=${silicon}
+    export SILICON=${siliconRev}
 
     # M7 firmware
     echo "Copying M7 firmware..."

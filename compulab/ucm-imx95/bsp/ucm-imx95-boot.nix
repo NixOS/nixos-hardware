@@ -14,9 +14,9 @@ let
   src = pkgs.fetchFromGitHub {
     owner = "nxp-imx";
     repo = "imx-mkimage";
-    #tag: lf-6.6.36
-    rev = "4622115cbc037f79039c4522faeced4aabea986b";
-    sha256 = "sha256-2gz0GxlB3jwy8PC6+cP3+MpyUzqE1vDTw8nuxK6vo3g=";
+    #tag: lf-6.6.52-2.2.1
+    rev = "f620fb8ef7a04c8dbed8119880f5eeffe3e69746";
+    sha256 = "sha256-JZlX122uZntCIISI1H3Hw+tnk+N/gBJpFFDaZoY8W3c=";
   };
   shortRev = builtins.substring 0 8 src.rev;
 in
