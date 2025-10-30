@@ -49,11 +49,11 @@ pkgs.stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace sm/makefiles/gcc_cross.mak \
-      --replace "\$(SM_CROSS_COMPILE)objcopy" ${pkgs.gcc-arm-embedded}/bin/arm-none-eabi-objcopy
+      --replace-fail "\$(SM_CROSS_COMPILE)objcopy" ${pkgs.gcc-arm-embedded}/bin/arm-none-eabi-objcopy
     substituteInPlace sm/makefiles/build_info.mak \
-      --replace "/bin/echo" "echo"
+      --replace-fail "/bin/echo" "echo"
     substituteInPlace sm/makefiles/gcc_cross.mak \
-      --replace 'SM_CROSS_COMPILE ?= $(TOOLS)/arm-gnu-toolchain-*-none-eabi/bin/arm-none-eabi-' \
+      --replace-fail 'SM_CROSS_COMPILE ?= $(TOOLS)/arm-gnu-toolchain-*-none-eabi/bin/arm-none-eabi-' \
                 'SM_CROSS_COMPILE ?= $(CROSS_COMPILE)'
   '';
 

@@ -35,9 +35,9 @@ pkgs.stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace oei/makefiles/build_info.mak \
-      --replace "/bin/echo" "echo"
+      --replace-fail "/bin/echo" "echo"
     substituteInPlace Makefile \
-      --replace "/bin/echo" "echo"
+      --replace-fail "/bin/echo" "echo"
   '';
 
   makeFlags = [

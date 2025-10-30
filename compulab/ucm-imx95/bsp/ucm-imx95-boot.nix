@@ -28,15 +28,15 @@ in
 
     postPatch = ''
       substituteInPlace Makefile \
-          --replace 'git rev-parse --short=8 HEAD' 'echo ${shortRev}'
+          --replace-fail 'git rev-parse --short=8 HEAD' 'echo ${shortRev}'
       substituteInPlace Makefile \
-          --replace 'CC = gcc' 'CC = clang'
+          --replace-fail 'CC = gcc' 'CC = clang'
       substituteInPlace iMX95/soc.mak \
-        --replace 'xxd' "${pkgs.vim.xxd}/bin/xxd"
+        --replace-fail 'xxd' "${pkgs.vim.xxd}/bin/xxd"
       substituteInPlace scripts/fspi_fcb_gen.sh \
-        --replace 'xxd' "${pkgs.vim.xxd}/bin/xxd"
+        --replace-fail 'xxd' "${pkgs.vim.xxd}/bin/xxd"
       substituteInPlace scripts/fspi_packer.sh \
-        --replace 'xxd' "${pkgs.vim.xxd}/bin/xxd"
+        --replace-fail 'xxd' "${pkgs.vim.xxd}/bin/xxd"
       patchShebangs scripts
     '';
 
