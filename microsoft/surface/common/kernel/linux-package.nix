@@ -24,19 +24,18 @@ let
     let
       inherit (builtins) removeAttrs;
 
-      args' =
-        {
-          inherit
-            src
-            version
-            modDirVersion
-            kernelPatches
-            ;
-        }
-        // removeAttrs args [
-          "url"
-          "sha256"
-        ];
+      args' = {
+        inherit
+          src
+          version
+          modDirVersion
+          kernelPatches
+          ;
+      }
+      // removeAttrs args [
+        "url"
+        "sha256"
+      ];
       linuxPackage = buildLinux args';
       linuxPackages' = recurseIntoAttrs (linuxPackagesFor linuxPackage);
     in
