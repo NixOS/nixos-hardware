@@ -69,6 +69,7 @@ def run_eval_test(gcroot_dir: Path, jobs: int) -> list[str]:
     failed_profiles = []
     cmd = [
         "nix-eval-jobs",
+        "--no-instantiate",
         "--extra-experimental-features", "flakes",
         "--option", "eval-cache", "false",
         "--gc-roots-dir",
