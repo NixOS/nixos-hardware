@@ -14,5 +14,22 @@ in {
     options snd-soc-avs obsolete_card_names=1
   '';
   environment.sessionVariables.ALSA_CONFIG_UCM2 = lib.mkDefault "${alsa-ucm-conf-cros}/share/alsa/ucm2";
+  
+  services.pipewire.wireplumber.extraConfig."51-increase-headroom" = {
+  "monitor.alsa.rules" = [
+    {
+      matches = [
+        {
+          "node.name" = "~alsa_output.*";
+        }
+      ];
+      actions = {
+        "update-props" = {
+          "api.alsa.headroom" = 4096;
+        };
+      };
+    }
+  ];
+};
 }
 
