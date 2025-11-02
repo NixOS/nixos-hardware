@@ -54,6 +54,7 @@ in {
 	right = "end";
 	up = "pageup";
 	down = "pagedown";	
+	backspace = "delete";
 	};
       };
       extraConfig = ''
