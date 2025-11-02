@@ -2,7 +2,39 @@
   description = "nixos-hardware";
 
   outputs =
-    { ... }:
+    { self, ... }:
+    let
+      # Import private inputs (for development)
+      privateInputs =
+        (import ./tests/flake-compat.nix {
+          src = ./tests;
+        }).defaultNix;
+
+      systems = [
+        "aarch64-linux"
+        "riscv64-linux"
+        "x86_64-linux"
+      ];
+
+      formatSystems = [
+        "aarch64-linux"
+        "x86_64-linux"
+        "aarch64-darwin"
+      ];
+
+      # Helper to iterate over systems
+      eachSystem =
+        f:
+        privateInputs.nixos-unstable-small.lib.genAttrs systems (
+          system: f privateInputs.nixos-unstable-small.legacyPackages.${system} system
+        );
+
+      eachSystemFormat =
+        f:
+        privateInputs.nixos-unstable-small.lib.genAttrs formatSystems (
+          system: f privateInputs.nixos-unstable-small.legacyPackages.${system} system
+        );
+    in
     {
 
       nixosModules =
@@ -331,6 +363,7 @@
           nxp-imx8mp-evk = import ./nxp/imx8mp-evk;
           nxp-imx8mq-evk = import ./nxp/imx8mq-evk;
           nxp-imx8qm-mek = import ./nxp/imx8qm-mek;
+          nxp-imx93-evk = import ./nxp/imx93-evk;
           hardkernel-odroid-hc4 = import ./hardkernel/odroid-hc4;
           hardkernel-odroid-h3 = import ./hardkernel/odroid-h3;
           hardkernel-odroid-h4 = import ./hardkernel/odroid-h4;
@@ -413,5 +446,40 @@
           common-pc-laptop-ssd = import ./common/pc/ssd;
           common-pc-ssd = import ./common/pc/ssd;
         };
+
+      # Add formatter for `nix fmt`
+      formatter = eachSystemFormat (
+        pkgs: _system:
+        (privateInputs.treefmt-nix.lib.evalModule pkgs ./tests/treefmt.nix).config.build.wrapper
+      );
+
+      # Add packages
+      packages = eachSystem (
+        pkgs: _system: {
+          run-tests = pkgs.callPackage ./tests/run-tests.nix {
+            inherit self;
+          };
+        }
+      );
+
+      # Add checks for `nix run .#run-tests`
+      checks = eachSystem (
+        pkgs: system:
+        let
+          treefmtEval = privateInputs.treefmt-nix.lib.evalModule pkgs ./tests/treefmt.nix;
+          nixosTests = import ./tests/nixos-tests.nix {
+            inherit
+              self
+              privateInputs
+              system
+              pkgs
+              ;
+          };
+        in
+        pkgs.lib.optionalAttrs (self.formatter ? ${system}) {
+          formatting = treefmtEval.config.build.check self;
+        }
+        // nixosTests
+      );
     };
 }

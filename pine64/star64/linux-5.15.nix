@@ -45,7 +45,8 @@ let
             };
           }
           { patch = ./irq-desc-to-data.patch; }
-        ] ++ kernelPatches;
+        ]
+        ++ kernelPatches;
 
         structuredExtraConfig = with lib.kernel; {
           # A ton of stuff just does not build. We disable it all.
