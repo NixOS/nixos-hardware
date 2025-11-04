@@ -15,7 +15,7 @@ let
   inherit (pkgs.buildPackages) python3;
   toolchain = pkgs.gccStdenv.cc;
   binutils = pkgs.gccStdenv.cc.bintools.bintools_bin;
-  cpp = pkgs.gcc;
+  cpp = pkgs.gccStdenv.gcc;
 
   # Determine PLATFORM and PLATFORM_FLAVOR from platformFlavor
   # Format can be either "imx-mx93evk" (full platform string) or "mx8mpevk" (just flavor, platform is "imx")
@@ -48,17 +48,17 @@ pkgs.stdenv.mkDerivation {
 
     # Patch toolchain paths in mk/gcc.mk
     substituteInPlace mk/gcc.mk \
-      --replace "\$(CROSS_COMPILE_\$(sm))objcopy" ${binutils}/bin/${toolchain.targetPrefix}objcopy
+      --replace-fail "\$(CROSS_COMPILE_\$(sm))objcopy" ${binutils}/bin/${toolchain.targetPrefix}objcopy
     substituteInPlace mk/gcc.mk \
-      --replace "\$(CROSS_COMPILE_\$(sm))objdump" ${binutils}/bin/${toolchain.targetPrefix}objdump
+      --replace-fail "\$(CROSS_COMPILE_\$(sm))objdump" ${binutils}/bin/${toolchain.targetPrefix}objdump
     substituteInPlace mk/gcc.mk \
-      --replace "\$(CROSS_COMPILE_\$(sm))nm" ${binutils}/bin/${toolchain.targetPrefix}nm
+      --replace-fail "\$(CROSS_COMPILE_\$(sm))nm" ${binutils}/bin/${toolchain.targetPrefix}nm
     substituteInPlace mk/gcc.mk \
-      --replace "\$(CROSS_COMPILE_\$(sm))readelf" ${binutils}/bin/${toolchain.targetPrefix}readelf
+      --replace-fail "\$(CROSS_COMPILE_\$(sm))readelf" ${binutils}/bin/${toolchain.targetPrefix}readelf
     substituteInPlace mk/gcc.mk \
-      --replace "\$(CROSS_COMPILE_\$(sm))ar" ${binutils}/bin/${toolchain.targetPrefix}ar
+      --replace-fail "\$(CROSS_COMPILE_\$(sm))ar" ${binutils}/bin/${toolchain.targetPrefix}ar
     substituteInPlace mk/gcc.mk \
-      --replace "\$(CROSS_COMPILE_\$(sm))cpp" ${cpp}/bin/cpp
+      --replace-fail "\$(CROSS_COMPILE_\$(sm))cpp"${cpp}/bin/${toolchain.targetPrefix}cpp
   '';
 
   makeFlags = [

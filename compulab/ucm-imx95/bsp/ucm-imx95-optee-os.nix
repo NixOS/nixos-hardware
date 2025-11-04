@@ -8,7 +8,7 @@ let
   binutils = pkgs.gccStdenv.cc.bintools.bintools_bin;
   cpp = pkgs.gccStdenv.cc;
 in
-pkgs.stdenv.mkDerivation rec {
+pkgs.stdenv.mkDerivation {
   pname = "imx95-optee-os";
   version = "lf-6.6.36_2.1.0";
 
@@ -62,7 +62,7 @@ pkgs.stdenv.mkDerivation rec {
     substituteInPlace mk/gcc.mk \
       --replace-fail "\$(CROSS_COMPILE_\$(sm))ar" ${binutils}/bin/${toolchain.targetPrefix}ar
     substituteInPlace mk/gcc.mk \
-      --replace-fail "\$(CROSS_COMPILE_\$(sm))cpp" ${cpp}/bin/cpp
+      --replace-fail "\$(CROSS_COMPILE_\$(sm))cpp" ${cpp}/bin/${toolchain.targetPrefix}cpp
   '';
 
   makeFlags = [
