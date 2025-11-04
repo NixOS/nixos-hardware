@@ -1,28 +1,21 @@
 {
-  pkgs,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildPackages,
+  bash,
 }:
-
 let
-
-  pkgsCross = import <nixpkgs> {
-    crossSystem = {
-      config = "aarch64-unknown-linux-gnu";
-    };
-  };
-
-  outdir = "out/arm-plat-imx/core";
-  python3 = pkgs.buildPackages.python3;
-  toolchain = pkgsCross.gcc9Stdenv.cc;
-  binutils = pkgsCross.gcc9Stdenv.cc.bintools.bintools_bin;
-  cpp = pkgs.buildPackages.gcc;
-
+  inherit (buildPackages) python3;
+  toolchain = stdenv.cc;
+  binutils = stdenv.cc.bintools.bintools_bin;
+  cpp = stdenv.cc;
 in
-pkgs.stdenv.mkDerivation {
+stdenv.mkDerivation {
+  pname = "imx95-optee-os";
+  version = "lf-6.6.36_2.1.0";
 
-  pname = "imx-optee-os";
-  version = "5.15.32_2.0.0";
-
-  buildInputs = [
+  nativeBuildInputs = [
     python3
   ];
 
@@ -34,9 +27,22 @@ pkgs.stdenv.mkDerivation {
     cryptography
   ];
 
-  src = fetchGit {
-    url = "https://github.com/nxp-imx/imx-optee-os.git";
-    ref = "lf-5.15.32_2.0.0";
+  src = fetchFromGitHub {
+    owner = "nxp-imx";
+    repo = "imx-optee-os";
+    rev = "612bc5a642a4608d282abeee2349d86de996d7ee";
+    sha256 = "sha256-l8GKkrlBs5kgw6jrzGLT9WAeTSDqo8XWZDFT2+Fisv4=";
+  };
+  meta = with lib; {
+    homepage = "https://github.com/nxp-imx/imx-optee-os";
+    license = licenses.bsd2;
+    maintainers = [
+      {
+        name = "Govind Singh";
+        email = "govind.singh@tii.ae";
+      }
+    ];
+    platforms = [ "aarch64-linux" ];
   };
 
   postPatch = ''
@@ -47,7 +53,7 @@ pkgs.stdenv.mkDerivation {
     substituteInPlace scripts/pem_to_pub_c.py \
       --replace-fail '/usr/bin/env python3' '${python3}/bin/python'
     substituteInPlace ta/pkcs11/scripts/verify-helpers.sh \
-      --replace-fail '/bin/bash' '${pkgs.bash}/bin/bash'
+      --replace-fail '/bin/bash' '${bash}/bin/bash'
     substituteInPlace mk/gcc.mk \
       --replace-fail "\$(CROSS_COMPILE_\$(sm))objcopy" ${binutils}/bin/${toolchain.targetPrefix}objcopy
     substituteInPlace mk/gcc.mk \
@@ -59,12 +65,11 @@ pkgs.stdenv.mkDerivation {
     substituteInPlace mk/gcc.mk \
       --replace-fail "\$(CROSS_COMPILE_\$(sm))ar" ${binutils}/bin/${toolchain.targetPrefix}ar
     substituteInPlace mk/gcc.mk \
-      --replace-fail "\$(CROSS_COMPILE_\$(sm))cpp" "${cpp}/bin/${toolchain.targetPrefix}cpp"
+      --replace-fail "\$(CROSS_COMPILE_\$(sm))cpp" ${cpp}/bin/${toolchain.targetPrefix}cpp
   '';
 
   makeFlags = [
-    "PLATFORM=imx"
-    "PLATFORM_FLAVOR=mx8qmmek"
+    "PLATFORM=imx-mx95evk"
     "CFG_ARM64_core=y"
     "CFG_TEE_TA_LOG_LEVEL=0"
     "CFG_TEE_CORE_LOG_LEVEL=0"
@@ -74,6 +79,6 @@ pkgs.stdenv.mkDerivation {
 
   installPhase = ''
     mkdir -p $out
-    cp ${outdir}/tee-raw.bin $out/tee.bin
+    cp ./out/arm-plat-imx/core/tee-raw.bin $out/tee.bin
   '';
 }
