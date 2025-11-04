@@ -55,6 +55,5 @@
     }
   ];
 
-  # Required for the Wireless firmware
-  hardware.enableRedistributableFirmware = true;
+  hardware.firmware = [ pkgs.raspberrypiWirelessFirmware ];
 }
