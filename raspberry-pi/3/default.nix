@@ -9,7 +9,7 @@
     kernelPackages = lib.mkDefault pkgs.linuxKernel.packages.linux_rpi3;
     initrd.availableKernelModules = [
       "usbhid"
-      "usb_storage"
+      "usb-storage"
     ];
   };
 
