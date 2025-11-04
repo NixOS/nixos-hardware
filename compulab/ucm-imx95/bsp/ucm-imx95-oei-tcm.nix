@@ -1,20 +1,24 @@
 {
   lib,
-  pkgs,
+  stdenv,
+  buildPackages,
+  gcc-arm-embedded,
+  fetchFromGitHub,
+  fetchpatch,
 }:
 let
   metaBspImx95Rev = "5f4c7b5db846fa3a75055054e32215089d15a7b7"; # scarthgap
 in
-pkgs.stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "imx95-imx-oei-tcm";
   version = "lf-6.6.36-2.1.0";
 
   nativeBuildInputs = [
-    pkgs.buildPackages.python3
-    pkgs.gcc-arm-embedded
+    buildPackages.python3
+    gcc-arm-embedded
   ];
 
-  src = pkgs.fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "nxp-imx";
     repo = "imx-oei";
     rev = "5fca9f47544d03c52ca371eadfffbfd2454e6925";
@@ -22,15 +26,15 @@ pkgs.stdenv.mkDerivation rec {
   };
 
   patches = [
-    (pkgs.fetchpatch {
+    (fetchpatch {
       url = "https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx95/${metaBspImx95Rev}/recipes-bsp/imx-oei/imx-oei/0001-Add-CompuLab-lpddr5_timing.c.patch";
       sha256 = "sha256-6ZpBOXw2aIhD2i9Wx368xfHq6NvdZghWHU9u8+gRTj8=";
     })
-    (pkgs.fetchpatch {
+    (fetchpatch {
       url = "https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx95/${metaBspImx95Rev}/recipes-bsp/imx-oei/imx-oei/0002-board-mx95lp5-Fix-default-DDR_CONFIG-timing-name.patch";
       sha256 = "sha256-WZ/vYaTC2iKIC+jnHtnPriCxK9gjRsOv2Uy13Ye4698=";
     })
-    (pkgs.fetchpatch {
+    (fetchpatch {
       url = "https://raw.githubusercontent.com/compulab-yokneam/meta-bsp-imx95/${metaBspImx95Rev}/recipes-bsp/imx-oei/imx-oei/0003-Add-CompuLab-lpddr5_timing_4g.c.patch";
       sha256 = "sha256-yyierv2USZlM8Cuxf4FDj4+UtILvJQH9BJSj+fmayL8=";
     })
@@ -45,8 +49,8 @@ pkgs.stdenv.mkDerivation rec {
 
   makeFlags = [
     "board=mx95lp5"
-    "CROSS_COMPILE=${pkgs.gcc-arm-embedded}/bin/arm-none-eabi-"
-    "OEI_CROSS_COMPILE=${pkgs.gcc-arm-embedded}/bin/arm-none-eabi-"
+    "CROSS_COMPILE=${gcc-arm-embedded}/bin/arm-none-eabi-"
+    "OEI_CROSS_COMPILE=${gcc-arm-embedded}/bin/arm-none-eabi-"
     "ARCH=arm"
     "DDR_CONFIG=lpddr5_timing"
     "oei=tcm"

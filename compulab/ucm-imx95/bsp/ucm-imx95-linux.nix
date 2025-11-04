@@ -1,5 +1,9 @@
-{ lib, pkgs, ... }@args:
-with pkgs;
+{
+  lib,
+  buildLinux,
+  fetchFromGitHub,
+  ...
+}@args:
 buildLinux (
   args
   // rec {

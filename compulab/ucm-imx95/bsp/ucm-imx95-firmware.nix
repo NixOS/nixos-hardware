@@ -1,10 +1,12 @@
 {
-  pkgs,
+  stdenv,
+  fetchurl,
+  coreutils,
+  bash,
   siliconRev ? "A0",
   ...
 }:
 
-with pkgs;
 stdenv.mkDerivation rec {
   pname = "nxp-firmware-imx95";
   version = "nxp-firmware-8.28-994fa14";

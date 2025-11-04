@@ -1,17 +1,24 @@
 {
-  pkgs,
+  callPackage,
+  fetchFromGitHub,
+  stdenv,
+  clang,
+  git,
+  dtc,
+  glibc,
+  zlib,
+  vim,
 }:
-with pkgs;
 let
 
-  imx95-atf = pkgs.callPackage ./ucm-imx95-atf.nix { };
-  imx95-firmware = pkgs.callPackage ./ucm-imx95-firmware.nix { };
-  imx95-uboot = pkgs.callPackage ./ucm-imx95-uboot.nix { };
-  imx95-optee-os = pkgs.callPackage ./ucm-imx95-optee-os.nix { };
-  imx95-sm-fw = pkgs.callPackage ./ucm-imx95-sm-fw.nix { };
-  imx95-oei-ddr = pkgs.callPackage ./ucm-imx95-oei-ddr.nix { };
-  imx95-oei-tcm = pkgs.callPackage ./ucm-imx95-oei-tcm.nix { };
-  src = pkgs.fetchFromGitHub {
+  imx95-atf = callPackage ./ucm-imx95-atf.nix { };
+  imx95-firmware = callPackage ./ucm-imx95-firmware.nix { };
+  imx95-uboot = callPackage ./ucm-imx95-uboot.nix { };
+  imx95-optee-os = callPackage ./ucm-imx95-optee-os.nix { };
+  imx95-sm-fw = callPackage ./ucm-imx95-sm-fw.nix { };
+  imx95-oei-ddr = callPackage ./ucm-imx95-oei-ddr.nix { };
+  imx95-oei-tcm = callPackage ./ucm-imx95-oei-tcm.nix { };
+  src = fetchFromGitHub {
     owner = "nxp-imx";
     repo = "imx-mkimage";
     #tag: lf-6.6.52-2.2.1
@@ -21,7 +28,7 @@ let
   shortRev = builtins.substring 0 8 src.rev;
 in
 {
-  imx95-boot = pkgs.stdenv.mkDerivation rec {
+  imx95-boot = stdenv.mkDerivation rec {
     inherit src;
     name = "imx95-mkimage";
     version = "lf-6.6.52-2.2.1";
@@ -32,11 +39,11 @@ in
       substituteInPlace Makefile \
           --replace-fail 'CC = gcc' 'CC = clang'
       substituteInPlace iMX95/soc.mak \
-        --replace-fail 'xxd' "${pkgs.vim.xxd}/bin/xxd"
+        --replace-fail 'xxd' "${vim.xxd}/bin/xxd"
       substituteInPlace scripts/fspi_fcb_gen.sh \
-        --replace-fail 'xxd' "${pkgs.vim.xxd}/bin/xxd"
+        --replace-fail 'xxd' "${vim.xxd}/bin/xxd"
       substituteInPlace scripts/fspi_packer.sh \
-        --replace-fail 'xxd' "${pkgs.vim.xxd}/bin/xxd"
+        --replace-fail 'xxd' "${vim.xxd}/bin/xxd"
       patchShebangs scripts
     '';
 

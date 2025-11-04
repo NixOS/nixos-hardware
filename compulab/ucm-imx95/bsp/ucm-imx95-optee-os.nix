@@ -1,14 +1,17 @@
 {
   lib,
-  pkgs,
+  stdenv,
+  fetchFromGitHub,
+  buildPackages,
+  bash,
 }:
 let
-  inherit (pkgs.buildPackages) python3;
-  toolchain = pkgs.stdenv.cc;
-  binutils = pkgs.stdenv.cc.bintools.bintools_bin;
-  cpp = pkgs.stdenv.cc;
+  inherit (buildPackages) python3;
+  toolchain = stdenv.cc;
+  binutils = stdenv.cc.bintools.bintools_bin;
+  cpp = stdenv.cc;
 in
-pkgs.stdenv.mkDerivation {
+stdenv.mkDerivation {
   pname = "imx95-optee-os";
   version = "lf-6.6.36_2.1.0";
 
@@ -24,7 +27,7 @@ pkgs.stdenv.mkDerivation {
     cryptography
   ];
 
-  src = pkgs.fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "nxp-imx";
     repo = "imx-optee-os";
     rev = "612bc5a642a4608d282abeee2349d86de996d7ee";
@@ -50,7 +53,7 @@ pkgs.stdenv.mkDerivation {
     substituteInPlace scripts/pem_to_pub_c.py \
       --replace-fail '/usr/bin/env python3' '${python3}/bin/python'
     substituteInPlace ta/pkcs11/scripts/verify-helpers.sh \
-      --replace-fail '/bin/bash' '${pkgs.bash}/bin/bash'
+      --replace-fail '/bin/bash' '${bash}/bin/bash'
     substituteInPlace mk/gcc.mk \
       --replace-fail "\$(CROSS_COMPILE_\$(sm))objcopy" ${binutils}/bin/${toolchain.targetPrefix}objcopy
     substituteInPlace mk/gcc.mk \
