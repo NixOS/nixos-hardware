@@ -462,10 +462,18 @@
 
       # Add packages
       packages = eachSystem (
-        pkgs: _system: {
+        pkgs: system:
+        {
           run-tests = pkgs.callPackage ./tests/run-tests.nix {
             inherit self;
           };
+        }
+        // pkgs.lib.optionalAttrs (system == "aarch64-linux") {
+          # Boot images for NXP i.MX boards (aarch64-linux only)
+          ucm-imx95-boot = (pkgs.callPackage ./compulab/ucm-imx95/bsp/ucm-imx95-boot.nix { }).imx95-boot;
+          imx93-boot = (pkgs.callPackage ./nxp/imx93-evk/bsp/imx93-boot.nix { }).imx93-boot;
+          imx8mp-boot = (pkgs.callPackage ./nxp/imx8mp-evk/bsp/imx8mp-boot.nix { }).imx8m-boot;
+          imx8mq-boot = (pkgs.callPackage ./nxp/imx8mq-evk/bsp/imx8mq-boot.nix { }).imx8m-boot;
         }
       );
 
