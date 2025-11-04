@@ -30,9 +30,6 @@ The boot image for flashing to SD cards can be built directly from the flake:
 ```bash
 # Build boot image for UCM-iMX95
 nix build github:NixOS/nixos-hardware#packages.aarch64-linux.ucm-imx95-boot
-
-# Or from a local checkout
-nix build .#packages.aarch64-linux.ucm-imx95-boot
 ```
 
 The boot image will be available at `./result/image/flash.bin`.
@@ -54,3 +51,7 @@ sudo dd if=./result/image/flash.bin of=/dev/sdX bs=1k seek=32 conv=fsync
 - The configuration, including device-tree, kernel, and bootloader components, is optimized for the UCM-iMX95 SoM and EVK.
 - The generated NixOS image supports booting from SD card or eMMC, depending on the hardware configuration.
 - The boot components (OEI in TCM/DDR, SM, ATF, U-Boot) follow the standard NXP release layout for i.MX95 platforms.
+
+### Upstream Documentation
+- [NXP i.MX95 EVK U-Boot Documentation](https://docs.u-boot.org/en/latest/board/nxp/imx95_evk.html)
+- [CompuLab UCM-iMX95 Product Page](https://www.compulab.com/products/computer-on-modules/ucm-imx95-nxp-i-mx-95-som-system-on-module/)

@@ -76,3 +76,14 @@ sudo dd if=./result/image/flash.bin of=/dev/sdX bs=1k seek=33 conv=fsync
 
 **Warning:** Double-check the device path to avoid overwriting the wrong disk!
 
+## 3. Upstream Documentation
+
+### U-Boot Board Documentation
+- [NXP i.MX8MP EVK U-Boot Documentation](https://docs.u-boot.org/en/latest/board/nxp/imx8mp_evk.html)
+- [NXP i.MX8MQ EVK U-Boot Documentation](https://docs.u-boot.org/en/latest/board/nxp/imx8mq_evk.html)
+- [NXP i.MX93 11x11 EVK U-Boot Documentation](https://docs.u-boot.org/en/latest/board/nxp/imx93_11x11_evk.html)
+- [NXP i.MX95 EVK U-Boot Documentation](https://docs.u-boot.org/en/latest/board/nxp/imx95_evk.html)
+
+### Additional Resources
+- [NXP i.MX 8M Series TF-A Documentation](https://trustedfirmware-a.readthedocs.io/en/latest/plat/imx8m.html)
+
