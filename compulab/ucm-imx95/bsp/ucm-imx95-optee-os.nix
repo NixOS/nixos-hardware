@@ -4,9 +4,9 @@
 }:
 let
   inherit (pkgs.buildPackages) python3;
-  toolchain = pkgs.gccStdenv.cc;
-  binutils = pkgs.gccStdenv.cc.bintools.bintools_bin;
-  cpp = pkgs.gccStdenv.cc;
+  toolchain = pkgs.stdenv.cc;
+  binutils = pkgs.stdenv.cc.bintools.bintools_bin;
+  cpp = pkgs.stdenv.cc;
 in
 pkgs.stdenv.mkDerivation {
   pname = "imx95-optee-os";

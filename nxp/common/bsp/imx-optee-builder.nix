@@ -13,9 +13,9 @@
 }:
 let
   inherit (pkgs.buildPackages) python3;
-  toolchain = pkgs.gccStdenv.cc;
-  binutils = pkgs.gccStdenv.cc.bintools.bintools_bin;
-  cpp = pkgs.gccStdenv.gcc;
+  toolchain = pkgs.stdenv.cc;
+  binutils = pkgs.stdenv.cc.bintools.bintools_bin;
+  cpp = pkgs.stdenv.gcc;
 
   # Determine PLATFORM and PLATFORM_FLAVOR from platformFlavor
   # Format can be either "imx-mx93evk" (full platform string) or "mx8mpevk" (just flavor, platform is "imx")
