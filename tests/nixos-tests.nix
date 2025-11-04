@@ -21,6 +21,11 @@ let
     "raspberry-pi-3"
     "raspberry-pi-4"
     "raspberry-pi-5"
+    "nxp-imx8mp-evk"
+    "nxp-imx8mq-evk"
+    "nxp-imx8qm-mek"
+    "nxp-imx93-evk"
+    "ucm-imx95"
   ];
 
   matchArch =
