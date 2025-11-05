@@ -15,7 +15,7 @@ let
   inherit (pkgs.buildPackages) python3;
   toolchain = pkgs.stdenv.cc;
   binutils = pkgs.stdenv.cc.bintools.bintools_bin;
-  cpp = pkgs.stdenv.gcc;
+  cpp = pkgs.stdenv.cc;
 
   # Determine PLATFORM and PLATFORM_FLAVOR from platformFlavor
   # Format can be either "imx-mx93evk" (full platform string) or "mx8mpevk" (just flavor, platform is "imx")
@@ -58,7 +58,7 @@ pkgs.stdenv.mkDerivation {
     substituteInPlace mk/gcc.mk \
       --replace-fail "\$(CROSS_COMPILE_\$(sm))ar" ${binutils}/bin/${toolchain.targetPrefix}ar
     substituteInPlace mk/gcc.mk \
-      --replace-fail "\$(CROSS_COMPILE_\$(sm))cpp"${cpp}/bin/${toolchain.targetPrefix}cpp
+      --replace-fail "\$(CROSS_COMPILE_\$(sm))cpp" ${cpp}/bin/${toolchain.targetPrefix}cpp
   '';
 
   makeFlags = [
