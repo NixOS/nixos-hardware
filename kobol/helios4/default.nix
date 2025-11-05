@@ -36,7 +36,7 @@ in
 
   nixpkgs.overlays = [ (import ./overlay.nix) ];
 
-  nixpkgs.hostPlatform = "armv7l-linux";
+  nixpkgs.hostPlatform.system = "armv7l-linux";
 
   boot.initrd.availableKernelModules = [ "ahci_mvebu" ];
 
