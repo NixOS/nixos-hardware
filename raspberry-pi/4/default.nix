@@ -35,7 +35,8 @@
       "vc4"
       "pcie_brcmstb" # required for the pcie bus to work
       "reset-raspberrypi" # required for vl805 firmware to load
-    ];
+    ]
+    ++ lib.optional config.boot.initrd.network.enable "genet";
 
     # Allow building kernel
     initrd.systemd.tpm2.enable = false;
