@@ -5,6 +5,7 @@ let
       # A patch to get both PWM fans working
       # the patch has been successfully applied to 5.15 and 5.19
       {
+        name = "mvebu-gpio-remove-hardcoded-timer-assignment";
         patch = pkgs.fetchpatch {
           url = "https://raw.githubusercontent.com/armbian/build/bd3466eef2106ea13e85e821f5d852ff97465e6c/patch/kernel/archive/mvebu-5.15/92-mvebu-gpio-remove-hardcoded-timer-assignment.patch";
           sha256 = "sha256-eQqMp0+MZd30zkl8DE89oB7czvyqCkfwF2k0EZ69jr0=";
@@ -12,12 +13,14 @@ let
       }
       # support for Wake-On-Lan
       {
+        name = "mvebu-gpio-add-wake-on-gpio-support";
         patch = pkgs.fetchpatch {
           url = "https://raw.githubusercontent.com/armbian/build/bd3466eef2106ea13e85e821f5d852ff97465e6c/patch/kernel/archive/mvebu-5.15/92-mvebu-gpio-add_wake_on_gpio_support.patch";
           sha256 = "sha256-OrvnVCU55P0U78jdoxGRJvl29i+Rvq8AdEGSCCpxa2I=";
         };
       }
       {
+        name = "helios4-dts-add-wake-on-lan-support";
         patch = pkgs.fetchpatch {
           url = "https://raw.githubusercontent.com/armbian/build/bd3466eef2106ea13e85e821f5d852ff97465e6c/patch/kernel/archive/mvebu-5.15/94-helios4-dts-add-wake-on-lan-support.patch";
           sha256 = "sha256-ai4161bTC22023eaVVWsvbk6fQKjkv0P4DQ4DA1Zgow=";

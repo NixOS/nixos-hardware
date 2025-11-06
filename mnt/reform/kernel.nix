@@ -34,18 +34,23 @@ let
           hash = "sha256-XiTuH40b3VJqzwygZzU0FcvMDj41Rq6IsMbm+3+QxDY=";
         };
 
-        kernelPatches =
-          (map (patch: { inherit patch; }) (
-            lib.filesystem.listFilesRecursive "${reformDebianPackages}/linux/patches${lib.versions.majorMinor modDirVersion}"
-          ))
-          ++ [
-            {
-              patch = callPackage ./dtsPatch.nix {
-                inherit reformDebianPackages;
-                kernelSource = src;
-              };
-            }
-          ];
+        # Use postPatch to apply patches from a directory without IFD
+        postPatch = ''
+          for patch in ${reformDebianPackages}/linux/patches${lib.versions.majorMinor modDirVersion}/*/*.patch; do
+            echo "Applying patch: $patch"
+            patch -p1 < "$patch"
+          done
+        '';
+
+        kernelPatches = [
+          {
+            name = "reform-dts";
+            patch = callPackage ./dtsPatch.nix {
+              inherit reformDebianPackages;
+              kernelSource = src;
+            };
+          }
+        ];
 
         structuredExtraConfig = with lib.kernel; {
           # configuration options from https://source.mnt.re/reform/reform-debian-packages/-/blob/7f31ba3a6742d60d8d502c1d86e63ef5df3916bf/linux/config

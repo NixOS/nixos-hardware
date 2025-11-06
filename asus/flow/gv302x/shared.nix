@@ -11,7 +11,6 @@ let
     mkEnableOption
     mkIf
     mkMerge
-    version
     versionAtLeast
     ;
 
