@@ -16,7 +16,7 @@ in
     initrd.availableKernelModules = [
       "nvme"
       "usbhid"
-      "usb_storage"
+      "usb-storage"
     ];
   };
 
