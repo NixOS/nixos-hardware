@@ -264,6 +264,7 @@ See code for all available configurations.
 | [Lenovo Legion 7 16achg6 (Nvidia)](lenovo/legion/16achg6/nvidia)                  | `<nixos-hardware/lenovo/legion/16achg6/nvidia>`         | `lenovo-legion-16achg6-nvidia`         |
 | [Lenovo Legion 7i Pro 16irx8h (Intel)](lenovo/legion/16irx8h)                     | `<nixos-hardware/lenovo/legion/16irx8h>`                | `lenovo-legion-16irx8h`                |
 | [Lenovo Legion 7 Pro 16irx9h (Intel)](lenovo/legion/16irx9h)                      | `<nixos-hardware/lenovo/legion/16irx9h>`                | `lenovo-legion-16irx9h`                |
+| [Lenovo Legion Pro 7 16iax10h (Intel)](lenovo/legion/16iax10h)                      | `<nixos-hardware/lenovo/legion/16iax10h>`                | `lenovo-legion-16iax10h`                |
 | [Lenovo Legion Slim 5](lenovo/legion/16aph8/)                                     | `<nixos-hardware/lenovo/legion/16aph8>`                 | `lenovo-legion-16aph8`                 |
 | [Lenovo Legion Slim 7 Gen 7 (AMD)](lenovo/legion/16arha7/)                        | `<nixos-hardware/lenovo/legion/16arha7>`                | `lenovo-legion-16arha7`                |
 | [Lenovo Legion T5 AMR5](lenovo/legion/t526amr5)                                   | `<nixos-hardware/lenovo/legion/t526amr5>`               | `lenovo-legion-t526amr5`               |
