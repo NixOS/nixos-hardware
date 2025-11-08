@@ -10,14 +10,14 @@ let
     domain = "source.mnt.re";
     owner = "reform";
     repo = "reform-rk3588-uboot";
-    rev = "55bca0174e7bb449e96028d64ad8348f5af35977";
-    hash = "sha256-A3u1afGK65cGOwENQtu8Hh+fLsSDNxc3rEebkd3QOic=";
+    rev = "28289e36cd1cb90b302780e83b014250c880c4ec";
+    hash = "sha256-fWGyC+rlfL0NYYRFLvdF7EiO3s9GfFkfhAbTEM5ECAM=";
   };
   rkbin = fetchFromGitHub {
     owner = "rockchip-linux";
     repo = "rkbin";
-    rev = "f43a462e7a1429a9d407ae52b4745033034a6cf9";
-    hash = "sha256-geESfZP8ynpUz/i/thpaimYo3kzqkBX95gQhMBzNbmk=";
+    rev = "272136301989d493000425935bd4ead0ef04d06b";
+    hash = "sha256-qXnuZyFNc6gYTkAtPg1t9WHwj8OiTxOLvsHUuvolK/w=";
   };
 in
 buildUBoot rec {
@@ -32,6 +32,7 @@ buildUBoot rec {
   patches = [
     "${mntPatches}/0001-ini-ddrbin-bump.patch"
     "${mntPatches}/0002-add-target-init-mnt-reform-series.patch"
+    "${mntPatches}/0003-scripts-dtc-pylibfdt-libfdt-i_shipped-Use-SWIG_AppendOutp.patch"
   ];
   prePatch = ''
     cp ${mntPatches}/*.dts arch/arm/dts/
@@ -45,7 +46,7 @@ buildUBoot rec {
     "spl/u-boot-spl.bin"
   ];
   variant = "-dsi";
-  defconfig = "mnt-reform2-rk3588${variant}_defconfig";
+  defconfig = "rk3588-mnt-reform2${variant}_defconfig";
   extraMakeFlags = [
     "BL31=${armTrustedFirmwareRK3588}/bl31.elf"
     "ROCKCHIP_TPL=${rkbin}/bin/rk35/rk3588_ddr_lp4_2112MHz_lp5_2400MHz_v1.18.bin"

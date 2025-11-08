@@ -215,7 +215,7 @@
             eval $(partx $img -o START,SECTORS --nr 1 --pairs)
             dd conv=notrunc if=${content} of=$img seek=$START count=$SECTORS
 
-            dd conv=notrunc if=${firmware}/mnt-reform2-rk3588-dsi-flash.bin of=$img seek=64
+            dd conv=notrunc if=${firmware}/rk3588-mnt-reform2-dsi-flash.bin of=$img seek=64
 
             if test -n "$compressImage"; then
               zstd -T$NIX_BUILD_CORES --rm $img
