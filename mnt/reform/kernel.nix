@@ -30,7 +30,10 @@ let
         };
 
         kernelPatches =
-          (map (patch: { patch = "${reformDebianPackages}/${patch}"; }) (import ./kernelPatches.nix))
+          (map (patch: {
+            name = patch;
+            patch = "${reformDebianPackages}/${patch}";
+          }) (import ./kernelPatches.nix))
           ++ [
             {
               name = "reform-dts";
