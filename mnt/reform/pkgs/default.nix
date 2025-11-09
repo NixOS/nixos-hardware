@@ -4,7 +4,7 @@
 }:
 rec {
   reform-flash-uboot =
-    lib.mapAttrs (name: config: callPackage ./reform-flash-uboot.nix { inherit config; })
+    lib.mapAttrs (_name: config: callPackage ./reform-flash-uboot.nix { inherit config; })
       {
         reform2-rk3588-dsi = {
           warn = true;
