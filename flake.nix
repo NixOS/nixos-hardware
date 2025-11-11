@@ -319,6 +319,7 @@
           microsoft-surface-pro-9 = import ./microsoft/surface-pro/9;
           milkv-pioneer = import ./milkv/pioneer;
           minisforum-v3 = import ./minisforum/v3;
+          minix-z150-0db = import ./minix/Z150-0dB;
           mnt-reform-rk3588 = import ./mnt/reform/rk3588;
           morefine-m600 = import ./morefine/m600;
           msi-b350-tomahawk = import ./msi/b350-tomahawk;
