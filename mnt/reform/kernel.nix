@@ -7,14 +7,9 @@
   ...
 }:
 let
-  modDirVersion = "6.16.5";
-  reformDebianPackages = fetchFromGitLab {
-    domain = "source.mnt.re";
-    owner = "reform";
-    repo = "reform-debian-packages";
-    rev = "830c94db42beef876dc58ea56711659ae7bd415d";
-    hash = "sha256-mdORgTOM7RJnEjY5G/iWMHf69wQkql11yRpQ/DrQKb4=";
-  };
+  sources = lib.importJSON ./sources.json;
+  modDirVersion = sources.modDirVersion;
+  reformDebianPackages = fetchFromGitLab sources.reformDebianPackages;
   linuxPkg =
     {
       lib,
@@ -31,26 +26,23 @@ let
 
         src = fetchzip {
           url = "mirror://kernel/linux/kernel/v${lib.versions.major modDirVersion}.x/linux-${modDirVersion}.tar.xz";
-          hash = "sha256-XiTuH40b3VJqzwygZzU0FcvMDj41Rq6IsMbm+3+QxDY=";
+          hash = "sha256-sE+AfJwaQueiL1caWWfGQ1nf0qsDvEJOe3ZaVHTwelA=";
         };
 
-        # Use postPatch to apply patches from a directory without IFD
-        postPatch = ''
-          for patch in ${reformDebianPackages}/linux/patches${lib.versions.majorMinor modDirVersion}/*/*.patch; do
-            echo "Applying patch: $patch"
-            patch -p1 < "$patch"
-          done
-        '';
-
-        kernelPatches = [
-          {
-            name = "reform-dts";
-            patch = callPackage ./dtsPatch.nix {
-              inherit reformDebianPackages;
-              kernelSource = src;
-            };
-          }
-        ];
+        kernelPatches =
+          (map (patch: {
+            name = patch;
+            patch = "${reformDebianPackages}/${patch}";
+          }) (import ./kernelPatches.nix))
+          ++ [
+            {
+              name = "reform-dts";
+              patch = callPackage ./dtsPatch.nix {
+                inherit reformDebianPackages;
+                kernelSource = src;
+              };
+            }
+          ];
 
         structuredExtraConfig = with lib.kernel; {
           # configuration options from https://source.mnt.re/reform/reform-debian-packages/-/blob/7f31ba3a6742d60d8d502c1d86e63ef5df3916bf/linux/config
@@ -82,7 +74,7 @@ let
           JOYSTICK_XPAD_LEDS = yes;
 
           INTERCONNECT_IMX8MP = yes;
-          SND_SOC_FSL_ASRC = yes;
+          SND_SOC_FSL_ASRC = module; # From the documentation: This option is only useful for out-of-tree drivers since in-tree drivers select it automatically.
           DRM_IMX_LCDIF = yes;
           DRM_IMX8MP_DW_HDMI_BRIDGE = yes;
           DRM_IMX8MP_HDMI_PVI = yes;
@@ -135,7 +127,7 @@ let
           SPI_ROCKCHIP = yes;
           SPI_ROCKCHIP_SFC = module;
           ARM_SCMI_CPUFREQ = module;
-          VIDEO_ROCKCHIP_VDEC2 = module;
+          # VIDEO_ROCKCHIP_VDEC2 = module; # no rkvdec2 patch included any more
           ROCKCHIP_DW_HDMI_QP = yes;
           ROCKCHIP_DW_MIPI_DSI2 = yes;
           PHY_ROCKCHIP_SAMSUNG_DCPHY = yes;
@@ -143,7 +135,7 @@ let
           GPIO_ROCKCHIP = yes;
           PL330_DMA = yes;
 
-          DRM_MEGACHIPS_STDPXXXX_GE_B850V3_FW = no; # patches for 6.16 break this driver
+          DRM_ZYNQMP_DPSUB = no; # patches for 6.17 break this driver
         };
       }
       // (args.argsOverride or { })
