@@ -49,17 +49,16 @@
         "bcma"
       ];
       kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "6.0") pkgs.linuxPackages_latest;
+      extraModulePackages =
+        lib.mkIf config.hardware.broadcom.wifi.enableLegacyDriverWithKnownVulnerabilities
+          [
+            (config.boot.kernelPackages.broadcom_sta.overrideAttrs (oldAttrs: {
+              meta = oldAttrs.meta // {
+                knownVulnerabilities = [ ];
+              };
+            }))
+          ];
     };
-
-    extraModulePackages =
-      lib.mkIf config.hardware.broadcom.wifi.enableLegacyDriverWithKnownVulnerabilities
-        [
-          (config.boot.kernelPackages.broadcom_sta.overrideAttrs (oldAttrs: {
-            meta = oldAttrs.meta // {
-              knownVulnerabilities = [ ];
-            };
-          }))
-        ];
 
     hardware = {
       bluetooth.enable = lib.mkDefault true;
