@@ -3,7 +3,6 @@
   lib,
   ...
 }:
-
 let
   inherit (lib)
     mkDefault
@@ -33,7 +32,7 @@ in
     #
     # Note: the device name is "ASUS N-KEY Device".
     keyboard.autosuspend.enable =
-      (mkEnableOption "Enable auto-suspend on the internal USB keyboard (ASUS N-KEY Device) on Flow GV302X")
+      (mkEnableOption "Enable auto-suspend on the internal USB keyboard (ASUS N-KEY Device) on Flow GV301X")
       // {
         default = versionAtLeast config.boot.kernelPackages.kernel.version "6.9";
         defaultText = lib.literalExpression "lib.versionAtLeast config.boot.kernelPackages.kernel.version \"6.9\"";

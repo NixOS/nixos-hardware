@@ -3,11 +3,9 @@
   lib,
   ...
 }:
-
 let
   inherit (lib) mkEnableOption mkIf mkMerge;
-  cfg = config.hardware.asus.flow.gv302x;
-
+  cfg = config.hardware.asus.flow.gv301x;
 in
 {
   imports = [
