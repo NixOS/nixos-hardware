@@ -7,14 +7,15 @@
 let
   inherit (lib)
     mkDefault
+    mkEnableOption
     mkIf
     mkMerge
+    versionAtLeast
     ;
 
-  cfg = config.hardware.asus.flow.gv302x;
+  cfg = config.hardware.asus.flow.gv301x;
 in
 {
-
   imports = [
     ../../../common/cpu/amd
     # Better power-savings from AMD PState:
@@ -23,6 +24,21 @@ in
     ../../../common/pc/laptop
     ../../../common/pc/ssd
   ];
+
+  options.hardware.asus.flow.gv301x = {
+    # Kernels earlier than 6.9 (possibly even earlier) tend to take 1-2 key-presses
+    # to wake-up the internal keyboard after the device is suspended.
+    # Therefore, this option disables auto-suspend for the keyboard by default, but
+    # enables it for kernel 6.9.x onwards.
+    #
+    # Note: the device name is "ASUS N-KEY Device".
+    keyboard.autosuspend.enable =
+      (mkEnableOption "Enable auto-suspend on the internal USB keyboard (ASUS N-KEY Device) on Flow GV302X")
+      // {
+        default = versionAtLeast config.boot.kernelPackages.kernel.version "6.9";
+        defaultText = lib.literalExpression "lib.versionAtLeast config.boot.kernelPackages.kernel.version \"6.9\"";
+      };
+  };
 
   config = mkMerge [
     {
