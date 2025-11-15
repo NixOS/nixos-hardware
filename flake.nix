@@ -104,6 +104,7 @@
           dell-g3-3779 = import ./dell/g3/3779;
           dell-g3-3579 = import ./dell/g3/3579;
           dell-inspiron-3442 = import ./dell/inspiron/3442;
+          dell-inspiron-14-5410 = import ./dell/inspiron/14-5410;
           dell-inspiron-14-5420 = import ./dell/inspiron/14-5420;
           dell-inspiron-5509 = import ./dell/inspiron/5509;
           dell-inspiron-5515 = import ./dell/inspiron/5515;
