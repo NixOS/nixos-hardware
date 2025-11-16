@@ -17,8 +17,8 @@ in
 {
   imports = [
     ../../../common/cpu/amd
-    # Better power-savings from AMD PState:
     ../../../common/cpu/amd/pstate.nix
+    ../../../common/cpu/amd/zenpower.nix
     ../../../common/gpu/amd
     ../../../common/pc/laptop
     ../../../common/pc/ssd
