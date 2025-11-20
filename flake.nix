@@ -36,7 +36,6 @@
         );
     in
     {
-
       nixosModules =
         let
           deprecated =
@@ -112,6 +111,7 @@
           dell-inspiron-7559 = import ./dell/inspiron/7559;
           dell-latitude-3340 = import ./dell/latitude/3340;
           dell-latitude-3480 = import ./dell/latitude/3480;
+          dell-latitude-5320 = import ./dell/latitude/5320;
           dell-latitude-5490 = import ./dell/latitude/5490;
           dell-latitude-5520 = import ./dell/latitude/5520;
           dell-latitude-7280 = import ./dell/latitude/7280;
