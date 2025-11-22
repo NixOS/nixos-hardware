@@ -4,7 +4,7 @@
   ...
 }:
 {
-  nixpkgs.hostPlatform = "aarch64-linux";
+  nixpkgs.hostPlatform.system = "aarch64-linux";
 
   boot = {
     kernelPackages = pkgs.linuxPackagesFor (pkgs.callPackage ./bsp/imx8mp-linux.nix { });
