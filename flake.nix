@@ -201,6 +201,7 @@
           hp-notebook-14-df0023 = import ./hp/notebook/14-df0023;
           intel-nuc-5i5ryb = import ./intel/nuc/5i5ryb;
           intel-nuc-8i7beh = import ./intel/nuc/8i7beh;
+          intel-nuc-12wshi7 = import ./intel/nuc/12wshi7;
           lenovo-ideacentre-k330 = import ./lenovo/ideacentre/k330;
           lenovo-ideapad-14imh9 = import ./lenovo/ideapad/14imh9;
           lenovo-ideapad-15alc6 = import ./lenovo/ideapad/15alc6;

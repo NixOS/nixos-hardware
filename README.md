@@ -202,7 +202,7 @@ See code for all available configurations.
 | [Framework 11th Gen Intel Core](framework/13-inch/11th-gen-intel)                 | `<nixos-hardware/framework/13-inch/11th-gen-intel>`     | `framework-11th-gen-intel`             |
 | [Framework 12th Gen Intel Core](framework/13-inch/12th-gen-intel)                 | `<nixos-hardware/framework/13-inch/12th-gen-intel>`     | `framework-12th-gen-intel`             |
 | [Framework 13th Gen Intel Core](framework/13-inch/13th-gen-intel)                 | `<nixos-hardware/framework/13-inch/13th-gen-intel>`     | `framework-13th-gen-intel`             |
-| [Framework Intel Core Ultra Series 1](framework/13-inch/intel-core-ultra-series1) | `<nixos-hardware/framework/13-inch/intel-core-ultra-series1>`     | `framework-intel-core-ultra-series1` |
+| [Framework Intel Core Ultra Series 1](framework/13-inch/intel-core-ultra-series1) | `<nixos-hardware/framework/13-inch/intel-core-ultra-series1>` | `framework-intel-core-ultra-series1` |
 | [Framework 13 AMD Ryzen 7040 Series](framework/13-inch/7040-amd)                  | `<nixos-hardware/framework/13-inch/7040-amd>`           | `framework-13-7040-amd`                |
 | [Framework 13 AMD AI 300 Series](framework/13-inch/amd-ai-300-series)             | `<nixos-hardware/framework/13-inch/amd-ai-300-series>`  | `framework-amd-ai-300-series`          |
 | [Framework 12 13th Gen Intel Core](framework/12-inch/13th-gen-intel)              | `<nixos-hardware/framework/12-inch/13th-gen-intel>`     | `framework-12-13th-gen-intel`          |
@@ -237,6 +237,7 @@ See code for all available configurations.
 | [i.MX8QuadMax Multisensory Enablement Kit](nxp/imx8qm-mek/)                       | `<nixos-hardware/nxp/imx8qm-mek>`                       | `nxp-imx8qm-mek`                       |
 | [Intel NUC 5i5RYB](intel/nuc/5i5ryb/)                                             | `<nixos-hardware/intel/nuc/5i5ryb>`                     | `intel-nuc-5i5ryb`                     |
 | [Intel NUC 8i7BEH](intel/nuc/8i7beh/)                                             | `<nixos-hardware/intel/nuc/8i7beh>`                     | `intel-nuc-8i7beh`                     |
+| [Intel NUC 12WSHi7](intel/nuc/12wshi7/)                                           | `<nixos-hardware/intel/nuc/12wshi7>`                    | `intel-nuc-12wshi7`                    |
 | [Kobol Helios4](kobol/helios4)                                                    | `<nixos-hardware/kobol/helios4>`                        | `kobol-helios-4`                       |
 | [Lenovo IdeaCentre K330](lenovo/ideacentre/k330)                                  | `<nixos-hardware/lenovo/ideacentre/k330>`               | `lenovo-ideacentre-k330`               |
 | [Lenovo IdeaPad 3 15alc6](lenovo/ideapad/15alc6)                                  | `<nixos-hardware/lenovo/ideapad/15alc6>`                | `lenovo-ideapad-15alc6`                |
@@ -264,7 +265,7 @@ See code for all available configurations.
 | [Lenovo Legion 7 16achg6 (Nvidia)](lenovo/legion/16achg6/nvidia)                  | `<nixos-hardware/lenovo/legion/16achg6/nvidia>`         | `lenovo-legion-16achg6-nvidia`         |
 | [Lenovo Legion 7i Pro 16irx8h (Intel)](lenovo/legion/16irx8h)                     | `<nixos-hardware/lenovo/legion/16irx8h>`                | `lenovo-legion-16irx8h`                |
 | [Lenovo Legion 7 Pro 16irx9h (Intel)](lenovo/legion/16irx9h)                      | `<nixos-hardware/lenovo/legion/16irx9h>`                | `lenovo-legion-16irx9h`                |
-| [Lenovo Legion Pro 7 16iax10h (Intel)](lenovo/legion/16iax10h)                      | `<nixos-hardware/lenovo/legion/16iax10h>`                | `lenovo-legion-16iax10h`                |
+| [Lenovo Legion Pro 7 16iax10h (Intel)](lenovo/legion/16iax10h)                    | `<nixos-hardware/lenovo/legion/16iax10h>`               | `lenovo-legion-16iax10h`               |
 | [Lenovo Legion Slim 5](lenovo/legion/16aph8/)                                     | `<nixos-hardware/lenovo/legion/16aph8>`                 | `lenovo-legion-16aph8`                 |
 | [Lenovo Legion Slim 7 Gen 7 (AMD)](lenovo/legion/16arha7/)                        | `<nixos-hardware/lenovo/legion/16arha7>`                | `lenovo-legion-16arha7`                |
 | [Lenovo Legion T5 AMR5](lenovo/legion/t526amr5)                                   | `<nixos-hardware/lenovo/legion/t526amr5>`               | `lenovo-legion-t526amr5`               |
