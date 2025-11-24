@@ -33,27 +33,22 @@ let
       abort "Invalid kernel version: ${kernelVersion}";
 
   # Fetch the latest linux-surface patches
-  repos = pkgs.callPackage (
-    { fetchFromGitHub }:
-    {
-      linux-surface = fetchFromGitHub {
-        owner = "linux-surface";
-        repo = "linux-surface";
-        rev = "50d0ed6be462a5fdb643cfe8469bf69158afae42";
-        hash = "sha256-ozvYrZDiVtMkdCcVnNEdlF2Kdw4jivW0aMJrDynN3Hk=";
-      };
-    }
-  ) { };
+  linux-surface = pkgs.fetchFromGitHub {
+    owner = "linux-surface";
+    repo = "linux-surface";
+    rev = "50d0ed6be462a5fdb643cfe8469bf69158afae42";
+    hash = "sha256-ozvYrZDiVtMkdCcVnNEdlF2Kdw4jivW0aMJrDynN3Hk=";
+  };
 
   # Fetch and build the kernel
-  inherit (pkgs.callPackage ./kernel/linux-package.nix { inherit repos; })
+  inherit (pkgs.callPackage ./kernel/linux-package.nix { })
     linuxPackage
     surfacePatches
     ;
   kernelPatches = surfacePatches {
     version = srcVersion;
     patchFn = ./kernel/${versions.majorMinor srcVersion}/patches.nix;
-    patchSrc = (repos.linux-surface + "/patches/${versions.majorMinor srcVersion}");
+    patchSrc = (linux-surface + "/patches/${versions.majorMinor srcVersion}");
   };
   kernelPackages = linuxPackage {
     inherit kernelPatches;
