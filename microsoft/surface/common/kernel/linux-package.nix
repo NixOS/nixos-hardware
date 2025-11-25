@@ -4,7 +4,6 @@
   fetchurl,
   buildLinux,
   linuxPackagesFor,
-  repos,
 }:
 
 let
@@ -74,7 +73,6 @@ in
 {
   inherit
     linuxPackage
-    repos
     surfacePatches
     versionsOf
     isVersionOf
