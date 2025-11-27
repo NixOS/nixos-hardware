@@ -37,7 +37,7 @@ let
     owner = "linux-surface";
     repo = "linux-surface";
     rev = "50d0ed6be462a5fdb643cfe8469bf69158afae42";
-    hash = "sha256-ozvYrZDiVtMkdCcVnNEdlF2Kdw4jivW0aMJrDynN3Hk=";
+    hash = "sha256-VEoZH3dFsLn9GnUyjnbOoJeTRM3KEQ9fhlMk03NXoXs=";
   };
 
   # Fetch and build the kernel
