@@ -173,6 +173,7 @@
           framework-amd-ai-300-series = import ./framework/13-inch/amd-ai-300-series;
           framework-16-7040-amd = import ./framework/16-inch/7040-amd;
           framework-16-amd-ai-300-series = import ./framework/16-inch/amd-ai-300-series;
+          framework-16-amd-ai-300-series-nvidia = import ./framework/16-inch/amd-ai-300-series/nvidia;
           framework-desktop-amd-ai-max-300-series = import ./framework/desktop/amd-ai-max-300-series;
           friendlyarm-nanopc-t4 = import ./friendlyarm/nanopc-t4;
           friendlyarm-nanopi-r5s = import ./friendlyarm/nanopi-r5s;
