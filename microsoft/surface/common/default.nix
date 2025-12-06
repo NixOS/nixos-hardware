@@ -19,7 +19,7 @@ let
     if kernelVersion == "longterm" then
       "6.12.19"
     else if kernelVersion == "stable" then
-      "6.15.9"
+      "6.18"
     else
       abort "Invalid kernel version: ${kernelVersion}";
 
@@ -28,7 +28,7 @@ let
     if kernelVersion == "longterm" then
       "sha256-1zvwV77ARDSxadG2FkGTb30Ml865I6KB8y413U3MZTE="
     else if kernelVersion == "stable" then
-      "sha256-6U86+FSSMC96gZRBRY+AvKCtmRLlpMg8aZ/zxjxSlX0="
+      "sha256-kQakYF2p4x/xdlnZWHgrgV+VkaswjQOw7iGq1sfc7Us="
     else
       abort "Invalid kernel version: ${kernelVersion}";
 
@@ -48,7 +48,11 @@ let
   kernelPatches = surfacePatches {
     version = srcVersion;
     patchFn = ./kernel/${versions.majorMinor srcVersion}/patches.nix;
-    patchSrc = (linux-surface + "/patches/${versions.majorMinor srcVersion}");
+    patchSrc =
+      if srcVersion == "6.18" then
+        (linux-surface + "/patches/6.17")
+      else
+        (linux-surface + "/patches/${versions.majorMinor srcVersion}");
   };
   kernelPackages = linuxPackage {
     inherit kernelPatches;
