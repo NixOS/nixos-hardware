@@ -156,4 +156,8 @@
     name = "ms-surface/0015-rtc";
     patch = patchSrc + "/0015-rtc.patch";
   }
+  {
+    name = "ms-surface/0016-hid-surface";
+    patch = patchSrc + "/0016-hid-surface.patch";
+  }
 ]
