@@ -71,24 +71,8 @@ in
           dynamicBoost.enable = mkDefault true;
 
         };
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-        intelBusId = "PCI:0:2.0";
-        nvidiaBusId = "PCI:1:0.0";
->>>>>>> 59abaea (fixed leading zeros on busid)
-=======
         intelBusId = "PCI:0:2:0";
         nvidiaBusId = "PCI:1:0:0";
->>>>>>> 47c7f7a (syntax!)
-=======
-        intelBusId = "PCI:0:2:0";
-        nvidiaBusId = "PCI:1:0:0";
->>>>>>> ed24f8a (Fix PCI bus ID formatting for Intel and Nvidia)
-=======
->>>>>>> 7506c9d (formatted with nixfmt)
       };
 
     }
