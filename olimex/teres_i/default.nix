@@ -24,7 +24,7 @@
     };
   };
 
-  nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
+  nixpkgs.hostPlatform.system = lib.mkDefault "aarch64-linux";
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
 }

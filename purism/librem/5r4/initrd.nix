@@ -14,7 +14,7 @@ lib.mkIf config.hardware.librem5.customInitrdModules {
       "tps6598x"
       "xhci_hcd"
       "usbcore"
-      "usb_storage"
+      "usb-storage"
       "uas"
       "xhci_plat_hcd"
     ];
@@ -56,7 +56,7 @@ lib.mkIf config.hardware.librem5.customInitrdModules {
       "tps6598x"
       "xhci_hcd"
       "usbcore"
-      "usb_storage"
+      "usb-storage"
       "uas"
       "xhci_plat_hcd"
     ];
