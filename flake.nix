@@ -65,6 +65,7 @@
           apple-macbook-pro-14-1 = import ./apple/macbook-pro/14-1;
           apple-macmini-4-1 = import ./apple/macmini/4;
           apple-t2 = import ./apple/t2;
+          asrock-rack-altrad8ud-1l2t = import ./asrock-rack/altrad8ud-1l2t;
           asus-battery = import ./asus/battery.nix;
           asus-ally-rc71l = import ./asus/ally/rc71l;
           asus-fx504gd = import ./asus/fx504gd;
@@ -88,6 +89,7 @@
           asus-zenbook-ux535 = import ./asus/zenbook/ux535;
           asus-zenbook-ux481-intelgpu = import ./asus/zenbook/ux481/intelgpu;
           asus-zenbook-ux481-nvidia = import ./asus/zenbook/ux481/nvidia;
+          asus-zephyrus-ga401iv = import ./asus/zephyrus/ga401iv;
           asus-zephyrus-ga401 = import ./asus/zephyrus/ga401;
           asus-zephyrus-ga402 = import ./asus/zephyrus/ga402;
           asus-zephyrus-ga402x = import ./asus/zephyrus/ga402x;
@@ -173,6 +175,7 @@
           framework-amd-ai-300-series = import ./framework/13-inch/amd-ai-300-series;
           framework-16-7040-amd = import ./framework/16-inch/7040-amd;
           framework-16-amd-ai-300-series = import ./framework/16-inch/amd-ai-300-series;
+          framework-16-amd-ai-300-series-nvidia = import ./framework/16-inch/amd-ai-300-series/nvidia;
           framework-desktop-amd-ai-max-300-series = import ./framework/desktop/amd-ai-max-300-series;
           friendlyarm-nanopc-t4 = import ./friendlyarm/nanopc-t4;
           friendlyarm-nanopi-r5s = import ./friendlyarm/nanopi-r5s;
@@ -230,6 +233,7 @@
           lenovo-legion-16ithg6 = import ./lenovo/legion/16ithg6;
           lenovo-legion-16irx8h = import ./lenovo/legion/16irx8h;
           lenovo-legion-16irx9h = import ./lenovo/legion/16irx9h;
+          lenovo-legion-16iax10h = import ./lenovo/legion/16iax10h;
           lenovo-legion-t526amr5 = import ./lenovo/legion/t526amr5;
           lenovo-legion-y530-15ich = import ./lenovo/legion/15ich;
           lenovo-thinkpad = import ./lenovo/thinkpad;
@@ -426,16 +430,16 @@
           common-cpu-amd-zenpower = import ./common/cpu/amd/zenpower.nix;
           common-cpu-amd-raphael-igpu = import ./common/cpu/amd/raphael/igpu.nix;
           common-cpu-intel = import ./common/cpu/intel;
-          common-gpu-intel-comet-lake =
-            deprecated "992" "common-gpu-intel-comet-lake"
-              (import ./common/gpu/intel/comet-lake);
+          common-gpu-intel-comet-lake = deprecated "992" "common-gpu-intel-comet-lake" (
+            import ./common/gpu/intel/comet-lake
+          );
           common-cpu-intel-cpu-only = import ./common/cpu/intel/cpu-only.nix;
-          common-gpu-intel-kaby-lake =
-            deprecated "992" "common-gpu-intel-kaby-lake"
-              (import ./common/gpu/intel/kaby-lake);
-          common-gpu-intel-sandy-bridge =
-            deprecated "992" "common-gpu-intel-sandy-bridge"
-              (import ./common/gpu/intel/sandy-bridge);
+          common-gpu-intel-kaby-lake = deprecated "992" "common-gpu-intel-kaby-lake" (
+            import ./common/gpu/intel/kaby-lake
+          );
+          common-gpu-intel-sandy-bridge = deprecated "992" "common-gpu-intel-sandy-bridge" (
+            import ./common/gpu/intel/sandy-bridge
+          );
           common-gpu-amd = import ./common/gpu/amd;
           common-gpu-amd-sea-islands = import ./common/gpu/amd/sea-islands;
           common-gpu-amd-southern-islands = import ./common/gpu/amd/southern-islands;
@@ -446,6 +450,7 @@
           common-gpu-nvidia-nonprime = import ./common/gpu/nvidia;
           common-gpu-nvidia-disable = import ./common/gpu/nvidia/disable.nix;
           common-hidpi = import ./common/hidpi.nix;
+          common-networking-intel-x550 = import ./common/networking/intel/x550;
           common-pc = import ./common/pc;
           common-pc-hdd = import ./common/pc/hdd;
           common-pc-laptop = import ./common/pc/laptop;
@@ -463,10 +468,18 @@
 
       # Add packages
       packages = eachSystem (
-        pkgs: _system: {
+        pkgs: system:
+        {
           run-tests = pkgs.callPackage ./tests/run-tests.nix {
             inherit self;
           };
+        }
+        // pkgs.lib.optionalAttrs (system == "aarch64-linux") {
+          # Boot images for NXP i.MX boards (aarch64-linux only)
+          ucm-imx95-boot = (pkgs.callPackage ./compulab/ucm-imx95/bsp/ucm-imx95-boot.nix { }).imx95-boot;
+          imx93-boot = (pkgs.callPackage ./nxp/imx93-evk/bsp/imx93-boot.nix { }).imx93-boot;
+          imx8mp-boot = (pkgs.callPackage ./nxp/imx8mp-evk/bsp/imx8mp-boot.nix { }).imx8m-boot;
+          imx8mq-boot = (pkgs.callPackage ./nxp/imx8mq-evk/bsp/imx8mq-boot.nix { }).imx8m-boot;
         }
       );
 

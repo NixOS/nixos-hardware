@@ -9,13 +9,13 @@ jobs:
   nixfmt:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - uses: cachix/install-nix-action@v31
     - run: nix build .#checks.x86_64-linux.formatting
   tests:
     needs: nixfmt
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - uses: cachix/install-nix-action@v31
     - run: nix run .#run-tests

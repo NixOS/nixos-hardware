@@ -13,7 +13,7 @@
     "xhci_pci"
     "ahci"
     "nvme"
-    "usb_storage"
+    "usb-storage"
     "sd_mod"
     "rtsx_pci_sdmmc"
   ];

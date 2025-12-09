@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
     domain = "source.mnt.re";
     owner = "reform";
     repo = "reform-tools";
-    rev = "45f930403492aa2156522bfe30edb02e33494b69";
-    hash = "sha256-no33CsV69nu1TR0cqxQDd1bFXqhjqOW9IUDxds0fyxE=";
+    rev = "95fff02ea84386e4e9815ee650032b1a5bd6107c";
+    hash = "sha256-bFiVvpLTboxhA5SmMcf60iazEsgFehabsdqZMZ3APuI=";
   };
 
   sourceRoot = "source/lpc";
@@ -26,7 +26,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
   installPhase = ''
+    runHook preInstall
     make -C "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" M="$(pwd)" INSTALL_MOD_PATH=$out modules_install $makeFlags
+    runHook postInstall
   '';
 
   makeFlags = kernelModuleMakeFlags ++ [

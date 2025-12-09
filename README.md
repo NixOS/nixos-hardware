@@ -117,7 +117,8 @@ See code for all available configurations.
 | [Asus ROG Strix G713IE](asus/rog-strix/g713ie)                                    | `<nixos-hardware/asus/rog-strix/g713ie>`                | `asus-rog-strix-g713ie`                |
 | [Asus ROG Strix G733QS](asus/rog-strix/g733qs)                                    | `<nixos-hardware/asus/rog-strix/g733qs>`                | `asus-rog-strix-g733qs`                |
 | [Asus ROG Strix X570-E GAMING](asus/rog-strix/x570e)                              | `<nixos-hardware/asus/rog-strix/x570e>`                 | `asus-rog-strix-x570e`                 |
-| [Asus ROG Zephyrus G14 GA401](asus/zephyrus/ga401)                                | `<nixos-hardware/asus/zephyrus/ga401>`                  | `asus-zephyrus-ga401`                  |
+| [Asus ROG Zephyrus G14 GA401IV (2020)](asus/zephyrus/ga401iv)                     | `<nixos-hardware/asus/zephyrus/ga401iv>`                | `asus-zephyrus-ga401iv`                |
+| [Asus ROG Zephyrus G14 GA401 (2021)](asus/zephyrus/ga401)                         | `<nixos-hardware/asus/zephyrus/ga401>`                  | `asus-zephyrus-ga401`                  |
 | [Asus ROG Zephyrus G14 GA402](asus/zephyrus/ga402)                                | `<nixos-hardware/asus/zephyrus/ga402>`                  | `asus-zephyrus-ga402`                  |
 | [Asus ROG Zephyrus G14 GA402X\* (2023)](asus/zephyrus/ga402x/amdgpu)              | `<nixos-hardware/asus/zephyrus/ga402x/amdgpu>`          | `asus-zephyrus-ga402x-amdgpu`          |
 | [Asus ROG Zephyrus G14 GA402X\* (2023)](asus/zephyrus/ga402x/nvidia)              | `<nixos-hardware/asus/zephyrus/ga402x/nvidia>`          | `asus-zephyrus-ga402x-nvidia`          |
@@ -135,6 +136,7 @@ See code for all available configurations.
 | [Asus Zenbook Flip S13 UX371](asus/zenbook/ux371/)                                | `<nixos-hardware/asus/zenbook/ux371>`                   | `asus-zenbook-ux371`                   |
 | [Asus Zenbook Pro 15 UX535](asus/zenbook/ux535/)                                  | `<nixos-hardware/asus/zenbook/ux535>`                   | `asus-zenbook-ux535`                   |
 | [Asus Zenbook Pro 17 UM6702](asus/zenbook/um6702/)                                | `<nixos-hardware/asus/zenbook/um6702>`                  | `asus-zenbook-um6702`                  |
+| [Asrock Rack ALTRAD8UD-1L2T](asrock-rack/altrad8ud-1l2t)                          | `<nixos-hardware/asrock-rack/altrad8ud-1l2t>`           | `asrock-rack-altrad8ud-1l2t`           |
 | [BeagleBoard PocketBeagle](beagleboard/pocketbeagle)                              | `<nixos-hardware/beagleboard/pocketbeagle>`             | `beagleboard-pocketbeagle`             |
 | [Chuwi MiniBook X](chuwi/minibook-x)                                              | `<nixos-hardware/chuwi/minibook-x>`                     | `chuwi-minibook-x`                     |
 | [Deciso DEC series](deciso/dec)                                                   | `<nixos-hardware/deciso/dec>`                           | `deciso-dec`                           |
@@ -264,6 +266,7 @@ See code for all available configurations.
 | [Lenovo Legion 7 16achg6 (Nvidia)](lenovo/legion/16achg6/nvidia)                  | `<nixos-hardware/lenovo/legion/16achg6/nvidia>`         | `lenovo-legion-16achg6-nvidia`         |
 | [Lenovo Legion 7i Pro 16irx8h (Intel)](lenovo/legion/16irx8h)                     | `<nixos-hardware/lenovo/legion/16irx8h>`                | `lenovo-legion-16irx8h`                |
 | [Lenovo Legion 7 Pro 16irx9h (Intel)](lenovo/legion/16irx9h)                      | `<nixos-hardware/lenovo/legion/16irx9h>`                | `lenovo-legion-16irx9h`                |
+| [Lenovo Legion Pro 7 16iax10h (Intel)](lenovo/legion/16iax10h)                      | `<nixos-hardware/lenovo/legion/16iax10h>`                | `lenovo-legion-16iax10h`                |
 | [Lenovo Legion Slim 5](lenovo/legion/16aph8/)                                     | `<nixos-hardware/lenovo/legion/16aph8>`                 | `lenovo-legion-16aph8`                 |
 | [Lenovo Legion Slim 7 Gen 7 (AMD)](lenovo/legion/16arha7/)                        | `<nixos-hardware/lenovo/legion/16arha7>`                | `lenovo-legion-16arha7`                |
 | [Lenovo Legion T5 AMR5](lenovo/legion/t526amr5)                                   | `<nixos-hardware/lenovo/legion/t526amr5>`               | `lenovo-legion-t526amr5`               |
