@@ -151,4 +151,8 @@
     name = "ms-surface/0014-rtc";
     patch = patchSrc + "/0014-rtc.patch";
   }
+  {
+    name = "rust-1.91-fix";
+    patch = ../rust_1-91_fix.patch;
+  }
 ]
