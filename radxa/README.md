@@ -11,8 +11,9 @@ Our goals are:
 * No support guarantee. We are not here to teach people how to use NixOS.
 
 We explicitly want to avoid packaging the entire vendor SDK bootloader and kernel
-in Nix. Those are not going to be accepted in `nixpkgs`, and our targetted audiences
-like homelabbers generally ignore the additional hardware features.
+in Nix， unless necessary. Those are not going to be accepted in `nixpkgs`, and
+our targetted audiences like homelabbers generally ignore the additional hardware
+features.
 
 This also aligns with [NixOS on ARM](https://wiki.nixos.org/wiki/NixOS_on_ARM)'s
 definition of "support":
