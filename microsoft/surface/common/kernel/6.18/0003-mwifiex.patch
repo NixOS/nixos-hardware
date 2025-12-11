@@ -356,18 +356,26 @@ Patchset: mwifiex
  1 file changed, 15 insertions(+)
 
 diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
-index 8085fabadde8..315cb98b324e 100644
+index bcf2a72..e461dce 100644
 --- a/drivers/bluetooth/btusb.c
 +++ b/drivers/bluetooth/btusb.c
-@@ -471,6 +472,7 @@ static const struct usb_device_id quirks_table[] = {
+@@ -67,6 +67,7 @@ static struct usb_driver btusb_driver;
+ #define BTUSB_INTEL_NO_WBS_SUPPORT	BIT(26)
+ #define BTUSB_ACTIONS_SEMI		BIT(27)
+ #define BTUSB_BARROT			BIT(28)
++#define BTUSB_LOWER_LESCAN_INTERVAL	BIT(29)
+ 
+ static const struct usb_device_id btusb_table[] = {
+ 	/* Generic Bluetooth USB device */
+@@ -472,6 +473,7 @@ static const struct usb_device_id quirks_table[] = {
  	{ USB_DEVICE(0x1286, 0x2044), .driver_info = BTUSB_MARVELL },
  	{ USB_DEVICE(0x1286, 0x2046), .driver_info = BTUSB_MARVELL },
  	{ USB_DEVICE(0x1286, 0x204e), .driver_info = BTUSB_MARVELL },
-+	{ USB_DEVICE(0x1286, 0x204c), .driver_info = BIT(28) },
++	{ USB_DEVICE(0x1286, 0x204c), .driver_info = BTUSB_LOWER_LESCAN_INTERVAL },
  
  	/* Intel Bluetooth devices */
  	{ USB_DEVICE(0x8087, 0x0025), .driver_info = BTUSB_INTEL_COMBINED },
-@@ -4129,6 +4131,19 @@ static int btusb_probe(struct usb_interface *intf,
+@@ -4177,6 +4179,19 @@ static int btusb_probe(struct usb_interface *intf,
  	if (id->driver_info & BTUSB_MARVELL)
  		hdev->set_bdaddr = btusb_set_bdaddr_marvell;
  
@@ -379,7 +387,7 @@ index 8085fabadde8..315cb98b324e 100644
 +	 * (0x000a * 0,625 msec = 6.25 msec). This allows for significantly
 +	 * higher wifi throughput while passively scanning for BT LE devices.
 +	 */
-+	if (id->driver_info & BIT(28)) {
++	if (id->driver_info & BTUSB_LOWER_LESCAN_INTERVAL) {
 +		hdev->le_scan_interval = 0x0190;
 +		hdev->le_scan_window = 0x000a;
 +	}
@@ -387,6 +395,7 @@ index 8085fabadde8..315cb98b324e 100644
  	if (IS_ENABLED(CONFIG_BT_HCIBTUSB_MTK) &&
  	    (id->driver_info & BTUSB_MEDIATEK)) {
  		hdev->setup = btusb_mtk_setup;
+
 -- 
 2.51.0
 
