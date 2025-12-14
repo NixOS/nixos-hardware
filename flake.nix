@@ -241,6 +241,7 @@
           lenovo-thinkpad-e14-intel = import ./lenovo/thinkpad/e14/intel;
           lenovo-thinkpad-e14-intel-gen4 = import ./lenovo/thinkpad/e14/intel/gen4;
           lenovo-thinkpad-e14-intel-gen6 = import ./lenovo/thinkpad/e14/intel/gen6;
+          lenovo-thinkpad-e14-intel-gen7 = import ./lenovo/thinkpad/e14/intel/gen7;
           lenovo-thinkpad-e15-intel = import ./lenovo/thinkpad/e15/intel;
           lenovo-thinkpad-e470 = import ./lenovo/thinkpad/e470;
           lenovo-thinkpad-e495 = import ./lenovo/thinkpad/e495;
