@@ -32,57 +32,23 @@ let
     else
       abort "Invalid kernel version: ${kernelVersion}";
 
-  # Set the version and hash for the linux-surface releases
-  pkgVersion =
-    with config.hardware.microsoft-surface;
-    if kernelVersion == "longterm" then
-      "6.12.7"
-    else if kernelVersion == "stable" then
-      "6.15.3"
-    else
-      abort "Invalid kernel version: ${kernelVersion}";
+  # Fetch the latest linux-surface patches
+  linux-surface = pkgs.fetchFromGitHub {
+    owner = "linux-surface";
+    repo = "linux-surface";
+    rev = "50d0ed6be462a5fdb643cfe8469bf69158afae42";
+    hash = "sha256-VEoZH3dFsLn9GnUyjnbOoJeTRM3KEQ9fhlMk03NXoXs=";
+  };
 
-  pkgHash =
-    with config.hardware.microsoft-surface;
-    if kernelVersion == "longterm" then
-      "sha256-Pv7O8D8ma+MPLhYP3HSGQki+Yczp8b7d63qMb6l4+mY="
-    else if kernelVersion == "stable" then
-      "sha256-ozvYrZDiVtMkdCcVnNEdlF2Kdw4jivW0aMJrDynN3Hk="
-    else
-      abort "Invalid kernel version: ${kernelVersion}";
-
-  # Fetch the linux-surface package
-  repos =
-    pkgs.callPackage
-      (
-        {
-          fetchFromGitHub,
-          rev,
-          hash,
-        }:
-        {
-          linux-surface = fetchFromGitHub {
-            owner = "linux-surface";
-            repo = "linux-surface";
-            rev = rev;
-            hash = hash;
-          };
-        }
-      )
-      {
-        hash = pkgHash;
-        rev = "arch-${pkgVersion}-1";
-      };
-
-  # Fetch and build the kernel package
-  inherit (pkgs.callPackage ./kernel/linux-package.nix { inherit repos; })
+  # Fetch and build the kernel
+  inherit (pkgs.callPackage ./kernel/linux-package.nix { })
     linuxPackage
     surfacePatches
     ;
   kernelPatches = surfacePatches {
-    version = pkgVersion;
-    patchFn = ./kernel/${versions.majorMinor pkgVersion}/patches.nix;
-    patchSrc = (repos.linux-surface + "/patches/${versions.majorMinor pkgVersion}");
+    version = srcVersion;
+    patchFn = ./kernel/${versions.majorMinor srcVersion}/patches.nix;
+    patchSrc = (linux-surface + "/patches/${versions.majorMinor srcVersion}");
   };
   kernelPackages = linuxPackage {
     inherit kernelPatches;
