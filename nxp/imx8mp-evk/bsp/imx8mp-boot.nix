@@ -2,7 +2,6 @@
   pkgs,
   enable-tee ? true,
 }:
-with pkgs;
 let
   fw-ver = "202006";
   cp-tee = if enable-tee then "install -m 0644 ${imx8mp-optee-os}/tee.bin ./iMX8M/tee.bin" else "";
@@ -22,7 +21,7 @@ let
   shortRev = builtins.substring 0 8 src.rev;
 in
 {
-  imx8m-boot = pkgs.stdenv.mkDerivation rec {
+  imx8m-boot = pkgs.buildPackages.stdenv.mkDerivation {
     inherit src;
     name = "imx8mp-mkimage";
     version = "lf-6.1.55-2.2.0";
@@ -30,22 +29,16 @@ in
     postPatch = ''
       substituteInPlace Makefile \
           --replace 'git rev-parse --short=8 HEAD' 'echo ${shortRev}'
-      substituteInPlace Makefile \
-          --replace 'CC = gcc' 'CC = clang'
       patchShebangs scripts
     '';
 
     nativeBuildInputs = [
-      clang
-      git
-      dtc
-    ];
-
-    buildInputs = [
-      git
-      glibc.static
-      zlib
-      zlib.static
+      pkgs.buildPackages.stdenv.cc
+      pkgs.buildPackages.git
+      pkgs.buildPackages.dtc
+      pkgs.buildPackages.glibc.static
+      pkgs.buildPackages.zlib
+      pkgs.buildPackages.zlib.static
     ];
 
     buildPhase = ''
@@ -54,7 +47,7 @@ in
       make bin
       make SOC=iMX8MP mkimage_imx8
 
-      cp -v ${pkgs.ubootTools}/bin/mkimage ./iMX8M/mkimage_uboot
+      cp -v ${pkgs.buildPackages.ubootTools}/bin/mkimage ./iMX8M/mkimage_uboot
 
       install -m 0644 ${imx8mp-uboot}/u-boot-spl.bin ./iMX8M/u-boot-spl.bin
       install -m 0644 ${imx8mp-uboot}/u-boot-nodtb.bin ./iMX8M/u-boot-nodtb.bin
