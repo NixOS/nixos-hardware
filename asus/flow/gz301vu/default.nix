@@ -31,6 +31,8 @@ in
         kernelParams = [
           "mem_sleep_default=deep"
           "pcie_aspm.policy=powersupersave"
+          "nvidia-drm.modeset=1"
+          "nvidia-drm.fbdev=1"
         ];
       };
 
@@ -53,6 +55,7 @@ in
 
           modesetting.enable = true;
           nvidiaSettings = mkDefault true;
+          forceFullCompositionPipeline = mkDefault true;
 
           prime = {
             offload = {
@@ -65,7 +68,7 @@ in
 
           powerManagement = {
             enable = mkDefault true;
-            finegrained = mkDefault true;
+            finegrained = mkDefault false;
           };
 
           dynamicBoost.enable = mkDefault true;
