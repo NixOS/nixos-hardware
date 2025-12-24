@@ -389,6 +389,7 @@
           purism-librem-13v3 = import ./purism/librem/13v3;
           purism-librem-15v3 = import ./purism/librem/15v3;
           purism-librem-5r4 = import ./purism/librem/5r4;
+          razer-blade-14-RZ09-0530 = import ./razer/blade/14/RZ09-0530;
           raspberry-pi-2 = import ./raspberry-pi/2;
           raspberry-pi-3 = import ./raspberry-pi/3;
           raspberry-pi-4 = import ./raspberry-pi/4;
