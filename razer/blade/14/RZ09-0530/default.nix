@@ -14,11 +14,6 @@ in
 
   # Razer Blade 14 (RZ09-0530 / 2025) - AMD Ryzen AI 9 HX 370 + NVIDIA RTX 5060 Max-Q
 
-  boot = {
-    kernelModules = [ "kvm-amd" ];
-    blacklistedKernelModules = [ "nouveau" ];
-  };
-
   # Enable NVIDIA driver
   services.xserver.videoDrivers = mkDefault [ "nvidia" ];
 
