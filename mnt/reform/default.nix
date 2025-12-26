@@ -5,6 +5,6 @@
   ...
 }:
 {
-  boot.kernelPackages = pkgs.callPackage ./kernel.nix { };
+  boot.kernelPackages = lib.mkDefault (pkgs.callPackage ./kernel.nix { });
   boot.extraModulePackages = [ (config.boot.kernelPackages.callPackage ./lpc.nix { }) ];
 }

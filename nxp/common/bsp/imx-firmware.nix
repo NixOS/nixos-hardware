@@ -47,21 +47,20 @@ pkgs.stdenv.mkDerivation rec {
     ${firmwareSeco} --auto-accept --force
   '';
 
-  filesToInstall =
-    [
-      "firmware-imx-${fwHdmiVersion}/firmware/hdmi/cadence/dpfw.bin"
-      "firmware-imx-${fwHdmiVersion}/firmware/hdmi/cadence/hdmi?xfw.bin"
-    ]
-    ++ pkgs.lib.optional (targetBoard == "imx8qm") (
-      "imx-sc-firmware-${fwScVersion}/mx8qm-mek-scfw-tcm.bin"
-      + " "
-      + "imx-seco-${fwSecoVersion}/firmware/seco/mx8qmb0-ahab-container.img"
-    )
-    ++ pkgs.lib.optional (targetBoard == "imx8qxp") (
-      "imx-sc-firmware-${fwScVersion}/mx8qx-mek-scfw-tcm.bin"
-      + " "
-      + "imx-seco-${fwSecoVersion}/firmware/seco/mx8qxc0-ahab-container.img"
-    );
+  filesToInstall = [
+    "firmware-imx-${fwHdmiVersion}/firmware/hdmi/cadence/dpfw.bin"
+    "firmware-imx-${fwHdmiVersion}/firmware/hdmi/cadence/hdmi?xfw.bin"
+  ]
+  ++ pkgs.lib.optional (targetBoard == "imx8qm") (
+    "imx-sc-firmware-${fwScVersion}/mx8qm-mek-scfw-tcm.bin"
+    + " "
+    + "imx-seco-${fwSecoVersion}/firmware/seco/mx8qmb0-ahab-container.img"
+  )
+  ++ pkgs.lib.optional (targetBoard == "imx8qxp") (
+    "imx-sc-firmware-${fwScVersion}/mx8qx-mek-scfw-tcm.bin"
+    + " "
+    + "imx-seco-${fwSecoVersion}/firmware/seco/mx8qxc0-ahab-container.img"
+  );
 
   installPhase = ''
     mkdir -p $out
