@@ -16,8 +16,11 @@ in
 
   # Razer Blade 14 (RZ09-0530 / 2025) - AMD Ryzen AI 9 HX 370 + NVIDIA RTX 5060 Max-Q
 
-  # Enable NVIDIA driver
-  services.xserver.videoDrivers = mkDefault [ "nvidia" ];
+  # Enable AMD iGPU and NVIDIA dGPU drivers
+  services.xserver.videoDrivers = mkDefault [
+    "amdgpu"
+    "nvidia"
+  ];
 
   hardware = {
     # Firmware for AMD CPU/GPU, WiFi, Bluetooth
