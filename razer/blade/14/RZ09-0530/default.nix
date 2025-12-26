@@ -10,6 +10,8 @@ in
     ../../../../common/gpu/nvidia/prime.nix
     ../../../../common/pc/laptop
     ../../../../common/pc/ssd
+    ../../../../common/wifi/mediatek/mt7925
+    ../../../../common/wifi/mediatek/mt7925/iwd.nix
   ];
 
   # Razer Blade 14 (RZ09-0530 / 2025) - AMD Ryzen AI 9 HX 370 + NVIDIA RTX 5060 Max-Q
