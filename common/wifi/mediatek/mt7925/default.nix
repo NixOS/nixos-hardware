@@ -19,7 +19,6 @@
 # - https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2118755
 # - https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2133863
 {
-  config,
   lib,
   pkgs,
   ...
@@ -27,19 +26,11 @@
 
 {
   # ===========================================================================
-  # Kernel Version Check
+  # Kernel Recommendation
   # ===========================================================================
-  assertions = [
-    {
-      assertion = lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.18";
-      message = ''
-        MediaTek MT7925 requires kernel 6.18 or newer for stable operation.
-        Your current kernel: ${config.boot.kernelPackages.kernel.version}
-
-        Set boot.kernelPackages = pkgs.linuxPackages_latest; or newer.
-      '';
-    }
-  ];
+  # Kernel 6.18+ is recommended for stable MT7925 operation.
+  # Earlier kernels may have driver bugs causing disconnections or hangs.
+  # Set: boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # ===========================================================================
   # Kernel Module Parameters
