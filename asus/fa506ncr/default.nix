@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }: 
+{
   imports = [
     ../../common/cpu/amd
     ../../common/cpu/amd/pstate.nix
