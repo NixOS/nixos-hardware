@@ -3,7 +3,8 @@
   lib,
   config,
   ...
-}: {
+}:
+{
   options = {
     linux-firmware-ath12k-patched = {
       enable = lib.mkEnableOption "enables linux-firmware-ath12k-patched";
@@ -38,10 +39,11 @@
   };
 
   config = lib.mkIf config.linux-firmware-ath12k-patched.enable {
-    hardware.firmware = with pkgs;
-    with config.linux-firmware-ath12k-patched; [
-      (stdenvNoCC.mkDerivation
-        rec {
+    hardware.firmware =
+      with pkgs;
+      with config.linux-firmware-ath12k-patched;
+      [
+        (stdenvNoCC.mkDerivation rec {
           pname = "linux-firmware-ath12k-patched";
           version = "0-unstable-2025-12-05";
 
@@ -108,6 +110,6 @@
             runHook postInstall
           '';
         })
-    ];
+      ];
   };
 }
