@@ -2,11 +2,11 @@
 
 {
   imports = [
-    ../../../common/pc/ssd
-    ../../../common/cpu/intel/comet-lake
-    ../../../common/gpu/nvidia/prime.nix
-    ../../../common/gpu/nvidia/turing
-    ../../../common/pc/laptop
+    ../../common/pc/ssd
+    ../../common/cpu/intel/comet-lake
+    ../../common/gpu/nvidia/prime.nix
+    ../../common/gpu/nvidia/turing
+    ../../common/pc/laptop
   ];
 
   hardware.bluetooth.enable = lib.mkDefault true;
