@@ -5,6 +5,7 @@ with lib;
 {
   imports = [
     ../.
+    ../../../../common/cpu/intel/coffee-lake
   ];
 
   # Fixes an issue with incorrect battery reporting. See
