@@ -75,6 +75,7 @@
           asus-fa507rm = import ./asus/fa507rm;
           asus-flow-gv302x-amdgpu = import ./asus/flow/gv302x/amdgpu;
           asus-flow-gv302x-nvidia = import ./asus/flow/gv302x/nvidia;
+          asus-flow-gz301vu = import ./asus/flow/gz301vu;
           asus-pro-ws-x570-ace = import ./asus/pro-ws-x570-ace;
           asus-rog-gl552vw = import ./asus/rog-gl552vw;
           asus-rog-strix-g513im = import ./asus/rog-strix/g513im;
