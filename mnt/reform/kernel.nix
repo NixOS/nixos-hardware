@@ -26,7 +26,7 @@ let
 
         src = fetchzip {
           url = "mirror://kernel/linux/kernel/v${lib.versions.major modDirVersion}.x/linux-${modDirVersion}.tar.xz";
-          hash = "sha256-sE+AfJwaQueiL1caWWfGQ1nf0qsDvEJOe3ZaVHTwelA=";
+          hash = "sha256-PLMxGXbKztn4MubhKVqSCSzf+UYL50NI48bikMxgghg=";
         };
 
         kernelPatches =
