@@ -365,7 +365,7 @@
           msi-b550-tomahawk = import ./msi/b550-tomahawk;
           msi-gs60 = import ./msi/gs60;
           msi-gl62 = import ./msi/gl62;
-          msi-gl65-10SDR-492 = import ./msi/gl65/10SDR-492;
+          msi-gl65 = import ./msi/gl65;
           nxp-imx8mp-evk = import ./nxp/imx8mp-evk;
           nxp-imx8mq-evk = import ./nxp/imx8mq-evk;
           nxp-imx8qm-mek = import ./nxp/imx8qm-mek;
