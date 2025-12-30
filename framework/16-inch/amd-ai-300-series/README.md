@@ -44,7 +44,7 @@ The default values are examples only and will likely not match your hardware. Du
 Find your bus IDs with:
 
 ```sh
-$ nix shell nixpkgs#pciutils -c lspci | grep -E "VGA|3D|Display"
+$ nix-shell -p pciutils --run 'lspci | grep -E "VGA|3D|Display"'
 c2:00.0 VGA compatible controller: NVIDIA Corporation ...
 c3:00.0 Display controller: Advanced Micro Devices ...
 ```
@@ -65,16 +65,16 @@ printf 'PCI:%d:%d:%d\n' "$((16#$BUS))" "$((16#$DEV))" "$FUN"
 
 ```sh
 # Default should use AMD
-nix shell nixpkgs#mesa-demos -c glxinfo -B | grep -E "OpenGL vendor|OpenGL renderer"
+nix-shell -p mesa-demos --run 'glxinfo -B | grep -E "OpenGL vendor|OpenGL renderer"'
 
 # Offload should use NVIDIA
-nix shell nixpkgs#mesa-demos -c nvidia-offload glxinfo -B | grep -E "OpenGL vendor|OpenGL renderer"
+nix-shell -p mesa-demos --run 'nvidia-offload glxinfo -B | grep -E "OpenGL vendor|OpenGL renderer"'
 ```
 
 To check whether the NVIDIA GPU is runtime-suspending at idle:
 
 ```sh
-# Replace with your NVIDIA PCI address (from `nix shell nixpkgs#pciutils -c lspci -D`)
+# Replace with your NVIDIA PCI address (from `nix-shell -p pciutils --run 'lspci -D'`)
 cat /sys/bus/pci/devices/0000:??:??.?/power/runtime_status
 ```
 
@@ -106,3 +106,4 @@ $ fwupdmgr update
 ```
 
 * Latest BIOS update on LVFS: https://fwupd.org/lvfs/devices/work.frame.Laptop16.RyzenAI300.BIOS.firmware
+
