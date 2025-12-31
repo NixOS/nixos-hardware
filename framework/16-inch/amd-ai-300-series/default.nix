@@ -26,4 +26,15 @@
     "amdgpu.sg_display=0"
     "amdgpu.abmlevel=0"
   ];
+
+  # Work around broken ALSA UCM profiles. Symptoms include incorrect default routing
+  # (e.g. “Headphones” with nothing plugged in) and broken internal mic/speaker routes.
+  # Disabling UCM makes WirePlumber fall back to ACP profiles (e.g. analog-stereo),
+  # which restores sane defaults.
+  # Reference: https://github.com/NixOS/nixos-hardware/issues/1603#issue-3383477120
+  services.pipewire.wireplumber.extraConfig."10-no-ucm" = {
+    "monitor.alsa.properties" = {
+      "alsa.use-ucm" = false;
+    };
+  };
 }
