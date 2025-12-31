@@ -12,6 +12,11 @@
     structuredExtraConfig = with kernel; {
       STAGING_MEDIA = yes;
 
+      # Disable Rust support due to conflict with 1.91 introduced in NixOS 25.11
+      RUST = lib.mkForce no;
+      RUST_IS_AVAILABLE = lib.mkForce no;
+      HAVE_RUST = lib.mkForce no;
+
       ##
       ## Surface Aggregator Module
       ##
@@ -150,5 +155,9 @@
   {
     name = "ms-surface/0014-rtc";
     patch = patchSrc + "/0014-rtc.patch";
+  }
+  {
+    name = "rust-1.91-fix";
+    patch = ../rust_1-91_fix.patch;
   }
 ]
