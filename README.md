@@ -212,6 +212,7 @@ See code for all available configurations.
 | [Framework 16 AMD Ryzen AI 300 Series](framework/16-inch/amd-ai-300-series)       | `<nixos-hardware/framework/16-inch/amd-ai-300-series>`  | `framework-16-amd-ai-300-series`       |
 | [FriendlyARM NanoPC-T4](friendlyarm/nanopc-t4)                                    | `<nixos-hardware/friendlyarm/nanopc-t4>`                | `friendlyarm-nanopc-t4`                |
 | [FriendlyARM NanoPi R5s](friendlyarm/nanopi-r5s)                                  | `<nixos-hardware/friendlyarm/nanopi-r5s>`               | `friendlyarm-nanopi-r5s`               |
+| [FriendlyARM CM3588 NAS](friendlyarm/cm3588-nas)                                  | `<nixos-hardware/friendlyarm/cm3588-nas>`               | `friendlyarm-cm3588-nas`               |
 | [Focus M2 Gen 1](focus/m2/gen1)                                                   | `<nixos-hardware/focus/m2/gen1>`                        | `focus-m2-gen1`                        |
 | [Fydetab Duo](fydetab/duo)                                                        | `<nixos-hardware/fydetab/duo>`                          | `fydetab-duo`                          |
 | [Gigabyte B550](gigabyte/b550)                                                    | `<nixos-hardware/gigabyte/b550>`                        | `gigabyte-b550`                        |
