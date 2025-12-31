@@ -74,8 +74,8 @@ nix-shell -p mesa-demos --run 'nvidia-offload glxinfo -B | grep -E "OpenGL vendo
 To check whether the NVIDIA GPU is runtime-suspending at idle:
 
 ```sh
-# Replace with your NVIDIA PCI address (from `nix-shell -p pciutils --run 'lspci -D'`)
-cat /sys/bus/pci/devices/0000:??:??.?/power/runtime_status
+# Reuse $BDF from above
+cat /sys/bus/pci/devices/0000:$BDF/power/runtime_status
 ```
 
 Note: running `nvidia-smi` can wake the GPU, so it is not a reliable “is it sleeping?” probe.
@@ -105,5 +105,4 @@ $ fwupdmgr refresh
 $ fwupdmgr update
 ```
 
-* Latest BIOS update on LVFS: https://fwupd.org/lvfs/devices/work.frame.Laptop16.RyzenAI300.BIOS.firmware
-
+- [Latest BIOS update on LVFS](https://fwupd.org/lvfs/devices/work.frame.Laptop16.RyzenAI300.BIOS.firmware)
