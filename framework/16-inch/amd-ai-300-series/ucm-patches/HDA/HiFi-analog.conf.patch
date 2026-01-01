@@ -1,0 +1,92 @@
+diff --git a/ucm2/HDA/HiFi-analog.conf b/ucm2/HDA/HiFi-analog.conf
+index 673c74e..6d4aaed 100644
+--- a/ucm2/HDA/HiFi-analog.conf
++++ b/ucm2/HDA/HiFi-analog.conf
+@@ -53,32 +53,64 @@ If.hplo {
+ 	}
+ }
+ 
+-SectionDevice."Headphones" {
+-	Comment "Headphones"
++Define.HeadphonesPresent ""
+ 
+-	If.headphone_switch {
+-		Condition {
+-			Type ControlExists
+-			Control "name='Headphone Playback Switch'"
+-		}
+-		True {
+-			EnableSequence [
+-				cset "name='Headphone Playback Switch' on"
+-			]
+-			DisableSequence [
+-				cset "name='Headphone Playback Switch' off"
+-			]
+-		}
++If.hpvol_ctl {
++	Condition {
++		Type ControlExists
++		Control "name='${var:hpvol} Playback Volume'"
+ 	}
++	True.Define.HeadphonesPresent y
++}
++
++If.hpsw_ctl {
++	Condition {
++		Type ControlExists
++		Control "name='Headphone Playback Switch'"
++	}
++	True.Define.HeadphonesPresent y
++}
++
++If.hpjack_ctl {
++	Condition {
++		Type ControlExists
++		Control "iface=CARD,name='${var:hpjack}'"
++	}
++	True.Define.HeadphonesPresent y
++}
+ 
+-	Value {
+-		PlaybackPriority 200
+-		PlaybackPCM "hw:${CardId}"
+-		PlaybackMixerElem "${var:hpvol}"
+-		PlaybackMasterElem "Master"
+-		PlaybackVolume "${var:hpvol} Playback Volume"
+-		PlaybackSwitch "Headphone Playback Switch"
+-		JackControl "${var:hpjack}"
++If.headphones_dev {
++	Condition {
++		Type String
++		Empty "${var:HeadphonesPresent}"
++	}
++	False.SectionDevice."Headphones" {
++		Comment "Headphones"
++
++		If.headphone_switch {
++			Condition {
++				Type ControlExists
++				Control "name='Headphone Playback Switch'"
++			}
++			True {
++				EnableSequence [
++					cset "name='Headphone Playback Switch' on"
++				]
++				DisableSequence [
++					cset "name='Headphone Playback Switch' off"
++				]
++			}
++		}
++
++		Value {
++			PlaybackPriority 200
++			PlaybackPCM "hw:${CardId}"
++			PlaybackMixerElem "${var:hpvol}"
++			PlaybackMasterElem "Master"
++			PlaybackVolume "${var:hpvol} Playback Volume"
++			PlaybackSwitch "Headphone Playback Switch"
++			JackControl "${var:hpjack}"
++		}
+ 	}
+ }
+ 

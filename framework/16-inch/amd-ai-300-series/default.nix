@@ -9,6 +9,7 @@
   imports = [
     ../common
     ../common/amd.nix
+    ./audio.nix
   ];
 
   # 6.14 is the minimum recommended kernel, 6.15 has many useful changes, too
