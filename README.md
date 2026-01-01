@@ -376,6 +376,7 @@ See code for all available configurations.
 | [Lenovo Yoga Slim 7 14ILL10](lenovo/yoga/7/14ILL10)                               | `<nixos-hardware/lenovo/yoga/7/14ILL10>`                | `lenovo-yoga-7-14ILL10`                |
 | [LENOVO Yoga 7 Slim Gen8](lenovo/yoga/7/slim/gen8)                                | `<nixos-hardware/lenovo/yoga/7/slim/gen8>`              | `lenovo-yoga-7-slim-gen8`              |
 | [Linglong Nova Studio](linglong/nova-studio)                                      | `<nixos-hardware/linglong/nova-studio>`                 | `linglong-nova-studio`                 |
+| [Linux Firmware for ath12k](linux-firmware/ath12k/README.md)                      | `<nixos-hardware/linux-firmware/ath12k>`         | `linux-firmware-ath12k-patched` |
 | [MSI B550-A PRO](msi/b550-a-pro)                                                  | `<nixos-hardware/msi/b550-a-pro>`                       | `msi-b550-a-pro`                       |
 | [MSI B350 TOMAHAWK](msi/b350-tomahawk)                                            | `<nixos-hardware/msi/b350-tomahawk>`                    | `msi-b350-tomahawk`                    |
 | [MSI B550 TOMAHAWK](msi/b550-tomahawk)                                            | `<nixos-hardware/msi/b550-tomahawk>`                    | `msi-b550-tomahawk`                    |
