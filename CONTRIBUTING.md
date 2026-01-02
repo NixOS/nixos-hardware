@@ -14,8 +14,9 @@ For example:
 
 ```nix
 { lib }: {
-  # Using mkDefault, because the user might want to disable tlp
-  services.tlp.enable = lib.mkDefault true;
+  # Using mkDefault, because the user might want to disable power-profiles-daemon
+  services.power-profiles-daemon.enable = lib.mkDefault true;
+
   # No need to use mkDefault, because the setting will merge with the user's setting
   boot.kernelModules = [ "tmp_smapi" ];
 }
