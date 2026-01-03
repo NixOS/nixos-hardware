@@ -106,7 +106,7 @@
   }
   {
     name = "ms-surface/0003-mwifiex";
-    patch = ./0003-mwifiex.patch;
+    patch = patchSrc + "/0003-mwifiex.patch";
   }
   {
     name = "ms-surface/0004-ath10k";
@@ -155,5 +155,9 @@
   {
     name = "ms-surface/0015-rtc";
     patch = patchSrc + "/0015-rtc.patch";
+  }
+  {
+    name = "ms-surface/0016-hid-surface";
+    patch = patchSrc + "/0016-hid-surface.patch";
   }
 ]

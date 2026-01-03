@@ -36,8 +36,8 @@ let
   linux-surface = pkgs.fetchFromGitHub {
     owner = "linux-surface";
     repo = "linux-surface";
-    rev = "50d0ed6be462a5fdb643cfe8469bf69158afae42";
-    hash = "sha256-VEoZH3dFsLn9GnUyjnbOoJeTRM3KEQ9fhlMk03NXoXs=";
+    rev = "0c56ab75c06ab7bae1a8db5049c427d31cbd35fe";
+    hash = "sha256-1dLrBAcBCD8CEJIsS12lwaqxDEeauw/hKDaZQPCpzj4=";
   };
 
   # Fetch and build the kernel
@@ -50,11 +50,7 @@ let
   kernelPatches = surfacePatches {
     version = srcVersion;
     patchFn = ./kernel/${versions.majorMinor srcVersion}/patches.nix;
-    patchSrc =
-      if (lib.versionOlder (versions.majorMinor srcVersion) "6.18") then
-        (linux-surface + "/patches/${versions.majorMinor srcVersion}")
-      else
-        (linux-surface + "/patches/6.17");
+    patchSrc = (linux-surface + "/patches/${versions.majorMinor srcVersion}");
   };
   kernelPackages = linuxPackage {
     inherit kernelPatches;
