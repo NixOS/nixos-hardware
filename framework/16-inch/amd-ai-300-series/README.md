@@ -96,6 +96,10 @@ This creates an additional boot entry tagged `battery-saver`.
 
 * If suspend/resume fails after heavy GPU/VRAM usage, see the NixOS NVIDIA wiki for power management / VRAM save notes: https://wiki.nixos.org/wiki/NVIDIA
 
+## Audio
+
+FW16 has no 3.5mm jack, but `pkgs.alsa-ucm-conf` creates the corresponding microphone source and headphones sink unconditionally with high priority, resulting in audio being routed to non-existent devices by default. This profile ships temporary patches to override this behavior until the fix is upstreamed into [`alsa-ucm-conf`](https://github.com/alsa-project/alsa-ucm-conf). See https://github.com/NixOS/nixos-hardware/pull/1718 for context.
+
 ## Firmware updates (fwupd)
 
 Firmware is updatable via `fwupd` (enabled by default). To get the latest firmware:

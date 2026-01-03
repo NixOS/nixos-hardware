@@ -1,0 +1,144 @@
+diff --git a/ucm2/HDA/HiFi-mic.conf b/ucm2/HDA/HiFi-mic.conf
+index 68ecc13..bc79e00 100644
+--- a/ucm2/HDA/HiFi-mic.conf
++++ b/ucm2/HDA/HiFi-mic.conf
+@@ -316,6 +316,28 @@ If.micsetup {
+ 	}
+ }
+ 
++# Guard: only create HDA analog capture devices when the expected capture
++# kcontrols exist. Some platforms (e.g. jackless designs) expose no HDA capture
++# controls, but the generic profile would still create Mic/Mic2 devices that
++# record silence and may become the default source.
++Define.HDACaptureControlsPresent ""
++
++If.hda_capvol {
++	Condition {
++		Type ControlExists
++		Control "name='Capture Volume'"
++	}
++	True.Define.HDACaptureControlsPresent y
++}
++
++If.hda_capsw {
++	Condition {
++		Type ControlExists
++		Control "name='Capture Switch'"
++	}
++	True.Define.HDACaptureControlsPresent y
++}
++
+ # Macro HDACaptureDevice - Create the SectionDevice for HDA inputs
+ #
+ # Arguments:
+@@ -393,15 +415,21 @@ If.mic1 {
+ 		Type String
+ 		Empty "${var:DeviceMicName}"
+ 	}
+-	False.Macro.0.HDACaptureDevice {
+-		DevName "${var:DeviceMic}"
+-		MicName "${var:DeviceMicName}"
+-		DevComment "${var:DeviceMicComment}"
+-		JackName "${var:DeviceMicJack}"
+-		Priority "${var:DeviceMicPriority}"
+-		ConflictCondition1 "${var:DeviceMic2Name}" ConflictDev1 "${var:DeviceMic2}"
+-		ConflictCondition2 "${var:DeviceMic3Name}" ConflictDev2 "${var:DeviceMic3}"
+-		ConflictCondition3 "${var:DeviceMic4Name}" ConflictDev3 "${var:DeviceMic4}"
++	False.If.hda_cap_present_1 {
++		Condition {
++			Type String
++			Empty "${var:HDACaptureControlsPresent}"
++		}
++		False.Macro.0.HDACaptureDevice {
++			DevName "${var:DeviceMic}"
++			MicName "${var:DeviceMicName}"
++			DevComment "${var:DeviceMicComment}"
++			JackName "${var:DeviceMicJack}"
++			Priority "${var:DeviceMicPriority}"
++			ConflictCondition1 "${var:DeviceMic2Name}" ConflictDev1 "${var:DeviceMic2}"
++			ConflictCondition2 "${var:DeviceMic3Name}" ConflictDev2 "${var:DeviceMic3}"
++			ConflictCondition3 "${var:DeviceMic4Name}" ConflictDev3 "${var:DeviceMic4}"
++		}
+ 	}
+ }
+ 
+@@ -410,14 +438,20 @@ If.mic2 {
+ 		Type String
+ 		Empty "${var:DeviceMic2Name}"
+ 	}
+-	False.Macro.1.HDACaptureDevice {
+-		DevName "${var:DeviceMic2}"
+-		MicName "${var:DeviceMic2Name}"
+-		DevComment "${var:DeviceMic2Comment}"
+-		JackName "${var:DeviceMic2Jack}"
+-		Priority "${var:DeviceMic2Priority}"
+-		ConflictCondition1 "${var:DeviceMic3Name}" ConflictDev1 "${var:DeviceMic3}"
+-		ConflictCondition2 "${var:DeviceMic4Name}" ConflictDev2 "${var:DeviceMic4}"
++	False.If.hda_cap_present_2 {
++		Condition {
++			Type String
++			Empty "${var:HDACaptureControlsPresent}"
++		}
++		False.Macro.1.HDACaptureDevice {
++			DevName "${var:DeviceMic2}"
++			MicName "${var:DeviceMic2Name}"
++			DevComment "${var:DeviceMic2Comment}"
++			JackName "${var:DeviceMic2Jack}"
++			Priority "${var:DeviceMic2Priority}"
++			ConflictCondition1 "${var:DeviceMic3Name}" ConflictDev1 "${var:DeviceMic3}"
++			ConflictCondition2 "${var:DeviceMic4Name}" ConflictDev2 "${var:DeviceMic4}"
++		}
+ 	}
+ }
+ 
+@@ -426,13 +460,19 @@ If.mic3 {
+ 		Type String
+ 		Empty "${var:DeviceMic3Name}"
+ 	}
+-	False.Macro.1.HDACaptureDevice {
+-		DevName "${var:DeviceMic3}"
+-		MicName "${var:DeviceMic3Name}"
+-		DevComment "${var:DeviceMic3Comment}"
+-		JackName "${var:DeviceMic3Jack}"
+-		Priority "${var:DeviceMic3Priority}"
+-		ConflictCondition1 "${var:DeviceMic4Name}" ConflictDev1 "${var:DeviceMic4}"
++	False.If.hda_cap_present_3 {
++		Condition {
++			Type String
++			Empty "${var:HDACaptureControlsPresent}"
++		}
++		False.Macro.1.HDACaptureDevice {
++			DevName "${var:DeviceMic3}"
++			MicName "${var:DeviceMic3Name}"
++			DevComment "${var:DeviceMic3Comment}"
++			JackName "${var:DeviceMic3Jack}"
++			Priority "${var:DeviceMic3Priority}"
++			ConflictCondition1 "${var:DeviceMic4Name}" ConflictDev1 "${var:DeviceMic4}"
++		}
+ 	}
+ }
+ 
+@@ -441,11 +481,17 @@ If.mic4 {
+ 		Type String
+ 		Empty "${var:DeviceMic4Name}"
+ 	}
+-	False.Macro.1.HDACaptureDevice {
+-		DevName "${var:DeviceMic4}"
+-		MicName "${var:DeviceMic4Name}"
+-		DevComment "${var:DeviceMic4Comment}"
+-		JackName "${var:DeviceMic4Jack}"
+-		Priority "${var:DeviceMic4Priority}"
++	False.If.hda_cap_present_4 {
++		Condition {
++			Type String
++			Empty "${var:HDACaptureControlsPresent}"
++		}
++		False.Macro.1.HDACaptureDevice {
++			DevName "${var:DeviceMic4}"
++			MicName "${var:DeviceMic4Name}"
++			DevComment "${var:DeviceMic4Comment}"
++			JackName "${var:DeviceMic4Jack}"
++			Priority "${var:DeviceMic4Priority}"
++		}
+ 	}
+ }
