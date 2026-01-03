@@ -32,7 +32,7 @@ in
     #
     # Note: the device name is "ASUS N-KEY Device".
     keyboard.autosuspend.enable =
-      (mkEnableOption "Enable auto-suspend on the internal USB keyboard (ASUS N-KEY Device) on Flow GV301X")
+      (mkEnableOption "Enable auto-suspend on the internal USB keyboard (ASUS N-KEY Device) on Flow GV301QH")
       // {
         default = versionAtLeast config.boot.kernelPackages.kernel.version "6.9";
         defaultText = lib.literalExpression "lib.versionAtLeast config.boot.kernelPackages.kernel.version \"6.9\"";

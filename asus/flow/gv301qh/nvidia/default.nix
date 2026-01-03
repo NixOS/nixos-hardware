@@ -1,7 +1,5 @@
 {
   lib,
-  pkgs,
-  config,
   ...
 }:
 let
@@ -24,7 +22,6 @@ in
     amdgpu.initrd.enable = mkDefault true;
 
     nvidia = {
-
       modesetting.enable = true;
       nvidiaSettings = mkDefault true;
 
