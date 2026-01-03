@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  options,
+  ...
+}:
 
 {
   imports = [ ../. ];
@@ -7,7 +12,7 @@
   # However, these 2 services clash when enabled simultaneously.
   # https://github.com/NixOS/nixos-hardware/issues/260
   services.tlp.enable = lib.mkDefault (
-    (lib.versionOlder (lib.versions.majorMinor lib.version) "21.05")
-    || !config.services.power-profiles-daemon.enable
+    !(options.services ? power-profiles-daemon && config.services.power-profiles-daemon.enable)
+    && !(options.services ? tuned && config.services.tuned.enable)
   );
 }

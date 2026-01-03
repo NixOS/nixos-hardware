@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  options,
+  ...
+}:
 {
   imports = [
     ../../common/cpu/intel
@@ -11,8 +16,8 @@
   ];
 
   services.tlp.enable = lib.mkDefault (
-    (lib.versionOlder (lib.versions.majorMinor lib.version) "21.05")
-    || !config.services.power-profiles-daemon.enable
+    !(options.services ? power-profiles-daemon && config.services.power-profiles-daemon.enable)
+    && !(options.services ? tuned && config.services.tuned.enable)
   );
 
   # Required for grub to properly display the boot menu.
