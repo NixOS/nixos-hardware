@@ -375,6 +375,7 @@ See code for all available configurations.
 | [Omen 16-n0280nd](/omen/16-n0280nd)                                               | `<nixos-hardware/omen/16-n0280nd>`                      | `omen-16-n0280nd`                 |
 | [Omen 15-en1007sa](omen/15-en1007sa)                                              | `<nixos-hardware/omen/15-en1007sa>`                     | `omen-15-en1007sa`                |
 | [Omen 15-en0002np](omen/15-en0002np)                                              | `<nixos-hardware/omen/15-en0002np>`                     | `omen-15-en0002np`                |
+| [Omen 15-ek1013dx](omen/15-ek1013dx)                                              | `<nixos-hardware/omen/15-ek1013dx>`                     | `omen-15-ek1013dx`                |
 | [One-Netbook OneNetbook 4](onenetbook/4)                                          | `<nixos-hardware/onenetbook/4>`                         | `onenetbook-4`                    |
 | [Panasonic Let's Note CF-LX4](panasonic/letsnote/cf-lx4)                          | `<nixos-hardware/panasonic/letsnote/cf-lx4>`            | `panasonic-letsnote-cf-lx4`       |
 | [PC Engines APU](pcengines/apu)                                                   | `<nixos-hardware/pcengines/apu>`                        | `pcengines-apu`                   |
