@@ -8,12 +8,6 @@
     ../../framework-tool.nix
   ];
 
-  # Fix TRRS headphones missing a mic
-  # https://community.frame.work/t/headset-microphone-on-linux/12387/3
-  boot.extraModprobeConfig = lib.mkIf (lib.versionOlder config.boot.kernelPackages.kernel.version "6.6.8") ''
-    options snd-hda-intel model=dell-headset-multi
-  '';
-
   # For fingerprint support
   services.fprintd.enable = lib.mkDefault true;
 
@@ -50,4 +44,7 @@
     MatchDMIModalias=dmi:*svnFramework:pnLaptop16*
     AttrKeyboardIntegration=internal
   '';
+
+  # Everything is updateable through fwupd
+  services.fwupd.enable = true;
 }

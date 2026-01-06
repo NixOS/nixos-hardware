@@ -32,6 +32,7 @@ let
         defconfig = "pine64_star64_defconfig";
         kernelPatches = [
           {
+            name = "keys-dh-fix";
             patch = fetchpatch {
               url = "https://github.com/torvalds/linux/commit/215bebc8c6ac438c382a6a56bd2764a2d4e1da72.diff";
               hash = "sha256-1ZqmVOkgcDBRkHvVRPH8I5G1STIS1R/l/63PzQQ0z0I=";
@@ -39,13 +40,18 @@ let
             };
           }
           {
+            name = "starfive-vin-sensor-fix";
             patch = fetchpatch {
               url = "https://github.com/starfive-tech/linux/pull/108/commits/9ae8cb751c4d1fd2146b279a8e67887590e9d07a.diff";
               hash = "sha256-EY0lno+HkY5mradBUPII3qqu0xh+BVQRzveCQcaht0M=";
             };
           }
-          { patch = ./irq-desc-to-data.patch; }
-        ] ++ kernelPatches;
+          {
+            name = "irq-desc-to-data";
+            patch = ./irq-desc-to-data.patch;
+          }
+        ]
+        ++ kernelPatches;
 
         structuredExtraConfig = with lib.kernel; {
           # A ton of stuff just does not build. We disable it all.

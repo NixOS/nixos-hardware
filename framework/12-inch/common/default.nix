@@ -16,4 +16,7 @@
 
   # Needed for desktop environments to detect display orientation
   hardware.sensor.iio.enable = lib.mkDefault true;
+
+  # Everything is updateable through fwupd
+  services.fwupd.enable = true;
 }

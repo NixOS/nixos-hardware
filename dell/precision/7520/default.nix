@@ -15,7 +15,7 @@
   boot.initrd.availableKernelModules = [
     "xhci_pci"
     "ahci"
-    "usb_storage"
+    "usb-storage"
     "sd_mod"
     "rtsx_pci_sdmmc"
   ];
@@ -32,7 +32,7 @@
       enable32Bit = lib.mkDefault true;
     };
     nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.legacy_390;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
       nvidiaSettings = lib.mkDefault true;
       modesetting.enable = lib.mkDefault true;
       open = lib.mkDefault false;

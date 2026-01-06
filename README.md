@@ -84,116 +84,126 @@ All contributors and users are welcome to join!
 
 See code for all available configurations.
 
-| Model                                                                             | Path                                                    | Flake Module                       |
-| --------------------------------------------------------------------------------- | ------------------------------------------------------- | ---------------------------------- |
-| [Acer Aspire 4810T](acer/aspire/4810t)                                            | `<nixos-hardware/acer/aspire/4810t>`                    | `acer-aspire-4810t`                |
-| [Airis N990](airis/n990)                                                          | `<nixos-hardware/airis/n990>`                           | `airis-n990`                       |
-| [Apple iMac 14.2](apple/imac/14-2)                                                | `<nixos-hardware/apple/imac/14-2>`                      | `apple-imac-14-2`                  |
-| [Apple iMac 18.2](apple/imac/18-2)                                                | `<nixos-hardware/apple/imac/18-2>`                      | `apple-imac-18-2`                  |
-| [Apple MacBook Air 3,X](apple/macbook-air/3)                                      | `<nixos-hardware/apple/macbook-air/3>`                  | `apple-macbook-air-3`              |
-| [Apple MacBook Air 4,X](apple/macbook-air/4)                                      | `<nixos-hardware/apple/macbook-air/4>`                  | `apple-macbook-air-4`              |
-| [Apple MacBook Air 6,X](apple/macbook-air/6)                                      | `<nixos-hardware/apple/macbook-air/6>`                  | `apple-macbook-air-6`              |
-| [Apple MacBook Air 7,X](apple/macbook-air/7)                                      | `<nixos-hardware/apple/macbook-air/7>`                  | `apple-macbook-air-7`              |
-| [Apple MacBook Pro 8,1](apple/macbook-pro/8-1)                                    | `<nixos-hardware/apple/macbook-pro/8-1>`                | `apple-macbook-pro-8-1`            |
-| [Apple MacBook Pro 10,1](apple/macbook-pro/10-1)                                  | `<nixos-hardware/apple/macbook-pro/10-1>`               | `apple-macbook-pro-10-1`           |
-| [Apple MacBook Pro 11,1](apple/macbook-pro/11-1)                                  | `<nixos-hardware/apple/macbook-pro/11-1>`               | `apple-macbook-pro-11-1`           |
-| [Apple MacBook Pro 11,5](apple/macbook-pro/11-5)                                  | `<nixos-hardware/apple/macbook-pro/11-5>`               | `apple-macbook-pro-11-5`           |
-| [Apple MacBook Pro 12,1](apple/macbook-pro/12-1)                                  | `<nixos-hardware/apple/macbook-pro/12-1>`               | `apple-macbook-pro-12-1`           |
-| [Apple MacBook Pro 14,1](apple/macbook-pro/14-1)                                  | `<nixos-hardware/apple/macbook-pro/14-1>`               | `apple-macbook-pro-14-1`           |
-| [Apple MacMini (2010, Intel, Nvidia)](apple/macmini/4)                            | `<nixos-hardware/apple/macmini/4>`                      | `apple-macmini-4-1`                |
-| [Apple Macs with a T2 Chip](apple/t2)                                             | `<nixos-hardware/apple/t2>`                             | `apple-t2`                         |
-| [Aoostar R1 N100](aoostar/r1/n100)                                                | `<nixos-hardware/aoostar/r1/n100>`                      | `aoostar-r1-n100`                  |
-| [Asus Pro WS X570-ACE](asus/pro-ws-x570-ace)                                      | `<nixos-hardware/asus/pro-ws-x570-ace>`                 | `asus-pro-ws-x570-ace`             |
-| [Asus ROG Ally RC71L (2023)](asus/ally/rc71l)                                     | `<nixos-hardware/asus/ally/rc71l>`                      | `asus-ally-rc71l`                  |
-| [Asus ROG Flow X13 GV302X\* (2023)](asus/flow/gv302x/amdgpu)                      | `<nixos-hardware/asus/flow/gv302x/amdgpu>`              | `asus-flow-gv302x-amdgpu`          |
-| [Asus ROG Flow X13 GV302X\* (2023)](asus/flow/gv302x/nvidia)                      | `<nixos-hardware/asus/flow/gv302x/nvidia>`              | `asus-flow-gv302x-nvidia`          |
-| [Asus ROG Strix G513IM](asus/rog-strix/g513im)                                    | `<nixos-hardware/asus/rog-strix/g513im>`                | `asus-rog-strix-g513im`            |
-| [Asus ROG Strix G533ZW](asus/rog-strix/g533zw)                                    | `<nixos-hardware/asus/rog-strix/g533zw>`                | `asus-rog-strix-g533zw`            |
-| [Asus ROG Strix G713IE](asus/rog-strix/g713ie)                                    | `<nixos-hardware/asus/rog-strix/g713ie>`                | `asus-rog-strix-g713ie`            |
-| [Asus ROG Strix G733QS](asus/rog-strix/g733qs)                                    | `<nixos-hardware/asus/rog-strix/g733qs>`                | `asus-rog-strix-g733qs`            |
-| [Asus ROG Strix X570-E GAMING](asus/rog-strix/x570e)                              | `<nixos-hardware/asus/rog-strix/x570e>`                 | `asus-rog-strix-x570e`             |
-| [Asus ROG Zephyrus G14 GA401](asus/zephyrus/ga401)                                | `<nixos-hardware/asus/zephyrus/ga401>`                  | `asus-zephyrus-ga401`              |
-| [Asus ROG Zephyrus G14 GA402](asus/zephyrus/ga402)                                | `<nixos-hardware/asus/zephyrus/ga402>`                  | `asus-zephyrus-ga402`              |
-| [Asus ROG Zephyrus G14 GA402X\* (2023)](asus/zephyrus/ga402x/amdgpu)              | `<nixos-hardware/asus/zephyrus/ga402x/amdgpu>`          | `asus-zephyrus-ga402x-amdgpu`      |
-| [Asus ROG Zephyrus G14 GA402X\* (2023)](asus/zephyrus/ga402x/nvidia)              | `<nixos-hardware/asus/zephyrus/ga402x/nvidia>`          | `asus-zephyrus-ga402x-nvidia`      |
-| [Asus ROG Zephyrus G15 GA502](asus/zephyrus/ga502)                                | `<nixos-hardware/asus/zephyrus/ga502>`                  | `asus-zephyrus-ga502`              |
-| [Asus ROG Zephyrus G15 GA503](asus/zephyrus/ga503)                                | `<nixos-hardware/asus/zephyrus/ga503>`                  | `asus-zephyrus-ga503`              |
-| [Asus ROG Zephyrus G16 GU605MY](asus/zephyrus/gu605my)                            | `<nixos-hardware/asus/zephyrus/gu605my>`                | `asus-zephyrus-gu605my`            |
-| [Asus ROG Zephyrus M16 GU603H](asus/zephyrus/gu603h)                              | `<nixos-hardware/asus/zephyrus/gu603h>`                 | `asus-zephyrus-gu603h`             |
-| [Asus TUF FX504GD](asus/fx504gd)                                                  | `<nixos-hardware/asus/fx504gd>`                         | `asus-fx504gd`                     |
-| [Asus TUF FX506HM](asus/fx506hm)                                                  | `<nixos-hardware/asus/fx506hm>`                         | `asus-fx506hm`                     |
-| [Asus TUF FA506IC](asus/fa506ic)                                                  | `<nixos-hardware/asus/fa506ic>`                         | `asus-fa506ic`                     |
-| [Asus TUF FA507RM](asus/fa507rm)                                                  | `<nixos-hardware/asus/fa507rm>`                         | `asus-fa507rm`                     |
-| [Asus TUF FA507NV](asus/fa507nv)                                                  | `<nixos-hardware/asus/fa507nv>`                         | `asus-fa507nv`                     |
-| [Asus Zenbook Duo 14 UX481](asus/zenbook/ux481/intelgpu/)                         | `<nixos-hardware/asus/zenbook/ux481/intelgpu>`          | `asus-zenbook-ux481-intelgpu`      |
-| [Asus Zenbook Duo 14 UX481](asus/zenbook/ux481/nvidia/)                           | `<nixos-hardware/asus/zenbook/ux481/nvidia>`            | `asus-zenbook-ux481-nvidia`        |
-| [Asus Zenbook Flip S13 UX371](asus/zenbook/ux371/)                                | `<nixos-hardware/asus/zenbook/ux371>`                   | `asus-zenbook-ux371`               |
-| [Asus Zenbook Pro 15 UX535](asus/zenbook/ux535/)                                  | `<nixos-hardware/asus/zenbook/ux535>`                   | `asus-zenbook-ux535`               |
-| [BeagleBoard PocketBeagle](beagleboard/pocketbeagle)                              | `<nixos-hardware/beagleboard/pocketbeagle>`             | `beagleboard-pocketbeagle`         |
-| [Chuwi MiniBook X](chuwi/minibook-x)                                              | `<nixos-hardware/chuwi/minibook-x>`                     | `chuwi-minibook-x`                 |
-| [Deciso DEC series](deciso/dec)                                                   | `<nixos-hardware/deciso/dec>`                           | `deciso-dec`                       |
-| [Dell G3 3779](dell/g3/3779)                                                      | `<nixos-hardware/dell/g3/3779>`                         | `dell-g3-3779`                     |
-| [Dell G3 3579](dell/g3/3579)                                                      | `<nixos-hardware/dell/g3/3579>`                         | `dell-g3-3579`                     |
-| [Dell Inspiron 3442](dell/inspiron/3442)                                          | `<nixos-hardware/dell/inspiron/3442>`                   | `dell-inspiron-3442`               |
-| [Dell Inspiron 14 5420](dell/inspiron/14-5420)                                    | `<nixos-hardware/dell/inspiron/14-5420>`                | `dell-inspiron-14-5420`            |
-| [Dell Inspiron 5509](dell/inspiron/5509)                                          | `<nixos-hardware/dell/inspiron/5509>`                   | `dell-inspiron-5509`               |
-| [Dell Inspiron 5515](dell/inspiron/5515)                                          | `<nixos-hardware/dell/inspiron/5515>`                   | `dell-inspiron-5515`               |
-| [Dell Inspiron 7405](dell/inspiron/7405)                                          | `<nixos-hardware/dell/inspiron/7405>`                   | `dell-inspiron-7405`               |
-| [Dell Inspiron 7460](dell/inspiron/7460)                                          | `<nixos-hardware/dell/inspiron/7460>`                   | `dell-inspiron-7460`               |
-| [Dell Inspiron 7559](dell/inspiron/7559)                                          | `<nixos-hardware/dell/inspiron/7559>`                   | `dell-inspiron-7559`               |
-| [Dell Latitude 3340](dell/latitude/3340)                                          | `<nixos-hardware/dell/latitude/3340>`                   | `dell-latitude-3340`               |
-| [Dell Latitude 3480](dell/latitude/3480)                                          | `<nixos-hardware/dell/latitude/3480>`                   | `dell-latitude-3480`               |
-| [Dell Latitude 5490](dell/latitude/5490)                                          | `<nixos-hardware/dell/latitude/5490>`                   | `dell-latitude-5490`               |
-| [Dell Latitude 5520](dell/latitude/5520)                                          | `<nixos-hardware/dell/latitude/5520>`                   | `dell-latitude-5520`               |
-| [Dell Latitude 7280](dell/latitude/7280)                                          | `<nixos-hardware/dell/latitude/7280>`                   | `dell-latitude-7280`               |
-| [Dell Latitude 7390](dell/latitude/7390)                                          | `<nixos-hardware/dell/latitude/7390>`                   | `dell-latitude-7390`               |
-| [Dell Latitude 7420](dell/latitude/7420)                                          | `<nixos-hardware/dell/latitude/7420>`                   | `dell-latitude-7420`               |
-| [Dell Latitude 7430](dell/latitude/7430)                                          | `<nixos-hardware/dell/latitude/7430>`                   | `dell-latitude-7430`               |
-| [Dell Latitude 7490](dell/latitude/7490)                                          | `<nixos-hardware/dell/latitude/7490>`                   | `dell-latitude-7490`               |
-| [Dell Latitude 9430](dell/latitude/9430)                                          | `<nixos-hardware/dell/latitude/9430>`                   | `dell-latitude-9430`               |
-| [Dell Latitude E7240](dell/latitude/e7240)                                        | `<nixos-hardware/dell/latitude/e7240>`                  | `dell-latitude-e7240`              |
-| [Dell Optiplex 3050](dell/optiplex/3050)                                          | `<nixos-hardware/dell/optiplex/3050>`                   | `dell-optiplex-3050`               |
-| [Dell Poweredge R7515](dell/poweredge/r7515)                                      | `<nixos-hardware/dell/poweredge/r7515>`                 | `dell-poweredge-r7515`             |
-| [Dell Precision 3490, nvidia](dell/precision/3490/nvidia)                         | `<nixos-hardware/dell/precision/3490/nvidia>`           | `dell-precision-3490-nvidia`       |
-| [Dell Precision 3490, intel](dell/precision/3490/intel)                           | `<nixos-hardware/dell/precision/3490/intel>`            | `dell-precision-3490-intel`        |
-| [Dell Precision 3541](dell/precision/3541)                                        | `<nixos-hardware/dell/precision/3541>`                  | `dell-precision-3541`              |
-| [Dell Precision 5490](dell/precision/5490)                                        | `<nixos-hardware/dell/precision/5490>`                  | `dell-precision-5490`              |
-| [Dell Precision 5530](dell/precision/5530)                                        | `<nixos-hardware/dell/precision/5530>`                  | `dell-precision-5530`              |
-| [Dell Precision 7520](dell/precision/7520)                                        | `<nixos-hardware/dell/precision/7520>`                  | `dell-precision-7520`              |
-| [Dell XPS 13 7390](dell/xps/13-7390)                                              | `<nixos-hardware/dell/xps/13-7390>`                     | `dell-xps-13-7390`                 |
-| [Dell XPS 13 9300](dell/xps/13-9300)                                              | `<nixos-hardware/dell/xps/13-9300>`                     | `dell-xps-13-9300`                 |
-| [Dell XPS 13 9310](dell/xps/13-9310)                                              | `<nixos-hardware/dell/xps/13-9310>`                     | `dell-xps-13-9310`                 |
-| [Dell XPS 13 9315](dell/xps/13-9315)                                              | `<nixos-hardware/dell/xps/13-9315>`                     | `dell-xps-13-9315`                 |
-| [Dell XPS 13 9333](dell/xps/13-9333)                                              | `<nixos-hardware/dell/xps/13-9333>`                     | `dell-xps-13-9333`                 |
-| [Dell XPS 13 9343](dell/xps/13-9343)                                              | `<nixos-hardware/dell/xps/13-9343>`                     | `dell-xps-13-9343`                 |
-| [Dell XPS 13 9350](dell/xps/13-9350)                                              | `<nixos-hardware/dell/xps/13-9350>`                     | `dell-xps-13-9350`                 |
-| [Dell XPS 13 9360](dell/xps/13-9360)                                              | `<nixos-hardware/dell/xps/13-9360>`                     | `dell-xps-13-9360`                 |
-| [Dell XPS 13 9370](dell/xps/13-9370)                                              | `<nixos-hardware/dell/xps/13-9370>`                     | `dell-xps-13-9370`                 |
-| [Dell XPS 13 9380](dell/xps/13-9380)                                              | `<nixos-hardware/dell/xps/13-9380>`                     | `dell-xps-13-9380`                 |
-| [Dell XPS 15 7590, nvidia](dell/xps/15-7590/nvidia)                               | `<nixos-hardware/dell/xps/15-7590/nvidia>`              | `dell-xps-15-7590-nvidia`          |
-| [Dell XPS 15 7590](dell/xps/15-7590)                                              | `<nixos-hardware/dell/xps/15-7590>`                     | `dell-xps-15-7590`                 |
-| [Dell XPS 15 9500, nvidia](dell/xps/15-9500/nvidia)                               | `<nixos-hardware/dell/xps/15-9500/nvidia>`              | `dell-xps-15-9500-nvidia`          |
-| [Dell XPS 15 9500](dell/xps/15-9500)                                              | `<nixos-hardware/dell/xps/15-9500>`                     | `dell-xps-15-9500`                 |
-| [Dell XPS 15 9510, nvidia](dell/xps/15-9510/nvidia)                               | `<nixos-hardware/dell/xps/15-9510/nvidia>`              | `dell-xps-15-9510-nvidia`          |
-| [Dell XPS 15 9510](dell/xps/15-9510)                                              | `<nixos-hardware/dell/xps/15-9510>`                     | `dell-xps-15-9510`                 |
-| [Dell XPS 15 9520, nvidia](dell/xps/15-9520/nvidia)                               | `<nixos-hardware/dell/xps/15-9520/nvidia>`              | `dell-xps-15-9520-nvidia`          |
-| [Dell XPS 15 9520](dell/xps/15-9520)                                              | `<nixos-hardware/dell/xps/15-9520>`                     | `dell-xps-15-9520`                 |
-| [Dell XPS 15 9530, nvidia](dell/xps/15-9530/nvidia)                               | `<nixos-hardware/dell/xps/15-9530/nvidia>`              | `dell-xps-15-9530-nvidia`          |
-| [Dell XPS 15 9530](dell/xps/15-9530)                                              | `<nixos-hardware/dell/xps/15-9530>`                     | `dell-xps-15-9530`                 |
-| [Dell XPS 15 9550, nvidia](dell/xps/15-9550/nvidia)                               | `<nixos-hardware/dell/xps/15-9550/nvidia>`              | `dell-xps-15-9550-nvidia`          |
-| [Dell XPS 15 9550](dell/xps/15-9550)                                              | `<nixos-hardware/dell/xps/15-9550>`                     | `dell-xps-15-9550`                 |
-| [Dell XPS 15 9560, intel only](dell/xps/15-9560/intel)                            | `<nixos-hardware/dell/xps/15-9560/intel>`               | `dell-xps-15-9560-intel`           |
-| [Dell XPS 15 9560, nvidia only](dell/xps/15-9560/nvidia)                          | `<nixos-hardware/dell/xps/15-9560/nvidia>`              | `dell-xps-15-9560-nvidia`          |
-| [Dell XPS 15 9560](dell/xps/15-9560)                                              | `<nixos-hardware/dell/xps/15-9560>`                     | `dell-xps-15-9560`                 |
-| [Dell XPS 15 9570, intel only](dell/xps/15-9570/intel)                            | `<nixos-hardware/dell/xps/15-9570/intel>`               | `dell-xps-15-9570-intel`           |
-| [Dell XPS 15 9570, nvidia](dell/xps/15-9570/nvidia)                               | `<nixos-hardware/dell/xps/15-9570/nvidia>`              | `dell-xps-15-9570-nvidia`          |
-| [Dell XPS 15 9570](dell/xps/15-9570)                                              | `<nixos-hardware/dell/xps/15-9570>`                     | `dell-xps-15-9570`                 |
-| [Dell XPS 17 9700, intel](dell/xps/17-9700/intel)                                 | `<nixos-hardware/dell/xps/17-9700/intel`                | `dell-xps-17-9700-intel`           |
-| [Dell XPS 17 9700, nvidia](dell/xps/17-9700/nvidia)                               | `<nixos-hardware/dell/xps/17-9700/nvidia>`              | `dell-xps-17-9700-nvidia`          |
-| [Dell XPS 17 9710, intel only](dell/xps/17-9710/intel)                            | `<nixos-hardware/dell/xps/17-9710/intel>`               | `dell-xps-17-9710-intel`           |
-| [Framework 11th Gen Intel Core](framework/13-inch/11th-gen-intel)                 | `<nixos-hardware/framework/13-inch/11th-gen-intel>`     | `framework-11th-gen-intel` |
-| [Framework 12th Gen Intel Core](framework/12-inch/13th-gen-intel)         | `<nixos-hardware/framework/12-inch/13th-gen-intel>`     | `framework-12th-gen-intel` |
-| [Framework 13th Gen Intel Core](framework/13-inch/13th-gen-intel)                 | `<nixos-hardware/framework/13-inch/13th-gen-intel>`     | `framework-13th-gen-intel` |
+| Model                                                                             | Path                                                    | Flake Module                           |
+| --------------------------------------------------------------------------------- | ------------------------------------------------------- | -------------------------------------- |
+| [Acer Aspire 4810T](acer/aspire/4810t)                                            | `<nixos-hardware/acer/aspire/4810t>`                    | `acer-aspire-4810t`                    |
+| [Airis N990](airis/n990)                                                          | `<nixos-hardware/airis/n990>`                           | `airis-n990`                           |
+| [Apple iMac 14.2](apple/imac/14-2)                                                | `<nixos-hardware/apple/imac/14-2>`                      | `apple-imac-14-2`                      |
+| [Apple iMac 18.2](apple/imac/18-2)                                                | `<nixos-hardware/apple/imac/18-2>`                      | `apple-imac-18-2`                      |
+| [Apple MacBook Air 3,X](apple/macbook-air/3)                                      | `<nixos-hardware/apple/macbook-air/3>`                  | `apple-macbook-air-3`                  |
+| [Apple MacBook Air 4,X](apple/macbook-air/4)                                      | `<nixos-hardware/apple/macbook-air/4>`                  | `apple-macbook-air-4`                  |
+| [Apple MacBook Air 5,X](apple/macbook-air/5)                                      | `<nixos-hardware/apple/macbook-air/5>`                  | `apple-macbook-air-5`                  |
+| [Apple MacBook Air 6,X](apple/macbook-air/6)                                      | `<nixos-hardware/apple/macbook-air/6>`                  | `apple-macbook-air-6`                  |
+| [Apple MacBook Air 7,X](apple/macbook-air/7)                                      | `<nixos-hardware/apple/macbook-air/7>`                  | `apple-macbook-air-7`                  |
+| [Apple MacBook Pro 8,1](apple/macbook-pro/8-1)                                    | `<nixos-hardware/apple/macbook-pro/8-1>`                | `apple-macbook-pro-8-1`                |
+| [Apple MacBook Pro 10,1](apple/macbook-pro/10-1)                                  | `<nixos-hardware/apple/macbook-pro/10-1>`               | `apple-macbook-pro-10-1`               |
+| [Apple MacBook Pro 11,1](apple/macbook-pro/11-1)                                  | `<nixos-hardware/apple/macbook-pro/11-1>`               | `apple-macbook-pro-11-1`               |
+| [Apple MacBook Pro 11,4](apple/macbook-pro/11-4)                                  | `<nixos-hardware/apple/macbook-pro/11-4>`               | `apple-macbook-pro-11-4`               |
+| [Apple MacBook Pro 11,5](apple/macbook-pro/11-5)                                  | `<nixos-hardware/apple/macbook-pro/11-5>`               | `apple-macbook-pro-11-5`               |
+| [Apple MacBook Pro 12,1](apple/macbook-pro/12-1)                                  | `<nixos-hardware/apple/macbook-pro/12-1>`               | `apple-macbook-pro-12-1`               |
+| [Apple MacBook Pro 14,1](apple/macbook-pro/14-1)                                  | `<nixos-hardware/apple/macbook-pro/14-1>`               | `apple-macbook-pro-14-1`               |
+| [Apple MacMini (2010, Intel, Nvidia)](apple/macmini/4)                            | `<nixos-hardware/apple/macmini/4>`                      | `apple-macmini-4-1`                    |
+| [Apple Macs with a T2 Chip](apple/t2)                                             | `<nixos-hardware/apple/t2>`                             | `apple-t2`                             |
+| [Aoostar R1 N100](aoostar/r1/n100)                                                | `<nixos-hardware/aoostar/r1/n100>`                      | `aoostar-r1-n100`                      |
+| [Asus Pro WS X570-ACE](asus/pro-ws-x570-ace)                                      | `<nixos-hardware/asus/pro-ws-x570-ace>`                 | `asus-pro-ws-x570-ace`                 |
+| [Asus ROG Ally RC71L (2023)](asus/ally/rc71l)                                     | `<nixos-hardware/asus/ally/rc71l>`                      | `asus-ally-rc71l`                      |
+| [Asus ROG Flow X13 GV302X\* (2023)](asus/flow/gv302x/amdgpu)                      | `<nixos-hardware/asus/flow/gv302x/amdgpu>`              | `asus-flow-gv302x-amdgpu`              |
+| [Asus ROG Flow X13 GV302X\* (2023)](asus/flow/gv302x/nvidia)                      | `<nixos-hardware/asus/flow/gv302x/nvidia>`              | `asus-flow-gv302x-nvidia`              |
+| [Asus ROG Flow Z13 gz301vu\* (2023)](asus/flow/gz301vu)                           | `<nixos-hardware/asus/flow/gz301vu>`                    | `asus-flow-gz301vu`              |
+| [Asus ROG GL552VW](asus/rog-gl552vw)                                              | `<nixos-hardware/asus/rog-gl552vw>`                     | `asus-rog-gl552vw`                     |
+| [Asus ROG Strix G513IM](asus/rog-strix/g513im)                                    | `<nixos-hardware/asus/rog-strix/g513im>`                | `asus-rog-strix-g513im`                |
+| [Asus ROG Strix G533ZW](asus/rog-strix/g533zw)                                    | `<nixos-hardware/asus/rog-strix/g533zw>`                | `asus-rog-strix-g533zw`                |
+| [Asus ROG Strix G533Q](asus/rog-strix/g533q)                                      | `<nixos-hardware/asus/rog-strix/g533q>`                 | `asus-rog-strix-g533zw`                |
+| [Asus ROG Strix G713IE](asus/rog-strix/g713ie)                                    | `<nixos-hardware/asus/rog-strix/g713ie>`                | `asus-rog-strix-g713ie`                |
+| [Asus ROG Strix G733QS](asus/rog-strix/g733qs)                                    | `<nixos-hardware/asus/rog-strix/g733qs>`                | `asus-rog-strix-g733qs`                |
+| [Asus ROG Strix X570-E GAMING](asus/rog-strix/x570e)                              | `<nixos-hardware/asus/rog-strix/x570e>`                 | `asus-rog-strix-x570e`                 |
+| [Asus ROG Zephyrus G14 GA401IV (2020)](asus/zephyrus/ga401iv)                     | `<nixos-hardware/asus/zephyrus/ga401iv>`                | `asus-zephyrus-ga401iv`                |
+| [Asus ROG Zephyrus G14 GA401 (2021)](asus/zephyrus/ga401)                         | `<nixos-hardware/asus/zephyrus/ga401>`                  | `asus-zephyrus-ga401`                  |
+| [Asus ROG Zephyrus G14 GA402](asus/zephyrus/ga402)                                | `<nixos-hardware/asus/zephyrus/ga402>`                  | `asus-zephyrus-ga402`                  |
+| [Asus ROG Zephyrus G14 GA402X\* (2023)](asus/zephyrus/ga402x/amdgpu)              | `<nixos-hardware/asus/zephyrus/ga402x/amdgpu>`          | `asus-zephyrus-ga402x-amdgpu`          |
+| [Asus ROG Zephyrus G14 GA402X\* (2023)](asus/zephyrus/ga402x/nvidia)              | `<nixos-hardware/asus/zephyrus/ga402x/nvidia>`          | `asus-zephyrus-ga402x-nvidia`          |
+| [Asus ROG Zephyrus G15 GA502](asus/zephyrus/ga502)                                | `<nixos-hardware/asus/zephyrus/ga502>`                  | `asus-zephyrus-ga502`                  |
+| [Asus ROG Zephyrus G15 GA503](asus/zephyrus/ga503)                                | `<nixos-hardware/asus/zephyrus/ga503>`                  | `asus-zephyrus-ga503`                  |
+| [Asus ROG Zephyrus G16 GU605MY](asus/zephyrus/gu605my)                            | `<nixos-hardware/asus/zephyrus/gu605my>`                | `asus-zephyrus-gu605my`                |
+| [Asus ROG Zephyrus M16 GU603H](asus/zephyrus/gu603h)                              | `<nixos-hardware/asus/zephyrus/gu603h>`                 | `asus-zephyrus-gu603h`                 |
+| [Asus TUF FX504GD](asus/fx504gd)                                                  | `<nixos-hardware/asus/fx504gd>`                         | `asus-fx504gd`                         |
+| [Asus TUF FX506HM](asus/fx506hm)                                                  | `<nixos-hardware/asus/fx506hm>`                         | `asus-fx506hm`                         |
+| [Asus TUF FA506IC](asus/fa506ic)                                                  | `<nixos-hardware/asus/fa506ic>`                         | `asus-fa506ic`                         |
+| [Asus TUF FA507RM](asus/fa507rm)                                                  | `<nixos-hardware/asus/fa507rm>`                         | `asus-fa507rm`                         |
+| [Asus TUF FA507NV](asus/fa507nv)                                                  | `<nixos-hardware/asus/fa507nv>`                         | `asus-fa507nv`                         |
+| [Asus Zenbook Duo 14 UX481](asus/zenbook/ux481/intelgpu/)                         | `<nixos-hardware/asus/zenbook/ux481/intelgpu>`          | `asus-zenbook-ux481-intelgpu`          |
+| [Asus Zenbook Duo 14 UX481](asus/zenbook/ux481/nvidia/)                           | `<nixos-hardware/asus/zenbook/ux481/nvidia>`            | `asus-zenbook-ux481-nvidia`            |
+| [Asus Zenbook Flip S13 UX371](asus/zenbook/ux371/)                                | `<nixos-hardware/asus/zenbook/ux371>`                   | `asus-zenbook-ux371`                   |
+| [Asus Zenbook Pro 15 UX535](asus/zenbook/ux535/)                                  | `<nixos-hardware/asus/zenbook/ux535>`                   | `asus-zenbook-ux535`                   |
+| [Asus Zenbook Pro 17 UM6702](asus/zenbook/um6702/)                                | `<nixos-hardware/asus/zenbook/um6702>`                  | `asus-zenbook-um6702`                  |
+| [Asrock Rack ALTRAD8UD-1L2T](asrock-rack/altrad8ud-1l2t)                          | `<nixos-hardware/asrock-rack/altrad8ud-1l2t>`           | `asrock-rack-altrad8ud-1l2t`           |
+| [BeagleBoard PocketBeagle](beagleboard/pocketbeagle)                              | `<nixos-hardware/beagleboard/pocketbeagle>`             | `beagleboard-pocketbeagle`             |
+| [Chuwi MiniBook X](chuwi/minibook-x)                                              | `<nixos-hardware/chuwi/minibook-x>`                     | `chuwi-minibook-x`                     |
+| [Deciso DEC series](deciso/dec)                                                   | `<nixos-hardware/deciso/dec>`                           | `deciso-dec`                           |
+| [Dell G3 3779](dell/g3/3779)                                                      | `<nixos-hardware/dell/g3/3779>`                         | `dell-g3-3779`                         |
+| [Dell G3 3579](dell/g3/3579)                                                      | `<nixos-hardware/dell/g3/3579>`                         | `dell-g3-3579`                         |
+| [Dell Inspiron 3442](dell/inspiron/3442)                                          | `<nixos-hardware/dell/inspiron/3442>`                   | `dell-inspiron-3442`                   |
+| [Dell Inspiron 14 5420](dell/inspiron/14-5420)                                    | `<nixos-hardware/dell/inspiron/14-5420>`                | `dell-inspiron-14-5420`                |
+| [Dell Inspiron 5509](dell/inspiron/5509)                                          | `<nixos-hardware/dell/inspiron/5509>`                   | `dell-inspiron-5509`                   |
+| [Dell Inspiron 5515](dell/inspiron/5515)                                          | `<nixos-hardware/dell/inspiron/5515>`                   | `dell-inspiron-5515`                   |
+| [Dell Inspiron 7405](dell/inspiron/7405)                                          | `<nixos-hardware/dell/inspiron/7405>`                   | `dell-inspiron-7405`                   |
+| [Dell Inspiron 7460](dell/inspiron/7460)                                          | `<nixos-hardware/dell/inspiron/7460>`                   | `dell-inspiron-7460`                   |
+| [Dell Inspiron 7559](dell/inspiron/7559)                                          | `<nixos-hardware/dell/inspiron/7559>`                   | `dell-inspiron-7559`                   |
+| [Dell Latitude 3340](dell/latitude/3340)                                          | `<nixos-hardware/dell/latitude/3340>`                   | `dell-latitude-3340`                   |
+| [Dell Latitude 3480](dell/latitude/3480)                                          | `<nixos-hardware/dell/latitude/3480>`                   | `dell-latitude-3480`                   |
+| [Dell Latitude 5490](dell/latitude/5490)                                          | `<nixos-hardware/dell/latitude/5490>`                   | `dell-latitude-5490`                   |
+| [Dell Latitude 5520](dell/latitude/5520)                                          | `<nixos-hardware/dell/latitude/5520>`                   | `dell-latitude-5520`                   |
+| [Dell Latitude 7280](dell/latitude/7280)                                          | `<nixos-hardware/dell/latitude/7280>`                   | `dell-latitude-7280`                   |
+| [Dell Latitude 7390](dell/latitude/7390)                                          | `<nixos-hardware/dell/latitude/7390>`                   | `dell-latitude-7390`                   |
+| [Dell Latitude 7420](dell/latitude/7420)                                          | `<nixos-hardware/dell/latitude/7420>`                   | `dell-latitude-7420`                   |
+| [Dell Latitude 7430](dell/latitude/7430)                                          | `<nixos-hardware/dell/latitude/7430>`                   | `dell-latitude-7430`                   |
+| [Dell Latitude 7490](dell/latitude/7490)                                          | `<nixos-hardware/dell/latitude/7490>`                   | `dell-latitude-7490`                   |
+| [Dell Latitude 9430](dell/latitude/9430)                                          | `<nixos-hardware/dell/latitude/9430>`                   | `dell-latitude-9430`                   |
+| [Dell Latitude E7240](dell/latitude/e7240)                                        | `<nixos-hardware/dell/latitude/e7240>`                  | `dell-latitude-e7240`                  |
+| [Dell Optiplex 3050](dell/optiplex/3050)                                          | `<nixos-hardware/dell/optiplex/3050>`                   | `dell-optiplex-3050`                   |
+| [Dell Poweredge R7515](dell/poweredge/r7515)                                      | `<nixos-hardware/dell/poweredge/r7515>`                 | `dell-poweredge-r7515`                 |
+| [Dell Precision 3490, nvidia](dell/precision/3490/nvidia)                         | `<nixos-hardware/dell/precision/3490/nvidia>`           | `dell-precision-3490-nvidia`           |
+| [Dell Precision 3490, intel](dell/precision/3490/intel)                           | `<nixos-hardware/dell/precision/3490/intel>`            | `dell-precision-3490-intel`            |
+| [Dell Precision 3541](dell/precision/3541)                                        | `<nixos-hardware/dell/precision/3541>`                  | `dell-precision-3541`                  |
+| [Dell Precision 5490](dell/precision/5490)                                        | `<nixos-hardware/dell/precision/5490>`                  | `dell-precision-5490`                  |
+| [Dell Precision 5530](dell/precision/5530)                                        | `<nixos-hardware/dell/precision/5530>`                  | `dell-precision-5530`                  |
+| [Dell Precision 5560](dell/precision/5560)                                        | `<nixos-hardware/dell/precision/5560>`                  | `dell-precision-5560`                  |
+| [Dell Precision 5570](dell/precision/5570)                                        | `<nixos-hardware/dell/precision/5570>`                  | `dell-precision-5570`                  |
+| [Dell Precision 7520](dell/precision/7520)                                        | `<nixos-hardware/dell/precision/7520>`                  | `dell-precision-7520`                  |
+| [Dell XPS 13 7390](dell/xps/13-7390)                                              | `<nixos-hardware/dell/xps/13-7390>`                     | `dell-xps-13-7390`                     |
+| [Dell XPS 13 9300](dell/xps/13-9300)                                              | `<nixos-hardware/dell/xps/13-9300>`                     | `dell-xps-13-9300`                     |
+| [Dell XPS 13 9310](dell/xps/13-9310)                                              | `<nixos-hardware/dell/xps/13-9310>`                     | `dell-xps-13-9310`                     |
+| [Dell XPS 13 9315](dell/xps/13-9315)                                              | `<nixos-hardware/dell/xps/13-9315>`                     | `dell-xps-13-9315`                     |
+| [Dell XPS 13 9333](dell/xps/13-9333)                                              | `<nixos-hardware/dell/xps/13-9333>`                     | `dell-xps-13-9333`                     |
+| [Dell XPS 13 9343](dell/xps/13-9343)                                              | `<nixos-hardware/dell/xps/13-9343>`                     | `dell-xps-13-9343`                     |
+| [Dell XPS 13 9350](dell/xps/13-9350)                                              | `<nixos-hardware/dell/xps/13-9350>`                     | `dell-xps-13-9350`                     |
+| [Dell XPS 13 9360](dell/xps/13-9360)                                              | `<nixos-hardware/dell/xps/13-9360>`                     | `dell-xps-13-9360`                     |
+| [Dell XPS 13 9370](dell/xps/13-9370)                                              | `<nixos-hardware/dell/xps/13-9370>`                     | `dell-xps-13-9370`                     |
+| [Dell XPS 13 9380](dell/xps/13-9380)                                              | `<nixos-hardware/dell/xps/13-9380>`                     | `dell-xps-13-9380`                     |
+| [Dell XPS 15 7590, nvidia](dell/xps/15-7590/nvidia)                               | `<nixos-hardware/dell/xps/15-7590/nvidia>`              | `dell-xps-15-7590-nvidia`              |
+| [Dell XPS 15 7590](dell/xps/15-7590)                                              | `<nixos-hardware/dell/xps/15-7590>`                     | `dell-xps-15-7590`                     |
+| [Dell XPS 15 9500, nvidia](dell/xps/15-9500/nvidia)                               | `<nixos-hardware/dell/xps/15-9500/nvidia>`              | `dell-xps-15-9500-nvidia`              |
+| [Dell XPS 15 9500](dell/xps/15-9500)                                              | `<nixos-hardware/dell/xps/15-9500>`                     | `dell-xps-15-9500`                     |
+| [Dell XPS 15 9510, nvidia](dell/xps/15-9510/nvidia)                               | `<nixos-hardware/dell/xps/15-9510/nvidia>`              | `dell-xps-15-9510-nvidia`              |
+| [Dell XPS 15 9510](dell/xps/15-9510)                                              | `<nixos-hardware/dell/xps/15-9510>`                     | `dell-xps-15-9510`                     |
+| [Dell XPS 15 9520, nvidia](dell/xps/15-9520/nvidia)                               | `<nixos-hardware/dell/xps/15-9520/nvidia>`              | `dell-xps-15-9520-nvidia`              |
+| [Dell XPS 15 9520](dell/xps/15-9520)                                              | `<nixos-hardware/dell/xps/15-9520>`                     | `dell-xps-15-9520`                     |
+| [Dell XPS 15 9530, nvidia](dell/xps/15-9530/nvidia)                               | `<nixos-hardware/dell/xps/15-9530/nvidia>`              | `dell-xps-15-9530-nvidia`              |
+| [Dell XPS 15 9530](dell/xps/15-9530)                                              | `<nixos-hardware/dell/xps/15-9530>`                     | `dell-xps-15-9530`                     |
+| [Dell XPS 15 9550, nvidia](dell/xps/15-9550/nvidia)                               | `<nixos-hardware/dell/xps/15-9550/nvidia>`              | `dell-xps-15-9550-nvidia`              |
+| [Dell XPS 15 9550](dell/xps/15-9550)                                              | `<nixos-hardware/dell/xps/15-9550>`                     | `dell-xps-15-9550`                     |
+| [Dell XPS 15 9560, intel only](dell/xps/15-9560/intel)                            | `<nixos-hardware/dell/xps/15-9560/intel>`               | `dell-xps-15-9560-intel`               |
+| [Dell XPS 15 9560, nvidia only](dell/xps/15-9560/nvidia)                          | `<nixos-hardware/dell/xps/15-9560/nvidia>`              | `dell-xps-15-9560-nvidia`              |
+| [Dell XPS 15 9560](dell/xps/15-9560)                                              | `<nixos-hardware/dell/xps/15-9560>`                     | `dell-xps-15-9560`                     |
+| [Dell XPS 15 9570, intel only](dell/xps/15-9570/intel)                            | `<nixos-hardware/dell/xps/15-9570/intel>`               | `dell-xps-15-9570-intel`               |
+| [Dell XPS 15 9570, nvidia](dell/xps/15-9570/nvidia)                               | `<nixos-hardware/dell/xps/15-9570/nvidia>`              | `dell-xps-15-9570-nvidia`              |
+| [Dell XPS 15 9570](dell/xps/15-9570)                                              | `<nixos-hardware/dell/xps/15-9570>`                     | `dell-xps-15-9570`                     |
+| [Dell XPS 17 9700, intel](dell/xps/17-9700/intel)                                 | `<nixos-hardware/dell/xps/17-9700/intel`                | `dell-xps-17-9700-intel`               |
+| [Dell XPS 17 9700, nvidia](dell/xps/17-9700/nvidia)                               | `<nixos-hardware/dell/xps/17-9700/nvidia>`              | `dell-xps-17-9700-nvidia`              |
+| [Dell XPS 17 9710, intel only](dell/xps/17-9710/intel)                            | `<nixos-hardware/dell/xps/17-9710/intel>`               | `dell-xps-17-9710-intel`               |
+| [Framework 11th Gen Intel Core](framework/13-inch/11th-gen-intel)                 | `<nixos-hardware/framework/13-inch/11th-gen-intel>`     | `framework-11th-gen-intel`             |
+| [Framework 12th Gen Intel Core](framework/13-inch/12th-gen-intel)                 | `<nixos-hardware/framework/13-inch/12th-gen-intel>`     | `framework-12th-gen-intel`             |
+| [Framework 13th Gen Intel Core](framework/13-inch/13th-gen-intel)                 | `<nixos-hardware/framework/13-inch/13th-gen-intel>`     | `framework-13th-gen-intel`             |
 | [Framework Intel Core Ultra Series 1](framework/13-inch/intel-core-ultra-series1) | `<nixos-hardware/framework/13-inch/intel-core-ultra-series1>`     | `framework-intel-core-ultra-series1` |
 | [Framework 13 AMD Ryzen 7040 Series](framework/13-inch/7040-amd)                  | `<nixos-hardware/framework/13-inch/7040-amd>`           | `framework-13-7040-amd`      |
 | [Framework 13 AMD AI 300 Series](framework/13-inch/amd-ai-300-series)             | `<nixos-hardware/framework/13-inch/amd-ai-300-series>`  | `framework-amd-ai-300-series` |
