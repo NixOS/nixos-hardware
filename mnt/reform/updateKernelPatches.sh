@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
-nix eval .#mnt-reform-kernel-patches > kernelPatches.nix
+nix eval .#lib.mnt-reform-patches > kernelPatches.nix
 nix fmt kernelPatches.nix
