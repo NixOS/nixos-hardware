@@ -45,8 +45,6 @@ let
     linuxPackage
     surfacePatches
     ;
-
-  # Kernel 6.18 can use the same base patches as 6.17
   kernelPatches = surfacePatches {
     version = srcVersion;
     patchFn = ./kernel/${versions.majorMinor srcVersion}/patches.nix;
