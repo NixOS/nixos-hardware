@@ -1,13 +1,17 @@
 {
   description = "nixos-hardware";
 
+  inputs.nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
+
   outputs =
-    { self, ... }:
+    { self, nixpkgs, ... }:
     let
       # Import private inputs (for development)
       privateInputs =
         (import ./tests/flake-compat.nix {
-          src = ./tests;
+          src = {
+            outPath = self.outPath + "/tests";
+          };
         }).defaultNix;
 
       systems = [
@@ -23,17 +27,10 @@
       ];
 
       # Helper to iterate over systems
-      eachSystem =
-        f:
-        privateInputs.nixos-unstable-small.lib.genAttrs systems (
-          system: f privateInputs.nixos-unstable-small.legacyPackages.${system} system
-        );
+      eachSystem = f: nixpkgs.lib.genAttrs systems (system: f nixpkgs.legacyPackages.${system} system);
 
       eachSystemFormat =
-        f:
-        privateInputs.nixos-unstable-small.lib.genAttrs formatSystems (
-          system: f privateInputs.nixos-unstable-small.legacyPackages.${system} system
-        );
+        f: nixpkgs.lib.genAttrs formatSystems (system: f nixpkgs.legacyPackages.${system} system);
     in
     {
 
@@ -498,6 +495,8 @@
           run-tests = pkgs.callPackage ./tests/run-tests.nix {
             inherit self;
           };
+
+          mnt-reform-kernel-patches = pkgs.callPackage ./mnt/reform/updateKernelPatches.nix { };
         }
         // pkgs.lib.optionalAttrs (system == "aarch64-linux") {
           # Boot images for NXP i.MX boards (aarch64-linux only)
