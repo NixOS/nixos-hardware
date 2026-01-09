@@ -470,6 +470,8 @@
           run-tests = pkgs.callPackage ./tests/run-tests.nix {
             inherit self;
           };
+
+          mnt-reform-kernel-patches = pkgs.callPackage ./mnt/reform/updateKernelPatches.nix { };
         }
         // pkgs.lib.optionalAttrs (system == "aarch64-linux") {
           # Boot images for NXP i.MX boards (aarch64-linux only)
@@ -477,6 +479,8 @@
           imx93-boot = (pkgs.callPackage ./nxp/imx93-evk/bsp/imx93-boot.nix { }).imx93-boot;
           imx8mp-boot = (pkgs.callPackage ./nxp/imx8mp-evk/bsp/imx8mp-boot.nix { }).imx8m-boot;
           imx8mq-boot = (pkgs.callPackage ./nxp/imx8mq-evk/bsp/imx8mq-boot.nix { }).imx8m-boot;
+
+          purism-librem-5r4-uboot = pkgs.callPackage ./purism/librem/5r4/u-boot/build.nix { };
         }
       );
 
