@@ -1,6 +1,10 @@
 let
-  nixpkgs = import <nixpkgs> { };
-  pkgs = nixpkgs.pkgs;
+  privateInputs =
+    (import ../../tests/flake-compat.nix {
+      src = ../../tests;
+    }).defaultNix;
+  nixpkgs = privateInputs.nixos-unstable-small;
+  pkgs = nixpkgs.legacyPackages.${builtins.currentSystem};
   lib = nixpkgs.lib;
   sources = lib.importJSON ./sources.json;
   reformDebianPackages = pkgs.fetchFromGitLab sources.reformDebianPackages;
