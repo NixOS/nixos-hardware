@@ -1,13 +1,12 @@
 { lib, pkgs, ... }:
 let
-  inherit (lib) mkDefault mkIf;
+  inherit (lib) mkDefault;
 in
 {
   imports = [
     ../../common/pc/laptop
     ../../common/pc/ssd
     ../../common/hidpi.nix
-    ../../common/gpu/24.05-compat.nix
   ];
 
   # Necessary kernel modules
