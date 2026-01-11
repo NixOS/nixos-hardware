@@ -7,7 +7,6 @@
 
 let
   inherit (lib) types;
-  nixosVersion = lib.versions.majorMinor lib.version;
 
   audioFiles = pkgs.fetchFromGitHub {
     owner = "kekrby";
@@ -106,16 +105,9 @@ in
       powerManagement.enable = true;
     }
 
-    (
-      if lib.versionAtLeast nixosVersion "25.05" then
-        {
-          services.pulseaudio.package = overrideAudioFiles pkgs.pulseaudio "src/modules/";
-        }
-      else
-        {
-          hardware.pulseaudio.package = overrideAudioFiles pkgs.pulseaudio "src/modules/";
-        }
-    )
+    {
+      services.pulseaudio.package = overrideAudioFiles pkgs.pulseaudio "src/modules/";
+    }
 
     (lib.mkIf t2Cfg.enableIGPU {
       # Enable the iGPU by default if present

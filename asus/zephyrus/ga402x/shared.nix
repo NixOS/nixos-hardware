@@ -1,6 +1,5 @@
 {
   config,
-  pkgs,
   lib,
   ...
 }:
@@ -11,9 +10,7 @@ let
     mkEnableOption
     mkIf
     mkMerge
-    version
     versionAtLeast
-    versionOlder
     ;
 
   cfg = config.hardware.asus.zephyrus.ga402x;
@@ -92,12 +89,6 @@ in
         # ACTION=="add|change", SUBSYSTEM=="usb", DRIVER="usb", TEST="power/wakeup", ATTR{idVendor}=="0b05", ATTR{idProduct}=="193b", ATTR{power/wakeup}="disabled"
         ACTION=="add|change", SUBSYSTEM=="usb", ATTR{idVendor}=="0b05", ATTR{idProduct}=="193b", ATTR{power/wakeup}="disabled"
       '';
-    })
-
-    (mkIf (versionOlder version "23.11") {
-      # See https://asus-linux.org/wiki/nixos/ for info about some problems
-      # detecting the dGPU:
-      systemd.services.supergfxd.path = [ pkgs.pciutils ];
     })
 
     (mkIf (config.networking.wireless.iwd.enable && config.networking.wireless.scanOnLowSignal) {
