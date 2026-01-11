@@ -43,7 +43,6 @@ in
     # Per the documentation, antialiasing, hinting, etc. have no visible effect at such high pixel densities anyhow.
     # Set manually, as the hiDPI module had incorrect settings prior to NixOS 22.11; see nixpkgs#194594.
     hinting.enable = mkDefault false;
-    antialias = mkIf (lib.versionOlder (lib.versions.majorMinor lib.version) "22.11") false;
   };
 
   # More HiDPI settings
