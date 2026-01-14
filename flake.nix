@@ -117,7 +117,7 @@
           dell-latitude-5490 = import ./dell/latitude/5490;
           dell-latitude-5520 = import ./dell/latitude/5520;
           dell-latitude-7280 = import ./dell/latitude/7280;
-	  dell-latitude-7330-rugged-extreme = import ./dell/latitude/7330-rugged-extreme;
+          dell-latitude-7330-rugged-extreme = import ./dell/latitude/7330-rugged-extreme;
           dell-latitude-7390 = import ./dell/latitude/7390;
           dell-latitude-7420 = import ./dell/latitude/7420;
           dell-latitude-7430 = import ./dell/latitude/7430;
