@@ -33,4 +33,17 @@ in
 
   # More HiDPI settings
   services.xserver.dpi = 343;
+
+  # disable fingerprint reader, it currently has no linux drivers anyways and also blocks suspend (at least on my system)
+  services.udev.extraRules = /* udev */ ''
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="2808", ATTR{idProduct}=="0752", ATTR{authorized}="0"
+  '';
+
+  # classify device as convertible (see hostnamectl)
+  environment.etc.machine-info = {
+    text = ''
+      CHASSIS=convertible
+    '';
+    mode = "0440";
+  };
 }
