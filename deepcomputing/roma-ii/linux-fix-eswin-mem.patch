@@ -1,0 +1,13 @@
+diff --git a/drivers/memory/eswin/Makefile b/drivers/memory/eswin/Makefile
+index 9f256dc64dad..e3d2a67aac3a 100644
+--- a/drivers/memory/eswin/Makefile
++++ b/drivers/memory/eswin/Makefile
+@@ -11,6 +11,6 @@ obj-$(CONFIG_ESWIN_IOMMU_RSV)			+= es_iommu_rsv/
+ obj-$(CONFIG_ESWIN_DMA_MEMCP)           += es_dma_memcp/
+ obj-$(CONFIG_ESWIN_MALLOC_DMABUF)       += es_malloc_dmabuf/
+ 
+-ES_MEM_HEADER := drivers/memory/eswin/
++ES_MEM_HEADER := $(srctree)/drivers/memory/eswin/
+ 
+-COPY_HEADERS := $(shell cp $(ES_MEM_HEADER)/*.h include/linux)
++COPY_HEADERS := $(shell cp $(ES_MEM_HEADER)/*.h $(srctree)/include/linux)

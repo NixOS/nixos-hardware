@@ -1,0 +1,23 @@
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index 319d89477279..6a7b1d939368 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -1060,15 +1060,18 @@ config SND_SOC_ES8326
+ 
+ config SND_SOC_ES8328
+ 	tristate
++  depends on !ESWIN_SND_ES8388_CODEC
+ 
+ config SND_SOC_ES8328_I2C
+ 	tristate "Everest Semi ES8328 CODEC (I2C)"
+ 	depends on I2C
++  depends on !ESWIN_SND_ES8388_CODEC
+ 	select SND_SOC_ES8328
+ 
+ config SND_SOC_ES8328_SPI
+ 	tristate "Everest Semi ES8328 CODEC (SPI)"
+ 	depends on SPI_MASTER
++  depends on !ESWIN_SND_ES8388_CODEC
+ 	select SND_SOC_ES8328
+ 
+ config SND_SOC_GTM601
