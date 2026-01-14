@@ -36,6 +36,9 @@ in
     "video=DSI-1:panel_orientation=right_side_up"
   ];
 
+  # Turn on IIO for accelerometer screen rotation.
+  hardware.sensor.iio.enable = lib.mkDefault true;
+
   fonts.fontconfig = {
     subpixel.rgba = "vbgr"; # Pixel order for rotated screen
 

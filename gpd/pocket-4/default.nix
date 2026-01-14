@@ -23,6 +23,9 @@ in
     ];
   };
 
+  # Turn on IIO for accelerometer screen rotation.
+  hardware.sensor.iio.enable = lib.mkDefault true;
+
   fonts.fontconfig = {
     subpixel.rgba = "vbgr"; # Pixel order for rotated screen
 
