@@ -22,5 +22,13 @@
     boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "6.15") (
       lib.mkDefault pkgs.linuxPackages_latest
     );
+
+    # Disable the broken ALSA UCM profiles by default.
+    # See https://github.com/NixOS/nixos-hardware/issues/1603
+    services.pipewire.wireplumber.extraConfig."10-no-ucm" = {
+      "monitor.alsa.properties" = {
+        "alsa.use-ucm" = lib.mkDefault false;
+      };
+    };
   };
 }
