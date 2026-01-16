@@ -8,7 +8,6 @@ in
 {
   imports = [
     ../.
-    ../../../common/gpu/24.05-compat.nix
   ];
 
   services.xserver.videoDrivers = mkDefault [ "nvidiaLegacy340" ];

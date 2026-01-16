@@ -1,13 +1,12 @@
 { lib, pkgs, ... }:
 let
-  inherit (lib) mkDefault mkIf;
+  inherit (lib) mkDefault;
 in
 {
   imports = [
     ../../common/pc/laptop
     ../../common/pc/ssd
     ../../common/hidpi.nix
-    ../../common/gpu/24.05-compat.nix
   ];
 
   # Necessary kernel modules
@@ -22,12 +21,7 @@ in
   boot.initrd.kernelModules = [ "i915" ]; # Early loading so the passphrase prompt appears on external displays
   hardware.graphics.extraPackages = with pkgs; [
     intel-media-driver
-    (
-      if (lib.versionOlder (lib.versions.majorMinor lib.version) "23.11") then
-        vaapiIntel
-      else
-        intel-vaapi-driver
-    )
+    intel-vaapi-driver
   ];
 
   boot.kernelParams = [
@@ -46,7 +40,6 @@ in
     # Per the documentation, antialiasing, hinting, etc. have no visible effect at such high pixel densities anyhow.
     # Set manually, as the hiDPI module had incorrect settings prior to NixOS 22.11; see nixpkgs#194594.
     hinting.enable = mkDefault false;
-    antialias = mkIf (lib.versionOlder (lib.versions.majorMinor lib.version) "22.11") false;
   };
 
   # More HiDPI settings

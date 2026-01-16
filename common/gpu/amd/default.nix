@@ -1,7 +1,6 @@
 { lib, ... }:
 
 {
-  imports = [ ../24.05-compat.nix ];
   config = {
     services.xserver.videoDrivers = lib.mkDefault [ "modesetting" ];
 
