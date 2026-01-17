@@ -74,7 +74,7 @@ For questions and discussions, come join us in the [nixos-anywhere matrix](https
 The [NixOS hardware](https://github.com/orgs/NixOS/teams/nixos-hardware) team meets regularly to discuss hardware profiles and maintenance:
 
 - **When**: Every 3rd Friday of the month
-- **Time**: 04:00 pm (UTC) / 16:00 (UTC)
+- **Time**: 05:00 pm (UTC) / 17:00 (UTC)
 - **Where**: https://jitsi.lassul.us/Hardware-team
 - **Contact**: hardware@nixos.org
 
@@ -440,6 +440,7 @@ See code for all available configurations.
 | [System76 (generic)](system76)                                                    | `<nixos-hardware/system76>`                             | `system76`                             |
 | [System76 Darter Pro 6](system76/darp6)                                           | `<nixos-hardware/system76/darp6>`                       | `system76-darp6`                       |
 | [System76 Gazelle 18](system76/gaze18)                                            | `<nixos-hardware/system76/gaze18>`                      | `system76-gaze18`                      |
+| [System76 Galago Pro 3](system76/galp3)                                           | `<nixos-hardware/system76/galp3>`                       | `system76-galp3`                       |
 | [System76 Galago Pro 5](system76/galp5-1650)                                      | `<nixos-hardware/system76/galp5-1650>`                  | `system76-galp5-1650`                  |
 | [System76 Thelio Mega](system76/thelio-mega)                                      | `<nixos-hardware/system76/thelio-mega>`                 | `system76-thelio-mega`                 |
 | [Toshiba Chromebook 2 `swanky`](toshiba/swanky)                                   | `<nixos-hardware/toshiba/swanky>`                       | `toshiba-swanky`                       |
