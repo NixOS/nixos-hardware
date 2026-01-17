@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -14,8 +14,7 @@
         path = "${pkgs.modemmanager}/share/ModemManager/fcc-unlock.available.d/${id}";
       };
     in
-    if lib.versionOlder lib.version "25.05pre" then
-      { networkmanager.fccUnlockScripts = [ fcc_unlock_script ]; }
-    else
-      { modemmanager.fccUnlockScripts = [ fcc_unlock_script ]; };
+    {
+      modemmanager.fccUnlockScripts = [ fcc_unlock_script ];
+    };
 }
