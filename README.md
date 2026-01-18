@@ -244,6 +244,7 @@ See code for all available configurations.
 | [Lenovo IdeaPad 3 15alc6](lenovo/ideapad/15alc6)                                  | `<nixos-hardware/lenovo/ideapad/15alc6>`                | `lenovo-ideapad-15alc6`                |
 | [Lenovo IdeaPad Gaming 3 15arh05](lenovo/ideapad/15arh05)                         | `<nixos-hardware/lenovo/ideapad/15arh05>`               | `lenovo-ideapad-15arh05`               |
 | [Lenovo IdeaPad Gaming 3 15ach6](lenovo/ideapad/15ach6)                           | `<nixos-hardware/lenovo/ideapad/15ach6>`                | `lenovo-ideapad-15ach6`                |
+| [Lenovo IdeaPad Gaming 3 15ihu6](lenovo/ideapad/15ihu6)                           | `<nixos-hardware/lenovo/ideapad/15ihu6>`                      | `lenovo-ideapad-15ihu6`                 |
 | [Lenovo IdeaPad 5 Pro 14imh9](lenovo/ideapad/14imh9)                              | `<nixos-hardware/lenovo/ideapad/14imh9>`                | `lenovo-ideapad-14imh9`                |
 | [Lenovo IdeaPad 5 Pro 16ach6](lenovo/ideapad/16ach6)                              | `<nixos-hardware/lenovo/ideapad/16ach6>`                | `lenovo-ideapad-16ach6`                |
 | [Lenovo IdeaPad Z510](lenovo/ideapad/z510)                                        | `<nixos-hardware/lenovo/ideapad/z510>`                  | `lenovo-ideapad-z510`                  |
