@@ -139,6 +139,7 @@ See code for all available configurations.
 | [Asrock Rack ALTRAD8UD-1L2T](asrock-rack/altrad8ud-1l2t)                          | `<nixos-hardware/asrock-rack/altrad8ud-1l2t>`           | `asrock-rack-altrad8ud-1l2t`           |
 | [BeagleBoard PocketBeagle](beagleboard/pocketbeagle)                              | `<nixos-hardware/beagleboard/pocketbeagle>`             | `beagleboard-pocketbeagle`             |
 | [Chuwi MiniBook X](chuwi/minibook-x)                                              | `<nixos-hardware/chuwi/minibook-x>`                     | `chuwi-minibook-x`                     |
+| [ClockworkPi uConsole CM4](clockworkpi/uconsole)                                  | `<nixos-hardware/clockworkpi/uconsole>`                 | `clockworkpi-uconsole-cm4`             |
 | [Deciso DEC series](deciso/dec)                                                   | `<nixos-hardware/deciso/dec>`                           | `deciso-dec`                           |
 | [Dell G3 3779](dell/g3/3779)                                                      | `<nixos-hardware/dell/g3/3779>`                         | `dell-g3-3779`                         |
 | [Dell G3 3579](dell/g3/3579)                                                      | `<nixos-hardware/dell/g3/3579>`                         | `dell-g3-3579`                         |
