@@ -107,6 +107,8 @@ See code for all available configurations.
 | [Aoostar R1 N100](aoostar/r1/n100)                                                | `<nixos-hardware/aoostar/r1/n100>`                      | `aoostar-r1-n100`                      |
 | [Asus Pro WS X570-ACE](asus/pro-ws-x570-ace)                                      | `<nixos-hardware/asus/pro-ws-x570-ace>`                 | `asus-pro-ws-x570-ace`                 |
 | [Asus ROG Ally RC71L (2023)](asus/ally/rc71l)                                     | `<nixos-hardware/asus/ally/rc71l>`                      | `asus-ally-rc71l`                      |
+| [Asus ROG Flow X13 GV301QH (2021)](asus/flow/gv301qh/amdgpu)                      | `<nixos-hardware/asus/flow/gv301qh/amdgpu>`              | `asus-flow-gv301qh-amdgpu`              |
+| [Asus ROG Flow X13 GV301QH (2021)](asus/flow/gv301qh/nvidia)                      | `<nixos-hardware/asus/flow/gv301qh/nvidia>`              | `asus-flow-gv301qh-nvidia`              |
 | [Asus ROG Flow X13 GV302X\* (2023)](asus/flow/gv302x/amdgpu)                      | `<nixos-hardware/asus/flow/gv302x/amdgpu>`              | `asus-flow-gv302x-amdgpu`              |
 | [Asus ROG Flow X13 GV302X\* (2023)](asus/flow/gv302x/nvidia)                      | `<nixos-hardware/asus/flow/gv302x/nvidia>`              | `asus-flow-gv302x-nvidia`              |
 | [Asus ROG Flow Z13 gz301vu\* (2023)](asus/flow/gz301vu)                           | `<nixos-hardware/asus/flow/gz301vu>`                    | `asus-flow-gz301vu`              |
