@@ -8,18 +8,18 @@
   ...
 }@args:
 let
-  pver = "6.6.44";
+  pver = "6.16.8";
 
   src_pine64 = fetchFromGitLab {
     owner = "pine64-org";
     repo = "linux";
-    rev = "ppp-6.6-20231104-22589";
-    sha256 = "sha256-wz2g+wE1DmhQQoldeiWEju3PaxSTIcqLSwamjzry+nc=";
+    rev = "ppp-6.16-20250922-1910";
+    hash = "sha256-LaEp5KuCbK1dcOYgbuMLv1Eqnsij0s/W0zYwUmSq4HE=";
   };
   #apply mainline fixver patches
   upstream_patch = fetchurl {
     url = "https://cdn.kernel.org/pub/linux/kernel/v6.x/patch-${pver}.xz";
-    hash = "sha256-SSDqB/mqUmEWcf7fhZ3RRvGc2wvauORBuVl2ovJjX5M=";
+    hash = "sha256-sng1x9aF78Ordw7q19aGodjK5MLOwabB7+s8bRi7x7M=";
   };
 
   ksrc = import ./source.nix;
@@ -36,8 +36,6 @@ buildLinux (
   args
   // {
     version = pver;
-    # todo: find out why builder complains about patch-version
-    modDirVersion = "${lib.versions.majorMinor pver}.0";
     src = callPackage ksrc {
       inherit pver upstream_patch;
       src = src_pine64;

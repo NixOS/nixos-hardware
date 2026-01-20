@@ -128,4 +128,6 @@ with (lib.kernel.whenHelpers version);
   FSL_MC_UAPI_SUPPORT = lib.mkForce unset;
   HSA_AMD = lib.mkForce unset;
   HSA_AMD_P2P = lib.mkForce unset;
+  DRM_AMD_ISP = lib.mkForce unset;
+  DRM_NOUVEAU_GSP_DEFAULT = lib.mkForce unset;
 }
