@@ -67,18 +67,23 @@ with (lib.kernel.whenHelpers version);
 
   KEYBOARD_PINEPHONE = module;
 
-  #Uneeded Platforms
+  # Uneeded Platforms
+  # The following are hardcoded to be enabled by `aarch64-multiplatform.linux-kernel.extraConfig`:
+  # ```
+  # ARCH_BCM = no;
+  # ARCH_BCM2835 = no;
+  # ARCH_TEGRA = no;
+  # ```
   ARCH_ACTIONS = no;
   ARCH_SUNXI = no;
   ARCH_ALPINE = no;
   ARCH_APPLE = no;
-  ARCH_BCM = no;
   ARCH_BERLIN = no;
-  ARCH_BITMAN = no;
+  ARCH_BITMAN = unset;
   ARCH_EXYNOS = no;
   ARCH_SPARX5 = no;
   ARCH_K3 = no;
-  ARCH_LG1k = no;
+  ARCH_LG1k = unset;
   ARCH_HISI = no;
   ARCH_KEEMBAY = no;
   ARCH_MEDIATEK = no;
@@ -91,10 +96,9 @@ with (lib.kernel.whenHelpers version);
   ARCH_REALTEK = no;
   ARCH_RENESAS = no;
   ARCH_SEATTLE = no;
-  ARCH_SOCFPGA = no;
+  ARCH_SOCFPGA = unset;
   ARCH_STM32 = no;
   ARCH_SYNQUACER = no;
-  ARCH_TEGRA = no;
   ARCH_SPRD = no;
   ARCH_THUNDER = no;
   ARCH_THUNDER2 = no;
@@ -104,18 +108,24 @@ with (lib.kernel.whenHelpers version);
   ARCH_XGENE = no;
   ARCH_ZYNQMP = no;
 
+  MT798X_WMAC = lib.mkForce unset;
+  NET_VENDOR_MEDIATEK = lib.mkForce unset;
+  SUN8I_DE2_CCU = lib.mkForce unset;
+
   #Modules that are probably not needed by anyone
   DRM_NOUVEAU = no;
   DRM_AMDGPU = no;
 
-  #pahole causes OOM(6GiB> including zram) during build, disabling it as a mitigation
-  CONFIG_BPF = lib.mkForce no;
-  BPF_SYSCALL = lib.mkForce no;
-  BPF_JIT = lib.mkForce no;
-  BPF_JIT_ALWAYS_ON = lib.mkForce no;
-  BPF_JIT_DEFAULT_ON = lib.mkForce no;
-  PAHOLE_HAS_BTF_TAG = lib.mkForce no;
-  DEBUG_INFO_BTF = lib.mkForce no;
-  DEBUG_INFO_BTF_MODULES = lib.mkForce no;
-
+  DRM_AMDGPU_CIK = lib.mkForce unset;
+  DRM_AMDGPU_SI = lib.mkForce unset;
+  DRM_AMDGPU_USERPTR = lib.mkForce unset;
+  DRM_AMD_ACP = lib.mkForce unset;
+  DRM_AMD_DC_FP = lib.mkForce unset;
+  DRM_AMD_DC_SI = lib.mkForce unset;
+  DRM_AMD_SECURE_DISPLAY = lib.mkForce unset;
+  DRM_NOUVEAU_SVM = lib.mkForce unset;
+  DRM_VC4_HDMI_CEC = lib.mkForce unset;
+  FSL_MC_UAPI_SUPPORT = lib.mkForce unset;
+  HSA_AMD = lib.mkForce unset;
+  HSA_AMD_P2P = lib.mkForce unset;
 }
