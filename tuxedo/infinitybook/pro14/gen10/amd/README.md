@@ -1,2 +1,3 @@
 # [TUXEDO InfinityBook Pro 14 - Gen10 - AMD](https://www.tuxedocomputers.com/en/TUXEDO-InfinityBook-Pro-14-Gen10.tuxedo)
-# [TUXEDO InfinityBook Pro 14 - Gen10 - AMD https://www.tuxedocomputers.com/en/FAQ-TUXEDO-InfinityBook-Pro-14-Gen10-AMD.tuxedo]
+
+# [TUXEDO InfinityBook Pro 14 - Gen10 - AMD](https://www.tuxedocomputers.com/en/FAQ-TUXEDO-InfinityBook-Pro-14-Gen10-AMD.tuxedo)
