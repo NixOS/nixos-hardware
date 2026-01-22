@@ -1,14 +1,17 @@
-{ lib, pkgs, ... }: {
+{ lib, config, ... }:
+{
   imports = [
     ../../../common/pc/laptop
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
+    ../../bluetooth.nix
     ../../kmod.nix
     ../../framework-tool.nix
+    ./audio.nix
   ];
 
   # Fix TRRS headphones missing a mic
   # https://community.frame.work/t/headset-microphone-on-linux/12387/3
-  boot.extraModprobeConfig = lib.mkIf (lib.versionOlder pkgs.linux.version "6.6.8") ''
+  boot.extraModprobeConfig = lib.mkIf (lib.versionOlder config.boot.kernelPackages.kernel.version "6.6.8") ''
     options snd-hda-intel model=dell-headset-multi
   '';
 

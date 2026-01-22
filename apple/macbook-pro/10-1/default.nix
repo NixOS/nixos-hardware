@@ -3,8 +3,8 @@
 {
   imports = [
     ../.
-    ../../../common/pc/laptop/ssd
-    ../../../common/gpu/24.05-compat.nix
+    ../../../common/pc/ssd
+    ../../../common/gpu/nvidia/kepler
   ];
 
   # TODO: reverse compat

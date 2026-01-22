@@ -1,0 +1,12 @@
+# This file contains commits that should be ignored by git blame
+# See https://git-scm.com/docs/git-blame#Documentation/git-blame.txt---ignore-revs-file
+# and https://github.com/NixOS/nixpkgs/blob/master/.git-blame-ignore-revs for more info
+
+# To enable this in your local repository, run:
+#   git config blame.ignoreRevsFile .git-blame-ignore-revs
+
+# For rebasing PRs, commits marked with !autorebase will be automatically
+# reapplied by the auto-rebase script
+
+# nixfmt-rfc-style formatting
+51e51e601448705c0d2f92ef90ec7b680123077c #!autorebase cd tests && nix fmt ..

@@ -1,7 +1,7 @@
 {
   imports = [
     ../.
-    ../../../../common/pc/laptop/ssd
+    ../../../../common/pc/ssd
   ];
 
   # Use the right Intel graphics driver

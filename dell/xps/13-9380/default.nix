@@ -2,7 +2,6 @@
   imports = [
     ../../../common/cpu/intel
     ../../../common/pc/laptop
-    ../../../common/pc/laptop/acpi_call.nix
   ];
 
   # Force S3 sleep mode. See README.wiki for details.
@@ -10,6 +9,9 @@
 
   # touchpad goes over i2c
   boot.blacklistedKernelModules = [ "psmouse" ];
+
+  # Allows for updating firmware via `fwupdmgr`.
+  services.fwupd.enable = true;
 
   # This will save you money and possibly your life!
   services.thermald.enable = true;

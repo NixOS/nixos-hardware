@@ -1,5 +1,9 @@
-{ lib, pkgs, ... }: {
-  imports = [ ../../../../common/gpu/nvidia/prime.nix ];
+{ lib, pkgs, ... }:
+{
+  imports = [
+    ../../../../common/gpu/nvidia/prime.nix
+    ../../../../common/gpu/nvidia/ampere
+  ];
 
   #D-Bus service to check the availability of dual-GPU
   services.switcherooControl.enable = lib.mkDefault true;
@@ -8,7 +12,10 @@
     graphics = {
       enable = lib.mkDefault true;
       enable32Bit = lib.mkDefault true;
-      extraPackages = with pkgs; [ intel-media-driver intel-compute-runtime ];
+      extraPackages = with pkgs; [
+        intel-media-driver
+        intel-compute-runtime
+      ];
     };
     nvidia = {
       prime = {

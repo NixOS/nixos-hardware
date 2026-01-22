@@ -1,8 +1,3 @@
-# NOTE: Structure changes from 2023-01-10
-
-Please read the [Deprecated Behaviour README](./OLD-BEHAVIOUR-DEPRECATION.md) to understand how some structural changes to
-the code might affect you!
-
 # Derivations for Microsoft Surface notebooks
 
 These derivatives use the patches from the [linux-surface repo](https://github.com/linux-surface/linux-surface/tree/master/patches).
@@ -32,12 +27,23 @@ Not all hardware is fully supported, but the
 [linux-surface feature matrix](https://github.com/linux-surface/linux-surface/wiki/Supported-Devices-and-Features#feature-matrix)
 provides details on which devices are supported on which types of machine.
 
-The kernel-specific derivations are under the [`common/kernel/`](./common/kernel/) sub-directory.
-In order to simplify maintenance of the Nix code, only the most-recent kernel patch-set is expected
-to be maintained in this repo.
+The kernel-specific derivations are under the [`common/kernel/`](./common/kernel/) sub-directory. This directory defines patch sets for each supported kernel release (see Kernel versions below for more information).
 
 _*NOTE:*_ Some built-in Kernel config items need to be set, that aren't set by default:
 - https://github.com/linux-surface/surface-aggregator-module/wiki/Testing-and-Installing
+
+#### Kernel versions
+
+There are multiple versions of the Surface kernel available:
+
+- `longterm`, which tracks the latest long term support (LTS) release.
+- `stable`, which tracks the most recent stable release.
+
+This repo uses `longterm` by default, but you can switch it to `stable` by adding this to your configuration file:
+
+```nix
+hardware.microsoft-surface.kernelVersion = "stable";
+```
 
 ### Support Tools
 
@@ -91,11 +97,34 @@ See: https://github.com/linux-surface/linux-surface/blob/master/README.md
 
 ## Wifi Firmware for Surface Go
 
-On the Surface Go, the standard firmware from the official Linux Firmware repo has issues with the
-`ath10k` QCA6174 Wifi device.
-You will see messages like "Can't ping firmware".
+On the Surface Go, the standard firmware from the official Linux Firmware repo used to have issues
+with the `ath10k` QCA6174 Wifi device.
 
-The most effective fix to-date is to remove the `board-2.bin` file or replace it with a copy of the
+This was fixed in Nov 2021:
+- https://github.com/linux-surface/linux-surface/issues/542#issuecomment-976995453
+
+## Troubleshooting IPU6
+
+While the camera patches are applied in `common`, camera functionality is still WIP for several devices (see [https://github.com/linux-surface/linux-surface/wiki/Camera-Support](https://github.com/linux-surface/linux-surface/wiki/Camera-Support)). As a result they may break some userspace tools on unsupported devices, notably such as Wireplumber. An example fix for such userspace issues is shown below.
+```
+services.pipewire.wireplumber.extraConfig = {
+  "50-surface-disable-libcamera.conf" = ''
+    monitor.libcamera = { enabled = false }
+    wireplumber.profiles = {
+      main = {
+        monitor.libcamera = disabled
+        hardware.video-capture = disabled
+      }
+    }
+  '';
+};
+```
+
+### Background:
+
+With the older firmware, you would see messages like "Can't ping firmware".
+
+The most effective fix was to remove the `board-2.bin` file or replace it with a copy of the
 `board.bin` file.
 
 The derivative in `surface-go/firmware/ath10k/` can configure this, with the
@@ -107,14 +136,6 @@ This is the only way (currently) to force the driver to use the new firmware.
 
 For more details, see: https://github.com/linux-surface/linux-surface/wiki/Surface-Go#wifi-firmware
 
-_*NOTE:*_ There's some work to patch the kernel to make it easier to override which firmware file
-to use for QCA6174, which would obviate this more-destructuve approach:
-- https://github.com/linux-surface/kernel/commit/22ef83836c4aa89e9eb98de9b47ed24b6c2a1d45
-
-_*NOTE:*_ There was an attempt to get this firmware incorporated into the aggregate `board-2.bin`,
-but (as of this writing) the request appears to have been ignored:
-- https://github.com/linux-surface/linux-surface/issues/41
-
 References:
 - https://github.com/jakeday/linux-surface/issues/441
 - https://www.reddit.com/r/SurfaceLinux/comments/e8quqg/surface_go_official_wifi_fix/
@@ -122,3 +143,7 @@ References:
 - https://github.com/thebitstick/surfacego-wifi
 - https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/tree/ath10k
 - https://wireless.wiki.kernel.org/en/users/drivers/ath10k/firmware
+
+## Structural changes from earlier versions (2023-01-10 and earlier)
+
+If you're upgrading from an older version of nixos-hardware, please read the [Deprecated Behaviour README](./OLD-BEHAVIOUR-DEPRECATION.md) to understand how some structural changes to the code might affect you!

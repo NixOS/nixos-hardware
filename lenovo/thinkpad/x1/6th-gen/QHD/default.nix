@@ -6,7 +6,6 @@
 
   # Fix font sizes in X
   services.xserver.dpi = 210;
-  fonts.fontconfig.dpi = 210;
 
   # Enable readable font on console. The example configuration that
   # follows is taliored towards western languages. To see how to

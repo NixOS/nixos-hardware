@@ -1,6 +1,13 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
+  inherit (lib) types;
+
   audioFiles = pkgs.fetchFromGitHub {
     owner = "kekrby";
     repo = "t2-better-audio";
@@ -8,112 +15,111 @@ let
     hash = "sha256-x7K0qa++P1e1vuCGxnsFxL1d9+nwMtZUJ6Kd9e27TFs=";
   };
 
-  audioFilesUdevRules = pkgs.runCommand "audio-files-udev-rules" {} ''
+  audioFilesUdevRules = pkgs.runCommand "audio-files-udev-rules" { } ''
     mkdir -p $out/lib/udev/rules.d
     cp ${audioFiles}/files/*.rules $out/lib/udev/rules.d
     substituteInPlace $out/lib/udev/rules.d/*.rules --replace "/usr/bin/sed" "${pkgs.gnused}/bin/sed"
   '';
 
-  overrideAudioFiles = package: pluginsPath:
-    package.overrideAttrs (new: old: {
-      preConfigurePhases = old.preConfigurePhases or [ ] ++ [ "postPatchPhase" ];
-      postPatchPhase = ''
-        cp -r ${audioFiles}/files/{profile-sets,paths} ${pluginsPath}/alsa/mixer/
-      '';
-    });
+  overrideAudioFiles =
+    package: pluginsPath:
+    package.overrideAttrs (
+      _new: old: {
+        preConfigurePhases = old.preConfigurePhases or [ ] ++ [ "postPatchPhase" ];
+        postPatchPhase = ''
+          cp -r ${audioFiles}/files/{profile-sets,paths} ${pluginsPath}/alsa/mixer/
+        '';
+      }
+    );
 
   pipewirePackage = overrideAudioFiles pkgs.pipewire "spa/plugins/";
-
-  tiny-dfrPackage = pkgs.callPackage ./pkgs/tiny-dfr.nix { };
-
-  apple-set-os-loader-installer = pkgs.stdenv.mkDerivation {
-    name = "apple-set-os-loader-installer-1.0";
-    src = pkgs.fetchFromGitHub {
-      owner = "Redecorating";
-      repo = "apple_set_os-loader";
-      rev = "r33.9856dc4";
-      sha256 = "hvwqfoF989PfDRrwU0BMi69nFjPeOmSaD6vR6jIRK2Y=";
-    };
-    buildInputs = [ pkgs.gnu-efi ];
-    buildPhase = ''
-      substituteInPlace Makefile --replace "/usr" '$(GNU_EFI)'
-      export GNU_EFI=${pkgs.gnu-efi}
-      make
-    '';
-    installPhase = ''
-      install -D bootx64_silent.efi $out/bootx64.efi
-    '';
-  };
 
   t2Cfg = config.hardware.apple-t2;
 
 in
 {
-  options = {
-    hardware.apple-t2.enableAppleSetOsLoader = lib.mkOption {
-      default = false;
-      type = lib.types.bool;
-      description = "Whether to enable the appleSetOsLoader activation script.";
+  imports = [
+    (lib.mkRemovedOptionModule [ "hardware" "apple-t2" "enableTinyDfr" ] ''
+      The hardware.apple-t2.enableTinyDfr option was deprecated and removed since upstream Nixpkgs now has an identical module.
+      Please migrate to hardware.apple.touchBar.
+    '')
+
+    (lib.mkRemovedOptionModule [ "hardware" "apple-t2" "enableAppleSetOsLoader" ] ''
+      The hardware.apple-t2.enableAppleSetOsLoader option was removed as the apple_set_os functionality was integrated into the kernel.
+      Please uninstall the loader by replacing /esp/EFI/BOOTX64.EFI with /esp/EFI/BOOTX64_original.EFI, where esp is the EFI partition mount point.
+
+      If you have a device with an AMD dGPU and would like to keep using the iGPU, please set hardware.apple-t2.enableIGPU to true.
+    '')
+  ];
+  options.hardware.apple-t2 = {
+    enableIGPU = lib.mkEnableOption "the usage of the iGPU on specific Apple devices with an AMD dGPU";
+    kernelChannel = lib.mkOption {
+      type = types.enum [
+        "stable"
+        "latest"
+      ];
+      default = "stable";
+      example = "latest";
+      description = "The kernel release stream to use.";
+    };
+    firmware = {
+      enable = lib.mkEnableOption "automatic and declarative Wi-Fi and Bluetooth firmware configuration";
+      version = lib.mkOption {
+        type = types.enum [
+          "monterey"
+          "ventura"
+          "sonoma"
+        ];
+        default = "sonoma";
+        example = "ventura";
+        description = "The macOS version to use.";
+      };
     };
   };
 
-  config = {
-    # For keyboard and touchbar
-    boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.callPackage ./pkgs/linux-t2.nix { });
-    boot.initrd.kernelModules = [ "apple-bce" ];
+  config = lib.mkMerge [
+    {
+      # Specialized kernel for keyboard, touchpad, touchbar and audio.
+      boot.kernelPackages = pkgs.linuxPackagesFor (
+        pkgs.callPackage (
+          if t2Cfg.kernelChannel == "stable" then ./pkgs/linux-t2 else ./pkgs/linux-t2/latest.nix
+        ) { }
+      );
+      boot.initrd.kernelModules = [ "apple-bce" ];
 
-    services.udev.packages = [ audioFilesUdevRules tiny-dfrPackage ];
+      services.udev.packages = [ audioFilesUdevRules ];
 
-    # For audio
-    boot.kernelParams = [ "pcie_ports=compat" "intel_iommu=on" "iommu=pt" ];
+      # For audio
+      boot.kernelParams = [
+        "pcie_ports=compat"
+        "intel_iommu=on"
+        "iommu=pt"
+      ];
 
-    hardware.pulseaudio.package = overrideAudioFiles pkgs.pulseaudio "src/modules/";
+      services.pipewire.package = pipewirePackage;
+      services.pipewire.wireplumber.package = pkgs.wireplumber.override {
+        pipewire = pipewirePackage;
+      };
 
-    services.pipewire.package = pipewirePackage;
-    services.pipewire.wireplumber.package = pkgs.wireplumber.override {
-      pipewire = pipewirePackage;
-    };
+      # Make sure post-resume.service exists
+      powerManagement.enable = true;
+    }
 
-    # For tiny-dfr
-    systemd.services.tiny-dfr = {
-      enable = true;
-      description = "Tiny Apple silicon touch bar daemon";
-      after = [ "systemd-user-sessions.service" "getty@tty1.service" "plymouth-quit.service" "systemd-logind.service" ];
-      bindsTo = [ "dev-tiny_dfr_display.device" "dev-tiny_dfr_backlight.device" ];
-      startLimitIntervalSec = 30;
-      startLimitBurst = 2;
-      script = "${tiny-dfrPackage}/bin/tiny-dfr";
-      restartTriggers = [ tiny-dfrPackage ];
-    };
+    {
+      services.pulseaudio.package = overrideAudioFiles pkgs.pulseaudio "src/modules/";
+    }
 
-    environment.etc."tiny-dfr/config.toml" = {
-      source = "${tiny-dfrPackage}/share/tiny-dfr/config.toml";
-    };
-
-    # Make sure post-resume.service exists
-    powerManagement.enable = true;
-
-    # Activation script to install apple-set-os-loader in order to unlock the iGPU
-    system.activationScripts.appleSetOsLoader = lib.optionalString t2Cfg.enableAppleSetOsLoader ''
-      if [[ -e /boot/efi/efi/boot/bootx64_original.efi ]]; then
-        true # It's already installed, no action required
-      elif [[ -e /boot/efi/efi/boot/bootx64.efi ]]; then
-        # Copy the new bootloader to a temporary location
-        cp ${apple-set-os-loader-installer}/bootx64.efi /boot/efi/efi/boot/bootx64_temp.efi
-
-        # Rename the original bootloader
-        mv /boot/efi/efi/boot/bootx64.efi /boot/efi/efi/boot/bootx64_original.efi
-
-        # Move the new bootloader to the final destination
-        mv /boot/efi/efi/boot/bootx64_temp.efi /boot/efi/efi/boot/bootx64.efi
-      else
-        echo "Error: /boot/efi/efi/boot/bootx64.efi is missing" >&2
-      fi
-    '';
-
-    # Enable the iGPU by default if present
-    environment.etc."modprobe.d/apple-gmux.conf".text = lib.optionalString t2Cfg.enableAppleSetOsLoader ''
-      options apple-gmux force_igd=y
-    '';
-  };
+    (lib.mkIf t2Cfg.enableIGPU {
+      # Enable the iGPU by default if present
+      environment.etc."modprobe.d/apple-gmux.conf".text = ''
+        options apple-gmux force_igd=y
+      '';
+    })
+    (lib.mkIf t2Cfg.firmware.enable {
+      # Configure Wi-Fi and Bluetooth firmware
+      hardware.firmware = [
+        (pkgs.callPackage ./pkgs/brcm-firmware { version = t2Cfg.firmware.version; })
+      ];
+    })
+  ];
 }

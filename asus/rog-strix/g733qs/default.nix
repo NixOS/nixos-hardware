@@ -3,6 +3,7 @@
   imports = [
     ../../../common/cpu/amd/pstate.nix
     ../../../common/gpu/nvidia/prime.nix
+    ../../../common/gpu/nvidia/ampere
     ../../../common/pc/laptop
     ../../../common/pc/ssd
     ../../battery.nix
@@ -19,7 +20,9 @@
     options snd-hda-intel patch=hda-jack-retask.fw
   '';
   # before 5.12 it would interpret every keystroke as the power button
-  boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "5.12") (lib.mkDefault pkgs.linuxPackages_latest);
+  boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "5.12") (
+    lib.mkDefault pkgs.linuxPackages_latest
+  );
 
   hardware.nvidia.prime = {
     amdgpuBusId = "PCI:5:0:0";

@@ -1,4 +1,4 @@
-{ config, lib, ...}:
+{ config, lib, ... }:
 with lib;
 {
   imports = [
@@ -12,6 +12,10 @@ with lib;
   hardware.sensor.iio.bmi260.enable = lib.mkDefault true;
 
   #see README
-  boot.blacklistedKernelModules = mkIf config.hardware.sensor.iio.bmi260.enable [ "bmi160_spi" "bmi160_i2c" "bmi160_core" ];
+  boot.blacklistedKernelModules = mkIf config.hardware.sensor.iio.bmi260.enable [
+    "bmi160_spi"
+    "bmi160_i2c"
+    "bmi160_core"
+  ];
   hardware.sensor.iio.enable = mkIf config.hardware.sensor.iio.bmi260.enable true;
 }

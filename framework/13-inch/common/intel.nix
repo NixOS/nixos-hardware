@@ -1,13 +1,19 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   imports = [
     ../../../common/cpu/intel
   ];
 
-  boot.kernelParams = [    
+  boot.kernelParams = [
     # For Power consumption
     # https://community.frame.work/t/linux-battery-life-tuning/6665/156
     "nvme.noacpi=1"
-  ] 
+  ]
   # Fixes a regression in s2idle, making it more power efficient than deep sleep
   # Update 04/2024: It appears that s2idle-regression got fixed in newer kernel-versions (SebTM)
   # (see: https://github.com/NixOS/nixos-hardware/pull/903#discussion_r1556096657)
@@ -15,7 +21,9 @@
 
   # Requires at least 5.16 for working wi-fi and bluetooth.
   # https://community.frame.work/t/using-the-ax210-with-linux-on-the-framework-laptop/1844/89
-  boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "5.16") (lib.mkDefault pkgs.linuxPackages_latest);
+  boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "5.16") (
+    lib.mkDefault pkgs.linuxPackages_latest
+  );
 
   # Module is not used for Framework EC but causes boot time error log.
   boot.blacklistedKernelModules = [ "cros-usbpd-charger" ];

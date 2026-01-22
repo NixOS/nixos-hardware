@@ -4,9 +4,9 @@
   imports = [
     ../../../common/cpu/amd
     ../../../common/gpu/nvidia/prime.nix
+    ../../../common/gpu/nvidia/turing
     ../../../common/pc/laptop
-    ../../../common/pc/laptop/acpi_call.nix
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
   ];
 
   # Specify bus id of Nvidia and Intel graphics.

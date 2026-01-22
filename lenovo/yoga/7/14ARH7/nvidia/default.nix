@@ -5,12 +5,14 @@
 let
   inherit (lib) mkDefault;
 
-in {
+in
+{
   imports = [
     ../shared.nix
     ## "prime.nix" loads this, aleady:
     # ../../../../common/gpu/nvidia
     ../../../../../common/gpu/nvidia/prime.nix
+    ../../../../../common/gpu/nvidia/ampere
   ];
 
   # NVIDIA GeForce RTX 3050 Mobile (Ampere)

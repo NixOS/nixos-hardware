@@ -1,10 +1,17 @@
 { lib, ... }:
 {
+  imports = [
+    ./console.nix
+  ];
   boot.initrd.kernelModules = [
     # PCIe/NVMe
     "nvme"
     "pcie_rockchip_host"
     "phy_rockchip_pcie"
+    # Network
+    "dwmac_rk"
+    # HDMI
+    "rockchipdrm"
   ];
   # control the fan on the rockpro64 (like the one in the NAS case)
   hardware.fancontrol = {

@@ -7,8 +7,9 @@
     ../../../../common/cpu/amd/zenpower.nix
     ../../../../common/gpu/amd
     ../../../../common/gpu/nvidia/prime.nix
+    ../../../../common/gpu/nvidia/ampere
     ../../../../common/pc/laptop
-    ../../../../common/pc/laptop/ssd
+    ../../../../common/pc/ssd
     ../edid
   ];
 
@@ -27,6 +28,7 @@
     nvidia = {
       modesetting.enable = lib.mkDefault true;
       powerManagement.enable = lib.mkDefault true;
+      dynamicBoost.enable = lib.mkDefault true;
 
       prime = {
         amdgpuBusId = lib.mkDefault "PCI:5:0:0";

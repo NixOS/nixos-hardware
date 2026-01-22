@@ -3,10 +3,10 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   imports = [
-    ../../common/cpu/intel
-    ../../common/gpu/intel/comet-lake
+    ../../common/cpu/intel/comet-lake
     ../../common/gpu/nvidia
     ../../common/gpu/nvidia/prime.nix
     ../../common/hidpi.nix

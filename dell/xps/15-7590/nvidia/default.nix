@@ -1,15 +1,16 @@
-{lib, ...}:
+{ lib, ... }:
 {
   imports = [
     ../.
     ../../../../common/gpu/nvidia/prime.nix
+    ../../../../common/gpu/nvidia/turing
   ];
 
   hardware.nvidia = {
     powerManagement = {
       # Enable NVIDIA power management.
       enable = lib.mkDefault true;
-      
+
       # Enable dynamic power management.
       finegrained = lib.mkDefault true;
     };

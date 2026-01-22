@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   nixpkgs.overlays = [
     (import ./overlay.nix)
   ];
@@ -8,7 +9,7 @@
   ];
 
   boot.loader.grub.extraFiles = {
-    "imx8mp-evk.dtb" = "${pkgs.callPackage ./bsp/imx8mp-linux.nix {}}/dtbs/freescale/imx8mp-evk.dtb";
+    "imx8mp-evk.dtb" = "${pkgs.callPackage ./bsp/imx8mp-linux.nix { }}/dtbs/freescale/imx8mp-evk.dtb";
   };
 
   hardware.deviceTree = {

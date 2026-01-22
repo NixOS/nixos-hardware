@@ -5,6 +5,7 @@
     ../../../../common/cpu/intel
     ../../../../common/pc/laptop
     ../../../../common/gpu/nvidia/prime.nix
+    ../../../../common/gpu/nvidia/turing
     ../common.nix
   ];
 

@@ -9,6 +9,12 @@ When using more than one drive, the value of `hardware.nvidia.prime.amdgpuBusId`
 
 Make sure you override this default in your personal configuration. For two drives, it should be `PCI:6:0:0`.
 
+## Using and troubleshooting power profiles (hybrid-only)
+
+Power profile support (cycled via Fn + Q) is provided by `nvidia-powerd`.
+Should you encounter issues with the `nvidia-powerd` daemon, 
+override the value of `hardware.nvidia.dynamicBoost.enable` to `false` in your personal configuration (and consider creating an issue if one does not exist).
+
 ## Setup at the time of testing
 ```
 $ nix-info -m

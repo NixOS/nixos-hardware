@@ -6,15 +6,15 @@
 
 let
   inherit (lib) mkDefault;
-in {
+in
+{
   imports = [
     ../common
     ./firmware/ath10k
     ../../../common/pc
     ../../../common/pc/ssd
     # The Intel CPU module auto-includes Intel's GPU:
-    ../../../common/cpu/intel
-    ../../../common/gpu/intel/kaby-lake
+    ../../../common/cpu/intel/kaby-lake
   ];
 
   boot.kernelParams = [

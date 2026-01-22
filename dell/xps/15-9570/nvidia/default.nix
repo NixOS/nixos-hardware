@@ -1,13 +1,10 @@
 { ... }:
-
 {
   imports = [
-    ../../../../common/cpu/intel
     ../../../../common/gpu/nvidia/prime.nix
-    ../../../../common/pc/laptop
-    ../xps-common.nix
+    ../../../../common/gpu/nvidia/pascal
+    ../shared.nix
   ];
-
 
   # This runs only nvidia, great for games or heavy use of render applications
 

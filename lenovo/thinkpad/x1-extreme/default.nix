@@ -2,6 +2,6 @@
   imports = [
     ../.
     ../../../common/cpu/intel
-    ../../../common/pc/laptop/ssd
+    ../../../common/pc/ssd
   ];
 }

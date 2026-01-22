@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ...}:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   hardware.deviceTree.name = lib.mkDefault "starfive/jh7100-starfive-visionfive-v1.dtb";
@@ -7,9 +12,19 @@
 
   boot = {
     # Force no ZFS (from nixos/modules/profiles/base.nix) until updated to kernel 6.0
-    supportedFilesystems = lib.mkForce [ "btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" ];
+    supportedFilesystems = lib.mkForce [
+      "btrfs"
+      "reiserfs"
+      "vfat"
+      "f2fs"
+      "xfs"
+      "ntfs"
+      "cifs"
+    ];
     consoleLogLevel = lib.mkDefault 7;
-    kernelPackages = lib.mkDefault (pkgs.callPackage ./linux.nix { inherit (config.boot) kernelPatches; });
+    kernelPackages = lib.mkDefault (
+      pkgs.callPackage ./linux.nix { inherit (config.boot) kernelPatches; }
+    );
 
     kernelParams = lib.mkDefault [
       "console=tty0"

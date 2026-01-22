@@ -2,8 +2,7 @@
 
 {
   imports = [
-    ../../../common/cpu/intel
-    ../../../common/pc/laptop/acpi_call.nix
+    ../../../common/cpu/intel/kaby-lake
     ../../../common/pc/ssd
     ../.
   ];

@@ -1,6 +1,6 @@
 { stdenv, fetchFromGitHub }:
 
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
   pname = "spi_tool";
   version = "unstable-2023-04-14";
   src = fetchFromGitHub {

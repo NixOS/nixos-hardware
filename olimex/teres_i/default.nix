@@ -1,4 +1,4 @@
-{ lib, pkgs, ...}:
+{ lib, pkgs, ... }:
 
 {
   hardware.deviceTree = {
@@ -10,12 +10,12 @@
     consoleLogLevel = lib.mkDefault 7;
 
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
-    kernelParams = lib.mkDefault ["console=ttyS0,115200n8"];
-    extraModulePackages = lib.mkDefault [];
+    kernelParams = lib.mkDefault [ "console=ttyS0,115200n8" ];
+    extraModulePackages = lib.mkDefault [ ];
 
     initrd = {
-      availableKernelModules = lib.mkDefault ["usbhid"];
-      kernelModules = lib.mkDefault [];
+      availableKernelModules = lib.mkDefault [ "usbhid" ];
+      kernelModules = lib.mkDefault [ ];
     };
 
     loader = {
@@ -24,7 +24,7 @@
     };
   };
 
-  nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
+  nixpkgs.hostPlatform.system = lib.mkDefault "aarch64-linux";
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
 }

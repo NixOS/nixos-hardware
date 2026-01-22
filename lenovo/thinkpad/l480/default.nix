@@ -2,8 +2,8 @@
 {
   imports = [
     ../.
-    ../../../common/gpu/intel/kaby-lake
-    ../../../common/pc/laptop/ssd
+    ../../../common/cpu/intel/kaby-lake
+    ../../../common/pc/ssd
   ];
 
   # available cpufreq governors: performance powersave

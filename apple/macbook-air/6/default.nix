@@ -1,7 +1,9 @@
-{ lib, ... }:
+{ config, lib, ... }:
 
 {
   imports = [ ../. ];
+
+  boot.blacklistedKernelModules = [ "bcma" ];
 
   boot = {
     # Divides power consumption by two.

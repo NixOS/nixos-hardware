@@ -2,7 +2,7 @@
 {
   imports = [
     ../../common/pc/laptop
-    ../../common/pc/laptop/ssd
+    ../../common/pc/ssd
   ];
 
   # Needed to have the keyboard working during the initrd sequence

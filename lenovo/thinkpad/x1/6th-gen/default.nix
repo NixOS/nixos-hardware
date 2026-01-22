@@ -9,8 +9,8 @@
 {
   imports = [
     ../.
-    ../../../../common/pc/laptop/acpi_call.nix
-    ../../../../common/pc/laptop/ssd
+    ../../../../common/cpu/intel/kaby-lake
+    ../../../../common/pc/ssd
   ];
 
   # New ThinkPads have a different TrackPoint manufacturer/name.

@@ -1,12 +1,9 @@
 queue_rules:
   - name: default
     merge_conditions:
-      - check-success=tests (nixos-24.05)
-      - check-success=tests (nixos-unstable)
-defaults:
-  actions:
-    queue:
-      merge_method: rebase
+      - check-success=tests
+    batch_size: 5
+    merge_method: rebase
 pull_request_rules:
   - name: merge using the merge queue
     conditions:

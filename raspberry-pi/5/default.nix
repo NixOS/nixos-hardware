@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   linux_rpi5 = pkgs.linux_rpi4.override {
     rpiVersion = 5;
@@ -11,19 +16,19 @@ in
     initrd.availableKernelModules = [
       "nvme"
       "usbhid"
-      "usb_storage"
+      "usb-storage"
     ];
   };
 
   # Needed for Xorg to start (https://github.com/raspberrypi-ui/gldriver-test/blob/master/usr/lib/systemd/scripts/rp1_test.sh)
   # This won't work for displays connected to the RP1 (DPI/composite/MIPI DSI), since I don't have one to test.
   services.xserver.extraConfig = ''
-  Section "OutputClass"
-    Identifier "vc4"
-    MatchDriver "vc4"
-    Driver "modesetting"
-    Option "PrimaryGPU" "true"
-  EndSection
+    Section "OutputClass"
+      Identifier "vc4"
+      MatchDriver "vc4"
+      Driver "modesetting"
+      Option "PrimaryGPU" "true"
+    EndSection
   '';
 
   assertions = [

@@ -1,15 +1,16 @@
-{ lib, pkgs, ... }:
+{ config, lib, ... }:
 
 {
   imports = [
     ../../common/cpu/intel
     ../../common/gpu/nvidia/prime.nix
+    ../../common/gpu/nvidia/ada-lovelace
     ../../common/pc/laptop
     ../../common/pc/ssd
   ];
 
   # Enables ACPI platform profiles
-  boot = lib.mkIf (lib.versionAtLeast pkgs.linux.version "6.1") {
+  boot = lib.mkIf (lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.1") {
     kernelModules = [ "hp-wmi" ];
   };
 

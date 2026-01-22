@@ -5,9 +5,9 @@
 let
 
   pkgsCross = import <nixpkgs> {
-     crossSystem = {
-       config = "aarch64-unknown-linux-gnu";
-     };
+    crossSystem = {
+      config = "aarch64-unknown-linux-gnu";
+    };
   };
 
   outdir = "out/arm-plat-imx/core";
@@ -17,8 +17,8 @@ let
   cpp = pkgs.buildPackages.gcc;
 
 in
-pkgs.stdenv.mkDerivation rec {
-  
+pkgs.stdenv.mkDerivation {
+
   pname = "imx-optee-os";
   version = "5.15.32_2.0.0";
 
@@ -41,25 +41,25 @@ pkgs.stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace scripts/arm32_sysreg.py \
-      --replace '/usr/bin/env python3' '${python3}/bin/python'
+      --replace-fail '/usr/bin/env python3' '${python3}/bin/python'
     substituteInPlace scripts/gen_tee_bin.py \
-      --replace '/usr/bin/env python3' '${python3}/bin/python'
+      --replace-fail '/usr/bin/env python3' '${python3}/bin/python'
     substituteInPlace scripts/pem_to_pub_c.py \
-      --replace '/usr/bin/env python3' '${python3}/bin/python'
+      --replace-fail '/usr/bin/env python3' '${python3}/bin/python'
     substituteInPlace ta/pkcs11/scripts/verify-helpers.sh \
-      --replace '/bin/bash' '${pkgs.bash}/bin/bash'
+      --replace-fail '/bin/bash' '${pkgs.bash}/bin/bash'
     substituteInPlace mk/gcc.mk \
-      --replace "\$(CROSS_COMPILE_\$(sm))objcopy" ${binutils}/bin/${toolchain.targetPrefix}objcopy
+      --replace-fail "\$(CROSS_COMPILE_\$(sm))objcopy" ${binutils}/bin/${toolchain.targetPrefix}objcopy
     substituteInPlace mk/gcc.mk \
-      --replace "\$(CROSS_COMPILE_\$(sm))objdump" ${binutils}/bin/${toolchain.targetPrefix}objdump
+      --replace-fail "\$(CROSS_COMPILE_\$(sm))objdump" ${binutils}/bin/${toolchain.targetPrefix}objdump
     substituteInPlace mk/gcc.mk \
-      --replace "\$(CROSS_COMPILE_\$(sm))nm" ${binutils}/bin/${toolchain.targetPrefix}nm
+      --replace-fail "\$(CROSS_COMPILE_\$(sm))nm" ${binutils}/bin/${toolchain.targetPrefix}nm
     substituteInPlace mk/gcc.mk \
-      --replace "\$(CROSS_COMPILE_\$(sm))readelf" ${binutils}/bin/${toolchain.targetPrefix}readelf
+      --replace-fail "\$(CROSS_COMPILE_\$(sm))readelf" ${binutils}/bin/${toolchain.targetPrefix}readelf
     substituteInPlace mk/gcc.mk \
-      --replace "\$(CROSS_COMPILE_\$(sm))ar" ${binutils}/bin/${toolchain.targetPrefix}ar
+      --replace-fail "\$(CROSS_COMPILE_\$(sm))ar" ${binutils}/bin/${toolchain.targetPrefix}ar
     substituteInPlace mk/gcc.mk \
-      --replace "\$(CROSS_COMPILE_\$(sm))cpp" ${cpp}/bin/cpp
+      --replace-fail "\$(CROSS_COMPILE_\$(sm))cpp" "${cpp}/bin/${toolchain.targetPrefix}cpp"
   '';
 
   makeFlags = [

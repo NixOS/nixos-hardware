@@ -1,0 +1,20 @@
+= Dell XPS 15 9530 =
+
+== Tested Hardware ==
+
+* CPU: 13th Gen Intel(R) Core(TM) i9-13900H
+* RAM: 32 GB
+* HDD: 1 TiB SSD (NVME)
+* Screen: 15" 4k (3456 x 2160)
+* Graphics: NVIDIA GeForce RTX 4070 Laptop GPU, with Intel Graphics too.
+* Input: Touchscreen and trackpad.
+
+== Notes ==
+
+== NVIDIA Offload ==
+
+In order to run a program on the NVIDIA gpu, you can use the `nvidia-offload` function, for example:
+```
+nvidia-offload `nix-shell -p glxinfo --run 'glxgears'`
+```
+This is a short bash script that sets the proper environment variables and calls your command.

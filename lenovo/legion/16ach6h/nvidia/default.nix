@@ -12,7 +12,8 @@
   # of nix cannot implement such an operation as canceling an import.
   hardware = {
     nvidia.prime.offload.enable = false;
-  } // lib.optionalAttrs (options ? amdgpu.opencl.enable) {
+  }
+  // lib.optionalAttrs (options ? amdgpu.opencl.enable) {
     # introduced in https://github.com/NixOS/nixpkgs/pull/319865
     amdgpu.opencl.enable = lib.mkDefault false;
   };
