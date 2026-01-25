@@ -4,15 +4,15 @@
   config,
   ...
 }:
-let
-  linux_rpi5 = pkgs.linux_rpi4.override {
-    rpiVersion = 5;
-    argsOverride.defconfig = "bcm2712_defconfig";
-  };
-in
 {
   boot = {
-    kernelPackages = lib.mkDefault (pkgs.linuxPackagesFor linux_rpi5);
+    kernelPackages = lib.mkDefault (
+      pkgs.linuxPackagesFor (
+        pkgs.callPackage ../common/kernel.nix {
+          rpiVersion = 5;
+        }
+      )
+    );
     initrd.availableKernelModules = [
       "nvme"
       "usbhid"
