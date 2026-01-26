@@ -2,11 +2,11 @@
 
 {
   imports = [
-    ../../../common/pc/ssd
-    ../../../common/cpu/intel/comet-lake
-    ../../../common/gpu/nvidia/prime.nix
-    ../../../common/gpu/nvidia/turing
-    ../../../common/pc/laptop
+    ../../common/pc/ssd
+    ../../common/cpu/intel/comet-lake
+    ../../common/gpu/nvidia/prime.nix
+    ../../common/gpu/nvidia/turing
+    ../../common/pc/laptop
   ];
 
   hardware.bluetooth.enable = lib.mkDefault true;
@@ -22,4 +22,6 @@
       nvidiaBusId = lib.mkDefault "PCI:1:0:0";
     };
   };
+
+  boot.blacklistedKernelModules = [ "ucsi_ccg" ]; # The laptop lacks USB-C display hardware, but the kernel attempts to initialize it anyway, causing a boot delay.
 }
