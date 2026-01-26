@@ -143,6 +143,7 @@ See code for all available configurations.
 | [Dell G3 3779](dell/g3/3779)                                                      | `<nixos-hardware/dell/g3/3779>`                         | `dell-g3-3779`                         |
 | [Dell G3 3579](dell/g3/3579)                                                      | `<nixos-hardware/dell/g3/3579>`                         | `dell-g3-3579`                         |
 | [Dell Inspiron 3442](dell/inspiron/3442)                                          | `<nixos-hardware/dell/inspiron/3442>`                   | `dell-inspiron-3442`                   |
+| [Dell Inspiron 14 5410](dell/inspiron/14-5410)                                    | `<nixos-hardware/dell/inspiron/14-5410>`                | `dell-inspiron-14-5410`                |
 | [Dell Inspiron 14 5420](dell/inspiron/14-5420)                                    | `<nixos-hardware/dell/inspiron/14-5420>`                | `dell-inspiron-14-5420`                |
 | [Dell Inspiron 5509](dell/inspiron/5509)                                          | `<nixos-hardware/dell/inspiron/5509>`                   | `dell-inspiron-5509`                   |
 | [Dell Inspiron 5515](dell/inspiron/5515)                                          | `<nixos-hardware/dell/inspiron/5515>`                   | `dell-inspiron-5515`                   |
