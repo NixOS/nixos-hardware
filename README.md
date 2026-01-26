@@ -400,6 +400,7 @@ See code for all available configurations.
 | [Hardkernel Odroid HC4](hardkernel/odroid-hc4/default.nix)                        | `<nixos-hardware/hardkernel/odroid-hc4>`                | `hardkernel-odroid-hc4`                |
 | [Hardkernel Odroid H3](hardkernel/odroid-h3/default.nix)                          | `<nixos-hardware/hardkernel/odroid-h3>`                 | `hardkernel-odroid-h3`                 |
 | [Hardkernel Odroid H4](hardkernel/odroid-h4/default.nix)                          | `<nixos-hardware/hardkernel/odroid-h4>`                 | `hardkernel-odroid-h4`                 |
+| [Hardkernel Odroid M1](hardkernel/odroid-m1/default.nix)                          | `<nixos-hardware/hardkernel/odroid-m1>`                 | `hardkernel-odroid-m1`                 |
 | [Olimex TERES-I](olimex/teres_i)                                                  | `<nixos-hardware/olimex/teres_i>`                       | `olimex-teres_i`                       |
 | [Omen 14-fb0798ng](omen/14-fb0798ng)                                              | `<nixos-hardware/omen/14-fb0798ng>`                     | `omen-14-fb0798ng`                     |
 | [Omen 15-ce002ns](omen/15-ce002ns)                                                | `<nixos-hardware/omen/15-ce002ns>`                      | `omen-15-ce002ns`                      |
