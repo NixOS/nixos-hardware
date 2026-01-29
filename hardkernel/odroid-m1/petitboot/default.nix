@@ -57,14 +57,21 @@ in
           Maximum number of configurations to display when booting.
         '';
       };
+
+      populateCmd = lib.mkOption {
+        type = lib.types.str;
+        readOnly = true;
+        description = ''
+          Contains the script used to populate petitboot when building an image.
+          Primarily used for sdImage.populateRootCommands.
+        '';
+      };
     };
   };
 
-  config = lib.mkIf config.boot.loader.petitboot.enable {
+  config = lib.mkIf cfg.enable {
     system.build.installBootLoader = lib.mkForce "${installer} ${args} -c";
     system.boot.loader.id = "petitboot";
-    sdImage.populateRootCommands = lib.mkForce ''
-      ${sdImageInstaller} ${args} -c ${config.system.build.toplevel} -d ./files/kboot.conf
-    '';
+    cfg.populateCmd = "${sdImageInstaller} ${args}";
   };
 }
