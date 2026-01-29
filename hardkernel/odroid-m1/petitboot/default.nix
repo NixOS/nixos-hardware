@@ -66,7 +66,7 @@ in
       system.boot.loader.id = "petitboot";
     })
 
-    (lib.mkIf config.boot.loader.petitboot.enable && options ? sdImage {
+    (lib.mkIf (config.boot.loader.petitboot.enable && options ? sdImage) {
       sdImage.populateRootCommands = lib.mkForce ''
         ${sdImageInstaller} ${args} -c ${config.system.build.toplevel} -d ./files/kboot.conf
       ''
