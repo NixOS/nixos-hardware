@@ -72,6 +72,6 @@ in
   config = lib.mkIf cfg.enable {
     system.build.installBootLoader = lib.mkForce "${installer} ${args} -c";
     system.boot.loader.id = "petitboot";
-    cfg.populateCmd = "${sdImageInstaller} ${args}";
+    boot.loader.petitboot.populateCmd = "${sdImageInstaller} ${args}";
   };
 }
