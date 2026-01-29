@@ -16,7 +16,16 @@
   boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "6.6") (lib.mkDefault pkgs.linuxPackages_latest);
 
   # TODO: Debug why removing this breaks booting from petitboot
-  boot.supportedFilesystems = lib.mkForce ["btrfs" "cifs" "f2fs" "jfs" "ntfs" "reiserfs" "vfat" "xfs"];
+  boot.supportedFilesystems = lib.mkForce [
+    "btrfs"
+    "cifs"
+    "f2fs"
+    "jfs"
+    "ntfs"
+    "reiserfs"
+    "vfat"
+    "xfs"
+  ];
 
   # TODO: Some of these could potentially be omitted, check which ones are
   #       actually necessary for disk access to function
@@ -31,6 +40,6 @@
   # Petitboot uses this port and baud rate on the board's serial port. It's
   # probably good to keep the options same for the running kernel for serial
   # console access to work well.
-  boot.kernelParams = ["console=ttyS2,1500000"];
+  boot.kernelParams = [ "console=ttyS2,1500000" ];
   hardware.deviceTree.name = "rockchip/rk3568-odroid-m1.dtb";
 }
