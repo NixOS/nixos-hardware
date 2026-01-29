@@ -13,19 +13,19 @@
   # TODO: Can this be removed? Presumably anything built with 25.11 / unstable
   #       or later will be on a kernel >6.6
   # Use kernel >6.6 The devicetree is missing from kernel versions older than this.
-  boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "6.6") (lib.mkDefault pkgs.linuxPackages_latest);
+  # boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "6.6") (lib.mkDefault pkgs.linuxPackages_latest);
 
   # TODO: Debug why removing this breaks booting from petitboot
-  boot.supportedFilesystems = lib.mkForce [
-    "btrfs"
-    "cifs"
-    "f2fs"
-    "jfs"
-    "ntfs"
-    "reiserfs"
-    "vfat"
-    "xfs"
-  ];
+  # boot.supportedFilesystems = lib.mkForce [
+  #   "btrfs"
+  #   "cifs"
+  #   "f2fs"
+  #   "jfs"
+  #   "ntfs"
+  #   "reiserfs"
+  #   "vfat"
+  #   "xfs"
+  # ];
 
   # TODO: Some of these could potentially be omitted, check which ones are
   #       actually necessary for disk access to function
