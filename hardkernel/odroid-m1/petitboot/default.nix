@@ -60,16 +60,11 @@ in
     };
   };
 
-  config = lib.mkMerge[
-    (lib.mkIf config.boot.loader.petitboot.enable {
-      system.build.installBootLoader = lib.mkForce "${installer} ${args} -c";
-      system.boot.loader.id = "petitboot";
-    })
-
-    (lib.mkIf (config.boot.loader.petitboot.enable && options ? sdImage) {
-      sdImage.populateRootCommands = lib.mkForce ''
-        ${sdImageInstaller} ${args} -c ${config.system.build.toplevel} -d ./files/kboot.conf
-      '';
-    })
-  ];
+  config = lib.mkIf config.boot.loader.petitboot.enable {
+    system.build.installBootLoader = lib.mkForce "${installer} ${args} -c";
+    system.boot.loader.id = "petitboot";
+    sdImage.populateRootCommands = lib.mkForce ''
+      ${sdImageInstaller} ${args} -c ${config.system.build.toplevel} -d ./files/kboot.conf
+    '';
+  };
 }
