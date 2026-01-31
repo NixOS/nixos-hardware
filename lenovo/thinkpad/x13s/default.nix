@@ -12,7 +12,7 @@ let
   dtb = "${kernel}/dtbs/qcom/${dtbName}";
   # Version the dtb based on the kernel
   dtbEfiPath = "dtbs/x13s-${kernel.version}.dtb";
-  
+
   cfg = config.hardware.lenovo.x13s;
 
   inherit (lib) mkDefault;
@@ -87,15 +87,46 @@ in
 
     hardware.enableRedistributableFirmware = mkDefault true;
 
-    systemd.services.bluetooth-x13s-mac = lib.mkIf (cfg.bluetoothMac != null) {
+    # https://github.com/jhovold/linux/wiki/X13s#bluetooth
+    systemd.services.bluetooth-x13s-mac = {
       wantedBy = [ "multi-user.target" ];
       before = [ "bluetooth.service" ];
       requiredBy = [ "bluetooth.service" ];
 
+      script = ''
+        BLUETOOTH_MAC="${if cfg.bluetoothMac == null then "" else cfg.bluetoothMac}"
+
+        if [ "$BLUETOOTH_MAC" = "" ] ; then
+          # we might be able to use the system serial number but, if we lost machine-id
+          # the system has probably lost the bluetooth device keys anyway
+          RANDOM=$(( $(cat /etc/machine-id | head -c 128 | sed -e 's/[^0-9]//g') % 32767 ))
+
+          # https://datatracker.ietf.org/doc/html/rfc7042#section-2.1
+          # > Two bits within the initial octet of an EUI-48 have special
+          # > significance in MAC addresses: the Group bit (01) and the Local bit
+          # > (02).  OUIs and longer MAC prefixes are assigned with the Local bit
+          # > zero and the Group bit unspecified.  Multicast identifiers may be
+          # > constructed by turning on the Group bit, and unicast identifiers may
+          # > be constructed by leaving the Group bit zero.
+          #
+          # First, and only argument is for passing a file to seed RANDOM.
+          # recommend using `/etc/machine-id` to pin the mac address if needed.
+          
+          BLUETOOTH_MAC="$(printf '%X%X:%02X:%02X:%02X:%02X:%02X' \
+            $[RANDOM%16] $[((RANDOM%4)+1)*4-2] \
+            $[RANDOM%256] \
+            $[RANDOM%256] \
+            $[RANDOM%256] \
+            $[RANDOM%256] \
+            $[RANDOM%256])"
+        fi
+
+        ${pkgs.bluez}/bin/btmgmt --index 0 public-addr $BLUETOOTH_MAC
+      '';
+
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        ExecStart = "${pkgs.util-linux}/bin/script -q -c '${pkgs.bluez}/bin/btmgmt --index 0 public-addr ${cfg.bluetoothMac}'";
       };
     };
 
