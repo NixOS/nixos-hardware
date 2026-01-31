@@ -6,12 +6,7 @@
 }:
 
 let
-  inherit (config.boot.kernelPackages) kernel;
-
-  dtbName = "sc8280xp-lenovo-thinkpad-x13s.dtb";
-  dtb = "${kernel}/dtbs/qcom/${dtbName}";
-  # Version the dtb based on the kernel
-  dtbEfiPath = "dtbs/x13s-${kernel.version}.dtb";
+  deviceTree = config.hardware.deviceTree;
 
   cfg = config.hardware.lenovo.x13s;
 
@@ -48,12 +43,12 @@ in
   config = {
     boot = {
       loader.systemd-boot.extraFiles = {
-        "${dtbEfiPath}" = dtb;
+        "dtbs/${deviceTree.kernelPackage.version}" = "${deviceTree.package}";
       };
 
       kernelParams = mkDefault [
         # needed to boot
-        "dtb=${dtbEfiPath}"
+        "dtb=dtbs/${deviceTree.kernelPackage.version}/${deviceTree.name}"
 
         # jhovold recommended
         "clk_ignore_unused"
@@ -85,7 +80,14 @@ in
       ];
     };
 
-    hardware.enableRedistributableFirmware = mkDefault true;
+    hardware = {
+      enableRedistributableFirmware = mkDefault true;
+      deviceTree = {
+        enable = true;
+        filter = lib.mkDefault "sc8280xp-lenovo-thinkpad-x13s*.dtb";
+        name = lib.mkDefault "qcom/sc8280xp-lenovo-thinkpad-x13s.dtb";
+      };
+    };
 
     # https://github.com/jhovold/linux/wiki/X13s#bluetooth
     systemd.services.bluetooth-x13s-mac = {
