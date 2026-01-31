@@ -1,5 +1,5 @@
 {
-  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/5eaf1261d069bbc67aba7fe2737a5fe981e05a9e/",
+  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/1f514a15e2b20ce2e1f99018493c71de9784fcf0/",
   "patches": [
     {
       "name": "1001-Add-apple-bce-driver.patch",
@@ -127,7 +127,7 @@
     },
     {
       "name": "8001-Add-APFS-driver.patch",
-      "hash": "sha256-QpIPsMjWNPOkw6rSKn7rW0Fmx9HUwJaiGy3pZeT5Fd0="
+      "hash": "sha256-rTdmORTT2oeBTh6R8LbXimgiaA7X6AgQO+lUuN5hJYI="
     },
     {
       "name": "8002-Necessary-modifications-to-build-APFS-with-the-kerne.patch",
