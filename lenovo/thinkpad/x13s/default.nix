@@ -18,7 +18,7 @@ in
 
   options.hardware.lenovo.x13s = {
     wifiMac = lib.mkOption {
-      type = lib.types.nullOr lib.types.strMatching "([0-9a-f]{2}(:[0-9a-f]{2}){5})";
+      type = lib.types.nullOr (lib.types.strMatching "([0-9a-f]{2}(:[0-9a-f]{2}){5})");
       description = ''
         WiFi MAC address to set on boot. When not set a random mac
         address is assigned. Expects lowercase.
@@ -27,14 +27,14 @@ in
     };
 
     bluetoothMac = lib.mkOption {
-      type = lib.types.nullOr lib.types.strMatching "([0-9A-F]{2}(:[0-9A-F]{2}){5})";
+      type = lib.types.nullOr (lib.types.strMatching "([0-9A-F]{2}(:[0-9A-F]{2}){5})");
       description = ''
         Bluetooth MAC address to set on boot. If null, the mac is
         generated using /etc/machine-id to seed the random generator.
         When not set, bluetooth.service fails to start. Expects
         upper case.
       '';
-      default = "";
+      default = null;
     };
   };
 
@@ -60,9 +60,10 @@ in
           BLUETOOTH_MAC="${if cfg.bluetoothMac == null then "" else cfg.bluetoothMac}"
 
           if [ "$BLUETOOTH_MAC" = "" ] ; then
+            echo 'generating bluetooth mac'
             # we might be able to use the system serial number but, if we lost machine-id
             # the system has probably lost the bluetooth device keys anyway
-            RANDOM=$(( $(cat /etc/machine-id | head -c 128 | sed -e 's/[^0-9]//g') % 32767 ))
+            SEED=$(( $(cat /etc/machine-id | head -c 128 | sed -e 's/[^0-9]//g;s/^0*//') ))
 
             # https://datatracker.ietf.org/doc/html/rfc7042#section-2.1
             # > Two bits within the initial octet of an EUI-48 have special
@@ -75,7 +76,7 @@ in
             # First, and only argument is for passing a file to seed RANDOM.
             # recommend using `/etc/machine-id` to pin the mac address if needed.
             
-            BLUETOOTH_MAC="$(printf '%X%X:%02X:%02X:%02X:%02X:%02X' \
+            BLUETOOTH_MAC="$(RANDOM=$SEED ; printf '%X%X:%02X:%02X:%02X:%02X:%02X' \
               $[RANDOM%16] $[((RANDOM%4)+1)*4-2] \
               $[RANDOM%256] \
               $[RANDOM%256] \
@@ -84,6 +85,7 @@ in
               $[RANDOM%256])"
           fi
 
+          echo "assigning mac: $BLUETOOTH_MAC"
           ${pkgs.bluez}/bin/btmgmt --index 0 public-addr $BLUETOOTH_MAC
         '';
 
