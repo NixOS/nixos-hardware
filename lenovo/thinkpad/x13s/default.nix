@@ -49,7 +49,7 @@ in
     })
 
     # Bluetooth
-    {
+    (lib.mkIf (config.hardware.bluetooth.enable) {
       # https://github.com/jhovold/linux/wiki/X13s#bluetooth
       systemd.services.bluetooth-x13s-mac = {
         wantedBy = [ "multi-user.target" ];
@@ -86,7 +86,7 @@ in
           fi
 
           echo "assigning mac: $BLUETOOTH_MAC"
-          ${pkgs.bluez}/bin/btmgmt --index 0 public-addr $BLUETOOTH_MAC
+          yes | ${pkgs.bluez}/bin/btmgmt --index 0 public-addr $BLUETOOTH_MAC
         '';
 
         serviceConfig = {
@@ -94,10 +94,10 @@ in
           RemainAfterExit = true;
         };
       };
-    }
+    })
 
     # Modem
-    {
+    (lib.mkIf (config.networking.modemmanager.enable) {
       # https://github.com/jhovold/linux/wiki/X13s#modem
       networking.modemmanager.fccUnlockScripts = [
         {
@@ -105,7 +105,7 @@ in
           path = "${pkgs.modemmanager}/share/ModemManager/fcc-unlock.available.d/105b";
         }
       ];
-    }
+    })
 
     # Camera
     {
