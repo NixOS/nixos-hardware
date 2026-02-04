@@ -392,6 +392,9 @@ See code for all available configurations.
 | [Microsoft Surface Pro 9](microsoft/surface-pro/9)                                | `<nixos-hardware/microsoft/surface-pro/9>`              | `microsoft-surface-pro-9`              |
 | [Milk-V Pioneer](milkv/pioneer)                                                   | `<nixos-hardware/milkv/pioneer>`                        | `milkv-pioneer`                        |
 | [Morefine M600](morefine/m600)                                                    | `<nixos-hardware/morefine/m600>`                        | `morefine-m600`                        |
+| [Minisforum UM690](minisforum/um690)                                              | `<nixos-hardware/minisforum/um690>`                     | `minisforum-um690`                     |
+| [Minisforum UM690S](minisforum/um690s)                                            | `<nixos-hardware/minisforum/um690s>`                    | `minisforum-um690s`                    |
+| [Minisforum UM790 Pro](minisforum/um790-pro)                                      | `<nixos-hardware/minisforum/um790-pro>`                 | `minisforum-um790-pro`                 |
 | [Minisforum V3](minisforum/v3)                                                    | `<nixos-hardware/minisforum/v3>`                        | `minisforum-v3`                        |
 | [MNT Reform with RK3588 module](mnt/reform/rk3588)                                | `<nixos-hardware/mnt/reform/rk3588`                     | `mnt-reform-rk3588`                    |
 | [MECHREVO Yilong15Pro](mechrevo/GM5HG0A)                                          | `<nixos-hardware/mechrevo/GM5HG0A>`                     | `mechrevo-gm5hg0a`                     |
