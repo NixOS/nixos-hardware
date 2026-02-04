@@ -7,6 +7,7 @@
 
 let
   deviceTree = config.hardware.deviceTree;
+  modemmanager = config.networking.modemmanager;
 
   cfg = config.hardware.lenovo.x13s;
 in
@@ -43,9 +44,12 @@ in
     # WiFi
     (lib.mkIf (cfg.wifiMac != null) {
       # https://github.com/jhovold/linux/wiki/X13s#wi-fi
-      services.udev.extraRules = ''
-        ACTION=="add", SUBSYSTEM=="net", KERNELS=="0006:01:00.0", RUN+="${pkgs.iproute2}/bin/ip link set dev $name address ${cfg.wifiMac}"
-      '';
+      services.udev.extraRules = builtins.concatStringsSep ", " [
+        ''ACTION=="add"''
+        ''SUBSYSTEM=="net"''
+        ''KERNELS=="0006:01:00.0"''
+        ''RUN+="${pkgs.iproute2}/bin/ip link set dev $name address ${cfg.wifiMac}"''
+      ];
     })
 
     # Bluetooth
@@ -86,7 +90,7 @@ in
           fi
 
           echo "assigning mac: $BLUETOOTH_MAC"
-          yes | ${pkgs.bluez}/bin/btmgmt --index 0 public-addr $BLUETOOTH_MAC
+          yes | ${config.hardware.bluetooth.package}/bin/btmgmt --index 0 public-addr $BLUETOOTH_MAC
         '';
 
         serviceConfig = {
@@ -97,12 +101,12 @@ in
     })
 
     # Modem
-    (lib.mkIf (config.networking.modemmanager.enable) {
+    (lib.mkIf (modemmanager.enable) {
       # https://github.com/jhovold/linux/wiki/X13s#modem
       networking.modemmanager.fccUnlockScripts = [
         {
           id = "105b:e0c3";
-          path = "${pkgs.modemmanager}/share/ModemManager/fcc-unlock.available.d/105b";
+          path = "${modemmanager.package}/share/ModemManager/fcc-unlock.available.d/105b";
         }
       ];
     })
