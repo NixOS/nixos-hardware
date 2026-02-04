@@ -136,7 +136,7 @@ in
           # "efi=noruntime"
         ];
 
-        kernelModules = [
+        initrd.kernelModules = [
           "nvme"
           "phy-qcom-qmp-pcie"
           # "pcie-qcom" # this is no longer a module
