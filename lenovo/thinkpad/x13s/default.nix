@@ -59,6 +59,8 @@ in
         wantedBy = [ "multi-user.target" ];
         before = [ "bluetooth.service" ];
         requiredBy = [ "bluetooth.service" ];
+        stopIfChanged = false;
+        restartIfChanged = false;
 
         script = ''
           BLUETOOTH_MAC="${if cfg.bluetoothMac == null then "" else cfg.bluetoothMac}"
