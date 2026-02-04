@@ -187,21 +187,18 @@ in
     )
 
     # grub does not handle device tree yet
-    # (lib.mkIf (config.boot.loader.grub.enable) {
-    #   warnings = [
-    #     "x13s grub configuration has not been tested"
-    #   ];
-    #   boot = {
-    #     loader.grub = {
-    #       extraConfig = ''
-    #         devicetree /dtbs/${config.hardware.deviceTree.kernelPackage.version}/${config.hardware.deviceTree.name}
-    #       '';
-    #       extraFiles = {
-    #         "dtbs/${config.hardware.deviceTree.kernelPackage.version}" = "${config.hardware.deviceTree.package}";
-    #       };
-    #     };
-    #   };
-    # })
+    (lib.mkIf (config.boot.loader.grub.enable) {
+      boot = {
+        loader.grub = {
+          extraConfig = ''
+            devicetree dtbs/${deviceTree.kernelPackage.version}/${deviceTree.name}
+          '';
+          extraFiles = {
+            "dtbs/${deviceTree.kernelPackage.version}" = "${deviceTree.package}";
+          };
+        };
+      };
+    })
 
   ]);
 }
