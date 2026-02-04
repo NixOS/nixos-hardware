@@ -89,6 +89,11 @@ in
               $[RANDOM%256])"
           fi
 
+          while ! [ -d /sys/class/bluetooth ] ; do
+            echo "waiting for bluetooth"
+            sleep 5
+          done
+
           echo "assigning mac: $BLUETOOTH_MAC"
           yes | ${config.hardware.bluetooth.package}/bin/btmgmt --index 0 public-addr $BLUETOOTH_MAC
         '';
@@ -96,6 +101,12 @@ in
         serviceConfig = {
           Type = "oneshot";
           RemainAfterExit = true;
+        };
+      };
+
+      systemd.services.bluetooth = {
+        unitConfig = {
+          ConditionPathIsDirectory = "";
         };
       };
     })
