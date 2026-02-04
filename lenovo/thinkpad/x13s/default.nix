@@ -201,14 +201,18 @@ in
 
     # grub does not handle device tree yet
     (lib.mkIf (config.boot.loader.grub.enable) {
+      warnings = lib.optional (!config.boot.loader.grub.efiSupport) "grub.efiSupport is required for Lenovo Thinkpad x13s";
       boot = {
         loader.grub = {
-          extraConfig = ''
+          extraPerEntryConfig = ''
             devicetree dtbs/${deviceTree.kernelPackage.version}/${deviceTree.name}
           '';
-          extraFiles = {
-            "dtbs/${deviceTree.kernelPackage.version}" = "${deviceTree.package}";
-          };
+          extraFiles = let
+            deviceTrees = lib.map (lib.removePrefix "${deviceTree.package}/") (lib.filesystem.listFilesRecursive "${deviceTree.package}");
+          in lib.listToAttrs (lib.map (dt: {
+              name = builtins.unsafeDiscardStringContext "dtbs/${deviceTree.kernelPackage.version}/${dt}";
+              value = "${deviceTree.package}/${dt}";
+            }) deviceTrees);
         };
       };
     })
