@@ -91,10 +91,13 @@ in
               $[RANDOM%256])"
           fi
 
+          # bluetooth module can be slow to get ready
+          # would like to find a better way to handle this.
           while ! [ -d /sys/class/bluetooth ] ; do
-            echo "waiting for bluetooth"
             sleep 5
+            echo "waiting for bluetooth"
           done
+          sleep 5
 
           echo "assigning mac: $BLUETOOTH_MAC"
           yes | ${config.hardware.bluetooth.package}/bin/btmgmt --index 0 public-addr $BLUETOOTH_MAC
