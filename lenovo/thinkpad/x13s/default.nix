@@ -204,18 +204,28 @@ in
 
     # grub does not handle device tree yet
     (lib.mkIf (config.boot.loader.grub.enable) {
-      warnings = lib.optional (!config.boot.loader.grub.efiSupport) "grub.efiSupport is required for Lenovo Thinkpad x13s";
+      warnings = lib.optional (
+        !config.boot.loader.grub.efiSupport
+      ) "grub.efiSupport is required for Lenovo Thinkpad x13s";
       boot = {
         loader.grub = {
           extraPerEntryConfig = ''
             devicetree dtbs/${deviceTree.kernelPackage.version}/${deviceTree.name}
           '';
-          extraFiles = let
-            deviceTrees = lib.map (lib.removePrefix "${deviceTree.package}/") (lib.filesystem.listFilesRecursive "${deviceTree.package}");
-          in lib.listToAttrs (lib.map (dt: {
-              name = builtins.unsafeDiscardStringContext "dtbs/${deviceTree.kernelPackage.version}/${dt}";
-              value = "${deviceTree.package}/${dt}";
-            }) deviceTrees);
+          extraFiles =
+            let
+              deviceTrees = lib.map (lib.removePrefix "${deviceTree.package}/") (
+                lib.filesystem.listFilesRecursive "${deviceTree.package}"
+              );
+            in
+            lib.listToAttrs (
+              lib.map (dt: {
+                # It's alright to throw away the context here. We still have context through the value
+                # and the context is not needed to generate paths based on filenames in the device tree
+                name = builtins.unsafeDiscardStringContext "dtbs/${deviceTree.kernelPackage.version}/${dt}";
+                value = "${deviceTree.package}/${dt}";
+              }) deviceTrees
+            );
         };
       };
     })
