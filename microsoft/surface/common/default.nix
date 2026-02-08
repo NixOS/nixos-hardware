@@ -19,7 +19,7 @@ let
     if kernelVersion == "longterm" then
       "6.12.19"
     else if kernelVersion == "stable" then
-      "6.15.9"
+      "6.18.8"
     else
       abort "Invalid kernel version: ${kernelVersion}";
 
@@ -28,7 +28,7 @@ let
     if kernelVersion == "longterm" then
       "sha256-1zvwV77ARDSxadG2FkGTb30Ml865I6KB8y413U3MZTE="
     else if kernelVersion == "stable" then
-      "sha256-6U86+FSSMC96gZRBRY+AvKCtmRLlpMg8aZ/zxjxSlX0="
+      "sha256-N/DF1cJCwdYE6H1I8IeV6GGlqF9yW0yhHQpTjxL/jP8="
     else
       abort "Invalid kernel version: ${kernelVersion}";
 
@@ -36,8 +36,8 @@ let
   linux-surface = pkgs.fetchFromGitHub {
     owner = "linux-surface";
     repo = "linux-surface";
-    rev = "50d0ed6be462a5fdb643cfe8469bf69158afae42";
-    hash = "sha256-VEoZH3dFsLn9GnUyjnbOoJeTRM3KEQ9fhlMk03NXoXs=";
+    rev = "faedd344762f9db3fe3c79e4f085d4ca7891e0c8"; # debian-6.18.8-1
+    hash = "sha256-2t5tMvne8W1q/hCO+O5XfuHj6DAzO6iKtCC6egXsWWM=";
   };
 
   # Fetch and build the kernel
@@ -48,7 +48,7 @@ let
   kernelPatches = surfacePatches {
     version = srcVersion;
     patchFn = ./kernel/${versions.majorMinor srcVersion}/patches.nix;
-    patchSrc = (linux-surface + "/patches/${versions.majorMinor srcVersion}");
+    patchSrc = linux-surface + "/patches/${versions.majorMinor srcVersion}";
   };
   kernelPackages = linuxPackage {
     inherit kernelPatches;
