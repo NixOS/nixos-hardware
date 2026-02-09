@@ -21,7 +21,8 @@ in
   
   # Enable fingerprint reader
   services.fprintd = {
-    enable = true;
+    enable = lib.mkDefault true;
+    # Fingerprint sensor will not work without these settings
     tod.enable = true;
     tod.driver = pkgs.libfprint-2-tod1-goodix;
   };
