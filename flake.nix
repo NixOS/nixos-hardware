@@ -1,8 +1,10 @@
 {
   description = "nixos-hardware";
 
+  inputs.nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
+
   outputs =
-    { self, ... }:
+    { self, nixpkgs, ... }:
     let
       # Import private inputs (for development)
       privateInputs =
@@ -23,19 +25,18 @@
       ];
 
       # Helper to iterate over systems
-      eachSystem =
-        f:
-        privateInputs.nixos-unstable-small.lib.genAttrs systems (
-          system: f privateInputs.nixos-unstable-small.legacyPackages.${system} system
-        );
+      eachSystem = f: nixpkgs.lib.genAttrs systems (system: f nixpkgs.legacyPackages.${system} system);
 
       eachSystemFormat =
-        f:
-        privateInputs.nixos-unstable-small.lib.genAttrs formatSystems (
-          system: f privateInputs.nixos-unstable-small.legacyPackages.${system} system
-        );
+        f: nixpkgs.lib.genAttrs formatSystems (system: f nixpkgs.legacyPackages.${system} system);
     in
     {
+      lib = {
+        mnt-reform-patches = import ./mnt/reform/updateKernelPatches.nix {
+          inherit (nixpkgs) lib;
+          inherit (nixpkgs.legacyPackages.aarch64-linux) fetchFromGitLab;
+        };
+      };
 
       nixosModules =
         let
@@ -483,6 +484,8 @@
           imx93-boot = (pkgs.callPackage ./nxp/imx93-evk/bsp/imx93-boot.nix { }).imx93-boot;
           imx8mp-boot = (pkgs.callPackage ./nxp/imx8mp-evk/bsp/imx8mp-boot.nix { }).imx8m-boot;
           imx8mq-boot = (pkgs.callPackage ./nxp/imx8mq-evk/bsp/imx8mq-boot.nix { }).imx8m-boot;
+
+          purism-librem-5r4-uboot = pkgs.callPackage ./purism/librem/5r4/u-boot/build.nix { };
         }
       );
 

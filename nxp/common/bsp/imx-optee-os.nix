@@ -4,16 +4,12 @@
 
 let
 
-  pkgsCross = import <nixpkgs> {
-    crossSystem = {
-      config = "aarch64-unknown-linux-gnu";
-    };
-  };
+  pkgsCross = pkgs.pkgsCross.aarch64-multiplatform;
 
   outdir = "out/arm-plat-imx/core";
   python3 = pkgs.buildPackages.python3;
-  toolchain = pkgsCross.gcc9Stdenv.cc;
-  binutils = pkgsCross.gcc9Stdenv.cc.bintools.bintools_bin;
+  toolchain = pkgsCross.stdenv.cc;
+  binutils = pkgsCross.stdenv.cc.bintools.bintools_bin;
   cpp = pkgs.buildPackages.gcc;
 
 in
