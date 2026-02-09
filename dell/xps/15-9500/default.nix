@@ -18,7 +18,7 @@ in
   # Thermald doesn't have a default config for the 9500 yet, the one in this repo
   # was generated with dptfxtract-static (https://github.com/intel/dptfxtract)
   services.thermald.configFile = lib.mkDefault thermald-conf;
-  
+
   # Enable fingerprint reader
   services.fprintd = {
     enable = lib.mkDefault true;
