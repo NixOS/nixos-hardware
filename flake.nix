@@ -381,6 +381,7 @@
           omen-16-n0280nd = import ./omen/16-n0280nd;
           omen-15-en1007sa = import ./omen/15-en1007sa;
           omen-15-en0002np = import ./omen/15-en0002np;
+          omen-15-ek1013dx = import ./omen/15-ek1013dx;
           onenetbook-4 = import ./onenetbook/4;
           olimex-teres_i = import ./olimex/teres_i;
           pcengines-apu = import ./pcengines/apu;
