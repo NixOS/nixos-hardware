@@ -19,8 +19,8 @@ let
 
   supportedKernels = {
     "longterm" = {
-      version = "6.12.19";
-      hash = "sha256-1zvwV77ARDSxadG2FkGTb30Ml865I6KB8y413U3MZTE=";
+      version = "6.18.8";
+      hash = "sha256-N/DF1cJCwdYE6H1I8IeV6GGlqF9yW0yhHQpTjxL/jP8=";
     };
     "stable" = {
       version = "6.18.8";
