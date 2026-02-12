@@ -17,16 +17,18 @@ let
     versions
     ;
 
-  supportedKernels = {
-    "longterm" = {
-      version = "6.12.19";
-      hash = "sha256-1zvwV77ARDSxadG2FkGTb30Ml865I6KB8y413U3MZTE=";
+  supportedKernels =
+    let
+      lts-kernel = {
+        version = "6.18.8";
+        hash = "sha256-N/DF1cJCwdYE6H1I8IeV6GGlqF9yW0yhHQpTjxL/jP8=";
+      };
+
+    in
+    {
+      "longterm" = lts-kernel;
+      "stable" = lts-kernel;
     };
-    "stable" = {
-      version = "6.18.8";
-      hash = "sha256-N/DF1cJCwdYE6H1I8IeV6GGlqF9yW0yhHQpTjxL/jP8=";
-    };
-  };
 
   # Set the version and hash for the kernel sources
   srcVersion = supportedKernels.${config.hardware.microsoft-surface.kernelVersion}.version;
