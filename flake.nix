@@ -423,7 +423,6 @@
           tuxedo-infinitybook-pro14-gen9-amd = import ./tuxedo/infinitybook/pro14/gen9/amd;
           tuxedo-infinitybook-pro14-gen9-intel = import ./tuxedo/infinitybook/pro14/gen9/intel;
           tuxedo-infinitybook-pro14-gen10-amd = import ./tuxedo/infinitybook/pro14/gen10/amd;
-          tuxedo-infinitybook-pro14-gen10-intel = import ./tuxedo/infinitybook/pro14/gen10/intel;
           tuxedo-infinitybook-pro15-gen10-amd = import ./tuxedo/infinitybook/pro15/gen10/amd;
           tuxedo-infinitybook-pro15-gen10-intel = import ./tuxedo/infinitybook/pro15/gen10/intel;
           tuxedo-pulse-14-gen3 = import ./tuxedo/pulse/14/gen3;
