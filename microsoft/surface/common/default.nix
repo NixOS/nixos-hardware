@@ -6,6 +6,10 @@
 }:
 
 let
+  inherit (builtins)
+    attrNames
+    ;
+
   inherit (lib)
     mkDefault
     mkOption
@@ -13,24 +17,20 @@ let
     versions
     ;
 
-  # Set the version and hash for the kernel sources
-  srcVersion =
-    with config.hardware.microsoft-surface;
-    if kernelVersion == "longterm" then
-      "6.12.19"
-    else if kernelVersion == "stable" then
-      "6.18.8"
-    else
-      abort "Invalid kernel version: ${kernelVersion}";
+  supportedKernels = {
+    "longterm" = {
+      version = "6.12.19";
+      hash = "sha256-1zvwV77ARDSxadG2FkGTb30Ml865I6KB8y413U3MZTE=";
+    };
+    "stable" = {
+      version = "6.18.8";
+      hash = "sha256-N/DF1cJCwdYE6H1I8IeV6GGlqF9yW0yhHQpTjxL/jP8=";
+    };
+  };
 
-  srcHash =
-    with config.hardware.microsoft-surface;
-    if kernelVersion == "longterm" then
-      "sha256-1zvwV77ARDSxadG2FkGTb30Ml865I6KB8y413U3MZTE="
-    else if kernelVersion == "stable" then
-      "sha256-N/DF1cJCwdYE6H1I8IeV6GGlqF9yW0yhHQpTjxL/jP8="
-    else
-      abort "Invalid kernel version: ${kernelVersion}";
+  # Set the version and hash for the kernel sources
+  srcVersion = supportedKernels.${config.hardware.microsoft-surface.kernelVersion}.version;
+  srcHash = supportedKernels.${config.hardware.microsoft-surface.kernelVersion}.hash;
 
   # Fetch the latest linux-surface patches
   linux-surface = pkgs.fetchFromGitHub {
@@ -61,10 +61,7 @@ in
 {
   options.hardware.microsoft-surface.kernelVersion = mkOption {
     description = "Kernel Version to use (patched for MS Surface)";
-    type = types.enum [
-      "longterm"
-      "stable"
-    ];
+    type = types.enum (attrNames supportedKernels);
     default = "longterm";
   };
 
