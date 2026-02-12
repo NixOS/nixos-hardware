@@ -64,6 +64,7 @@
           apple-macbook-pro-12-1 = import ./apple/macbook-pro/12-1;
           apple-macbook-pro-14-1 = import ./apple/macbook-pro/14-1;
           apple-macmini-4-1 = import ./apple/macmini/4;
+          apple-macmini-6 = import ./apple/macmini/6;
           apple-t2 = import ./apple/t2;
           asrock-rack-altrad8ud-1l2t = import ./asrock-rack/altrad8ud-1l2t;
           asus-battery = import ./asus/battery.nix;
