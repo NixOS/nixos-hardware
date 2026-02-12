@@ -449,6 +449,9 @@ See code for all available configurations.
 | [TUXEDO InfinityBook Pro 14 - Gen7](tuxedo/infinitybook/pro14/gen7)               | `<nixos-hardware/tuxedo/infinitybook/pro14/gen7>`       | `tuxedo-infinitybook-pro14-gen7`       |
 | [TUXEDO InfinityBook Pro 14 - Gen9 - AMD](tuxedo/infinitybook/pro14/gen9/amd)     | `<nixos-hardware/tuxedo/infinitybook/pro14/gen9/amd>`   | `tuxedo-infinitybook-pro14-gen9-amd`   |
 | [TUXEDO InfinityBook Pro 14 - Gen9 - INTEL](tuxedo/infinitybook/pro14/gen9/intel) | `<nixos-hardware/tuxedo/infinitybook/pro14/gen9/intel>` | `tuxedo-infinitybook-pro14-gen9-intel` |
+| [TUXEDO InfinityBook Pro 14 - Gen10 - AMD](tuxedo/infinitybook/pro14/gen10/amd)   | `<nixos-hardware/tuxedo/infinitybook/pro14/gen10/amd>`  | `tuxedo-infinitybook-pro14-gen10-amd`  |
+| [TUXEDO InfinityBook Pro 15 - Gen10 - AMD](tuxedo/infinitybook/pro15/gen10/amd)   | `<nixos-hardware/tuxedo/infinitybook/pro15/gen10/amd>`  | `tuxedo-infinitybook-pro15-gen10-amd`  |
+| [TUXEDO InfinityBook Pro 15 - Gen10 - INTEL](tuxedo/infinitybook/pro15/gen10/intel)| `<nixos-hardware/tuxedo/infinitybook/pro15/gen10/intel>`| `tuxedo-infinitybook-pro15-gen10-intel`|
 | [TUXEDO Pulse 14 - Gen3](tuxedo/pulse/14/gen3)                                    | `<nixos-hardware/tuxedo/pulse/14/gen3>`                 | `tuxedo-pulse-14-gen3`                 |
 | [TUXEDO Pulse 15 - Gen2](tuxedo/pulse/15/gen2)                                    | `<nixos-hardware/tuxedo/pulse/15/gen2>`                 | `tuxedo-pulse-15-gen2`                 |
 | [Xiaomi Redmibook 15 Pro 2021](xiaomi/redmibook/15-pro-2021)                      | `<nixos-hardware/xiaomi/redmibook/15-pro-2021>`         | `xiaomi-redmibook-15-pro-2021`         |
