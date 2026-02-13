@@ -39,17 +39,9 @@ in
       description = ''
         The built-in audio output and input devices do not work out of the box.
 
-        This combines the derivation output path share/alsa/ucm2/ with
-        pkgs.alsa-ucm-conf and points ALSA to the result.
-      '';
-    };
-
-    install-ucm2-rules = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = ''
-        Whether to install PinePhone Pro specific UCM2 rules.
-        These provide audio usecaseses for HiFi audio and Voice calls.
+        This combines the derivation output path share/alsa/ucm2/ with pkgs.alsa-ucm-conf,
+        points ALSA to the result,
+        and installs PinePhone Pro specific UCM2 rules.
       '';
     };
   };
@@ -58,8 +50,8 @@ in
     environment.pathsToLink = [ "/share/alsa/ucm2" ];
     environment.systemPackages = [
       pkgs.alsa-ucm-conf
-    ]
-    ++ lib.optionals cfg.install-ucm2-rules [ pkgs.pine64-alsa-ucm ];
+      pkgs.pine64-alsa-ucm
+    ];
 
     environment.variables.ALSA_CONFIG_UCM2 = "/run/current-system/sw/share/alsa/ucm2";
 
