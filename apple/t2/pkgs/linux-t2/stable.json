@@ -1,65 +1,25 @@
 {
-  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/5eaf1261d069bbc67aba7fe2737a5fe981e05a9e/",
+  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/f32e738d74e3b72a944227386ded334452b2fe42/",
   "patches": [
     {
       "name": "1001-Add-apple-bce-driver.patch",
-      "hash": "sha256-e3RPvWPj2QASGOS4kieO8YFekrXsBCJtfF82OPlOn2E="
+      "hash": "sha256-Wo95/UfIPIScDhrhDkIYUZrETPJCEeVbG5mSNJ8Dufc="
     },
     {
       "name": "1002-Put-apple-bce-in-drivers-staging.patch",
-      "hash": "sha256-DXj4CmE7TKMGrAhQDOR5RVw9YHmyQMiXZsmxYfkKAEA="
+      "hash": "sha256-wkveNo1qwAwXWDGTFed4ZDbuBnJbwKgWLmTHK9qq0oM="
     },
     {
-      "name": "1003-Fix-sparse-errors.patch",
-      "hash": "sha256-nuCOPWa4Hp+HCCBe6Y++M4g1k4plOWzy2hqHXlJbp9g="
-    },
-    {
-      "name": "1004-Fix-freezing-on-turning-off-camera.patch",
+      "name": "1003-Fix-freezing-on-turning-off-camera.patch",
       "hash": "sha256-rFrSUhiNXgQbfgKjryJktYxYcchXE1PI49Q1gW001+0="
     },
     {
-      "name": "1005-HID-hid-appletb-bl-add-driver-for-the-backlight-of-A.patch",
-      "hash": "sha256-kEscS1FAyDxLZPOPInYTXFEf4fouBEa4zGctX14hSu8="
-    },
-    {
-      "name": "1006-HID-hid-appletb-kbd-add-driver-for-the-keyboard-mode.patch",
-      "hash": "sha256-eVEuvnoRItaDjwWu41nn9bTkgHgY+1SL/hFAvUR2IlY="
-    },
-    {
-      "name": "1007-HID-multitouch-Get-the-contact-ID-from-HID_DG_TRANSD.patch",
-      "hash": "sha256-JF5PjByo4S1Rd/B5luAzOXDv+iakCnJfmujIQuUiT1A="
-    },
-    {
-      "name": "1008-HID-multitouch-support-getting-the-tip-state-from-HI.patch",
-      "hash": "sha256-m/NAKoHRC/HwxG5fFZxFl6DtY4Xv8kPBWvdKdtadrrk="
-    },
-    {
-      "name": "1009-HID-multitouch-take-cls-maxcontacts-into-account-for.patch",
-      "hash": "sha256-h6jk9yw/4txd8PATpMxB9mIzik9+X1zP6p4K35AqdXw="
-    },
-    {
-      "name": "1010-HID-multitouch-specify-that-Apple-Touch-Bar-is-direc.patch",
-      "hash": "sha256-5PbLynVnQqlJKPTWhcmwXCkYDEopLBQWnxWvZUt0EN4="
-    },
-    {
-      "name": "1011-HID-multitouch-add-device-ID-for-Apple-Touch-Bar.patch",
-      "hash": "sha256-dIzEOj89D2rIEc2/mjq3TkIfI3ZHzu0VRDQQOzp+Snc="
-    },
-    {
-      "name": "1013-lib-vsprintf-Add-support-for-generic-FourCCs-by-exte.patch",
-      "hash": "sha256-h3gxaKtvdm/GSd+AP1sPC9avWHOsceUxTmoua/3rIf4="
-    },
-    {
-      "name": "1015-drm-tiny-add-driver-for-Apple-Touch-Bars-in-x86-Macs.patch",
-      "hash": "sha256-tDjK/VipVQbuNOURW38gssqeRLy3s8I+DVq0+4zGnHs="
-    },
-    {
       "name": "2008-i915-4-lane-quirk-for-mbp15-1.patch",
-      "hash": "sha256-lZ7MWXZubmAlJCqBmuzueg7agENJbikxP1SE46SmwNw="
+      "hash": "sha256-oOlpybSIaEPVZ7FqdsVSljYe++0synyCqEdMXb23Jnk="
     },
     {
       "name": "2009-apple-gmux-allow-switching-to-igpu-at-probe.patch",
-      "hash": "sha256-XKwlyJZjJLQz39mc0/S7sPnRnwrqMsq9OKy+QCO+oho="
+      "hash": "sha256-6i+fh/Ifle0di5/tMOdMm0NMkEmeUb17hYM/g2j2dfI="
     },
     {
       "name": "3001-applesmc-convert-static-structures-to-drvdata.patch",
@@ -99,35 +59,27 @@
     },
     {
       "name": "4001-asahi-trackpad.patch",
-      "hash": "sha256-kfAYVovukZLD5ocHQxhoHJSa9c5XAJ1GhH1RlzGkS+k="
-    },
-    {
-      "name": "4002-HID-quirks-remove-T2-devices-from-hid_mouse_ignore_l.patch",
-      "hash": "sha256-0PMCE3IWHekir5YV1BD6Jakc7dOV6Fj2HfIGWZnXZV0="
+      "hash": "sha256-+YXyIjtlVrLo8allTO3M1A+xold5FUXaZ8dwD2j5HDc="
     },
     {
       "name": "4003-HID-apple-ignore-the-trackpad-on-T2-Macs.patch",
-      "hash": "sha256-JTeYtaBqMyTu5IdGb8x7wbP9ZE1rXT4lpEjudR1ySFI="
+      "hash": "sha256-T2tYcFLeWUdx6QawANe3ZNVSRxmo1IdPiSpGLQk4IDY="
     },
     {
       "name": "4004-HID-magicmouse-Add-support-for-trackpads-found-on-T2.patch",
-      "hash": "sha256-HcPX7gY3hnlwM/tY06pbtXnch04AqwHgC596E8ZqGY8="
+      "hash": "sha256-ubchCEv1BZ7t/zkI9DpHA4gUln9cdu4yHzVJI2TNlS0="
     },
     {
-      "name": "4005-HID-apple-Add-necessary-IDs-and-support-for-replacem.patch",
-      "hash": "sha256-SRKESCbpxSYm7U0VyCmvkmT/er6/GEHhwo8tgJDO6mQ="
-    },
-    {
-      "name": "4006-HID-magicmouse-Add-MacBookPro15-1-replacement-trackp.patch",
-      "hash": "sha256-uAlT/4ADwYyKvbuPQaGwqCjZ2/myruC63etVV6cfFLk="
+      "name": "4005-HID-magicmouse-fix-regression-breaking-support-for-M.patch",
+      "hash": "sha256-oT+3AeETnKfzblxtcTD18c61BKoD9yAsga0AL3R8u7k="
     },
     {
       "name": "7001-drm-i915-fbdev-Discard-BIOS-framebuffers-exceeding-h.patch",
-      "hash": "sha256-O6RHFxmKZn7aCq1D+r5z2T3jLt0r5+01EABD9rs0E5M="
+      "hash": "sha256-/EKN7JsAxcpAgfJFtPp2NLYaGqQ0kl8wjJEXifSzJpY="
     },
     {
       "name": "8001-Add-APFS-driver.patch",
-      "hash": "sha256-QpIPsMjWNPOkw6rSKn7rW0Fmx9HUwJaiGy3pZeT5Fd0="
+      "hash": "sha256-s7lJRWWgbhgchffwtajp4nNVjgma0ghCHZ8Xeyy7RAU="
     },
     {
       "name": "8002-Necessary-modifications-to-build-APFS-with-the-kerne.patch",
