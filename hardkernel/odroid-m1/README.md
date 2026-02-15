@@ -2,15 +2,13 @@
 
 Hardware support for the Hardkernel ODroid M1: https://www.hardkernel.com/shop/odroid-m1-with-8gbyte-ram/
 
-## Initial Installation
+## Building an SD Card Image
 
-This is for creating the initial image used to install to the SD Card or NVM Drive.
-
-Example `flake.nix`:
+To create an initial SD card image for installation:
 
 ```nix
+# flake.nix
 {
-  description = "SD Card Image Generator for ODroid M1";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
@@ -20,11 +18,11 @@ Example `flake.nix`:
       modules = [
         "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
         nixos-hardware.nixosModules.hardkernel-odroid-m1
-        ./sdimageconfiguration.nix
+        ./sdimage.nix
         {
-          nixpkgs.config.allowUnsupportedSystem = true;
           nixpkgs.hostPlatform.system = "aarch64-linux";
-          nixpkgs.buildPlatform.system = "x86_64-linux"; # If you build on x86 otherwise change this.
+          # Uncomment if cross-compiling from x86_64:
+          # nixpkgs.buildPlatform.system = "x86_64-linux";
         }
       ];
     };
@@ -33,176 +31,70 @@ Example `flake.nix`:
 }
 ```
 
-For building the initial sd card image, you can use this example (tweaked for your preferences) `sdimageconfiguration.nix`:
-
 ```nix
-{ config, pkgs, lib, ... }:
-
+# sdimage.nix
+{ config, ... }:
 {
-  system.stateVersion = lib.mkDefault "25.11";
-  nixpkgs.hostPlatform.system = "aarch64-linux";
+  imports = [ ./common.nix ];
 
   sdImage = {
-    # Skip compression, we'll want the img uncompressed for flashing anyway
     compressImage = false;
-    # The system will not boot if this is missing
+    # Required for the system to boot
     populateRootCommands = ''
       ${config.boot.loader.petitboot.populateCmd} -c ${config.system.build.toplevel} -d ./files/kboot.conf
     '';
   };
+}
+```
 
-  services.openssh = {
-    enable = true;
-    settings = {
-      # Highly recommended: Set Password Authentication to false if you have authorized keys you can use. This is an insecure default
-      PasswordAuthentication = true;
-      PermitRootLogin = "no";
-      AllowUsers = [ "odroid" ];
-    };
-  };
+```nix
+# common.nix
+{ pkgs, ... }:
+{
+  services.openssh.enable = true;
 
-  # You will almost certainly want Git to pull in your configuration repository
-  environment.systemPackages = [
-    pkgs.git
-  ];
+  environment.systemPackages = [ pkgs.git ];
 
   users.users.odroid = {
     isNormalUser = true;
-    description = "Default User";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = [];
-    # Highly recommended: Change this default password using `sudo passwd` after logging in
-    initialPassword = lib.mkForce "odroid";
-    # You can find this from https://github.com/username.keys for example
-    openssh.authorizedKeys.keys = [];
+    extraGroups = [ "wheel" ];
+    initialPassword = "odroid";
+    # openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAA..." ];
   };
 }
 ```
 
-Put both of these files into a Git repo, and build with:
+Build with:
 
 ```sh
 nix build .#images.m1
 ```
 
-## Ongoing updates
+## Ongoing Configuration
 
-To your NixOS server flake, you'll want to ensure that the host is set to aarch64-linux.
-
-An example flake:
+After booting the SD card image, run `nixos-generate-config` to generate
+`hardware-configuration.nix` for your system. Then set up your configuration
+flake:
 
 ```nix
+# flake.nix
 {
-  description = "My NixOS configuration flake";
-
   inputs = {
-    # Nixpkgs - Stable 25.11 release
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
-    # Home Manager - Stable 25.11 release
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    # NixOS Hardware
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
   };
-
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    nixos-hardware,
-    ...
-  }@inputs:
-
-  let
-    mkSystem = hostname: systemArchitecture: # hostname: is a positional argument
-      nixpkgs.lib.nixosSystem {
-        system = systemArchitecture;
-
-        specialArgs = { inherit inputs; };
-
-        modules = [
-          ./hosts/${hostname}/configuration.nix
-
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "backup";
-          }
-        ];
-      };
-
-    hosts = [
-      { hostname = "other-example"; systemArchitecture = "x86_64-linux"; }
-      { hostname = "odroid-m1-example"; systemArchitecture = "aarch64-linux"; }
-    ];
-  in
-  {
-    # This is what creates the NixOS configurations for each host
-    nixosConfigurations = builtins.listToAttrs (
-      # Iterator - nixConfigurations.<name> = <value>
-      map (host: {
-        name = host.hostname;
-        value = mkSystem host.hostname host.systemArchitecture;
-      })
-      # Array to iterate over
-      hosts
-    );
+  outputs = { nixpkgs, nixos-hardware, ... }: {
+    nixosConfigurations.m1 = nixpkgs.lib.nixosSystem {
+      modules = [
+        nixos-hardware.nixosModules.hardkernel-odroid-m1
+        ./common.nix
+        ./configuration.nix
+        ./hardware-configuration.nix
+      ];
+    };
   };
 }
 ```
 
-And the related `configuration.nix`:
-
-```nix
-{ config, pkgs, inputs, ... }:
-
-{
-  imports =
-    [
-      inputs.nixos-hardware.nixosModules.hardkernel-odroid-m1
-      ./hardware-configuration.nix
-      ../../modules/nix
-      ../../users
-    ];
-
-  networking.hostName = "odroid-m1-example"; # Define your hostname.
-}
-```
-
-And `hardware-configuration.nix`:
-
-```nix
-# Do not modify this file!  It was generated by ‘nixos-generate-config’
-# and may be overwritten by future invocations.  Please make changes
-# to /etc/nixos/configuration.nix instead.
-{ config, lib, pkgs, modulesPath, ... }:
-
-{
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
-
-  boot.initrd.availableKernelModules = [ "nvme" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
-  boot.extraModulePackages = [ ];
-
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/44444444-4444-4444-8888-888888888888";
-      fsType = "ext4";
-    };
-
-  swapDevices = [ ];
-
-  nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
-}
-```
-
-You can generate these default files (with a few warnings) by running the following command on the odroid after initial boot:
-
-```sh
-nixos-generate-config
-```
-
-It will save a configuration.nix and hardware-configuration.nix to `/etc/nixos`. Critically, you will need to add `inputs.nixos-hardware.nixosModules.hardkernel-odroid-m1` to the imports in `configuration.nix` for it to work.
+The module configures petitboot as the boot loader, so `nixos-rebuild switch`
+works as usual.
