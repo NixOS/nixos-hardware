@@ -311,6 +311,7 @@ See code for all available configurations.
 | [Lenovo ThinkPad T14 AMD Gen 3](lenovo/thinkpad/t14/amd/gen3)                     | `<nixos-hardware/lenovo/thinkpad/t14/amd/gen3>`         | `lenovo-thinkpad-t14-amd-gen3`         |
 | [Lenovo ThinkPad T14 AMD Gen 4](lenovo/thinkpad/t14/amd/gen4)                     | `<nixos-hardware/lenovo/thinkpad/t14/amd/gen4>`         | `lenovo-thinkpad-t14-amd-gen4`         |
 | [Lenovo ThinkPad T14 AMD Gen 5](lenovo/thinkpad/t14/amd/gen5)                     | `<nixos-hardware/lenovo/thinkpad/t14/amd/gen5>`         | `lenovo-thinkpad-t14-amd-gen5`         |
+| [Lenovo ThinkPad T14 AMD Gen 6](lenovo/thinkpad/t14/amd/gen6)                     | `<nixos-hardware/lenovo/thinkpad/t14/amd/gen6>`         | `lenovo-thinkpad-t14-amd-gen6`         |
 | [Lenovo ThinkPad T14](lenovo/thinkpad/t14)                                        | `<nixos-hardware/lenovo/thinkpad/t14>`                  | `lenovo-thinkpad-t14`                  |
 | [Lenovo ThinkPad T14 Intel Gen 1](lenovo/thinkpad/t14/intel/gen1)                 | `<nixos-hardware/lenovo/thinkpad/t14/intel/gen1>`       | `lenovo-thinkpad-t14-intel-gen1`       |
 | [Lenovo ThinkPad T14 Intel Gen 1 (Nvidia)](lenovo/thinkpad/t14/intel/gen1/nvidia) | `<nixos-hardware/lenovo/thinkpad/t14/intel/gen1/nvidia>`| `lenovo-thinkpad-t14-intel-gen1-nvidia`|
