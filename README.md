@@ -231,6 +231,7 @@ See code for all available configurations.
 | [HP Elitebook 845g8](hp/elitebook/845/g8)                                         | `<nixos-hardware/hp/elitebook/845/g8>`                  | `hp-elitebook-845g8`                   |
 | [HP Elitebook 845g9](hp/elitebook/845/g9)                                         | `<nixos-hardware/hp/elitebook/845/g9>`                  | `hp-elitebook-845g9`                   |
 | [HP Laptop 14s-dq2024nf](hp/laptop/14s-dq2024nf)                                  | `<nixos-hardware/hp/laptop/14s-dq2024nf>`               | `hp-laptop-14s-dq2024nf`               |
+| [HP Laptop 15s-fq1xxx](hp/laptop/15s-fq1xxx)                                      | `<nixos-hardware/hp/laptop/15s-fq1xxx>`                 | `hp-laptop-15s-fq1xxx`                 |
 | [HP Notebook 14-df0023](hp/notebook/14-df0023)                                    | `<nixos-hardware/hp/notebook/14-df0023>`                | `hp-notebook-14-df0023`                |
 | [HP Probook 440G5](hp/probook/440G5)                                              | `<nixos-hardware/hp/probook/440G5>`                     | `hp-probook-440G5`                     |
 | [HP Laptop 14s-dq2024nf](hp/laptop/14s-dq2024nf)                                  | `<nixos-hardware/hp/laptop/14s-dq2024nf>`               | `hp-laptop-14s-dq2024nf`               |
