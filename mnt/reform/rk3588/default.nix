@@ -11,6 +11,7 @@
     kernelParams = [
       "no_console_suspend"
       "console=tty1"
+      "pcie_aspm=off" # pcie seems broken on kernel 6.18 https://community.mnt.re/t/error-message-after-apt-update-upgrade/4188/7
     ];
     # kernel modules needed for the virtual console
     initrd.availableKernelModules = [
