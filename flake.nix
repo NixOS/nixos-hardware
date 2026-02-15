@@ -374,6 +374,7 @@
           hardkernel-odroid-hc4 = import ./hardkernel/odroid-hc4;
           hardkernel-odroid-h3 = import ./hardkernel/odroid-h3;
           hardkernel-odroid-h4 = import ./hardkernel/odroid-h4;
+          hardkernel-odroid-m1 = import ./hardkernel/odroid-m1;
           omen-14-fb0798ng = import ./omen/14-fb0798ng;
           omen-15-ce002ns = import ./omen/15-ce002ns;
           omen-15-en0010ca = import ./omen/15-en0010ca;
