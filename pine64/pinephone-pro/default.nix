@@ -1,6 +1,6 @@
 {
-  pkgs,
   config,
+  pkgs,
   ...
 }:
 {
@@ -27,5 +27,15 @@
         grub.enable = false;
       };
     };
+
+    # The default `mem` sleep is unreliable,
+    # especially if audio is enabled.
+    # `freeze` uses more power when idle
+    # but is more reliable.
+    # We should check if this is still necessary
+    # when updating the kernel.
+    # When `mem` sleep is reliable,
+    # this should be removed.
+    systemd.sleep.extraConfig = "SuspendState=freeze";
   };
 }
