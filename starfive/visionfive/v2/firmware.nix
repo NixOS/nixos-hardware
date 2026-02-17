@@ -46,7 +46,7 @@ in
         }
       );
 
-      uboot = (pkgs.callPackage ./uboot.nix { inherit (config.system.build) opensbi; }).overrideAttrs (
+      uboot = (pkgs.ubootVisionFive2.override { inherit (config.system.build) opensbi; }).overrideAttrs (
         _f: p: {
           src = if cfg.uboot.src != null then cfg.uboot.src else p.src;
           patches = if cfg.uboot.patches != null then cfg.uboot.patches else (p.patches or [ ]);

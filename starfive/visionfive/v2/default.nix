@@ -11,8 +11,6 @@
 
   boot = {
     consoleLogLevel = lib.mkDefault 7;
-    # Switch to default as soon they reach >= 6.11
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
     initrd.availableKernelModules = [ "dw_mmc_starfive" ];
 
@@ -31,10 +29,4 @@
     };
   };
 
-  assertions = [
-    {
-      assertion = lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.11";
-      message = "The VisionFive 2 requires at least mainline kernel version 6.11 for minimum hardware support.";
-    }
-  ];
 }
