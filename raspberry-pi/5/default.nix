@@ -15,6 +15,8 @@
     initrd.availableKernelModules = [ "nvme" ];
   };
 
+  hardware.deviceTree.filter = lib.mkDefault "bcm2712*-rpi-*.dtb";
+
   # Needed for Xorg to start (https://github.com/raspberrypi-ui/gldriver-test/blob/master/usr/lib/systemd/scripts/rp1_test.sh)
   # This won't work for displays connected to the RP1 (DPI/composite/MIPI DSI), since I don't have one to test.
   services.xserver.extraConfig = ''
