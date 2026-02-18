@@ -29,11 +29,7 @@
 
   boot = {
     kernelPackages = lib.mkDefault (
-      pkgs.linuxPackagesFor (
-        pkgs.callPackage ../common/kernel.nix {
-          rpiVersion = 4;
-        }
-      )
+      pkgs.linuxPackagesFor (pkgs.callPackage ../common/kernel.nix { rpiVersion = 4; })
     );
     initrd.availableKernelModules = [
       "usbhid"
@@ -62,7 +58,5 @@
     }
   ];
 
-  hardware.firmware = [
-    (pkgs.callPackage ../common/raspberry-pi-wireless-firmware.nix { })
-  ];
+  hardware.firmware = [ (pkgs.callPackage ../common/raspberry-pi-wireless-firmware.nix { }) ];
 }

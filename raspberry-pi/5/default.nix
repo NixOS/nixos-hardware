@@ -4,14 +4,11 @@
   config,
   ...
 }:
+
 {
   boot = {
     kernelPackages = lib.mkDefault (
-      pkgs.linuxPackagesFor (
-        pkgs.callPackage ../common/kernel.nix {
-          rpiVersion = 5;
-        }
-      )
+      pkgs.linuxPackagesFor (pkgs.callPackage ../common/kernel.nix { rpiVersion = 5; })
     );
     initrd.availableKernelModules = [
       "nvme"
