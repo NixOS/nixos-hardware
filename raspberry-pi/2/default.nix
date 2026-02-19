@@ -1,6 +1,8 @@
 { lib, pkgs, ... }:
 
 {
+  imports = [ ../common/default.nix ];
+
   boot = {
     consoleLogLevel = lib.mkDefault 7;
     kernelPackages = lib.mkDefault (
