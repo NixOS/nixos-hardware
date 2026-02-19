@@ -1,1 +1,6 @@
-{ boot.initrd.availableKernelModules = [ "usb-storage" ]; }
+{
+  boot.initrd.availableKernelModules = [
+    "usb-storage"
+    "usbhid"
+  ];
+}
