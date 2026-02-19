@@ -5,6 +5,9 @@
   ...
 }:
 
+let
+  linuxVariant = config.boot.kernelPackages.kernel.pname;
+in
 {
   imports = [ ../common/default.nix ];
 
@@ -15,7 +18,13 @@
     initrd.availableKernelModules = [
       "nvme"
       "pcie-brcmstb"
-    ];
+      "clk-rp1"
+    ]
+    # CONFIG_MISC_RP1 is named CONFIG_MFD_RP1 in RPi's fork.
+    ++ lib.optional (linuxVariant == "linux") "rp1_pci"
+    ++ lib.optional (linuxVariant == "linux-rpi") "rp1"
+    # CONFIG_PINCTRL_RP1 is not a tristate in RPi's fork.
+    ++ lib.optional (linuxVariant == "linux") "pinctrl-rp1";
   };
 
   hardware.deviceTree.filter = lib.mkDefault "bcm2712*-rpi-*.dtb";
