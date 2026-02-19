@@ -24,7 +24,8 @@ in
     ++ lib.optional (linuxVariant == "linux") "rp1_pci"
     ++ lib.optional (linuxVariant == "linux-rpi") "rp1"
     # CONFIG_PINCTRL_RP1 is not a tristate in RPi's fork.
-    ++ lib.optional (linuxVariant == "linux") "pinctrl-rp1";
+    ++ lib.optional (linuxVariant == "linux") "pinctrl-rp1"
+    ++ lib.optional config.boot.initrd.network.enable "macb";
   };
 
   hardware.deviceTree.filter = lib.mkDefault "bcm2712*-rpi-*.dtb";
