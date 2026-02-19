@@ -33,7 +33,6 @@
       pkgs.linuxPackagesFor (pkgs.callPackage ../common/kernel.nix { rpiVersion = 4; })
     );
     initrd.availableKernelModules = [
-      "vc4"
       "pcie-brcmstb" # required for the pcie bus to work
       "reset-raspberrypi" # required for vl805 firmware to load
     ]
