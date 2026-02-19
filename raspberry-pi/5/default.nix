@@ -12,7 +12,10 @@
     kernelPackages = lib.mkDefault (
       pkgs.linuxPackagesFor (pkgs.callPackage ../common/kernel.nix { rpiVersion = 5; })
     );
-    initrd.availableKernelModules = [ "nvme" ];
+    initrd.availableKernelModules = [
+      "nvme"
+      "pcie-brcmstb"
+    ];
   };
 
   hardware.deviceTree.filter = lib.mkDefault "bcm2712*-rpi-*.dtb";
