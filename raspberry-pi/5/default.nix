@@ -12,10 +12,7 @@
     kernelPackages = lib.mkDefault (
       pkgs.linuxPackagesFor (pkgs.callPackage ../common/kernel.nix { rpiVersion = 5; })
     );
-    initrd.availableKernelModules = [
-      "nvme"
-      "usbhid"
-    ];
+    initrd.availableKernelModules = [ "nvme" ];
   };
 
   # Needed for Xorg to start (https://github.com/raspberrypi-ui/gldriver-test/blob/master/usr/lib/systemd/scripts/rp1_test.sh)

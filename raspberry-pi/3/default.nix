@@ -5,7 +5,6 @@
     kernelPackages = lib.mkDefault (
       pkgs.linuxPackagesFor (pkgs.callPackage ../common/kernel.nix { rpiVersion = 3; })
     );
-    initrd.availableKernelModules = [ "usbhid" ];
   };
 
   # fix the following error :
