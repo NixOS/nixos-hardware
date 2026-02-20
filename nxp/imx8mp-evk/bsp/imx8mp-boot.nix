@@ -2,7 +2,6 @@
   pkgs,
   enable-tee ? true,
 }:
-with pkgs;
 let
   fw-ver = "202006";
   cp-tee = if enable-tee then "install -m 0644 ${imx8mp-optee-os}/tee.bin ./iMX8M/tee.bin" else "";
@@ -15,13 +14,14 @@ let
   imx8mp-optee-os = pkgs.callPackage ./imx8mp-optee-os.nix { };
   src = pkgs.fetchgit {
     url = "https://github.com/nxp-imx/imx-mkimage.git";
-    rev = "c4365450fb115d87f245df2864fee1604d97c06a";
-    sha256 = "sha256-KVIVHwBpAwd1RKy3RrYxGIniE45CDlN5RQTXsMg1Jwk=";
+    #tag: lf-6.12.20_2.0.0
+    rev = "4c2e5b25232f5aa003976ddca9d1d2fb9667beb1";
+    sha256 = "sha256-bXvM5Q0Fsb18gupw6/ub62/qNE7wGLaZKugp0URWeUk=";
   };
   shortRev = builtins.substring 0 8 src.rev;
 in
 {
-  imx8m-boot = pkgs.stdenv.mkDerivation rec {
+  imx8m-boot = pkgs.buildPackages.stdenv.mkDerivation {
     inherit src;
     name = "imx8mp-mkimage";
     version = "lf-6.1.55-2.2.0";
@@ -29,22 +29,16 @@ in
     postPatch = ''
       substituteInPlace Makefile \
           --replace 'git rev-parse --short=8 HEAD' 'echo ${shortRev}'
-      substituteInPlace Makefile \
-          --replace 'CC = gcc' 'CC = clang'
       patchShebangs scripts
     '';
 
     nativeBuildInputs = [
-      clang
-      git
-      dtc
-    ];
-
-    buildInputs = [
-      git
-      glibc.static
-      zlib
-      zlib.static
+      pkgs.buildPackages.stdenv.cc
+      pkgs.buildPackages.git
+      pkgs.buildPackages.dtc
+      pkgs.buildPackages.glibc.static
+      pkgs.buildPackages.zlib
+      pkgs.buildPackages.zlib.static
     ];
 
     buildPhase = ''
@@ -53,7 +47,7 @@ in
       make bin
       make SOC=iMX8MP mkimage_imx8
 
-      cp -v ${pkgs.ubootTools}/bin/mkimage ./iMX8M/mkimage_uboot
+      cp -v ${pkgs.buildPackages.ubootTools}/bin/mkimage ./iMX8M/mkimage_uboot
 
       install -m 0644 ${imx8mp-uboot}/u-boot-spl.bin ./iMX8M/u-boot-spl.bin
       install -m 0644 ${imx8mp-uboot}/u-boot-nodtb.bin ./iMX8M/u-boot-nodtb.bin

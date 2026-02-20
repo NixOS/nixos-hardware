@@ -5,7 +5,19 @@
 }:
 
 {
-  boot.kernelPackages = lib.mkDefault pkgs.linuxKernel.packages.linux_rpi3;
+  boot = {
+    kernelPackages = lib.mkDefault (
+      pkgs.linuxPackagesFor (
+        pkgs.callPackage ../common/kernel.nix {
+          rpiVersion = 3;
+        }
+      )
+    );
+    initrd.availableKernelModules = [
+      "usbhid"
+      "usb-storage"
+    ];
+  };
 
   # fix the following error :
   # modprobe: FATAL: Module ahci not found in directory

@@ -103,6 +103,23 @@ with the `ath10k` QCA6174 Wifi device.
 This was fixed in Nov 2021:
 - https://github.com/linux-surface/linux-surface/issues/542#issuecomment-976995453
 
+## Troubleshooting IPU6
+
+While the camera patches are applied in `common`, camera functionality is still WIP for several devices (see [https://github.com/linux-surface/linux-surface/wiki/Camera-Support](https://github.com/linux-surface/linux-surface/wiki/Camera-Support)). As a result they may break some userspace tools on unsupported devices, notably such as Wireplumber. An example fix for such userspace issues is shown below.
+```
+services.pipewire.wireplumber.extraConfig = {
+  "50-surface-disable-libcamera.conf" = ''
+    monitor.libcamera = { enabled = false }
+    wireplumber.profiles = {
+      main = {
+        monitor.libcamera = disabled
+        hardware.video-capture = disabled
+      }
+    }
+  '';
+};
+```
+
 ### Background:
 
 With the older firmware, you would see messages like "Can't ping firmware".

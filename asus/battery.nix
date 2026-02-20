@@ -31,10 +31,14 @@ in
       wantedBy = [
         "local-fs.target"
         "suspend.target"
+        "suspend-then-hibernate.target"
+        "hibernate.target"
       ];
       after = [
         "local-fs.target"
         "suspend.target"
+        "suspend-then-hibernate.target"
+        "hibernate.target"
       ];
       description = "Set the battery charge threshold to ${toString cfg.chargeUpto}%";
       startLimitBurst = 5;

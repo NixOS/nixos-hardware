@@ -12,4 +12,6 @@
     ../../../common/cpu/amd/raphael/igpu.nix
   ];
 
+  # Everything is updateable through fwupd
+  services.fwupd.enable = true;
 }

@@ -29,7 +29,6 @@
       "bcma"
     ];
     kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "6.0") pkgs.linuxPackages_latest;
-    extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
   };
 
   hardware = {

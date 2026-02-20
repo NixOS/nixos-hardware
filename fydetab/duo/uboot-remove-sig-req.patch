@@ -1,0 +1,11 @@
+--- a/tools/Makefile	2025-08-17 22:31:27.653078358 -0700
++++ b/tools/Makefile	2025-08-17 22:30:09.551827481 -0700
+@@ -54,7 +54,7 @@
+ hostprogs-y += mkenvimage
+ mkenvimage-objs := mkenvimage.o os_support.o lib/crc32.o
+
+-hostprogs-y += dumpimage mkimage
++hostprogs-$(CONFIG_FIT_SIGNATURE) += dumpimage mkimage
+ hostprogs-$(CONFIG_FIT_SIGNATURE) += fit_info fit_check_sign
+
+ # Rockchip pack tools

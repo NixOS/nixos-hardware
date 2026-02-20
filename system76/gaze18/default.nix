@@ -9,9 +9,16 @@
     ../.
     ../../common/gpu/nvidia/prime.nix
     ../../common/gpu/nvidia/ampere
+    ../../common/cpu/intel/raptor-lake
+    ../../common/pc/laptop
+    ../../common/pc/ssd
   ];
 
-  boot.initrd.kernelModules = [ "nvidia" ];
+  # For offloading, `modesetting` is needed
+  services.xserver.videoDrivers = [
+    "modesetting"
+    "nvidia"
+  ];
 
   hardware.graphics = {
     enable = lib.mkDefault true;
@@ -19,8 +26,6 @@
   };
 
   hardware.nvidia = {
-
-    # modesetting.enable = lib.mkDefault true;
 
     powerManagement.finegrained = lib.mkDefault true;
 

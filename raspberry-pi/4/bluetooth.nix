@@ -6,9 +6,7 @@ in
 {
   options.hardware = {
     raspberry-pi."4".bluetooth = {
-      enable = lib.mkEnableOption ''
-        configuration for bluetooth
-      '';
+      enable = lib.mkEnableOption "configuration for bluetooth";
     };
   };
 

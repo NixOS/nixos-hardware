@@ -1,0 +1,10 @@
+{
+    "modDirVersion": "6.18.8",
+    "reformDebianPackages": {
+        "domain": "source.mnt.re",
+        "owner": "reform",
+        "repo": "reform-debian-packages",
+        "rev": "7e8a95c7babd9e1f4b307b6d146e0846c65fc9b8",
+        "hash": "sha256-D3Q2AP9wJwpVyLjhroY2o8FX7+NmvhDP8cZK7dap9Dw="
+    }
+}

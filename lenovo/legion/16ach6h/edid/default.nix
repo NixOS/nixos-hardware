@@ -7,7 +7,7 @@
 
 let
   # This file was obtained from the display while "DDG" mode was enabled.
-  chip_edid = pkgs.runCommandNoCC "chip_edid" { } ''
+  chip_edid = pkgs.runCommand "chip_edid" { } ''
     mkdir -p $out/lib/firmware/edid
     cp ${./16ach6h.bin} $out/lib/firmware/edid/16ach6h.bin
   '';

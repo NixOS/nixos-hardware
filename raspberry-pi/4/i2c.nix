@@ -31,28 +31,32 @@ in
 {
   options.hardware.raspberry-pi."4" = {
     i2c0 = {
-      enable = lib.mkEnableOption ''
-        Turn on the VideoCore I2C bus (maps to /dev/i2c-22) and enable access from the i2c group.
-        After a reboot, i2c-tools (e.g. i2cdetect -F 22) should work for root or any user in i2c.
-      '';
+      enable = lib.mkEnableOption "" // {
+        description = ''
+          Turn on the VideoCore I2C bus (maps to /dev/i2c-22) and enable access from the i2c group.
+          After a reboot, i2c-tools (e.g. i2cdetect -F 22) should work for root or any user in i2c.
+        '';
+      };
       frequency = lib.mkOption {
         type = lib.types.nullOr lib.types.int;
         default = null;
         description = ''
-          interface clock-frequency
+          The interface clock-frequency to configure.
         '';
       };
     };
     i2c1 = {
-      enable = lib.mkEnableOption ''
-        Turn on the ARM I2C bus (/dev/i2c-1 on GPIO pins 3 and 5) and enable access from the i2c group.
-        After a reboot, i2c-tools (e.g. i2cdetect -F 1) should work for root or any user in i2c.
-      '';
+      enable = lib.mkEnableOption "" // {
+        description = ''
+          Turn on the ARM I2C bus (/dev/i2c-1 on GPIO pins 3 and 5) and enable access from the i2c group.
+          After a reboot, i2c-tools (e.g. i2cdetect -F 1) should work for root or any user in i2c.
+        '';
+      };
       frequency = lib.mkOption {
         type = lib.types.nullOr lib.types.int;
         default = null;
         description = ''
-          interface clock-frequency
+          The interface clock-frequency to configure.
         '';
       };
     };

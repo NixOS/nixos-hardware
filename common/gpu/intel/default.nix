@@ -5,8 +5,6 @@
   ...
 }:
 {
-  imports = [ ../24.05-compat.nix ];
-
   options.hardware.intelgpu = {
     driver = lib.mkOption {
       description = "Intel GPU driver to use";
@@ -22,6 +20,24 @@
       // {
         default = true;
       };
+
+    computeRuntime = lib.mkOption {
+      description = "intel-compute-runtime variant to use (legacy for Gen8–11, default for Gen12+)";
+      type = lib.types.enum [
+        "default"
+        "legacy"
+      ];
+      default = "default";
+    };
+
+    mediaRuntime = lib.mkOption {
+      description = "Intel media runtime to use (Media SDK for Gen8–11, OneVPL for Gen12+)";
+      type = lib.types.enum [
+        "vpl-gpu-rt"
+        "intel-media-sdk"
+      ];
+      default = "vpl-gpu-rt";
+    };
 
     vaapiDriver = lib.mkOption {
       description = "Intel VAAPI driver to use (use null to use both)";
@@ -59,8 +75,16 @@
       useIntelMediaDriver = cfg.vaapiDriver == "intel-media-driver" || cfg.vaapiDriver == null;
       intel-media-driver = pkgs.intel-media-driver;
       intel-media-driver-32 = pkgs.driversi686Linux.intel-media-driver;
-      intel-compute-runtime = pkgs.intel-compute-runtime;
-      vpl-gpu-rt = pkgs.vpl-gpu-rt or pkgs.onevpl-intel-gpu;
+      intel-compute-runtime =
+        if cfg.computeRuntime == "legacy" then
+          pkgs.intel-compute-runtime-legacy1
+        else
+          pkgs.intel-compute-runtime;
+      intel-media-runtime =
+        if cfg.mediaRuntime == "vpl-gpu-rt" then
+          pkgs.vpl-gpu-rt or pkgs.onevpl-intel-gpu
+        else
+          pkgs.intel-media-sdk;
     in
     {
       boot.initrd.kernelModules = lib.optionals cfg.loadInInitrd [ cfg.driver ];
@@ -71,7 +95,7 @@
         ++ lib.optionals useIntelMediaDriver [
           intel-media-driver
           intel-compute-runtime
-          vpl-gpu-rt
+          intel-media-runtime
         ];
 
       hardware.graphics.extraPackages32 =

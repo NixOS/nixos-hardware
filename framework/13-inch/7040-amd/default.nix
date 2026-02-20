@@ -14,7 +14,6 @@ in
     ../common/amd.nix
     ../../../common/cpu/amd/raphael/igpu.nix
   ];
-
   options = {
     hardware.framework.amd-7040.preventWakeOnAC = lib.mkOption {
       type = lib.types.bool;
@@ -30,6 +29,8 @@ in
   };
 
   config = {
+    services.fwupd.enable = true;
+
     # Workaround applied upstream in Linux >=6.7 (on BIOS 03.03)
     # https://github.com/torvalds/linux/commit/a55bdad5dfd1efd4ed9ffe518897a21ca8e4e193
     services.udev.extraRules =

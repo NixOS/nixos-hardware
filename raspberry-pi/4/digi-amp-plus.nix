@@ -6,15 +6,13 @@ in
 {
   options.hardware = {
     raspberry-pi."4".digi-amp-plus = {
-      enable = lib.mkEnableOption ''
-        support for the IQaudIO DigiAMP+ Hat.
-      '';
+      enable = lib.mkEnableOption "support for the IQaudIO DigiAMP+ Hat";
 
       unmuteAmp = lib.mkOption {
         type = lib.types.bool;
         default = false;
         description = ''
-          "one-shot" unmute when kernel module first loads.
+          Whether to "one-shot" unmute when kernel module first loads.
         '';
       };
 

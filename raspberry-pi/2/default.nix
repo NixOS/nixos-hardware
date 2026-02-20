@@ -3,7 +3,13 @@
 {
   boot = {
     consoleLogLevel = lib.mkDefault 7;
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_rpi2;
+    kernelPackages = lib.mkDefault (
+      pkgs.linuxPackagesFor (
+        pkgs.callPackage ../common/kernel.nix {
+          rpiVersion = 2;
+        }
+      )
+    );
     kernelParams = [
       "dwc_otg.lpm_enable=0"
       "console=ttyAMA0,115200"
@@ -17,7 +23,7 @@
     };
   };
 
-  nixpkgs.config.platform = lib.systems.platforms.raspberrypi2;
+  nixpkgs.config.platform = lib.systems.platforms.armv7l-hf-multiplatform;
 
   # cpufrequtils doesn't build on ARM
   powerManagement.enable = lib.mkDefault false;

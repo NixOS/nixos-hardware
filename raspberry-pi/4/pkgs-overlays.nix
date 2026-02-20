@@ -10,10 +10,12 @@ in
 {
   options.hardware = {
     raspberry-pi."4".apply-overlays-dtmerge = {
-      enable = lib.mkEnableOption ''
-        replace deviceTree.applyOverlays implementation to use dtmerge from libraspberrypi.
-        this can resolve issues with applying dtbs for the pi.
-      '';
+      enable = lib.mkEnableOption "" // {
+        description = ''
+          Whether replace deviceTree.applyOverlays implementation to use dtmerge from libraspberrypi.
+          This can resolve issues with applying dtbs for the pi.
+        '';
+      };
     };
   };
 
