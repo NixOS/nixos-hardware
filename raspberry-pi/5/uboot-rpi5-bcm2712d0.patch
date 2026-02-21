@@ -1,0 +1,13 @@
+diff --git a/board/raspberrypi/rpi/rpi.c b/board/raspberrypi/rpi/rpi.c
+index f9b643555dd..f8a8e2b51fe 100644
+--- a/board/raspberrypi/rpi/rpi.c
++++ b/board/raspberrypi/rpi/rpi.c
+@@ -192,7 +192,7 @@ static const struct rpi_model rpi_models_new_scheme[] = {
+ 	},
+ 	[0x17] = {
+ 		"5 Model B",
+-		DTB_DIR "bcm2712-rpi-5-b.dtb",
++		DTB_DIR "bcm2712d0-rpi-5-b.dtb",
+ 		true,
+ 	},
+ 	[0x18] = {

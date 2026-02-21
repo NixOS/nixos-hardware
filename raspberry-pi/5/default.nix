@@ -5,6 +5,13 @@
   ...
 }:
 {
+  nixpkgs.overlays = [
+    (import ./overlay.nix)
+  ];
+
+  boot.loader.grub.enable = lib.mkDefault false;
+  boot.loader.generic-extlinux-compatible.enable = lib.mkDefault true;
+
   boot = {
     kernelPackages = lib.mkDefault (
       pkgs.linuxPackagesFor (
