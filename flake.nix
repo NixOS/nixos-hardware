@@ -48,6 +48,7 @@
           acer-aspire-4810t = import ./acer/aspire/4810t;
           airis-n990 = import ./airis/n990;
           aoostar-r1-n100 = import ./aoostar/r1/n100;
+          apple-imac-12-2 = import ./apple/imac/12-2;
           apple-imac-14-2 = import ./apple/imac/14-2;
           apple-imac-18-2 = import ./apple/imac/18-2;
           apple-macbook-air-3 = import ./apple/macbook-air/3;
@@ -99,6 +100,7 @@
           asus-zephyrus-ga502 = import ./asus/zephyrus/ga502;
           asus-zephyrus-ga503 = import ./asus/zephyrus/ga503;
           asus-zephyrus-gu603h = import ./asus/zephyrus/gu603h;
+          asus-zephyrus-gu605cw = import ./asus/zephyrus/gu605cw;
           asus-zephyrus-gu605my = import ./asus/zephyrus/gu605my;
           beagleboard-pocketbeagle = import ./beagleboard/pocketbeagle;
           chuwi-minibook-x = import ./chuwi/minibook-x;

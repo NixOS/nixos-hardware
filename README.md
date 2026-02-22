@@ -88,6 +88,7 @@ See code for all available configurations.
 | --------------------------------------------------------------------------------- | ------------------------------------------------------- | -------------------------------------- |
 | [Acer Aspire 4810T](acer/aspire/4810t)                                            | `<nixos-hardware/acer/aspire/4810t>`                    | `acer-aspire-4810t`                    |
 | [Airis N990](airis/n990)                                                          | `<nixos-hardware/airis/n990>`                           | `airis-n990`                           |
+| [Apple iMac 12,2](apple/imac/12-2)                                                | `<nixos-hardware/apple/imac/12-2>`                      | `apple-imac-12-2`                      |
 | [Apple iMac 14.2](apple/imac/14-2)                                                | `<nixos-hardware/apple/imac/14-2>`                      | `apple-imac-14-2`                      |
 | [Apple iMac 18.2](apple/imac/18-2)                                                | `<nixos-hardware/apple/imac/18-2>`                      | `apple-imac-18-2`                      |
 | [Apple MacBook Air 3,X](apple/macbook-air/3)                                      | `<nixos-hardware/apple/macbook-air/3>`                  | `apple-macbook-air-3`                  |
@@ -124,6 +125,7 @@ See code for all available configurations.
 | [Asus ROG Zephyrus G14 GA402X\* (2023)](asus/zephyrus/ga402x/nvidia)              | `<nixos-hardware/asus/zephyrus/ga402x/nvidia>`          | `asus-zephyrus-ga402x-nvidia`          |
 | [Asus ROG Zephyrus G15 GA502](asus/zephyrus/ga502)                                | `<nixos-hardware/asus/zephyrus/ga502>`                  | `asus-zephyrus-ga502`                  |
 | [Asus ROG Zephyrus G15 GA503](asus/zephyrus/ga503)                                | `<nixos-hardware/asus/zephyrus/ga503>`                  | `asus-zephyrus-ga503`                  |
+| [Asus ROG Zephyrus G16 GU605CW](asus/zephyrus/gu605cw)                            | `<nixos-hardware/asus/zephyrus/gu605cw>`                | `asus-zephyrus-gu605cw`                |
 | [Asus ROG Zephyrus G16 GU605MY](asus/zephyrus/gu605my)                            | `<nixos-hardware/asus/zephyrus/gu605my>`                | `asus-zephyrus-gu605my`                |
 | [Asus ROG Zephyrus M16 GU603H](asus/zephyrus/gu603h)                              | `<nixos-hardware/asus/zephyrus/gu603h>`                 | `asus-zephyrus-gu603h`                 |
 | [Asus TUF FX504GD](asus/fx504gd)                                                  | `<nixos-hardware/asus/fx504gd>`                         | `asus-fx504gd`                         |
