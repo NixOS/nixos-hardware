@@ -23,7 +23,4 @@
   services = {
     asusd.enable = lib.mkDefault true;
   };
-
-  services.tuned.enable = true;
-  services.tlp.enable = lib.mkOverride 500 false;
 }
