@@ -7,6 +7,55 @@ in
   options.hardware = {
     raspberry-pi."4".poe-plus-hat = {
       enable = lib.mkEnableOption "support for the Raspberry Pi PoE+ HAT";
+      fan = lib.mkOption {
+        type = lib.types.submodule {
+          options = {
+            temperature0 = lib.mkOption {
+              type = lib.types.int;
+              default = 40000;
+              description = "Temperature threshold 0.";
+            };
+            hysteresis0 = lib.mkOption {
+              type = lib.types.int;
+              default = 2000;
+              description = "Temperature hysteresis 0.";
+            };
+            temperature1 = lib.mkOption {
+              type = lib.types.int;
+              default = 45000;
+              description = "Temperature threshold 1.";
+            };
+            hysteresis1 = lib.mkOption {
+              type = lib.types.int;
+              default = 2000;
+              description = "Temperature hysteresis 1.";
+            };
+            temperature2 = lib.mkOption {
+              type = lib.types.int;
+              default = 50000;
+              description = "Temperature threshold 2.";
+            };
+            hysteresis2 = lib.mkOption {
+              type = lib.types.int;
+              default = 2000;
+              description = "Temperature hysteresis 2.";
+            };
+            temperature3 = lib.mkOption {
+              type = lib.types.int;
+              default = 55000;
+              description = "Temperature threshold 3.";
+            };
+            hysteresis3 = lib.mkOption {
+              type = lib.types.int;
+              default = 5000;
+              description = "Temperature hysteresis 3.";
+            };
+          };
+        };
+
+        default = { };
+        description = "Fan configuration.";
+      };
     };
   };
 
@@ -55,23 +104,23 @@ in
                 target = <&thermal_trips>;
                 __overlay__ {
                   trip0: trip0 {
-                    temperature = <40000>;
-                    hysteresis = <2000>;
+                    temperature = <${cfg.fan.temperature0}>;
+                    hysteresis = <${cfg.fan.hysteresis0}>;
                     type = "active";
                   };
                   trip1: trip1 {
-                    temperature = <45000>;
-                    hysteresis = <2000>;
+                    temperature = <${cfg.fan.temperature1}>;
+                    hysteresis = <${cfg.fan.hysteresis1}>;
                     type = "active";
                   };
                   trip2: trip2 {
-                    temperature = <50000>;
-                    hysteresis = <2000>;
+                    temperature = <${cfg.fan.temperature2}>;
+                    hysteresis = <${cfg.fan.hysteresis2}>;
                     type = "active";
                   };
                   trip3: trip3 {
-                    temperature = <55000>;
-                    hysteresis = <5000>;
+                    temperature = <${cfg.fan.temperature3}>;
+                    hysteresis = <${cfg.fan.hysteresis3}>;
                     type = "active";
                   };
                 };
