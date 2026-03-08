@@ -46,6 +46,7 @@
         in
         {
           acer-aspire-4810t = import ./acer/aspire/4810t;
+          acer-predator-helios-300-ph315-51 = import ./acer/predator/helios/300/ph315-51;
           airis-n990 = import ./airis/n990;
           aoostar-r1-n100 = import ./aoostar/r1/n100;
           apple-imac-12-2 = import ./apple/imac/12-2;
