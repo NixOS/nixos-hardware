@@ -57,11 +57,6 @@ in
       };
 
       services = {
-        asusd = {
-          enable = mkDefault true;
-          enableUserService = mkDefault true;
-        };
-
         supergfxd.enable = mkDefault true;
 
         udev = {
