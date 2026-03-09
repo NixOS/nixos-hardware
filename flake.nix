@@ -405,6 +405,7 @@
           raspberry-pi-3 = import ./raspberry-pi/3;
           raspberry-pi-4 = import ./raspberry-pi/4;
           raspberry-pi-5 = import ./raspberry-pi/5;
+          radxa-zero-3w = import ./radxa/zero-3w;
           rock-4c-plus = import ./radxa/rock-4c-plus;
           rock-5b = import ./radxa/rock-5b;
           rock-pi-4 = import ./radxa/rock-pi-4;

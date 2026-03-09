@@ -428,6 +428,7 @@ See code for all available configurations.
 | [Purism Librem 13v3](purism/librem/13v3)                                          | `<nixos-hardware/purism/librem/13v3>`                   | `purism-librem-13v3`                   |
 | [Purism Librem 15v3](purism/librem/15v3)                                          | `<nixos-hardware/purism/librem/15v3>`                   | `purism-librem-15v3`                   |
 | [Purism Librem 5r4](purism/librem/5r4)                                            | `<nixos-hardware/purism/librem/5r4>`                    | `purism-librem-5r4`                    |
+| [Radxa Zero 3W](radxa/zero-3w)                                                    | `<nixos-hardware/radxa/zero-3w>`                        | `radxa-zero-3w`                        |
 | [Radxa ROCK 4C+](radxa/rock-4c-plus)                                              | `<nixos-hardware/radxa/rock-4c-plus>`                   | `rock-4c-plus`                         |
 | [Radxa ROCK 5 Model B](radxa/rock-5b)                                             | `<nixos-hardware/radxa/rock-5b>`                        | `rock-5b`                              |
 | [Radxa ROCK Pi 4](radxa/rock-pi-4)                                                | `<nixos-hardware/radxa/rock-pi-4>`                      | `rock-pi-4`                            |
