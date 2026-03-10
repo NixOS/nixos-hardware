@@ -10,7 +10,12 @@
 #
 # Reference: https://www.raspberrypi.com/documentation/computers/config_txt.html
 
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.hardware.raspberry-pi.configtxt;
@@ -33,9 +38,12 @@ let
   # Recursively flatten nested attrs into a list of { conditionals, name, value } records.
   # Each nesting level (except the leaf) is a conditional filter.
   # "all" filters are omitted from the conditionals list since they reset state.
+  # null values are filtered out, allowing `mkForce null` to remove defaults.
   recurse =
     path: value:
-    if builtins.isAttrs value && !(builtins.isList value) && !(value ? _type) then
+    if value == null then
+      [ ]
+    else if builtins.isAttrs value && !(builtins.isList value) && !(value ? _type) then
       lib.flatten (lib.mapAttrsToList (name: recurse ([ name ] ++ path)) value)
     else
       {
@@ -76,11 +84,11 @@ in
       type =
         with lib.types;
         let
-          atom = oneOf [
+          atom = nullOr (oneOf [
             str
             int
             bool
-          ];
+          ]);
           molecule = oneOf [
             atom
             (listOf atom)
@@ -116,15 +124,13 @@ in
     };
 
     file = lib.mkOption {
-      type = lib.types.str;
+      type = lib.types.path;
+      default = pkgs.writeText "config.txt" (toConfigTxt cfg.settings);
+      defaultText = lib.literalExpression ''pkgs.writeText "config.txt" (generated from settings)'';
       description = ''
-        The generated config.txt content. Defaults to the rendered output of
-        `settings`, but can be overridden to supply a custom config.txt.
+        Path to the generated config.txt file. Defaults to the rendered output
+        of `settings`, but can be overridden to supply a custom config.txt.
       '';
     };
-  };
-
-  config = {
-    hardware.raspberry-pi.configtxt.file = lib.mkDefault (toConfigTxt cfg.settings);
   };
 }
