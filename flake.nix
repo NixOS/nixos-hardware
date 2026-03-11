@@ -74,6 +74,7 @@
           asus-fa506ic = import ./asus/fa506ic;
           asus-fa507nv = import ./asus/fa507nv;
           asus-fa507rm = import ./asus/fa507rm;
+          asus-fa706ic = import ./asus/fa706ic;
           asus-flow-gv302x-amdgpu = import ./asus/flow/gv302x/amdgpu;
           asus-flow-gv302x-nvidia = import ./asus/flow/gv302x/nvidia;
           asus-flow-gz301vu = import ./asus/flow/gz301vu;
