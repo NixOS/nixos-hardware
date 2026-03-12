@@ -1,3 +1,7 @@
+# quick command for testing:
+# nix build -L --impure --no-link --expr \
+#   '(import <nixpkgs> {}).linuxPackages_6_18.callPackage ./default.nix {}'
+
 {
   stdenv,
   lib,
@@ -25,8 +29,20 @@ let
     cat ${patch1_original} > $out
     ${patch}/bin/patch $out < ${./6.12.patch.patch}
   '';
+  patch1_updated_6_17 = runCommand "goodix-stylus-mastykin-1-pen-support-6.17.patch" { } ''
+    cat ${patch1_original} > $out
+    ${patch}/bin/patch $out < ${./6.17.patch.patch}
+  '';
+  patch1_updated_6_18 = runCommand "goodix-stylus-mastykin-1-pen-support-6.18.patch" { } ''
+    cat ${patch1_original} > $out
+    ${patch}/bin/patch $out < ${./6.18.patch.patch}
+  '';
   patch1 =
-    if (lib.versionAtLeast kernel.version "6.12") then
+    if (lib.versionAtLeast kernel.version "6.18.18") then
+      patch1_updated_6_18
+    else if (lib.versionAtLeast kernel.version "6.17") then
+      patch1_updated_6_17
+    else if (lib.versionAtLeast kernel.version "6.12") then
       patch1_updated_6_12
     else if (lib.versionAtLeast kernel.version "6.1") then
       patch1_updated_6_1
@@ -51,17 +67,32 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
   src = ./.;
-  patches = [
-    patch1
-    patch2
-  ];
 
-  postUnpack = ''
-    tar -C goodix-stylus-mastykin \
-      --strip-components=3 -xf ${kernel.src} --wildcards \
-      '*/drivers/hid/hid-ids.h' '*/drivers/hid/hid-multitouch.c'
+  # default patchPhase doesn't try hard enough
+  patchPhase = ''
+    runHook prePatch
+    patch -p3 hid-multitouch.c < ${patch1}
+    patch -p3 hid-multitouch.c < ${patch2}
+    runHook postPatch
   '';
-  patchFlags = "-p3";
+
+  postUnpack =
+    let
+      hid = "${kernel.src}/drivers/hid";
+    in
+    ''
+      if [ -d ${kernel.src} ]; then  # -latest kernel
+        cp ${hid}/hid-ids.h ${hid}/hid-multitouch.c goodix-stylus-mastykin/
+        cp ${hid}/hid-haptic.h goodix-stylus-mastykin/ 2>/dev/null || true
+      else  # stable kernels with tarballs
+        tar -C goodix-stylus-mastykin \
+          --strip-components=3 -xf ${kernel.src} --wildcards \
+          '*/drivers/hid/hid-ids.h' '*/drivers/hid/hid-multitouch.c'
+        tar -C goodix-stylus-mastykin \
+          --strip-components=3 -xf ${kernel.src} --wildcards \
+          '*/drivers/hid/hid-haptic.h' 2>/dev/null || true
+      fi
+    '';
   postPatch = ''
     mv hid-multitouch.c hid-multitouch-onenetbook4.c
     substituteInPlace hid-multitouch-onenetbook4.c --replace \
