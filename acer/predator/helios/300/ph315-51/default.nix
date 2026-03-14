@@ -15,6 +15,7 @@ in
   hardware = {
     nvidia = {
       modesetting.enable = mkDefault true;
+      powerManagement.enable = mkDefault true;
 
       prime = {
         sync.enable = mkDefault true;
