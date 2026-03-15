@@ -493,8 +493,28 @@
           imx93-boot = (pkgs.callPackage ./nxp/imx93-evk/bsp/imx93-boot.nix { }).imx93-boot;
           imx8mp-boot = (pkgs.callPackage ./nxp/imx8mp-evk/bsp/imx8mp-boot.nix { }).imx8m-boot;
           imx8mq-boot = (pkgs.callPackage ./nxp/imx8mq-evk/bsp/imx8mq-boot.nix { }).imx8m-boot;
+          # Raspberry Pi kernels (aarch64-linux only)
+          rpi2-kernel = (pkgs.callPackage ./raspberry-pi/common/kernel.nix { rpiVersion = 2; });
+          rpi3-kernel = (pkgs.callPackage ./raspberry-pi/common/kernel.nix { rpiVersion = 3; });
+          rpi4-kernel = (pkgs.callPackage ./raspberry-pi/common/kernel.nix { rpiVersion = 4; });
+          rpi5-kernel = (pkgs.callPackage ./raspberry-pi/common/kernel.nix { rpiVersion = 5; });
         }
       );
+
+      # Hydra jobset for Raspberry Pi kernels
+      hydraJobs = {
+        raspberry-pi-kernels = eachSystem (
+          pkgs: system:
+          pkgs.lib.optionalAttrs (system == "aarch64-linux") {
+            inherit (self.packages.${system})
+              rpi2-kernel
+              rpi3-kernel
+              rpi4-kernel
+              rpi5-kernel
+              ;
+          }
+        );
+      };
 
       # Add checks for `nix run .#run-tests`
       checks = eachSystem (
