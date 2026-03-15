@@ -12,9 +12,6 @@
   ];
 
   hardware.nvidia = {
-    modesetting.enable = lib.mkDefault true;
-    open = lib.mkDefault false;
-    nvidiaSettings = lib.mkDefault true;
     dynamicBoost.enable = lib.mkDefault true;
 
     prime = {
