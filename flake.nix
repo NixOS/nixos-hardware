@@ -126,6 +126,7 @@
           dell-latitude-7490 = import ./dell/latitude/7490;
           dell-latitude-9430 = import ./dell/latitude/9430;
           dell-latitude-e7240 = import ./dell/latitude/e7240;
+          dell-latitude-e7440 = import ./dell/latitude/e7440;
           dell-optiplex-3050 = import ./dell/optiplex/3050;
           dell-poweredge-r7515 = import ./dell/poweredge/r7515;
           dell-precision-3490 = deprecated "1491" "dell-precision-3490" (import ./dell/precision/3490);
