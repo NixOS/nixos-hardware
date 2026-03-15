@@ -372,6 +372,7 @@
           msi-b350-tomahawk = import ./msi/b350-tomahawk;
           msi-b550-a-pro = import ./msi/b550-a-pro;
           msi-b550-tomahawk = import ./msi/b550-tomahawk;
+          msi-gf63 = import ./msi/gf63;
           msi-gs60 = import ./msi/gs60;
           msi-gl62 = import ./msi/gl62;
           msi-gl65-10SDR-492 = import ./msi/gl65/10SDR-492;
