@@ -134,6 +134,7 @@ See code for all available configurations.
 | [Asus TUF FA506NCR](asus/fa506ncr)                                                | `<nixos-hardware/asus/fa506ncr>`                        | `asus-fa506ncr`                        |
 | [Asus TUF FA507RM](asus/fa507rm)                                                  | `<nixos-hardware/asus/fa507rm>`                         | `asus-fa507rm`                         |
 | [Asus TUF FA507NV](asus/fa507nv)                                                  | `<nixos-hardware/asus/fa507nv>`                         | `asus-fa507nv`                         |
+| [Asus TUF FA706IC](asus/fa706ic)                                                  | `<nixos-hardware/asus/fa706ic>`                         | `asus-fa706ic`                         |
 | [Asus Zenbook Duo 14 UX481](asus/zenbook/ux481/intelgpu/)                         | `<nixos-hardware/asus/zenbook/ux481/intelgpu>`          | `asus-zenbook-ux481-intelgpu`          |
 | [Asus Zenbook Duo 14 UX481](asus/zenbook/ux481/nvidia/)                           | `<nixos-hardware/asus/zenbook/ux481/nvidia>`            | `asus-zenbook-ux481-nvidia`            |
 | [Asus Zenbook Flip S13 UX371](asus/zenbook/ux371/)                                | `<nixos-hardware/asus/zenbook/ux371>`                   | `asus-zenbook-ux371`                   |
