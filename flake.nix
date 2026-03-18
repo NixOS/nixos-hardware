@@ -48,6 +48,7 @@
           acer-aspire-4810t = import ./acer/aspire/4810t;
           airis-n990 = import ./airis/n990;
           aoostar-r1-n100 = import ./aoostar/r1/n100;
+          apple-imac-12-2 = import ./apple/imac/12-2;
           apple-imac-14-2 = import ./apple/imac/14-2;
           apple-imac-18-2 = import ./apple/imac/18-2;
           apple-macbook-air-3 = import ./apple/macbook-air/3;
@@ -75,6 +76,7 @@
           asus-fa507rm = import ./asus/fa507rm;
           asus-flow-gv301qh-amdgpu = import ./asus/flow/gv301qh/amdgpu;
           asus-flow-gv301qh-nvidia = import ./asus/flow/gv301qh/nvidia;
+          asus-fa706ic = import ./asus/fa706ic;
           asus-flow-gv302x-amdgpu = import ./asus/flow/gv302x/amdgpu;
           asus-flow-gv302x-nvidia = import ./asus/flow/gv302x/nvidia;
           asus-flow-gz301vu = import ./asus/flow/gz301vu;
@@ -100,6 +102,7 @@
           asus-zephyrus-ga502 = import ./asus/zephyrus/ga502;
           asus-zephyrus-ga503 = import ./asus/zephyrus/ga503;
           asus-zephyrus-gu603h = import ./asus/zephyrus/gu603h;
+          asus-zephyrus-gu605cw = import ./asus/zephyrus/gu605cw;
           asus-zephyrus-gu605my = import ./asus/zephyrus/gu605my;
           beagleboard-pocketbeagle = import ./beagleboard/pocketbeagle;
           chuwi-minibook-x = import ./chuwi/minibook-x;
@@ -202,10 +205,12 @@
           hp-probook-440G5 = import ./hp/probook/440G5;
           hp-probook-460G11 = import ./hp/probook/460G11;
           hp-laptop-14s-dq2024nf = import ./hp/laptop/14s-dq2024nf;
+          hp-laptop-15s-fq1xxx = import ./hp/laptop/15s-fq1xxx;
           huawei-machc-wa = import ./huawei/machc-wa;
           hp-notebook-14-df0023 = import ./hp/notebook/14-df0023;
           intel-nuc-5i5ryb = import ./intel/nuc/5i5ryb;
           intel-nuc-8i7beh = import ./intel/nuc/8i7beh;
+          intel-nuc-12wshi7 = import ./intel/nuc/12wshi7;
           lenovo-ideacentre-k330 = import ./lenovo/ideacentre/k330;
           lenovo-ideapad-14imh9 = import ./lenovo/ideapad/14imh9;
           lenovo-ideapad-15alc6 = import ./lenovo/ideapad/15alc6;
@@ -267,6 +272,7 @@
           lenovo-thinkpad-p16s-amd-gen2 = import ./lenovo/thinkpad/p16s/amd/gen2;
           lenovo-thinkpad-p16s-amd-gen4 = import ./lenovo/thinkpad/p16s/amd/gen4;
           lenovo-thinkpad-p16s-intel-gen2 = import ./lenovo/thinkpad/p16s/intel/gen2;
+          lenovo-thinkpad-p16s-intel-gen3 = import ./lenovo/thinkpad/p16s/intel/gen3;
           lenovo-thinkpad-p43s = import ./lenovo/thinkpad/p43s;
           lenovo-thinkpad-p50 = import ./lenovo/thinkpad/p50;
           lenovo-thinkpad-p51 = import ./lenovo/thinkpad/p51;
@@ -359,6 +365,9 @@
           microsoft-surface-pro-3 = import ./microsoft/surface-pro/3;
           microsoft-surface-pro-9 = import ./microsoft/surface-pro/9;
           milkv-pioneer = import ./milkv/pioneer;
+          minisforum-um690 = import ./minisforum/um690;
+          minisforum-um690s = import ./minisforum/um690s;
+          minisforum-um790-pro = import ./minisforum/um790-pro;
           minisforum-v3 = import ./minisforum/v3;
           mnt-reform-rk3588 = import ./mnt/reform/rk3588;
           morefine-m600 = import ./morefine/m600;
@@ -376,6 +385,7 @@
           hardkernel-odroid-hc4 = import ./hardkernel/odroid-hc4;
           hardkernel-odroid-h3 = import ./hardkernel/odroid-h3;
           hardkernel-odroid-h4 = import ./hardkernel/odroid-h4;
+          hardkernel-odroid-m1 = import ./hardkernel/odroid-m1;
           omen-14-fb0798ng = import ./omen/14-fb0798ng;
           omen-15-ce002ns = import ./omen/15-ce002ns;
           omen-15-en0010ca = import ./omen/15-en0010ca;
@@ -418,6 +428,7 @@
           system76-galp5-1650 = import ./system76/galp5-1650;
           system76-darp6 = import ./system76/darp6;
           system76-thelio-mega = import ./system76/thelio-mega;
+          system76-galp3 = import ./system76/galp3;
           toshiba-swanky = import ./toshiba/swanky;
           tuxedo-aura-15-gen1 = import ./tuxedo/aura/15/gen1;
           tuxedo-infinitybook-v4 = import ./tuxedo/infinitybook/v4;

@@ -30,7 +30,7 @@
 
   # Override the Intel gpu driver setting imported above
   environment.variables = {
-    VDPAU_DRIVER = lib.mkIf config.hardware.opengl.enable (lib.mkOverride 990 "nvidia");
+    VDPAU_DRIVER = lib.mkIf config.hardware.graphics.enable (lib.mkOverride 990 "nvidia");
   };
 
   services.thermald.enable = lib.mkDefault true;

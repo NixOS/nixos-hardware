@@ -26,7 +26,7 @@ let
 
         src = fetchzip {
           url = "mirror://kernel/linux/kernel/v${lib.versions.major modDirVersion}.x/linux-${modDirVersion}.tar.xz";
-          hash = "sha256-PLMxGXbKztn4MubhKVqSCSzf+UYL50NI48bikMxgghg=";
+          hash = "sha256-MibiVni0N37BxOrD53cDGitIbC24p9+7551qMQIcSHY=";
         };
 
         kernelPatches =
@@ -135,7 +135,7 @@ let
           GPIO_ROCKCHIP = yes;
           PL330_DMA = yes;
 
-          DRM_ZYNQMP_DPSUB = no; # patches for 6.17 break this driver
+          DRM_ZYNQMP_DPSUB = no; # patches for 6.18 break this driver
         };
       }
       // (args.argsOverride or { })

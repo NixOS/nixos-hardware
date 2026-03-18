@@ -1,8 +1,5 @@
 { lib, ... }:
 {
-  imports = [
-    ../../../../common/gpu/24.05-compat.nix
-  ];
   hardware = {
     graphics = {
       enable = lib.mkDefault true;

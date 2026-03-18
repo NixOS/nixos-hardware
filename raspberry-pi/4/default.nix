@@ -28,7 +28,13 @@
   ];
 
   boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxKernel.packages.linux_rpi4;
+    kernelPackages = lib.mkDefault (
+      pkgs.linuxPackagesFor (
+        pkgs.callPackage ../common/kernel.nix {
+          rpiVersion = 4;
+        }
+      )
+    );
     initrd.availableKernelModules = [
       "usbhid"
       "usb-storage"
@@ -56,5 +62,7 @@
     }
   ];
 
-  hardware.firmware = [ pkgs.raspberrypiWirelessFirmware ];
+  hardware.firmware = [
+    (pkgs.callPackage ../common/raspberry-pi-wireless-firmware.nix { })
+  ];
 }
