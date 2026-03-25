@@ -28,6 +28,7 @@
     generic-extlinux-compatible.enable = true;
   };
   hardware.alsa.enablePersistence = true;
+  hardware.graphics.enable = lib.mkDefault true;
   system.activationScripts.asound = ''
     if [ ! -e "/var/lib/alsa/asound.state" ]; then
       mkdir -p /var/lib/alsa
