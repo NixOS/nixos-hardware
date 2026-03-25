@@ -26,7 +26,7 @@ let
 
         src = fetchzip {
           url = "mirror://kernel/linux/kernel/v${lib.versions.major modDirVersion}.x/linux-${modDirVersion}.tar.xz";
-          hash = "sha256-MibiVni0N37BxOrD53cDGitIbC24p9+7551qMQIcSHY=";
+          hash = "sha256-cdQbdColRBCzQPWojIVpLs6Rmuk91bBPtqf8DsmkSxU=";
         };
 
         kernelPatches =
@@ -101,10 +101,17 @@ let
           ARM_IMX_CPUFREQ_DT = yes;
           ARM_IMX_BUS_DEVFREQ = yes;
           IMX_IRQSTEER = yes;
+          PWM_FSL_FTM = yes;
+          FSL_RCPM = yes;
+          VIDEO_DW100 = module;
+          IMX_AIPSTZ = module;
+          IMX_DSP = module;
+          IMX_REMOTEPROC = module;
+          IMX_DSP_REMOTEPROC = module;
 
           PCI_MESON = yes;
           DWMAC_MESON = module;
-          MDIO_BUS_MUX_MESON_G12A = yes;
+          MDIO_BUS_MUX_MESON_G12A = module;
           I2C_MESON = yes;
           PWM_MESON = yes;
           USB_DWC3_MESON_G12A = yes;
@@ -112,9 +119,6 @@ let
           MMC_MESON_MX_SDIO = yes;
           MESON_DDR_PMU = yes;
           RTW88_8822CS = module;
-
-          PWM_FSL_FTM = yes;
-          FSL_RCPM = yes;
 
           ARCH_ROCKCHIP = yes;
           # ARM_ROCKCHIP_CPUFREQ = module; # configuration option does not exist
@@ -134,8 +138,6 @@ let
           REGULATOR_FIXED_VOLTAGE = yes;
           GPIO_ROCKCHIP = yes;
           PL330_DMA = yes;
-
-          DRM_ZYNQMP_DPSUB = no; # patches for 6.18 break this driver
         };
       }
       // (args.argsOverride or { })
