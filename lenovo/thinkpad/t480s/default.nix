@@ -2,10 +2,13 @@
 
 {
   imports = [
-    ../../../common/cpu/intel
+    ../../../common/cpu/intel/kaby-lake
     ../../../common/pc/ssd
     ../.
   ];
 
-  services.throttled.enable = lib.mkDefault true;
+  services = {
+    fwupd.enable = lib.mkDefault true;
+    thermald.enable = lib.mkDefault true;
+  };
 }
