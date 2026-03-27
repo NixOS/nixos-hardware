@@ -67,14 +67,14 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Get in touch
 
-For questions and discussions, come join us in the [nixos-anywhere matrix](https://matrix.to/#/#nixos-hardware:nixos.org) room.
+For questions and discussions, come join us in the [nixos-hardware matrix](https://matrix.to/#/#nixos-hardware:nixos.org) room.
 
 # Community Meetings
 
 The [NixOS hardware](https://github.com/orgs/NixOS/teams/nixos-hardware) team meets regularly to discuss hardware profiles and maintenance:
 
 - **When**: Every 3rd Friday of the month
-- **Time**: 05:00 pm (UTC) / 17:00 (UTC)
+- **Time**: 06:00 pm (UTC) / 18:00 (UTC)
 - **Where**: https://jitsi.lassul.us/Hardware-team
 - **Contact**: hardware@nixos.org
 
