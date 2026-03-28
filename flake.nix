@@ -72,6 +72,7 @@
           asus-fx504gd = import ./asus/fx504gd;
           asus-fx506hm = import ./asus/fx506hm;
           asus-fa506ic = import ./asus/fa506ic;
+          asus-fa506nc = import ./asus/fa506nc;
           asus-fa507nv = import ./asus/fa507nv;
           asus-fa507rm = import ./asus/fa507rm;
           asus-fa706ic = import ./asus/fa706ic;
