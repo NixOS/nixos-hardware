@@ -409,6 +409,7 @@
           raspberry-pi-5 = import ./raspberry-pi/5;
           rock-4c-plus = import ./radxa/rock-4c-plus;
           rock-5b = import ./radxa/rock-5b;
+          rock-5c = import ./radxa/rock-5c;
           rock-pi-4 = import ./radxa/rock-pi-4;
           rock-pi-e = import ./radxa/rock-pi-e;
           kobol-helios4 = import ./kobol/helios4;
