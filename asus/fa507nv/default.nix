@@ -34,7 +34,6 @@
   services = {
     asusd = {
       enable = lib.mkDefault true;
-      enableUserService = lib.mkDefault true;
     };
   };
 
