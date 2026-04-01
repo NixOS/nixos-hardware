@@ -63,7 +63,7 @@ in
         restartIfChanged = false;
 
         script = ''
-          BLUETOOTH_MAC="${if cfg.bluetoothMac == null then "" else cfg.bluetoothMac}"
+          BLUETOOTH_MAC="${lib.optionalString (cfg.bluetoothMac != null) cfg.bluetoothMac}"
 
           if [ "$BLUETOOTH_MAC" = "" ] ; then
             echo 'generating bluetooth mac'
