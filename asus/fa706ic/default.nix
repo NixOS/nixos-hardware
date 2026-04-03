@@ -12,21 +12,16 @@
   ];
 
   hardware.nvidia = {
-    modesetting.enable = lib.mkDefault true;
-    open = lib.mkDefault false;
-    nvidiaSettings = lib.mkDefault true;
     dynamicBoost.enable = lib.mkDefault true;
 
     prime = {
-      amdgpuBusId = "PCI:0:6:0";
-      nvidiaBusId = "PCI:0:1:0";
+      amdgpuBusId = "PCI:6:0:0";
+      nvidiaBusId = "PCI:1:0:0";
     };
   };
 
   services = {
-    asusd = {
-      enable = lib.mkDefault true;
-    };
+    asusd.enable = lib.mkDefault true;
     supergfxd.enable = lib.mkDefault true;
   };
 }

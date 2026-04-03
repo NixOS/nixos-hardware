@@ -12,21 +12,21 @@
   ];
 
   hardware.nvidia = {
-    modesetting.enable = lib.mkDefault true;
-    open = lib.mkDefault false;
-    nvidiaSettings = lib.mkDefault true;
     dynamicBoost.enable = lib.mkDefault true;
 
     prime = {
-      amdgpuBusId = "PCI:0:6:0";
-      nvidiaBusId = "PCI:0:1:0";
+      amdgpuBusId = "PCI:5:0:0";
+      nvidiaBusId = "PCI:1:0:0";
     };
   };
 
+  # AMD has better battery life with PPD over TLP:
+  # https://community.frame.work/t/responded-amd-7040-sleep-states/38101/13
+  services.power-profiles-daemon.enable = lib.mkDefault true;
+
   services = {
-    asusd = {
-      enable = lib.mkDefault true;
-    };
+    # https://asus-linux.org/manual/asusctl-manual/
+    asusd.enable = lib.mkDefault true;
     supergfxd.enable = lib.mkDefault true;
   };
 }
