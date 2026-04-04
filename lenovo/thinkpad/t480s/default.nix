@@ -7,6 +7,8 @@
     ../.
   ];
 
+  services.xserver.videoDrivers = [ "modesetting" ];
+
   services = {
     fwupd.enable = lib.mkDefault true;
     thermald.enable = lib.mkDefault true;
