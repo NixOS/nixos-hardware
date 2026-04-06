@@ -102,23 +102,23 @@ in
                 target = <&thermal_trips>;
                 __overlay__ {
                   trip0: trip0 {
-                    temperature = <${cfg.fan.temperature0}>;
-                    hysteresis = <${cfg.fan.hysteresis0}>;
+                    temperature = <${toString cfg.fan.temperature0}>;
+                    hysteresis = <${toString cfg.fan.hysteresis0}>;
                     type = "active";
                   };
                   trip1: trip1 {
-                    temperature = <${cfg.fan.temperature1}>;
-                    hysteresis = <${cfg.fan.hysteresis1}>;
+                    temperature = <${toString cfg.fan.temperature1}>;
+                    hysteresis = <${toString cfg.fan.hysteresis1}>;
                     type = "active";
                   };
                   trip2: trip2 {
-                    temperature = <${cfg.fan.temperature2}>;
-                    hysteresis = <${cfg.fan.hysteresis2}>;
+                    temperature = <${toString cfg.fan.temperature2}>;
+                    hysteresis = <${toString cfg.fan.hysteresis2}>;
                     type = "active";
                   };
                   trip3: trip3 {
-                    temperature = <${cfg.fan.temperature3}>;
-                    hysteresis = <${cfg.fan.hysteresis3}>;
+                    temperature = <${toString cfg.fan.temperature3}>;
+                    hysteresis = <${toString cfg.fan.hysteresis3}>;
                     type = "active";
                   };
                 };
