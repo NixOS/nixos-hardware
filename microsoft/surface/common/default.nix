@@ -20,8 +20,8 @@ let
   supportedKernels =
     let
       lts-kernel = {
-        version = "6.18.8";
-        hash = "sha256-N/DF1cJCwdYE6H1I8IeV6GGlqF9yW0yhHQpTjxL/jP8=";
+        version = "6.18.13";
+        hash = "sha256-7Sw8Vf045oNsCU/ONW8lZ/lRYTC3M1SimFeWA2jFaH8=";
       };
 
     in
@@ -38,8 +38,8 @@ let
   linux-surface = pkgs.fetchFromGitHub {
     owner = "linux-surface";
     repo = "linux-surface";
-    rev = "faedd344762f9db3fe3c79e4f085d4ca7891e0c8"; # debian-6.18.8-1
-    hash = "sha256-2t5tMvne8W1q/hCO+O5XfuHj6DAzO6iKtCC6egXsWWM=";
+    rev = "829ceccd5970ed3621a30d9fcfb2fe6584a3aab7";
+    hash = "sha256-H/qjP2dR5yjUvHUhI6pis+EHHSRXxc4+c4zir/pDA54=";
   };
 
   # Fetch and build the kernel
