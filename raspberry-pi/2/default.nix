@@ -1,14 +1,12 @@
 { lib, pkgs, ... }:
 
 {
+  imports = [ ../common/default.nix ];
+
   boot = {
     consoleLogLevel = lib.mkDefault 7;
     kernelPackages = lib.mkDefault (
-      pkgs.linuxPackagesFor (
-        pkgs.callPackage ../common/kernel.nix {
-          rpiVersion = 2;
-        }
-      )
+      pkgs.linuxPackagesFor (pkgs.callPackage ../common/kernel.nix { rpiVersion = 2; })
     );
     kernelParams = [
       "dwc_otg.lpm_enable=0"
