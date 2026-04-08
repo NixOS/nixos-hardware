@@ -25,6 +25,14 @@
       "i915.enable_psr=0"
       "nvidia_drm.modeset=1"
     ];
+    initrd.availableKernelModules = [
+      "xhci_pci"
+        "ahci"
+        "nvme"
+        "usb_storage"
+        "sd_mod"
+        "rtsx_pci_sdmmc"
+    ];
   };
 
   hardware = {
