@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
@@ -32,10 +32,26 @@
       "usb_storage"
       "sd_mod"
       "rtsx_pci_sdmmc"
+      "thunderbolt"
+    ];
+    kernelModules = [
+      # For Intel wifi card
+      "iwlwifi"
+      # Intel thermal/power management
+      "intel_lpss_pci"
+      "intel_pch_thermal"
+      "processor_thermal_device"
+      "intel_hid"
+      "dell_wmi"
+      "dell_smm" # Dell hardware monitoring
     ];
   };
 
   hardware = {
+    firmware = with pkgs; [
+      linux-firmware # Intel WiFi, Bluetooth, GPU, Thunderbolt, NVMe
+      alsa-firmware # Realtek audio codec
+    ];
     nvidia = {
       nvidiaSettings = lib.mkDefault true;
       modesetting.enable = lib.mkDefault true;
