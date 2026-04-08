@@ -26,13 +26,13 @@
       "nvidia_drm.modeset=1"
     ];
     initrd.availableKernelModules = [
-      "xhci_pci"
-      "ahci"
-      "nvme"
-      "usb_storage"
-      "sd_mod"
-      "rtsx_pci_sdmmc"
-      "thunderbolt"
+      "xhci_pci" # USB 3.0/3.1 compatibility
+      "ahci" # SATA support if installed
+      "nvme" # NVMe support
+      "usb_storage" # USB mass storage support
+      "sd_mod" # SD card support
+      "rtsx_pci_sdmmc" # Realtek SD card support
+      "thunderbolt" # Thunderbolt support
     ];
     kernelModules = [
       # For Intel wifi card
