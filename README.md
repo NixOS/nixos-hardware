@@ -87,6 +87,7 @@ See code for all available configurations.
 | Model                                                                             | Path                                                    | Flake Module                           |
 | --------------------------------------------------------------------------------- | ------------------------------------------------------- | -------------------------------------- |
 | [Acer Aspire 4810T](acer/aspire/4810t)                                            | `<nixos-hardware/acer/aspire/4810t>`                    | `acer-aspire-4810t`                    |
+| [Acer Predator Helios 300 (PH315-51)](acer/predator/helios/300/ph315-51/)         | `<nixos-hardware/acer/predator/helios/300/ph315-51/>`   | `acer-predator-helios-300-ph315-51`    |
 | [Airis N990](airis/n990)                                                          | `<nixos-hardware/airis/n990>`                           | `airis-n990`                           |
 | [Apple iMac 12,2](apple/imac/12-2)                                                | `<nixos-hardware/apple/imac/12-2>`                      | `apple-imac-12-2`                      |
 | [Apple iMac 14.2](apple/imac/14-2)                                                | `<nixos-hardware/apple/imac/14-2>`                      | `apple-imac-14-2`                      |
@@ -132,6 +133,7 @@ See code for all available configurations.
 | [Asus TUF FX506HM](asus/fx506hm)                                                  | `<nixos-hardware/asus/fx506hm>`                         | `asus-fx506hm`                         |
 | [Asus TUF FA506IC](asus/fa506ic)                                                  | `<nixos-hardware/asus/fa506ic>`                         | `asus-fa506ic`                         |
 | [Asus TUF FA506NCR](asus/fa506ncr)                                                | `<nixos-hardware/asus/fa506ncr>`                        | `asus-fa506ncr`                        |
+| [Asus TUF FA506IC](asus/fa506nc)                                                  | `<nixos-hardware/asus/fa506nc>`                         | `asus-fa506nc`                         |
 | [Asus TUF FA507RM](asus/fa507rm)                                                  | `<nixos-hardware/asus/fa507rm>`                         | `asus-fa507rm`                         |
 | [Asus TUF FA507NV](asus/fa507nv)                                                  | `<nixos-hardware/asus/fa507nv>`                         | `asus-fa507nv`                         |
 | [Asus TUF FA706IC](asus/fa706ic)                                                  | `<nixos-hardware/asus/fa706ic>`                         | `asus-fa706ic`                         |
@@ -164,6 +166,7 @@ See code for all available configurations.
 | [Dell Latitude 7490](dell/latitude/7490)                                          | `<nixos-hardware/dell/latitude/7490>`                   | `dell-latitude-7490`                   |
 | [Dell Latitude 9430](dell/latitude/9430)                                          | `<nixos-hardware/dell/latitude/9430>`                   | `dell-latitude-9430`                   |
 | [Dell Latitude E7240](dell/latitude/e7240)                                        | `<nixos-hardware/dell/latitude/e7240>`                  | `dell-latitude-e7240`                  |
+| [Dell Latitude E7440](dell/latitude/e7440)                                        | `<nixos-hardware/dell/latitude/e7440>`                  | `dell-latitude-e7440`                  |
 | [Dell Optiplex 3050](dell/optiplex/3050)                                          | `<nixos-hardware/dell/optiplex/3050>`                   | `dell-optiplex-3050`                   |
 | [Dell Poweredge R7515](dell/poweredge/r7515)                                      | `<nixos-hardware/dell/poweredge/r7515>`                 | `dell-poweredge-r7515`                 |
 | [Dell Precision 3490, nvidia](dell/precision/3490/nvidia)                         | `<nixos-hardware/dell/precision/3490/nvidia>`           | `dell-precision-3490-nvidia`           |
@@ -297,9 +300,11 @@ See code for all available configurations.
 | [Lenovo ThinkPad P14s AMD Gen 3](lenovo/thinkpad/p14s/amd/gen3)                   | `<nixos-hardware/lenovo/thinkpad/p14s/amd/gen3>`        | `lenovo-thinkpad-p14s-amd-gen3`        |
 | [Lenovo ThinkPad P14s AMD Gen 4](lenovo/thinkpad/p14s/amd/gen4)                   | `<nixos-hardware/lenovo/thinkpad/p14s/amd/gen4>`        | `lenovo-thinkpad-p14s-amd-gen4`        |
 | [Lenovo ThinkPad P14s AMD Gen 5](lenovo/thinkpad/p14s/amd/gen5)                   | `<nixos-hardware/lenovo/thinkpad/p14s/amd/gen5>`        | `lenovo-thinkpad-p14s-amd-gen5`        |
+| [Lenovo ThinkPad P14s AMD Gen 6](lenovo/thinkpad/p14s/amd/gen6)                   | `<nixos-hardware/lenovo/thinkpad/p14s/amd/gen6>`        | `lenovo-thinkpad-p14s-amd-gen6`        |
 | [Lenovo ThinkPad P14s Intel Gen 2](lenovo/thinkpad/p14s/intel/gen2)               | `<nixos-hardware/lenovo/thinkpad/p14s/intel/gen2>`      | `lenovo-thinkpad-p14s-intel-gen2`      |
 | [Lenovo ThinkPad P14s Intel Gen 3](lenovo/thinkpad/p14s/intel/gen3)               | `<nixos-hardware/lenovo/thinkpad/p14s/intel/gen3>`      | `lenovo-thinkpad-p14s-intel-gen3`      |
 | [Lenovo ThinkPad P14s Intel Gen 5](lenovo/thinkpad/p14s/intel/gen5)               | `<nixos-hardware/lenovo/thinkpad/p14s/intel/gen5>`      | `lenovo-thinkpad-p14s-intel-gen5`      |
+| [Lenovo ThinkPad P15v Intel Gen 3](lenovo/thinkpad/p15v/intel/gen3)                | `<nixos-hardware/lenovo/thinkpad/p15v/intel/gen3>`      | `lenovo-thinkpad-p15v-intel-gen3`      |
 | [Lenovo ThinkPad P16s AMD Gen 1](lenovo/thinkpad/p16s/amd/gen1)                   | `<nixos-hardware/lenovo/thinkpad/p16s/amd/gen1>`        | `lenovo-thinkpad-p16s-amd-gen1`        |
 | [Lenovo ThinkPad P16s AMD Gen 2](lenovo/thinkpad/p16s/amd/gen2)                   | `<nixos-hardware/lenovo/thinkpad/p16s/amd/gen2>`        | `lenovo-thinkpad-p16s-amd-gen2`        |
 | [Lenovo ThinkPad P16s AMD Gen 4](lenovo/thinkpad/p16s/amd/gen4)                   | `<nixos-hardware/lenovo/thinkpad/p16s/amd/gen4>`        | `lenovo-thinkpad-p16s-amd-gen4`        |
@@ -389,6 +394,7 @@ See code for all available configurations.
 | [MSI GS60 2QE](msi/gs60)                                                          | `<nixos-hardware/msi/gs60>`                             | `msi-gs60`                             |
 | [MSI GL62/CX62](msi/gl62)                                                         | `<nixos-hardware/msi/gl62>`                             | `msi-gl62`                             |
 | [MSI GL65 10SDR-492](msi/gl65/10SDR-492)                                          | `<nixos-hardware/msi/gl65/10SDR-492>`                   | `msi-gl65-10SDR-492`                   |
+| [MSI Prestige 15 A10SC](msi/prestige/15-a10sc)                                    | `<nixos-hardware/msi/prestige/15-a10sc>`                | `msi-prestige-15-a10sc`               |
 | [Malibal Aon S1](malibal/aon/s1)         |                                        | `<nixos-hardware/malibal/aon/s1>`                       | `malibal-aon-s1`                       |
 | [Microchip Icicle Kit](microchip/icicle-kit)                                      | `<nixos-hardware/microchip/icicle-kit>`                 | `microchip-icicle-kit`                 |
 | [Microsoft Surface Go](microsoft/surface/surface-go)                              | `<nixos-hardware/microsoft/surface/surface-go>`         | `microsoft-surface-go`                 |

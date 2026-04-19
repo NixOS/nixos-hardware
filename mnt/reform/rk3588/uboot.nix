@@ -42,8 +42,6 @@ buildUBoot rec {
   filesToInstall = [
     "idbloader.img"
     "u-boot.itb"
-    "rock5b-rk3588.ini"
-    "spl/u-boot-spl.bin"
   ];
   variant = "-dsi";
   defconfig = "rk3588-mnt-reform2${variant}_defconfig";
@@ -51,5 +49,4 @@ buildUBoot rec {
     "BL31=${armTrustedFirmwareRK3588}/bl31.elf"
     "ROCKCHIP_TPL=${rkbin}/bin/rk35/rk3588_ddr_lp4_2112MHz_lp5_2400MHz_v1.18.bin"
   ];
-  passthru.rkbin = rkbin;
 }
