@@ -5,6 +5,8 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "nix"
-    directory: "/"
+    directories:
+      - "/"
+      - "tests/"
     schedule:
       interval: "weekly"
