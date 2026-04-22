@@ -3,6 +3,8 @@
   imports = [
     ../.
     ../../../../../common/pc/ssd
+    ../../../../../common/cpu/amd/pstate.nix
+    ../../../../../common/wifi/mediatek/mt7925
   ];
 
   boot.initrd.availableKernelModules = [
@@ -20,5 +22,5 @@
   services.xserver.videoDrivers = [
     "amdgpu"
   ];
-  
+
 }
