@@ -177,6 +177,7 @@
           framework-13th-gen-intel = import ./framework/13-inch/13th-gen-intel;
           framework-12-13th-gen-intel = import ./framework/12-inch/13th-gen-intel;
           framework-intel-core-ultra-series1 = import ./framework/13-inch/intel-core-ultra-series1;
+          framework-intel-core-ultra-series3 = import ./framework/13-inch/intel-core-ultra-series3;
           framework-13-7040-amd = import ./framework/13-inch/7040-amd;
           framework-amd-ai-300-series = import ./framework/13-inch/amd-ai-300-series;
           framework-16-7040-amd = import ./framework/16-inch/7040-amd;
