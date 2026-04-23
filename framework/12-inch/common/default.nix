@@ -6,6 +6,7 @@
     ../../bluetooth.nix
     ../../kmod.nix
     ../../framework-tool.nix
+    ../../wallpapers.nix
   ];
 
   # Fix TRRS headphones missing a mic

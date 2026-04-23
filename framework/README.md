@@ -62,6 +62,33 @@ On AMD Framework 13 and 16, before kernel 6.10, additional kernel patches are re
 properly. Manually setting `hardware.framework.enableKmod = true` will apply the patches, requiring a kernel
 recompilation.
 
+## Wallpapers
+
+Framework publishes [wallpaper packs](https://frame.work/wallpapers) for each
+laptop and the Framework Desktop. Each pack is opt-in and registers with GNOME
+and KDE Plasma's wallpaper pickers. Enable the one(s) matching your hardware:
+
+```nix
+# Just the Framework Laptop 13 Pro (Intel Core Ultra Series 3) pack
+hardware.framework.wallpapers.laptop13pro.enable = true;
+
+# Or install every pack
+hardware.framework.wallpapers.enableAll = true;
+```
+
+Available packs: `desktop`, `laptop12`, `laptop13`, `laptop13pro`, `laptop16`.
+
+Once enabled, the wallpapers appear in GNOME's *Settings → Appearance* and
+KDE Plasma's wallpaper picker. To set one as the default in GNOME, add a
+GSettings override, e.g.:
+
+```nix
+services.desktopManager.gnome.extraGSettingsOverrides = ''
+  [org.gnome.desktop.background]
+  picture-uri='file:///run/current-system/sw/share/backgrounds/framework-laptop13pro-wallpapers/framework-laptop13pro-1.png'
+'';
+```
+
 ## Support Tools
 
 ### fw-ectool
