@@ -11,6 +11,7 @@
     ../../../common/gpu/amd
     ../../../common/pc/ssd
     ../../framework-tool.nix
+    ../../wallpapers.nix
   ];
 
   # 6.14 and above have good GPU support
