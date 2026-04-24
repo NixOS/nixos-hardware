@@ -14,58 +14,57 @@ let
   tag = "stable_20250916";
   hash = "sha256-HG8Oc04V2t54l0SOn4gKmNJWQUrZfjWusgKcWvx74H0==";
 in
-lib.overrideDerivation
-  (buildLinux (
-    args
-    // {
-      version = "${modDirVersion}-${tag}";
-      inherit modDirVersion;
-      pname = "linux-rpi";
+(buildLinux (
+  args
+  // {
+    version = "${modDirVersion}-${tag}";
+    inherit modDirVersion;
+    pname = "linux-rpi";
 
-      src = fetchFromGitHub {
-        owner = "raspberrypi";
-        repo = "linux";
-        inherit tag hash;
-      };
+    src = fetchFromGitHub {
+      owner = "raspberrypi";
+      repo = "linux";
+      inherit tag hash;
+    };
 
-      defconfig =
-        {
-          "1" = "bcmrpi_defconfig";
-          "2" = "bcm2709_defconfig";
-          "3" = if stdenv.hostPlatform.isAarch64 then "bcm2711_defconfig" else "bcm2709_defconfig";
-          "4" = "bcm2711_defconfig";
-          "5" = "bcm2712_defconfig";
-        }
-        .${toString rpiVersion};
-
-      features = {
-        efiBootStub = false;
+    defconfig =
+      {
+        "1" = "bcmrpi_defconfig";
+        "2" = "bcm2709_defconfig";
+        "3" = if stdenv.hostPlatform.isAarch64 then "bcm2711_defconfig" else "bcm2709_defconfig";
+        "4" = "bcm2711_defconfig";
+        "5" = "bcm2712_defconfig";
       }
-      // (args.features or { });
+      .${toString rpiVersion};
 
-      isLTS = true;
-
-      kernelPatches = with pkgs.kernelPatches; [
-        bridge_stp_helper
-        request_key_helper
-      ];
-
-      extraMeta =
-        if (rpiVersion < 3) then
-          {
-            platforms = with lib.platforms; lib.intersectLists arm linux;
-            hydraPlatforms = [ ];
-          }
-        else
-          {
-            platforms = with lib.platforms; lib.intersectLists (arm ++ aarch64) linux;
-            hydraPlatforms = [ "aarch64-linux" ];
-          };
-      ignoreConfigErrors = true;
+    features = {
+      efiBootStub = false;
     }
-    // (args.argsOverride or { })
-  ))
-  (_oldAttrs: {
+    // (args.features or { });
+
+    isLTS = true;
+
+    kernelPatches = with pkgs.kernelPatches; [
+      bridge_stp_helper
+      request_key_helper
+    ];
+
+    extraMeta =
+      if (rpiVersion < 3) then
+        {
+          platforms = with lib.platforms; lib.intersectLists arm linux;
+          hydraPlatforms = [ ];
+        }
+      else
+        {
+          platforms = with lib.platforms; lib.intersectLists (arm ++ aarch64) linux;
+          hydraPlatforms = [ "aarch64-linux" ];
+        };
+    ignoreConfigErrors = true;
+  }
+  // (args.argsOverride or { })
+)).overrideAttrs
+  {
     postConfigure = ''
       # The v7 defconfig has this set to '-v7' which screws up our modDirVersion.
       sed -i $buildRoot/.config -e 's/^CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION=""/'
@@ -110,4 +109,4 @@ lib.overrideDerivation
           copyDTB bcm2710-rpi-cm3.dtb bcm2837-rpi-cm3.dtb
           copyDTB bcm2711-rpi-4-b.dtb bcm2838-rpi-4-b.dtb
         '';
-  })
+  }
