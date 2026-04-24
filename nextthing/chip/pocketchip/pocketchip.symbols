@@ -1,0 +1,35 @@
+xkb_symbols "pocketchip" {
+    #include "pc"
+
+    key <AE01>	{[	 1,	 exclam,	F1	]};
+    key <AE02>	{[	 2,	 at,		F2	]};
+    key <AE03>	{[	 3,	 numbersign,	F3	]};
+    key <AE04>	{[	 4,	 dollar,	F4	]};
+    key <AE05>	{[	 5,	 percent,	F5	]};
+    key <AE06>	{[	 6,	 asciicircum,	F6	]};
+    key <AE07>	{[	 7,	 ampersand,	F7	]};
+    key <AE08>	{[	 8,	 asterisk,	F8	]};
+    key <AE09>	{[	 9,	 parenleft,	F9	]};
+    key <AE10>	{[	 0,	 parenright,	F10	]};
+    key <AE11>	{[   minus,	 underscore,	F11	]};
+    key <AE12>	{[   equal,	 plus,		F12	]};
+
+    key <AD06>	{[	 y,	 Y,	braceleft	]};
+    key <AD07>	{[	 u,	 U,	braceright	]};
+    key <AD08>	{[	 i,	 I,	bracketleft	]};
+    key <AD09>	{[	 o,	 O,	bracketright	]};
+    key <AD10>	{[	 p,	 P,	bar		]};
+
+    key <AC06>	{[	 h,	 H,	less		]};
+    key <AC07>	{[	 j,	 J,	greater		]};
+    key <AC08>	{[	 k,	 K,	apostrophe	]};
+    key <AC09>	{[	 l,	 L,	quotedbl	]};
+
+    key <AB05>	{[	 b,	 B,		grave		]};
+    key <AB06>	{[	 n,	 N,		asciitilde	]};
+    key <AB07>	{[	 m,	 M,		colon		]};
+    key <AB09>	{[  period,	 comma,		semicolon	]};
+    key <AB10>	{[   slash,	 question,	backslash	]};
+
+    include "level3(ralt_switch)"
+};
