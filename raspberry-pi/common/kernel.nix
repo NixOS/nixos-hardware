@@ -50,6 +50,41 @@ lib.overrideDerivation
         request_key_helper
       ];
 
+      # Override nixpkgs common-config.nix defaults that conflict with the RPi vendor defconfigs.
+      # See: https://github.com/raspberrypi/linux/tree/rpi-6.12.y/arch/arm64/configs
+      structuredExtraConfig =
+        with lib.kernel;
+        {
+          # RPi has 4 cores; nixpkgs common-config sets 384
+          NR_CPUS = lib.mkForce (freeform "4");
+          # nixpkgs sets 32MB; RPi vendor defconfig uses 5MB
+          CMA_SIZE_MBYTES = lib.mkForce (freeform "5");
+          # Vendor defconfigs set -v7, -v8, -v8-16k; clear to match modDirVersion
+          LOCALVERSION = lib.mkForce (freeform "");
+
+          # NFS root boot support (common RPi use case)
+          NFS_FS = lib.mkForce yes;
+          NFS_V4 = lib.mkForce yes;
+          ROOT_NFS = yes;
+          IP_PNP = lib.mkForce yes;
+          IP_PNP_DHCP = yes;
+          IP_PNP_RARP = yes;
+
+          # Match vendor defconfig: built-in instead of module
+          NET_CLS_BPF = lib.mkForce yes;
+          NLS_CODEPAGE_437 = lib.mkForce yes;
+          FB_SIMPLE = yes;
+        }
+        # arm64 vendor defconfigs (bcm2711, bcm2712) use full preempt;
+        # arm32 ones (bcmrpi, bcm2709) use voluntary preempt (nixpkgs default)
+        // lib.optionalAttrs (rpiVersion >= 3) (
+          with lib.kernel;
+          {
+            PREEMPT = lib.mkForce yes;
+            PREEMPT_VOLUNTARY = lib.mkForce no;
+          }
+        );
+
       extraMeta =
         if (rpiVersion < 3) then
           {
@@ -66,11 +101,6 @@ lib.overrideDerivation
     // (args.argsOverride or { })
   ))
   (_oldAttrs: {
-    postConfigure = ''
-      # The v7 defconfig has this set to '-v7' which screws up our modDirVersion.
-      sed -i $buildRoot/.config -e 's/^CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION=""/'
-      sed -i $buildRoot/include/config/auto.conf -e 's/^CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION=""/'
-    '';
 
     # Make copies of the DTBs named after the upstream names so that U-Boot finds them.
     # This is ugly as heck, but I don't know a better solution so far.
