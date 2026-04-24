@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
@@ -25,9 +25,33 @@
       "i915.enable_psr=0"
       "nvidia_drm.modeset=1"
     ];
+    initrd.availableKernelModules = [
+      "xhci_pci" # USB 3.0/3.1 compatibility
+      "ahci" # SATA support if installed
+      "nvme" # NVMe support
+      "usb_storage" # USB mass storage support
+      "sd_mod" # SD card support
+      "rtsx_pci_sdmmc" # Realtek SD card support
+      "thunderbolt" # Thunderbolt support
+    ];
+    kernelModules = [
+      # For Intel wifi card
+      "iwlwifi"
+      # Intel thermal/power management
+      "intel_lpss_pci"
+      "intel_pch_thermal"
+      "processor_thermal_device"
+      "intel_hid"
+      "dell_wmi"
+      "dell_smm" # Dell hardware monitoring
+    ];
   };
 
   hardware = {
+    firmware = with pkgs; [
+      linux-firmware # Intel WiFi, Bluetooth, GPU, Thunderbolt, NVMe
+      alsa-firmware # Realtek audio codec
+    ];
     nvidia = {
       nvidiaSettings = lib.mkDefault true;
       modesetting.enable = lib.mkDefault true;
