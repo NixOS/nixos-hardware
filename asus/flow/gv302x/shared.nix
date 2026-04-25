@@ -11,7 +11,6 @@ let
     mkEnableOption
     mkIf
     mkMerge
-    version
     versionAtLeast
     ;
 
@@ -61,7 +60,6 @@ in
       services = {
         asusd = {
           enable = mkDefault true;
-          enableUserService = mkDefault true;
         };
 
         supergfxd.enable = mkDefault true;

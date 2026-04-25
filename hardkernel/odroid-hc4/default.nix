@@ -32,7 +32,7 @@
   };
 
   # Linux 5.15 sometimes crash under heavy network usage
-  systemd.watchdog.runtimeTime = lib.mkDefault "1min";
+  systemd.settings.Manager.RuntimeWatchdogSec = lib.mkDefault "1min";
 
   hardware.deviceTree.filter = "meson-sm1-odroid-hc4.dtb";
 }

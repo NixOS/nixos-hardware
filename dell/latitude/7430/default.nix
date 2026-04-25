@@ -13,7 +13,6 @@
     "i915.enable_guc=3"
     "i915.fastboot=1"
     # needed for keyboard
-    "i8042.dumbkbd=1"
     "i8042.nopnp=1"
   ];
 }

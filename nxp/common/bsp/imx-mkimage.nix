@@ -16,12 +16,12 @@ pkgs.stdenv.mkDerivation rec {
         --replace 'CC = gcc' 'CC = clang'
   '';
 
-  nativeBuildInputs = [
-    clang
-    git
+  depsBuildBuild = [
+    pkgs.buildPackages.stdenv.cc
   ];
 
-  buildInputs = [
+  nativeBuildInputs = [
+    clang
     git
     glibc.static
   ];

@@ -7,6 +7,7 @@
 
 {
   imports = [
+    ../common/default.nix
     ./audio.nix
     ./backlight.nix
     ./bluetooth.nix
@@ -28,14 +29,14 @@
   ];
 
   boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxKernel.packages.linux_rpi4;
+    kernelPackages = lib.mkDefault (
+      pkgs.linuxPackagesFor (pkgs.callPackage ../common/kernel.nix { rpiVersion = 4; })
+    );
     initrd.availableKernelModules = [
-      "usbhid"
-      "usb_storage"
-      "vc4"
-      "pcie_brcmstb" # required for the pcie bus to work
+      "pcie-brcmstb" # required for the pcie bus to work
       "reset-raspberrypi" # required for vl805 firmware to load
-    ];
+    ]
+    ++ lib.optional config.boot.initrd.network.enable "genet";
 
     # Allow building kernel
     initrd.systemd.tpm2.enable = false;
@@ -55,6 +56,5 @@
     }
   ];
 
-  # Required for the Wireless firmware
-  hardware.enableRedistributableFirmware = true;
+  hardware.firmware = [ (pkgs.callPackage ../common/raspberry-pi-wireless-firmware.nix { }) ];
 }

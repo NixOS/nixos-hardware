@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
   dontStrip = true;
 
   installPhase = ''
-    ${pkgs.bash}/bin/bash $src --auto-accept --force
+    ${pkgs.buildPackages.bash}/bin/bash $src --auto-accept --force
     mv firmware-imx-${version} $out
   '';
 }

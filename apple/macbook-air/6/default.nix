@@ -3,8 +3,6 @@
 {
   imports = [ ../. ];
 
-  boot.kernelModules = [ "wl" ];
-  boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
   boot.blacklistedKernelModules = [ "bcma" ];
 
   boot = {

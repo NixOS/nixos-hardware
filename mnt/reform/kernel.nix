@@ -7,14 +7,9 @@
   ...
 }:
 let
-  modDirVersion = "6.16.5";
-  reformDebianPackages = fetchFromGitLab {
-    domain = "source.mnt.re";
-    owner = "reform";
-    repo = "reform-debian-packages";
-    rev = "830c94db42beef876dc58ea56711659ae7bd415d";
-    hash = "sha256-mdORgTOM7RJnEjY5G/iWMHf69wQkql11yRpQ/DrQKb4=";
-  };
+  sources = lib.importJSON ./sources.json;
+  modDirVersion = sources.modDirVersion;
+  reformDebianPackages = fetchFromGitLab sources.reformDebianPackages;
   linuxPkg =
     {
       lib,
@@ -31,15 +26,17 @@ let
 
         src = fetchzip {
           url = "mirror://kernel/linux/kernel/v${lib.versions.major modDirVersion}.x/linux-${modDirVersion}.tar.xz";
-          hash = "sha256-XiTuH40b3VJqzwygZzU0FcvMDj41Rq6IsMbm+3+QxDY=";
+          hash = "sha256-cdQbdColRBCzQPWojIVpLs6Rmuk91bBPtqf8DsmkSxU=";
         };
 
         kernelPatches =
-          (map (patch: { inherit patch; }) (
-            lib.filesystem.listFilesRecursive "${reformDebianPackages}/linux/patches${lib.versions.majorMinor modDirVersion}"
-          ))
+          (map (patch: {
+            name = patch;
+            patch = "${reformDebianPackages}/${patch}";
+          }) (import ./kernelPatches.nix))
           ++ [
             {
+              name = "reform-dts";
               patch = callPackage ./dtsPatch.nix {
                 inherit reformDebianPackages;
                 kernelSource = src;
@@ -77,7 +74,7 @@ let
           JOYSTICK_XPAD_LEDS = yes;
 
           INTERCONNECT_IMX8MP = yes;
-          SND_SOC_FSL_ASRC = yes;
+          SND_SOC_FSL_ASRC = module; # From the documentation: This option is only useful for out-of-tree drivers since in-tree drivers select it automatically.
           DRM_IMX_LCDIF = yes;
           DRM_IMX8MP_DW_HDMI_BRIDGE = yes;
           DRM_IMX8MP_HDMI_PVI = yes;
@@ -104,10 +101,17 @@ let
           ARM_IMX_CPUFREQ_DT = yes;
           ARM_IMX_BUS_DEVFREQ = yes;
           IMX_IRQSTEER = yes;
+          PWM_FSL_FTM = yes;
+          FSL_RCPM = yes;
+          VIDEO_DW100 = module;
+          IMX_AIPSTZ = module;
+          IMX_DSP = module;
+          IMX_REMOTEPROC = module;
+          IMX_DSP_REMOTEPROC = module;
 
           PCI_MESON = yes;
           DWMAC_MESON = module;
-          MDIO_BUS_MUX_MESON_G12A = yes;
+          MDIO_BUS_MUX_MESON_G12A = module;
           I2C_MESON = yes;
           PWM_MESON = yes;
           USB_DWC3_MESON_G12A = yes;
@@ -115,9 +119,6 @@ let
           MMC_MESON_MX_SDIO = yes;
           MESON_DDR_PMU = yes;
           RTW88_8822CS = module;
-
-          PWM_FSL_FTM = yes;
-          FSL_RCPM = yes;
 
           ARCH_ROCKCHIP = yes;
           # ARM_ROCKCHIP_CPUFREQ = module; # configuration option does not exist
@@ -130,15 +131,13 @@ let
           SPI_ROCKCHIP = yes;
           SPI_ROCKCHIP_SFC = module;
           ARM_SCMI_CPUFREQ = module;
-          VIDEO_ROCKCHIP_VDEC2 = module;
+          # VIDEO_ROCKCHIP_VDEC2 = module; # no rkvdec2 patch included any more
           ROCKCHIP_DW_HDMI_QP = yes;
           ROCKCHIP_DW_MIPI_DSI2 = yes;
           PHY_ROCKCHIP_SAMSUNG_DCPHY = yes;
           REGULATOR_FIXED_VOLTAGE = yes;
           GPIO_ROCKCHIP = yes;
           PL330_DMA = yes;
-
-          DRM_MEGACHIPS_STDPXXXX_GE_B850V3_FW = no; # patches for 6.16 break this driver
         };
       }
       // (args.argsOverride or { })

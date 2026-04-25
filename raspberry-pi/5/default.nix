@@ -4,21 +4,31 @@
   config,
   ...
 }:
+
 let
-  linux_rpi5 = pkgs.linux_rpi4.override {
-    rpiVersion = 5;
-    argsOverride.defconfig = "bcm2712_defconfig";
-  };
+  linuxVariant = config.boot.kernelPackages.kernel.pname;
 in
 {
+  imports = [ ../common/default.nix ];
+
   boot = {
-    kernelPackages = lib.mkDefault (pkgs.linuxPackagesFor linux_rpi5);
+    kernelPackages = lib.mkDefault (
+      pkgs.linuxPackagesFor (pkgs.callPackage ../common/kernel.nix { rpiVersion = 5; })
+    );
     initrd.availableKernelModules = [
       "nvme"
-      "usbhid"
-      "usb_storage"
-    ];
+      "pcie-brcmstb"
+      "clk-rp1"
+    ]
+    # CONFIG_MISC_RP1 is named CONFIG_MFD_RP1 in RPi's fork.
+    ++ lib.optional (linuxVariant == "linux") "rp1_pci"
+    ++ lib.optional (linuxVariant == "linux-rpi") "rp1"
+    # CONFIG_PINCTRL_RP1 is not a tristate in RPi's fork.
+    ++ lib.optional (linuxVariant == "linux") "pinctrl-rp1"
+    ++ lib.optional config.boot.initrd.network.enable "macb";
   };
+
+  hardware.deviceTree.filter = lib.mkDefault "bcm2712*-rpi-*.dtb";
 
   # Needed for Xorg to start (https://github.com/raspberrypi-ui/gldriver-test/blob/master/usr/lib/systemd/scripts/rp1_test.sh)
   # This won't work for displays connected to the RP1 (DPI/composite/MIPI DSI), since I don't have one to test.
