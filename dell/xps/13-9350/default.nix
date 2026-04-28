@@ -15,6 +15,9 @@
   # Configure for the current user via `fprintd-enroll`.
   services.fprintd.enable = lib.mkDefault true;
 
+  # Allows for updating firmware via `fwupdmgr`.
+  services.fwupd.enable = lib.mkDefault true;
+
   # Recommended in NixOS/nixos-hardware#127
   services.thermald.enable = lib.mkDefault true;
 }
