@@ -404,6 +404,7 @@ See code for all available configurations.
 | [Microsoft Surface Pro 3](microsoft/surface-pro/3)                                | `<nixos-hardware/microsoft/surface-pro/3>`              | `microsoft-surface-pro-3`              |
 | [Microsoft Surface Pro 9](microsoft/surface-pro/9)                                | `<nixos-hardware/microsoft/surface-pro/9>`              | `microsoft-surface-pro-9`              |
 | [Milk-V Pioneer](milkv/pioneer)                                                   | `<nixos-hardware/milkv/pioneer>`                        | `milkv-pioneer`                        |
+| [Minix Z150-0dB](minix/Z150-0dB)                                                  | `<nixos-hardware/minix/Z150-0dB>`                       | `minix-z150-0db`                       |
 | [Morefine M600](morefine/m600)                                                    | `<nixos-hardware/morefine/m600>`                        | `morefine-m600`                        |
 | [Minisforum UM690](minisforum/um690)                                              | `<nixos-hardware/minisforum/um690>`                     | `minisforum-um690`                     |
 | [Minisforum UM690S](minisforum/um690s)                                            | `<nixos-hardware/minisforum/um690s>`                    | `minisforum-um690s`                    |
