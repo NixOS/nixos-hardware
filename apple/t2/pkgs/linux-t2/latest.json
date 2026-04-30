@@ -1,13 +1,13 @@
 {
-  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/5051ebba61fe8765ba452f46db9b944f33f07a86/",
+  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/e604fc07462cca9dd768a8a1b7590d5f71696690/",
   "patches": [
     {
       "name": "1001-Add-apple-bce-driver.patch",
-      "hash": "sha256-oZgaj1ujKSjn5PEJ8khrqFnoAkXbC+TInlKfdX0X82Y="
+      "hash": "sha256-v/P3Ws3x+OPnmX3vSFLxARON0HNjjDRe7QJ+KP9tVsc="
     },
     {
       "name": "1002-Put-apple-bce-in-drivers-staging.patch",
-      "hash": "sha256-JHWLmSJ158Qs24cjnzolR4JKuNhzzf9e9hRR8T96Dp4="
+      "hash": "sha256-rK1lQ3fjHJH//50n37xgWrUs4CZ8lmFw0iDpbq5zoaY="
     },
     {
       "name": "2008-i915-4-lane-quirk-for-mbp15-1.patch",
@@ -35,7 +35,7 @@
     },
     {
       "name": "3005-applesmc-basic-mmio-interface-implementation.patch",
-      "hash": "sha256-Hh9DymQ+Y74oSs1zv9F0lTU3jfAenKTM+cmFH9tmN9Q="
+      "hash": "sha256-tnpfmZQw9KQNylpLfGZ+X0IVP79AgeDoTVYF6yUhCRI="
     },
     {
       "name": "3006-applesmc-fan-support-on-T2-Macs.patch",
@@ -55,7 +55,11 @@
     },
     {
       "name": "4001-asahi-trackpad.patch",
-      "hash": "sha256-+YXyIjtlVrLo8allTO3M1A+xold5FUXaZ8dwD2j5HDc="
+      "hash": "sha256-ANHSNoy5nK2b+rSAG0bJ8j6ZBmNqgeCddHXVS31KyDw="
+    },
+    {
+      "name": "4002-HID-apple-ensure-the-keyboard-backlight-is-off-if-su.patch",
+      "hash": "sha256-iG46L6Yj5NrwYldMaBcVYBSPJXImQOa2tevpM2Hi85c="
     },
     {
       "name": "4003-HID-apple-ignore-the-trackpad-on-T2-Macs.patch",
@@ -75,11 +79,11 @@
     },
     {
       "name": "8001-Add-APFS-driver.patch",
-      "hash": "sha256-ozOkXGFfsT2iVjAZDoWya8tBY8yiChgLKkBnGACzyrY="
+      "hash": "sha256-vcBJAC6bbC7apPB5vv4V58FHbexIK1Q67qjqN8Pw2sg="
     },
     {
       "name": "8002-Necessary-modifications-to-build-APFS-with-the-kerne.patch",
-      "hash": "sha256-gh1z49QeKgTmGJ92KFNDvqn9gCW0dtrI7DMzaD2ZHGU="
+      "hash": "sha256-zCTetF2NPhMH2BknPumhPz2sf26X9Lcra7xCA3R2WMY="
     }
   ]
 }
