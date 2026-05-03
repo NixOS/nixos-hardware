@@ -12,6 +12,7 @@ let
   # NOTE: raspberryPiWirelessFirmware should be updated with this
   modDirVersion = "6.12.75";
   hash = "sha256-qrljd20n4tj/7C7gzNnxw7JIyEF2Ppf1PWm2a7vxh1w=";
+  inherit (lib.kernel) freeform;
 in
 (buildLinux (
   args
@@ -50,6 +51,12 @@ in
       request_key_helper
     ];
 
+    structuredExtraConfig = {
+      # Vendor defconfigs set CONFIG_LOCALVERSION to -v7, -v8, -v8-16k, which
+      # breaks modDirVersion. Clear it.
+      LOCALVERSION = freeform "";
+    };
+
     extraMeta =
       if (rpiVersion < 3) then
         {
@@ -66,12 +73,6 @@ in
   // (args.argsOverride or { })
 )).overrideAttrs
   {
-    postConfigure = ''
-      # The v7 defconfig has this set to '-v7' which screws up our modDirVersion.
-      sed -i $buildRoot/.config -e 's/^CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION=""/'
-      sed -i $buildRoot/include/config/auto.conf -e 's/^CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION=""/'
-    '';
-
     # The vendor kernel uses different DTB names (bcm2708/bcm2709/bcm2710) than what
     # U-Boot expects (bcm2835/bcm2836/bcm2837). Starting with Pi 4, names match.
     # See: https://github.com/u-boot/u-boot/blob/master/board/raspberrypi/rpi/rpi.c
