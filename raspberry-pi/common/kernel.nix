@@ -12,7 +12,7 @@ let
   # NOTE: raspberryPiWirelessFirmware should be updated with this
   modDirVersion = "6.12.75";
   hash = "sha256-qrljd20n4tj/7C7gzNnxw7JIyEF2Ppf1PWm2a7vxh1w=";
-  inherit (lib.kernel) freeform;
+  inherit (lib.kernel) freeform yes no;
 in
 (buildLinux (
   args
@@ -51,10 +51,36 @@ in
       request_key_helper
     ];
 
+    # Override nixpkgs common-config.nix defaults that conflict with the RPi vendor defconfigs.
+    # See: https://github.com/raspberrypi/linux/tree/rpi-6.12.y/arch/arm64/configs
     structuredExtraConfig = {
       # Vendor defconfigs set CONFIG_LOCALVERSION to -v7, -v8, -v8-16k, which
       # breaks modDirVersion. Clear it.
       LOCALVERSION = freeform "";
+
+      # RPi has 4 cores; nixpkgs common-config sets 384
+      NR_CPUS = lib.mkForce (freeform "4");
+      # nixpkgs sets 32MB; RPi vendor defconfig uses 5MB
+      CMA_SIZE_MBYTES = lib.mkForce (freeform "5");
+
+      # NFS root boot support (common RPi use case)
+      NFS_FS = lib.mkForce yes;
+      NFS_V4 = yes;
+      ROOT_NFS = yes;
+      IP_PNP = lib.mkForce yes;
+      IP_PNP_DHCP = yes;
+      IP_PNP_RARP = yes;
+
+      # Match vendor defconfig: built-in instead of module
+      NET_CLS_BPF = lib.mkForce yes;
+      NLS_CODEPAGE_437 = lib.mkForce yes;
+      FB_SIMPLE = yes;
+    }
+    # arm64 vendor defconfigs (bcm2711, bcm2712) use full preempt;
+    # arm32 ones (bcmrpi, bcm2709) use voluntary preempt (nixpkgs default)
+    // lib.optionalAttrs (rpiVersion >= 3) {
+      PREEMPT = lib.mkForce yes;
+      PREEMPT_VOLUNTARY = lib.mkForce no;
     };
 
     extraMeta =
