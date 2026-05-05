@@ -54,10 +54,6 @@ in
     # Override nixpkgs common-config.nix defaults that conflict with the RPi vendor defconfigs.
     # See: https://github.com/raspberrypi/linux/tree/rpi-6.12.y/arch/arm64/configs
     structuredExtraConfig = {
-      # Vendor defconfigs set CONFIG_LOCALVERSION to -v7, -v8, -v8-16k, which
-      # breaks modDirVersion. Clear it.
-      LOCALVERSION = freeform "";
-
       # RPi has 4 cores; nixpkgs common-config sets 384
       NR_CPUS = lib.mkForce (freeform "4");
       # nixpkgs sets 32MB; RPi vendor defconfig uses 5MB
@@ -99,6 +95,13 @@ in
   // (args.argsOverride or { })
 )).overrideAttrs
   {
+    # TODO: Put CONFIG_LOCALVERSION in `structuredExtraConfig` above once this is resolved:
+    # https://github.com/NixOS/nixpkgs/issues/516936
+    postConfigure = ''
+      sed -i $buildRoot/.config -e 's/^CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION=""/'
+      sed -i $buildRoot/include/config/auto.conf -e 's/^CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION=""/'
+    '';
+
     # The vendor kernel uses different DTB names (bcm2708/bcm2709/bcm2710) than what
     # U-Boot expects (bcm2835/bcm2836/bcm2837). Starting with Pi 4, names match.
     # See: https://github.com/u-boot/u-boot/blob/master/board/raspberrypi/rpi/rpi.c
