@@ -112,6 +112,7 @@ See code for all available configurations.
 | [Asus ROG Flow X13 GV302X\* (2023)](asus/flow/gv302x/amdgpu)                      | `<nixos-hardware/asus/flow/gv302x/amdgpu>`              | `asus-flow-gv302x-amdgpu`              |
 | [Asus ROG Flow X13 GV302X\* (2023)](asus/flow/gv302x/nvidia)                      | `<nixos-hardware/asus/flow/gv302x/nvidia>`              | `asus-flow-gv302x-nvidia`              |
 | [Asus ROG Flow Z13 gz301vu\* (2023)](asus/flow/gz301vu)                           | `<nixos-hardware/asus/flow/gz301vu>`                    | `asus-flow-gz301vu`              |
+| [Asus ROG Flow Z13 GZ302EA (2025, Strix Halo)](asus/flow/gz302ea)                 | `<nixos-hardware/asus/flow/gz302ea>`                    | `asus-flow-gz302ea`              |
 | [Asus ROG GL552VW](asus/rog-gl552vw)                                              | `<nixos-hardware/asus/rog-gl552vw>`                     | `asus-rog-gl552vw`                     |
 | [Asus ROG Strix G513IM](asus/rog-strix/g513im)                                    | `<nixos-hardware/asus/rog-strix/g513im>`                | `asus-rog-strix-g513im`                |
 | [Asus ROG Strix G533ZW](asus/rog-strix/g533zw)                                    | `<nixos-hardware/asus/rog-strix/g533zw>`                | `asus-rog-strix-g533zw`                |
