@@ -140,6 +140,7 @@
           dell-precision-5560 = import ./dell/precision/5560;
           dell-precision-5570 = import ./dell/precision/5570;
           dell-precision-7520 = import ./dell/precision/7520;
+          dell-vostro-7590 = import ./dell/vostro/7590;
           dell-xps-13-7390 = import ./dell/xps/13-7390;
           dell-xps-13-9300 = import ./dell/xps/13-9300;
           dell-xps-13-9310 = import ./dell/xps/13-9310;
