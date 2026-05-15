@@ -66,7 +66,7 @@ use on batter and which on power.
 ## More optimizations
 
 You may also want to enable thermald and powertop for the optimizations mentioned in
-https://nixos.wiki/wiki/Laptop.
+https://wiki.nixos.org/wiki/Laptop.
 
 ```nix
 services.thermald.enable = true;
