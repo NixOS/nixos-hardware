@@ -3,7 +3,6 @@
   imports = [
     ../../../common/pc/laptop
     ../../../common/pc/ssd
-    ../../bluetooth.nix
     ../../kmod.nix
     ../../framework-tool.nix
   ];
