@@ -5,7 +5,7 @@
     ../../../common/pc/ssd
     ../../kmod.nix
     ../../framework-tool.nix
-    ./audio.nix
+    ./classic-audio.nix
   ];
 
   # Fix TRRS headphones missing a mic
