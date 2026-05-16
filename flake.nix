@@ -367,6 +367,7 @@
           microsoft-surface-laptop-amd = import ./microsoft/surface/surface-laptop-amd;
           microsoft-surface-common = import ./microsoft/surface/common;
           microsoft-surface-pro-3 = import ./microsoft/surface-pro/3;
+          microsoft-surface-pro-5 = import ./microsoft/surface-pro/5;
           microsoft-surface-pro-9 = import ./microsoft/surface-pro/9;
           milkv-pioneer = import ./milkv/pioneer;
           minisforum-um690 = import ./minisforum/um690;
