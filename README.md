@@ -403,6 +403,7 @@ See code for all available configurations.
 | [Microsoft Surface Laptop (AMD)](microsoft/surface/surface-laptop-amd)            | `<nixos-hardware/microsoft/surface/surface-laptop-amd>` | `microsoft-surface-laptop-amd`         |
 | [Microsoft Surface Range (Common Modules)](microsoft/surface/common)              | `<nixos-hardware/microsoft/surface/common>`             | `microsoft-surface-common`             |
 | [Microsoft Surface Pro 3](microsoft/surface-pro/3)                                | `<nixos-hardware/microsoft/surface-pro/3>`              | `microsoft-surface-pro-3`              |
+| [Microsoft Surface Pro 5](microsoft/surface-pro/5)                                | `<nixos-hardware/microsoft/surface-pro/5>`              | `microsoft-surface-pro-5`              |
 | [Microsoft Surface Pro 9](microsoft/surface-pro/9)                                | `<nixos-hardware/microsoft/surface-pro/9>`              | `microsoft-surface-pro-9`              |
 | [Milk-V Pioneer](milkv/pioneer)                                                   | `<nixos-hardware/milkv/pioneer>`                        | `milkv-pioneer`                        |
 | [Morefine M600](morefine/m600)                                                    | `<nixos-hardware/morefine/m600>`                        | `morefine-m600`                        |
