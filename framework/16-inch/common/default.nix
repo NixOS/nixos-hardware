@@ -6,6 +6,7 @@
     ../../bluetooth.nix
     ../../kmod.nix
     ../../framework-tool.nix
+    ../../wallpapers.nix
   ];
 
   # For fingerprint support
