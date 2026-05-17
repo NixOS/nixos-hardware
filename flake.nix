@@ -193,6 +193,7 @@
           gmktec-nucbox-g3-plus = import ./gmktec/nucbox/g3-plus;
           google-pixelbook = import ./google/pixelbook;
           google-brya = import ./google/brya;
+          google-rex = import ./google/rex;
           gpd-micropc = import ./gpd/micropc;
           gpd-p2-max = import ./gpd/p2-max;
           gpd-pocket-3 = import ./gpd/pocket-3;

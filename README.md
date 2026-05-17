@@ -233,6 +233,7 @@ See code for all available configurations.
 | [GPD WIN Mini 2024](gpd/win-mini/2024)                                            | `<nixos-hardware/gpd/win-mini/2024>`                    | `gpd-win-mini-2024`                    |
 | [Google Pixelbook](google/pixelbook)                                              | `<nixos-hardware/google/pixelbook>`                     | `google-pixelbook`                     |
 | [Google Brya](google/brya)                                                        | `<nixos-hardware/google/brya>`                          | `google-brya`                          |
+| [Google Rex](google/rex)                                                          | `<nixos-hardware/google/rex>`                           | `google-rex`                           |
 | [HP Elitebook 2560p](hp/elitebook/2560p)                                          | `<nixos-hardware/hp/elitebook/2560p>`                   | `hp-elitebook-2560p`                   |
 | [HP Elitebook 830g6](hp/elitebook/830/g6)                                         | `<nixos-hardware/hp/elitebook/830/g6>`                  | `hp-elitebook-830g6`                   |
 | [HP Elitebook 845g7](hp/elitebook/845/g7)                                         | `<nixos-hardware/hp/elitebook/845/g7>`                  | `hp-elitebook-845g7`                   |
