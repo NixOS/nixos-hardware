@@ -177,6 +177,7 @@
           framework-13th-gen-intel = import ./framework/13-inch/13th-gen-intel;
           framework-12-13th-gen-intel = import ./framework/12-inch/13th-gen-intel;
           framework-intel-core-ultra-series1 = import ./framework/13-inch/intel-core-ultra-series1;
+          framework-intel-core-ultra-series3 = import ./framework/13-inch/intel-core-ultra-series3;
           framework-13-7040-amd = import ./framework/13-inch/7040-amd;
           framework-amd-ai-300-series = import ./framework/13-inch/amd-ai-300-series;
           framework-16-7040-amd = import ./framework/16-inch/7040-amd;
@@ -191,6 +192,8 @@
           gigabyte-b650 = import ./gigabyte/b650;
           gmktec-nucbox-g3-plus = import ./gmktec/nucbox/g3-plus;
           google-pixelbook = import ./google/pixelbook;
+          google-brya = import ./google/brya;
+          google-rex = import ./google/rex;
           gpd-micropc = import ./gpd/micropc;
           gpd-p2-max = import ./gpd/p2-max;
           gpd-pocket-3 = import ./gpd/pocket-3;
@@ -210,6 +213,7 @@
           huawei-machc-wa = import ./huawei/machc-wa;
           hp-notebook-14-df0023 = import ./hp/notebook/14-df0023;
           intel-nuc-5i5ryb = import ./intel/nuc/5i5ryb;
+          intel-nuc-7i3bnb = import ./intel/nuc/7i3bnb;
           intel-nuc-8i7beh = import ./intel/nuc/8i7beh;
           intel-nuc-12wshi7 = import ./intel/nuc/12wshi7;
           lenovo-ideacentre-k330 = import ./lenovo/ideacentre/k330;
@@ -413,6 +417,7 @@
           raspberry-pi-3 = import ./raspberry-pi/3;
           raspberry-pi-4 = import ./raspberry-pi/4;
           raspberry-pi-5 = import ./raspberry-pi/5;
+          radxa-rock-3c = import ./radxa/rock-3c;
           rock-4c-plus = import ./radxa/rock-4c-plus;
           rock-5b = import ./radxa/rock-5b;
           rock-pi-4 = import ./radxa/rock-pi-4;
@@ -500,6 +505,7 @@
           imx93-boot = (pkgs.callPackage ./nxp/imx93-evk/bsp/imx93-boot.nix { }).imx93-boot;
           imx8mp-boot = (pkgs.callPackage ./nxp/imx8mp-evk/bsp/imx8mp-boot.nix { }).imx8m-boot;
           imx8mq-boot = (pkgs.callPackage ./nxp/imx8mq-evk/bsp/imx8mq-boot.nix { }).imx8m-boot;
+          purism-librem-5r4-uboot = pkgs.callPackage ./purism/librem/5r4/u-boot { };
           # Raspberry Pi kernels (aarch64-linux only)
           rpi2-kernel = (pkgs.callPackage ./raspberry-pi/common/kernel.nix { rpiVersion = 2; });
           rpi3-kernel = (pkgs.callPackage ./raspberry-pi/common/kernel.nix { rpiVersion = 3; });

@@ -211,6 +211,7 @@ See code for all available configurations.
 | [Framework 12th Gen Intel Core](framework/13-inch/12th-gen-intel)                 | `<nixos-hardware/framework/13-inch/12th-gen-intel>`     | `framework-12th-gen-intel`             |
 | [Framework 13th Gen Intel Core](framework/13-inch/13th-gen-intel)                 | `<nixos-hardware/framework/13-inch/13th-gen-intel>`     | `framework-13th-gen-intel`             |
 | [Framework Intel Core Ultra Series 1](framework/13-inch/intel-core-ultra-series1) | `<nixos-hardware/framework/13-inch/intel-core-ultra-series1>`     | `framework-intel-core-ultra-series1` |
+| [Framework Intel Core Ultra Series 3](framework/13-inch/intel-core-ultra-series3) | `<nixos-hardware/framework/13-inch/intel-core-ultra-series3>`     | `framework-intel-core-ultra-series3` |
 | [Framework 13 AMD Ryzen 7040 Series](framework/13-inch/7040-amd)                  | `<nixos-hardware/framework/13-inch/7040-amd>`           | `framework-13-7040-amd`                |
 | [Framework 13 AMD AI 300 Series](framework/13-inch/amd-ai-300-series)             | `<nixos-hardware/framework/13-inch/amd-ai-300-series>`  | `framework-amd-ai-300-series`          |
 | [Framework 12 13th Gen Intel Core](framework/12-inch/13th-gen-intel)              | `<nixos-hardware/framework/12-inch/13th-gen-intel>`     | `framework-12-13th-gen-intel`          |
@@ -231,6 +232,8 @@ See code for all available configurations.
 | [GPD WIN Max 2 2023](gpd/win-max-2/2023)                                          | `<nixos-hardware/gpd/win-max-2/2023>`                   | `gpd-win-max-2-2023`                   |
 | [GPD WIN Mini 2024](gpd/win-mini/2024)                                            | `<nixos-hardware/gpd/win-mini/2024>`                    | `gpd-win-mini-2024`                    |
 | [Google Pixelbook](google/pixelbook)                                              | `<nixos-hardware/google/pixelbook>`                     | `google-pixelbook`                     |
+| [Google Brya](google/brya)                                                        | `<nixos-hardware/google/brya>`                          | `google-brya`                          |
+| [Google Rex](google/rex)                                                          | `<nixos-hardware/google/rex>`                           | `google-rex`                           |
 | [HP Elitebook 2560p](hp/elitebook/2560p)                                          | `<nixos-hardware/hp/elitebook/2560p>`                   | `hp-elitebook-2560p`                   |
 | [HP Elitebook 830g6](hp/elitebook/830/g6)                                         | `<nixos-hardware/hp/elitebook/830/g6>`                  | `hp-elitebook-830g6`                   |
 | [HP Elitebook 845g7](hp/elitebook/845/g7)                                         | `<nixos-hardware/hp/elitebook/845/g7>`                  | `hp-elitebook-845g7`                   |
@@ -245,6 +248,7 @@ See code for all available configurations.
 | [Huawei Matebook X Pro (2020)](huawei/machc-wa)                                   | `<nixos-hardware/huawei/machc-wa>`                      | `huawei-machc-wa`                      |
 | [i.MX8QuadMax Multisensory Enablement Kit](nxp/imx8qm-mek/)                       | `<nixos-hardware/nxp/imx8qm-mek>`                       | `nxp-imx8qm-mek`                       |
 | [Intel NUC 5i5RYB](intel/nuc/5i5ryb/)                                             | `<nixos-hardware/intel/nuc/5i5ryb>`                     | `intel-nuc-5i5ryb`                     |
+| [Intel NUC 7i3BNB](intel/nuc/7i3bnb/)                                             | `<nixos-hardware/intel/nuc/7i3bnb>`                     | `intel-nuc-7i3bnb`                     |
 | [Intel NUC 8i7BEH](intel/nuc/8i7beh/)                                             | `<nixos-hardware/intel/nuc/8i7beh>`                     | `intel-nuc-8i7beh`                     |
 | [Intel NUC 12WSHi7](intel/nuc/12wshi7/)                                           | `<nixos-hardware/intel/nuc/12wshi7>`                    | `intel-nuc-12wshi7`                    |
 | [Kobol Helios4](kobol/helios4)                                                    | `<nixos-hardware/kobol/helios4>`                        | `kobol-helios-4`                       |
@@ -436,6 +440,7 @@ See code for all available configurations.
 | [Purism Librem 13v3](purism/librem/13v3)                                          | `<nixos-hardware/purism/librem/13v3>`                   | `purism-librem-13v3`                   |
 | [Purism Librem 15v3](purism/librem/15v3)                                          | `<nixos-hardware/purism/librem/15v3>`                   | `purism-librem-15v3`                   |
 | [Purism Librem 5r4](purism/librem/5r4)                                            | `<nixos-hardware/purism/librem/5r4>`                    | `purism-librem-5r4`                    |
+| [Radxa ROCK 3C](radxa/rock-3c)                                                    | `<nixos-hardware/radxa/rock-3c>`                        | `radxa-rock-3c`                        |
 | [Radxa ROCK 4C+](radxa/rock-4c-plus)                                              | `<nixos-hardware/radxa/rock-4c-plus>`                   | `rock-4c-plus`                         |
 | [Radxa ROCK 5 Model B](radxa/rock-5b)                                             | `<nixos-hardware/radxa/rock-5b>`                        | `rock-5b`                              |
 | [Radxa ROCK Pi 4](radxa/rock-pi-4)                                                | `<nixos-hardware/radxa/rock-pi-4>`                      | `rock-pi-4`                            |
