@@ -10,8 +10,8 @@
 
 let
   # NOTE: raspberryPiWirelessFirmware should be updated with this
-  modDirVersion = "6.12.75";
-  hash = "sha256-qrljd20n4tj/7C7gzNnxw7JIyEF2Ppf1PWm2a7vxh1w=";
+  modDirVersion = "6.18.29";
+  hash = "sha256-X7vpZR+55T+8fdYfwKyJByNqt6tp6h0bwMFmdz6eNHU=";
   inherit (lib.kernel) freeform yes no;
 in
 (buildLinux (
@@ -24,8 +24,8 @@ in
     src = fetchFromGitHub {
       owner = "raspberrypi";
       repo = "linux";
-      # https://github.com/RPi-Distro/linux-packaging/raw/refs/tags/pios/1%256.12.75-1+rpt1/debian/changelog
-      rev = "89050b1059997d38d55462b323b099a6436dc10d";
+      # https://github.com/RPi-Distro/linux-packaging/raw/refs/tags/pios/1%256.18.29-1+rpt1/debian/changelog
+      rev = "66318c5b5cd8145a662303af12ed39ac07eb27cc";
       inherit hash;
     };
 
