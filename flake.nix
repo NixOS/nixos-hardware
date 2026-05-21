@@ -70,6 +70,7 @@
           asrock-rack-altrad8ud-1l2t = import ./asrock-rack/altrad8ud-1l2t;
           asus-battery = import ./asus/battery.nix;
           asus-ally-rc71l = import ./asus/ally/rc71l;
+          asus-chromebox-4-celeron = import ./asus/chromebox/4/celeron-5205u;
           asus-fx504gd = import ./asus/fx504gd;
           asus-fx506hm = import ./asus/fx506hm;
           asus-fa506ic = import ./asus/fa506ic;
