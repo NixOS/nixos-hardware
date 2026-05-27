@@ -333,6 +333,7 @@
           lenovo-thinkpad-x1-nano-gen1 = import ./lenovo/thinkpad/x1-nano/gen1;
           lenovo-thinkpad-x13-amd = import ./lenovo/thinkpad/x13/amd;
           lenovo-thinkpad-x13-intel = import ./lenovo/thinkpad/x13/intel;
+          lenovo-thinkpad-x13-intel-gen7 = import ./lenovo/thinkpad/x13/intel/gen7;
           lenovo-thinkpad-x13-yoga = import ./lenovo/thinkpad/x13/yoga;
           lenovo-thinkpad-x13-yoga-3th-gen = import ./lenovo/thinkpad/x13/yoga/3th-gen;
           lenovo-thinkpad-x13s = import ./lenovo/thinkpad/x13s;
