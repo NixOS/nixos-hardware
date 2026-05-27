@@ -376,6 +376,7 @@ See code for all available configurations.
 | [Lenovo ThinkPad X13 Yoga](lenovo/thinkpad/x13/yoga)                              | `<nixos-hardware/lenovo/thinkpad/x13/yoga>`             | `lenovo-thinkpad-x13-yoga`             |
 | [Lenovo ThinkPad X13 Yoga (3th Gen)](lenovo/thinkpad/x13/yoga/3th-gen)            | `<nixos-hardware/lenovo/thinkpad/x13/yoga/3th-gen>`     | `lenovo-thinkpad-x13-yoga-3th-gen`     |
 | [Lenovo ThinkPad X13 (Intel)](lenovo/thinkpad/x13/intel)                          | `<nixos-hardware/lenovo/thinkpad/x13/intel>`            | `lenovo-thinkpad-x13-intel`            |
+| [Lenovo ThinkPad X13 (Intel Gen 7)](lenovo/thinkpad/x13/intel/gen7)               | `<nixos-hardware/lenovo/thinkpad/x13/intel/gen7>`       | `lenovo-thinkpad-x13-intel-gen7`       |
 | [Lenovo ThinkPad X13 (AMD)](lenovo/thinkpad/x13/amd)                              | `<nixos-hardware/lenovo/thinkpad/x13/amd>`              | `lenovo-thinkpad-x13-amd`              |
 | [Lenovo ThinkPad X140e](lenovo/thinkpad/x140e)                                    | `<nixos-hardware/lenovo/thinkpad/x140e>`                | `lenovo-thinkpad-x140e`                |
 | [Lenovo ThinkPad X200s](lenovo/thinkpad/x200s)                                    | `<nixos-hardware/lenovo/thinkpad/x200s>`                | `lenovo-thinkpad-x200s`                |
