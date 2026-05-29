@@ -14,6 +14,7 @@
     ./cpu-revision.nix
     ./digi-amp-plus.nix
     ./dwc2.nix
+    ./gpio-fan.nix
     ./gpio.nix
     ./i2c.nix
     ./leds.nix
