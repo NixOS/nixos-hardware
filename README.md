@@ -129,6 +129,7 @@ See code for all available configurations.
 | [Asus ROG Zephyrus G16 GU605CW](asus/zephyrus/gu605cw)                            | `<nixos-hardware/asus/zephyrus/gu605cw>`                | `asus-zephyrus-gu605cw`                |
 | [Asus ROG Zephyrus G16 GU605MY](asus/zephyrus/gu605my)                            | `<nixos-hardware/asus/zephyrus/gu605my>`                | `asus-zephyrus-gu605my`                |
 | [Asus ROG Zephyrus M16 GU603H](asus/zephyrus/gu603h)                              | `<nixos-hardware/asus/zephyrus/gu603h>`                 | `asus-zephyrus-gu603h`                 |
+| [Asus ROG Zephyrus M16 GU603VI (2023)](asus/zephyrus/gu603vi)                     | `<nixos-hardware/asus/zephyrus/gu603vi>`                | `asus-zephyrus-gu603vi`                |
 | [Asus TUF FX504GD](asus/fx504gd)                                                  | `<nixos-hardware/asus/fx504gd>`                         | `asus-fx504gd`                         |
 | [Asus TUF FX506HM](asus/fx506hm)                                                  | `<nixos-hardware/asus/fx506hm>`                         | `asus-fx506hm`                         |
 | [Asus TUF FA506IC](asus/fa506ic)                                                  | `<nixos-hardware/asus/fa506ic>`                         | `asus-fa506ic`                         |
