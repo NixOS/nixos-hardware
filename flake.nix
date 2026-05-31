@@ -373,6 +373,7 @@
           minisforum-um690s = import ./minisforum/um690s;
           minisforum-um790-pro = import ./minisforum/um790-pro;
           minisforum-v3 = import ./minisforum/v3;
+          minix-z150-0db = import ./minix/Z150-0dB;
           mnt-reform-rk3588 = import ./mnt/reform/rk3588;
           morefine-m600 = import ./morefine/m600;
           msi-b350-tomahawk = import ./msi/b350-tomahawk;
