@@ -11,7 +11,7 @@ To create an initial SD card image for installation:
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixos-hardware.url = "github:nixos/nixos-hardware/master";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
   };
   outputs = { self, nixpkgs, nixos-hardware }: rec {
     nixosConfigurations.m1 = nixpkgs.lib.nixosSystem {
@@ -81,7 +81,7 @@ flake:
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixos-hardware.url = "github:nixos/nixos-hardware/master";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
   };
   outputs = { nixpkgs, nixos-hardware, ... }: {
     nixosConfigurations.m1 = nixpkgs.lib.nixosSystem {
