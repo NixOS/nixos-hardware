@@ -36,7 +36,7 @@ the following:
   inputs = {
     nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
     nixos-hardware = {
-      url = "github:nixos/nixos-hardware";
+      url = "github:NixOS/nixos-hardware";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
