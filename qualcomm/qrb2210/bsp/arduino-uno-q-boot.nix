@@ -1,13 +1,16 @@
 # Standalone flash bundle for arduino-flasher-cli (boot / EDL payloads only).
 # Layout matches qualcomm/qrb2210/arduino-image-output.nix → arduino-images/flash/
-{ pkgs }:
+{
+  pkgs,
+  pkgsBuildHost ? pkgs.buildPackages,
+}:
 
 let
   bootDrv = (pkgs.callPackage ./qrb2210-boot.nix { }).qrb2210-boot;
-  qcombin = pkgs.callPackage ./qrb2210-qcombin.nix { };
+  qcombin = pkgsBuildHost.callPackage ./qrb2210-qcombin.nix { };
 in
 {
-  arduino-uno-q-boot = pkgs.runCommand "arduino-uno-q-boot" { } ''
+  arduino-uno-q-boot = pkgsBuildHost.runCommand "arduino-uno-q-boot" { } ''
     mkdir -p $out/arduino-images/flash
 
     cp -a ${qcombin}/share/qcombin/Agatti/arduino-uno-q/. $out/arduino-images/flash/

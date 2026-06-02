@@ -77,9 +77,8 @@ On first boot from eMMC, use a consumer-side resize module (GPT root on partitio
 Boot-only bundles (no NixOS rootfs) can be built directly from this flake:
 
 ```bash
-nix build github:NixOS/nixos-hardware#packages.aarch64-linux.arduino-uno-q-boot
-# or
 nix build .#packages.aarch64-linux.arduino-uno-q-boot
+nix build .#packages.x86_64-linux.arduino-uno-q-boot
 ```
 
 Output layout: `./result/arduino-images/flash/` (qcombin tree + `boot.img`).

@@ -1,4 +1,7 @@
-{ pkgs }:
+{
+  pkgs,
+  pkgsBuildBuild ? pkgs.buildPackages,
+}:
 
 let
   qrb2210-uboot = pkgs.callPackage ./qrb2210-uboot.nix { };
@@ -8,9 +11,10 @@ in
     pname = "qrb2210-boot";
     version = qrb2210-uboot.version;
 
+    # mkimage/mkbootimg run on the build machine (use buildPackages when cross-compiling).
     nativeBuildInputs = [
-      pkgs.android-tools
-      pkgs.ubootTools
+      pkgsBuildBuild.android-tools
+      pkgsBuildBuild.ubootTools
     ];
 
     dontUnpack = true;

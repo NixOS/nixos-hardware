@@ -514,6 +514,18 @@
           rpi4-kernel = (pkgs.callPackage ./raspberry-pi/common/kernel.nix { rpiVersion = 4; });
           rpi5-kernel = (pkgs.callPackage ./raspberry-pi/common/kernel.nix { rpiVersion = 5; });
         }
+        // pkgs.lib.optionalAttrs (system == "x86_64-linux") (
+          let
+            pkgsAarch64 = pkgs.pkgsCross.aarch64-multiplatform;
+          in
+          {
+            arduino-uno-q-boot =
+              (pkgsAarch64.callPackage ./qualcomm/qrb2210/bsp/arduino-uno-q-boot.nix {
+                pkgs = pkgsAarch64;
+                pkgsBuildHost = pkgs;
+              }).arduino-uno-q-boot;
+          }
+        )
       );
 
       # Hydra jobset for Raspberry Pi kernels
