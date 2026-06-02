@@ -3,58 +3,107 @@
 let
   armbianPatchBase = "https://github.com/armbian/build/raw/main/patch/kernel/qrb2210-edge";
   patchHashes = {
-    "0001-dt-bindings-drm-bridge-anx7625-describe-Type-C-conne.patch" = "sha256-bIgf39Ww6oeDSH3PIXjy6OeHx3I2gxNIRzdkBOuDQQE=";
-    "0002-drm-bridge-anx7625-implement-minimal-Type-C-support.patch" = "sha256-Zbn+WSEeUIR9GWwB/AifkP81KyiW7vOE5vQff5Eq2Tw=";
-    "0003-drm-bridge-anx7625-implement-message-sending.patch" = "sha256-ELzAf3sfFhOSnrjngj886ZuzINfD1EnVUDptQB+02AE=";
-    "0004-drm-bridge-anx7625-correctly-detect-if-PD-can-be-dis.patch" = "sha256-Ijv4HYWi6qNE7dP/p0E1BWDH0bmXkAncK9P6JRrio5k=";
-    "0005-dt-bindings-mfd-qcom-spmi-pmic-add-compatibles-for-p.patch" = "sha256-vfpKXr/6ohRw6zl0fp9kTHj2qmCtFmRWFsel4HWewOs=";
-    "0006-arm64-dts-qcom-agatti-add-LPASS-devices.patch" = "sha256-t5iqkNzNiL6f52Kgqb96pYyL27RuUCkDldRPfuRGY5w=";
-    "0007-arm64-dts-arduino-imola-add-support-for-sound.patch" = "sha256-gauRFb6S2+aslcQsXTABbqALnpifFcPakY3C1o/nRug=";
-    "0008-arm64-defconfig-Enable-Agatti-audio-drivers.patch" = "sha256-VMMjzFazh7tTEMFLMYDk67WZcuri8/81h0Z8/WxltuI=";
-    "0009-arm64-dts-qcom-qrb2210-arduino-imola-describe-DSI-DP.patch" = "sha256-6I2XDU+HCs9b/zrclyIWLpz6u+LJAGQMpREVsoGwN3k=";
-    "0010-drm-bridge-anx7625-don-t-crash-if-Type-C-port-is-not.patch" = "sha256-JVJffGJ9uqOdklteFkWTvJ0R+k0WD1AZ8lbguYKV+xA=";
-    "0011-arm64-dts-qcom-arduino-imola-fix-faulty-spidev-node.patch" = "sha256-ep9uDUP2xOXjgvB5EKMI2Y1/5aqsxyJwGJFME86PjE0=";
-    "0012-drm-msm-add-missing-MODULE_DEVICE_ID-definitions.patch" = "sha256-OCHCK/ev2sWd1IMY2RsJJsSndEfVHZUqGnOdbfwaii4=";
-    "0013-ASoC-codecs-pm4125-fix-array-out-of-bounds.patch" = "sha256-uBzJoySiQ0p0RPcZxIEHNkuDpWwTkzSFyh02SEsG6DU=";
-    "0014-ASoC-qcom-common-setup-fe-dais-before-be-dais.patch" = "sha256-0zWaaLZ/9oKNmGREsTT3O/N0z+rUhzvOPMo0w6z4m64=";
-    "0015-arm64-dts-qcom-imola-add-support-for-media-carrier-b.patch" = "sha256-xUKuLKlGVGQAPduM2PRVUnKn3EV5waxGNFHxUT9UvUg=";
-    "0016-remoteproc-qcom_q6v5_pas-explicitly-list-firmware-fo.patch" = "sha256-PCLimjtOrycj9937mWii5KOKWUTDZa/sw5sYXN0PB3g=";
-    "0017-gpu-drm-msm-add-explicit-firmware-for-a702.patch" = "sha256-VrmNyTX7lhBYJ5vNsw+HV+GLMvOYz0IAXlg1lcqplhA=";
-    "0018-ASoC-qcom-sm8250-set-capture-channels-correctly.patch" = "sha256-QouhrO38q/9QlTgcAkTXGJI/Dpp4thcQnnd/2dXvhOM=";
-    "0019-ASoC-qcom-sm8250-set-i2s-format-needs.patch" = "sha256-bMNbU/YmKH1zDvxEmC6DoQgHBOo62ot1lmM2QAxFDbQ=";
-    "0020-ASoC-qcom-q6dsp-add-32-bit-support-for-i2s-backend-d.patch" = "sha256-yRXfgUe5k4O9zplZC+OTuD9OgxTHTSSwdlK/Oc1hDBc=";
+    "0001-dt-bindings-drm-bridge-anx7625-describe-Type-C-conne.patch" =
+      "sha256-bIgf39Ww6oeDSH3PIXjy6OeHx3I2gxNIRzdkBOuDQQE=";
+    "0002-drm-bridge-anx7625-implement-minimal-Type-C-support.patch" =
+      "sha256-Zbn+WSEeUIR9GWwB/AifkP81KyiW7vOE5vQff5Eq2Tw=";
+    "0003-drm-bridge-anx7625-implement-message-sending.patch" =
+      "sha256-ELzAf3sfFhOSnrjngj886ZuzINfD1EnVUDptQB+02AE=";
+    "0004-drm-bridge-anx7625-correctly-detect-if-PD-can-be-dis.patch" =
+      "sha256-Ijv4HYWi6qNE7dP/p0E1BWDH0bmXkAncK9P6JRrio5k=";
+    "0005-dt-bindings-mfd-qcom-spmi-pmic-add-compatibles-for-p.patch" =
+      "sha256-vfpKXr/6ohRw6zl0fp9kTHj2qmCtFmRWFsel4HWewOs=";
+    "0006-arm64-dts-qcom-agatti-add-LPASS-devices.patch" =
+      "sha256-t5iqkNzNiL6f52Kgqb96pYyL27RuUCkDldRPfuRGY5w=";
+    "0007-arm64-dts-arduino-imola-add-support-for-sound.patch" =
+      "sha256-gauRFb6S2+aslcQsXTABbqALnpifFcPakY3C1o/nRug=";
+    "0008-arm64-defconfig-Enable-Agatti-audio-drivers.patch" =
+      "sha256-VMMjzFazh7tTEMFLMYDk67WZcuri8/81h0Z8/WxltuI=";
+    "0009-arm64-dts-qcom-qrb2210-arduino-imola-describe-DSI-DP.patch" =
+      "sha256-6I2XDU+HCs9b/zrclyIWLpz6u+LJAGQMpREVsoGwN3k=";
+    "0010-drm-bridge-anx7625-don-t-crash-if-Type-C-port-is-not.patch" =
+      "sha256-JVJffGJ9uqOdklteFkWTvJ0R+k0WD1AZ8lbguYKV+xA=";
+    "0011-arm64-dts-qcom-arduino-imola-fix-faulty-spidev-node.patch" =
+      "sha256-ep9uDUP2xOXjgvB5EKMI2Y1/5aqsxyJwGJFME86PjE0=";
+    "0012-drm-msm-add-missing-MODULE_DEVICE_ID-definitions.patch" =
+      "sha256-OCHCK/ev2sWd1IMY2RsJJsSndEfVHZUqGnOdbfwaii4=";
+    "0013-ASoC-codecs-pm4125-fix-array-out-of-bounds.patch" =
+      "sha256-uBzJoySiQ0p0RPcZxIEHNkuDpWwTkzSFyh02SEsG6DU=";
+    "0014-ASoC-qcom-common-setup-fe-dais-before-be-dais.patch" =
+      "sha256-0zWaaLZ/9oKNmGREsTT3O/N0z+rUhzvOPMo0w6z4m64=";
+    "0015-arm64-dts-qcom-imola-add-support-for-media-carrier-b.patch" =
+      "sha256-xUKuLKlGVGQAPduM2PRVUnKn3EV5waxGNFHxUT9UvUg=";
+    "0016-remoteproc-qcom_q6v5_pas-explicitly-list-firmware-fo.patch" =
+      "sha256-PCLimjtOrycj9937mWii5KOKWUTDZa/sw5sYXN0PB3g=";
+    "0017-gpu-drm-msm-add-explicit-firmware-for-a702.patch" =
+      "sha256-VrmNyTX7lhBYJ5vNsw+HV+GLMvOYz0IAXlg1lcqplhA=";
+    "0018-ASoC-qcom-sm8250-set-capture-channels-correctly.patch" =
+      "sha256-QouhrO38q/9QlTgcAkTXGJI/Dpp4thcQnnd/2dXvhOM=";
+    "0019-ASoC-qcom-sm8250-set-i2s-format-needs.patch" =
+      "sha256-bMNbU/YmKH1zDvxEmC6DoQgHBOo62ot1lmM2QAxFDbQ=";
+    "0020-ASoC-qcom-q6dsp-add-32-bit-support-for-i2s-backend-d.patch" =
+      "sha256-yRXfgUe5k4O9zplZC+OTuD9OgxTHTSSwdlK/Oc1hDBc=";
     "0021-anx7625-allow-32-bit-format.patch" = "sha256-9N68CNLoWxgL+K+v8+FDxmqdu0CcCpQc+nj+b7bA7Os=";
-    "0022-drm-anx7625-set-I2S-input-stream-as-right-justified.patch" = "sha256-6bxOtcNnZnhJZ25v7O0cFTLfIsltZ21femxuJXYFB+4=";
-    "0023-ASoC-qcom-qdsp6-fix-microphone-stream-re-enable.patch" = "sha256-ZpIbwL71XTrbi8A2xMFMoB2KeGKFComt+e+o/S//Hlo=";
-    "0024-ASoC-codecs-pm4125-harden-swr-discovery-path.patch" = "sha256-sOK4tPEuvdgaXPOfXMq5LxtId9CcugLApMMBIiJ4xTk=";
-    "0025-dt-bindings-display-panel-himax-hx83102-describe-Wav.patch" = "sha256-pJNzyEORJQQATQiF05EY2Jqoz07hRMjsnse4kaZfGNo=";
-    "0026-dt-bindings-display-panel-himax-hx8394-describe-Wave.patch" = "sha256-Z9EXnyDGqck9LqVWWVyJ5CTPu7AwQecQptULaS1b410=";
-    "0027-dt-bindings-display-panel-jadard-jd9365da-h3-describ.patch" = "sha256-KkLJVJu1cK44aPEtm74c+9Hkp0UxV9zkAflK379ME8g=";
-    "0028-dt-bindings-display-panel-ilitek-ili9881c-describe-W.patch" = "sha256-++C8B1DKZEObw7dzxiihzqEXbq/Rx96NQm+HYUVGmd0=";
-    "0029-dt-bindings-dipslay-panel-describe-panels-using-Foca.patch" = "sha256-MmTI8SjCW5oQM0TYL1L2ihV7UNAul9lzEX7J4ugk34Q=";
-    "0030-drm-of-add-helper-to-count-data-lanes-on-a-remote-en.patch" = "sha256-GgyG7Dt95vKGn4CfqClV+ScJBlyrZgIDpMhnELkzXW8=";
-    "0031-drm-panel-himax-hx83102-support-Waveshare-12.3-DSI-p.patch" = "sha256-EhVDSugdWque89vzsu58nJM9mCVi5qOEpz6w8dByw28=";
-    "0032-drm-panel-himax-hx8394-set-prepare_prev_first.patch" = "sha256-Tnlln6OKoMBYV6XfxeInsaIVYJZqsYG7XTE/8tSKs3Q=";
-    "0033-drm-panel-himax-hx8394-simplify-hx8394_enable.patch" = "sha256-845Y8HG7LIO0je0sBiW5q1oNsuWQuOUV07+1tO7Eo3k=";
-    "0034-drm-panel-himax-hx8394-support-Waveshare-DSI-panels.patch" = "sha256-+nVo0ZL3Ons/xHLN64Ex/Y+l7g49qhoRfWucIuxDbzo=";
-    "0035-drm-panel-jadard-jd9365da-h3-use-drm_connector_helpe.patch" = "sha256-+LmmjX26upOFAdkm6C4MEaDkZJutse5iqEH9hyNxajM=";
-    "0036-drm-panel-jadard-jd9365da-h3-support-variable-DSI-co.patch" = "sha256-yh9Hq5jg2rJpJ834UTfK+78V3h/8cACPG82b6lAbDQk=";
-    "0037-drm-panel-jadard-jd9365da-h3-set-prepare_prev_first.patch" = "sha256-7OmC5lakvgoWt//3aAXgHayMSv246MflXAfxaKVcU2c=";
-    "0038-drm-panel-jadard-jd9365da-h3-support-Waveshare-round.patch" = "sha256-8tUU3ul0lWyCFPM9pxGeOMG2PiORcXUBNmQWUULji64=";
-    "0039-drm-panel-jadard-jd9365da-h3-support-Waveshare-WXGA-.patch" = "sha256-5fAGzgb9SpaEM/2YrI38OPujAc6srhUaSA1GpPHI8uc=";
-    "0040-drm-panel-jadard-jd9365da-h3-support-Waveshare-720p-.patch" = "sha256-VfKjKNXxcdy5oNR7FciFoBAPkyMvafQm1VLP3mmC0+E=";
-    "0041-drm-panel-ilitek-ili9881c-support-Waveshare-7.0-DSI-.patch" = "sha256-QMxyeJp+I/LPVLkqDTLU3XIS1moaUKDFK3YlS7FWfiQ=";
-    "0042-drm-panel-add-devm_drm_panel_add-helper.patch" = "sha256-yjfXoiirRbT+YJ5rEcdQSmxo73N2504Uns+TzgR8WC4=";
-    "0043-drm-panel-add-driver-for-Waveshare-8.8-DSI-TOUCH-A-p.patch" = "sha256-ANPX8PXZWEyee3lDRexgLMAyabTnMqtHaQx1Sh5DMAs=";
-    "0044-dt-bindings-gpio-describe-Waveshare-GPIO-controller.patch" = "sha256-DMOxO+gq9AHKLfIFVkVsAk3K6ByrZLfVgO0YVdMgRYI=";
-    "0045-gpio-add-GPIO-controller-found-on-Waveshare-DSI-TOUC.patch" = "sha256-Zx0FaF6DIAkR+t7oqrvv2i4jBg+eOMfN8TDiV3NCg+o=";
-    "0046-dt-bindings-display-waveshare-dsp2dpi-describe-DSI2L.patch" = "sha256-YBHM1n/lofhBhonWR2NUavNxu4mETyMHe0tqcTIUncg=";
-    "0047-drm-bridge-waveshare-dsi-support-DSI-LCD-kits-with-L.patch" = "sha256-4P39ChJP/jv+cRwx41dFCODs3DEcx8RVv3PRD3nQ+n0=";
-    "0048-arch-arm64-qcom-imola-Align-panel-DTBO.patch" = "sha256-5WrDfISdaYSKqg75Q8eUUH+X4WdWEfiq0RFGRiA1pTw=";
+    "0022-drm-anx7625-set-I2S-input-stream-as-right-justified.patch" =
+      "sha256-6bxOtcNnZnhJZ25v7O0cFTLfIsltZ21femxuJXYFB+4=";
+    "0023-ASoC-qcom-qdsp6-fix-microphone-stream-re-enable.patch" =
+      "sha256-ZpIbwL71XTrbi8A2xMFMoB2KeGKFComt+e+o/S//Hlo=";
+    "0024-ASoC-codecs-pm4125-harden-swr-discovery-path.patch" =
+      "sha256-sOK4tPEuvdgaXPOfXMq5LxtId9CcugLApMMBIiJ4xTk=";
+    "0025-dt-bindings-display-panel-himax-hx83102-describe-Wav.patch" =
+      "sha256-pJNzyEORJQQATQiF05EY2Jqoz07hRMjsnse4kaZfGNo=";
+    "0026-dt-bindings-display-panel-himax-hx8394-describe-Wave.patch" =
+      "sha256-Z9EXnyDGqck9LqVWWVyJ5CTPu7AwQecQptULaS1b410=";
+    "0027-dt-bindings-display-panel-jadard-jd9365da-h3-describ.patch" =
+      "sha256-KkLJVJu1cK44aPEtm74c+9Hkp0UxV9zkAflK379ME8g=";
+    "0028-dt-bindings-display-panel-ilitek-ili9881c-describe-W.patch" =
+      "sha256-++C8B1DKZEObw7dzxiihzqEXbq/Rx96NQm+HYUVGmd0=";
+    "0029-dt-bindings-dipslay-panel-describe-panels-using-Foca.patch" =
+      "sha256-MmTI8SjCW5oQM0TYL1L2ihV7UNAul9lzEX7J4ugk34Q=";
+    "0030-drm-of-add-helper-to-count-data-lanes-on-a-remote-en.patch" =
+      "sha256-GgyG7Dt95vKGn4CfqClV+ScJBlyrZgIDpMhnELkzXW8=";
+    "0031-drm-panel-himax-hx83102-support-Waveshare-12.3-DSI-p.patch" =
+      "sha256-EhVDSugdWque89vzsu58nJM9mCVi5qOEpz6w8dByw28=";
+    "0032-drm-panel-himax-hx8394-set-prepare_prev_first.patch" =
+      "sha256-Tnlln6OKoMBYV6XfxeInsaIVYJZqsYG7XTE/8tSKs3Q=";
+    "0033-drm-panel-himax-hx8394-simplify-hx8394_enable.patch" =
+      "sha256-845Y8HG7LIO0je0sBiW5q1oNsuWQuOUV07+1tO7Eo3k=";
+    "0034-drm-panel-himax-hx8394-support-Waveshare-DSI-panels.patch" =
+      "sha256-+nVo0ZL3Ons/xHLN64Ex/Y+l7g49qhoRfWucIuxDbzo=";
+    "0035-drm-panel-jadard-jd9365da-h3-use-drm_connector_helpe.patch" =
+      "sha256-+LmmjX26upOFAdkm6C4MEaDkZJutse5iqEH9hyNxajM=";
+    "0036-drm-panel-jadard-jd9365da-h3-support-variable-DSI-co.patch" =
+      "sha256-yh9Hq5jg2rJpJ834UTfK+78V3h/8cACPG82b6lAbDQk=";
+    "0037-drm-panel-jadard-jd9365da-h3-set-prepare_prev_first.patch" =
+      "sha256-7OmC5lakvgoWt//3aAXgHayMSv246MflXAfxaKVcU2c=";
+    "0038-drm-panel-jadard-jd9365da-h3-support-Waveshare-round.patch" =
+      "sha256-8tUU3ul0lWyCFPM9pxGeOMG2PiORcXUBNmQWUULji64=";
+    "0039-drm-panel-jadard-jd9365da-h3-support-Waveshare-WXGA-.patch" =
+      "sha256-5fAGzgb9SpaEM/2YrI38OPujAc6srhUaSA1GpPHI8uc=";
+    "0040-drm-panel-jadard-jd9365da-h3-support-Waveshare-720p-.patch" =
+      "sha256-VfKjKNXxcdy5oNR7FciFoBAPkyMvafQm1VLP3mmC0+E=";
+    "0041-drm-panel-ilitek-ili9881c-support-Waveshare-7.0-DSI-.patch" =
+      "sha256-QMxyeJp+I/LPVLkqDTLU3XIS1moaUKDFK3YlS7FWfiQ=";
+    "0042-drm-panel-add-devm_drm_panel_add-helper.patch" =
+      "sha256-yjfXoiirRbT+YJ5rEcdQSmxo73N2504Uns+TzgR8WC4=";
+    "0043-drm-panel-add-driver-for-Waveshare-8.8-DSI-TOUCH-A-p.patch" =
+      "sha256-ANPX8PXZWEyee3lDRexgLMAyabTnMqtHaQx1Sh5DMAs=";
+    "0044-dt-bindings-gpio-describe-Waveshare-GPIO-controller.patch" =
+      "sha256-DMOxO+gq9AHKLfIFVkVsAk3K6ByrZLfVgO0YVdMgRYI=";
+    "0045-gpio-add-GPIO-controller-found-on-Waveshare-DSI-TOUC.patch" =
+      "sha256-Zx0FaF6DIAkR+t7oqrvv2i4jBg+eOMfN8TDiV3NCg+o=";
+    "0046-dt-bindings-display-waveshare-dsp2dpi-describe-DSI2L.patch" =
+      "sha256-YBHM1n/lofhBhonWR2NUavNxu4mETyMHe0tqcTIUncg=";
+    "0047-drm-bridge-waveshare-dsi-support-DSI-LCD-kits-with-L.patch" =
+      "sha256-4P39ChJP/jv+cRwx41dFCODs3DEcx8RVv3PRD3nQ+n0=";
+    "0048-arch-arm64-qcom-imola-Align-panel-DTBO.patch" =
+      "sha256-5WrDfISdaYSKqg75Q8eUUH+X4WdWEfiq0RFGRiA1pTw=";
   };
 in
-lib.map (name: fetchpatch {
-  url = "${armbianPatchBase}/${name}";
-  hash = patchHashes.${name};
-}) (lib.sort (a: b: lib.version.compare a b) (builtins.attrNames patchHashes))
-
+lib.map (
+  name:
+  fetchpatch {
+    url = "${armbianPatchBase}/${name}";
+    hash = patchHashes.${name};
+  }
+) (lib.sort (a: b: lib.version.compare a b) (builtins.attrNames patchHashes))

@@ -9,4 +9,3 @@
     name = lib.mkDefault "qcom/qrb2210-arduino-imola.dtb";
   };
 }
-

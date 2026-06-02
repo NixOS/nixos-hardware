@@ -52,4 +52,3 @@ buildUBoot {
     "dts/upstream/src/arm64/qcom/qrb2210-arduino-imola.dtb"
   ];
 }
-

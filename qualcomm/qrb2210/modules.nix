@@ -43,8 +43,7 @@
       };
       includeDefaultModules = lib.mkForce false;
       extraFiles = {
-        "lib/firmware/qcom/a702_sqe.fw".source =
-          "${pkgs.qrb2210-firmware}/lib/firmware/qcom/a702_sqe.fw";
+        "lib/firmware/qcom/a702_sqe.fw".source = "${pkgs.qrb2210-firmware}/lib/firmware/qcom/a702_sqe.fw";
         "lib/firmware/qcom/qcm2290/a702_zap.mbn".source =
           "${pkgs.qrb2210-firmware}/lib/firmware/qcom/qcm2290/a702_zap.mbn";
       };
@@ -77,4 +76,3 @@
     pkgs.qrb2210-uboot
   ];
 }
-

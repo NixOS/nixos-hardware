@@ -5,4 +5,3 @@ final: _prev: {
   qrb2210-qcombin = final.callPackage ./bsp/qrb2210-qcombin.nix { };
   qrb2210-boot = (final.callPackage ./bsp/qrb2210-boot.nix { pkgs = final; }).qrb2210-boot;
 }
-
