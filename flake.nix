@@ -65,6 +65,7 @@
           apple-macmini-4-1 = import ./apple/macmini/4;
           apple-t2 = import ./apple/t2;
           asrock-rack-altrad8ud-1l2t = import ./asrock-rack/altrad8ud-1l2t;
+          qualcomm-qrb2210 = import ./qualcomm/qrb2210;
           arduino-uno-q = import ./qualcomm/qrb2210/arduino-uno-q;
           asus-battery = import ./asus/battery.nix;
           asus-ally-rc71l = import ./asus/ally/rc71l;

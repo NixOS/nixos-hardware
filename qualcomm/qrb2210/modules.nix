@@ -9,6 +9,10 @@
     ./cross.nix
   ];
 
+  nixpkgs.overlays = [
+    (import ./overlay.nix)
+  ];
+
   nixpkgs.hostPlatform.system = "aarch64-linux";
 
   boot = {
