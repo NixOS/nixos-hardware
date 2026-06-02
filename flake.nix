@@ -424,6 +424,7 @@
           kobol-helios4 = import ./kobol/helios4;
           samsung-np900x3c = import ./samsung/np900x3c;
           slimbook-hero-rpl-rtx = import ./slimbook/hero/rpl-rtx;
+          spacemit-k3-pico-itx = import ./spacemit/k3-pico-itx;
           starfive-visionfive-v1 = import ./starfive/visionfive/v1;
           starfive-visionfive-2 = import ./starfive/visionfive/v2;
           starlabs-starlite-i5 = import ./starlabs/starlite/i5;
