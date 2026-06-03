@@ -43,9 +43,12 @@
       };
       includeDefaultModules = lib.mkForce false;
       extraFiles = {
-        "lib/firmware/qcom/a702_sqe.fw".source = "${pkgs.qrb2210-firmware}/lib/firmware/qcom/a702_sqe.fw";
-        "lib/firmware/qcom/qcm2290/a702_zap.mbn".source =
-          "${pkgs.qrb2210-firmware}/lib/firmware/qcom/qcm2290/a702_zap.mbn";
+        "lib/firmware/qcom/a702_sqe.fw".source = pkgs.runCommand "qrb2210-a702-sqe-fw" { } ''
+          cp ${pkgs.qrb2210-firmware}/lib/firmware/qcom/a702_sqe.fw $out
+        '';
+        "lib/firmware/qcom/qcm2290/a702_zap.mbn".source = pkgs.runCommand "qrb2210-a702-zap-mbn" { } ''
+          cp ${pkgs.qrb2210-firmware}/lib/firmware/qcom/qcm2290/a702_zap.mbn $out
+        '';
       };
     };
 
