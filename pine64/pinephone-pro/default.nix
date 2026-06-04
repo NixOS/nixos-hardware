@@ -36,6 +36,6 @@
     # when updating the kernel.
     # When `mem` sleep is reliable,
     # this should be removed.
-    systemd.sleep.extraConfig = "SuspendState=freeze";
+    systemd.sleep.settings.Sleep.SuspendState = "freeze";
   };
 }
