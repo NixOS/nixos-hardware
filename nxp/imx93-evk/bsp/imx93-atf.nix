@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "imx93-trdc-header-guard.patch";
       url = "https://github.com/nxp-imx/imx-atf/commit/e194a14ec55f13386babc80c90098874367ab3d6.patch";
-      sha256 = "sha256-uXRgeyFmxDww93nJe04aoOLml2R7IbABZLhywyYmePk=";
+      sha256 = "sha256-K1JECateo4mUrOaV41PUmCXHn7DfmgRQXx4KdcIALqE=";
     })
   ];
 
