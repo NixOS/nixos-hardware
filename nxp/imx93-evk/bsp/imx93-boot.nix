@@ -1,8 +1,8 @@
 {
   pkgs,
 }:
-with pkgs;
 let
+  bp = pkgs.buildPackages;
 
   imx93-atf = pkgs.callPackage ./imx93-atf.nix { };
   imx93-firmware = pkgs.callPackage ./imx93-firmware.nix { };
@@ -17,7 +17,8 @@ let
   shortRev = builtins.substring 0 8 src.rev;
 in
 {
-  imx93-boot = pkgs.stdenv.mkDerivation rec {
+  # mkimage runs on the build machine; use buildPackages when cross-compiling.
+  imx93-boot = bp.stdenv.mkDerivation {
     inherit src;
     name = "imx93-mkimage";
     version = "lf-6.12.3";
@@ -25,28 +26,22 @@ in
     postPatch = ''
       substituteInPlace Makefile \
           --replace 'git rev-parse --short=8 HEAD' 'echo ${shortRev}'
-      substituteInPlace Makefile \
-          --replace 'CC = gcc' 'CC = clang'
       substituteInPlace iMX93/soc.mak \
-        --replace 'xxd' "${pkgs.vim.xxd}/bin/xxd"
+        --replace 'xxd' "${bp.vim.xxd}/bin/xxd"
       substituteInPlace scripts/fspi_fcb_gen.sh \
-        --replace 'xxd' "${pkgs.vim.xxd}/bin/xxd"
+        --replace 'xxd' "${bp.vim.xxd}/bin/xxd"
       substituteInPlace scripts/fspi_packer.sh \
-        --replace 'xxd' "${pkgs.vim.xxd}/bin/xxd"
+        --replace 'xxd' "${bp.vim.xxd}/bin/xxd"
       patchShebangs scripts
     '';
 
     nativeBuildInputs = [
-      clang
-      git
-      dtc
-    ];
-
-    buildInputs = [
-      git
-      glibc.static
-      zlib
-      zlib.static
+      bp.stdenv.cc
+      bp.git
+      bp.dtc
+      bp.glibc.static
+      bp.zlib
+      bp.zlib.static
     ];
 
     buildPhase = ''
