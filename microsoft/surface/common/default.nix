@@ -24,8 +24,8 @@ let
         hash = "sha256-qtpHItuLz6C5cyhRhW1AUIK2pPouOrBnvo2xfN0RWzg=";
       };
       stable-kernel = {
-        version = "7.0.9";
-        hash = "sha256-rAes33bPRiHMUYeiZwJwoaaZUzyKayJeSHjEFq2D8cQ=";
+        version = "7.0.11";
+        hash = "sha256-5WyDVt2gETamBBxu+DK9Dsmb0tNd/5eDKqXsEO0BQwQ=";
       };
     in
     {
@@ -50,8 +50,8 @@ let
       (pkgs.fetchFromGitHub {
         owner = "Apiznel";
         repo = "linux-surface";
-        rev = "d9173b9ac33e5730fb15f803ddc7c9d91332c174";
-        hash = "sha256-Ja5gAVsknjoXZuQGY9grb1pICvsyMnm8ur3mK/711vw=";
+        rev = "6dc9bc6a90830fb523a93d73fb2656bcf3aaa9cd";
+        hash = "sha256-yKqnK78WQ2LX7VUNuY1fhYkddr042xB4YI1KuyaO78g=";
       })
   );
 
