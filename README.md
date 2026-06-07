@@ -293,8 +293,9 @@ See code for all available configurations.
 | [Lenovo ThinkPad A475](lenovo/thinkpad/a475)                                      | `<nixos-hardware/lenovo/thinkpad/a475>`                 | `lenovo-thinkpad-a475`                 |
 | [Lenovo ThinkPad E14 (AMD)](lenovo/thinkpad/e14/amd)                              | `<nixos-hardware/lenovo/thinkpad/e14/amd>`              | `lenovo-thinkpad-e14-amd`              |
 | [Lenovo ThinkPad E14 (Intel - Gen 1)](lenovo/thinkpad/e14/intel)                  | `<nixos-hardware/lenovo/thinkpad/e14/intel>`            | `lenovo-thinkpad-e14-intel`            |
-| [Lenovo ThinkPad E14 (Intel - Gen 4)](lenovo/thinkpad/e14/intel/gen4)             | `<nixos-hardware/lenovo/thinkpad/e14/intel/gen4>`       | `lenovo-thinkpad-e14-intel-gen4`       |
 | [Lenovo ThinkPad E14 (Intel - Gen 2)](lenovo/thinkpad/e14/intel/gen2)             | `<nixos-hardware/lenovo/thinkpad/e14/intel/gen2>`       | `lenovo-thinkpad-e14-intel-gen2`       |
+| [Lenovo ThinkPad E14 (Intel - Gen 4)](lenovo/thinkpad/e14/intel/gen4)             | `<nixos-hardware/lenovo/thinkpad/e14/intel/gen4>`       | `lenovo-thinkpad-e14-intel-gen4`       |
+| [Lenovo ThinkPad E14 (Intel - Gen 5)](lenovo/thinkpad/e15/intel/gen5)             | `<nixos-hardware/lenovo/thinkpad/e14/intel/gen5>`       | `lenovo-thinkpad-e14-intel-gen5`       |
 | [Lenovo ThinkPad E14 (Intel - Gen 6)](lenovo/thinkpad/e14/intel/gen6)             | `<nixos-hardware/lenovo/thinkpad/e14/intel/gen6>`       | `lenovo-thinkpad-e14-intel-gen6`       |
 | [Lenovo ThinkPad E15 (Intel)](lenovo/thinkpad/e15/intel)                          | `<nixos-hardware/lenovo/thinkpad/e15/intel>`            | `lenovo-thinkpad-e15-intel`            |
 | [Lenovo ThinkPad E470](lenovo/thinkpad/e470)                                      | `<nixos-hardware/lenovo/thinkpad/e470>`                 | `lenovo-thinkpad-e470`                 |
