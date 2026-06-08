@@ -9,6 +9,19 @@ NVIDIA GeForce RTX 3080 Ti Mobile (Ampere) discrete GPU.
 - `lenovo-thinkpad-p1-gen5-nvidia` — adds NVIDIA PRIME **offload**. Run a
   program on the discrete GPU with `nvidia-offload <command>`.
 
+## Power management
+
+The `-nvidia` profile enables PRIME **offload** but does not turn on fine-grained
+runtime power management, so the discrete GPU stays powered even when idle —
+noticeable battery drain on a laptop. That setting is experimental and depends on
+the GPU + firmware supporting PCIe Runtime D3 (RTD3), so it is left to the user.
+If your unit supports it, let the dGPU suspend when unused by adding to your own
+configuration:
+
+```nix
+hardware.nvidia.powerManagement.finegrained = true;
+```
+
 ## Tested Hardware
 
 ```shell
