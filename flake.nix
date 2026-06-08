@@ -262,6 +262,7 @@
           lenovo-thinkpad-l480 = import ./lenovo/thinkpad/l480;
           lenovo-thinkpad-p1 = import ./lenovo/thinkpad/p1;
           lenovo-thinkpad-p1-gen3 = import ./lenovo/thinkpad/p1/3th-gen;
+          lenovo-thinkpad-p1-gen5 = import ./lenovo/thinkpad/p1/gen5;
           lenovo-thinkpad-p1-gen5-nvidia = import ./lenovo/thinkpad/p1/gen5/nvidia;
           lenovo-thinkpad-p14s-amd-gen1 = import ./lenovo/thinkpad/p14s/amd/gen1;
           lenovo-thinkpad-p14s-amd-gen2 = import ./lenovo/thinkpad/p14s/amd/gen2;

@@ -1,7 +1,7 @@
 { lib, ... }:
 {
   imports = [
-    ../../.
+    ../.
     ../../../../../common/gpu/nvidia/ampere
     ../../../../../common/gpu/nvidia/prime.nix
   ];
