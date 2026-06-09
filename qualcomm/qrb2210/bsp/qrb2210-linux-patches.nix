@@ -100,10 +100,10 @@ let
       "sha256-5WrDfISdaYSKqg75Q8eUUH+X4WdWEfiq0RFGRiA1pTw=";
   };
 in
-lib.map (
+map (
   name:
   fetchpatch {
     url = "${armbianPatchBase}/${name}";
     hash = patchHashes.${name};
   }
-) (lib.sort (a: b: lib.version.compare a b) (builtins.attrNames patchHashes))
+) (lib.naturalSort (builtins.attrNames patchHashes))
