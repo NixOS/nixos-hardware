@@ -12,6 +12,8 @@
       enable32Bit = lib.mkDefault true;
     };
     nvidia = {
+      # "Wayland requires kernel mode setting (KMS) to be enabled (Highly
+      # Recommended)" per https://wiki.nixos.org/wiki/NVIDIA#Requirements.
       modesetting.enable = lib.mkDefault true;
       prime = {
         # Bus ID of the Intel GPU.
