@@ -1,5 +1,6 @@
 {
   buildLinux,
+  fetchpatch,
   fetchurl,
   lib,
   ...
@@ -16,6 +17,8 @@ buildLinux (
       url = "https://cdn.kernel.org/pub/linux/kernel/v7.x/linux-${version}.tar.xz";
       hash = "sha256-u39tgLOHx1e30Uu5MCj8uQ95PFwNNnc27oFaEAs4kfA=";
     };
+
+    kernelPatches = import ./qrb2210-linux-patches.nix { inherit fetchpatch lib; };
 
     defconfig = "defconfig";
     extraConfig = builtins.readFile ./linux-qrb2210-extra-config;
