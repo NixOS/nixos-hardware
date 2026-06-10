@@ -213,6 +213,7 @@
           intel-nuc-7i3bnb = import ./intel/nuc/7i3bnb;
           intel-nuc-8i7beh = import ./intel/nuc/8i7beh;
           intel-nuc-12wshi7 = import ./intel/nuc/12wshi7;
+          lattepanda-sigma = import ./lattepanda/sigma;
           lenovo-ideacentre-k330 = import ./lenovo/ideacentre/k330;
           lenovo-ideapad-14imh9 = import ./lenovo/ideapad/14imh9;
           lenovo-ideapad-15alc6 = import ./lenovo/ideapad/15alc6;
