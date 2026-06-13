@@ -11,7 +11,10 @@ let
       sha256 = "sha256-Glm4Rcm+G8mEBF9ELQiD6IjwWAlCN12EoOttJIWwzBY=";
     };
 
-    extraConfig = "";
+    extraConfig = ''
+      # Avnet linux-imx 6.1.22: DEVICE_THERMAL duplicates devfreq_cooling symbols
+      DEVICE_THERMAL n
+    '';
 
     ignoreConfigErrors = true;
 
@@ -21,6 +24,9 @@ let
   };
 in
 base.overrideAttrs (prev: {
-  # Avnet linux-imx 6.1.22 Vivante driver vs GCC 15 -Werror=enum-int-mismatch
-  NIX_CFLAGS_COMPILE = (prev.NIX_CFLAGS_COMPILE or "") + " -Wno-error=enum-int-mismatch";
+  # Avnet linux-imx 6.1.22 Vivante driver vs GCC 15 -Werror=enum-int-mismatch.
+  # NIX_CFLAGS_COMPILE is ignored by Kbuild; pass via KCFLAGS in makeFlags.
+  makeFlags = prev.makeFlags ++ [
+    "KCFLAGS=-Wno-error=enum-int-mismatch -Wno-enum-int-mismatch"
+  ];
 })
