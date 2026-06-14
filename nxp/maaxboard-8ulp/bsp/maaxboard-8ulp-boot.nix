@@ -22,13 +22,11 @@ in
     postPatch = ''
       substituteInPlace Makefile \
           --replace 'git rev-parse --short=8 HEAD' 'echo ${shortRev}'
-      substituteInPlace Makefile \
-          --replace 'CC = gcc' 'CC = clang'
       patchShebangs scripts
     '';
 
     nativeBuildInputs = [
-      clang
+      stdenv.cc
       git
       dtc
     ];
@@ -46,14 +44,18 @@ in
       make bin
       make SOC=iMX8ULP mkimage_imx8
 
+      # Match Avnet maaxboard-build-tools imx-mkimage staging (REV=A2 silicon).
+      install -m 0644 ${maaxboard-8ulp-uboot}/u-boot.bin ./iMX8ULP/u-boot.bin
+      install -m 0644 ${maaxboard-8ulp-uboot}/u-boot-nodtb.bin ./iMX8ULP/u-boot-nodtb.bin
       install -m 0644 ${maaxboard-8ulp-uboot}/u-boot-spl.bin ./iMX8ULP/u-boot-spl.bin
-      cat ${maaxboard-8ulp-uboot}/u-boot-nodtb.bin ${maaxboard-8ulp-uboot}/maaxboard-8ulp.dtb > ./iMX8ULP/u-boot.bin
+      install -m 0644 ${maaxboard-8ulp-uboot}/maaxboard-8ulp.dtb ./iMX8ULP/imx8ulp-evk.dtb
+      install -m 0755 ${maaxboard-8ulp-uboot}/mkimage_uboot ./iMX8ULP/mkimage_uboot
       install -m 0644 ${maaxboard-8ulp-atf}/bl31.bin ./iMX8ULP/bl31.bin
-      install -m 0644 ${maaxboard-8ulp-firmware}/mx8ulpa0-ahab-container.img ./iMX8ULP/mx8ulpa0-ahab-container.img
+      install -m 0644 ${maaxboard-8ulp-firmware}/mx8ulpa2-ahab-container.img ./iMX8ULP/mx8ulpa2-ahab-container.img
       install -m 0644 ${maaxboard-8ulp-firmware}/upower.bin ./iMX8ULP/upower.bin
       install -m 0644 ${maaxboard-8ulp-firmware}/m33_image.bin ./iMX8ULP/m33_image.bin
 
-      make SOC=iMX8ULP REV=A0 flash_singleboot_m33
+      make SOC=iMX8ULP REV=A2 flash_singleboot_m33
 
       runHook postBuild
     '';

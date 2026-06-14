@@ -26,25 +26,25 @@ stdenv.mkDerivation rec {
 
   # boards/evkmimx8ulp/multicore_examples/rpmsg_lite_str_echo_rtos/armgcc/build_release.sh
   buildPhase = ''
-    runHook preBuild
+        runHook preBuild
 
-    cd boards/evkmimx8ulp/multicore_examples/rpmsg_lite_str_echo_rtos/armgcc
-    cat > ../version.h <<EOF
-#define SDK_VERSION "v2.14.0"
-#define GIT_VERSION "g${lib.substring 0 12 src.rev}"
-EOF
+        cd boards/evkmimx8ulp/multicore_examples/rpmsg_lite_str_echo_rtos/armgcc
+        cat > ../version.h <<EOF
+    #define SDK_VERSION "v2.14.0"
+    #define GIT_VERSION "g${lib.substring 0 12 src.rev}"
+    EOF
 
-    export ARMGCC_DIR=${gcc-arm-embedded}
-    cmake \
-      -DCMAKE_TOOLCHAIN_FILE="../../../../../tools/cmake_toolchain_files/armgcc.cmake" \
-      -G "Unix Makefiles" \
-      -DCMAKE_BUILD_TYPE=release \
-      .
-    make -j$NIX_BUILD_CORES
-    test -f release/rpmsg_lite_str_echo_rtos_imxcm33.elf
-    cp release/rpmsg_lite_str_echo_rtos_imxcm33.elf $NIX_BUILD_TOP/m33.elf
+        export ARMGCC_DIR=${gcc-arm-embedded}
+        cmake \
+          -DCMAKE_TOOLCHAIN_FILE="../../../../../tools/cmake_toolchain_files/armgcc.cmake" \
+          -G "Unix Makefiles" \
+          -DCMAKE_BUILD_TYPE=release \
+          .
+        make -j$NIX_BUILD_CORES
+        test -f release/rpmsg_lite_str_echo_rtos_imxcm33.elf
+        cp release/rpmsg_lite_str_echo_rtos_imxcm33.elf $NIX_BUILD_TOP/m33.elf
 
-    runHook postBuild
+        runHook postBuild
   '';
 
   installPhase = ''
