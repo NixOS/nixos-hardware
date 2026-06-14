@@ -22,6 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-r7c42GaOU+NHN24681KeS07py+QyIFAG/6tE9syYemA=";
   };
 
+  # maaxboard-build-tools: PLAT=imx8ulp bl31
   depsBuildBuild = [ buildPackages.stdenv.cc ];
   nativeBuildInputs = [ pkgsCross.aarch64-embedded.stdenv.cc ];
 

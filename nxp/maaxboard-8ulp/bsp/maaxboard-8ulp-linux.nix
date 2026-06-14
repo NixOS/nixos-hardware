@@ -4,6 +4,10 @@ let
     pname = "maaxboard-8ulp-linux";
     version = "6.1.22";
 
+    # maaxboard-build-tools kernel/build.sh: make ${BOARD}_defconfig with board=maaxboard-8ulp
+    defconfig = "maaxboard-8ulp_defconfig";
+
+    # Avnet/linux-imx @ maaxboard_lf-6.1.22-2.0.0
     src = pkgs.fetchFromGitHub {
       owner = "Avnet";
       repo = "linux-imx";
