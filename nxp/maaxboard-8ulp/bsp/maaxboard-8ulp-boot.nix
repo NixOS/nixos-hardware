@@ -44,7 +44,7 @@ in
       make bin
       make SOC=iMX8ULP mkimage_imx8
 
-      # Match Avnet maaxboard-build-tools imx-mkimage staging (REV=A2 silicon).
+      # Avnet maaxboard-build-tools imx-mkimage staging (REV=A2 silicon).
       install -m 0644 ${maaxboard-8ulp-uboot}/u-boot.bin ./iMX8ULP/u-boot.bin
       install -m 0644 ${maaxboard-8ulp-uboot}/u-boot-nodtb.bin ./iMX8ULP/u-boot-nodtb.bin
       install -m 0644 ${maaxboard-8ulp-uboot}/u-boot-spl.bin ./iMX8ULP/u-boot-spl.bin
