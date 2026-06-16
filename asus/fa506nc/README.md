@@ -1,6 +1,5 @@
 # ASUS TUF A15 FA506NC
 
-- GPU switching to the nvidia card works fine through supergfxd.
 - Power profiles autoswitch through asusctl in tandem with power-profiles-daemon.
 - The batter charge limit configuration through ../battery.nix did not work,
   setting a limit through asusd works.
