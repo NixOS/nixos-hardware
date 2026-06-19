@@ -82,12 +82,6 @@
       CONFIG_APDS9960 = module;
 
       ##
-      ## Build-in UFS support (required for some Surface Go devices)
-      ##
-      CONFIG_SCSI_UFSHCD = module;
-      CONFIG_SCSI_UFSHCD_PCI = module;
-
-      ##
       ## Other Drivers
       ##
       CONFIG_INPUT_SOC_BUTTON_ARRAY = module;
@@ -96,6 +90,12 @@
       CONFIG_SURFACE_GPE = module;
       CONFIG_SURFACE_BOOK1_DGPU_SWITCH = module;
       CONFIG_HID_SURFACE = module;
+
+      ##
+      ## HOTFIX FOR CVE-2026-31431
+      ##
+
+      # CONFIG_CRYPTO_USER_API_AEAD is not set
     };
   }
   {
@@ -155,11 +155,7 @@
     patch = patchSrc + "/0014-amd-gpio.patch";
   }
   {
-    name = "ms-surface/0015-rtc";
-    patch = patchSrc + "/0015-rtc.patch";
-  }
-  {
-    name = "ms-surface/0016-hid-surface";
-    patch = patchSrc + "/0016-hid-surface.patch";
+    name = "ms-surface/0015-hid-surface";
+    patch = patchSrc + "/0015-hid-surface.patch";
   }
 ]
