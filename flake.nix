@@ -383,6 +383,7 @@
           msi-gl62 = import ./msi/gl62;
           msi-gl65-10SDR-492 = import ./msi/gl65/10SDR-492;
           msi-prestige-15-a10sc = import ./msi/prestige/15-a10sc;
+          msi-z370-pc-pro = import ./msi/z370-pc-pro;
           nxp-imx8mp-evk = import ./nxp/imx8mp-evk;
           nxp-imx8mq-evk = import ./nxp/imx8mq-evk;
           nxp-imx8qm-mek = import ./nxp/imx8qm-mek;
@@ -442,6 +443,9 @@
           tuxedo-infinitybook-pro14-gen7 = import ./tuxedo/infinitybook/pro14/gen7;
           tuxedo-infinitybook-pro14-gen9-amd = import ./tuxedo/infinitybook/pro14/gen9/amd;
           tuxedo-infinitybook-pro14-gen9-intel = import ./tuxedo/infinitybook/pro14/gen9/intel;
+          tuxedo-infinitybook-pro14-gen10-amd = import ./tuxedo/infinitybook/pro14/gen10/amd;
+          tuxedo-infinitybook-pro15-gen10-amd = import ./tuxedo/infinitybook/pro15/gen10/amd;
+          tuxedo-infinitybook-pro15-gen10-intel = import ./tuxedo/infinitybook/pro15/gen10/intel;
           tuxedo-pulse-14-gen3 = import ./tuxedo/pulse/14/gen3;
           tuxedo-pulse-15-gen2 = import ./tuxedo/pulse/15/gen2;
           xiaomi-redmibook-15-pro-2021 = import ./xiaomi/redmibook/15-pro-2021;
