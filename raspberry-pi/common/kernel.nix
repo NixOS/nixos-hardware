@@ -72,11 +72,18 @@ in
       NLS_CODEPAGE_437 = lib.mkForce yes;
       FB_SIMPLE = yes;
     }
-    # arm64 vendor defconfigs (bcm2711, bcm2712) use full preempt;
-    # arm32 ones (bcmrpi, bcm2709) use voluntary preempt (nixpkgs default)
+    # nixpkgs defaults to lazy preempt on kernel version >=6.18
+    # arm64 vendor defconfigs (bcm2711, bcm2712) use full preempt
     // lib.optionalAttrs (rpiVersion >= 3) {
       PREEMPT = lib.mkForce yes;
+      PREEMPT_LAZY = lib.mkForce no;
       PREEMPT_VOLUNTARY = lib.mkForce no;
+    }
+    # arm32 ones (bcmrpi, bcm2709) use voluntary preempt
+    // lib.optionalAttrs (rpiVersion < 3) {
+      PREEMPT = lib.mkForce no;
+      PREEMPT_LAZY = lib.mkForce no;
+      PREEMPT_VOLUNTARY = lib.mkForce yes;
     };
 
     extraMeta =
