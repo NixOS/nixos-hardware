@@ -18,19 +18,19 @@ in
   ];
 
   options.hardware.lenovo.x13s = {
-    wifiMac = lib.mkOption {
+    wifiMAC = lib.mkOption {
       type = lib.types.nullOr (lib.types.strMatching "([0-9a-f]{2}(:[0-9a-f]{2}){5})");
       description = ''
-        WiFi MAC address to set on boot. When not set a random mac
+        Wi-Fi MAC address to set on boot. When not set a random MAC
         address is assigned. Expects lowercase.
       '';
       default = null;
     };
 
-    bluetoothMac = lib.mkOption {
+    bluetoothMAC = lib.mkOption {
       type = lib.types.nullOr (lib.types.strMatching "([0-9A-F]{2}(:[0-9A-F]{2}){5})");
       description = ''
-        Bluetooth MAC address to set on boot. If null, the mac is
+        Bluetooth MAC address to set on boot. If null, the MAC is
         generated using /etc/machine-id to seed the random generator.
         When not set, bluetooth.service fails to start. Expects
         upper case.
@@ -41,14 +41,14 @@ in
 
   config = lib.mkMerge ([
 
-    # WiFi
-    (lib.mkIf (cfg.wifiMac != null) {
+    # Wi-Fi
+    (lib.mkIf (cfg.wifiMAC != null) {
       # https://github.com/jhovold/linux/wiki/X13s#wi-fi
       services.udev.extraRules = builtins.concatStringsSep ", " [
         ''ACTION=="add"''
         ''SUBSYSTEM=="net"''
         ''KERNELS=="0006:01:00.0"''
-        ''RUN+="${pkgs.iproute2}/bin/ip link set dev $name address ${cfg.wifiMac}"''
+        ''RUN+="${pkgs.iproute2}/bin/ip link set dev $name address ${cfg.wifiMAC}"''
       ];
     })
 
@@ -63,10 +63,10 @@ in
         restartIfChanged = false;
 
         script = ''
-          BLUETOOTH_MAC="${lib.optionalString (cfg.bluetoothMac != null) cfg.bluetoothMac}"
+          BLUETOOTH_MAC="${lib.optionalString (cfg.bluetoothMAC != null) cfg.bluetoothMAC}"
 
           if [ "$BLUETOOTH_MAC" = "" ] ; then
-            echo 'generating bluetooth mac'
+            echo 'Generating Bluetooth MAC'
             # we might be able to use the system serial number but, if we lost machine-id
             # the system has probably lost the bluetooth device keys anyway
             SEED=$(( $(cat /etc/machine-id | head -c 128 | sed -e 's/[^0-9]//g;s/^0*//') ))
@@ -80,7 +80,7 @@ in
             # > be constructed by leaving the Group bit zero.
             #
             # First, and only argument is for passing a file to seed RANDOM.
-            # recommend using `/etc/machine-id` to pin the mac address if needed.
+            # recommend using `/etc/machine-id` to pin the MAC address if needed.
             
             BLUETOOTH_MAC="$(RANDOM=$SEED ; printf '%X%X:%02X:%02X:%02X:%02X:%02X' \
               $[RANDOM%16] $[((RANDOM%4)+1)*4-2] \
@@ -95,11 +95,11 @@ in
           # would like to find a better way to handle this.
           while ! [ -d /sys/class/bluetooth ] ; do
             sleep 5
-            echo "waiting for bluetooth"
+            echo "Waiting for Bluetooth"
           done
           sleep 5
 
-          echo "assigning mac: $BLUETOOTH_MAC"
+          echo "Assigning MAC: $BLUETOOTH_MAC"
           yes | ${config.hardware.bluetooth.package}/bin/btmgmt --index 0 public-addr $BLUETOOTH_MAC
         '';
 
@@ -202,7 +202,7 @@ in
       }
     )
 
-    # grub does not handle device tree yet
+    # GRUB does not handle device tree yet
     (lib.mkIf (config.boot.loader.grub.enable) {
       warnings = lib.optional (
         !config.boot.loader.grub.efiSupport

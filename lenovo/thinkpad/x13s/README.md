@@ -7,9 +7,9 @@
 The MIPI camera does work, however, it's not accelerated by the ISP and therefore image processing is done on CPU.
 
 ## Wifi and Bluetooth MAC addresses
-Wifi mac address is automatically generated.
+Wi-Fi MAC address is automatically generated.
 
-Bluetooth mac is automatically generated.
+Bluetooth MAC is automatically generated.
 
 ## TPM
 Currently TPM does not work. Disable in your config to help boot speed.
