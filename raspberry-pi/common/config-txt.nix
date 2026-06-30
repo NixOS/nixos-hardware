@@ -95,7 +95,7 @@ in
             (attrsOf molecule)
           ];
         in
-        attrsOf molecule;
+        attrsOf molecule // { description = "config.txt setting type"; };
       default = { };
       description = ''
         Structured configuration for the Raspberry Pi `config.txt` file.

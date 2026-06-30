@@ -3,10 +3,9 @@
   imports = [
     ../../../common/pc/laptop
     ../../../common/pc/ssd
-    ../../bluetooth.nix
     ../../kmod.nix
     ../../framework-tool.nix
-    ./audio.nix
+    ./classic-audio.nix
   ];
 
   # Fix TRRS headphones missing a mic
