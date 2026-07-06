@@ -1,5 +1,5 @@
 {
-  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/7ee7d19c38e5df31a386b2a0c35ca8f064003960/",
+  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/ff59395cc61769dc255b5eab6faac27e8ce441f7/",
   "patches": [
     {
       "name": "1001-Add-apple-bce-driver.patch",
@@ -11,7 +11,7 @@
     },
     {
       "name": "2008-i915-4-lane-quirk-for-mbp15-1.patch",
-      "hash": "sha256-S2osR1aSjqJiO7rNZP1sKt2+Uxyitwse/6BXMJvE9as="
+      "hash": "sha256-t/+objLhglQMz0E+qK5U1+Jyu+Sg17INWjBES6G+TYA="
     },
     {
       "name": "2009-apple-gmux-allow-switching-to-igpu-at-probe.patch",
@@ -55,7 +55,7 @@
     },
     {
       "name": "4001-asahi-trackpad.patch",
-      "hash": "sha256-ANHSNoy5nK2b+rSAG0bJ8j6ZBmNqgeCddHXVS31KyDw="
+      "hash": "sha256-7UPdrAwVEXZqndHiA37oWf23hRHK17AXNvJvSZ5yF2s="
     },
     {
       "name": "4003-HID-apple-ignore-the-trackpad-on-T2-Macs.patch",
@@ -79,7 +79,7 @@
     },
     {
       "name": "8001-Add-APFS-driver.patch",
-      "hash": "sha256-EbIbfkncp5Jax2suny/jlFt+cD9MyYMV2rWFJIbgbg4="
+      "hash": "sha256-PKJfU089ooNGTuTLZUoDq0TyU1/RNSCIRkI6Uz0YZyk="
     },
     {
       "name": "8002-Necessary-modifications-to-build-APFS-with-the-kerne.patch",

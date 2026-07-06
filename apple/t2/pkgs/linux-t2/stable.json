@@ -1,13 +1,13 @@
 {
-  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/facf1c778667c3ef62104949ef64c75ce7e43b0a/",
+  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/a5b759ac4557ed2dadce10eaabde82d99c001fdd/",
   "patches": [
     {
       "name": "1001-Add-apple-bce-driver.patch",
-      "hash": "sha256-rrL3oVkYeq5ZslnjCQw4hcEK6knsm6U/wp1XnJmQTSA="
+      "hash": "sha256-w7OeAt6eGi4bthaC+EK1iHoBv5RiuiQbh/sQSfaZ3ZA="
     },
     {
       "name": "1002-Put-apple-bce-in-drivers-staging.patch",
-      "hash": "sha256-deWROYcncl51sOmtvUHM61e5FM1beHbOJVp4iI31LHM="
+      "hash": "sha256-1EvLmEryhAlI+z30mFfmzx9G+HVg2I/tTe1l6Vs2irE="
     },
     {
       "name": "2008-i915-4-lane-quirk-for-mbp15-1.patch",
@@ -79,7 +79,7 @@
     },
     {
       "name": "8001-Add-APFS-driver.patch",
-      "hash": "sha256-2By3Zlg/i5rUUJDlWc6JoiqapUnbVplk2lHzDhvAhzI="
+      "hash": "sha256-g9lR6xsJJVbmzM5NZgCHhTy6tM8qOGSuqE8mXhjcMA8="
     },
     {
       "name": "8002-Necessary-modifications-to-build-APFS-with-the-kerne.patch",
