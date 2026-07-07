@@ -35,14 +35,15 @@ kernel.override (
       BRCMFMAC = module;
       BT_BCM = module;
       BT_HCIBCM4377 = module;
-      BT_HCIUART_BCM = yes;
       BT_HCIUART = module;
+      BT_HCIUART_BCM = yes;
+      DRM_APPLETBDRM = module;
+      HID_APPLE = module;
       HID_APPLETB_BL = module;
       HID_APPLETB_KBD = module;
-      HID_APPLE = module;
       HID_MAGICMOUSE = module;
-      DRM_APPLETBDRM = module;
       HID_SENSOR_ALS = module;
+      SENSORS_APPLESMC = module;
       SND_PCM = module;
       STAGING = yes;
     };
