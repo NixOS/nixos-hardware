@@ -18,6 +18,14 @@
       arm_boost = lib.mkDefault true;
       dtparam = lib.mkDefault [ "audio=on" ];
       dtoverlay = lib.mkDefault [ "vc4-kms-v3d" ];
+      # U-Boot needs the UART enabled to boot (see arch/arm/mach-bcm283x/Kconfig
+      # in the U-Boot tree). Without it U-Boot hangs on the Pi 4.
+      enable_uart = lib.mkDefault true;
+    };
+    # The Pi 5 has a dedicated debug UART. Leaving the mini UART on feeds ghost
+    # input into boot, so turn it back off.
+    pi5 = {
+      enable_uart = lib.mkDefault false;
     };
     cm4 = {
       otg_mode = lib.mkDefault true;
