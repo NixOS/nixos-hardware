@@ -14,5 +14,8 @@ linuxPackagesFor (linuxManualConfig rec {
   };
   configfile = ./config;
   config = import ./config.nix;
-  features.netfilterRPFilter = true;
+  features = {
+    efiBootStub = true;
+    netfilterRPFilter = true;
+  };
 })
