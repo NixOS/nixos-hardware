@@ -12,7 +12,13 @@
     #
     # https://community.frame.work/t/fedora-kde-becomes-suddenly-slow/58459
     # https://gitlab.freedesktop.org/drm/amd/-/issues/3647
-    "amdgpu.dcdebugmask=0x10"
+    #
+    # Even with 0x10 I still had issues with screen tearing, so I tried this conservative value that fixed it.
+    # It disables the following features
+    # * DC_DISABLE_CLOCK_GATING
+    # * DC_DISABLE_PSR
+    # * DC_DISABLE_REPLAY
+    "amdgpu.dcdebugmask=0x418"
   ]
   # Workaround for SuspendThenHibernate: https://lore.kernel.org/linux-kernel/20231106162310.85711-1-mario.limonciello@amd.com/
   ++ lib.optionals (lib.versionOlder config.boot.kernelPackages.kernel.version "6.8") [
