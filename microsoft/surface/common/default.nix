@@ -24,8 +24,8 @@ let
         hash = "sha256-qtpHItuLz6C5cyhRhW1AUIK2pPouOrBnvo2xfN0RWzg=";
       };
       stable-kernel = {
-        version = "7.1.1";
-        hash = "sha256-UhX6NUHcfn9bzVG/flfxac7G/OUIylTj3IX97hQ3HX0=";
+        version = "7.1.3";
+        hash = "sha256-vkHAaOiPUkKhm8zb/74HexjEe0X2J+IyVQS0+red0dw=";
       };
     in
     {
