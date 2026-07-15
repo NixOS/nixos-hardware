@@ -10,23 +10,22 @@
 
 let
   # NOTE: raspberryPiWirelessFirmware should be updated with this
-  modDirVersion = "6.18.33";
-  hash = "sha256-XGL2SgPws+c1yAZDmNC9jQdi23qQPZKucQUr9+eD8MM=";
+  modDirVersion = "6.18.34";
+  tag = "stable_20260609";
+  hash = "sha256-ok++36dh9o4e7AC5RErW00/r23rGxufe0PYXz5Dzy5U=";
   inherit (lib.kernel) freeform yes no;
 in
 (buildLinux (
   args
   // {
-    version = "${modDirVersion}-1+rpt1";
+    version = "${modDirVersion}-${tag}";
     inherit modDirVersion;
     pname = "linux-rpi";
 
     src = fetchFromGitHub {
       owner = "raspberrypi";
       repo = "linux";
-      # https://github.com/RPi-Distro/linux-packaging/raw/refs/tags/pios/1%256.18.33-1+rpt1/debian/changelog
-      rev = "95b85bebbedcaedfa7ca79116ed38b7376fba412";
-      inherit hash;
+      inherit tag hash;
     };
 
     defconfig =
@@ -72,11 +71,18 @@ in
       NLS_CODEPAGE_437 = lib.mkForce yes;
       FB_SIMPLE = yes;
     }
-    # arm64 vendor defconfigs (bcm2711, bcm2712) use full preempt;
-    # arm32 ones (bcmrpi, bcm2709) use voluntary preempt (nixpkgs default)
+    # nixpkgs defaults to lazy preempt on kernel version >=6.18
+    # arm64 vendor defconfigs (bcm2711, bcm2712) use full preempt
     // lib.optionalAttrs (rpiVersion >= 3) {
       PREEMPT = lib.mkForce yes;
+      PREEMPT_LAZY = lib.mkForce no;
       PREEMPT_VOLUNTARY = lib.mkForce no;
+    }
+    # arm32 ones (bcmrpi, bcm2709) use voluntary preempt
+    // lib.optionalAttrs (rpiVersion < 3) {
+      PREEMPT = lib.mkForce no;
+      PREEMPT_LAZY = lib.mkForce no;
+      PREEMPT_VOLUNTARY = lib.mkForce yes;
     };
 
     extraMeta =

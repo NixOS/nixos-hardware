@@ -77,6 +77,8 @@
           asus-flow-gv302x-amdgpu = import ./asus/flow/gv302x/amdgpu;
           asus-flow-gv302x-nvidia = import ./asus/flow/gv302x/nvidia;
           asus-flow-gz301vu = import ./asus/flow/gz301vu;
+          asus-proart-px13 = import ./asus/proart/px13;
+          asus-proart-px13-hn7306eac = import ./asus/proart/px13/hn7306eac;
           asus-pro-ws-x570-ace = import ./asus/pro-ws-x570-ace;
           asus-rog-gl552vw = import ./asus/rog-gl552vw;
           asus-rog-strix-g513im = import ./asus/rog-strix/g513im;
@@ -378,6 +380,7 @@
           msi-b350-tomahawk = import ./msi/b350-tomahawk;
           msi-b550-a-pro = import ./msi/b550-a-pro;
           msi-b550-tomahawk = import ./msi/b550-tomahawk;
+          msi-gf63 = import ./msi/gf63;
           msi-gs60 = import ./msi/gs60;
           msi-gl62 = import ./msi/gl62;
           msi-gl65-10SDR-492 = import ./msi/gl65/10SDR-492;
