@@ -10,3 +10,4 @@
 
 # nixfmt-rfc-style formatting
 51e51e601448705c0d2f92ef90ec7b680123077c #!autorebase cd tests && nix fmt ..
+166dee4f88a7e3ba1b7a243edb1aca822f00680e

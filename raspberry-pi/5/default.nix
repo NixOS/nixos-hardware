@@ -12,6 +12,8 @@ in
   imports = [ ../common/default.nix ];
 
   boot = {
+    loader.grub.enable = lib.mkDefault false;
+    loader.generic-extlinux-compatible.enable = lib.mkDefault true;
     kernelPackages = lib.mkDefault (
       pkgs.linuxPackagesFor (pkgs.callPackage ../common/kernel.nix { rpiVersion = 5; })
     );
