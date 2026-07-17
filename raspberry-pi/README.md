@@ -63,12 +63,53 @@ Board profiles import `hardware.raspberry-pi.configtxt`, which renders `config.t
 
 List values become repeated keys in the rendered file, so the `dtoverlay` above expands to:
 
-```
+```ini
 dtoverlay=vc4-kms-v3d
 dtoverlay=disable-bt
 ```
 
 Top-level attrs are conditional sections (`all`, `pi4`, `pi5`, `cm4`, and so on). Nesting stacks filters. To drop a default, set the key to `null` with `mkForce`.
+
+`settings` groups values by key. It works for simple overlays whose parameters fit in the same comma-separated `dtoverlay` value. Use `configtxt.overlays` when `dtoverlay` and `dtparam` lines must be interleaved so each overlay keeps its own parameter scope:
+
+```nix
+{
+  hardware.raspberry-pi.configtxt.overlays = [
+    {
+      name = "dwc2";
+      filters = [ "pi4" ];
+      params = [ "dr_mode=host" ];
+    }
+    {
+      name = "gpio-fan";
+      filters = [ "pi4" ];
+      params = [
+        "gpiopin=14"
+        "temp=80000"
+      ];
+    }
+  ];
+}
+```
+
+This renders after `configtxt.settings` as:
+
+```ini
+[all]
+[pi4]
+dtoverlay=dwc2
+dtparam=dr_mode=host
+dtoverlay=
+[all]
+[pi4]
+dtoverlay=gpio-fan
+dtparam=gpiopin=14
+dtparam=temp=80000
+dtoverlay=
+[all]
+```
+
+Entries are rendered in list order. Each entry resets the active filters before loading the overlay, then resets the overlay scope after its parameters.
 
 ## Current limits
 
