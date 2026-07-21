@@ -27,4 +27,3 @@
     "gpiolib_acpi.run_edge_events_on_boot=0"
   ];
 }
-
