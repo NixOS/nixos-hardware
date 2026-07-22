@@ -259,6 +259,7 @@ See code for all available configurations.
 | [Intel NUC 8i7BEH](intel/nuc/8i7beh/)                                             | `<nixos-hardware/intel/nuc/8i7beh>`                     | `intel-nuc-8i7beh`                     |
 | [Intel NUC 12WSHi7](intel/nuc/12wshi7/)                                           | `<nixos-hardware/intel/nuc/12wshi7>`                    | `intel-nuc-12wshi7`                    |
 | [Kobol Helios4](kobol/helios4)                                                    | `<nixos-hardware/kobol/helios4>`                        | `kobol-helios-4`                       |
+| [LattePanda Sigma](lattepanda/sigma)                                              | `<nixos-hardware/lattepanda/sigma>`                     | `lattepanda-sigma`                     |
 | [Lenovo IdeaCentre K330](lenovo/ideacentre/k330)                                  | `<nixos-hardware/lenovo/ideacentre/k330>`               | `lenovo-ideacentre-k330`               |
 | [Lenovo IdeaPad 3 15alc6](lenovo/ideapad/15alc6)                                  | `<nixos-hardware/lenovo/ideapad/15alc6>`                | `lenovo-ideapad-15alc6`                |
 | [Lenovo IdeaPad Gaming 3 15arh05](lenovo/ideapad/15arh05)                         | `<nixos-hardware/lenovo/ideapad/15arh05>`               | `lenovo-ideapad-15arh05`               |
