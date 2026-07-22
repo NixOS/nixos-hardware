@@ -1,13 +1,17 @@
 {
   description = "nixos-hardware";
 
+  inputs.nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
+
   outputs =
-    { self, ... }:
+    { self, nixpkgs, ... }:
     let
       # Import private inputs (for development)
       privateInputs =
         (import ./tests/flake-compat.nix {
-          src = ./tests;
+          src = {
+            outPath = self.outPath + "/tests";
+          };
         }).defaultNix;
 
       systems = [
@@ -23,17 +27,10 @@
       ];
 
       # Helper to iterate over systems
-      eachSystem =
-        f:
-        privateInputs.nixos-unstable-small.lib.genAttrs systems (
-          system: f privateInputs.nixos-unstable-small.legacyPackages.${system} system
-        );
+      eachSystem = f: nixpkgs.lib.genAttrs systems (system: f nixpkgs.legacyPackages.${system} system);
 
       eachSystemFormat =
-        f:
-        privateInputs.nixos-unstable-small.lib.genAttrs formatSystems (
-          system: f privateInputs.nixos-unstable-small.legacyPackages.${system} system
-        );
+        f: nixpkgs.lib.genAttrs formatSystems (system: f nixpkgs.legacyPackages.${system} system);
     in
     {
 
@@ -80,6 +77,8 @@
           asus-flow-gv302x-amdgpu = import ./asus/flow/gv302x/amdgpu;
           asus-flow-gv302x-nvidia = import ./asus/flow/gv302x/nvidia;
           asus-flow-gz301vu = import ./asus/flow/gz301vu;
+          asus-proart-px13 = import ./asus/proart/px13;
+          asus-proart-px13-hn7306eac = import ./asus/proart/px13/hn7306eac;
           asus-pro-ws-x570-ace = import ./asus/pro-ws-x570-ace;
           asus-rog-gl552vw = import ./asus/rog-gl552vw;
           asus-rog-strix-g513im = import ./asus/rog-strix/g513im;
@@ -382,10 +381,12 @@
           msi-b350-tomahawk = import ./msi/b350-tomahawk;
           msi-b550-a-pro = import ./msi/b550-a-pro;
           msi-b550-tomahawk = import ./msi/b550-tomahawk;
+          msi-gf63 = import ./msi/gf63;
           msi-gs60 = import ./msi/gs60;
           msi-gl62 = import ./msi/gl62;
           msi-gl65-10SDR-492 = import ./msi/gl65/10SDR-492;
           msi-prestige-15-a10sc = import ./msi/prestige/15-a10sc;
+          msi-z370-pc-pro = import ./msi/z370-pc-pro;
           nxp-imx8mp-evk = import ./nxp/imx8mp-evk;
           nxp-imx8mq-evk = import ./nxp/imx8mq-evk;
           nxp-imx8qm-mek = import ./nxp/imx8qm-mek;
@@ -425,6 +426,7 @@
           kobol-helios4 = import ./kobol/helios4;
           samsung-np900x3c = import ./samsung/np900x3c;
           slimbook-hero-rpl-rtx = import ./slimbook/hero/rpl-rtx;
+          spacemit-k3-pico-itx = import ./spacemit/k3-pico-itx;
           starfive-visionfive-v1 = import ./starfive/visionfive/v1;
           starfive-visionfive-2 = import ./starfive/visionfive/v2;
           starlabs-starlite-i5 = import ./starlabs/starlite/i5;
@@ -445,6 +447,9 @@
           tuxedo-infinitybook-pro14-gen7 = import ./tuxedo/infinitybook/pro14/gen7;
           tuxedo-infinitybook-pro14-gen9-amd = import ./tuxedo/infinitybook/pro14/gen9/amd;
           tuxedo-infinitybook-pro14-gen9-intel = import ./tuxedo/infinitybook/pro14/gen9/intel;
+          tuxedo-infinitybook-pro14-gen10-amd = import ./tuxedo/infinitybook/pro14/gen10/amd;
+          tuxedo-infinitybook-pro15-gen10-amd = import ./tuxedo/infinitybook/pro15/gen10/amd;
+          tuxedo-infinitybook-pro15-gen10-intel = import ./tuxedo/infinitybook/pro15/gen10/intel;
           tuxedo-pulse-14-gen3 = import ./tuxedo/pulse/14/gen3;
           tuxedo-pulse-15-gen2 = import ./tuxedo/pulse/15/gen2;
           xiaomi-redmibook-15-pro-2021 = import ./xiaomi/redmibook/15-pro-2021;
@@ -498,6 +503,8 @@
           run-tests = pkgs.callPackage ./tests/run-tests.nix {
             inherit self;
           };
+
+          mnt-reform-kernel-patches = pkgs.callPackage ./mnt/reform/updateKernelPatches.nix { };
         }
         // pkgs.lib.optionalAttrs (system == "aarch64-linux") {
           # Boot images for NXP i.MX boards (aarch64-linux only)
