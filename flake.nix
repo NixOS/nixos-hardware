@@ -65,6 +65,8 @@
           apple-macmini-4-1 = import ./apple/macmini/4;
           apple-t2 = import ./apple/t2;
           asrock-rack-altrad8ud-1l2t = import ./asrock-rack/altrad8ud-1l2t;
+          qualcomm-qrb2210 = import ./qualcomm/qrb2210;
+          arduino-uno-q = import ./qualcomm/qrb2210/arduino-uno-q;
           asus-battery = import ./asus/battery.nix;
           asus-ally-rc71l = import ./asus/ally/rc71l;
           asus-fx504gd = import ./asus/fx504gd;
@@ -512,12 +514,26 @@
           imx8mp-boot = (pkgs.callPackage ./nxp/imx8mp-evk/bsp/imx8mp-boot.nix { }).imx8m-boot;
           imx8mq-boot = (pkgs.callPackage ./nxp/imx8mq-evk/bsp/imx8mq-boot.nix { }).imx8m-boot;
           purism-librem-5r4-uboot = pkgs.callPackage ./purism/librem/5r4/u-boot { };
+          arduino-uno-q-boot =
+            (pkgs.callPackage ./qualcomm/qrb2210/bsp/arduino-uno-q-boot.nix { }).arduino-uno-q-boot;
           # Raspberry Pi kernels (aarch64-linux only)
           rpi2-kernel = (pkgs.callPackage ./raspberry-pi/common/kernel.nix { rpiVersion = 2; });
           rpi3-kernel = (pkgs.callPackage ./raspberry-pi/common/kernel.nix { rpiVersion = 3; });
           rpi4-kernel = (pkgs.callPackage ./raspberry-pi/common/kernel.nix { rpiVersion = 4; });
           rpi5-kernel = (pkgs.callPackage ./raspberry-pi/common/kernel.nix { rpiVersion = 5; });
         }
+        // pkgs.lib.optionalAttrs (system == "x86_64-linux") (
+          let
+            pkgsAarch64 = pkgs.pkgsCross.aarch64-multiplatform;
+          in
+          {
+            arduino-uno-q-boot =
+              (pkgsAarch64.callPackage ./qualcomm/qrb2210/bsp/arduino-uno-q-boot.nix {
+                pkgs = pkgsAarch64;
+                pkgsBuildHost = pkgs;
+              }).arduino-uno-q-boot;
+          }
+        )
       );
 
       # Hydra jobset for Raspberry Pi kernels
