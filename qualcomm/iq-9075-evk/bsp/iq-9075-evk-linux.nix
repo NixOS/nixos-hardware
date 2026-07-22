@@ -15,9 +15,6 @@ let
     hash = "sha256-XqX9rLu2+rgFxoOU/eWnQW3AZOVKPsE2eX8HTYi/7is=";
   };
 
-  # Board defconfig is meta-qcom's fragment merge, minimized with savedefconfig:
-  #   defconfig + prune.config + qcom.config + bsp-additions.cfg
-  # plus UKI/NixOS overrides (no EFI_ZBOOT, no BTF, LOCALVERSION=-iq9075).
   src = applyPatches {
     name = "linux-qcom-iq9075-evk";
     src = src';
@@ -37,7 +34,7 @@ buildLinux (
 
     defconfig = "iq9075_evk_defconfig";
 
-    # Vendor defconfig already carries the QLI fragment set. Do not layer
+    # Vendor defconfig already carries the board fragment set. Do not layer
     # nixpkgs common-config on top (it re-enables EFI_ZBOOT / wrong preempt
     # and hung after ExitBootServices on this board).
     enableCommonConfig = false;
@@ -49,6 +46,7 @@ buildLinux (
       homepage = "https://github.com/qualcomm-linux/kernel";
       license = lib.licenses.gpl2Only;
       platforms = [ "aarch64-linux" ];
+      maintainers = with lib.maintainers; [ govindsi ];
     };
   }
   // (args.argsOverride or { })

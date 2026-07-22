@@ -12,17 +12,13 @@ stdenvNoCC.mkDerivation {
   pname = "iq-9075-evk-firmware-boot";
   version = "00130";
 
-  # Prefer binary caches for this large proprietary zip; builders without
-  # network still need a substituter that already has the fixed-output drv.
   src = fetchurl {
     url = "https://softwarecenter.qualcomm.com/nexus/generic/product/chip/tech-package/QCS9100_bootbinaries.1.0/qcs9100_bootbinaries.1.0-test-device-public/00130/QCS9100_bootbinaries.zip";
-    # meta-qcom SRC_URI[bootbinaries.sha256sum]
     hash = "sha256-Tk/pSk2tijExm24ayijQifijY9uBqvC7Pvj8jG59GHs=";
   };
 
   cdt = fetchurl {
     url = "https://artifacts.codelinaro.org/artifactory/codelinaro-le/Qualcomm_Linux/QCS9100/cdt/rb8_core_kit.zip";
-    # meta-qcom firmware-qcom-cdt-qcs9100.bb SRC_URI[qcs9100-rb8-ck.sha256sum]
     hash = "sha256-olIkT4ANfJ4ViD4Sk1r0ET+fLsumSQ5GzZuUMWnxW/o=";
   };
 
@@ -71,5 +67,6 @@ stdenvNoCC.mkDerivation {
     # Qualcomm proprietary NHLOS (LICENSE.qcom-2 / softwarecenter terms).
     license = lib.licenses.unfreeRedistributable;
     platforms = lib.platforms.all;
+    maintainers = with lib.maintainers; [ govindsi ];
   };
 }

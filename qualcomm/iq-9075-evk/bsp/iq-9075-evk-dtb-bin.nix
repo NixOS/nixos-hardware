@@ -37,7 +37,6 @@ let
     "lemans-evk-sd-card.dtbo"
   ];
 
-  # compatible → ordered fdt stems (base + overlays), meta-qcom linux-qcom.
   fitConfigs = [
     {
       compatible = "qcom,qcs9075-iot";
@@ -176,87 +175,90 @@ stdenv.mkDerivation {
   dontConfigure = true;
 
   buildPhase = ''
-    runHook preBuild
+        runHook preBuild
 
-    export ARCH=arm64
-    export CROSS_COMPILE=${stdenv.cc.targetPrefix}
+        export ARCH=arm64
+        export CROSS_COMPILE=${stdenv.cc.targetPrefix}
 
-    # Same board defconfig as iq-9075-evk-linux (already in patched src).
-    make iq9075_evk_defconfig
-    make -j''${NIX_BUILD_CORES:-$(nproc)} dtbs
+        # Board defconfig lives in nixos-hardware (not upstream arch/arm64/configs).
+        cp ${./configs/iq9075_evk_defconfig} arch/arm64/configs/iq9075_evk_defconfig
+        make iq9075_evk_defconfig
+        make -j''${NIX_BUILD_CORES:-$(nproc)} dtbs
 
-    dtb_dir=arch/arm64/boot/dts/qcom
-    for f in ${lib.concatStringsSep " " fitBlobs}; do
-      test -f "$dtb_dir/$f" || {
-        echo "error: missing $dtb_dir/$f after make dtbs" >&2
-        ls -la "$dtb_dir"/lemans* >&2 || true
-        exit 1
-      }
-    done
+        dtb_dir=arch/arm64/boot/dts/qcom
+        for f in ${lib.concatStringsSep " " fitBlobs}; do
+          test -f "$dtb_dir/$f" || {
+            echo "error: missing $dtb_dir/$f after make dtbs" >&2
+            ls -la "$dtb_dir"/lemans* >&2 || true
+            exit 1
+          }
+        done
 
-    mkdir -p fit
-    cp -a "$dtb_dir"/. fit/
-    dtc -I dts -O dtb -o fit/qcom-metadata.dtb ${qcomDtbMetadata}/qcom-metadata.dts
+        mkdir -p fit
+        cp -a "$dtb_dir"/. fit/
+        dtc -I dts -O dtb -o fit/qcom-metadata.dtb ${qcomDtbMetadata}/qcom-metadata.dts
 
-    python3 - ${fitBlobsFile} ${fitConfigsFile} <<'PY'
-import json, pathlib, sys
-blobs = json.loads(pathlib.Path(sys.argv[1]).read_text())
-configs = json.loads(pathlib.Path(sys.argv[2]).read_text())
-out = pathlib.Path("fit/qclinux-fit-image.its")
-lines = [
-    "/dts-v1/;",
-    "",
-    "/ {",
-    '\tdescription = "Kernel fitImage for IQ-9075 EVK (NixOS / meta-qcom MultiDTB)";',
-    "\t#address-cells = <1>;",
-    "\timages {",
-    "\t\tfdt-qcom-metadata.dtb {",
-    '\t\t\tdescription = "Flattened Device Tree blob";',
-    '\t\t\ttype = "qcom_metadata";',
-    '\t\t\tcompression = "none";',
-    '\t\t\tdata = /incbin/("./qcom-metadata.dtb");',
-    '\t\t\tarch = "arm64";',
-    "\t\t};",
-]
-for name in blobs:
-    lines += [
-        f"\t\tfdt-{name} {{",
+        python3 - ${fitBlobsFile} ${fitConfigsFile} <<'PY'
+    import json, pathlib, sys
+    blobs = json.loads(pathlib.Path(sys.argv[1]).read_text())
+    configs = json.loads(pathlib.Path(sys.argv[2]).read_text())
+    out = pathlib.Path("fit/qclinux-fit-image.its")
+    lines = [
+        "/dts-v1/;",
+        "",
+        "/ {",
+        '\tdescription = "Kernel fitImage for IQ-9075 EVK (NixOS / meta-qcom MultiDTB)";',
+        "\t#address-cells = <1>;",
+        "\timages {",
+        "\t\tfdt-qcom-metadata.dtb {",
         '\t\t\tdescription = "Flattened Device Tree blob";',
-        '\t\t\ttype = "flat_dt";',
+        '\t\t\ttype = "qcom_metadata";',
         '\t\t\tcompression = "none";',
-        f'\t\t\tdata = /incbin/("./{name}");',
+        '\t\t\tdata = /incbin/("./qcom-metadata.dtb");',
         '\t\t\tarch = "arm64";',
         "\t\t};",
     ]
-lines += ["\t};", "\tconfigurations {"]
-for i, cfg in enumerate(configs, start=1):
-    fdt_list = ", ".join(f'"fdt-{n}"' for n in cfg["fdts"])
-    lines += [
-        f"\t\tconf-{i} {{",
-        '\t\t\tdescription = "FDT Blob";',
-        f"\t\t\tfdt = {fdt_list};",
-        f'\t\t\tcompatible = "{cfg["compatible"]}";',
-        "\t\t};",
-    ]
-lines += ["\t};", "};", ""]
-out.write_text("\n".join(lines))
-PY
+    for name in blobs:
+        lines += [
+            f"\t\tfdt-{name} {{",
+            '\t\t\tdescription = "Flattened Device Tree blob";',
+            '\t\t\ttype = "flat_dt";',
+            '\t\t\tcompression = "none";',
+            f'\t\t\tdata = /incbin/("./{name}");',
+            '\t\t\tarch = "arm64";',
+            "\t\t};",
+        ]
+    lines += ["\t};", "\tconfigurations {"]
+    for i, cfg in enumerate(configs, start=1):
+        fdt_list = ", ".join(f'"fdt-{n}"' for n in cfg["fdts"])
+        lines += [
+            f"\t\tconf-{i} {{",
+            '\t\t\tdescription = "FDT Blob";',
+            f"\t\t\tfdt = {fdt_list};",
+            f'\t\t\tcompatible = "{cfg["compatible"]}";',
+            "\t\t};",
+        ]
+    lines += ["\t};", "};", ""]
+    out.write_text("\n".join(lines))
+    PY
 
-    (
-      cd fit
-      mkimage -E -B 8 -f qclinux-fit-image.its qclinuxfitImage
-    )
+        (
+          cd fit
+          mkimage -E -B 8 -f qclinux-fit-image.its qclinuxfitImage
+        )
 
-    # meta-qcom: DTBBIN_SIZE=4096 (KiB), QCOM_VFAT_SECTOR_SIZE=4096
-    mkfs.vfat -S 4096 -C dtb.bin 4096
-    mcopy -i dtb.bin -vsmpQ fit/qclinuxfitImage ::/qclinux_fit.img
+        # meta-qcom: DTBBIN_SIZE=4096 (KiB), QCOM_VFAT_SECTOR_SIZE=4096
+        mkfs.vfat -S 4096 -C dtb.bin 4096
+        mcopy -i dtb.bin -vsmpQ fit/qclinuxfitImage ::/qclinux_fit.img
 
-    # Contract: Non-Gunyah ParseFitDt path used on IQ-9075 EVK.
-    dumpimage -l fit/qclinuxfitImage | grep -q 'qcom,qcs9075-iot'
-    dumpimage -l fit/qclinuxfitImage | grep -q 'fdt-lemans-el2.dtbo'
-    mdir -i dtb.bin :: | grep -qi 'qclinux_fit.img'
+        # Contract: Non-Gunyah ParseFitDt path used on IQ-9075 EVK.
+        # dumpimage -l (u-boot 2025.10) omits Compatible:; grep the FIT bytes.
+        grep -qa 'qcom,qcs9075-iot' fit/qclinuxfitImage
+        dumpimage -l fit/qclinuxfitImage | grep -q 'fdt-lemans-el2.dtbo'
+        # VFAT 8.3 short name is QCLINU~1; long name may or may not appear in mdir.
+        grep -qa 'QCLINU' dtb.bin
 
-    runHook postBuild
+        runHook postBuild
   '';
 
   installPhase = ''
@@ -272,5 +274,6 @@ PY
     homepage = "https://github.com/qualcomm-linux/qcom-dtb-metadata";
     license = lib.licenses.gpl2Only;
     platforms = [ "aarch64-linux" ];
+    maintainers = with lib.maintainers; [ govindsi ];
   };
 }

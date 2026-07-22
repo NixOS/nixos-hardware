@@ -5,9 +5,6 @@
   stdenvNoCC,
 }:
 
-# Ship qcom-ptool platforms and generate GPT / rawprogram / patch files for
-# iq-9075-evk/ufs (same platform key as qcom-deb-images / meta-qcom).
-# meta-qcom qcom-ptool.inc SRCREV = 8e85e196… (packaged CLI under qcom_ptool/).
 stdenvNoCC.mkDerivation {
   pname = "iq-9075-evk-partitions";
   version = "8e85e19";
@@ -27,15 +24,15 @@ stdenvNoCC.mkDerivation {
     runHook preBuild
 
     export PYTHONPATH="$PWD''${PYTHONPATH:+:$PYTHONPATH}"
+    export PTOOL_SEED=nixos-iq-9075-evk
     ptool() { ${python3.interpreter} -m qcom_ptool.cli "$@"; }
 
     platform="iq-9075-evk/ufs"
-    cdt_filename="cdt_rb8_core_kit.bin"
     buildid="nixos-iq-9075-evk"
     # UFS: ESP/rootfs placeholders match qcom-deb-images gen-ptool.sh /
-    # meta-qcom image_types_qcom (efi.bin / rootfs.img → ../disk-ufs.img*)
-    partition_map="cdt=$(basename "$cdt_filename")"
-    # Match the QLI qcomflash rawprogram label filename="dtb.bin"
+    # meta-qcom image_types_qcom (efi.bin / rootfs.img → ../disk-ufs.img*).
+    # CDT/dtb filenames match the flash_lemans-evk_ufs payload names.
+    partition_map="cdt=cdt.bin"
     partition_map="$partition_map,dtb_a=dtb.bin"
     partition_map="$partition_map,dtb_b=dtb.bin"
     partition_map="$partition_map,efi=../disk-ufs.img1"
@@ -80,5 +77,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/qualcomm-linux/qcom-ptool";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.all;
+    maintainers = with lib.maintainers; [ govindsi ];
   };
 }
