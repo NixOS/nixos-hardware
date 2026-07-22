@@ -1,0 +1,129 @@
+From: liberodark <liberodark@gmail.com>
+Subject: [PATCH] riscv: dts: spacemit: k3: add reserved-memory regions
+
+The RCPUs and RPMI/DPU firmware use low RAM (0x100200000-0x101ffffff).
+Without these no-map reservations the kernel allocates there and the
+RCPUs corrupt it (random 0xdeadbeef crashes in early boot). Regions
+match the vendor 6.18 device tree.
+
+Signed-off-by: liberodark <liberodark@gmail.com>
+---
+diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
+index 19fc9b4..e41a6be 100644
+--- a/arch/riscv/boot/dts/spacemit/k3.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+@@ -16,6 +16,114 @@ / {
+ 	model = "SpacemiT K3";
+ 	compatible = "spacemit,k3";
+ 
++	reserved-memory {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		/* RCPU0 (management core) code, data and bss */
++		rcpu0_pwr: rcpu0-pwr@100200000 {
++			reg = <0x1 0x200000 0x0 0x300000>;
++			no-map;
++		};
++
++		/* RCPU0 heap */
++		rcpu0_heap: rcpu0-heap@100500000 {
++			reg = <0x1 0x500000 0x0 0x200000>;
++			no-map;
++		};
++
++		/* RCPU0 vrings */
++		rcpu0_vdev0vring0: vdev0vring0@c0876000 {
++			reg = <0x0 0xc0876000 0x0 0x3000>;
++			no-map;
++		};
++
++		rcpu0_vdev0vring1: vdev0vring1@c0879000 {
++			reg = <0x0 0xc0879000 0x0 0x3000>;
++			no-map;
++		};
++
++		rcpu0_vdev0vring2: vdev0vring2@c087c000 {
++			reg = <0x0 0xc087c000 0x0 0x1000>;
++			no-map;
++		};
++
++		/* RCPU0 shared memory buffer */
++		rcpu0_vdev0buffer: vdev0buffer@100700000 {
++			compatible = "shared-dma-pool";
++			reg = <0x1 0x700000 0x0 0xfc000>;
++			no-map;
++		};
++
++		/* RCPU0 resource table */
++		rcpu0_rsc_table: rcpu0-rsc-table@1007fc000 {
++			reg = <0x1 0x7fc000 0x0 0x4000>;
++			no-map;
++		};
++
++		/* RPMI shared memory (mailbox with platform firmware) */
++		rpmi0: rpmi0@100800000 {
++			reg = <0x1 0x00800000 0x0 0x4000>;
++			no-map;
++		};
++
++		/* RCPU1 code, data and bss */
++		rcpu1_runtime: rcpu1-runtime@100804000 {
++			reg = <0x1 0x804000 0x0 0x300000>;
++			no-map;
++		};
++
++		/* RCPU1 heap */
++		rcpu1_heap: rcpu1-heap@100b04000 {
++			reg = <0x1 0xb04000 0x0 0x200000>;
++			no-map;
++		};
++
++		/* RCPU1 vrings */
++		rcpu1_vdev0vring0: vdev0vring0@c086c000 {
++			reg = <0x0 0xc086c000 0x0 0x3000>;
++			no-map;
++		};
++
++		rcpu1_vdev0vring1: vdev0vring1@c086f000 {
++			reg = <0x0 0xc086f000 0x0 0x3000>;
++			no-map;
++		};
++
++		/* RCPU1 shared memory buffer */
++		rcpu1_vdev0buffer: vdev0buffer@100d04000 {
++			compatible = "shared-dma-pool";
++			reg = <0x1 0xd04000 0x0 0xfc000>;
++			no-map;
++		};
++
++		/* RCPU1 resource table */
++		rcpu1_rsc_table: rcpu1-rsc-table@100e00000 {
++			reg = <0x1 0xe00000 0x0 0x4000>;
++			no-map;
++		};
++
++		/* RCPU DTB space */
++		rcpu_dtb_table: rcpu-dtb-table@100e04000 {
++			reg = <0x1 0xe04000 0x0 0x300000>;
++			no-map;
++		};
++
++		/* DPU: MMU table and command list */
++		dpu_resv0: dpu-reserved@101b00000 {
++			compatible = "shared-dma-pool";
++			reg = <0x1 0x01b00000 0x0 0x00280000>;
++			no-map;
++		};
++
++		dpu_resv1: dpu-reserved1@101d80000 {
++			compatible = "shared-dma-pool";
++			reg = <0x1 0x01d80000 0x0 0x00280000>;
++			no-map;
++		};
++	};
++
+ 	cpus: cpus {
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
