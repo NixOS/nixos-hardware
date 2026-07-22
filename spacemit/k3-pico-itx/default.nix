@@ -21,12 +21,14 @@
 
     kernelParams = [
       "earlycon=sbi"
+      "console=ttyS0,115200"
       "keep_bootcon"
       "systemd.journald.forward_to_console=1"
       "systemd.log_target=kmsg"
       "systemd.log_level=info"
       "clk_ignore_unused"
       "pd_ignore_unused"
+      "regulator_ignore_unused"
       "root=PARTLABEL=nixos-rootfs"
       "rootwait"
       "rootfstype=ext4"
@@ -62,6 +64,10 @@
     name = lib.mkDefault "spacemit/k3-pico-itx.dtb";
   };
 
+  boot.supportedFilesystems = lib.mkForce [
+    "ext4"
+    "vfat"
+  ];
   boot.initrd.systemd.enable = lib.mkDefault true;
   system.nixos-init.enable = lib.mkDefault true;
   system.etc.overlay.enable = lib.mkDefault true;

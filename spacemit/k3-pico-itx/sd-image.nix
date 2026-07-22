@@ -33,7 +33,7 @@
   image.fileName = "${config.image.baseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}-k3-pico-itx.img";
 
   sdImage = {
-    expandOnBoot = false;
+    expandOnBoot = true;
     firmwarePartitionOffset = 12;
     firmwarePartitionName = "ESP";
     firmwareSize = 256;
