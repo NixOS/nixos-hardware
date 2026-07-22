@@ -6,6 +6,7 @@
     ../../kmod.nix
     ../../framework-tool.nix
     ./classic-audio.nix
+    ../../wallpapers.nix
   ];
 
   # Fix TRRS headphones missing a mic
