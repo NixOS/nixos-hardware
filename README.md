@@ -250,6 +250,7 @@ See code for all available configurations.
 | [HP Laptop 15s-fq1xxx](hp/laptop/15s-fq1xxx)                                      | `<nixos-hardware/hp/laptop/15s-fq1xxx>`                 | `hp-laptop-15s-fq1xxx`                 |
 | [HP Notebook 14-df0023](hp/notebook/14-df0023)                                    | `<nixos-hardware/hp/notebook/14-df0023>`                | `hp-notebook-14-df0023`                |
 | [HP Probook 440G5](hp/probook/440G5)                                              | `<nixos-hardware/hp/probook/440G5>`                     | `hp-probook-440G5`                     |
+| [HP ZBook X G1i](hp/zbook/x/g1i)                                                   | `<nixos-hardware/hp/zbook/x/g1i>`                       | `hp-zbook-x-g1i`                       |
 | [HP Laptop 14s-dq2024nf](hp/laptop/14s-dq2024nf)                                  | `<nixos-hardware/hp/laptop/14s-dq2024nf>`               | `hp-laptop-14s-dq2024nf`               |
 | [HP Probook 460G11](hp/probook/460g11)                                            | `<nixos-hardware/hp/probook/460g11>`                    | `hp-probook-46011`                     |
 | [Huawei Matebook X Pro (2020)](huawei/machc-wa)                                   | `<nixos-hardware/huawei/machc-wa>`                      | `huawei-machc-wa`                      |
