@@ -24,7 +24,8 @@ in
             - Equalizer
             - Slight compression
 
-          This option has been optimised for the Framework Laptop 13 AMD 7040 series, but should work on all models.
+          This option has been optimised for the classic Framework Laptop 13 chassis/speakers.
+          Framework Laptop 13 Pro needs different tuning.
 
           Before applying, ensure the speakers are set to 100%,
           because the volumes compound and the raw speaker device will be hidden by default.
