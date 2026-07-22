@@ -273,6 +273,7 @@
           lenovo-thinkpad-p14s-intel-gen2 = import ./lenovo/thinkpad/p14s/intel/gen2;
           lenovo-thinkpad-p14s-intel-gen3 = import ./lenovo/thinkpad/p14s/intel/gen3;
           lenovo-thinkpad-p14s-intel-gen5 = import ./lenovo/thinkpad/p14s/intel/gen5;
+          lenovo-thinkpad-p14s-intel-gen6 = import ./lenovo/thinkpad/p14s/intel/gen6;
           lenovo-thinkpad-p15v-intel-gen3 = import ./lenovo/thinkpad/p15v/intel/gen3;
           lenovo-thinkpad-p16s-amd-gen1 = import ./lenovo/thinkpad/p16s/amd/gen1;
           lenovo-thinkpad-p16s-amd-gen2 = import ./lenovo/thinkpad/p16s/amd/gen2;
