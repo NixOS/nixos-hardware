@@ -2,10 +2,7 @@
   lib,
   stdenvNoCC,
   callPackage,
-  vmTools,
-  util-linux,
-  linux,
-  kmod,
+  _7zz,
   version,
 }:
 
@@ -38,52 +35,44 @@ let
   };
 in
 
-vmTools.runInLinuxVM (
-  stdenvNoCC.mkDerivation {
-    pname = "brcm-firmware";
-    inherit version;
+stdenvNoCC.mkDerivation {
+  pname = "brcm-firmware";
+  inherit version;
 
-    src = fetchmacos {
-      name = version;
-      inherit (boards.${version})
-        boardId
-        mlb
-        osType
-        hash
-        ;
-    };
-    dontUnpack = true;
+  src = fetchmacos {
+    name = version;
+    inherit (boards.${version})
+      boardId
+      mlb
+      osType
+      hash
+      ;
+  };
+  dontUnpack = true;
 
-    nativeBuildInputs = [
-      util-linux
-      get-firmware
-    ];
-    buildPhase = ''
-      ln -s ${linux}/lib /lib
-      ${kmod}/bin/modprobe loop
-      ${kmod}/bin/modprobe hfsplus
+  nativeBuildInputs = [
+    _7zz
+    get-firmware
+  ];
+  buildPhase = ''
+    7zz x -bd -bso0 -bsp0 $src \
+      "macOS Base System/usr/share/firmware/bluetooth/*" \
+      "macOS Base System/usr/share/firmware/wifi/*"
 
-      imgdir=$(mktemp -d)
-      loopdev=$(losetup -f | cut -d "/" -f 3)
-      losetup -P $loopdev $src
-      loopdev_partition=/dev/$(lsblk -o KNAME,TYPE,MOUNTPOINT -n | grep $loopdev | tail -1 | awk '{print $1}')
-      mount $loopdev_partition $imgdir
+    get-bluetooth "macOS Base System/usr/share/firmware/bluetooth" bluetooth/
+    get-wifi "macOS Base System/usr/share/firmware/wifi" wifi/
+  '';
 
-      get-bluetooth $imgdir/usr/share/firmware/bluetooth bluetooth/
-      get-wifi $imgdir/usr/share/firmware/wifi wifi/
-    '';
+  installPhase = ''
+    mkdir -p $out/lib/firmware/brcm
+    cp bluetooth/brcm/* $out/lib/firmware/brcm/
+    cp wifi/brcm/* $out/lib/firmware/brcm/
+  '';
 
-    installPhase = ''
-      mkdir -p $out/lib/firmware/brcm
-      cp bluetooth/brcm/* $out/lib/firmware/brcm/
-      cp wifi/brcm/* $out/lib/firmware/brcm/
-    '';
-
-    meta = with lib; {
-      description = "Wi-Fi and Bluetooth firmware for T2 Macs";
-      license = licenses.unfree;
-      maintainers = with maintainers; [ mkorje ];
-      platforms = platforms.linux;
-    };
-  }
-)
+  meta = with lib; {
+    description = "Wi-Fi and Bluetooth firmware for T2 Macs";
+    license = licenses.unfree;
+    maintainers = with maintainers; [ mkorje ];
+    platforms = platforms.linux;
+  };
+}
