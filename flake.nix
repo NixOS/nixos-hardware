@@ -390,6 +390,7 @@
           nxp-imx8mq-evk = import ./nxp/imx8mq-evk;
           nxp-imx8qm-mek = import ./nxp/imx8qm-mek;
           nxp-imx93-evk = import ./nxp/imx93-evk;
+          nxp-maaxboard-8ulp = import ./nxp/maaxboard-8ulp;
           ucm-imx95 = import ./compulab/ucm-imx95;
           hardkernel-odroid-hc4 = import ./hardkernel/odroid-hc4;
           hardkernel-odroid-h3 = import ./hardkernel/odroid-h3;
@@ -509,6 +510,8 @@
           # Boot images for NXP i.MX boards (aarch64-linux only)
           ucm-imx95-boot = (pkgs.callPackage ./compulab/ucm-imx95/bsp/ucm-imx95-boot.nix { }).imx95-boot;
           imx93-boot = (pkgs.callPackage ./nxp/imx93-evk/bsp/imx93-boot.nix { }).imx93-boot;
+          maaxboard-8ulp-boot =
+            (pkgs.callPackage ./nxp/maaxboard-8ulp/bsp/maaxboard-8ulp-boot.nix { }).maaxboard-8ulp-boot;
           imx8mp-boot = (pkgs.callPackage ./nxp/imx8mp-evk/bsp/imx8mp-boot.nix { }).imx8m-boot;
           imx8mq-boot = (pkgs.callPackage ./nxp/imx8mq-evk/bsp/imx8mq-boot.nix { }).imx8m-boot;
           purism-librem-5r4-uboot = pkgs.callPackage ./purism/librem/5r4/u-boot { };

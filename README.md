@@ -425,6 +425,7 @@ See code for all available configurations.
 | [MECHREVO Yilong15Pro](mechrevo/GM5HG0A)                                          | `<nixos-hardware/mechrevo/GM5HG0A>`                     | `mechrevo-gm5hg0a`                     |
 | [NXP iMX8 MPlus Evaluation Kit](nxp/imx8mp-evk)                                   | `<nixos-hardware/nxp/imx8mp-evk>`                       | `nxp-imx8mp-evk`                       |
 | [NXP iMX8 MQuad Evaluation Kit](nxp/imx8mq-evk)                                   | `<nixos-hardware/nxp/imx8mq-evk>`                       | `nxp-imx8mq-evk`                       |
+| [Avnet MaaXBoard 8ULP](nxp/maaxboard-8ulp)                                        | `<nixos-hardware/nxp/maaxboard-8ulp>`                   | `nxp-maaxboard-8ulp`                   |
 | [Hardkernel Odroid HC4](hardkernel/odroid-hc4/default.nix)                        | `<nixos-hardware/hardkernel/odroid-hc4>`                | `hardkernel-odroid-hc4`                |
 | [Hardkernel Odroid H3](hardkernel/odroid-h3/default.nix)                          | `<nixos-hardware/hardkernel/odroid-h3>`                 | `hardkernel-odroid-h3`                 |
 | [Hardkernel Odroid H4](hardkernel/odroid-h4/default.nix)                          | `<nixos-hardware/hardkernel/odroid-h4>`                 | `hardkernel-odroid-h4`                 |
