@@ -20,6 +20,27 @@
 let
   cfg = config.hardware.raspberry-pi.configtxt;
 
+  overlayType = lib.types.submodule {
+    options = {
+      name = lib.mkOption {
+        type = lib.types.str;
+        description = "Firmware overlay name without the `.dtbo` suffix.";
+      };
+
+      params = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [ ];
+        description = "Ordered parameters applied to this overlay.";
+      };
+
+      filters = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [ ];
+        description = "Ordered config.txt conditional filters without brackets.";
+      };
+    };
+  };
+
   mkValueString =
     v:
     if builtins.isInt v then
@@ -77,6 +98,66 @@ let
     in
     lib.concatMapStringsSep "\n[all]\n" mkGroup groups;
 
+  renderOverlay =
+    overlay:
+    lib.concatStringsSep "\n" (
+      [ "[all]" ]
+      ++ map (filter: "[${filter}]") overlay.filters
+      ++ [ "dtoverlay=${overlay.name}" ]
+      ++ map (param: "dtparam=${param}") overlay.params
+      ++ [ "dtoverlay=" ]
+    );
+
+  # Render settings first, followed by ordered overlays. The final [all] clears
+  # any filters left by the last overlay.
+  settingsConfig = toConfigTxt cfg.settings;
+  overlayConfig = lib.pipe cfg.overlays [
+    (map renderOverlay)
+    (overlays: overlays ++ [ "[all]" ])
+    (lib.concatStringsSep "\n")
+    (text: text + "\n")
+  ];
+  generatedConfig =
+    settingsConfig
+    + lib.optionalString (cfg.overlays != [ ]) (
+      lib.optionalString (settingsConfig != "") "\n" + overlayConfig
+    );
+  generatedFile = pkgs.writeText "config.txt" generatedConfig;
+
+  # Collect invalid values so assertion messages can show the original input.
+  hasLineBreak = value: lib.hasInfix "\n" value || lib.hasInfix "\r" value;
+  validOverlayName =
+    name:
+    name != ""
+    && builtins.match "^[A-Za-z0-9][A-Za-z0-9._+-]*$" name != null
+    && !lib.hasSuffix ".dtbo" name;
+  validFilter =
+    filter:
+    filter != "" && !hasLineBreak filter && !lib.hasInfix "[" filter && !lib.hasInfix "]" filter;
+
+  invalidNames = lib.pipe cfg.overlays [
+    (lib.filter (overlay: !validOverlayName overlay.name))
+    (map (overlay: overlay.name))
+  ];
+  invalidFilters = lib.pipe cfg.overlays [
+    (lib.concatMap (overlay: overlay.filters))
+    (lib.filter (filter: !validFilter filter))
+  ];
+  invalidParams = lib.pipe cfg.overlays [
+    (lib.concatMap (overlay: overlay.params))
+    (lib.filter hasLineBreak)
+  ];
+
+  # Raspberry Pi firmware rejects config.txt lines longer than 98 characters.
+  longLines = lib.pipe generatedConfig [
+    (lib.splitString "\n")
+    (lib.filter (line: builtins.stringLength line > 98))
+  ];
+
+  # A custom file bypasses generatedConfig. It cannot be combined with ordered
+  # overlays, and its lines are not validated here.
+  usesGeneratedFile = toString cfg.file == toString generatedFile;
+
 in
 {
   options.hardware.raspberry-pi.configtxt = {
@@ -123,14 +204,87 @@ in
       '';
     };
 
+    overlays = lib.mkOption {
+      type = lib.types.listOf overlayType;
+      default = [ ];
+      description = ''
+        Ordered Raspberry Pi firmware overlay applications.
+
+        Use this option when `dtoverlay` and `dtparam` lines must be
+        interleaved. {option}`settings` groups values by key, so it can render
+        simple overlays with comma-separated parameters, but not an overlay
+        followed by its scoped parameters and then another overlay.
+
+        Entries are rendered after {option}`settings`, in list order. Each one
+        writes its filters, `dtoverlay`, and `dtparam` values, then resets the
+        overlay scope. The example renders as:
+
+        ```ini
+        [all]
+        [pi4]
+        dtoverlay=dwc2
+        dtparam=dr_mode=host
+        dtoverlay=
+        [all]
+        [pi4]
+        dtoverlay=gpio-fan
+        dtparam=gpiopin=14
+        dtparam=temp=80000
+        dtoverlay=
+        [all]
+        ```
+      '';
+      example = lib.literalExpression ''
+        [
+          {
+            name = "dwc2";
+            params = [ "dr_mode=host" ];
+            filters = [ "pi4" ];
+          }
+          {
+            name = "gpio-fan";
+            params = [
+              "gpiopin=14"
+              "temp=80000"
+            ];
+            filters = [ "pi4" ];
+          }
+        ]
+      '';
+    };
+
     file = lib.mkOption {
       type = lib.types.path;
-      default = pkgs.writeText "config.txt" (toConfigTxt cfg.settings);
-      defaultText = lib.literalExpression ''pkgs.writeText "config.txt" (generated from settings)'';
+      default = generatedFile;
+      defaultText = lib.literalExpression ''pkgs.writeText "config.txt" (generated from settings and overlays)'';
       description = ''
         Path to the generated config.txt file. Defaults to the rendered output
-        of `settings`, but can be overridden to supply a custom config.txt.
+        of `settings` and `overlays`, but can be overridden to supply a custom
+        config.txt when `overlays` is empty.
       '';
     };
   };
+
+  config.assertions = [
+    {
+      assertion = invalidNames == [ ];
+      message = "Raspberry Pi config.txt has invalid overlay names: ${builtins.toJSON invalidNames}";
+    }
+    {
+      assertion = invalidFilters == [ ];
+      message = "Raspberry Pi config.txt has invalid overlay filters: ${builtins.toJSON invalidFilters}";
+    }
+    {
+      assertion = invalidParams == [ ];
+      message = "Raspberry Pi config.txt overlay parameters contain line breaks: ${builtins.toJSON invalidParams}";
+    }
+    {
+      assertion = cfg.overlays == [ ] || usesGeneratedFile;
+      message = "Raspberry Pi config.txt overlays cannot be used with a custom configtxt.file.";
+    }
+    {
+      assertion = !usesGeneratedFile || longLines == [ ];
+      message = "Raspberry Pi config.txt lines exceed the 98-character limit: ${builtins.toJSON longLines}";
+    }
+  ];
 }
