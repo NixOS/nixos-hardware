@@ -95,6 +95,7 @@ See code for all available configurations.
 | --------------------------------------------------------------------------------- | ------------------------------------------------------- | -------------------------------------- |
 | [Acer Aspire 4810T](acer/aspire/4810t)                                            | `<nixos-hardware/acer/aspire/4810t>`                    | `acer-aspire-4810t`                    |
 | [Acer Predator Helios 300 (PH315-51)](acer/predator/helios/300/ph315-51/)         | `<nixos-hardware/acer/predator/helios/300/ph315-51/>`   | `acer-predator-helios-300-ph315-51`    |
+| [Acer Predator Helios 300 (G3-571)](acer/predator/helios/300/g3-571/)             | `<nixos-hardware/acer/predator/helios/300/g3-571/>`     | `acer-predator-helios-300-g3-571`      |
 | [Airis N990](airis/n990)                                                          | `<nixos-hardware/airis/n990>`                           | `airis-n990`                           |
 | [Apple iMac 12,2](apple/imac/12-2)                                                | `<nixos-hardware/apple/imac/12-2>`                      | `apple-imac-12-2`                      |
 | [Apple iMac 14.2](apple/imac/14-2)                                                | `<nixos-hardware/apple/imac/14-2>`                      | `apple-imac-14-2`                      |
