@@ -1,13 +1,13 @@
 {
-  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/a5b759ac4557ed2dadce10eaabde82d99c001fdd/",
+  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/29e087c152d0ed9c031d150e834c44925c0e8291/",
   "patches": [
     {
-      "name": "1001-Add-apple-bce-driver.patch",
-      "hash": "sha256-w7OeAt6eGi4bthaC+EK1iHoBv5RiuiQbh/sQSfaZ3ZA="
+      "name": "1001-Add-t2bce-driver-stack.patch",
+      "hash": "sha256-+3/tyG7mdg+L6rpRVU7PqZjtdcLyS4GG0iBtq9yClu8="
     },
     {
-      "name": "1002-Put-apple-bce-in-drivers-staging.patch",
-      "hash": "sha256-1EvLmEryhAlI+z30mFfmzx9G+HVg2I/tTe1l6Vs2irE="
+      "name": "1002-Integrate-t2bce-driver-stack.patch",
+      "hash": "sha256-a5WHFSXhFhKsxGI7NBjjPfKzjCD4XxtOkg9k+tgNZr8="
     },
     {
       "name": "2008-i915-4-lane-quirk-for-mbp15-1.patch",
@@ -78,8 +78,12 @@
       "hash": "sha256-/EKN7JsAxcpAgfJFtPp2NLYaGqQ0kl8wjJEXifSzJpY="
     },
     {
+      "name": "7002-drm-amdgpu-reset-VI-ASIC-on-MacBookPro15-1.patch",
+      "hash": "sha256-lLruG4lJAI6fI94w2LzHmrbspXArrq+rbI/SJmhwXqo="
+    },
+    {
       "name": "8001-Add-APFS-driver.patch",
-      "hash": "sha256-g9lR6xsJJVbmzM5NZgCHhTy6tM8qOGSuqE8mXhjcMA8="
+      "hash": "sha256-b0Cdfrysfjws3ASdHAqjSjUdcGOFoEizE1GaW+fAYTQ="
     },
     {
       "name": "8002-Necessary-modifications-to-build-APFS-with-the-kerne.patch",
