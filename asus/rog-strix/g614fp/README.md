@@ -77,6 +77,20 @@ This is apparently caused by a bios bug. Adding the `gpiolib_acpi.run_edge_event
 
 I can't say whether there are any other implications to this fix, but it doesn't appear to have degraded any other functionality.
 
+### After plugging in an SSD X fails to start.
+
+The second SSD shows up as:
+```
++69:00.0 Non-Volatile memory controller [0108]: Shenzhen Longsys Electronics Co., Ltd. Lexar NM800 PRO NVME SSD [1d97:5236] (rev 01)
+```
+which renumbers subsequent devices (including the AMD card).
+
+To override you can probably add:
+```
+hardware.nvidia.prime.amdgpuBusId="PCI:106:0:0";
+```
+(otherwise, check lspci for the number, and do a hex-dec conversion on it).
+
 ## Unsolved Problems
 
 ### Wireless sleep issue
