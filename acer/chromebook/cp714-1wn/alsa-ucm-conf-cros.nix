@@ -13,6 +13,10 @@ alsa-ucm-conf.overrideAttrs (oldAttrs: {
 
   postInstall = ''
     cp -rf $crosSrc/ucm2 $out/share/alsa/
+
+    mkdir -p $out/share/alsa/ucm2/sof-nau8825
+    cp $crosSrc/ucm2/conf.d/sof-nau8825/HiFi.conf $out/share/alsa/ucm2/sof-nau8825/
+    cp $crosSrc/ucm2/conf.d/sof-nau8825/sof-nau8825.conf $out/share/alsa/ucm2/sof-nau8825/
   '';
 
   meta = oldAttrs.meta // {
