@@ -35,4 +35,5 @@
     "console=tty0"
   ];
 
+  hardware.firmware = [ (pkgs.callPackage ../common/raspberry-pi-wireless-firmware.nix { }) ];
 }
