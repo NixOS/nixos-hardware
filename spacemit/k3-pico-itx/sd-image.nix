@@ -84,13 +84,13 @@
     populateRootCommands = "";
 
     postBuildCommands = ''
-      eval $(${pkgs.util-linux}/bin/partx $img -o START,SECTORS --nr 2 --pairs)
+      eval $(${pkgs.buildPackages.util-linux}/bin/partx $img -o START,SECTORS --nr 2 --pairs)
       ROOTFS_START=$START
       ROOTFS_SECTORS=$SECTORS
 
       truncate -s '+2M' $img
 
-      ${pkgs.util-linux}/bin/sfdisk $img <<EOF
+      ${pkgs.buildPackages.util-linux}/bin/sfdisk $img <<EOF
           label: gpt
           unit: sectors
           sector-size: 512
