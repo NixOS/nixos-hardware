@@ -1,0 +1,8 @@
+{...}: {
+  imports = [
+    ../../../common/cpu/intel/raptor-lake
+    ../../../common/gpu/intel/nvidia/ampere
+    ../../../common/pc/laptop
+    ../../../common/pc/ssd
+  ];
+}

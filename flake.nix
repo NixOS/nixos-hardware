@@ -209,6 +209,7 @@
           hp-probook-460G11 = import ./hp/probook/460G11;
           hp-laptop-14s-dq2024nf = import ./hp/laptop/14s-dq2024nf;
           hp-laptop-15s-fq1xxx = import ./hp/laptop/15s-fq1xxx;
+          hp-victus-15-fa2724tx = import ./hp/victus/15-fa2724tx;
           huawei-machc-wa = import ./huawei/machc-wa;
           hp-notebook-14-df0023 = import ./hp/notebook/14-df0023;
           intel-nuc-5i5ryb = import ./intel/nuc/5i5ryb;
