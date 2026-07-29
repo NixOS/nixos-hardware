@@ -138,6 +138,7 @@
           dell-precision-5530 = import ./dell/precision/5530;
           dell-precision-5560 = import ./dell/precision/5560;
           dell-precision-5570 = import ./dell/precision/5570;
+          dell-precision-5820 = import ./dell/precision/5820;
           dell-precision-7520 = import ./dell/precision/7520;
           dell-xps-13-7390 = import ./dell/xps/13-7390;
           dell-xps-13-9300 = import ./dell/xps/13-9300;
@@ -425,6 +426,7 @@
           kobol-helios4 = import ./kobol/helios4;
           samsung-np900x3c = import ./samsung/np900x3c;
           slimbook-hero-rpl-rtx = import ./slimbook/hero/rpl-rtx;
+          spacemit-k3-pico-itx = import ./spacemit/k3-pico-itx;
           starfive-visionfive-v1 = import ./starfive/visionfive/v1;
           starfive-visionfive-2 = import ./starfive/visionfive/v2;
           starlabs-starlite-i5 = import ./starlabs/starlite/i5;

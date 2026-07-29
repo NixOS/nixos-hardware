@@ -24,81 +24,87 @@ let
 
   # install-rpi-firmware <target-dir>
   # Idempotent: copies via temp file + rename, and prunes stale DTBs/overlays.
-  installScript = pkgs.writeShellApplication {
-    name = "install-rpi-firmware";
-    runtimeInputs = [ pkgs.coreutils ];
-    text = ''
-      target="$1"
-      shopt -s nullglob
+  mkInstallScript =
+    scriptPkgs:
+    scriptPkgs.writeShellApplication {
+      name = "install-rpi-firmware";
+      runtimeInputs = [ scriptPkgs.coreutils ];
+      text = ''
+        target="$1"
+        shopt -s nullglob
 
-      firmwareBoot=${cfg.package}/share/raspberrypi/boot
-      ${
-        if cfg.useGenerationDeviceTree then
-          ''
-            # Prefer the booted generation's device trees over the vendor ones.
-            dtbSrc=/run/current-system/dtbs
-            [ -d "$dtbSrc" ] || dtbSrc=$firmwareBoot
-          ''
-        else
-          ''
-            dtbSrc=$firmwareBoot
-          ''
-      }
+        firmwareBoot=${cfg.package}/share/raspberrypi/boot
+        ${
+          if cfg.useGenerationDeviceTree then
+            ''
+              # Prefer the booted generation's device trees over the vendor ones.
+              dtbSrc=/run/current-system/dtbs
+              [ -d "$dtbSrc" ] || dtbSrc=$firmwareBoot
+            ''
+          else
+            ''
+              dtbSrc=$firmwareBoot
+            ''
+        }
 
-      mkdir -p "$target/overlays"
+        mkdir -p "$target/overlays"
 
-      # Copy via a temp file then rename so an interrupted run can't leave a
-      # half-written file behind. The firmware partition is FAT, so the rename
-      # isn't truly atomic, but it still beats a partial copy when the
-      # activation script rewrites the partition on a live system.
-      copyForced() {
-        cp "$1" "$2.tmp"
-        mv "$2.tmp" "$2"
-      }
+        # Copy via a temp file then rename so an interrupted run can't leave a
+        # half-written file behind. The firmware partition is FAT, so the rename
+        # isn't truly atomic, but it still beats a partial copy when the
+        # activation script rewrites the partition on a live system.
+        copyForced() {
+          cp "$1" "$2.tmp"
+          mv "$2.tmp" "$2"
+        }
 
-      # Track every file we copy this run, keyed by destination path, so the
-      # prune step below can delete stale device trees / overlays left behind
-      # by a previous generation.
-      declare -A kept
+        # Track every file we copy this run, keyed by destination path, so the
+        # prune step below can delete stale device trees / overlays left behind
+        # by a previous generation.
+        declare -A kept
 
-      echo "rpi-firmware: copying device trees from $dtbSrc"
-      for dtb in "$dtbSrc"/*.dtb "$dtbSrc"/broadcom/*.dtb; do
-        dst="$target/$(basename "$dtb")"
-        copyForced "$dtb" "$dst"
-        kept[$dst]=1
-      done
-
-      if [ -d "$dtbSrc/overlays" ]; then
-        for ovr in "$dtbSrc"/overlays/*; do
-          dst="$target/overlays/$(basename "$ovr")"
-          copyForced "$ovr" "$dst"
+        echo "rpi-firmware: copying device trees from $dtbSrc"
+        for dtb in "$dtbSrc"/*.dtb "$dtbSrc"/broadcom/*.dtb; do
+          dst="$target/$(basename "$dtb")"
+          copyForced "$dtb" "$dst"
           kept[$dst]=1
         done
-      fi
 
-      # Prune stale device trees / overlays.
-      for fn in "$target"/*.dtb "$target"/overlays/*; do
-        if [ "''${kept[$fn]:-}" != 1 ]; then
-          rm -v -- "$fn"
+        if [ -d "$dtbSrc/overlays" ]; then
+          for ovr in "$dtbSrc"/overlays/*; do
+            dst="$target/overlays/$(basename "$ovr")"
+            copyForced "$ovr" "$dst"
+            kept[$dst]=1
+          done
         fi
-      done
 
-      echo "rpi-firmware: copying GPU boot code"
-      for src in "$firmwareBoot"/bootcode.bin "$firmwareBoot"/start*.elf "$firmwareBoot"/fixup*.dat; do
-        copyForced "$src" "$target/$(basename "$src")"
-      done
+        # Prune stale device trees / overlays.
+        for fn in "$target"/*.dtb "$target"/overlays/*; do
+          if [ "''${kept[$fn]:-}" != 1 ]; then
+            rm -v -- "$fn"
+          fi
+        done
 
-      ${lib.optionalString cfg.uboot.enable ''
-        echo "rpi-firmware: copying U-Boot"
-        copyForced ${cfg.uboot.package}/u-boot.bin "$target/u-boot.bin"
-      ''}
+        echo "rpi-firmware: copying GPU boot code"
+        for src in "$firmwareBoot"/bootcode.bin "$firmwareBoot"/start*.elf "$firmwareBoot"/fixup*.dat; do
+          copyForced "$src" "$target/$(basename "$src")"
+        done
 
-      echo "rpi-firmware: copying config.txt"
-      copyForced ${config.hardware.raspberry-pi.configtxt.file} "$target/config.txt"
+        ${lib.optionalString cfg.uboot.enable ''
+          echo "rpi-firmware: copying U-Boot"
+          copyForced ${cfg.uboot.package}/u-boot.bin "$target/u-boot.bin"
+        ''}
 
-      echo "rpi-firmware: done ($target)"
-    '';
-  };
+        echo "rpi-firmware: copying config.txt"
+        copyForced ${config.hardware.raspberry-pi.configtxt.file} "$target/config.txt"
+
+        echo "rpi-firmware: done ($target)"
+      '';
+    };
+
+  # Target tools for activation, build tools for images.
+  installScript = mkInstallScript pkgs;
+  imageInstallScript = mkInstallScript pkgs.buildPackages;
 in
 {
   options.hardware.raspberry-pi.firmware = {
@@ -189,7 +195,7 @@ in
     # sd-image module is imported. mkForce so we override (not merge with)
     # sd-image-aarch64.nix, which also sets this and would clobber config.txt.
     (lib.optionalAttrs (options ? sdImage) {
-      sdImage.populateFirmwareCommands = lib.mkForce "${lib.getExe installScript} ./firmware\n";
+      sdImage.populateFirmwareCommands = lib.mkForce "${lib.getExe imageInstallScript} ./firmware\n";
     })
     (lib.mkIf cfg.enable {
       system.activationScripts.raspberry-pi-firmware = lib.stringAfter [ "specialfs" ] ''
