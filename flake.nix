@@ -554,6 +554,9 @@
         pkgs.lib.optionalAttrs (self.formatter ? ${system}) {
           formatting = treefmtEval.config.build.check self;
         }
+        // {
+          raspberry-pi-config-txt = pkgs.callPackage ./tests/config-txt-tests.nix { };
+        }
         // nixosTests
       );
     };

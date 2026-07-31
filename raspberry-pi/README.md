@@ -49,11 +49,11 @@ Board profiles import `hardware.raspberry-pi.configtxt`, which renders `config.t
 {
   hardware.raspberry-pi.configtxt.settings = {
     all = {
-      dtparam = [ "audio=on" ];
-      dtoverlay = [
-        "vc4-kms-v3d"
-        "disable-bt"
+      dtparam = [
+        "audio=on"
+        "i2c_arm=on"
       ];
+      disable_overscan = true;
     };
     pi5.arm_freq = 2400;
     cm4.otg_mode = true;
@@ -61,14 +61,60 @@ Board profiles import `hardware.raspberry-pi.configtxt`, which renders `config.t
 }
 ```
 
-List values become repeated keys in the rendered file, so the `dtoverlay` above expands to:
+List values become repeated keys in the rendered file, so the `dtparam` above expands to:
 
-```
-dtoverlay=vc4-kms-v3d
-dtoverlay=disable-bt
+```ini
+dtparam=audio=on
+dtparam=i2c_arm=on
 ```
 
 Top-level attrs are conditional sections (`all`, `pi4`, `pi5`, `cm4`, and so on). Nesting stacks filters. To drop a default, set the key to `null` with `mkForce`.
+
+Every rendered group opens with `[all]` and then its own filters. Filters of different types stack rather than replace, so `[all]` is what clears the previous group before the next one starts.
+
+The firmware applies these filters at boot, not Nix at evaluation time. This matters in two cases. One image can boot on more than one board, such as a CM4 and a CM5 swapped into the same carrier. Filters like `[EDID=...]`, `[gpio4=1]`, `[tryboot]` and `[bootvar0=42]` also depend on state that Nix cannot see: the attached monitor, a jumper, an EEPROM value.
+
+### Device tree overlays
+
+Overlays go in `configtxt.deviceTreeOverlays`, not in a `dtoverlay` key under `settings`. Filters nest the same way, and the leaf is an ordered list where each element names one overlay and its parameters:
+
+```nix
+{
+  hardware.raspberry-pi.configtxt.deviceTreeOverlays.pi4 = [
+    { dwc2.dr_mode = "host"; }
+    {
+      gpio-fan = {
+        gpiopin = 14;
+        temp = 80000;
+      };
+    }
+  ];
+}
+```
+
+This renders after `configtxt.settings` as:
+
+```ini
+[all]
+[pi4]
+dtoverlay=dwc2
+dtparam=dr_mode=host
+dtoverlay=
+dtoverlay=gpio-fan
+dtparam=gpiopin=14
+dtparam=temp=80000
+dtoverlay=
+```
+
+A separate option is necessary because `settings` groups values by key. That grouping cannot keep an overlay next to the `dtparam` lines that belong to it. The order is functional. A `dtparam` applies to the overlay that loaded last, and the parameters of an overlay stay in scope only until the next overlay loads. The bare `dtoverlay=` line closes that scope, so later parameters apply to the base device tree. The order between overlays can also matter, because one overlay can build on another.
+
+Overlays render after `settings`. This order keeps base parameters such as `dtparam=audio=on` out of the scope of an overlay. An overlay can export a parameter with the same name as a base parameter. While that overlay is in scope, the firmware uses the parameter of the overlay.
+
+Each parameter becomes its own `dtparam` line rather than an addition to the `dtoverlay` line, which keeps them clear of the 98-character line limit. Booleans render as `on` or `off`. Use `null` with `mkForce` to remove a parameter.
+
+The module concatenates lists from separate modules, but the order is not the order of definition. If one overlay must load before another, set the order with `mkBefore` or `mkAfter`.
+
+To supply your own file, set `configtxt.file`. The module then ignores `settings` and `deviceTreeOverlays`.
 
 ## Current limits
 
