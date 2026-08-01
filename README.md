@@ -32,7 +32,14 @@ the following:
 ```nix
 {
   description = "NixOS configuration with flakes";
-  inputs.nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+  inputs = {
+    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
 
   outputs = { self, nixpkgs, nixos-hardware }: {
     # replace <your-hostname> with your actual hostname
@@ -175,6 +182,7 @@ See code for all available configurations.
 | [Dell Precision 5530](dell/precision/5530)                                        | `<nixos-hardware/dell/precision/5530>`                  | `dell-precision-5530`                  |
 | [Dell Precision 5560](dell/precision/5560)                                        | `<nixos-hardware/dell/precision/5560>`                  | `dell-precision-5560`                  |
 | [Dell Precision 5570](dell/precision/5570)                                        | `<nixos-hardware/dell/precision/5570>`                  | `dell-precision-5570`                  |
+| [Dell Precision 5820](dell/precision/5820)                                        | `<nixos-hardware/dell/precision/5820>`                  | `dell-precision-5820`                  |
 | [Dell Precision 7520](dell/precision/7520)                                        | `<nixos-hardware/dell/precision/7520>`                  | `dell-precision-7520`                  |
 | [Dell XPS 13 7390](dell/xps/13-7390)                                              | `<nixos-hardware/dell/xps/13-7390>`                     | `dell-xps-13-7390`                     |
 | [Dell XPS 13 9300](dell/xps/13-9300)                                              | `<nixos-hardware/dell/xps/13-9300>`                     | `dell-xps-13-9300`                     |
@@ -232,6 +240,8 @@ See code for all available configurations.
 | [GPD WIN Max 2 2023](gpd/win-max-2/2023)                                          | `<nixos-hardware/gpd/win-max-2/2023>`                   | `gpd-win-max-2-2023`                   |
 | [GPD WIN Mini 2024](gpd/win-mini/2024)                                            | `<nixos-hardware/gpd/win-mini/2024>`                    | `gpd-win-mini-2024`                    |
 | [Google Pixelbook](google/pixelbook)                                              | `<nixos-hardware/google/pixelbook>`                     | `google-pixelbook`                     |
+| [Google Brya](google/brya)                                                        | `<nixos-hardware/google/brya>`                          | `google-brya`                          |
+| [Google Rex](google/rex)                                                          | `<nixos-hardware/google/rex>`                           | `google-rex`                           |
 | [HP Elitebook 2560p](hp/elitebook/2560p)                                          | `<nixos-hardware/hp/elitebook/2560p>`                   | `hp-elitebook-2560p`                   |
 | [HP Elitebook 830g6](hp/elitebook/830/g6)                                         | `<nixos-hardware/hp/elitebook/830/g6>`                  | `hp-elitebook-830g6`                   |
 | [HP Elitebook 845g7](hp/elitebook/845/g7)                                         | `<nixos-hardware/hp/elitebook/845/g7>`                  | `hp-elitebook-845g7`                   |
@@ -393,10 +403,12 @@ See code for all available configurations.
 | [MSI B550-A PRO](msi/b550-a-pro)                                                  | `<nixos-hardware/msi/b550-a-pro>`                       | `msi-b550-a-pro`                       |
 | [MSI B350 TOMAHAWK](msi/b350-tomahawk)                                            | `<nixos-hardware/msi/b350-tomahawk>`                    | `msi-b350-tomahawk`                    |
 | [MSI B550 TOMAHAWK](msi/b550-tomahawk)                                            | `<nixos-hardware/msi/b550-tomahawk>`                    | `msi-b550-tomahawk`                    |
+| [MSI GF63 Thin](msi/gf63)                                                         | `<nixos-hardware/msi/gf63>`                             | `msi-gf63`                             |
 | [MSI GS60 2QE](msi/gs60)                                                          | `<nixos-hardware/msi/gs60>`                             | `msi-gs60`                             |
 | [MSI GL62/CX62](msi/gl62)                                                         | `<nixos-hardware/msi/gl62>`                             | `msi-gl62`                             |
 | [MSI GL65 10SDR-492](msi/gl65/10SDR-492)                                          | `<nixos-hardware/msi/gl65/10SDR-492>`                   | `msi-gl65-10SDR-492`                   |
 | [MSI Prestige 15 A10SC](msi/prestige/15-a10sc)                                    | `<nixos-hardware/msi/prestige/15-a10sc>`                | `msi-prestige-15-a10sc`               |
+| [MSI Z370 PC PRO](msi/z370-pc-pro)                                                | `<nixos-hardware/msi/z370-pc-pro>`                      | `msi-z370-pc-pro`                     |
 | [Malibal Aon S1](malibal/aon/s1)         |                                        | `<nixos-hardware/malibal/aon/s1>`                       | `malibal-aon-s1`                       |
 | [Microchip Icicle Kit](microchip/icicle-kit)                                      | `<nixos-hardware/microchip/icicle-kit>`                 | `microchip-icicle-kit`                 |
 | [Microsoft Surface Go](microsoft/surface/surface-go)                              | `<nixos-hardware/microsoft/surface/surface-go>`         | `microsoft-surface-go`                 |
@@ -438,6 +450,7 @@ See code for all available configurations.
 | [Purism Librem 13v3](purism/librem/13v3)                                          | `<nixos-hardware/purism/librem/13v3>`                   | `purism-librem-13v3`                   |
 | [Purism Librem 15v3](purism/librem/15v3)                                          | `<nixos-hardware/purism/librem/15v3>`                   | `purism-librem-15v3`                   |
 | [Purism Librem 5r4](purism/librem/5r4)                                            | `<nixos-hardware/purism/librem/5r4>`                    | `purism-librem-5r4`                    |
+| [Radxa ROCK 3C](radxa/rock-3c)                                                    | `<nixos-hardware/radxa/rock-3c>`                        | `radxa-rock-3c`                        |
 | [Radxa ROCK 4C+](radxa/rock-4c-plus)                                              | `<nixos-hardware/radxa/rock-4c-plus>`                   | `rock-4c-plus`                         |
 | [Radxa ROCK 5 Model B](radxa/rock-5b)                                             | `<nixos-hardware/radxa/rock-5b>`                        | `rock-5b`                              |
 | [Radxa ROCK Pi 4](radxa/rock-pi-4)                                                | `<nixos-hardware/radxa/rock-pi-4>`                      | `rock-pi-4`                            |
@@ -468,6 +481,9 @@ See code for all available configurations.
 | [TUXEDO InfinityBook Pro 14 - Gen7](tuxedo/infinitybook/pro14/gen7)               | `<nixos-hardware/tuxedo/infinitybook/pro14/gen7>`       | `tuxedo-infinitybook-pro14-gen7`       |
 | [TUXEDO InfinityBook Pro 14 - Gen9 - AMD](tuxedo/infinitybook/pro14/gen9/amd)     | `<nixos-hardware/tuxedo/infinitybook/pro14/gen9/amd>`   | `tuxedo-infinitybook-pro14-gen9-amd`   |
 | [TUXEDO InfinityBook Pro 14 - Gen9 - INTEL](tuxedo/infinitybook/pro14/gen9/intel) | `<nixos-hardware/tuxedo/infinitybook/pro14/gen9/intel>` | `tuxedo-infinitybook-pro14-gen9-intel` |
+| [TUXEDO InfinityBook Pro 14 - Gen10 - AMD](tuxedo/infinitybook/pro14/gen10/amd)   | `<nixos-hardware/tuxedo/infinitybook/pro14/gen10/amd>`  | `tuxedo-infinitybook-pro14-gen10-amd`  |
+| [TUXEDO InfinityBook Pro 15 - Gen10 - AMD](tuxedo/infinitybook/pro15/gen10/amd)   | `<nixos-hardware/tuxedo/infinitybook/pro15/gen10/amd>`  | `tuxedo-infinitybook-pro15-gen10-amd`  |
+| [TUXEDO InfinityBook Pro 15 - Gen10 - INTEL](tuxedo/infinitybook/pro15/gen10/intel)| `<nixos-hardware/tuxedo/infinitybook/pro15/gen10/intel>`| `tuxedo-infinitybook-pro15-gen10-intel`|
 | [TUXEDO Pulse 14 - Gen3](tuxedo/pulse/14/gen3)                                    | `<nixos-hardware/tuxedo/pulse/14/gen3>`                 | `tuxedo-pulse-14-gen3`                 |
 | [TUXEDO Pulse 15 - Gen2](tuxedo/pulse/15/gen2)                                    | `<nixos-hardware/tuxedo/pulse/15/gen2>`                 | `tuxedo-pulse-15-gen2`                 |
 | [Xiaomi Redmibook 15 Pro 2021](xiaomi/redmibook/15-pro-2021)                      | `<nixos-hardware/xiaomi/redmibook/15-pro-2021>`         | `xiaomi-redmibook-15-pro-2021`         |

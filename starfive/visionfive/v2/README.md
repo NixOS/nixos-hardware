@@ -3,8 +3,11 @@
 Create and configure the `flake.nix` file:
 ``` nix
 {
-  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-  inputs.nixos-hardware.url = "github:nixos/nixos-hardware";
+  inputs.nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
+  inputs.nixos-hardware = {
+    url = "github:NixOS/nixos-hardware";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
 
   # Some dependencies of this flake are not yet available on non linux systems
   inputs.systems.url = "github:nix-systems/x86_64-linux";

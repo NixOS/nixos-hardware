@@ -6,22 +6,22 @@
 
 stdenvNoCC.mkDerivation {
   pname = "raspberrypi-wireless-firmware";
-  version = "0-unstable-2025-04-08";
+  version = "0-unstable-2026-03-21";
 
   srcs = [
     (fetchFromGitHub {
       name = "bluez-firmware";
       owner = "RPi-Distro";
       repo = "bluez-firmware";
-      rev = "2bbfb8438e824f5f61dae3f6ebb367a6129a4d63";
-      hash = "sha256-t+D4VUfEIov83KV4wiKp6TqXTHXGkxg/mANi4GW7QHs=";
+      rev = "cdf61dc691a49ff01a124752bd04194907f0f9cd";
+      hash = "sha256-35pnbQV/zcikz9Vic+2a1QAS72riruKklV8JHboL9NY=";
     })
     (fetchFromGitHub {
       name = "firmware-nonfree";
       owner = "RPi-Distro";
       repo = "firmware-nonfree";
-      rev = "c9d3ae6584ab79d19a4f94ccf701e888f9f87a53";
-      hash = "sha256-5ywIPs3lpmqVOVP3B75H577fYkkucDqB7htY2U1DW8U=";
+      rev = "9794282eb9f4a2de1f23b41a738926740e975d83";
+      hash = "sha256-OtA8yHvfusGP/ucf8Exzi+nSUmNoYp10u+luC2gbNZc=";
     })
   ];
 
@@ -36,19 +36,16 @@ stdenvNoCC.mkDerivation {
     mkdir -p "$out/lib/firmware/brcm"
 
     # Wifi firmware
-    cp -rv "$NIX_BUILD_TOP/firmware-nonfree/debian/config/brcm80211/." "$out/lib/firmware/"
+    cp -r "firmware-nonfree/debian/config/brcm80211/." "$out/lib/firmware/"
 
     # Bluetooth firmware
-    cp -rv "$NIX_BUILD_TOP/bluez-firmware/debian/firmware/broadcom/." "$out/lib/firmware/brcm"
+    cp -r "bluez-firmware/debian/firmware/broadcom/." "$out/lib/firmware/brcm"
 
-    # brcmfmac43455-sdio.bin is a symlink to the non-existent path: ../cypress/cyfmac43455-sdio.bin.
+    # The brcmfmac43455-sdio.raspberrypi,*.bin board firmwares (Pi 3A+/3B+/CM4/4B/500/CM5/5B)
+    # symlink to ../cypress/cyfmac43455-sdio.bin, which RPi-Distro ships only as the
+    # cyfmac43455-sdio-standard.bin variant. Create the missing target so they resolve.
     # See https://github.com/RPi-Distro/firmware-nonfree/issues/26
     ln -s "./cyfmac43455-sdio-standard.bin" "$out/lib/firmware/cypress/cyfmac43455-sdio.bin"
-
-    pushd $out/lib/firmware/brcm &>/dev/null
-    # Symlinks for Zero 2W
-    ln -s "./brcmfmac43436-sdio.clm_blob" "$out/lib/firmware/brcm/brcmfmac43430b0-sdio.clm_blob"
-    popd &>/dev/null
 
     runHook postInstall
   '';
