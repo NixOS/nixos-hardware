@@ -3,11 +3,7 @@
 {
   imports = [
     ../../../common/pc/laptop
-<<<<<<< HEAD
     ../../../common/pc/ssd
-=======
-    ../../../common/pc/laptop/ssd
->>>>>>> 44a09939 (Add Dell Precision 5520 (based on 5530))
     ../../../common/gpu/nvidia/maxwell
     ../../../common/gpu/nvidia/prime.nix
     ../../../common/cpu/intel/kaby-lake
