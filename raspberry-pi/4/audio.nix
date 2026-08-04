@@ -27,7 +27,7 @@ in
             / {
               compatible = "brcm,bcm2711";
               fragment@0 {
-                target = <&audio>;
+                target = <&sound>;
 
                 __overlay__ {
                   status = "okay";
