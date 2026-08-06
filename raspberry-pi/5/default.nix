@@ -17,6 +17,7 @@ in
     kernelPackages = lib.mkDefault (
       pkgs.linuxPackagesFor (pkgs.callPackage ../common/kernel.nix { rpiVersion = 5; })
     );
+    kernelParams = ["console=tty0"];
     initrd.availableKernelModules = [
       "nvme"
       "pcie-brcmstb"
