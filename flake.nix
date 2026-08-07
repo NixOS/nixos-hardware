@@ -77,6 +77,8 @@
           asus-flow-gv302x-amdgpu = import ./asus/flow/gv302x/amdgpu;
           asus-flow-gv302x-nvidia = import ./asus/flow/gv302x/nvidia;
           asus-flow-gz301vu = import ./asus/flow/gz301vu;
+          asus-proart-px13 = import ./asus/proart/px13;
+          asus-proart-px13-hn7306eac = import ./asus/proart/px13/hn7306eac;
           asus-pro-ws-x570-ace = import ./asus/pro-ws-x570-ace;
           asus-rog-gl552vw = import ./asus/rog-gl552vw;
           asus-rog-strix-g513im = import ./asus/rog-strix/g513im;
@@ -136,6 +138,7 @@
           dell-precision-5530 = import ./dell/precision/5530;
           dell-precision-5560 = import ./dell/precision/5560;
           dell-precision-5570 = import ./dell/precision/5570;
+          dell-precision-5820 = import ./dell/precision/5820;
           dell-precision-7520 = import ./dell/precision/7520;
           dell-xps-13-7390 = import ./dell/xps/13-7390;
           dell-xps-13-9300 = import ./dell/xps/13-9300;
@@ -379,6 +382,7 @@
           msi-b350-tomahawk = import ./msi/b350-tomahawk;
           msi-b550-a-pro = import ./msi/b550-a-pro;
           msi-b550-tomahawk = import ./msi/b550-tomahawk;
+          msi-gf63 = import ./msi/gf63;
           msi-gs60 = import ./msi/gs60;
           msi-gl62 = import ./msi/gl62;
           msi-gl65-10SDR-492 = import ./msi/gl65/10SDR-492;
@@ -423,6 +427,7 @@
           kobol-helios4 = import ./kobol/helios4;
           samsung-np900x3c = import ./samsung/np900x3c;
           slimbook-hero-rpl-rtx = import ./slimbook/hero/rpl-rtx;
+          spacemit-k3-pico-itx = import ./spacemit/k3-pico-itx;
           starfive-visionfive-v1 = import ./starfive/visionfive/v1;
           starfive-visionfive-2 = import ./starfive/visionfive/v2;
           starlabs-starlite-i5 = import ./starlabs/starlite/i5;
