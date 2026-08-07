@@ -8,34 +8,47 @@
 let
   inherit (lib) types;
 
-  audioFiles = pkgs.fetchFromGitHub {
-    owner = "kekrby";
-    repo = "t2-better-audio";
-    rev = "e46839a28963e2f7d364020518b9dac98236bcae";
-    hash = "sha256-x7K0qa++P1e1vuCGxnsFxL1d9+nwMtZUJ6Kd9e27TFs=";
+  t2bce-alsa-ucm = pkgs.stdenvNoCC.mkDerivation (_: {
+    name = "t2bce-alsa-ucm";
+    src = pkgs.fetchFromGitHub {
+      owner = "deqrocks";
+      repo = "t2bce";
+      rev = "967465dc67d3a9b1e48dea620f7258baa526f4f2";
+      hash = "sha256-EVUvNg30bFhJCtcyPAGbWjGX0+CORs4nWG5Bpvbr590=";
+    };
+
+    meta = {
+      description = "ALSA Usage Configuration Manager configuration for T2 Macs";
+      license = lib.licenses.mit;
+    };
+
+    dontBuild = true;
+
+    installPhase = ''
+      runHook preInstall
+
+      cd ./t2bce_audio-alsa-ucm-conf
+      mkdir -p "$out/share/alsa/"
+      cp -vR ./ucm2 "$out/share/alsa/"
+
+      runHook postInstall
+    '';
+  });
+
+  patched-alsa-ucm = pkgs.symlinkJoin {
+    inherit (t2bce-alsa-ucm) src meta;
+    name = "t2bce-alsa-ucm-patched";
+    paths = [
+      pkgs.alsa-ucm-conf
+      t2bce-alsa-ucm
+    ];
   };
 
-  audioFilesUdevRules = pkgs.runCommand "audio-files-udev-rules" { } ''
-    mkdir -p $out/lib/udev/rules.d
-    cp ${audioFiles}/files/*.rules $out/lib/udev/rules.d
-    substituteInPlace $out/lib/udev/rules.d/*.rules --replace "/usr/bin/sed" "${pkgs.gnused}/bin/sed"
-  '';
-
-  overrideAudioFiles =
-    package: pluginsPath:
-    package.overrideAttrs (
-      _new: old: {
-        preConfigurePhases = old.preConfigurePhases or [ ] ++ [ "postPatchPhase" ];
-        postPatchPhase = ''
-          cp -r ${audioFiles}/files/{profile-sets,paths} ${pluginsPath}/alsa/mixer/
-        '';
-      }
-    );
-
-  pipewirePackage = overrideAudioFiles pkgs.pipewire "spa/plugins/";
+  patchedAudioAlsaEnv = lib.genAttrs [ "pipewire" "wireplumber" "pulseaudio" ] (_: {
+    environment.ALSA_CONFIG_UCM2 = config.environment.variables.ALSA_CONFIG_UCM2;
+  });
 
   t2Cfg = config.hardware.apple-t2;
-
 in
 {
   imports = [
@@ -87,8 +100,6 @@ in
       );
       boot.initrd.kernelModules = [ "t2bce-vhci" ];
 
-      services.udev.packages = [ audioFilesUdevRules ];
-
       # For audio and suspend
       boot.kernelParams = [
         "intel_iommu=on"
@@ -96,17 +107,17 @@ in
         "pm_async=off"
       ];
 
-      services.pipewire.package = pipewirePackage;
-      services.pipewire.wireplumber.package = pkgs.wireplumber.override {
-        pipewire = pipewirePackage;
+      # audio configuration
+      # https://github.com/nix-community/nixos-apple-silicon/blob/66d8dd2c27f99bd5420c99938b60695aac1785c4/apple-silicon-support/modules/sound/default.nix#L46
+      environment.variables.ALSA_CONFIG_UCM2 = "${patched-alsa-ucm}/share/alsa/ucm2";
+      # setting systemd.globalEnvironment is likely going to have unexpected side effects
+      systemd = {
+        services = patchedAudioAlsaEnv;
+        user.services = patchedAudioAlsaEnv;
       };
 
       # Make sure post-resume.service exists
       powerManagement.enable = true;
-    }
-
-    {
-      services.pulseaudio.package = overrideAudioFiles pkgs.pulseaudio "src/modules/";
     }
 
     (lib.mkIf t2Cfg.enableIGPU {
