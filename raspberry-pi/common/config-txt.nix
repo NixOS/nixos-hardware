@@ -31,7 +31,7 @@ let
     else if false == v then
       "0"
     else
-      builtins.abort "config.txt: unsupported value type: ${builtins.typeOf v}";
+      abort "config.txt: unsupported value type: ${builtins.typeOf v}";
 
   mkKeyValue = lib.generators.mkKeyValueDefault { inherit mkValueString; } "=";
 
