@@ -43,14 +43,14 @@ let
     path: value:
     if value == null then
       [ ]
-    else if builtins.isAttrs value && !(builtins.isList value) && !(value ? _type) then
-      lib.flatten (lib.mapAttrsToList (name: recurse ([ name ] ++ path)) value)
-    else
+    else if !(builtins.isAttrs value) then
       {
         conditionals = lib.sort builtins.lessThan (lib.filter (k: k != "all") (lib.tail path));
         name = lib.head path;
         inherit value;
-      };
+      }
+    else
+      lib.flatten (lib.mapAttrsToList (name: recurse ([ name ] ++ path)) value);
 
   # Group flattened items by their conditional filter set, then render.
   groupItems =
