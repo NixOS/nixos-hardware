@@ -82,8 +82,16 @@ in
   options.hardware.raspberry-pi.configtxt = {
     settings = lib.mkOption {
       type =
-        with lib.types;
         let
+          inherit (lib.types)
+            attrsOf
+            bool
+            int
+            listOf
+            nullOr
+            oneOf
+            str
+            ;
           atom = nullOr (oneOf [
             str
             int
