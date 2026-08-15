@@ -56,9 +56,11 @@ in
     (lib.mkIf (config.hardware.bluetooth.enable) {
       # https://github.com/jhovold/linux/wiki/X13s#bluetooth
       systemd.services.bluetooth-x13s-mac = {
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = [ "bluetooth.target" ];
         before = [ "bluetooth.service" ];
         requiredBy = [ "bluetooth.service" ];
+        after = [ "sys-subsystem-bluetooth-devices-hci0.device" ];
+        bindsTo = [ "sys-subsystem-bluetooth-devices-hci0.device" ];
         stopIfChanged = false;
         restartIfChanged = false;
 
@@ -91,27 +93,26 @@ in
               $[RANDOM%256])"
           fi
 
-          # bluetooth module can be slow to get ready
-          # would like to find a better way to handle this.
-          while ! [ -d /sys/class/bluetooth ] ; do
-            sleep 5
-            echo "Waiting for Bluetooth"
-          done
-          sleep 5
+          echo "Waiting for Adapter"
+
+          # Listen to the hardware setup and wait for the adapter to
+          # finish receiving its firmware, and finish loading
+          mkfifo /tmp/btmon.log
+          stdbuf -oL ${config.hardware.bluetooth.package}/bin/btmon --mgmt --kernel >> /tmp/btmon.log &
+          BTPID=$!
+          grep -q -m 1 "Unconfigured Index Ad" /tmp/btmon.log || true
+          kill $BTPID 2>/dev/null
 
           echo "Assigning MAC: $BLUETOOTH_MAC"
-          yes | ${config.hardware.bluetooth.package}/bin/btmgmt --index 0 public-addr $BLUETOOTH_MAC
+
+          ${config.hardware.bluetooth.package}/bin/btmgmt --index 0 public-addr $BLUETOOTH_MAC
         '';
 
         serviceConfig = {
           Type = "oneshot";
+          PrivateTmp = "true";
           RemainAfterExit = true;
-        };
-      };
-
-      systemd.services.bluetooth = {
-        unitConfig = {
-          ConditionPathIsDirectory = "";
+          TimeoutSec = "1m";
         };
       };
     })
