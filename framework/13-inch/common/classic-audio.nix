@@ -315,12 +315,11 @@ in
           "device.api" = "dsp";
           "node.virtual" = "false";
 
-          # Lower seems to mean "more preferred",
-          # bluetooth devices seem to be ~1000, speakers seem to be ~2000
-          # since this is between the two, bluetooth devices take over when they connect,
-          # and hand over to this instead of the speakers when they disconnect.
-          "priority.session" = 1500;
-          "priority.driver" = 1500;
+          # 1009 is the default priority of the "first" analog audio device.
+          # Higher priorities (e.g., 1010 for bluetooth and 1100 for usb audio)
+          # are preferred.
+          "priority.session" = 1009;
+          "priority.driver" = 1009;
           "state.default-volume" = 0.343;
           "device.icon-name" = "audio-card-analog-pci";
         };
