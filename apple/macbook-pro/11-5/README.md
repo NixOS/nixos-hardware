@@ -68,3 +68,31 @@ For more context about experimental `amdgpu` support, see:
 * [Enabling AMDGPU by default for SI & CIK (November 2021)](https://gitlab.freedesktop.org/drm/amd/-/issues/1776)
 * [Enabling AMDGPU by default for SI & CIK (August 2020))](https://lists.freedesktop.org/archives/amd-gfx/2020-August/052243.html)
 * [Feature support matrix](https://wiki.gentoo.org/wiki/AMDGPU#Feature_support)
+
+## WiFi
+
+The WiFi card on this macbook is typically either the broadcom BCM 43602 or the BCM 4360. The 43602 works best with the in-tree module brcmfmac, while the 4360 card requires the proprietary broadcom-wl driver, at least based on several sources.
+The 43602 has been shown to work with the following settings:
+
+```
+  hardware = {
+    enableAllFirmware = true;
+    enableAllHardware = true;
+  };
+  networking = {
+    # This will set networking.wireless.enable to true and networking.wireless.iwd.enable to true, which turns off wpa_supplicant in favor of iwd.
+    networkmanager.wifi.backend = "iwd";
+  };
+  boot = {
+    kernelParams = [
+      "brcmfmac.feature_disable=0x82000"
+    ];
+    # this will disable hardware-based roaming in favor of the kernel managind roaming between mesh nodes.
+    extraModprobeConfig = ''
+      options brcmfmac roamoff=1
+    '';
+  };
+```
+
+This is not necessarily a minimal set of configurations.
+For example, redistributable firmware may be sufficient, instead of all firmware.
