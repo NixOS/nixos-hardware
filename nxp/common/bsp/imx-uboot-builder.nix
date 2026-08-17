@@ -26,6 +26,9 @@
   # Optional parameters
   extraConfig ? "",
   extraNativeBuildInputs ? [ ],
+  useImxCommonConfig ? true,
+  # i.MX8ULP uses CONFIG_ARM=y; maaxboard-build-tools passes ARCH=arm with aarch64 CROSS_COMPILE.
+  ubootArch ? null,
 }:
 let
   # Import common U-Boot configuration
@@ -37,7 +40,7 @@ let
   };
 
   # Combine common config with any platform-specific extra config
-  finalExtraConfig = commonConfig + extraConfig;
+  finalExtraConfig = (if useImxCommonConfig then commonConfig else "") + extraConfig;
 in
 stdenv.mkDerivation {
   inherit pname version src;
@@ -67,7 +70,8 @@ stdenv.mkDerivation {
   makeFlags = [
     "DTC=${lib.getExe buildPackages.dtc}"
     "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
-  ];
+  ]
+  ++ lib.optional (ubootArch != null) "ARCH=${ubootArch}";
 
   extraConfig = finalExtraConfig;
 
@@ -76,7 +80,7 @@ stdenv.mkDerivation {
   configurePhase = ''
     runHook preConfigure
 
-    make ${defconfig}
+    make ${lib.optionalString (ubootArch != null) "ARCH=${ubootArch} "}${defconfig}
     cat $extraConfigPath >> .config
 
     runHook postConfigure
@@ -86,8 +90,10 @@ stdenv.mkDerivation {
     runHook preInstall
 
     mkdir -p $out
+    cp ./u-boot.bin $out
     cp ./u-boot-nodtb.bin $out
     cp ./spl/u-boot-spl.bin $out
+    cp ./tools/mkimage $out/mkimage_uboot
     cp ${dtbPath} $out
     cp .config  $out
 
