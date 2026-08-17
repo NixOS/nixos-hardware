@@ -150,6 +150,7 @@ See code for all available configurations.
 | [Asus Zenbook Pro 17 UM6702](asus/zenbook/um6702/)                                | `<nixos-hardware/asus/zenbook/um6702>`                  | `asus-zenbook-um6702`                  |
 | [Asrock Rack ALTRAD8UD-1L2T](asrock-rack/altrad8ud-1l2t)                          | `<nixos-hardware/asrock-rack/altrad8ud-1l2t>`           | `asrock-rack-altrad8ud-1l2t`           |
 | [BeagleBoard PocketBeagle](beagleboard/pocketbeagle)                              | `<nixos-hardware/beagleboard/pocketbeagle>`             | `beagleboard-pocketbeagle`             |
+| [Bee Link EQ14](bee-link/eq14)                                                    | `<nixos-hardware/bee-link/eq14>`                        | `bee-link-eq14`                        |
 | [Chuwi MiniBook X](chuwi/minibook-x)                                              | `<nixos-hardware/chuwi/minibook-x>`                     | `chuwi-minibook-x`                     |
 | [Deciso DEC series](deciso/dec)                                                   | `<nixos-hardware/deciso/dec>`                           | `deciso-dec`                           |
 | [Dell G3 3779](dell/g3/3779)                                                      | `<nixos-hardware/dell/g3/3779>`                         | `dell-g3-3779`                         |
