@@ -22,6 +22,5 @@
 
   services = {
     asusd.enable = lib.mkDefault true;
-    supergfxd.enable = lib.mkDefault true;
   };
 }

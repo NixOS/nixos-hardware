@@ -40,9 +40,6 @@ in
         asusd = {
           enable = mkDefault true;
         };
-
-        supergfxd.enable = mkDefault true;
-
       };
 
       #flow devices are 2 in 1 laptops
