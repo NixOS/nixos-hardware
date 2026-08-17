@@ -84,6 +84,7 @@
           asus-rog-strix-g513im = import ./asus/rog-strix/g513im;
           asus-rog-strix-g533zw = import ./asus/rog-strix/g533zw;
           asus-rog-strix-g533q = import ./asus/rog-strix/g533q;
+          asus-rog-strix-g614fp = import ./asus/rog-strix/g614fp;
           asus-rog-strix-g713ie = import ./asus/rog-strix/g713ie;
           asus-rog-strix-g733qs = import ./asus/rog-strix/g733qs;
           asus-rog-strix-x570e = import ./asus/rog-strix/x570e;
