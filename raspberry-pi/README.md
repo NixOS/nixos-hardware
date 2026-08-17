@@ -6,7 +6,7 @@ NixOS profiles and modules for Raspberry Pi boards.
 
 - `common/` has the shared bits: the `linux-rpi` kernel build (vendor defconfig, matching firmware), the `config.txt` generation module, a pinned wireless firmware, and the firmware-partition install module.
 - `2/`, `3/`, `4/`, `5/` are the board profiles. Each one picks the right kernel and kernel params. Pi 4 and 5 also set DT filters and the initrd modules they need.
-- The extra files under `4/` are opt-in toggles for Pi 4 hardware: audio, dwc2, GPIO, I2C, LEDs, the PoE HATs, touchscreens, and so on.
+- The extra files under `4/` are opt-in toggles for Pi 4 hardware: audio, dwc2, GPIO, I2C, LEDs, touchscreens, and so on.
 
 ## Using a board profile
 
@@ -113,6 +113,25 @@ Overlays render after `settings`. This order keeps base parameters such as `dtpa
 Each parameter becomes its own `dtparam` line rather than an addition to the `dtoverlay` line, which keeps them clear of the 98-character line limit. Booleans render as `on` or `off`. Use `null` with `mkForce` to remove a parameter.
 
 The module concatenates lists from separate modules, but the order is not the order of definition. If one overlay must load before another, set the order with `mkBefore` or `mkAfter`.
+
+#### PoE HATs
+
+The original [PoE HAT](https://www.raspberrypi.com/products/poe-hat/) and the [PoE+ HAT](https://www.raspberrypi.com/products/poe-plus-hat/) use the stock `rpi-poe` and `rpi-poe-plus` overlays. Both HATs support the Pi 3B+ and Pi 4B.
+
+```nix
+{
+  hardware.raspberry-pi.configtxt.deviceTreeOverlays."board-type=0x11" = [
+    {
+      rpi-poe = {
+        poe_fan_temp0 = 50000;
+        poe_fan_temp0_hyst = 2000;
+      };
+    }
+  ];
+}
+```
+
+Use `board-type=0x0d` for the Pi 3B+ and `board-type=0x11` for the Pi 4B. Replace `rpi-poe` with `rpi-poe-plus` for the PoE+ HAT. All overlay parameters are optional.
 
 To supply your own file, set `configtxt.file`. The module then ignores `settings` and `deviceTreeOverlays`.
 
