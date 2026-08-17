@@ -8,6 +8,8 @@
 {
   imports = [
     ../common/default.nix
+    ../common/poe-hat.nix
+    ../common/poe-plus-hat.nix
     ./audio.nix
     ./backlight.nix
     ./bluetooth.nix
@@ -18,8 +20,6 @@
     ./leds.nix
     ./modesetting.nix
     ./pkgs-overlays.nix
-    ./poe-hat.nix
-    ./poe-plus-hat.nix
     ./pwm0.nix
     ./tc358743.nix
     ./touch-ft5406.nix
