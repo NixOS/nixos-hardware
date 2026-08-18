@@ -3,6 +3,7 @@
     ./config-txt.nix
     ./config-txt-defaults.nix
     ./firmware.nix
+    ./gpio-fan.nix
   ];
 
   boot.initrd.availableKernelModules = [
