@@ -1,0 +1,27 @@
+diff --git a/drivers/media/platform/eswin/mipi-csi2/Makefile b/drivers/media/platform/eswin/mipi-csi2/Makefile
+index 60d981dc940b..b1eb0753d366 100755
+--- a/drivers/media/platform/eswin/mipi-csi2/Makefile
++++ b/drivers/media/platform/eswin/mipi-csi2/Makefile
+@@ -2,15 +2,15 @@
+ #
+ # Makefile for Synopsys DWC Platform drivers
+ #
+-# ifeq ($(CONFIG_DWC_MIPI_TC_DPHY_GEN3),y)#
+-# 	dw-csi-objs += dw-csi-sysfs.o
+-# endif
++ifeq ($(CONFIG_DWC_MIPI_TC_DPHY_GEN3),m)#
++ 	dw-csi-objs += dw-csi-sysfs.o
++endif
+ obj-$(CONFIG_DWC_MIPI_CSI2_HOST) += dw-csi.o
+ dw-csi-objs := dw-csi-plat.o dw-mipi-csi.o
+ 
+ # dw-dphy-objs := dw-dphy-plat.o dw-dphy-rx.o
+-# ifeq ($(CONFIG_DWC_MIPI_TC_DPHY_GEN3),y)
+-# 	dw-dphy-objs += dw-dphy-sysfs.o
+-# endif
++ifeq ($(CONFIG_DWC_MIPI_TC_DPHY_GEN3),m)
++	dw-dphy-objs += dw-dphy-sysfs.o
++endif
+ # obj-$(CONFIG_DWC_MIPI_DPHY_GEN3) += dw-dphy.o
+-#obj-$(CONFIG_ESWIN_MIPI_DMA) += eswin-mipi-dma.o
++# obj-$(CONFIG_ESWIN_MIPI_DMA) += eswin-mipi-dma.o
