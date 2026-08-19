@@ -19,10 +19,13 @@ in
     ../../../common/pc/ssd
   ];
 
+  boot.extraModulePackages = [
+    config.boot.kernelPackages.lenovo-legion-module
+  ]
   # Kernel 6.10 includes the speaker fix, so only install this on systems with older kernels.
-  boot.extraModulePackages =
-    lib.mkIf (lib.versionOlder config.boot.kernelPackages.kernel.version "6.10")
-      [ lenovo-speaker-fix ];
+  ++ lib.optionals (lib.versionOlder config.boot.kernelPackages.kernel.version "6.10") [
+    lenovo-speaker-fix
+  ];
 
   # √(2560² + 1600²) px / 16 in ≃ 189 dpi
   services.xserver.dpi = 189;
@@ -33,7 +36,7 @@ in
     package = pkgs.fprintd-tod;
     tod = {
       enable = true;
-      driver = pkgs.libfprint-2-tod1-elan;
+      driver = pkgs.libfprint-2-tod1-goodix-550a;
     };
   };
 }
