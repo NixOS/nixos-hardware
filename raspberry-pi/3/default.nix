@@ -3,6 +3,8 @@
 {
   imports = [
     ../common/default.nix
+    ../common/poe-hat.nix
+    ../common/poe-plus-hat.nix
   ];
 
   boot = {
