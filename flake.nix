@@ -104,6 +104,7 @@
           asus-zephyrus-gu605cw = import ./asus/zephyrus/gu605cw;
           asus-zephyrus-gu605my = import ./asus/zephyrus/gu605my;
           beagleboard-pocketbeagle = import ./beagleboard/pocketbeagle;
+          bosgame-b100 = import ./bosgame/b100;
           chuwi-minibook-x = import ./chuwi/minibook-x;
           deciso-dec = import ./deciso/dec;
           dell-e7240 = deprecated "1326" "dell-e7240" (import ./dell/e7240);
