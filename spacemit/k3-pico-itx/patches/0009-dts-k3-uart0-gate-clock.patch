@@ -1,0 +1,21 @@
+From: liberodark <liberodark@gmail.com>
+Subject: [PATCH] riscv: dts: spacemit: k3: wire uart0 gate clock
+
+Signed-off-by: liberodark <liberodark@gmail.com>
+---
+diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
+index 19fc9b4..b0d5a6a 100644
+--- a/arch/riscv/boot/dts/spacemit/k3.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+@@ -682,8 +682,9 @@ uart0: serial@d4017000 {
+ 			reg-shift = <2>;
+ 			reg-io-width = <4>;
+ 			clocks = <&syscon_apbc CLK_APBC_UART0>,
+-				 <&syscon_apbc CLK_APBC_UART0_BUS>;
+-			clock-names = "core", "bus";
++				 <&syscon_apbc CLK_APBC_UART0_BUS>,
++				 <&syscon_mpmu CLK_MPMU_SLOW_UART>;
++			clock-names = "core", "bus", "gate";
+ 			resets = <&syscon_apbc RESET_APBC_UART0>;
+ 			interrupts = <42 IRQ_TYPE_LEVEL_HIGH>;
+ 			status = "disabled";
