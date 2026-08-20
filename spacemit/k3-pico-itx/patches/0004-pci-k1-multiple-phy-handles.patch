@@ -1,0 +1,74 @@
+From git@z Thu Jan  1 00:00:00 1970
+Subject: [PATCH 2/5] PCI: spacemit-k1: Add multiple phy handles support
+From: Inochi Amaoto <inochiama@gmail.com>
+Date: Sat, 02 May 2026 18:13:15 +0800
+Message-Id: <20260502101319.2364052-3-inochiama@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+The PCIe controller on Spacemit K3 may use multiple phys at the
+same time. The feature is not support by the current driver.
+So extend the phy definition to support multiple phy handles.
+
+Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+---
+ drivers/pci/controller/dwc/pcie-spacemit-k1.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/pci/controller/dwc/pcie-spacemit-k1.c b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
+index cd3cd038ad2b..f2a722e5edb5 100644
+--- a/drivers/pci/controller/dwc/pcie-spacemit-k1.c
++++ b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
+@@ -51,7 +51,8 @@
+ 
+ struct k1_pcie {
+ 	struct dw_pcie pci;
+-	struct phy *phy;
++	struct phy **phy;
++	int phy_count;
+ 	void __iomem *link;
+ 	struct regmap *pmu;	/* Errors ignored; MMIO-backed regmap */
+ 	u32 pmu_off;
+@@ -172,7 +173,7 @@ static int k1_pcie_init(struct dw_pcie_rp *pp)
+ 	 */
+ 	regmap_set_bits(k1->pmu, reset_ctrl, DEVICE_TYPE_RC | PCIE_AUX_PWR_DET);
+ 
+-	ret = phy_init(k1->phy);
++	ret = phy_init(k1->phy[0]);
+ 	if (ret) {
+ 		k1_pcie_disable_resources(k1);
+ 
+@@ -192,12 +193,14 @@ static void k1_pcie_deinit(struct dw_pcie_rp *pp)
+ {
+ 	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
+ 	struct k1_pcie *k1 = to_k1_pcie(pci);
++	int i;
+ 
+ 	/* Assert fundamental reset (drive PERST# low) */
+ 	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CLK_RESET_CONTROL,
+ 			PCIE_RC_PERST);
+ 
+-	phy_exit(k1->phy);
++	for (i = 0; i < k1->phy_count; i++)
++		phy_exit(k1->phy[i]);
+ 
+ 	k1_pcie_disable_resources(k1);
+ }
+@@ -278,7 +281,12 @@ static int k1_pcie_parse_port(struct k1_pcie *k1)
+ 	if (IS_ERR(phy))
+ 		return PTR_ERR(phy);
+ 
+-	k1->phy = phy;
++	k1->phy = devm_kmalloc_array(dev, sizeof(*k1->phy), 1, GFP_KERNEL);
++	if (IS_ERR(k1->phy))
++		return PTR_ERR(k1->phy);
++
++	k1->phy[0] = phy;
++	k1->phy_count = 1;
+ 
+ 	return 0;
+ }
+-- 
+2.54.0
+
