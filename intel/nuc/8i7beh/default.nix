@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../../../common/cpu/intel
+    ../../../common/cpu/intel/coffee-lake
   ];
 
   services.thermald.enable = lib.mkDefault true;
