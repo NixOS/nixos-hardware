@@ -10,12 +10,8 @@
     ../../../../common/pc/ssd
   ];
 
-  services.xserver.videoDrivers = [ "nvidia" ];
-  boot.initrd.kernelModules = [ "amdgpu" ];
-
   hardware = {
     nvidia = {
-      modesetting.enable = lib.mkDefault true;
       powerManagement.enable = lib.mkDefault true;
       open = lib.mkDefault false;
 
