@@ -13,6 +13,7 @@
   hardware = {
     nvidia = {
       powerManagement.enable = lib.mkDefault true;
+      powerManagement.finegrained = lib.mkDefault true;
       open = lib.mkDefault false;
 
       prime = {

@@ -15,6 +15,7 @@
 
   hardware.nvidia = {
     powerManagement.enable = lib.mkDefault true;
+    powerManagement.finegrained = lib.mkDefault true;
     dynamicBoost.enable = lib.mkDefault true;
 
     prime = {

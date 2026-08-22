@@ -13,6 +13,7 @@
 
   hardware.nvidia = {
     powerManagement.enable = lib.mkDefault true;
+    powerManagement.finegrained = lib.mkDefault true;
 
     prime = {
       amdgpuBusId = lib.mkDefault "PCI:6:0:0";
