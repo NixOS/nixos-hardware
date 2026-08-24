@@ -27,17 +27,12 @@ with lib;
           | xargs -0 cp -v --no-preserve=mode --target-directory "$out" --parents
 
         for dtb in $(find "$out" -type f -name '*.dtb'); do
-          dtbCompat=$(fdtget -t s "$dtb" / compatible 2>/dev/null || true)
           # skip files without `compatible` string
-          test -z "$dtbCompat" && continue
+          fdtget -t s "$dtb" / compatible 2>/dev/null || continue
 
           ${flip (concatMapStringsSep "\n") overlays (o: ''
-            overlayCompat="$(fdtget -t s "${o.dtboFile}" / compatible)"
-
-            # skip incompatible and non-matching overlays
-            if [[ ! "$dtbCompat" =~ "$overlayCompat" ]]; then
-              echo "Skipping overlay ${o.name}: incompatible with $(basename "$dtb")"
-            elif ${
+            # skip non-matching overlays
+            if ${
               if ((o.filter or null) == null) then
                 "false"
               else

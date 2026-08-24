@@ -7,10 +7,10 @@
 
 {
   imports = [
+    ../common/default.nix
     ./audio.nix
     ./backlight.nix
     ./bluetooth.nix
-    ./cpu-revision.nix
     ./digi-amp-plus.nix
     ./dwc2.nix
     ./gpio.nix
@@ -29,16 +29,9 @@
 
   boot = {
     kernelPackages = lib.mkDefault (
-      pkgs.linuxPackagesFor (
-        pkgs.callPackage ../common/kernel.nix {
-          rpiVersion = 4;
-        }
-      )
+      pkgs.linuxPackagesFor (pkgs.callPackage ../common/kernel.nix { rpiVersion = 4; })
     );
     initrd.availableKernelModules = [
-      "usbhid"
-      "usb-storage"
-      "vc4"
       "pcie-brcmstb" # required for the pcie bus to work
       "reset-raspberrypi" # required for vl805 firmware to load
     ]
@@ -62,7 +55,5 @@
     }
   ];
 
-  hardware.firmware = [
-    (pkgs.callPackage ../common/raspberry-pi-wireless-firmware.nix { })
-  ];
+  hardware.firmware = [ (pkgs.callPackage ../common/raspberry-pi-wireless-firmware.nix { }) ];
 }

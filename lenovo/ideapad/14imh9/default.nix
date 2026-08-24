@@ -70,9 +70,7 @@
 
     # Workaround: Lenovo seems write bad acpi power management firmware. Without this config,
     #             suspend (to ram / disk) will simply reboot instead of power off. :(
-    sleep.extraConfig = ''
-      HibernateMode=shutdown
-    '';
+    sleep.settings.Sleep.HibernateMode = "shutdown";
   };
 
   # TPM2 module

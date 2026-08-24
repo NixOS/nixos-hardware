@@ -11,9 +11,9 @@
     ./.
   ];
 
-  sdImage = {
-    imageName = "${config.sdImage.imageBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}-starfive-visionfive2.img";
+  image.fileName = "${config.image.baseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}-starfive-visionfive2.img";
 
+  sdImage = {
     # Overridden by postBuildCommands
     populateFirmwareCommands = "";
 

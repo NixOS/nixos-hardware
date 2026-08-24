@@ -10,7 +10,6 @@
     name = "microsoft-surface-patches-linux-${version}";
     patch = null;
     structuredExtraConfig = with kernel; {
-      STAGING_MEDIA = yes;
       ##
       ## Surface Aggregator Module
       ##
@@ -50,6 +49,8 @@
       ##
       CONFIG_HID_IPTS = module;
       CONFIG_HID_ITHC = module;
+      CONFIG_INTEL_THC_HID = module;
+      CONFIG_INTEL_QUICKSPI = module;
 
       ##
       ## Cameras: IPU3
@@ -81,12 +82,6 @@
       CONFIG_APDS9960 = module;
 
       ##
-      ## Build-in UFS support (required for some Surface Go devices)
-      ##
-      CONFIG_SCSI_UFSHCD = module;
-      CONFIG_SCSI_UFSHCD_PCI = module;
-
-      ##
       ## Other Drivers
       ##
       CONFIG_INPUT_SOC_BUTTON_ARRAY = module;
@@ -94,6 +89,13 @@
       CONFIG_SURFACE_PRO3_BUTTON = module;
       CONFIG_SURFACE_GPE = module;
       CONFIG_SURFACE_BOOK1_DGPU_SWITCH = module;
+      CONFIG_HID_SURFACE = module;
+
+      ##
+      ## HOTFIX FOR CVE-2026-31431
+      ##
+
+      # CONFIG_CRYPTO_USER_API_AEAD is not set
     };
   }
   {
@@ -155,5 +157,41 @@
   {
     name = "ms-surface/0015-rtc";
     patch = patchSrc + "/0015-rtc.patch";
+  }
+  {
+    name = "ms-surface/0016-hid-surface";
+    patch = patchSrc + "/0016-hid-surface.patch";
+  }
+  {
+    name = "ms-surface/0017-dirtyfrag-xfrm-esp-avoid-in-place-decrypt-on-shared-skb-frags";
+    patch = patchSrc + "/0017-dirtyfrag-xfrm-esp-avoid-in-place-decrypt-on-shared-skb-frags.patch";
+  }
+  {
+    name = "ms-surface/0018-dirtyfrag-rxrpc-Fix-potential-UAF-after-skb_unshare-failure";
+    patch = patchSrc + "/0018-dirtyfrag-rxrpc-Fix-potential-UAF-after-skb_unshare-failure.patch";
+  }
+  {
+    name = "ms-surface/0019-dirtyfrag-rxrpc-Fix-rxrpc_input_call_event-to-only-unshare-DAT";
+    patch = patchSrc + "/0019-dirtyfrag-rxrpc-Fix-rxrpc_input_call_event-to-only-unshare-DAT.patch";
+  }
+  {
+    name = "ms-surface/0020-dirtyfrag-rxrpc-Fix-use-of-wrong-skb-when-comparing-queued-RES";
+    patch = patchSrc + "/0020-dirtyfrag-rxrpc-Fix-use-of-wrong-skb-when-comparing-queued-RES.patch";
+  }
+  {
+    name = "ms-surface/0021-dirtyfrag-rxrpc-only-handle-RESPONSE-during-service-challenge";
+    patch = patchSrc + "/0021-dirtyfrag-rxrpc-only-handle-RESPONSE-during-service-challenge.patch";
+  }
+  {
+    name = "ms-surface/0022-dirtyfrag-rxrpc-Fix-conn-level-packet-handling-to-unshare-RESP";
+    patch = patchSrc + "/0022-dirtyfrag-rxrpc-Fix-conn-level-packet-handling-to-unshare-RESP.patch";
+  }
+  {
+    name = "ms-surface/0023-dirtyfrag-rxrpc-Fix-re-decryption-of-RESPONSE-packets";
+    patch = patchSrc + "/0023-dirtyfrag-rxrpc-Fix-re-decryption-of-RESPONSE-packets.patch";
+  }
+  {
+    name = "ms-surface/0024-dirtyfrag-rxrpc-Also-unshare-DATA-RESPONSE-packets-when-paged-";
+    patch = patchSrc + "/0024-dirtyfrag-rxrpc-Also-unshare-DATA-RESPONSE-packets-when-paged-.patch";
   }
 ]

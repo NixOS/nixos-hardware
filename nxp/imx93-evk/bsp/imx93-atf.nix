@@ -1,6 +1,7 @@
 {
   lib,
   fetchgit,
+  fetchpatch,
   stdenv,
   buildPackages,
   pkgsCross,
@@ -21,6 +22,14 @@ stdenv.mkDerivation rec {
     rev = "28affcae957cb8194917b5246276630f9e6343e1";
     sha256 = "sha256-a8F+Lf8pwML+tCwawS0N/mrSXWPmFhlUeOg0MCRK3VE=";
   };
+
+  patches = [
+    (fetchpatch {
+      name = "imx93-trdc-header-guard.patch";
+      url = "https://github.com/nxp-imx/imx-atf/commit/e194a14ec55f13386babc80c90098874367ab3d6.patch";
+      sha256 = "sha256-K1JECateo4mUrOaV41PUmCXHn7DfmgRQXx4KdcIALqE=";
+    })
+  ];
 
   # Compiler dependencies
   depsBuildBuild = [ buildPackages.stdenv.cc ];
