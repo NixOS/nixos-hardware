@@ -1,50 +1,35 @@
-{ config, lib, ... }:
+{ lib, ... }:
 
-let
-  cfg = config.hardware.raspberry-pi."4".pwm0;
-in
 {
-  options.hardware = {
-    raspberry-pi."4".pwm0 = {
-      enable = lib.mkEnableOption "support for the hardware pwm0 channel on GPIO_18";
-    };
-  };
+  imports = [
+    (lib.mkRemovedOptionModule
+      [
+        "hardware"
+        "raspberry-pi"
+        "4"
+        "pwm0"
+      ]
+      ''
+        Use the pwm firmware overlay for PWM0 on GPIO18:
 
-  config = lib.mkIf cfg.enable {
-    hardware.deviceTree = {
-      overlays = [
-        {
-          name = "pwm-overlay";
-          dtsText = ''
-            /dts-v1/;
-            /plugin/;
-            / {
-              compatible = "brcm,bcm2711";
-
-              fragment@0 {
-                target = <&gpio>;
-                __overlay__ {
-                  pwm_pins: pwm_pins {
-                    brcm,pins = <18>;
-                    brcm,function = <2>; /* Alt5 */
-                  };
+          {
+            boot.loader.generic-extlinux-compatible.useGenerationDeviceTree = false;
+            hardware.raspberry-pi.configtxt.deviceTreeOverlays.pi4 = [
+              {
+                pwm = {
+                  pin = 18;
+                  func = 2;
+                  clock = 100000000;
                 };
-              };
+              }
+            ];
+          }
 
-              fragment@1 {
-                target = <&pwm>;
-                __overlay__ {
-                  pinctrl-names = "default";
-                  assigned-clock-rates = <100000000>;
-                  status = "okay";
-                  pinctrl-0 = <&pwm_pins>;
-                };
-              };
-
-            };
-          '';
-        }
-      ];
-    };
-  };
+        Keep clock = 100000000 to preserve the old 100 MHz clock.
+        The empty stock overlay does not set that clock rate.
+        For firmware installation, read "Device tree overlays" in
+        raspberry-pi/README.md.
+      ''
+    )
+  ];
 }
