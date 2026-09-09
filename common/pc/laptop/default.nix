@@ -3,5 +3,7 @@
 {
   imports = [ ../. ];
 
-  services.tlp.enable = lib.mkDefault (!config.services.power-profiles-daemon.enable);
+  services.tlp.enable = lib.mkDefault (
+    !config.services.power-profiles-daemon.enable && !config.services.tuned.enable
+  );
 }
