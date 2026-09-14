@@ -452,6 +452,7 @@
           tuxedo-infinitybook-pro15-gen10-intel = import ./tuxedo/infinitybook/pro15/gen10/intel;
           tuxedo-pulse-14-gen3 = import ./tuxedo/pulse/14/gen3;
           tuxedo-pulse-15-gen2 = import ./tuxedo/pulse/15/gen2;
+          xiaomi-book-pro-2026 = import ./xiaomi/book-pro/2026;
           xiaomi-redmibook-15-pro-2021 = import ./xiaomi/redmibook/15-pro-2021;
           xiaomi-redmibook-16-pro-2024 = import ./xiaomi/redmibook/16-pro-2024;
 
