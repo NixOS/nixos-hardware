@@ -175,6 +175,7 @@ See code for all available configurations.
 | [Dell Latitude E7440](dell/latitude/e7440)                                        | `<nixos-hardware/dell/latitude/e7440>`                  | `dell-latitude-e7440`                  |
 | [Dell Optiplex 3050](dell/optiplex/3050)                                          | `<nixos-hardware/dell/optiplex/3050>`                   | `dell-optiplex-3050`                   |
 | [Dell Poweredge R7515](dell/poweredge/r7515)                                      | `<nixos-hardware/dell/poweredge/r7515>`                 | `dell-poweredge-r7515`                 |
+| [Dell Precision 3440](dell/precision/3440)                                        | `<nixos-hardware/dell/precision/3440>`           | `dell-precision-3440`                            |
 | [Dell Precision 3490, nvidia](dell/precision/3490/nvidia)                         | `<nixos-hardware/dell/precision/3490/nvidia>`           | `dell-precision-3490-nvidia`           |
 | [Dell Precision 3490, intel](dell/precision/3490/intel)                           | `<nixos-hardware/dell/precision/3490/intel>`            | `dell-precision-3490-intel`            |
 | [Dell Precision 3541](dell/precision/3541)                                        | `<nixos-hardware/dell/precision/3541>`                  | `dell-precision-3541`                  |
