@@ -300,6 +300,7 @@ See code for all available configurations.
 | [Lenovo ThinkPad E15 (Intel)](lenovo/thinkpad/e15/intel)                          | `<nixos-hardware/lenovo/thinkpad/e15/intel>`            | `lenovo-thinkpad-e15-intel`            |
 | [Lenovo ThinkPad E470](lenovo/thinkpad/e470)                                      | `<nixos-hardware/lenovo/thinkpad/e470>`                 | `lenovo-thinkpad-e470`                 |
 | [Lenovo ThinkPad E495](lenovo/thinkpad/e495)                                      | `<nixos-hardware/lenovo/thinkpad/e495>`                 | `lenovo-thinkpad-e495`                 |
+| [Lenovo ThinkPad E590](lenovo/thinkpad/e590)                                      | `<nixos-hardware/lenovo/thinkpad/e590>`                 | `lenovo-thinkpad-e590`                 |
 | [Lenovo ThinkPad L13 Yoga](lenovo/thinkpad/l13/yoga)                              | `<nixos-hardware/lenovo/thinkpad/l13/yoga>`             | `lenovo-thinkpad-l13-yoga`             |
 | [Lenovo ThinkPad L13](lenovo/thinkpad/l13)                                        | `<nixos-hardware/lenovo/thinkpad/l13>`                  | `lenovo-thinkpad-l13`                  |
 | [Lenovo ThinkPad L14 (AMD)](lenovo/thinkpad/l14/amd)                              | `<nixos-hardware/lenovo/thinkpad/l14/amd>`              | `lenovo-thinkpad-l14-amd`              |
