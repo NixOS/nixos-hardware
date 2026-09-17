@@ -1,6 +1,8 @@
 { lib, ... }:
 
 {
+  imports = [ ./dc-debug-mask.nix ];
+
   config = {
     services.xserver.videoDrivers = lib.mkDefault [ "modesetting" ];
 
