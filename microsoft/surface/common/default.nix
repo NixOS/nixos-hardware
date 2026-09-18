@@ -23,11 +23,14 @@ let
         version = "6.19.8";
         hash = "sha256-qtpHItuLz6C5cyhRhW1AUIK2pPouOrBnvo2xfN0RWzg=";
       };
-
+      stable-kernel = {
+        version = "7.2.2";
+        hash = "sha256-fQ584U+YxD7+iAz/vzVKWb5Fko/fcXDXMzw3SukcDYM=";
+      };
     in
     {
       "longterm" = lts-kernel;
-      "stable" = lts-kernel;
+      "stable" = stable-kernel;
     };
 
   # Set the version and hash for the kernel sources
@@ -35,12 +38,22 @@ let
   srcHash = supportedKernels.${config.hardware.microsoft-surface.kernelVersion}.hash;
 
   # Fetch the latest linux-surface patches
-  linux-surface = pkgs.fetchFromGitHub {
-    owner = "linux-surface";
-    repo = "linux-surface";
-    rev = "bf1921fc63f33d03a007fb38c4f88ff7e7bc1a55";
-    hash = "sha256-AV+J1iKpA4PEsX9oVUTGlzGerTWTermia3aJSZxuu/w=";
-  };
+  linux-surface = (
+    if (versions.majorMinor srcVersion == "longterm") then
+      pkgs.fetchFromGitHub {
+        owner = "linux-surface";
+        repo = "linux-surface";
+        rev = "bf1921fc63f33d03a007fb38c4f88ff7e7bc1a55";
+        hash = "sha256-AV+J1iKpA4PEsX9oVUTGlzGerTWTermia3aJSZxuu/w=";
+      }
+    else
+      (pkgs.fetchFromGitHub {
+        owner = "Apiznel";
+        repo = "linux-surface";
+        rev = "79944f7f8f75b7d01be9e778c728b553554df481";
+        hash = "sha256-DhRLDvQEuWaqjl+pSrInKI7UBSiMe3ATIcEru9YoDEQ=";
+      })
+  );
 
   # Fetch and build the kernel
   inherit (pkgs.callPackage ./kernel/linux-package.nix { })
