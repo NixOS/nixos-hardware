@@ -113,6 +113,7 @@ See code for all available configurations.
 | [Apple MacBook Pro 14,1](apple/macbook-pro/14-1)                                  | `<nixos-hardware/apple/macbook-pro/14-1>`               | `apple-macbook-pro-14-1`               |
 | [Apple MacMini (2010, Intel, Nvidia)](apple/macmini/4)                            | `<nixos-hardware/apple/macmini/4>`                      | `apple-macmini-4-1`                    |
 | [Apple Macs with a T2 Chip](apple/t2)                                             | `<nixos-hardware/apple/t2>`                             | `apple-t2`                             |
+| [Arduino UNO Q](qualcomm/qrb2210/arduino-uno-q)                                   | `<nixos-hardware/qualcomm/qrb2210/arduino-uno-q>`       | `arduino-uno-q`                        |
 | [Aoostar R1 N100](aoostar/r1/n100)                                                | `<nixos-hardware/aoostar/r1/n100>`                      | `aoostar-r1-n100`                      |
 | [Asus Pro WS X570-ACE](asus/pro-ws-x570-ace)                                      | `<nixos-hardware/asus/pro-ws-x570-ace>`                 | `asus-pro-ws-x570-ace`                 |
 | [Asus ROG Ally RC71L (2023)](asus/ally/rc71l)                                     | `<nixos-hardware/asus/ally/rc71l>`                      | `asus-ally-rc71l`                      |

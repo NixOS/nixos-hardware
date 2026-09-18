@@ -1,0 +1,6 @@
+verbosity=1
+bootlogo=false
+console=serial
+fdtfile=qcom/qrb2210-arduino-imola.dtb
+rootdev=/dev/mmcblk0p68
+
