@@ -413,6 +413,7 @@
           purism-librem-13v3 = import ./purism/librem/13v3;
           purism-librem-15v3 = import ./purism/librem/15v3;
           purism-librem-5r4 = import ./purism/librem/5r4;
+          qualcomm-iq-9075-evk = import ./qualcomm/iq-9075-evk;
           razer-blade-14-RZ09-0530 = import ./razer/blade/14/RZ09-0530;
           raspberry-pi-2 = import ./raspberry-pi/2;
           raspberry-pi-3 = import ./raspberry-pi/3;
@@ -512,6 +513,8 @@
           imx93-boot = (pkgs.callPackage ./nxp/imx93-evk/bsp/imx93-boot.nix { }).imx93-boot;
           imx8mp-boot = (pkgs.callPackage ./nxp/imx8mp-evk/bsp/imx8mp-boot.nix { }).imx8m-boot;
           imx8mq-boot = (pkgs.callPackage ./nxp/imx8mq-evk/bsp/imx8mq-boot.nix { }).imx8m-boot;
+          iq-9075-evk-boot =
+            (pkgs.callPackage ./qualcomm/iq-9075-evk/bsp/iq-9075-evk-boot.nix { }).iq-9075-evk-boot;
           purism-librem-5r4-uboot = pkgs.callPackage ./purism/librem/5r4/u-boot { };
           # Raspberry Pi kernels (aarch64-linux only)
           rpi2-kernel = (pkgs.callPackage ./raspberry-pi/common/kernel.nix { rpiVersion = 2; });
