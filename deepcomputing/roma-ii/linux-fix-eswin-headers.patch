@@ -1,0 +1,13 @@
+diff --git a/drivers/memory/eswin/es_proc/Makefile b/drivers/memory/eswin/es_proc/Makefile
+index 2afd49103e81..9b0bd6e25897 100644
+--- a/drivers/memory/eswin/es_proc/Makefile
++++ b/drivers/memory/eswin/es_proc/Makefile
+@@ -2,6 +2,6 @@
+ obj-$(CONFIG_ESWIN_PROC)	+= es_proc.o
+ ccflags-y := -DDEBUG
+ 
+-ES_PROC_HEADER := drivers/memory/eswin/es_proc/include/linux
++ES_PROC_HEADER := $(srctree)/drivers/memory/eswin/es_proc/include/linux
+ 
+-COPY_HEADERS := $(shell cp $(ES_PROC_HEADER)/*.h include/linux)
++COPY_HEADERS := $(shell cp $(ES_PROC_HEADER)/*.h $(srctree)/include/linux)

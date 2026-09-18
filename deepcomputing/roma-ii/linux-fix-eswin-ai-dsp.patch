@@ -1,0 +1,36 @@
+From dd790e6e69157abd948d7d418b09cdeb5cb5bdca Mon Sep 17 00:00:00 2001
+From: Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
+Date: Mon, 7 Jul 2025 09:39:57 +0200
+Subject: [PATCH] eswin/ai_driver/dsp/dsp_platform: add missing include
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Avoid a build error:
+
+    drivers/soc/eswin/ai_driver/dsp/dsp_platform.c:
+    In function ‘es_dsp_clk_disable’:
+    drivers/soc/eswin/ai_driver/dsp/dsp_platform.c:276:19: error:
+    implicit declaration of function ‘__clk_is_enabled’;
+    did you mean ‘clk_enable’? [-Wimplicit-function-declaration]
+      276 |         enabled = __clk_is_enabled(hw->subsys->aclk);
+          |                   ^~~~~~~~~~~~~~~~
+          |                   clk_enable
+
+Signed-off-by: Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
+---
+ drivers/soc/eswin/ai_driver/dsp/dsp_platform.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/soc/eswin/ai_driver/dsp/dsp_platform.c b/drivers/soc/eswin/ai_driver/dsp/dsp_platform.c
+index 61009112362c..155b31aace73 100644
+--- a/drivers/soc/eswin/ai_driver/dsp/dsp_platform.c
++++ b/drivers/soc/eswin/ai_driver/dsp/dsp_platform.c
+@@ -20,6 +20,7 @@
+  */
+ 
+ #include <linux/clk.h>
++#include <linux/clk-provider.h>
+ #include <linux/interrupt.h>
+ #include <linux/io.h>
+ #include <linux/module.h>
