@@ -6,7 +6,7 @@ NixOS profiles and modules for Raspberry Pi boards.
 
 - `common/` has the shared bits: the `linux-rpi` kernel build (vendor defconfig, matching firmware), the `config.txt` generation module, a pinned wireless firmware, and the firmware-partition install module.
 - `2/`, `3/`, `4/`, `5/` are the board profiles. Each one picks the right kernel and kernel params. Pi 4 and 5 also set DT filters and the initrd modules they need.
-- The extra files under `4/` are opt-in toggles for Pi 4 hardware: audio, GPIO, I2C, LEDs, touchscreens, and so on.
+- `4/gpio.nix` controls GPIO permissions. The other files under `4/` include migration messages for removed hardware options and support for custom DT merges.
 
 ## Using a board profile
 
@@ -82,6 +82,8 @@ Overlays go in `configtxt.deviceTreeOverlays`, not in a `dtoverlay` key under `s
 {
   boot.loader.generic-extlinux-compatible.useGenerationDeviceTree = false;
 
+  # Disable the CM4 profile's XHCI default before selecting DWC2.
+  hardware.raspberry-pi.configtxt.settings.cm4.otg_mode = null;
   hardware.raspberry-pi.configtxt.deviceTreeOverlays.pi4 = [
     { dwc2.dr_mode = "host"; }
     {
@@ -118,55 +120,11 @@ The module concatenates lists from separate modules, but the order is not the or
 
 The Raspberry Pi firmware applies these overlays before U-Boot starts. Set `boot.loader.generic-extlinux-compatible.useGenerationDeviceTree = false` so U-Boot keeps that device tree instead of loading one from the NixOS generation. Enabling `hardware.raspberry-pi.firmware.uboot.enable` sets this automatically.
 
+This boot path does not load changes that exist only in the generation's DTBs. Migrate those `hardware.deviceTree.overlays` entries before you switch to the firmware device tree.
+
 The firmware partition must contain the generated `config.txt` and stock overlays. SD image builds populate it automatically. On a running system, set `hardware.raspberry-pi.firmware.enable = true`.
 
-#### DWC2 USB controller
-
-Use the stock `dwc2` overlay to enable the USB 2.0 controller on the Pi 4B USB-C connector:
-
-```nix
-{
-  hardware.raspberry-pi.configtxt.deviceTreeOverlays."board-type=0x11" = [
-    { dwc2 = { }; }
-  ];
-}
-```
-
-`board-type=0x11` matches the Pi 4B. The broader `pi4` filter also matches Pi 400, CM4, and CM4S.
-
-[Raspberry Pi OS sets `otg_mode=1` on CM4](https://github.com/RPi-Distro/pi-gen/blob/master/stage1/00-boot-files/files/config.txt#L39-L43), and [nixos-hardware sets the same default](./common/config-txt-defaults.nix). Set it to `null` before loading DWC2:
-
-```nix
-{
-  hardware.raspberry-pi.configtxt = {
-    settings.cm4.otg_mode = null;
-    deviceTreeOverlays.cm4 = [
-      { dwc2 = { }; }
-    ];
-  };
-}
-```
-
-The `cm4` filter matches CM4 only. Set `dwc2.dr_mode` to `host`, `peripheral`, or `otg` to override the overlay default. The overlay also accepts `g-rx-fifo-size` and `g-np-tx-fifo-size`.
-
-#### PoE HATs
-
-The original [PoE HAT](https://www.raspberrypi.com/products/poe-hat/) and the [PoE+ HAT](https://www.raspberrypi.com/products/poe-plus-hat/) use the stock `rpi-poe` and `rpi-poe-plus` overlays. Both HATs support the Pi 3B+ and Pi 4B.
-
-```nix
-{
-  hardware.raspberry-pi.configtxt.deviceTreeOverlays."board-type=0x11" = [
-    {
-      rpi-poe = {
-        poe_fan_temp0 = 50000;
-        poe_fan_temp0_hyst = 2000;
-      };
-    }
-  ];
-}
-```
-
-Use `board-type=0x0d` for the Pi 3B+ and `board-type=0x11` for the Pi 4B. Replace `rpi-poe` with `rpi-poe-plus` for the PoE+ HAT. All overlay parameters are optional.
+For hardware-specific parameters, read the [Raspberry Pi overlay reference](https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README).
 
 To supply your own file, set `configtxt.file`. The module then ignores `settings` and `deviceTreeOverlays`.
 

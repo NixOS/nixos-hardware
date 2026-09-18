@@ -1,50 +1,39 @@
+{ lib, ... }:
+
 {
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-
-let
-  cfg = config.hardware.raspberry-pi."4".audio;
-in
-{
-  options.hardware = {
-    raspberry-pi."4".audio = {
-      enable = lib.mkEnableOption "configuration for audio";
-    };
-  };
-
-  config = lib.mkIf cfg.enable {
-    hardware.deviceTree = {
-      overlays = [
-        # Equivalent to dtparam=audio=on
-        {
-          name = "audio-on-overlay";
-          dtsText = ''
-            /dts-v1/;
-            /plugin/;
-            / {
-              compatible = "brcm,bcm2711";
-              fragment@0 {
-                target = <&audio>;
-
-                __overlay__ {
-                  status = "okay";
-                };
-              };
-            };
-          '';
-        }
-      ];
-    };
-
-    # set tsched=0 in pulseaudio config to avoid audio glitches
-    # see https://wiki.archlinux.org/title/PulseAudio/Troubleshooting#Glitches,_skips_or_crackling
-    hardware.pulseaudio.configFile = lib.mkOverride 990 (
-      pkgs.runCommand "default.pa" { } ''
-        sed 's/module-udev-detect$/module-udev-detect tsched=0/' ${config.hardware.pulseaudio.package}/etc/pulse/default.pa > $out
+  imports = [
+    (lib.mkRemovedOptionModule
+      [
+        "hardware"
+        "raspberry-pi"
+        "4"
+        "audio"
+      ]
       ''
-    );
-  };
+        Enable onboard audio through the firmware configuration:
+
+          {
+            boot.loader.generic-extlinux-compatible.useGenerationDeviceTree = false;
+            hardware.raspberry-pi.configtxt.settings.pi4.dtparam = [ "audio=on" ];
+            boot.kernelModules = [ "snd_bcm2835" ];
+            boot.kernelParams = [
+              "snd_bcm2835.enable_headphones=1"
+              "snd_bcm2835.enable_hdmi=0"
+            ];
+          }
+
+        When U-Boot supplies the kernel command line, keep these kernel parameters.
+        U-Boot does not preserve the firmware's audio flags.
+
+        KMS supplies HDMI audio in the default profile.
+        For FKMS or the legacy display stack, set snd_bcm2835.enable_hdmi=1 instead.
+
+        The module no longer sets PulseAudio tsched=0. If you still
+        need it, provide a custom services.pulseaudio.configFile.
+
+        For firmware installation, read "Device tree overlays" in
+        raspberry-pi/README.md.
+      ''
+    )
+  ];
 }
