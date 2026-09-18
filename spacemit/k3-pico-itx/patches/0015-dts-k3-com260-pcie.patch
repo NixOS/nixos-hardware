@@ -1,0 +1,36 @@
+From: liberodark <liberodark@gmail.com>
+Subject: [PATCH] riscv: dts: spacemit: k3: enable PCIe/NVMe on CoM260-IFX
+
+The CoM260-IFX (BPI-SM10) boots from an NVMe drive on PCIe port A,
+same x4 comb-phy groups 0/1 wiring as the Pico-ITX. Enable combphy
+and pcie0 on this board. (SD host support is being upstreamed
+separately.)
+
+Signed-off-by: liberodark <liberodark@gmail.com>
+---
+--- a/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
++++ b/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
+@@ -4,6 +4,8 @@
+  * Copyright (c) 2026 Yixun Lan <dlan@kernel.org>
+  */
+ 
++#include <dt-bindings/phy/phy.h>
++
+ #include "k3-com260.dtsi"
+ 
+ / {
+@@ -19,3 +21,14 @@
+ 		stdout-path = "serial0:115200n8";
+ 	};
+ };
++
++&combphy {
++	status = "okay";
++};
++
++&pcie0 {
++	phys = <&combphy 0 PHY_TYPE_PCIE>,
++	       <&combphy 1 PHY_TYPE_PCIE>;
++	phy-names = "phy0", "phy1";
++	status = "okay";
++};

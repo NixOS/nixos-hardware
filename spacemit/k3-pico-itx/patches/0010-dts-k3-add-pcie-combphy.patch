@@ -1,0 +1,89 @@
+From: liberodark <liberodark@gmail.com>
+Subject: [PATCH] riscv: dts: spacemit: k3: add comb PHY and PCIe0 nodes
+
+Add combphy and pcie0 (port A x4, M.2 NVMe) nodes and enable them on
+the Pico-ITX. PHY lane config 0x14 = lane-share, A x4, C lane0 USB3.
+
+Signed-off-by: liberodark <liberodark@gmail.com>
+---
+diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+index b89c152..56a769a 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
++++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+@@ -4,6 +4,7 @@
+  * Copyright (c) 2026 Guodong Xu <guodong@riscstar.com>
+  */
+ #include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/phy/phy.h>
+ 
+ #include "k3.dtsi"
+ #include "k3-pinctrl.dtsi"
+@@ -221,3 +222,14 @@ hub@1 {
+ &usb2_phy {
+ 	status = "okay";
+ };
++
++&combphy {
++	status = "okay";
++};
++
++&pcie0 {
++	phys = <&combphy 0 PHY_TYPE_PCIE>,
++	       <&combphy 1 PHY_TYPE_PCIE>;
++	phy-names = "phy0", "phy1";
++	status = "okay";
++};
+diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
+index 19fc9b4..da143aa 100644
+--- a/arch/riscv/boot/dts/spacemit/k3.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+@@ -1099,6 +1099,49 @@ pll: clock-controller@d4090000 {
+ 			#clock-cells = <1>;
+ 		};
+ 
++		combphy: phy@81d00000 {
++			compatible = "spacemit,k3-comb-phy";
++			reg = <0x0 0x81d00000 0x0 0x600000>;
++			#phy-cells = <2>;
++			spacemit,apb-spare = <&pll>;
++			spacemit,apmu = <&syscon_apmu 0x14>;
++			status = "disabled";
++		};
++
++		pcie0: pcie@80000000 {
++			compatible = "spacemit,k3-pcie";
++			reg = <0x0  0x80000000 0x0 0x00001000>,
++			      <0x0  0x80100000 0x0 0x00001000>,
++			      <0x0  0x80300000 0x0 0x00003f20>,
++			      <0x11 0x00000000 0x0 0x00010000>,
++			      <0x0  0x82900000 0x0 0x00001000>;
++			reg-names = "dbi", "dbi2", "atu", "config", "link";
++			device_type = "pci";
++			#address-cells = <3>;
++			#size-cells = <2>;
++			bus-range = <0x00 0xff>;
++			max-link-speed = <3>;
++			num-lanes = <4>;
++			linux,pci-domain = <0>;
++			clocks = <&syscon_apmu CLK_APMU_PCIE_PORTA_DBI>,
++				 <&syscon_apmu CLK_APMU_PCIE_PORTA_MSTE>,
++				 <&syscon_apmu CLK_APMU_PCIE_PORTA_SLV>;
++			clock-names = "dbi", "mstr", "slv";
++			resets = <&syscon_apmu RESET_APMU_PCIE_A_DBI>,
++				 <&syscon_apmu RESET_APMU_PCIE_A_MASTER>,
++				 <&syscon_apmu RESET_APMU_PCIE_A_SLAVE>;
++			reset-names = "dbi", "mstr", "slv";
++			interrupt-parent = <&saplic>;
++			interrupts = <141 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "app";
++			msi-parent = <&simsic>;
++			ranges = <0x01000000 0x00 0x00010000 0x11 0x00010000 0x0 0x00100000>,
++				 <0x02000000 0x0  0x00110000 0x11 0x00110000 0x0 0x7fef0000>,
++				 <0x43000000 0x18 0x00000000 0x18 0x00000000 0x1 0x00000000>;
++			spacemit,apmu = <&syscon_apmu 0x1f0>;
++			status = "disabled";
++		};
++
+ 		syscon_apmu: system-controller@d4282800 {
+ 			compatible = "spacemit,k3-syscon-apmu";
+ 			reg = <0x0 0xd4282800 0x0 0x400>;
