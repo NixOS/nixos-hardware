@@ -158,6 +158,7 @@ See code for all available configurations.
 | [Dell Inspiron 14 5420](dell/inspiron/14-5420)                                    | `<nixos-hardware/dell/inspiron/14-5420>`                | `dell-inspiron-14-5420`                |
 | [Dell Inspiron 5509](dell/inspiron/5509)                                          | `<nixos-hardware/dell/inspiron/5509>`                   | `dell-inspiron-5509`                   |
 | [Dell Inspiron 5515](dell/inspiron/5515)                                          | `<nixos-hardware/dell/inspiron/5515>`                   | `dell-inspiron-5515`                   |
+| [Dell Inspiron 13-7353](dell/inspiron/13-7353)                                    | `<nixos-hardware/dell/inspiron/13-7353>`                | `dell-inspiron-13-7353`                |
 | [Dell Inspiron 7405](dell/inspiron/7405)                                          | `<nixos-hardware/dell/inspiron/7405>`                   | `dell-inspiron-7405`                   |
 | [Dell Inspiron 7460](dell/inspiron/7460)                                          | `<nixos-hardware/dell/inspiron/7460>`                   | `dell-inspiron-7460`                   |
 | [Dell Inspiron 7559](dell/inspiron/7559)                                          | `<nixos-hardware/dell/inspiron/7559>`                   | `dell-inspiron-7559`                   |
