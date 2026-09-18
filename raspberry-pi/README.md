@@ -6,7 +6,7 @@ NixOS profiles and modules for Raspberry Pi boards.
 
 - `common/` has the shared bits: the `linux-rpi` kernel build (vendor defconfig, matching firmware), the `config.txt` generation module, a pinned wireless firmware, and the firmware-partition install module.
 - `2/`, `3/`, `4/`, `5/` are the board profiles. Each one picks the right kernel and kernel params. Pi 4 and 5 also set DT filters and the initrd modules they need.
-- The extra files under `4/` are opt-in toggles for Pi 4 hardware: audio, dwc2, GPIO, I2C, LEDs, touchscreens, and so on.
+- The extra files under `4/` are opt-in toggles for Pi 4 hardware: audio, GPIO, I2C, LEDs, touchscreens, and so on.
 
 ## Using a board profile
 
@@ -68,7 +68,7 @@ dtparam=audio=on
 dtparam=i2c_arm=on
 ```
 
-Top-level attrs are conditional sections (`all`, `pi4`, `pi5`, `cm4`, and so on). Nesting stacks filters. To drop a default, set the key to `null` with `mkForce`.
+Top-level attrs are conditional sections (`all`, `pi4`, `pi5`, `cm4`, and so on). Nesting stacks filters. Set a board profile's `mkDefault` value to `null` to remove it. Use `mkForce null` when overriding a value with normal priority.
 
 Every rendered group opens with `[all]` and then its own filters. Filters of different types stack rather than replace, so `[all]` is what clears the previous group before the next one starts.
 
@@ -80,6 +80,8 @@ Overlays go in `configtxt.deviceTreeOverlays`, not in a `dtoverlay` key under `s
 
 ```nix
 {
+  boot.loader.generic-extlinux-compatible.useGenerationDeviceTree = false;
+
   hardware.raspberry-pi.configtxt.deviceTreeOverlays.pi4 = [
     { dwc2.dr_mode = "host"; }
     {
@@ -113,6 +115,39 @@ Overlays render after `settings`. This order keeps base parameters such as `dtpa
 Each parameter becomes its own `dtparam` line rather than an addition to the `dtoverlay` line, which keeps them clear of the 98-character line limit. Booleans render as `on` or `off`. Use `null` with `mkForce` to remove a parameter.
 
 The module concatenates lists from separate modules, but the order is not the order of definition. If one overlay must load before another, set the order with `mkBefore` or `mkAfter`.
+
+The Raspberry Pi firmware applies these overlays before U-Boot starts. Set `boot.loader.generic-extlinux-compatible.useGenerationDeviceTree = false` so U-Boot keeps that device tree instead of loading one from the NixOS generation. Enabling `hardware.raspberry-pi.firmware.uboot.enable` sets this automatically.
+
+The firmware partition must contain the generated `config.txt` and stock overlays. SD image builds populate it automatically. On a running system, set `hardware.raspberry-pi.firmware.enable = true`.
+
+#### DWC2 USB controller
+
+Use the stock `dwc2` overlay to enable the USB 2.0 controller on the Pi 4B USB-C connector:
+
+```nix
+{
+  hardware.raspberry-pi.configtxt.deviceTreeOverlays."board-type=0x11" = [
+    { dwc2 = { }; }
+  ];
+}
+```
+
+`board-type=0x11` matches the Pi 4B. The broader `pi4` filter also matches Pi 400, CM4, and CM4S.
+
+[Raspberry Pi OS sets `otg_mode=1` on CM4](https://github.com/RPi-Distro/pi-gen/blob/master/stage1/00-boot-files/files/config.txt#L39-L43), and [nixos-hardware sets the same default](./common/config-txt-defaults.nix). Set it to `null` before loading DWC2:
+
+```nix
+{
+  hardware.raspberry-pi.configtxt = {
+    settings.cm4.otg_mode = null;
+    deviceTreeOverlays.cm4 = [
+      { dwc2 = { }; }
+    ];
+  };
+}
+```
+
+The `cm4` filter matches CM4 only. Set `dwc2.dr_mode` to `host`, `peripheral`, or `otg` to override the overlay default. The overlay also accepts `g-rx-fifo-size` and `g-np-tx-fifo-size`.
 
 #### PoE HATs
 
