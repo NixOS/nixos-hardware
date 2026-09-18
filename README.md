@@ -253,6 +253,7 @@ See code for all available configurations.
 | [HP Probook 440G5](hp/probook/440G5)                                              | `<nixos-hardware/hp/probook/440G5>`                     | `hp-probook-440G5`                     |
 | [HP Laptop 14s-dq2024nf](hp/laptop/14s-dq2024nf)                                  | `<nixos-hardware/hp/laptop/14s-dq2024nf>`               | `hp-laptop-14s-dq2024nf`               |
 | [HP Probook 460G11](hp/probook/460g11)                                            | `<nixos-hardware/hp/probook/460g11>`                    | `hp-probook-46011`                     |
+| [HP Victus 15-fa2724tx](hp/victus/15-fa2724tx)                                    | `<nixos-hardware/hp/victus/15-fa2724tx>`                | `hp-victus-15-fa2724tx`    |
 | [Huawei Matebook X Pro (2020)](huawei/machc-wa)                                   | `<nixos-hardware/huawei/machc-wa>`                      | `huawei-machc-wa`                      |
 | [i.MX8QuadMax Multisensory Enablement Kit](nxp/imx8qm-mek/)                       | `<nixos-hardware/nxp/imx8qm-mek>`                       | `nxp-imx8qm-mek`                       |
 | [Intel NUC 5i5RYB](intel/nuc/5i5ryb/)                                             | `<nixos-hardware/intel/nuc/5i5ryb>`                     | `intel-nuc-5i5ryb`                     |
