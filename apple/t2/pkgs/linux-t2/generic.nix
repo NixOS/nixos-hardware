@@ -29,20 +29,24 @@ kernel.override (
     pname = "linux-t2";
 
     structuredExtraConfig = with lib.kernel; {
-      APPLE_BCE = module;
+      # APPLE_BCE = module;
+      T2BCE_CORE = module;
+      T2BCE_VHCI = module;
+      T2BCE_AUDIO = module;
       APPLE_GMUX = module;
       APFS_FS = module;
       BRCMFMAC = module;
       BT_BCM = module;
       BT_HCIBCM4377 = module;
-      BT_HCIUART_BCM = yes;
       BT_HCIUART = module;
+      BT_HCIUART_BCM = yes;
+      DRM_APPLETBDRM = module;
+      HID_APPLE = module;
       HID_APPLETB_BL = module;
       HID_APPLETB_KBD = module;
-      HID_APPLE = module;
       HID_MAGICMOUSE = module;
-      DRM_APPLETBDRM = module;
       HID_SENSOR_ALS = module;
+      SENSORS_APPLESMC = module;
       SND_PCM = module;
       STAGING = yes;
     };

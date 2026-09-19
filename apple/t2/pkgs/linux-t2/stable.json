@@ -1,13 +1,13 @@
 {
-  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/facf1c778667c3ef62104949ef64c75ce7e43b0a/",
+  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/3c35556ed0a06018ae074b7176d031409c41123c/",
   "patches": [
     {
-      "name": "1001-Add-apple-bce-driver.patch",
-      "hash": "sha256-rrL3oVkYeq5ZslnjCQw4hcEK6knsm6U/wp1XnJmQTSA="
+      "name": "1001-Add-t2bce-driver-stack.patch",
+      "hash": "sha256-+3/tyG7mdg+L6rpRVU7PqZjtdcLyS4GG0iBtq9yClu8="
     },
     {
-      "name": "1002-Put-apple-bce-in-drivers-staging.patch",
-      "hash": "sha256-deWROYcncl51sOmtvUHM61e5FM1beHbOJVp4iI31LHM="
+      "name": "1002-Integrate-t2bce-driver-stack.patch",
+      "hash": "sha256-a5WHFSXhFhKsxGI7NBjjPfKzjCD4XxtOkg9k+tgNZr8="
     },
     {
       "name": "2008-i915-4-lane-quirk-for-mbp15-1.patch",
@@ -55,19 +55,15 @@
     },
     {
       "name": "4001-asahi-trackpad.patch",
-      "hash": "sha256-+YXyIjtlVrLo8allTO3M1A+xold5FUXaZ8dwD2j5HDc="
+      "hash": "sha256-2h3TdPsX9HBXx5jkZ2S2GJkjFcdL8vKD1G69iqd9IWg="
     },
     {
       "name": "4003-HID-apple-ignore-the-trackpad-on-T2-Macs.patch",
-      "hash": "sha256-T2tYcFLeWUdx6QawANe3ZNVSRxmo1IdPiSpGLQk4IDY="
+      "hash": "sha256-LLZzcysLTuQrSXWXbdq7AASxfMInQoqpWzRNZAKws9k="
     },
     {
       "name": "4004-HID-magicmouse-Add-support-for-trackpads-found-on-T2.patch",
-      "hash": "sha256-ubchCEv1BZ7t/zkI9DpHA4gUln9cdu4yHzVJI2TNlS0="
-    },
-    {
-      "name": "4005-HID-magicmouse-fix-regression-breaking-support-for-M.patch",
-      "hash": "sha256-oT+3AeETnKfzblxtcTD18c61BKoD9yAsga0AL3R8u7k="
+      "hash": "sha256-kUnbtl/54cihscirl9kP0Gsot7bdP0rYKlj6gQ10hk0="
     },
     {
       "name": "5001-HID-appletb-kbd-add-option-to-switch-default-layer-o.patch",
@@ -78,8 +74,12 @@
       "hash": "sha256-/EKN7JsAxcpAgfJFtPp2NLYaGqQ0kl8wjJEXifSzJpY="
     },
     {
+      "name": "7002-drm-amdgpu-reset-VI-ASIC-on-MacBookPro15-1.patch",
+      "hash": "sha256-lLruG4lJAI6fI94w2LzHmrbspXArrq+rbI/SJmhwXqo="
+    },
+    {
       "name": "8001-Add-APFS-driver.patch",
-      "hash": "sha256-2By3Zlg/i5rUUJDlWc6JoiqapUnbVplk2lHzDhvAhzI="
+      "hash": "sha256-7yzAlrN5x4AG4C2xdnGOJ7dVips5BhvOQ99vZm4hajI="
     },
     {
       "name": "8002-Necessary-modifications-to-build-APFS-with-the-kerne.patch",
