@@ -70,13 +70,31 @@ let
           kept[$dst]=1
         done
 
-        if [ -d "$dtbSrc/overlays" ]; then
-          for ovr in "$dtbSrc"/overlays/*; do
+        # hardware.raspberry-pi.configtxt.deviceTreeOverlays entries are
+        # matched by filename against the vendor .dtbo set the Raspberry Pi
+        # firmware ships, regardless of whether the *base* dtb above came
+        # from the generation or from firmwareBoot. Stage those
+        # unconditionally so config.txt's "dtoverlay=" lines have a target
+        # to apply, even when useGenerationDeviceTree = true.
+        if [ -d "$firmwareBoot/overlays" ]; then
+          for ovr in "$firmwareBoot"/overlays/*; do
             dst="$target/overlays/$(basename "$ovr")"
             copyForced "$ovr" "$dst"
             kept[$dst]=1
           done
         fi
+
+        # When useGenerationDeviceTree also produced its own overlays
+        # (built via hardware.deviceTree.overlays), stage those too,
+        # letting them take precedence over same-named vendor overlays.
+        if [ "$dtbSrc" != "$firmwareBoot" ] && [ -d "$dtbSrc/overlays" ]; then
+          for ovr in "$dtbSrc"/overlays/*; do
+           dst="$target/overlays/$(basename "$ovr")"
+            copyForced "$ovr" "$dst"
+            kept[$dst]=1
+          done
+        fi
+
 
         # Prune stale device trees / overlays.
         for fn in "$target"/*.dtb "$target"/overlays/*; do
