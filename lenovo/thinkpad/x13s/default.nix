@@ -219,7 +219,7 @@ in
       boot = {
         loader.grub = {
           extraPerEntryConfig = ''
-            devicetree dtbs/${deviceTree.kernelPackage.version}/${deviceTree.name}
+            devicetree /dtbs/${deviceTree.kernelPackage.version}/${deviceTree.name}
           '';
           extraFiles =
             let
