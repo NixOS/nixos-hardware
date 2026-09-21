@@ -1,0 +1,34 @@
+From git@z Thu Jan  1 00:00:00 1970
+Subject: [PATCH v4 1/6] dt-bindings: vendor-prefixes: Add Sensylink
+From: Troy Mitchell <troy.mitchell@linux.dev>
+Date: Mon, 31 Aug 2026 21:45:35 +0800
+Message-Id: <20260831-ctl2301-v4-1-b335d52a0570@linux.dev>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Add the vendor prefix for Sensylink Microelectronics.
+
+Link: https://en.sensylink.com/
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index ba2002969373..4a5cf436eb14 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -1495,6 +1495,8 @@ patternProperties:
+     description: Sensirion AG
+   "^sensortek,.*":
+     description: Sensortek Technology Corporation
++  "^sensylink,.*":
++    description: Sensylink Microelectronics Technology Co., Ltd.
+   "^sercomm,.*":
+     description: Sercomm (Suzhou) Corporation
+   "^sff,.*":
+
+-- 
+2.55.0
