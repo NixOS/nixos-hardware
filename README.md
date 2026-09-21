@@ -232,6 +232,8 @@ See code for all available configurations.
 | [Gigabyte B550](gigabyte/b550)                                                    | `<nixos-hardware/gigabyte/b550>`                        | `gigabyte-b550`                        |
 | [Gigabyte B650](gigabyte/b650)                                                    | `<nixos-hardware/gigabyte/b650>`                        | `gigabyte-b650`                        |
 | [GMKtec NucBox G3 Plus](gmktec/nucbox/g3-plus)                                    | `<nixos-hardware/gmktec/nucbox/g3-plus>`                | `gmktec-nucbox-g3-plus`                |
+| [GMKtec NucBox K8 Plus](gmktec/nucbox/k8-plus)                                    | `<nixos-hardware/gmktec/nucbox/k8-plus>`                | `gmktec-nucbox-k8-plus`                |
+| [GMKtec NucBox K11](gmktec/nucbox/k11)                                            | `<nixos-hardware/gmktec/nucbox/k11>`                    | `gmktec-nucbox-k11`                    |
 | [GPD MicroPC](gpd/micropc)                                                        | `<nixos-hardware/gpd/micropc>`                          | `gpd-micropc`                          |
 | [GPD P2 Max](gpd/p2-max)                                                          | `<nixos-hardware/gpd/p2-max>`                           | `gpd-p2-max`                           |
 | [GPD Pocket 3](gpd/pocket-3)                                                      | `<nixos-hardware/gpd/pocket-3>`                         | `gpd-pocket-3`                         |
