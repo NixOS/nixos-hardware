@@ -223,6 +223,7 @@ See code for all available configurations.
 | [Framework 13 AMD Ryzen 7040 Series](framework/13-inch/7040-amd)                  | `<nixos-hardware/framework/13-inch/7040-amd>`           | `framework-13-7040-amd`                |
 | [Framework 13 AMD AI 300 Series](framework/13-inch/amd-ai-300-series)             | `<nixos-hardware/framework/13-inch/amd-ai-300-series>`  | `framework-amd-ai-300-series`          |
 | [Framework 12 13th Gen Intel Core](framework/12-inch/13th-gen-intel)              | `<nixos-hardware/framework/12-inch/13th-gen-intel>`     | `framework-12-13th-gen-intel`          |
+| [Framework 12 Intel Core Ultra Series 3](framework/12-inch/intel-ultra-s3)        | `<nixos-hardware/framework/12-inch/intel-ultra-s3>`     | `framework-12-intel-ultra-s3`          |
 | [Framework 16 AMD Ryzen 7040 Series](framework/16-inch/7040-amd)                  | `<nixos-hardware/framework/16-inch/7040-amd>`           | `framework-16-7040-amd`                |
 | [Framework 16 AMD Ryzen AI 300 Series](framework/16-inch/amd-ai-300-series)       | `<nixos-hardware/framework/16-inch/amd-ai-300-series>`  | `framework-16-amd-ai-300-series`       |
 | [FriendlyARM NanoPC-T4](friendlyarm/nanopc-t4)                                    | `<nixos-hardware/friendlyarm/nanopc-t4>`                | `friendlyarm-nanopc-t4`                |
