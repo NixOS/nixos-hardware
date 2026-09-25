@@ -1,6 +1,3 @@
-{ callPackage, linux_7_0, ... }@args:
+{ callPackage, ... }@args:
 
-callPackage ./generic.nix args {
-  kernel = linux_7_0;
-  patchesFile = ./latest.json;
-}
+callPackage ./generic.nix args ./latest.json

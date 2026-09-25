@@ -1,13 +1,13 @@
 {
   lib,
   fetchurl, # fetchpatch does unnecessary normalization
+  buildLinux,
+  linuxKernel,
   ...
 }@args:
 
-{
-  kernel,
-  patchesFile,
-}:
+patchesFile:
+
 let
   inherit (builtins) readFile fromJSON;
 
@@ -23,10 +23,14 @@ let
     }
   ) patchset.patches;
 in
-kernel.override (
-  args
-  // {
+buildLinux (
+  {
     pname = "linux-t2";
+    version = patchset.kernel.version;
+
+    src = fetchurl {
+      inherit (patchset.kernel) url hash;
+    };
 
     structuredExtraConfig = with lib.kernel; {
       APPLE_BCE = module;
@@ -47,9 +51,15 @@ kernel.override (
       STAGING = yes;
     };
 
-    kernelPatches = t2-patches ++ (args.kernelPatches or [ ]);
+    kernelPatches = [
+      # include default patches for good measure
+      linuxKernel.kernelPatches.request_key_helper
+      linuxKernel.kernelPatches.bridge_stp_helper
+    ]
+    ++ t2-patches
+    ++ (args.kernelPatches or [ ]);
 
-    argsOverride.extraMeta = {
+    extraMeta = {
       description = "The Linux kernel (with patches from the T2 Linux project)";
 
       # take responsibility for the downstream kernel
