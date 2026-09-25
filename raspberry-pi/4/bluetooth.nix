@@ -1,42 +1,30 @@
-{ config, lib, ... }:
+{ lib, ... }:
 
-let
-  cfg = config.hardware.raspberry-pi."4".bluetooth;
-in
 {
-  options.hardware = {
-    raspberry-pi."4".bluetooth = {
-      enable = lib.mkEnableOption "configuration for bluetooth";
-    };
-  };
+  imports = [
+    (lib.mkRemovedOptionModule
+      [
+        "hardware"
+        "raspberry-pi"
+        "4"
+        "bluetooth"
+      ]
+      ''
+        Use the firmware device tree instead of the build-time UART pin workaround:
 
-  config = lib.mkIf cfg.enable {
-    hardware.raspberry-pi."4".apply-overlays-dtmerge.enable = lib.mkDefault true;
-    # doesn't work for the CM module, so we exclude e.g. bcm2711-rpi-cm4.dts
-    hardware.deviceTree.filter = "bcm2711-rpi-4*.dtb";
+          {
+            boot.loader.generic-extlinux-compatible.useGenerationDeviceTree = false;
+            hardware.raspberry-pi.configtxt.settings.pi4.dtparam = [ "krnbt=on" ];
+            hardware.bluetooth.enable = true;
+          }
 
-    hardware.deviceTree = {
-      overlays = [
-        {
-          name = "bluetooth-overlay";
-          dtsText = ''
-            /dts-v1/;
-            /plugin/;
+        The firmware configures the Bluetooth UART pins. krnbt enables kernel
+        discovery of the Bluetooth controller.
+        If you use kernel discovery, remove any custom btattach or hciattach service.
 
-            / {
-                compatible = "brcm,bcm2711";
-
-                fragment@0 {
-                    target = <&uart0_pins>;
-                    __overlay__ {
-                            brcm,pins = <30 31 32 33>;
-                            brcm,pull = <2 0 0 2>;
-                    };
-                };
-            };
-          '';
-        }
-      ];
-    };
-  };
+        For firmware installation, read "Device tree overlays" in
+        raspberry-pi/README.md.
+      ''
+    )
+  ];
 }

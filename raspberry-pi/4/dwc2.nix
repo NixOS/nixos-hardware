@@ -26,7 +26,11 @@
 
           { dwc2.dr_mode = "host"; }
 
-        For CM4 and firmware-partition setup, see "DWC2 USB controller" in
+        On CM4, also remove the profile's default XHCI selection:
+
+          hardware.raspberry-pi.configtxt.settings.cm4.otg_mode = null;
+
+        For firmware installation, read "Device tree overlays" in
         raspberry-pi/README.md.
       ''
     )
