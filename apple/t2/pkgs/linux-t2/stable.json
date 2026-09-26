@@ -1,13 +1,22 @@
 {
-  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/facf1c778667c3ef62104949ef64c75ce7e43b0a/",
+  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/9f538c646581ad805d9b4ff8690803306e3899db/",
+  "kernel": {
+    "version": "6.18.54",
+    "url": "mirror://kernel/linux/kernel/v6.x/linux-6.18.54.tar.xz",
+    "hash": "sha256:1b5c7v7vxl27z3xrdnqxgyzdv2b8xy464majpv8bn0l1vl10pwwx"
+  },
   "patches": [
     {
-      "name": "1001-Add-apple-bce-driver.patch",
-      "hash": "sha256-rrL3oVkYeq5ZslnjCQw4hcEK6knsm6U/wp1XnJmQTSA="
+      "name": "1001-Add-t2bce-driver-stack.patch",
+      "hash": "sha256-AtpVVbrg9oGy0rFChlrL6SIN4gPAKxYeq/Ykr+Z5jQw="
     },
     {
-      "name": "1002-Put-apple-bce-in-drivers-staging.patch",
-      "hash": "sha256-deWROYcncl51sOmtvUHM61e5FM1beHbOJVp4iI31LHM="
+      "name": "1002-Integrate-t2bce-driver-stack.patch",
+      "hash": "sha256-mSPoqMuBV7JnQ3OWYcuT1e5U3+SByccmqKwCL5UawYo="
+    },
+    {
+      "name": "1003-Fix-for-6.18.patch",
+      "hash": "sha256-ozJkJFm11oGDW1Gwrp4AR4Ifv9X8Yix6uF9ZBFJ76+M="
     },
     {
       "name": "2008-i915-4-lane-quirk-for-mbp15-1.patch",
@@ -19,7 +28,7 @@
     },
     {
       "name": "3001-applesmc-convert-static-structures-to-drvdata.patch",
-      "hash": "sha256-7KGC0pCos351wKNhwJI/Qoc7w+orOPpiTkdCN50G8nI="
+      "hash": "sha256-c/d+c5eKzhbtfUKtLC7AB+6vMXge4ZzPJAUbNENWH7g="
     },
     {
       "name": "3002-applesmc-make-io-port-base-addr-dynamic.patch",
@@ -55,19 +64,15 @@
     },
     {
       "name": "4001-asahi-trackpad.patch",
-      "hash": "sha256-+YXyIjtlVrLo8allTO3M1A+xold5FUXaZ8dwD2j5HDc="
+      "hash": "sha256-2h3TdPsX9HBXx5jkZ2S2GJkjFcdL8vKD1G69iqd9IWg="
     },
     {
       "name": "4003-HID-apple-ignore-the-trackpad-on-T2-Macs.patch",
-      "hash": "sha256-T2tYcFLeWUdx6QawANe3ZNVSRxmo1IdPiSpGLQk4IDY="
+      "hash": "sha256-LLZzcysLTuQrSXWXbdq7AASxfMInQoqpWzRNZAKws9k="
     },
     {
       "name": "4004-HID-magicmouse-Add-support-for-trackpads-found-on-T2.patch",
-      "hash": "sha256-ubchCEv1BZ7t/zkI9DpHA4gUln9cdu4yHzVJI2TNlS0="
-    },
-    {
-      "name": "4005-HID-magicmouse-fix-regression-breaking-support-for-M.patch",
-      "hash": "sha256-oT+3AeETnKfzblxtcTD18c61BKoD9yAsga0AL3R8u7k="
+      "hash": "sha256-kUnbtl/54cihscirl9kP0Gsot7bdP0rYKlj6gQ10hk0="
     },
     {
       "name": "5001-HID-appletb-kbd-add-option-to-switch-default-layer-o.patch",
@@ -78,8 +83,12 @@
       "hash": "sha256-/EKN7JsAxcpAgfJFtPp2NLYaGqQ0kl8wjJEXifSzJpY="
     },
     {
+      "name": "7002-drm-amdgpu-reset-VI-ASIC-on-MacBookPro15-1.patch",
+      "hash": "sha256-lLruG4lJAI6fI94w2LzHmrbspXArrq+rbI/SJmhwXqo="
+    },
+    {
       "name": "8001-Add-APFS-driver.patch",
-      "hash": "sha256-2By3Zlg/i5rUUJDlWc6JoiqapUnbVplk2lHzDhvAhzI="
+      "hash": "sha256-fL9TftzTd5PurxIDrzaPsysGExrMySGOsm6H8NFd7JY="
     },
     {
       "name": "8002-Necessary-modifications-to-build-APFS-with-the-kerne.patch",
