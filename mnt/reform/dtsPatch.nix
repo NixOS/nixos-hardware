@@ -41,8 +41,8 @@ stdenv.mkDerivation {
     cp rk3588-mnt-reform2-dsi.dts linux/arch/arm64/boot/dts/rockchip/rk3588-mnt-reform2-dsi.dts
     env --chdir=linux QUILT_PATCHES=debian/patches quilt add arch/arm64/boot/dts/rockchip/rk3588-mnt-pocket-reform.dts
     cp rk3588-mnt-pocket-reform.dts linux/arch/arm64/boot/dts/rockchip/rk3588-mnt-pocket-reform.dts
-    env --chdir=linux QUILT_PATCHES=debian/patches quilt add arch/arm64/boot/dts/rockchip/rk3588-mnt-desktop-reform.dts
-    cp rk3588-mnt-desktop-reform.dts linux/arch/arm64/boot/dts/rockchip/rk3588-mnt-desktop-reform.dts
+    env --chdir=linux QUILT_PATCHES=debian/patches quilt add arch/arm64/boot/dts/rockchip/rk3588-mnt-station.dts
+    cp rk3588-mnt-station.dts linux/arch/arm64/boot/dts/rockchip/rk3588-mnt-station.dts
     env --chdir=linux QUILT_PATCHES=debian/patches quilt add arch/arm64/boot/dts/rockchip/rk3588-mnt-reform-next.dts
     cp rk3588-mnt-reform-next.dts linux/arch/arm64/boot/dts/rockchip/rk3588-mnt-reform-next.dts
 
@@ -50,8 +50,30 @@ stdenv.mkDerivation {
     sed -i '/rk3588-mnt-reform2.dtb/a dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-mnt-reform2-dsi.dtb' linux/arch/arm64/boot/dts/rockchip/Makefile
     sed -i '/rk3588-mnt-reform2-dsi.dtb/a dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-mnt-reform-next.dtb' linux/arch/arm64/boot/dts/rockchip/Makefile
     sed -i '/rk3588-mnt-reform2-dsi.dtb/a dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-mnt-pocket-reform.dtb' linux/arch/arm64/boot/dts/rockchip/Makefile
-    sed -i '/rk3588-mnt-pocket-reform.dtb/a dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-mnt-desktop-reform.dtb' linux/arch/arm64/boot/dts/rockchip/Makefile
+    sed -i '/rk3588-mnt-pocket-reform.dtb/a dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-mnt-station.dtb' linux/arch/arm64/boot/dts/rockchip/Makefile
     sed -i '/rk3588-mnt-pocket-reform.dtb/a dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-mnt-reform-next.dtb' linux/arch/arm64/boot/dts/rockchip/Makefile
+
+    env --chdir=linux QUILT_PATCHES=debian/patches quilt add arch/arm64/boot/dts/qcom/qcs6490-mnt-quasar.dtsi
+    env --chdir=linux QUILT_PATCHES=debian/patches quilt add arch/arm64/boot/dts/qcom/qcs6490-mnt-reform2.dts
+    env --chdir=linux QUILT_PATCHES=debian/patches quilt add arch/arm64/boot/dts/qcom/qcs6490-mnt-pocket-reform.dts
+    env --chdir=linux QUILT_PATCHES=debian/patches quilt add arch/arm64/boot/dts/qcom/qcs6490-mnt-reform-next.dts
+    env --chdir=linux QUILT_PATCHES=debian/patches quilt add arch/arm64/boot/dts/qcom/qcs8550-mnt-reform2.dts
+    env --chdir=linux QUILT_PATCHES=debian/patches quilt add arch/arm64/boot/dts/qcom/qcs8550-mnt-pocket-reform.dts
+    env --chdir=linux QUILT_PATCHES=debian/patches quilt add arch/arm64/boot/dts/qcom/qcs8550-mnt-reform-next.dts
+    cp qcs6490-mnt-quasar.dtsi linux/arch/arm64/boot/dts/qcom/qcs6490-mnt-quasar.dtsi
+    cp qcs6490-mnt-reform2.dts linux/arch/arm64/boot/dts/qcom/qcs6490-mnt-reform2.dts
+    cp qcs6490-mnt-pocket-reform.dts linux/arch/arm64/boot/dts/qcom/qcs6490-mnt-pocket-reform.dts
+    cp qcs6490-mnt-reform-next.dts linux/arch/arm64/boot/dts/qcom/qcs6490-mnt-reform-next.dts
+    cp qcs8550-mnt-reform2.dts linux/arch/arm64/boot/dts/qcom/qcs8550-mnt-reform2.dts
+    cp qcs8550-mnt-pocket-reform.dts linux/arch/arm64/boot/dts/qcom/qcs8550-mnt-pocket-reform.dts
+    cp qcs8550-mnt-reform-next.dts linux/arch/arm64/boot/dts/qcom/qcs8550-mnt-reform-next.dts
+    env --chdir=linux QUILT_PATCHES=debian/patches quilt add arch/arm64/boot/dts/qcom/Makefile
+    sed -i '/qcs6490-rb3gen2-vision-mezzanine.dtb/a dtb-$(CONFIG_ARCH_QCOM) += qcs6490-mnt-reform2.dtb' linux/arch/arm64/boot/dts/qcom/Makefile
+    sed -i '/qcs6490-rb3gen2-vision-mezzanine.dtb/a dtb-$(CONFIG_ARCH_QCOM) += qcs6490-mnt-pocket-reform.dtb' linux/arch/arm64/boot/dts/qcom/Makefile
+    sed -i '/qcs6490-rb3gen2-vision-mezzanine.dtb/a dtb-$(CONFIG_ARCH_QCOM) += qcs6490-mnt-reform-next.dtb' linux/arch/arm64/boot/dts/qcom/Makefile
+    sed -i '/qcs8550-aim300-aiot.dtb/a dtb-$(CONFIG_ARCH_QCOM) += qcs8550-mnt-reform2.dtb' linux/arch/arm64/boot/dts/qcom/Makefile
+    sed -i '/qcs8550-aim300-aiot.dtb/a dtb-$(CONFIG_ARCH_QCOM) += qcs8550-mnt-pocket-reform.dtb' linux/arch/arm64/boot/dts/qcom/Makefile
+    sed -i '/qcs8550-aim300-aiot.dtb/a dtb-$(CONFIG_ARCH_QCOM) += qcs8550-mnt-reform-next.dtb' linux/arch/arm64/boot/dts/qcom/Makefile
 
     env --chdir=linux QUILT_PATCHES=debian/patches quilt refresh
     cp linux/debian/patches/reform/dts.patch $out
