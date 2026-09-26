@@ -1,0 +1,12 @@
+diff --git a/drivers/memory/eswin/es_dev_buf/Makefile b/drivers/memory/eswin/es_dev_buf/Makefile
+index 3ba183ff62bd..3c65ec4c1fae 100644
+--- a/drivers/memory/eswin/es_dev_buf/Makefile
++++ b/drivers/memory/eswin/es_dev_buf/Makefile
+@@ -1,5 +1,5 @@
+ obj-$(CONFIG_ESWIN_DEV_DMA_BUF) += es_dev_buf.o
+ 
+-ES_DEV_DMA_BUF_HEADER := drivers/memory/eswin/es_dev_buf/include/linux
+-COPY_HEADERS:=$(shell cp $(ES_DEV_DMA_BUF_HEADER)/*.h include/linux)
++ES_DEV_DMA_BUF_HEADER := $(srctree)/drivers/memory/eswin/es_dev_buf/include/linux
++COPY_HEADERS:=$(shell cp $(ES_DEV_DMA_BUF_HEADER)/*.h $(srctree)/include/linux)
+ 
