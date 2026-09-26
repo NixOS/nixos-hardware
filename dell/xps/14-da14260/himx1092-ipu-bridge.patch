@@ -1,0 +1,28 @@
+Add the Himax HM1092 IR sensor to ipu-bridge's supported-sensor table.
+
+Without an entry here ipu-bridge builds no software node for the sensor, so the
+IR camera never enumerates and the hm1092 driver has nothing to bind to.
+
+Backported verbatim from mainline commit 4fdb0342f05e ("media: ipu-bridge: Add
+Himax HM1092 IR sensor", 2026-07-30), which landed after the v7.2 tag. Verified
+to apply cleanly at v7.1 and v7.2, and to be already present on master.
+
+The 2 is nr_link_freqs, not a lane count -- this sensor is single-lane. Both
+values are DDR clocks, for the two EXTCLK variants upstream documents: 180480000
+on Dell (19.2 MHz) and 180000000 on ASUS (24 MHz). This sensor's driver selects
+180480000.
+
+Upstream status: merged (mainline master). Drop this patch once the profile's
+kernel carries the entry itself, i.e. the release after 7.2.
+
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -49,6 +49,8 @@
+  * Please keep the list sorted by ACPI HID.
+  */
+ static const struct ipu_sensor_config ipu_supported_sensors[] = {
++	/* Himax HM1092 */
++	IPU_SENSOR_CONFIG("HIMX1092", 2, 180000000, 180480000),
+ 	/* Himax HM11B1 */
+ 	IPU_SENSOR_CONFIG("HIMX11B1", 1, 384000000),
+ 	/* Himax HM2170 */
