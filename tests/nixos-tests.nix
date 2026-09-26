@@ -25,6 +25,8 @@ let
     "nxp-imx8mq-evk"
     "nxp-imx8qm-mek"
     "nxp-imx93-evk"
+    "qnap-ts-233"
+    "qnap-ts-433"
     "ucm-imx95"
   ];
 
