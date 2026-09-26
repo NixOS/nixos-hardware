@@ -1,0 +1,19 @@
+diff --git a/ucm2/PinePhonePro/PinePhonePro.conf b/ucm2/PinePhonePro/PinePhonePro.conf
+index 18b544a..c333958 100644
+--- a/ucm2/PinePhonePro/PinePhonePro.conf
++++ b/ucm2/PinePhonePro/PinePhonePro.conf
+@@ -2,12 +2,12 @@ Syntax 4
+ Comment "PinePhone Pro"
+ 
+ SectionUseCase."HiFi" {
+-	File "HiFi.conf"
++	File "/PinePhonePro/HiFi.conf"
+ 	Comment "Default"
+ }
+ 
+ SectionUseCase."Voice Call" {
+-	File "VoiceCall.conf"
++	File "/PinePhonePro/VoiceCall.conf"
+ 	Comment "Phone call"
+ }
+ 
