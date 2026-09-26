@@ -9,7 +9,7 @@
   lib,
   pkgs,
   ...
-# TODO: drop this if linux 6.11 goes EOL
+  # TODO: drop this if linux 6.11 goes EOL
 }:
 with lib;
 mkIf

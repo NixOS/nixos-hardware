@@ -1,6 +1,6 @@
 {
   imports = [
-    ./ppt.nix
+    ../../../ppt.nix
     ./power-saving.nix
   ];
 }

@@ -9,6 +9,10 @@ let
   cfg = config.hardware.gpd.ppt;
 in
 {
+  # Linux default PPT is 24-22-22, BIOS default PPT is 35-32-28. It can be controlled by ryzenadj.
+
+  # NOTICE: Whenever you can limit PPT to 15W by pressing Fn + Shift to enter quiet mode.
+
   options.hardware.gpd.ppt = {
     enable = mkEnableOption "Enable PPT control for device by ryzenadj." // {
       # Default increase PPT to the BIOS default when power adapter plugin to increase performance.
