@@ -5,27 +5,27 @@
   ...
 }:
 let
-  cfg = config.hardware.framework.laptop13.audioEnhancement;
+  cfg = config.hardware.gpd.duo.audioEnhancement;
 in
+with lib;
 {
   options = {
-    hardware.framework.laptop13.audioEnhancement = {
-      enable = lib.mkOption {
-        type = lib.types.bool;
+    hardware.gpd.duo.audioEnhancement = {
+      enable = mkOption {
+        type = types.bool;
         default = false;
         description = ''
-          Create a new audio device called "Framework Speakers",
+          Create a new audio device called "DUO Speakers",
           which applies sound tuning before sending the audio out to the speakers.
           This option requires PipeWire and WirePlumber.
 
           The filter chain includes the following:
-            - Psychoacoustic bass enhancement
+            - Pyschoacoustic bass enhancement
             - Loudness compensation
             - Equalizer
             - Slight compression
 
-          This option has been optimised for the classic Framework Laptop 13 chassis/speakers.
-          Framework Laptop 13 Pro needs different tuning.
+          This option has been optimised for the Framework Laptop 13 AMD 7040 series, but should work on all models.
 
           Before applying, ensure the speakers are set to 100%,
           because the volumes compound and the raw speaker device will be hidden by default.
@@ -37,8 +37,8 @@ in
         '';
       };
 
-      hideRawDevice = lib.mkOption {
-        type = lib.types.bool;
+      hideRawDevice = mkOption {
+        type = types.bool;
         default = true;
         description = ''
           Hide the raw speaker device.
@@ -46,8 +46,8 @@ in
         '';
       };
 
-      rawDeviceName = lib.mkOption {
-        type = lib.types.str;
+      rawDeviceName = mkOption {
+        type = types.str;
         example = "alsa_output.pci-0000_c1_00.6.analog-stereo";
         description = ''
           The name of the raw speaker device. This will vary by device.
@@ -57,10 +57,10 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable (
+  config = mkIf cfg.enable (
     let
       outputName = cfg.rawDeviceName;
-      prettyName = "Framework Speakers";
+      prettyName = "Duo Speakers";
 
       # These are pre-made decibel to linear value conversions, since Nix doesn't have pow().
       # Use the formula `10 ** (db / 20)` to calculate.
@@ -315,11 +315,12 @@ in
           "device.api" = "dsp";
           "node.virtual" = "false";
 
-          # 1009 is the default priority of the "first" analog audio device.
-          # Higher priorities (e.g., 1010 for bluetooth and 1100 for usb audio)
-          # are preferred.
-          "priority.session" = 1009;
-          "priority.driver" = 1009;
+          # Lower seems to mean "more preferred",
+          # bluetooth devices seem to be ~1000, speakers seem to be ~2000
+          # since this is between the two, bluetooth devices take over when they connect,
+          # and hand over to this instead of the speakers when they disconnect.
+          "priority.session" = 1500;
+          "priority.driver" = 1500;
           "state.default-volume" = 0.343;
           "device.icon-name" = "audio-card-analog-pci";
         };
@@ -363,7 +364,7 @@ in
               actions = {
                 create-filter = {
                   filter-path = "${filter-chain}"
-                  hide-parent = ${lib.boolToString cfg.hideRawDevice}
+                  hide-parent = ${boolToString cfg.hideRawDevice}
                 }
               }
             }
@@ -384,7 +385,7 @@ in
       services.pipewire.wireplumber.configPackages = [ configPackage ];
 
       # Pipewire is needed for this.
-      services.pipewire.enable = lib.mkDefault true;
+      services.pipewire.enable = mkDefault true;
     }
   );
 }
