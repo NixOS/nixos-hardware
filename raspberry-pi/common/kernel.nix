@@ -10,9 +10,9 @@
 
 let
   # NOTE: raspberryPiWirelessFirmware should be updated with this
-  modDirVersion = "6.18.39";
-  tag = "stable_20260724";
-  hash = "sha256-IT/SkF458oLmnFIPbN76Qp6s8KVxKQOC02XmN7NRdBc=";
+  modDirVersion = "6.18.50";
+  tag = "stable_20260911";
+  hash = "sha256-rIYYt4AzTZnZO1v8Gv6byJFXm4gQDlColgRSu09/9F4=";
   inherit (lib.kernel) freeform yes no;
 in
 (buildLinux (
