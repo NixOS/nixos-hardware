@@ -6,7 +6,6 @@ in
 {
   imports = [
     ../../../common/cpu/amd/raphael/igpu.nix
-    ./bluetooth.nix
     ./amd.nix
     ./audio.nix
     ./power
