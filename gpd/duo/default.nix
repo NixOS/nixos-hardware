@@ -42,9 +42,6 @@ with lib;
           ACTION=="add", SUBSYSTEM=="serio", DRIVERS=="atkbd", ATTR{power/wakeup}="disabled"
         '';
 
-    # Replace 'left' with 'right' or 'inverted' as needed
-    # Fixes DUO stupid inverted display at boot
-    # Enable kernel module for your graphics (adjust if needed)
     boot.kernelModules = [ "amdgpu" ];
 
     # Set the eDP-1 panel video parameters for display rotation

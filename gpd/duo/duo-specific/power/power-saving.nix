@@ -6,7 +6,6 @@ in
 {
   options.hardware.gpd.duo.powerManagement = {
     enable = mkEnableOption "Enable power-profiles-daemon and disable TLP for the GPD Duo" // {
-      # Default increase PPT to the BIOS default when power adapter plugin to increase performance.
       default = true;
     };
   };
