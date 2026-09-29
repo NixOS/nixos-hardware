@@ -52,6 +52,6 @@ with lib;
     ];
 
     hardware.gpd.duo.audioEnhancement.rawDeviceName =
-      mkDefault "alsa_output.pci-0000_c1_00.6.analog-stereo";
+      mkDefault "alsa_output.pci-0000_c6_00.6.analog-stereo";
   };
 }
