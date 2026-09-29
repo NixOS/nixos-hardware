@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, ... }:
 with lib;
 let
   hasGpdFan = versionAtLeast config.boot.kernelPackages.kernel.version "6.18";
@@ -16,12 +11,6 @@ in
     ./audio.nix
     ./power
   ];
-
-  # Fix TRRS headphones missing a mic
-  # https://community.frame.work/t/headset-microphone-on-linux/12387/3
-  boot.extraModprobeConfig = mkIf (versionOlder pkgs.linux.version "6.6.8") ''
-    options snd-hda-intel model=dell-headset-multi
-  '';
 
   # gpd_fan was merged into mainline in Linux 6.18: https://docs.kernel.org/hwmon/gpd-fan.html
   boot.initrd.kernelModules = mkIf hasGpdFan [ "gpd_fan" ];
