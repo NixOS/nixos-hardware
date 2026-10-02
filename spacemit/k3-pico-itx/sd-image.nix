@@ -33,7 +33,7 @@
   image.fileName = "${config.image.baseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}-k3-pico-itx.img";
 
   sdImage = {
-    expandOnBoot = false;
+    expandOnBoot = true;
     firmwarePartitionOffset = 12;
     firmwarePartitionName = "ESP";
     firmwareSize = 256;
@@ -84,13 +84,13 @@
     populateRootCommands = "";
 
     postBuildCommands = ''
-      eval $(${pkgs.util-linux}/bin/partx $img -o START,SECTORS --nr 2 --pairs)
+      eval $(${pkgs.buildPackages.util-linux}/bin/partx $img -o START,SECTORS --nr 2 --pairs)
       ROOTFS_START=$START
       ROOTFS_SECTORS=$SECTORS
 
       truncate -s '+2M' $img
 
-      ${pkgs.util-linux}/bin/sfdisk $img <<EOF
+      ${pkgs.buildPackages.util-linux}/bin/sfdisk $img <<EOF
           label: gpt
           unit: sectors
           sector-size: 512

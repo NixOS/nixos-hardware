@@ -1,0 +1,171 @@
+From git@z Thu Jan  1 00:00:00 1970
+Subject: [PATCH 4/5] dt-bindings: pci: spacemit: Introduce Spacemit K3 PCIe
+ host controller
+From: Inochi Amaoto <inochiama@gmail.com>
+Date: Sat, 02 May 2026 18:13:17 +0800
+Message-Id: <20260502101319.2364052-5-inochiama@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Add binding support for the PCIe controller on the SpacemiT K3 SoC.
+This controller is almost a standard Synopsys Designware PCIe IP,
+with some extra link and reset state control.
+
+Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+---
+ .../bindings/pci/spacemit,k3-pcie-host.yaml   | 142 ++++++++++++++++++
+ 1 file changed, 142 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/pci/spacemit,k3-pcie-host.yaml
+
+diff --git a/Documentation/devicetree/bindings/pci/spacemit,k3-pcie-host.yaml b/Documentation/devicetree/bindings/pci/spacemit,k3-pcie-host.yaml
+new file mode 100644
+index 000000000000..be2641526b19
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pci/spacemit,k3-pcie-host.yaml
+@@ -0,0 +1,142 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pci/spacemit,k3-pcie-host.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: SpacemiT K3 PCI Express Host Controller
++
++maintainers:
++  - Inochi Amaoto <inochiama@gmail.com>
++
++description:
++  The SpacemiT K3 SoC PCIe host controller is based on the Synopsys
++  DesignWare PCIe IP.  The controller uses the external MSI interrupt
++  controller.
++
++allOf:
++  - $ref: /schemas/pci/pci-host-bridge.yaml#
++  - $ref: /schemas/pci/snps,dw-pcie.yaml#
++
++properties:
++  compatible:
++    const: spacemit,k3-pcie
++
++  reg:
++    items:
++      - description: DesignWare PCIe registers
++      - description: Data Bus Interface (DBI) shadow registers
++      - description: ATU address space
++      - description: PCIe configuration space
++      - description: Link control registers
++
++  reg-names:
++    items:
++      - const: dbi
++      - const: dbi2
++      - const: atu
++      - const: config
++      - const: link
++
++  clocks:
++    items:
++      - description: DWC PCIe Data Bus Interface (DBI) clock
++      - description: DWC PCIe application AXI-bus master interface clock
++      - description: DWC PCIe application AXI-bus slave interface clock
++
++  clock-names:
++    items:
++      - const: dbi
++      - const: mstr
++      - const: slv
++
++  resets:
++    items:
++      - description: DWC PCIe Data Bus Interface (DBI) reset
++      - description: DWC PCIe application AXI-bus master interface reset
++      - description: DWC PCIe application AXI-bus slave interface reset
++
++  reset-names:
++    items:
++      - const: dbi
++      - const: mstr
++      - const: slv
++
++  interrupts:
++    items:
++      - description: Interrupt used for port state
++
++  interrupt-names:
++    const: app
++
++  msi-parent: true
++
++  phys:
++    minItems: 1
++    maxItems: 6
++
++  phy-names:
++    minItems: 1
++    maxItems: 6
++
++  spacemit,apmu:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    description:
++      A phandle that refers to the APMU system controller, whose regmap is
++      used in managing resets and link state, along with and offset of its
++      reset control register.
++    items:
++      - items:
++          - description: phandle to APMU system controller
++          - description: register offset
++
++required:
++  - clocks
++  - clock-names
++  - resets
++  - reset-names
++  - interrupts
++  - interrupt-names
++  - msi-parent
++  - spacemit,apmu
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    soc {
++      #address-cells = <2>;
++      #size-cells = <2>;
++
++      pcie@80000000 {
++        compatible = "spacemit,k3-pcie";
++        reg = <0x0  0x80000000 0x0 0x00001000>,
++              <0x0  0x80100000 0x0 0x00001000>,
++              <0x0  0x80300000 0x0 0x00003f20>,
++              <0x11 0x00000000 0x0 0x00010000>,
++              <0x0  0x82900000 0x0 0x00001000>;
++        reg-names = "dbi", "dbi2", "atu", "config", "link";
++        device_type = "pci";
++        #address-cells = <3>;
++        #size-cells = <2>;
++        clocks = <&syscon_apmu 89>,
++                 <&syscon_apmu 56>,
++                 <&syscon_apmu 57>;
++        clock-names = "dbi", "mstr", "slv";
++        interrupts = <141 IRQ_TYPE_LEVEL_HIGH>;
++        interrupt-names = "app";
++        msi-parent = <&simsic>;
++        ranges = <0x01000000 0x00 0x00010000 0x11 0x00010000 0x0 0x00100000>,
++                 <0x02000000 0x0  0x00110000 0x11 0x00110000 0x0 0x7fef0000>,
++                 <0x43000000 0x18 0x00000000 0x18 0x00000000 0x1 0x00000000>;
++        resets = <&syscon_apmu 76>,
++                 <&syscon_apmu 78>,
++                 <&syscon_apmu 77>;
++        reset-names = "dbi", "mstr", "slv";
++        linux,pci-domain = <0>;
++        spacemit,apmu = <&syscon_apmu 0x1f0>;
++      };
++    };
++
+-- 
+2.54.0
+

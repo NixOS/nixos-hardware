@@ -138,6 +138,7 @@
           dell-precision-5530 = import ./dell/precision/5530;
           dell-precision-5560 = import ./dell/precision/5560;
           dell-precision-5570 = import ./dell/precision/5570;
+          dell-precision-5820 = import ./dell/precision/5820;
           dell-precision-7520 = import ./dell/precision/7520;
           dell-xps-13-7390 = import ./dell/xps/13-7390;
           dell-xps-13-9300 = import ./dell/xps/13-9300;
@@ -193,6 +194,7 @@
           google-pixelbook = import ./google/pixelbook;
           google-brya = import ./google/brya;
           google-rex = import ./google/rex;
+          gpd-duo = import ./gpd/duo;
           gpd-micropc = import ./gpd/micropc;
           gpd-p2-max = import ./gpd/p2-max;
           gpd-pocket-3 = import ./gpd/pocket-3;
@@ -265,6 +267,8 @@
           lenovo-thinkpad-l480 = import ./lenovo/thinkpad/l480;
           lenovo-thinkpad-p1 = import ./lenovo/thinkpad/p1;
           lenovo-thinkpad-p1-gen3 = import ./lenovo/thinkpad/p1/3th-gen;
+          lenovo-thinkpad-p1-gen5 = import ./lenovo/thinkpad/p1/gen5;
+          lenovo-thinkpad-p1-gen5-nvidia = import ./lenovo/thinkpad/p1/gen5/nvidia;
           lenovo-thinkpad-p14s-amd-gen1 = import ./lenovo/thinkpad/p14s/amd/gen1;
           lenovo-thinkpad-p14s-amd-gen2 = import ./lenovo/thinkpad/p14s/amd/gen2;
           lenovo-thinkpad-p14s-amd-gen3 = import ./lenovo/thinkpad/p14s/amd/gen3;
@@ -552,6 +556,9 @@
         in
         pkgs.lib.optionalAttrs (self.formatter ? ${system}) {
           formatting = treefmtEval.config.build.check self;
+        }
+        // {
+          raspberry-pi-config-txt = pkgs.callPackage ./tests/config-txt-tests.nix { };
         }
         // nixosTests
       );
