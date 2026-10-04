@@ -11,5 +11,5 @@ in
 runCommand "mnt-reform-kernel-patches" { } ''
   shopt -s globstar
   cd ${reformDebianPackages}
-  echo "[ $(printf '"%s"' linux/patches${lib.versions.majorMinor sources.modDirVersion}/**/*.patch) ]" > $out
+  echo -e "[\n$(printf '  "%s"\n' linux/patches${lib.versions.majorMinor sources.modDirVersion}/**/*.patch)\n]"> $out
 ''
