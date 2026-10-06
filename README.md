@@ -233,6 +233,7 @@ See code for all available configurations.
 | [Gigabyte B550](gigabyte/b550)                                                    | `<nixos-hardware/gigabyte/b550>`                        | `gigabyte-b550`                        |
 | [Gigabyte B650](gigabyte/b650)                                                    | `<nixos-hardware/gigabyte/b650>`                        | `gigabyte-b650`                        |
 | [GMKtec NucBox G3 Plus](gmktec/nucbox/g3-plus)                                    | `<nixos-hardware/gmktec/nucbox/g3-plus>`                | `gmktec-nucbox-g3-plus`                |
+| [GPD Duo](gpd/duo)                                                                | `<nixos-hardware/gpd/duo>`                              | `gpd-duo`                         |
 | [GPD MicroPC](gpd/micropc)                                                        | `<nixos-hardware/gpd/micropc>`                          | `gpd-micropc`                          |
 | [GPD P2 Max](gpd/p2-max)                                                          | `<nixos-hardware/gpd/p2-max>`                           | `gpd-p2-max`                           |
 | [GPD Pocket 3](gpd/pocket-3)                                                      | `<nixos-hardware/gpd/pocket-3>`                         | `gpd-pocket-3`                         |
@@ -307,6 +308,8 @@ See code for all available configurations.
 | [Lenovo ThinkPad L14 (Intel)](lenovo/thinkpad/l14/intel)                          | `<nixos-hardware/lenovo/thinkpad/l14/intel>`            | `lenovo-thinkpad-l14-intel`            |
 | [Lenovo ThinkPad L480](lenovo/thinkpad/l480)                                      | `<nixos-hardware/lenovo/thinkpad/l480>`                 | `lenovo-thinkpad-l480`                 |
 | [Lenovo ThinkPad P1 Gen 3](lenovo/thinkpad/p1/3th-gen)                            | `<nixos-hardware/lenovo/thinkpad/p1/3th-gen>`           | `lenovo-thinkpad-p1-gen3`              |
+| [Lenovo ThinkPad P1 Gen 5](lenovo/thinkpad/p1/gen5)                               | `<nixos-hardware/lenovo/thinkpad/p1/gen5>`              | `lenovo-thinkpad-p1-gen5`              |
+| [Lenovo ThinkPad P1 Gen 5 (Nvidia)](lenovo/thinkpad/p1/gen5/nvidia)               | `<nixos-hardware/lenovo/thinkpad/p1/gen5/nvidia>`       | `lenovo-thinkpad-p1-gen5-nvidia`       |
 | [Lenovo ThinkPad P14s AMD Gen 1](lenovo/thinkpad/p14s/amd/gen1)                   | `<nixos-hardware/lenovo/thinkpad/p14s/amd/gen1>`        | `lenovo-thinkpad-p14s-amd-gen1`        |
 | [Lenovo ThinkPad P14s AMD Gen 2](lenovo/thinkpad/p14s/amd/gen2)                   | `<nixos-hardware/lenovo/thinkpad/p14s/amd/gen2>`        | `lenovo-thinkpad-p14s-amd-gen2`        |
 | [Lenovo ThinkPad P14s AMD Gen 3](lenovo/thinkpad/p14s/amd/gen3)                   | `<nixos-hardware/lenovo/thinkpad/p14s/amd/gen3>`        | `lenovo-thinkpad-p14s-amd-gen3`        |
