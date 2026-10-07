@@ -506,8 +506,6 @@
           run-tests = pkgs.callPackage ./tests/run-tests.nix {
             inherit self;
           };
-
-          mnt-reform-kernel-patches = pkgs.callPackage ./mnt/reform/updateKernelPatches.nix { };
         }
         // pkgs.lib.optionalAttrs (system == "aarch64-linux") {
           # Boot images for NXP i.MX boards (aarch64-linux only)
