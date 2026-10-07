@@ -426,6 +426,10 @@
           rock-5b = import ./radxa/rock-5b;
           rock-pi-4 = import ./radxa/rock-pi-4;
           rock-pi-e = import ./radxa/rock-pi-e;
+          rockchip-rk3328 = import ./rockchip/rk3328;
+          rockchip-rk3399 = import ./rockchip/rk3399;
+          rockchip-rk3566 = import ./rockchip/rk3566;
+          rockchip-rk3588 = import ./rockchip/rk3588;
           kobol-helios4 = import ./kobol/helios4;
           samsung-np900x3c = import ./samsung/np900x3c;
           slimbook-hero-rpl-rtx = import ./slimbook/hero/rpl-rtx;
