@@ -6,7 +6,7 @@
     ../../../../../common/cpu/amd/pstate.nix
   ];
 
-  # Embedded controller wake-ups drain battery in s2idle on this device
-  # See https://lore.kernel.org/all/ZnFYpWHJ5Ml724Nv@ohnotp/
-  boot.kernelParams = [ "acpi.ec_no_wakeup=1" ];
+  # Prevent the integrated RGB camera from dying during suspend.
+  # This issue was observed on Linux 6.18.38.
+  boot.kernelParams = [ "usbcore.quirks=30c9:00f4:b" ];
 }
