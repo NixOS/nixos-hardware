@@ -23,7 +23,7 @@
         For controller selection, see:
         https://www.raspberrypi.com/documentation/computers/config_txt.html#otg_mode
 
-        For firmware installation and USB configuration, read "DWC2 USB controller"
+        For the complete configuration, read "DWC2" and "Firmware boot configuration"
         in raspberry-pi/README.md.
       ''
     )
