@@ -1,49 +1,41 @@
-{ config, lib, ... }:
+{ lib, ... }:
 
-let
-  cfg = config.hardware.raspberry-pi."4".backlight;
-in
 {
-  options.hardware = {
-    raspberry-pi."4".backlight = {
-      enable = lib.mkEnableOption "the backlight support for the Raspberry Pi official Touch Display";
-    };
-  };
+  imports = [
+    (lib.mkRemovedOptionModule
+      [
+        "hardware"
+        "raspberry-pi"
+        "4"
+        "backlight"
+      ]
+      ''
+        If hardware.raspberry-pi."4".backlight.enable was false, remove the old backlight configuration.
+        If it was true, use rpi-backlight for the legacy firmware-controlled display:
 
-  config = lib.mkIf cfg.enable {
-    hardware.deviceTree = {
-      overlays = [
-        # This overlay was originally taken from:
-        # https://github.com/raspberrypi/linux/blob/rpi-6.1.y/arch/arm/boot/dts/overlays/rpi-backlight-overlay.dts
-        # The only modification made was to change the compatible field to bcm2711
-        # this is the same as for the 5.15.y kernel
-        {
-          name = "rpi-backlight-overlay";
-          dtsText = ''
-            /*
-             * Devicetree overlay for mailbox-driven Raspberry Pi DSI Display
-             * backlight controller
-             */
-            /dts-v1/;
-            /plugin/;
-
-            / {
-              compatible = "brcm,bcm2711";
-
-              fragment@0 {
-                target-path = "/";
-                __overlay__ {
-                  rpi_backlight: rpi_backlight {
-                    compatible = "raspberrypi,rpi-backlight";
-                    firmware = <&firmware>;
-                    status = "okay";
-                  };
-                };
-              };
+          {
+            boot.loader.generic-extlinux-compatible.useGenerationDeviceTree = false;
+            hardware.raspberry-pi.configtxt = {
+              settings.pi4.display_auto_detect = false;
+              deviceTreeOverlays.all = [ ];
+              deviceTreeOverlays.pi4 = [ { rpi-backlight = { }; } ];
             };
-          '';
-        }
-      ];
-    };
-  };
+          }
+
+        The [ ] value for hardware.raspberry-pi.configtxt.deviceTreeOverlays.all
+        removes the shared default vc4-kms-v3d overlay.
+        Remove any explicitly configured KMS display overlays too.
+        Do not use this firmware backlight driver for a KMS-controlled panel.
+
+        The stock firmware package still supplies rpi-backlight.
+        Its overlay uses the same firmware backlight driver as the removed module:
+        https://github.com/raspberrypi/linux/blob/e165a3e0c5c6729d077c30c6d720c029d688d99d/arch/arm/boot/dts/overlays/rpi-backlight-overlay.dts
+
+        For firmware installation and migration guidance, read "Device tree overlays"
+        and "Migrating Pi 4 options" in raspberry-pi/README.md.
+        For display configuration, see:
+        https://www.raspberrypi.com/documentation/accessories/display.html
+      ''
+    )
+  ];
 }

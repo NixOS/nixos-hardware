@@ -7,7 +7,7 @@ NixOS profiles and modules for Raspberry Pi boards.
 - `common/` has the shared bits: the `linux-rpi` kernel build (vendor defconfig, matching firmware), the `config.txt` generation module, a pinned wireless firmware, and the firmware-partition install module.
 - The feature modules under `common/` configure audio, Bluetooth, DWC2, I2C, and legacy FKMS.
 - `2/`, `3/`, `4/`, `5/` are the board profiles. Each one picks the right kernel and kernel params. Pi 4 and 5 also set DT filters and the initrd modules they need.
-- `4/gpio.nix` controls GPIO permissions. The other files under `4/` contain legacy options and support for custom DT merges.
+- `4/gpio.nix` controls GPIO permissions. The other files under `4/` include rename warnings, migration messages, and support for custom DT merges.
 
 ## Using a board profile
 
