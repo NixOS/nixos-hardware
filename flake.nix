@@ -491,6 +491,8 @@
           common-pc-laptop-hdd = import ./common/pc/laptop/hdd;
           common-pc-laptop-ssd = import ./common/pc/ssd;
           common-pc-ssd = import ./common/pc/ssd;
+          common-wifi-mediatek-mt7925 = import ./common/wifi/mediatek/mt7925/default.nix;
+          common-wifi-mediatek-mt7925-iwd = import ./common/wifi/mediatek/mt7925/iwd.nix;
         };
 
       # Add formatter for `nix fmt`
