@@ -20,6 +20,23 @@ NixOS profiles and modules for Raspberry Pi boards.
 
 These profiles assume the `generic-extlinux-compatible` bootloader (the NixOS module that writes an `extlinux.conf` for U-Boot to read), which is what aarch64 NixOS SD images use by default. There is no `boot.loader.raspberry-pi` module here. U-Boot and the GPU boot code still have to land on the firmware partition somehow: either your image builder does it, or you use the firmware install module below.
 
+### Shared feature modules
+
+The board profiles provide shared audio, Bluetooth, DWC2, I2C, and legacy FKMS configuration.
+Their enable flags default to `false`.
+For supported hardware, enable a helper through `hardware.raspberry-pi`:
+
+```nix
+{
+  hardware.raspberry-pi.audio.enable = true;
+  hardware.raspberry-pi.i2c1.enable = true;
+}
+```
+
+The old Pi 4 audio, Bluetooth, I2C, and FKMS names forward their values and produce rename warnings.
+The audio helper does not choose a sound server or supply the old `tsched=0` PulseAudio workaround.
+The already-removed DWC2 option stays removed.
+
 ## Firmware install
 
 `hardware.raspberry-pi.firmware` stages the files the Pi firmware needs before Linux starts onto the firmware partition (default `/boot/firmware`): GPU boot code (`bootcode.bin`, `start*.elf`, `fixup*.dat`), vendor device trees and overlays, the rendered `config.txt`, and optionally U-Boot. It is not a new boot method; it just supplies the files the existing `generic-extlinux-compatible` + U-Boot path needs.
@@ -117,6 +134,10 @@ Each parameter becomes its own `dtparam` line rather than an addition to the `dt
 The module concatenates lists from separate modules, but the order is not the order of definition. If one overlay must load before another, set the order with `mkBefore` or `mkAfter`.
 
 The Raspberry Pi firmware applies these overlays before U-Boot starts. Set `boot.loader.generic-extlinux-compatible.useGenerationDeviceTree = false` so U-Boot keeps that device tree instead of loading one from the NixOS generation. Enabling `hardware.raspberry-pi.firmware.uboot.enable` sets this automatically.
+
+The shared feature helpers also keep the firmware device tree.
+Before enabling them, migrate custom `hardware.deviceTree.overlays` configuration that exists only in a generation's DTBs.
+That boot path does not load the generation's device tree.
 
 The firmware partition must contain the generated `config.txt` and stock overlays. SD image builds populate it automatically. On a running system, set `hardware.raspberry-pi.firmware.enable = true`.
 
