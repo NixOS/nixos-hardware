@@ -6,32 +6,24 @@
 }@args:
 
 let
-  modDirVersion = "7.2.0";
+  modDirVersion = "7.3.0-rc4";
 in
 buildLinux (
   args
   // {
     inherit modDirVersion;
-    version = "7.2-spacemit-k3";
+    version = "7.3-rc4-spacemit-k3";
 
     src = fetchFromGitHub {
       owner = "torvalds";
       repo = "linux";
-      tag = "v7.2";
-      hash = "sha256-GAjLGXXJiU42En31XWWx31IRT63G2pNsDN4ifNGtHis=";
+      tag = "v7.3-rc4";
+      hash = "sha256-+Sn0tYDuDDEujGigwoUu02dtpXGNxuJmeAY03RE/TS8=";
     };
 
     defconfig = "defconfig";
 
     kernelPatches = [
-      {
-        name = "k3-pcie-01-phy-dt-bindings";
-        patch = ./patches/0001-phy-dt-bindings-k3-comb-phy.patch;
-      }
-      {
-        name = "k3-pcie-02-phy-combphy-driver";
-        patch = ./patches/0002-phy-k3-combphy-driver.patch;
-      }
       {
         name = "k3-pcie-03-pci-k1-device-data";
         patch = ./patches/0003-pci-k1-device-data.patch;
@@ -39,6 +31,10 @@ buildLinux (
       {
         name = "k3-pcie-04-pci-k1-multiple-phy-handles";
         patch = ./patches/0004-pci-k1-multiple-phy-handles.patch;
+      }
+      {
+        name = "k3-pcie-04b-pci-k1-device-id-helper";
+        patch = ./patches/0004b-pci-k1-device-id-helper.patch;
       }
       {
         name = "k3-pcie-05-dt-bindings-dw-pcie-msi-parent";
@@ -61,7 +57,7 @@ buildLinux (
         patch = ./patches/0009-dts-k3-uart0-gate-clock.patch;
       }
       {
-        name = "k3-09-dts-k3-add-pcie-combphy";
+        name = "k3-10-dts-k3-add-pcie";
         patch = ./patches/0010-dts-k3-add-pcie-combphy.patch;
       }
       {
@@ -80,15 +76,42 @@ buildLinux (
         name = "k3-14-cpufreq-spacemit-k3";
         patch = ./patches/0014-cpufreq-spacemit-k3.patch;
       }
-      # SM10 Support
-      #{
-      #  name = "k3-15-dts-com260-pcie";
-      #  patch = ./patches/0015-dts-k3-com260-pcie.patch;
-      #}
-      #{
-      #  name = "k3-16-remoteproc-rcpu";
-      #  patch = ./patches/0016-remoteproc-spacemit-k3-rcpu.patch;
-      #}
+      {
+        name = "k3-15-dts-com260-pcie";
+        patch = ./patches/0015-dts-k3-com260-pcie.patch;
+      }
+      {
+        name = "k3-15-dt-bindings-vendor-prefixes-sensylink";
+        patch = ./patches/0015-dt-bindings-vendor-prefixes-sensylink.patch;
+      }
+      {
+        name = "k3-16-dt-bindings-hwmon-lm63-family";
+        patch = ./patches/0016-dt-bindings-hwmon-lm63-family.patch;
+      }
+      {
+        name = "k3-17-dt-bindings-hwmon-ctf2301";
+        patch = ./patches/0017-dt-bindings-hwmon-ctf2301.patch;
+      }
+      {
+        name = "k3-18-hwmon-lm63-ctf2301";
+        patch = ./patches/0018-hwmon-lm63-ctf2301.patch;
+      }
+      {
+        name = "k3-19-dts-i2c6-pinctrl";
+        patch = ./patches/0019-dts-k3-i2c6-pinctrl.patch;
+      }
+      {
+        name = "k3-20-dts-com260-ctf2301";
+        patch = ./patches/0020-dts-k3-com260-ctf2301.patch;
+      }
+      {
+        name = "k3-21-dts-com260-fan-cooling";
+        patch = ./patches/0021-dts-k3-com260-fan-cooling.patch;
+      }
+      {
+        name = "k3-22-dts-com260-qspi-nor";
+        patch = ./patches/0022-dts-k3-com260-qspi-nor.patch;
+      }
     ];
 
     structuredExtraConfig = with lib.kernel; {
@@ -105,13 +128,7 @@ buildLinux (
       THERMAL = option yes;
       THERMAL_HWMON = option yes;
       HWMON = option yes;
-      # SM10
-      #MAILBOX = option yes;
-      #SPACEMIT_K3_MAILBOX = option yes;
-      #REMOTEPROC = option yes;
-      #SPACEMIT_K3_RPROC = option yes;
-      #RPMSG = option yes;
-      #RPMSG_VIRTIO = option yes;
+      SENSORS_LM63 = option yes;
       SMP = option yes;
       SPACEMIT_K3_CCU = option yes;
       GPIO_SPACEMIT_K1 = option yes;
@@ -124,9 +141,6 @@ buildLinux (
       PCIE_SPACEMIT_K1 = option yes;
       PHY_SPACEMIT_K3_COMBO_PHY = option yes;
       PHY_SPACEMIT_K3_COMMON_OPS = option yes;
-      # SM10
-      #PWM = option yes;
-      #PWM_PXA = option yes;
       NVME_CORE = option yes;
       BLK_DEV_NVME = option yes;
       MMC = option yes;
@@ -202,7 +216,7 @@ buildLinux (
       DEBUG_INFO_BTF_MODULES = lib.mkForce no;
     };
 
-    extraMeta.branch = "7.2";
+    extraMeta.branch = "7.3-rc4";
   }
   // (args.argsOverride or { })
 )
