@@ -94,6 +94,7 @@ See code for all available configurations.
 | Model                                                                             | Path                                                    | Flake Module                           |
 | --------------------------------------------------------------------------------- | ------------------------------------------------------- | -------------------------------------- |
 | [Acer Aspire 4810T](acer/aspire/4810t)                                            | `<nixos-hardware/acer/aspire/4810t>`                    | `acer-aspire-4810t`                    |
+| [Acer Nitro AN517-41](acer/nitro/an517-41)                                        | `<nixos-hardware/acer/nitro/an517-41>`                  | `acer-nitro-an517-41`                  |
 | [Acer Predator Helios 300 (PH315-51)](acer/predator/helios/300/ph315-51/)         | `<nixos-hardware/acer/predator/helios/300/ph315-51/>`   | `acer-predator-helios-300-ph315-51`    |
 | [Airis N990](airis/n990)                                                          | `<nixos-hardware/airis/n990>`                           | `airis-n990`                           |
 | [Apple iMac 12,2](apple/imac/12-2)                                                | `<nixos-hardware/apple/imac/12-2>`                      | `apple-imac-12-2`                      |
