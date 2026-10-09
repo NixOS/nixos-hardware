@@ -64,10 +64,6 @@
     name = lib.mkDefault "spacemit/k3-pico-itx.dtb";
   };
 
-  boot.supportedFilesystems = lib.mkForce [
-    "ext4"
-    "vfat"
-  ];
   boot.initrd.systemd.enable = lib.mkDefault true;
   system.nixos-init.enable = lib.mkDefault true;
   system.etc.overlay.enable = lib.mkDefault true;
