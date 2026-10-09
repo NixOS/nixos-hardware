@@ -1,0 +1,8 @@
+# Intel Compute Stick (STCK1A)
+
+## Supported Devices
+
+* STCK1A32WFC
+* STCK1A32WFCR
+* STCK1A32WFCL
+* STCK1A8LFC
