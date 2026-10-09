@@ -26,6 +26,7 @@ let
     "nxp-imx8qm-mek"
     "nxp-imx93-evk"
     "ucm-imx95"
+    "maaxboard-8ulp"
   ];
 
   matchArch =
