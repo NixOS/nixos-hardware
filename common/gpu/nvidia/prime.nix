@@ -26,6 +26,7 @@
         ];
         hardware.nvidia = {
           prime.offload.enable = lib.mkForce false;
+          prime.offload.enableOffloadCmd = lib.mkForce false;
           powerManagement = {
             enable = lib.mkForce false;
             finegrained = lib.mkForce false;
