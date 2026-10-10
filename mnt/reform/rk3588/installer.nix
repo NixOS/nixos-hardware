@@ -127,6 +127,7 @@
 
         "/iso" = lib.mkImageMediaOverride {
           device = "/dev/disk/by-label/NIXOS_ROOT";
+          fsType = "ext4";
           neededForBoot = true;
           noCheck = true;
           options = [ "ro" ];
@@ -136,7 +137,7 @@
         # image) to make this a live CD.
         "/nix/.ro-store" = lib.mkImageMediaOverride {
           fsType = "squashfs";
-          device = "/iso/nix-store.squashfs";
+          device = "${lib.optionalString config.boot.initrd.systemd.enable "/sysroot"}/iso/nix-store.squashfs";
           options = [
             "loop"
           ]
@@ -151,31 +152,30 @@
         };
 
         "/nix/store" = lib.mkImageMediaOverride {
-          fsType = "overlay";
-          device = "overlay";
-          options = [
-            "lowerdir=/nix/.ro-store"
-            "upperdir=/nix/.rw-store/store"
-            "workdir=/nix/.rw-store/work"
-          ];
-          depends = [
-            "/nix/.ro-store"
-            "/nix/.rw-store/store"
-            "/nix/.rw-store/work"
-          ];
+          overlay = {
+            lowerdir = [ "/nix/.ro-store" ];
+            upperdir = "/nix/.rw-store/store";
+            workdir = "/nix/.rw-store/work";
+          };
         };
       };
 
       boot = {
-        initrd.availableKernelModules = [
-          "squashfs"
-          "uas"
-          "overlay"
-        ];
-        initrd.kernelModules = [
-          "loop"
-          "overlay"
-        ];
+        initrd = {
+          availableKernelModules = [
+            "squashfs"
+            "uas"
+            "overlay"
+          ];
+          kernelModules = [
+            "loop"
+            "overlay"
+          ];
+          systemd = lib.mkIf config.boot.initrd.systemd.enable {
+            emergencyAccess = true;
+            initrdBin = [ config.boot.initrd.systemd.package.util-linux ];
+          };
+        };
         loader.timeout = 0;
       };
 
