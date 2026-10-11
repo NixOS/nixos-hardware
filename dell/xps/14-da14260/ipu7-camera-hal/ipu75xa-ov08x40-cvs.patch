@@ -1,0 +1,29 @@
+--- a/config/linux/ipu75xa/sensors/ov08x40-uf.json
++++ b/config/linux/ipu75xa/sensors/ov08x40-uf.json
+@@ -32,13 +32,25 @@
+                 "format": "V4L2_MBUS_FMT_SGRBG10_1X10"
+               },
+               {
++                "name": "Intel CVS", "pad": 0, "width": 3856, "height": 2176,
++                "format": "V4L2_MBUS_FMT_SGRBG10_1X10"
++              },
++              {
++                "name": "Intel CVS", "pad": 1, "width": 3856, "height": 2176,
++                "format": "V4L2_MBUS_FMT_SGRBG10_1X10"
++              },
++              {
+                 "name": "Intel IPU7 CSI2 $CSI_PORT", "pad": 0, "width": 3856, "height": 2176,
+                 "format": "V4L2_MBUS_FMT_SGRBG10_1X10"
+               }
+             ],
+             "link": [
+               {
+-                "srcName": "ov08x40 $I2CBUS", "srcPad": 0, "sinkName": "Intel IPU7 CSI2 $CSI_PORT",
++                "srcName": "ov08x40 $I2CBUS", "srcPad": 0, "sinkName": "Intel CVS",
++                "sinkPad": 0, "enable": true
++              },
++              {
++                "srcName": "Intel CVS", "srcPad": 1, "sinkName": "Intel IPU7 CSI2 $CSI_PORT",
+                 "sinkPad": 0, "enable": true
+               },
+               {

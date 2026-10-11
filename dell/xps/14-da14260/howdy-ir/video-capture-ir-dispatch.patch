@@ -1,0 +1,28 @@
+Teach Howdy's recorder factory about `recording_plugin = "ir"`.
+
+The recorder itself (recorders/ir_reader.py) is copied in verbatim by
+default.nix from HritwikSinghal/svp7500-camera-fix-pack, pinned to the same
+revision as ../hm1092/intel-cvs-ir. Stock Howdy 3.0.0 only ships the
+opencv / ffmpeg / pyv4l2 recorders: opencv cannot read the HM1092's raw
+10-bit Bayer-tagged frames, ffmpeg would debayer this physically-monochrome
+sensor, and none of them drive the flood illuminator.
+
+--- a/howdy/src/recorders/video_capture.py
++++ b/howdy/src/recorders/video_capture.py
+@@ -118,6 +118,16 @@
+ 				self.config.get("video", "device_format", fallback="v4l2")
+ 			)
+ 
++		elif recording_plugin == "ir":
++			# Raw V4L2 reader for the HM1092 mono IR sensor on Intel IPU7.
++			# Bypasses libcamera/PipeWire, which debayer this monochrome
++			# sensor (tagged SGRBG10) and renegotiate away from 648x368.
++			# Also drives the IR flood illuminator (INT3472 owns that GPIO).
++			from recorders.ir_reader import ir_reader
++			self.internal = ir_reader(
++				self.config.get("video", "device_path")
++			)
++
+ 		else:
+ 			# Start video capture on the IR camera through OpenCV
+ 			self.internal = cv2.VideoCapture(
