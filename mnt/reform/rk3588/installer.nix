@@ -185,10 +185,14 @@
       installerImage.storeContents = [ config.system.build.toplevel ];
 
       system.build.image = pkgs.callPackage (
-        { stdenv, util-linux }:
+        {
+          stdenv,
+          util-linux,
+          zstd,
+        }:
         stdenv.mkDerivation {
           name = config.image.fileName;
-          nativeBuildInputs = [ util-linux ];
+          nativeBuildInputs = [ util-linux ] ++ lib.optionals (config.installerImage.compressImage) [ zstd ];
           inherit (config.installerImage) compressImage;
           buildCommand = ''
             mkdir -p $out/nix-support $out/installer-image
