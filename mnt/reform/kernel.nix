@@ -7,13 +7,10 @@
   ...
 }:
 let
-  sources = lib.importJSON ./sources.json;
-  modDirVersion = sources.modDirVersion;
-  reformDebianPackages = fetchFromGitLab sources.reformDebianPackages;
   linuxPkg =
     {
       lib,
-      fetchzip,
+      fetchFromGitLab,
       buildLinux,
       callPackage,
       ...
@@ -22,30 +19,18 @@ let
       args
       // rec {
         version = "${modDirVersion}-mnt-reform";
-        inherit modDirVersion;
+        modDirVersion = "7.2.6";
 
-        src = fetchzip {
-          url = "mirror://kernel/linux/kernel/v${lib.versions.major modDirVersion}.x/linux-${modDirVersion}.tar.xz";
-          hash = "sha256-cdQbdColRBCzQPWojIVpLs6Rmuk91bBPtqf8DsmkSxU=";
+        src = fetchFromGitLab {
+          domain = "source.mnt.re";
+          owner = "reform";
+          repo = "linux";
+          rev = "ae46c759102a8442a4a55de20f8b17a29e3220b8";
+          hash = "sha256-IgZkXwIZgcJGLpy+FG1fs9dpAKOIefwUfvLwcVJPngY=";
         };
 
-        kernelPatches =
-          (map (patch: {
-            name = patch;
-            patch = "${reformDebianPackages}/${patch}";
-          }) (import ./kernelPatches.nix))
-          ++ [
-            {
-              name = "reform-dts";
-              patch = callPackage ./dtsPatch.nix {
-                inherit reformDebianPackages;
-                kernelSource = src;
-              };
-            }
-          ];
-
         structuredExtraConfig = with lib.kernel; {
-          # configuration options from https://source.mnt.re/reform/reform-debian-packages/-/blob/7f31ba3a6742d60d8d502c1d86e63ef5df3916bf/linux/config
+          # configuration options from https://source.mnt.re/reform/reform-debian-packages/-/blob/01afdcac5ad96829819dd7bfc8b154a3c921e38b/linux/config
           DRM_LVDS_CODEC = module;
           DRM_CDNS_MHDP8546 = module;
           DRM_CDNS_HDMI_CEC = module;
@@ -82,7 +67,6 @@ let
           IMX2_WDT = yes;
           DRM_SAMSUNG_DSIM = yes;
           PHY_FSL_SAMSUNG_HDMI_PHY = yes;
-          DRM = yes;
           DRM_PANEL_MNT_POCKET_REFORM = module;
           IMX8M_BLK_CTRL = yes;
           IMX_GPCV2_PM_DOMAINS = yes;
@@ -138,6 +122,26 @@ let
           REGULATOR_FIXED_VOLTAGE = yes;
           GPIO_ROCKCHIP = yes;
           PL330_DMA = yes;
+
+          INTERCONNECT_QCOM_SM8550 = yes;
+          PINCTRL_SM8550 = yes;
+          PINCTRL_SM8550_LPASS_LPI = module; # changed to module
+          SM_CAMCC_8550 = yes;
+          SM_GCC_8550 = yes;
+          SM_GPUCC_8550 = yes;
+          SM_TCSRCC_8550 = yes;
+          SM_VIDEOCC_8550 = yes;
+          SM_DISPCC_8550 = yes;
+          USB_QCOM_EUD = yes;
+
+          SPMI_PMIC_CLKDIV = yes;
+
+          INTERCONNECT_QCOM_SM8750 = yes;
+          PINCTRL_SM8750 = yes;
+          SM_TCSRCC_8750 = yes;
+
+          REGULATOR_QCOM_REFGEN = module;
+          MNTRE_SC = module;
         };
       }
       // (args.argsOverride or { })
