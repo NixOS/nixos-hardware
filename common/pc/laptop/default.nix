@@ -4,6 +4,8 @@
   imports = [ ../. ];
 
   services.tlp.enable = lib.mkDefault (
-    !config.services.power-profiles-daemon.enable && !config.services.tuned.enable
+    !config.services.power-profiles-daemon.enable
+    && !config.services.tuned.enable
+    && !config.services.auto-cpufreq.enable
   );
 }
