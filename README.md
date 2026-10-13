@@ -184,6 +184,8 @@ See code for all available configurations.
 | [Dell Precision 5570](dell/precision/5570)                                        | `<nixos-hardware/dell/precision/5570>`                  | `dell-precision-5570`                  |
 | [Dell Precision 5820](dell/precision/5820)                                        | `<nixos-hardware/dell/precision/5820>`                  | `dell-precision-5820`                  |
 | [Dell Precision 7520](dell/precision/7520)                                        | `<nixos-hardware/dell/precision/7520>`                  | `dell-precision-7520`                  |
+| [Dell Vostro 5501](dell/vostro/5501)                                              | `<nixos-hardware/dell/vostro/5501>`                     | `dell-vostro-5501`                     |
+| [Dell Vostro 5501, nvidia](dell/vostro/5501/nvidia)                               | `<nixos-hardware/dell/vostro/5501/nvidia>`              | `dell-vostro-5501-nvidia`              |
 | [Dell XPS 13 7390](dell/xps/13-7390)                                              | `<nixos-hardware/dell/xps/13-7390>`                     | `dell-xps-13-7390`                     |
 | [Dell XPS 13 9300](dell/xps/13-9300)                                              | `<nixos-hardware/dell/xps/13-9300>`                     | `dell-xps-13-9300`                     |
 | [Dell XPS 13 9310](dell/xps/13-9310)                                              | `<nixos-hardware/dell/xps/13-9310>`                     | `dell-xps-13-9310`                     |
