@@ -70,6 +70,11 @@ in
       NET_CLS_BPF = lib.mkForce yes;
       NLS_CODEPAGE_437 = lib.mkForce yes;
       FB_SIMPLE = yes;
+
+      # Required by nixos-anywhere
+      KEXEC = yes;
+      KEXEC_FILE = yes;
+      PROC_KCORE = yes;
     }
     # nixpkgs defaults to lazy preempt on kernel version >=6.18
     # arm64 vendor defconfigs (bcm2711, bcm2712) use full preempt
