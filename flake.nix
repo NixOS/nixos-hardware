@@ -109,6 +109,7 @@
           dell-e7240 = deprecated "1326" "dell-e7240" (import ./dell/e7240);
           dell-g3-3779 = import ./dell/g3/3779;
           dell-g3-3579 = import ./dell/g3/3579;
+          dell-g3-3500 = import ./dell/g3/3500;
           dell-inspiron-3442 = import ./dell/inspiron/3442;
           dell-inspiron-14-5420 = import ./dell/inspiron/14-5420;
           dell-inspiron-5509 = import ./dell/inspiron/5509;
