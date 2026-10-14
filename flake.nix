@@ -191,6 +191,8 @@
           gigabyte-b550 = import ./gigabyte/b550;
           gigabyte-b650 = import ./gigabyte/b650;
           gmktec-nucbox-g3-plus = import ./gmktec/nucbox/g3-plus;
+          gmktec-nucbox-k8-plus = import ./gmktec/nucbox/k8-plus;
+          gmktec-nucbox-k11 = import ./gmktec/nucbox/k11;
           google-pixelbook = import ./google/pixelbook;
           google-brya = import ./google/brya;
           google-rex = import ./google/rex;
