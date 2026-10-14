@@ -12,4 +12,10 @@
 
   # Recommended in NixOS/nixos-hardware#127
   services.thermald.enable = lib.mkDefault true;
+
+  # Make the webcam work
+  hardware.ipu7 = {
+    enable = true;
+    platform = "ipu7x";
+  };
 }
