@@ -5,6 +5,7 @@ NixOS profiles and modules for Raspberry Pi boards.
 ## What's here
 
 - `common/` has the shared bits: the `linux-rpi` kernel build (vendor defconfig, matching firmware), the `config.txt` generation module, a pinned wireless firmware, and the firmware-partition install module.
+- The feature modules under `common/` configure audio, Bluetooth, DWC2, GPIO, I2C, and FKMS.
 - `2/`, `3/`, `4/`, `5/` are the board profiles. Each one picks the right kernel and kernel params. Pi 4 and 5 also set DT filters and the initrd modules they need.
 - The extra files under `4/` are opt-in toggles for Pi 4 hardware: audio, GPIO, I2C, LEDs, touchscreens, and so on.
 
@@ -116,7 +117,17 @@ Each parameter becomes its own `dtparam` line rather than an addition to the `dt
 
 The module concatenates lists from separate modules, but the order is not the order of definition. If one overlay must load before another, set the order with `mkBefore` or `mkAfter`.
 
-The Raspberry Pi firmware applies these overlays before U-Boot starts. Set `boot.loader.generic-extlinux-compatible.useGenerationDeviceTree = false` so U-Boot keeps that device tree instead of loading one from the NixOS generation. Enabling `hardware.raspberry-pi.firmware.uboot.enable` sets this automatically.
+The Raspberry Pi firmware applies overlays before U-Boot starts.
+Set `boot.loader.generic-extlinux-compatible.useGenerationDeviceTree = false` so U-Boot passes the firmware-supplied tree to the kernel.
+U-Boot then skips the device tree from the selected NixOS generation.
+When NixOS rewrites `extlinux.conf`, this choice applies to all its generation entries.
+The firmware supplies a tree at each boot, so firmware updates can change it.
+
+Enabling `hardware.raspberry-pi.firmware.uboot.enable` sets this option automatically.
+The audio, Bluetooth, DWC2, I2C, and FKMS modules also set it.
+
+`hardware.deviceTree.overlays` modifies a generation's DTBs (compiled descriptions of hardware).
+Before using the firmware-supplied tree, migrate any changes that remain only in those DTBs.
 
 The firmware partition must contain the generated `config.txt` and stock overlays. SD image builds populate it automatically. On a running system, set `hardware.raspberry-pi.firmware.enable = true`.
 

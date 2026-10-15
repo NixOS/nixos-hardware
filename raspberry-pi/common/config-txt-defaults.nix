@@ -5,7 +5,7 @@
 #
 # Reference: https://www.raspberrypi.com/documentation/computers/config_txt.html
 
-{ lib, ... }:
+{ config, lib, ... }:
 
 {
   hardware.raspberry-pi.configtxt = {
@@ -37,8 +37,14 @@
     };
 
     deviceTreeOverlays = {
-      all = lib.mkDefault [ { vc4-kms-v3d = { }; } ];
-      cm5 = lib.mkDefault [ { dwc2.dr_mode = "host"; } ];
+      # FKMS and KMS must not control the same display.
+      all = lib.mkDefault (
+        lib.optional (!(config.hardware.raspberry-pi.fkms-3d.enable or false)) { vc4-kms-v3d = { }; }
+      );
+      # Do not load a second DWC2 overlay that overrides the helper's USB role.
+      cm5 = lib.mkDefault (
+        lib.optional (!(config.hardware.raspberry-pi.dwc2.enable or false)) { dwc2.dr_mode = "host"; }
+      );
     };
   };
 }
