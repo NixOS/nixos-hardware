@@ -304,23 +304,29 @@ in
         ```ini
         [all]
         [pi4]
-        dtoverlay=dwc2
-        dtparam=dr_mode=host
-        dtoverlay=
         dtoverlay=gpio-fan
-        dtparam=gpiopin=14
+        dtparam=gpiopin=12
         dtparam=temp=80000
+        dtoverlay=
+        dtoverlay=gpio-led
+        dtparam=gpio=16
+        dtparam=label=status
         dtoverlay=
         ```
       '';
       example = lib.literalExpression ''
         {
           pi4 = [
-            { dwc2.dr_mode = "host"; }
             {
               gpio-fan = {
-                gpiopin = 14;
+                gpiopin = 12;
                 temp = 80000;
+              };
+            }
+            {
+              gpio-led = {
+                gpio = 16;
+                label = "status";
               };
             }
           ];
