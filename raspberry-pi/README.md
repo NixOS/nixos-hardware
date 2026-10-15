@@ -7,7 +7,7 @@ NixOS profiles and modules for Raspberry Pi boards.
 - `common/` has the shared bits: the `linux-rpi` kernel build (vendor defconfig, matching firmware), the `config.txt` generation module, a pinned wireless firmware, and the firmware-partition install module.
 - The feature modules under `common/` configure audio, Bluetooth, DWC2, GPIO, I2C, and FKMS.
 - `2/`, `3/`, `4/`, `5/` are the board profiles. Each one picks the right kernel and kernel params. Pi 4 and 5 also set DT filters and the initrd modules they need.
-- The extra files under `4/` are opt-in toggles for Pi 4 hardware: audio, GPIO, I2C, LEDs, touchscreens, and so on.
+- The extra files under `4/` provide compatibility for older option names and support for custom DT merges.
 
 ## Using a board profile
 
@@ -84,28 +84,34 @@ Overlays go in `configtxt.deviceTreeOverlays`, not in a `dtoverlay` key under `s
   boot.loader.generic-extlinux-compatible.useGenerationDeviceTree = false;
 
   hardware.raspberry-pi.configtxt.deviceTreeOverlays.pi4 = [
-    { dwc2.dr_mode = "host"; }
     {
       gpio-fan = {
-        gpiopin = 14;
+        gpiopin = 12;
         temp = 80000;
+      };
+    }
+    {
+      gpio-led = {
+        gpio = 16;
+        label = "status";
       };
     }
   ];
 }
 ```
 
-This renders after `configtxt.settings` as:
+These entries render in the `[pi4]` group:
 
 ```ini
 [all]
 [pi4]
-dtoverlay=dwc2
-dtparam=dr_mode=host
-dtoverlay=
 dtoverlay=gpio-fan
-dtparam=gpiopin=14
+dtparam=gpiopin=12
 dtparam=temp=80000
+dtoverlay=
+dtoverlay=gpio-led
+dtparam=gpio=16
+dtparam=label=status
 dtoverlay=
 ```
 
@@ -117,6 +123,12 @@ Each parameter becomes its own `dtparam` line rather than an addition to the `dt
 
 The module concatenates lists from separate modules, but the order is not the order of definition. If one overlay must load before another, set the order with `mkBefore` or `mkAfter`.
 
+For hardware-specific parameters, read the [Raspberry Pi overlay reference](https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README).
+
+To supply your own file, set `configtxt.file`. The module then ignores `settings` and `deviceTreeOverlays`.
+
+#### Firmware boot configuration
+
 The Raspberry Pi firmware applies overlays before U-Boot starts.
 Set `boot.loader.generic-extlinux-compatible.useGenerationDeviceTree = false` so U-Boot passes the firmware-supplied tree to the kernel.
 U-Boot then skips the device tree from the selected NixOS generation.
@@ -126,60 +138,111 @@ The firmware supplies a tree at each boot, so firmware updates can change it.
 Enabling `hardware.raspberry-pi.firmware.uboot.enable` sets this option automatically.
 The audio, Bluetooth, DWC2, I2C, and FKMS modules also set it.
 
+The firmware partition must contain the generated `config.txt` and stock overlays.
+SD image builds populate it automatically.
+On a running system, set `hardware.raspberry-pi.firmware.enable = true`.
+
 `hardware.deviceTree.overlays` modifies a generation's DTBs (compiled descriptions of hardware).
 Before using the firmware-supplied tree, migrate any changes that remain only in those DTBs.
+The separate `hardware.raspberry-pi.firmware.useGenerationDeviceTree` option controls which DTBs the firmware installer copies.
 
-The firmware partition must contain the generated `config.txt` and stock overlays. SD image builds populate it automatically. On a running system, set `hardware.raspberry-pi.firmware.enable = true`.
+### Firmware configuration modules
 
-#### DWC2 USB controller
+The board profiles import modules from `common/` for hardware-specific NixOS configuration, including firmware parameters and overlays.
+Hardware support still depends on the board.
+If you configure the same feature directly, disable its helper to avoid duplicate parameters or overlays.
 
-Use the stock `dwc2` overlay to enable the USB 2.0 controller on the Pi 4B USB-C connector:
+#### Audio
+
+To enable onboard audio through `snd_bcm2835` on Pi 2, 3, or 4:
 
 ```nix
 {
-  hardware.raspberry-pi.configtxt.deviceTreeOverlays."board-type=0x11" = [
-    { dwc2 = { }; }
-  ];
+  hardware.raspberry-pi.audio.enable = true;
 }
 ```
 
-`board-type=0x11` matches the Pi 4B. The broader `pi4` filter also matches Pi 400, CM4, and CM4S.
+The module sets `audio=on`, loads `snd_bcm2835`, and adds the headphone and HDMI kernel parameters.
+NixOS [writes the extlinux `APPEND` line](https://github.com/NixOS/nixpkgs/blob/b1b875982b17dabde9b4a37f3e229e74913e6db3/nixos/modules/system/boot/loader/generic-extlinux-compatible/extlinux-conf-builder.sh#L78-L105) from each generation's kernel parameters.
+The [audio driver](https://github.com/raspberrypi/linux/blob/stable_20260911/drivers/staging/vc04_services/bcm2835-audio/bcm2835.c) receives those parameters from this line.
 
-[Raspberry Pi OS sets `otg_mode=1` on CM4](https://github.com/RPi-Distro/pi-gen/blob/master/stage1/00-boot-files/files/config.txt#L39-L43), and [nixos-hardware sets the same default](./common/config-txt-defaults.nix). Set it to `null` before loading DWC2:
+The default KMS (kernel mode setting) overlay [provides HDMI audio](https://github.com/raspberrypi/firmware/blob/1.20260521/boot/overlays/README#L5994-L6014), so the module defaults `snd_bcm2835.enable_hdmi` to `0`.
+For firmware-controlled displays, including FKMS, set `hardware.raspberry-pi.audio.hdmi.enable = true`.
+The FKMS module supplies that default when it is enabled.
+
+##### PulseAudio
+
+When both `hardware.raspberry-pi.audio.enable` and `services.pulseaudio.enable` are `true`, the module adds `tsched=0` to PulseAudio's device-detection configuration.
+This does not enable PulseAudio or change the sound server.
+An explicit `services.pulseaudio.configFile` overrides this default.
+To use the package's unmodified `default.pa`, set:
+
+```nix
+{ config, lib, ... }:
+
+{
+  services.pulseaudio.configFile =
+    "${lib.getBin config.services.pulseaudio.package}/etc/pulse/default.pa";
+}
+```
+
+#### DWC2
+
+To enable the DWC2 USB controller in host mode:
 
 ```nix
 {
-  hardware.raspberry-pi.configtxt = {
-    settings.cm4.otg_mode = null;
-    deviceTreeOverlays.cm4 = [
-      { dwc2 = { }; }
-    ];
+  hardware.raspberry-pi.dwc2 = {
+    enable = true;
+    dr_mode = "host";
   };
 }
 ```
 
-The `cm4` filter matches CM4 only. Set `dwc2.dr_mode` to `host`, `peripheral`, or `otg` to override the overlay default. The overlay also accepts `g-rx-fifo-size` and `g-np-tx-fifo-size`.
+`dr_mode` accepts `"host"`, `"peripheral"`, or `"otg"` and defaults to `"otg"`.
+The [defaults](./common/config-txt-defaults.nix) enable the [XHCI host controller](https://www.raspberrypi.com/documentation/computers/config_txt.html#otg_mode) on CM4.
+The DWC2 module sets `settings.cm4.otg_mode = null` to remove that default.
 
-#### PoE HATs
+#### I2C
 
-The original [PoE HAT](https://www.raspberrypi.com/products/poe-hat/) and the [PoE+ HAT](https://www.raspberrypi.com/products/poe-plus-hat/) use the stock `rpi-poe` and `rpi-poe-plus` overlays. Both HATs support the Pi 3B+ and Pi 4B.
+To enable I2C1 at 400 kHz, configure the bus:
 
 ```nix
 {
-  hardware.raspberry-pi.configtxt.deviceTreeOverlays."board-type=0x11" = [
-    {
-      rpi-poe = {
-        poe_fan_temp0 = 50000;
-        poe_fan_temp0_hyst = 2000;
-      };
-    }
-  ];
+  hardware.raspberry-pi.i2c1 = {
+    enable = true;
+    frequency = 400000;
+  };
 }
 ```
 
-Use `board-type=0x0d` for the Pi 3B+ and `board-type=0x11` for the Pi 4B. Replace `rpi-poe` with `rpi-poe-plus` for the PoE+ HAT. All overlay parameters are optional.
+The modules enable `i2c-dev` and the `i2c` group through `hardware.i2c.enable`.
+Both `i2c0.frequency` and `i2c1.frequency` use Hz and default to `null`, which keeps the firmware frequency.
+The I2C0 module writes `dtparam=i2c0=on` to configure the base device tree.
+It does not load `dtoverlay=i2c0`, because that [overlay](https://github.com/raspberrypi/firmware/blob/1.20260521/boot/overlays/README#L2680-L2697) changes pin routing and disables the multiplexer.
 
-To supply your own file, set `configtxt.file`. The module then ignores `settings` and `deviceTreeOverlays`.
+#### Bluetooth
+
+To enable onboard Bluetooth through kernel discovery, set `hardware.raspberry-pi.bluetooth.enable = true`.
+The module sets `krnbt=on` and enables `hardware.bluetooth.enable`.
+If a custom `btattach` or `hciattach` service manages that controller, remove it.
+Those services compete with kernel discovery to initialize the same controller.
+
+#### GPIO
+
+To give the `gpio` group access to GPIO devices, set `hardware.raspberry-pi.gpio.enable = true`.
+The module also sets `iomem=relaxed` for pigpio's memory access.
+It does not change device-tree selection.
+Support for a particular board still depends on the GPIO library you use.
+
+#### FKMS
+
+The default KMS configuration lets the kernel control the display.
+For firmware-assisted display control (FKMS) on Pi 2, 3, or 4, set `hardware.raspberry-pi.fkms-3d.enable = true`.
+The module loads `vc4-fkms-v3d`, removes the default KMS overlay, and preserves the X11 driver order.
+`hardware.raspberry-pi.fkms-3d.cma` uses MiB and defaults to `512`.
+Remove any manually configured KMS overlays that match the same board.
+Pi 5 does not support FKMS.
 
 ## Current limits
 
