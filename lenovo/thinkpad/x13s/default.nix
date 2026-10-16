@@ -9,6 +9,20 @@ let
   deviceTree = config.hardware.deviceTree;
   modemmanager = config.networking.modemmanager;
 
+  # Based on RFC 9542 and SLAP.
+  macFrom = salt:
+    lib.throwIfNot (builtins.match "[a-z0-9-]+" salt != null)
+      "macFrom: salt must match [a-z0-9-]+, got ${builtins.toJSON salt}"
+      (pkgs.writeShellScript "mac-from-${salt}" ''
+	hash=$(printf '%s:%s' "$(< /etc/machine-id)" "${salt}" \
+	  | ${pkgs.coreutils}/bin/sha256sum)
+
+	printf '%s:%s:%s:%s:%s:%s\n' \
+	  "''${hash:0:1}2" "''${hash:2:2}" \
+	  "''${hash:4:2}" "''${hash:6:2}" \
+	  "''${hash:8:2}" "''${hash:10:2}"
+      '');
+
   cfg = config.hardware.lenovo.x13s;
 in
 {
@@ -19,10 +33,11 @@ in
 
   options.hardware.lenovo.x13s = {
     wifiMAC = lib.mkOption {
-      type = lib.types.nullOr (lib.types.strMatching "([0-9a-f]{2}(:[0-9a-f]{2}){5})");
+      type = lib.types.nullOr (lib.types.strMatching "([0-9a-f]{2}(:[0-9a-f]{2}){5}|)");
       description = ''
         Wi-Fi MAC address to set on boot. When not set a random MAC
-        address is assigned. Expects lowercase.
+        address is assigned. Expects lowercase. Set to an empty string
+        to have the system automatically generate the MAC address.
       '';
       default = null;
     };
@@ -37,12 +52,31 @@ in
       '';
       default = null;
     };
+
+    stateVersion = lib.mkOption {
+      type = lib.types.nullOr lib.types.int;
+      description = ''
+        State version for this module. Allows smooth migrations
+        between updates.
+      '';
+      default = null;
+    };
   };
 
   config = lib.mkMerge ([
 
+    # State versioning
+    (lib.mkIf (cfg.stateVersion == null) {
+      warnings = [ ''
+	hardware.lenovo.x13s.stateVersion is not set; using legacy behavior (1).
+	Set it to 2 to derive Wi-Fi and Bluetooth MAC addresses from /etc/machine-id.
+	Note: this changes the Bluetooth MAC, so paired devices must be re-paired.
+	Set it to 1 to keep the current behavior and silence this warning.
+      '' ];
+    })
+
     # Wi-Fi
-    (lib.mkIf (cfg.wifiMAC != null) {
+    (lib.mkIf (cfg.wifiMAC != null && cfg.wifiMAC != "")) {
       # https://github.com/jhovold/linux/wiki/X13s#wi-fi
       services.udev.extraRules = builtins.concatStringsSep ", " [
         ''ACTION=="add"''
@@ -51,9 +85,19 @@ in
         ''RUN+="${pkgs.iproute2}/bin/ip link set dev $name address ${cfg.wifiMAC}"''
       ];
     })
+    (lib.mkIf (cfg.wifiMAC == null && cfg.stateVersion > 1) {
+      # https://github.com/jhovold/linux/wiki/X13s#wi-fi
+      services.udev.extraRules = builtins.concatStringsSep ", " [
+        ''ACTION=="add"''
+        ''SUBSYSTEM=="net"''
+        ''KERNELS=="0006:01:00.0"''
+        ''PROGRAM="${macFrom "wifi"}"''
+        ''RUN+="${pkgs.iproute2}/bin/ip link set dev $name address %c"''
+      ];
+    })
 
     # Bluetooth
-    (lib.mkIf (config.hardware.bluetooth.enable) {
+    (lib.mkIf (config.hardware.bluetooth.enable && (cfg.stateVersion == 1 || cfg.stateVersion == null)) {
       # https://github.com/jhovold/linux/wiki/X13s#bluetooth
       systemd.services.bluetooth-x13s-mac = {
         wantedBy = [ "bluetooth.target" ];
@@ -92,6 +136,48 @@ in
               $[RANDOM%256] \
               $[RANDOM%256])"
           fi
+
+          echo "Waiting for Adapter"
+
+          # Listen to the hardware setup and wait for the adapter to
+          # finish receiving its firmware, and finish loading
+          mkfifo /tmp/btmon.log
+          stdbuf -oL ${config.hardware.bluetooth.package}/bin/btmon --mgmt --kernel >> /tmp/btmon.log &
+          BTPID=$!
+          grep -q -m 1 "Unconfigured Index Ad" /tmp/btmon.log || true
+          kill $BTPID 2>/dev/null
+
+          echo "Assigning MAC: $BLUETOOTH_MAC"
+
+          ${config.hardware.bluetooth.package}/bin/btmgmt --index 0 public-addr $BLUETOOTH_MAC
+        '';
+
+        serviceConfig = {
+          Type = "oneshot";
+          PrivateTmp = "true";
+          RemainAfterExit = true;
+          TimeoutSec = "1m";
+        };
+      };
+    })
+    (lib.mkIf (config.hardware.bluetooth.enable && cfg.stateVersion > 1) {
+      # https://github.com/jhovold/linux/wiki/X13s#bluetooth
+      systemd.services.bluetooth-x13s-mac = {
+        wantedBy = [ "bluetooth.target" ];
+        before = [ "bluetooth.service" ];
+        requiredBy = [ "bluetooth.service" ];
+        after = [ "sys-subsystem-bluetooth-devices-hci0.device" ];
+        bindsTo = [ "sys-subsystem-bluetooth-devices-hci0.device" ];
+        stopIfChanged = false;
+        restartIfChanged = false;
+
+        script = ''
+          BLUETOOTH_MAC="${lib.optionalString (cfg.bluetoothMAC != null) cfg.bluetoothMAC}"
+
+          if [ "$BLUETOOTH_MAC" = "" ] ; then
+            BLUETOOTH_MAC="$(${macFrom "bluetooth"})"
+          fi
+	  BLUETOOTH_MAC="''${BLUETOOTH_MAC^^}"
 
           echo "Waiting for Adapter"
 
@@ -157,7 +243,7 @@ in
           # "efi=noruntime"
         ];
 
-        initrd.kernelModules = [
+        initrd.availableKernelModules = [
           "nvme"
           "phy-qcom-qmp-pcie"
           # "pcie-qcom" # this is no longer a module
