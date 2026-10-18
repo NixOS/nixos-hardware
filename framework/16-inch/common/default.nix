@@ -28,22 +28,6 @@
   # Enable keyboard customization
   hardware.keyboard.qmk.enable = lib.mkDefault true;
 
-  # Allow `services.libinput.touchpad.disableWhileTyping` to work correctly.
-  # Set unconditionally because libinput can also be configured dynamically via
-  # gsettings.
-  #
-  # This is extracted from the quirks file that is in the upstream libinput
-  # source.  Once we can assume everyone is on at least libinput 1.26.0, this
-  # local override file can be removed.
-  # https://gitlab.freedesktop.org/libinput/libinput/-/commit/566857bd98131009699c9ab6efc7af37afd43fd0
-  environment.etc."libinput/local-overrides.quirks".text = ''
-    [Framework Laptop 16 Keyboard Module]
-    MatchName=Framework Laptop 16 Keyboard Module*
-    MatchUdevType=keyboard
-    MatchDMIModalias=dmi:*svnFramework:pnLaptop16*
-    AttrKeyboardIntegration=internal
-  '';
-
   # Everything is updateable through fwupd
   services.fwupd.enable = true;
 }
