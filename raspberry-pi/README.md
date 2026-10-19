@@ -5,8 +5,9 @@ NixOS profiles and modules for Raspberry Pi boards.
 ## What's here
 
 - `common/` has the shared bits: the `linux-rpi` kernel build (vendor defconfig, matching firmware), the `config.txt` generation module, a pinned wireless firmware, and the firmware-partition install module.
-- `2/`, `3/`, `4/`, `5/` are the board profiles. Each one picks the right kernel and kernel params. Pi 4 and 5 also set DT filters and the initrd modules they need.
+- `1/`, `2/`, `3/`, `4/`, `5/` are the board profiles. They select vendor kernels and configure board-specific boot and hardware settings. Pi 4 and 5 also set DT filters and the initrd modules they need.
 - The extra files under `4/` are opt-in toggles for Pi 4 hardware: audio, GPIO, I2C, LEDs, touchscreens, and so on.
+- Where provided, `sd-image.nix` and `sd-image-installer.nix` combine a board profile with nixpkgs' SD-image builder, optionally adding the NixOS installation environment.
 
 ## Using a board profile
 
@@ -24,7 +25,7 @@ These profiles assume the `generic-extlinux-compatible` bootloader (the NixOS mo
 
 `hardware.raspberry-pi.firmware` stages the files the Pi firmware needs before Linux starts onto the firmware partition (default `/boot/firmware`): GPU boot code (`bootcode.bin`, `start*.elf`, `fixup*.dat`), vendor device trees and overlays, the rendered `config.txt`, and optionally U-Boot. It is not a new boot method; it just supplies the files the existing `generic-extlinux-compatible` + U-Boot path needs.
 
-When you build an SD image, the module sets `sdImage.populateFirmwareCommands` itself, so the firmware partition is populated at build time with no extra configuration.
+When you build an SD image, the module sets `sdImage.populateFirmwareCommands` itself, so the firmware partition is populated at build time with no extra configuration. For cross-compilation, set `nixpkgs.buildPlatform` to the build machine's architecture and `nixpkgs.hostPlatform` to the target board's architecture, unless the profile already selects it.
 
 For a running system, set `hardware.raspberry-pi.firmware.enable = true`. An activation script then repopulates the firmware partition on every `nixos-rebuild switch`. It is off by default.
 
@@ -39,11 +40,11 @@ To chainload U-Boot from the firmware, enable `uboot.enable`. It copies `u-boot.
 }
 ```
 
-`uboot.enable` defaults `uboot.package` to nixpkgs' `pkgs.ubootRaspberryPiAarch64`, built from the upstream `rpi_arm64_defconfig`, which covers every 64-bit board (Pi 3/4/5). For a 32-bit board, override `uboot.package` with the matching U-Boot build. On the Pi 5 this boots from SD, but U-Boot can't drive USB/PCIe/RP1 yet, so USB boot, NVMe boot, and a USB keyboard at the U-Boot prompt don't work until Linux takes over.
+The shared firmware module defaults `uboot.package` to `pkgs.ubootRaspberryPiAarch64`, built from `rpi_arm64_defconfig` for 64-bit Pi 3/4/5 systems. Board profiles can override this default. For 32-bit systems, use the package matching the board: `pkgs.ubootRaspberryPi` for Pi 1, `pkgs.ubootRaspberryPi2` for Pi 2, or `pkgs.ubootRaspberryPi3_32bit` for Pi 3. On the Pi 5 this boots from SD, but U-Boot can't drive USB/PCIe/RP1 yet, so USB boot, NVMe boot, and a USB keyboard at the U-Boot prompt don't work until Linux takes over.
 
 ## `config.txt`
 
-Board profiles import `hardware.raspberry-pi.configtxt`, which renders `config.txt` from Nix options. The defaults track the Raspberry Pi OS pi-gen image: camera and display autodetect, KMS, audio on, `arm_boost`.
+Board profiles import `hardware.raspberry-pi.configtxt`, which renders `config.txt` from Nix options. The Pi 2–5 profiles also import `common/config-txt-defaults.nix`, which tracks the Raspberry Pi OS pi-gen image: camera and display autodetect, KMS, audio on, `arm_boost`.
 
 ```nix
 {
@@ -174,4 +175,4 @@ To supply your own file, set `configtxt.file`. The module then ignores `settings
 
 - No bootloader module: There's no `boot.loader.raspberry-pi` here. Boards rely on `generic-extlinux-compatible` plus U-Boot. Raspberry Pi OS has the GPU firmware load the kernel directly; we go through U-Boot so it reads `extlinux.conf`, which is what gives you the NixOS boot-generation menu and rollbacks. The firmware install module just stages the boot code and (optionally) U-Boot; it doesn't add a firmware-level direct-boot path. Pi 5 boots from SD via U-Boot, but USB, PCIe, and the RP1 don't come up until Linux takes over, so a USB keyboard at the U-Boot prompt won't work on Pi 5 today.
 - Single pinned kernel: `common/kernel.nix` pins one `linux-rpi` version rather than matching each kernel to its firmware release.
-- No Pi 0/02/1 board profiles: `common/kernel.nix` accepts `rpiVersion = 1`, but there's no `0/`, `02/`, or `1/` directory wiring that kernel up into a profile you can import via `<nixos-hardware/raspberry-pi/...>`.
+- No Pi Zero or Zero 2 board profiles.
