@@ -55,25 +55,9 @@ in
       '';
       default = null;
     };
-
-    stateVersion = lib.mkOption {
-      type = lib.types.int;
-      description = ''
-        State version for this module. Allows smooth migrations
-        between updates.
-      '';
-      default = 0;
-    };
   };
 
   config = lib.mkMerge ([
-
-    # State versioning
-    (lib.mkIf (cfg.stateVersion == 0) {
-      warnings = [
-        "hardware.lenovo.x13s.stateVersion is not set; using legacy behavior (1). Set it to 2 to derive Wi-Fi and Bluetooth MAC addresses from /etc/machine-id. Note: this changes the Bluetooth MAC, so paired devices must be re-paired or the MAC set menually. Set it to 1 to keep the current behavior and silence this warning."
-      ];
-    })
 
     # Wi-Fi
     (lib.mkIf (cfg.wifiMAC != null && cfg.wifiMAC != "") {
@@ -85,7 +69,7 @@ in
         ''RUN+="${pkgs.iproute2}/bin/ip link set dev $name address ${cfg.wifiMAC}"''
       ];
     })
-    (lib.mkIf (cfg.wifiMAC == null && cfg.stateVersion > 1) {
+    (lib.mkIf (cfg.wifiMAC == null) {
       # https://github.com/jhovold/linux/wiki/X13s#wi-fi
       services.udev.extraRules = builtins.concatStringsSep ", " [
         ''ACTION=="add"''
@@ -97,70 +81,7 @@ in
     })
 
     # Bluetooth
-    (lib.mkIf (config.hardware.bluetooth.enable && cfg.stateVersion <= 1) {
-      # https://github.com/jhovold/linux/wiki/X13s#bluetooth
-      systemd.services.bluetooth-x13s-mac = {
-        wantedBy = [ "bluetooth.target" ];
-        before = [ "bluetooth.service" ];
-        requiredBy = [ "bluetooth.service" ];
-        after = [ "sys-subsystem-bluetooth-devices-hci0.device" ];
-        bindsTo = [ "sys-subsystem-bluetooth-devices-hci0.device" ];
-        stopIfChanged = false;
-        restartIfChanged = false;
-
-        script = ''
-          BLUETOOTH_MAC="${lib.optionalString (cfg.bluetoothMAC != null) cfg.bluetoothMAC}"
-
-          if [ "$BLUETOOTH_MAC" = "" ] ; then
-            echo 'Generating Bluetooth MAC'
-            # we might be able to use the system serial number but, if we lost machine-id
-            # the system has probably lost the bluetooth device keys anyway
-            SEED=$(( $(cat /etc/machine-id | head -c 128 | sed -e 's/[^0-9]//g;s/^0*//') ))
-
-            # https://datatracker.ietf.org/doc/html/rfc7042#section-2.1
-            # > Two bits within the initial octet of an EUI-48 have special
-            # > significance in MAC addresses: the Group bit (01) and the Local bit
-            # > (02).  OUIs and longer MAC prefixes are assigned with the Local bit
-            # > zero and the Group bit unspecified.  Multicast identifiers may be
-            # > constructed by turning on the Group bit, and unicast identifiers may
-            # > be constructed by leaving the Group bit zero.
-            #
-            # First, and only argument is for passing a file to seed RANDOM.
-            # recommend using `/etc/machine-id` to pin the MAC address if needed.
-            
-            BLUETOOTH_MAC="$(RANDOM=$SEED ; printf '%X%X:%02X:%02X:%02X:%02X:%02X' \
-              $[RANDOM%16] $[((RANDOM%4)+1)*4-2] \
-              $[RANDOM%256] \
-              $[RANDOM%256] \
-              $[RANDOM%256] \
-              $[RANDOM%256] \
-              $[RANDOM%256])"
-          fi
-
-          echo "Waiting for Adapter"
-
-          # Listen to the hardware setup and wait for the adapter to
-          # finish receiving its firmware, and finish loading
-          mkfifo /tmp/btmon.log
-          stdbuf -oL ${config.hardware.bluetooth.package}/bin/btmon --mgmt --kernel >> /tmp/btmon.log &
-          BTPID=$!
-          grep -q -m 1 "Unconfigured Index Ad" /tmp/btmon.log || true
-          kill $BTPID 2>/dev/null
-
-          echo "Assigning MAC: $BLUETOOTH_MAC"
-
-          ${config.hardware.bluetooth.package}/bin/btmgmt --index 0 public-addr $BLUETOOTH_MAC
-        '';
-
-        serviceConfig = {
-          Type = "oneshot";
-          PrivateTmp = "true";
-          RemainAfterExit = true;
-          TimeoutSec = "1m";
-        };
-      };
-    })
-    (lib.mkIf (config.hardware.bluetooth.enable && cfg.stateVersion > 1) {
+    (lib.mkIf config.hardware.bluetooth.enable {
       # https://github.com/jhovold/linux/wiki/X13s#bluetooth
       systemd.services.bluetooth-x13s-mac = {
         wantedBy = [ "bluetooth.target" ];
