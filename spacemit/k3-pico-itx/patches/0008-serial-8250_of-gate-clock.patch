@@ -7,18 +7,18 @@ gated by a separate clock (SpacemiT K3 CLK_MPMU_SLOW_UART) work.
 Signed-off-by: liberodark <liberodark@gmail.com>
 ---
 diff --git a/drivers/tty/serial/8250/8250_of.c b/drivers/tty/serial/8250/8250_of.c
-index 81644d4..a288d2b 100644
+index b41ca604083f..a3ea8d02b590 100644
 --- a/drivers/tty/serial/8250/8250_of.c
 +++ b/drivers/tty/serial/8250/8250_of.c
-@@ -25,6 +25,7 @@
+@@ -27,6 +27,7 @@
  struct of_serial_info {
  	struct clk *clk;
  	struct clk *bus_clk;
 +	struct clk *gate_clk;	/* Gate clock for register access (SpacemiT) */
  	struct reset_control *rst;
  	int type;
- 	int line;
-@@ -132,6 +133,17 @@ static int of_platform_serial_setup(struct platform_device *ofdev,
+ 	struct uart_8250_port *uport;
+@@ -178,6 +179,17 @@ static int of_platform_serial_setup(struct platform_device *ofdev,
  			goto err_pmruntime;
  		}
  

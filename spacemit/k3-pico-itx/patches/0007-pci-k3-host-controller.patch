@@ -23,10 +23,10 @@ Tested-by: Aurelien Jarno <aurelien@aurel32.net>
  2 files changed, 128 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/pci/controller/dwc/Kconfig b/drivers/pci/controller/dwc/Kconfig
-index aa0b784c85b4..dacbac5cc35c 100644
+index 0a0d56fcf0ac..b936672fa306 100644
 --- a/drivers/pci/controller/dwc/Kconfig
 +++ b/drivers/pci/controller/dwc/Kconfig
-@@ -440,7 +440,7 @@ config PCIE_SOPHGO_DW
+@@ -443,7 +443,7 @@ config PCIE_SOPHGO_DW
  	  Sophgo SoCs.
  
  config PCIE_SPACEMIT_K1
@@ -35,7 +35,7 @@ index aa0b784c85b4..dacbac5cc35c 100644
  	depends on ARCH_SPACEMIT || COMPILE_TEST
  	depends on HAS_IOMEM
  	select PCIE_DW_HOST
-@@ -448,7 +448,7 @@ config PCIE_SPACEMIT_K1
+@@ -451,7 +451,7 @@ config PCIE_SPACEMIT_K1
  	default ARCH_SPACEMIT
  	help
  	  Enables support for the DesignWare based PCIe controller in
@@ -45,10 +45,10 @@ index aa0b784c85b4..dacbac5cc35c 100644
  	  with a USB 3.0 host controller (one or the other can be used).
  
 diff --git a/drivers/pci/controller/dwc/pcie-spacemit-k1.c b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-index 31aac056b68e..680acc93f539 100644
+index 5cf8b66d6b7c..a153b3f76652 100644
 --- a/drivers/pci/controller/dwc/pcie-spacemit-k1.c
 +++ b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-@@ -32,8 +33,18 @@
+@@ -31,8 +31,18 @@
  #define SMLH_LINK_UP			BIT(1)
  #define RDLH_LINK_UP			BIT(12)
  
@@ -67,7 +67,7 @@ index 31aac056b68e..680acc93f539 100644
  
  /* Some controls require APMU regmap access */
  #define SYSCON_APMU			"spacemit,apmu"
-@@ -48,6 +59,9 @@
+@@ -47,6 +57,9 @@
  
  #define PCIE_CONTROL_LOGIC			0x0004
  #define PCIE_SOFT_RESET			BIT(0)
@@ -77,7 +77,7 @@ index 31aac056b68e..680acc93f539 100644
  
  struct k1_pcie;
  
-@@ -340,6 +354,109 @@ static int k1_pcie_parse_port(struct k1_pcie *k1)
+@@ -339,6 +352,109 @@ static int k1_pcie_parse_port(struct k1_pcie *k1)
  	return ret;
  }
  
@@ -121,10 +121,10 @@ index 31aac056b68e..680acc93f539 100644
 +	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
 +			PCIE_PERSTN_OUT | PCIE_PERSTN_OE);
 +
-+	val = dw_pcie_readl_dbi(pci, GEN3_EQ_CONTROL_OFF);
++	val = dw_pcie_readl_dbi(pci, GEN3_EQ_CTRL);
 +	val = u32_replace_bits(val, BIT(7),
-+			       GEN3_EQ_CONTROL_OFF_PSET_REQ_VEC);
-+	dw_pcie_writel_dbi(pci, GEN3_EQ_CONTROL_OFF, val);
++			       GEN3_EQ_CTRL_PSET_REQ_VEC);
++	dw_pcie_writel_dbi(pci, GEN3_EQ_CTRL, val);
 +
 +	k1_pcie_set_device_id(k1);
 +
@@ -141,10 +141,10 @@ index 31aac056b68e..680acc93f539 100644
 +
 +	dw_pcie_dbi_ro_wr_en(pci);
 +
-+	val = dw_pcie_readl_dbi(pci, COHERENCY_CONTROL_3_OFF);
++	val = dw_pcie_readl_dbi(pci, COHERENCY_CTRL3);
 +	val = u32_replace_bits(val, K3_CACHE_MSTR_AWCACHE_BEHAVIOR,
 +			       K3_CACHE_MSTR_AWCACHE_MODE);
-+	dw_pcie_writel_dbi(pci, COHERENCY_CONTROL_3_OFF, val);
++	dw_pcie_writel_dbi(pci, COHERENCY_CTRL3, val);
 +
 +	dw_pcie_dbi_ro_wr_dis(pci);
 +
@@ -187,7 +187,7 @@ index 31aac056b68e..680acc93f539 100644
  static int k1_pcie_probe(struct platform_device *pdev)
  {
  	const struct k1_pcie_device_data *data;
-@@ -417,8 +534,17 @@ static const struct k1_pcie_device_data k1_pcie_device_data = {
+@@ -416,8 +532,17 @@ static const struct k1_pcie_device_data k1_pcie_device_data = {
  	.device_id	= PCI_DEVICE_ID_SPACEMIT_K1,
  };
  
@@ -204,7 +204,7 @@ index 31aac056b68e..680acc93f539 100644
 +	{ .compatible = "spacemit,k3-pcie", .data = &k3_pcie_device_data},
  	{ }
  };
- 
+ MODULE_DEVICE_TABLE(of, k1_pcie_of_match_table);
 -- 
 2.55.0
 
