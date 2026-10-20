@@ -167,8 +167,6 @@ in
         initrd.availableKernelModules = [
           "nvme"
           "phy-qcom-qmp-pcie"
-          "pwrseq-qcom-wcn"
-          "pci-pwrctrl-pwrseq"
 
           "i2c-core"
           "i2c-hid"
@@ -185,6 +183,11 @@ in
           "dispcc_sc8280xp"
           "phy_qcom_edp"
           "panel-edp"
+        ] ++ lib.optionals (lib.versions.major config.boot.kernelPackages.kernel.version == "6") [
+          "msm"
+        ] ++ lib.optionals (lib.versions.major config.boot.kernelPackages.kernel.version == "7") [
+          "pwrseq-qcom-wcn"
+          "pci-pwrctrl-pwrseq"
         ];
       };
     }
