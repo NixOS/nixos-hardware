@@ -10,18 +10,21 @@ let
   modemmanager = config.networking.modemmanager;
 
   # Based on RFC 9542 and SLAP.
-  macFrom = salt:
+  macFrom =
+    salt:
     lib.throwIfNot (builtins.match "[a-z0-9-]+" salt != null)
       "macFrom: salt must match [a-z0-9-]+, got ${builtins.toJSON salt}"
-      (pkgs.writeShellScript "mac-from-${salt}" ''
-	hash=$(printf '%s:%s' "$(< /etc/machine-id)" "${salt}" \
-	  | ${pkgs.coreutils}/bin/sha256sum)
+      (
+        pkgs.writeShellScript "mac-from-${salt}" ''
+          hash=$(printf '%s:%s' "$(< /etc/machine-id)" "${salt}" \
+            | ${pkgs.coreutils}/bin/sha256sum)
 
-	printf '%s:%s:%s:%s:%s:%s\n' \
-	  "''${hash:0:1}2" "''${hash:2:2}" \
-	  "''${hash:4:2}" "''${hash:6:2}" \
-	  "''${hash:8:2}" "''${hash:10:2}"
-      '');
+          printf '%s:%s:%s:%s:%s:%s\n' \
+            "''${hash:0:1}2" "''${hash:2:2}" \
+            "''${hash:4:2}" "''${hash:6:2}" \
+            "''${hash:8:2}" "''${hash:10:2}"
+        ''
+      );
 
   cfg = config.hardware.lenovo.x13s;
 in
@@ -54,29 +57,26 @@ in
     };
 
     stateVersion = lib.mkOption {
-      type = lib.types.nullOr lib.types.int;
+      type = lib.types.int;
       description = ''
         State version for this module. Allows smooth migrations
         between updates.
       '';
-      default = null;
+      default = 0;
     };
   };
 
   config = lib.mkMerge ([
 
     # State versioning
-    (lib.mkIf (cfg.stateVersion == null) {
-      warnings = [ ''
-	hardware.lenovo.x13s.stateVersion is not set; using legacy behavior (1).
-	Set it to 2 to derive Wi-Fi and Bluetooth MAC addresses from /etc/machine-id.
-	Note: this changes the Bluetooth MAC, so paired devices must be re-paired.
-	Set it to 1 to keep the current behavior and silence this warning.
-      '' ];
+    (lib.mkIf (cfg.stateVersion == 0) {
+      warnings = [
+        "hardware.lenovo.x13s.stateVersion is not set; using legacy behavior (1). Set it to 2 to derive Wi-Fi and Bluetooth MAC addresses from /etc/machine-id. Note: this changes the Bluetooth MAC, so paired devices must be re-paired or the MAC set menually. Set it to 1 to keep the current behavior and silence this warning."
+      ];
     })
 
     # Wi-Fi
-    (lib.mkIf (cfg.wifiMAC != null && cfg.wifiMAC != "")) {
+    (lib.mkIf (cfg.wifiMAC != null && cfg.wifiMAC != "") {
       # https://github.com/jhovold/linux/wiki/X13s#wi-fi
       services.udev.extraRules = builtins.concatStringsSep ", " [
         ''ACTION=="add"''
@@ -97,7 +97,7 @@ in
     })
 
     # Bluetooth
-    (lib.mkIf (config.hardware.bluetooth.enable && (cfg.stateVersion == 1 || cfg.stateVersion == null)) {
+    (lib.mkIf (config.hardware.bluetooth.enable && cfg.stateVersion <= 1) {
       # https://github.com/jhovold/linux/wiki/X13s#bluetooth
       systemd.services.bluetooth-x13s-mac = {
         wantedBy = [ "bluetooth.target" ];
@@ -177,7 +177,7 @@ in
           if [ "$BLUETOOTH_MAC" = "" ] ; then
             BLUETOOTH_MAC="$(${macFrom "bluetooth"})"
           fi
-	  BLUETOOTH_MAC="''${BLUETOOTH_MAC^^}"
+          BLUETOOTH_MAC="''${BLUETOOTH_MAC^^}"
 
           echo "Waiting for Adapter"
 
@@ -246,7 +246,8 @@ in
         initrd.availableKernelModules = [
           "nvme"
           "phy-qcom-qmp-pcie"
-          # "pcie-qcom" # this is no longer a module
+          "pwrseq-qcom-wcn"
+          "pci-pwrctrl-pwrseq"
 
           "i2c-core"
           "i2c-hid"
@@ -263,7 +264,6 @@ in
           "dispcc_sc8280xp"
           "phy_qcom_edp"
           "panel-edp"
-          "msm"
         ];
       };
     }
@@ -282,9 +282,7 @@ in
             "dtbs/${deviceTree.kernelPackage.version}" = "${deviceTree.package}";
           };
 
-          kernelParams = [
-            "dtb=dtbs/${deviceTree.kernelPackage.version}/${deviceTree.name}"
-          ];
+          kernelParams = [ "dtb=dtbs/${deviceTree.kernelPackage.version}/${deviceTree.name}" ];
         };
       }
     )
