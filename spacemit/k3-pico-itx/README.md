@@ -79,44 +79,16 @@ hardware. I can't guarantee its availability, nor that everything is already
 built on it. The Hydra infrastructure is still being deployed, so please be
 lenient in that regard.
 
-## HMP configuration
+## X100 vs A100
 
-The X100 and A100 clusters have different vector widths (`VLENB=32` vs `VLENB=128`).
+Here are the notable differences between the X100 and the A100.
 
-You can configure HMP at runtime:
-
-`echo strict > /sys/kernel/spacemit_hmp/mode` (default)
-
-or
-
-`echo permissive > /sys/kernel/spacemit_hmp/mode`
-
-Permissive mode lets you use the 8 A100 cores in addition to the X100 cores.
-However, I deliberately apply a segmentation between the two clusters because of a
-VLEN issue.
-
-If you force tasks across both clusters anyway (e.g. via `taskset`), it will cause
-crypto corruption.
-
-I also made a small module for this:
-
-```nix
-hardware.spacemit.hmp = {
-  enable = true;
-  mode = "permissive"; # or "strict"
-};
-```
-
-- **`strict`** (default): uses the X100 cores only.
-- **`permissive`**: uses both the X100 and A100 cores, but with a segmentation
-  between the clusters.
-
-An alternative is still available to use all 16 cores without segmentation, with
-this:
-
-```nix
-environment.variables.OPENSSL_riscvcap = "RV64GC";
-```
+| | X100 (cpu 0-7) | A100 (cpu 8-15) |
+|---|---|---|
+| Hypervisor extension (`h`) | yes (`rv64imafdcvh`) | no (`rv64imafdcv`) |
+| Vector width | `VLENB=32` (VLEN 256-bit) | `VLENB=128` (VLEN 1024-bit) |
+| L2 cache | 4 MB per cluster (8 MB total) | 1 MB per cluster (2 MB total) |
+| L1 cache | 64 KB I + 64 KB D per core | identical |
 
 ## UEFI
 

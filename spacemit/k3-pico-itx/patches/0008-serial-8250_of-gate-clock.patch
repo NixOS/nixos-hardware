@@ -1,0 +1,38 @@
+From: liberodark <liberodark@gmail.com>
+Subject: [PATCH] serial: 8250_of: support an optional gate clock
+
+Enable an optional "gate" clock so UARTs whose register access is
+gated by a separate clock (SpacemiT K3 CLK_MPMU_SLOW_UART) work.
+
+Signed-off-by: liberodark <liberodark@gmail.com>
+---
+diff --git a/drivers/tty/serial/8250/8250_of.c b/drivers/tty/serial/8250/8250_of.c
+index 81644d4..a288d2b 100644
+--- a/drivers/tty/serial/8250/8250_of.c
++++ b/drivers/tty/serial/8250/8250_of.c
+@@ -25,6 +25,7 @@
+ struct of_serial_info {
+ 	struct clk *clk;
+ 	struct clk *bus_clk;
++	struct clk *gate_clk;	/* Gate clock for register access (SpacemiT) */
+ 	struct reset_control *rst;
+ 	int type;
+ 	int line;
+@@ -132,6 +133,17 @@ static int of_platform_serial_setup(struct platform_device *ofdev,
+ 			goto err_pmruntime;
+ 		}
+ 
++		/*
++		 * Some platforms (e.g. SpacemiT K3) gate register access behind
++		 * an additional "gate" clock. Without it, MMIO access to the
++		 * UART stalls during port registration. Enable it if present.
++		 */
++		info->gate_clk = devm_clk_get_optional_enabled(dev, "gate");
++		if (IS_ERR(info->gate_clk)) {
++			ret = dev_err_probe(dev, PTR_ERR(info->gate_clk), "failed to get gate clock\n");
++			goto err_pmruntime;
++		}
++
+ 		/* If the bus clock is required, core clock must be named */
+ 		info->clk = devm_clk_get_enabled(dev, bus_clk ? "core" : NULL);
+ 		if (IS_ERR(info->clk)) {

@@ -6,7 +6,7 @@
 
 stdenvNoCC.mkDerivation {
   pname = "raspberrypi-wireless-firmware";
-  version = "0-unstable-2026-03-21";
+  version = "0-unstable-2026-07-10";
 
   srcs = [
     (fetchFromGitHub {
@@ -20,8 +20,8 @@ stdenvNoCC.mkDerivation {
       name = "firmware-nonfree";
       owner = "RPi-Distro";
       repo = "firmware-nonfree";
-      rev = "9794282eb9f4a2de1f23b41a738926740e975d83";
-      hash = "sha256-OtA8yHvfusGP/ucf8Exzi+nSUmNoYp10u+luC2gbNZc=";
+      rev = "3bab0f823f5b53150b76aab77093adef6655b920";
+      hash = "sha256-2DXj2esIix8YQwBf3IuzHwnUJ+yCANbRdpyS/DeB4XE=";
     })
   ];
 
@@ -36,7 +36,8 @@ stdenvNoCC.mkDerivation {
     mkdir -p "$out/lib/firmware/brcm"
 
     # Wifi firmware
-    cp -r "firmware-nonfree/debian/config/brcm80211/." "$out/lib/firmware/"
+    cp -r "firmware-nonfree/debian/added-firmware/brcm" "$out/lib/firmware/"
+    cp -r "firmware-nonfree/debian/added-firmware/cypress" "$out/lib/firmware/"
 
     # Bluetooth firmware
     cp -r "bluez-firmware/debian/firmware/broadcom/." "$out/lib/firmware/brcm"
