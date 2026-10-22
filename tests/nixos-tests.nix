@@ -21,6 +21,7 @@ let
     "raspberry-pi-3"
     "raspberry-pi-4"
     "raspberry-pi-5"
+    "nvidia-dgx-station"
     "nxp-imx8mp-evk"
     "nxp-imx8mq-evk"
     "nxp-imx8qm-mek"
