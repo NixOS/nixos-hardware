@@ -9,6 +9,8 @@ let
   blackList = [
     # does import-from-derivation
     "toshiba-swanky"
+    # ARMv6 is not covered by the test platforms
+    "raspberry-pi-1"
     # uses custom nixpkgs config
     "raspberry-pi-2"
     # deprecated profiles
