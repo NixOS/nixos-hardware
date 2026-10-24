@@ -24,7 +24,7 @@ let
         hash = "sha256-qtpHItuLz6C5cyhRhW1AUIK2pPouOrBnvo2xfN0RWzg=";
       };
       stable-kernel = {
-        version = "7.2.11";
+        version = "7.2.12";
         hash = "sha256-/Q/EefmDqMBTE/E+nDYzD+ZlHPclOWdIxA1c2T+h5qQ=";
       };
     in
@@ -38,22 +38,12 @@ let
   srcHash = supportedKernels.${config.hardware.microsoft-surface.kernelVersion}.hash;
 
   # Fetch the latest linux-surface patches
-  linux-surface = (
-    if (versions.majorMinor srcVersion == "longterm") then
-      pkgs.fetchFromGitHub {
-        owner = "linux-surface";
-        repo = "linux-surface";
-        rev = "bf1921fc63f33d03a007fb38c4f88ff7e7bc1a55";
-        hash = "sha256-AV+J1iKpA4PEsX9oVUTGlzGerTWTermia3aJSZxuu/w=";
-      }
-    else
-      (pkgs.fetchFromGitHub {
-        owner = "Apiznel";
-        repo = "linux-surface";
-        rev = "a23fa87c2b4091b851a36159ee31ce2ad26c5b36";
-        hash = "sha256-lY99sp+eA4a+b9AerSii0j0XbDX5gF+QGK4FjB7jdlc=";
-      })
-  );
+  linux-surface = pkgs.fetchFromGitHub {
+    owner = "linux-surface";
+    repo = "linux-surface";
+    rev = "2294802a3f6eb8fc3cec502b5129b005c7c378db";
+    hash = "sha256-oAgs2x4eJtdEehX4mQSgsEbGC71DvETQZy2VwOj0oTU=";
+  };
 
   # Fetch and build the kernel
   inherit (pkgs.callPackage ./kernel/linux-package.nix { })
