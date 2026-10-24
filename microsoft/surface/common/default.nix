@@ -25,7 +25,7 @@ let
       };
       stable-kernel = {
         version = "7.2.12";
-        hash = "sha256-/Q/EefmDqMBTE/E+nDYzD+ZlHPclOWdIxA1c2T+h5qQ=";
+        hash = "sha256-uxhGio3Il4qgDKpkRudT97baP+5Wtrfzixb5QwugLU8=";
       };
     in
     {
