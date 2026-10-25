@@ -181,33 +181,14 @@ To enable onboard audio through `snd_bcm2835` on Pi 2, 3, or 4:
 ```
 
 The board profiles import this module from `common/audio.nix`.
-It sets `audio=on`, loads `snd_bcm2835`, and adds the headphone and HDMI kernel parameters.
-NixOS [writes the extlinux `APPEND` line](https://github.com/NixOS/nixpkgs/blob/b1b875982b17dabde9b4a37f3e229e74913e6db3/nixos/modules/system/boot/loader/generic-extlinux-compatible/extlinux-conf-builder.sh#L78-L105) from each generation's kernel parameters.
-The [audio driver](https://github.com/raspberrypi/linux/blob/stable_20260911/drivers/staging/vc04_services/bcm2835-audio/bcm2835.c) receives those parameters from this line.
+It writes `dtparam=audio=on` to `config.txt`, loads the [`snd_bcm2835` kernel module](https://github.com/raspberrypi/linux/blob/rpi-6.18.y/drivers/staging/vc04_services/bcm2835-audio/bcm2835.c), and configures its headphone and HDMI outputs.
 
-The default KMS overlay [provides HDMI audio](https://github.com/raspberrypi/firmware/blob/1.20260521/boot/overlays/README#L5994-L6014), so the module defaults `snd_bcm2835.enable_hdmi` to `0`.
+The board profiles [enable `vc4-kms-v3d` by default](./common/config-txt-defaults.nix).
+This overlay [provides HDMI audio](https://github.com/raspberrypi/linux/blob/rpi-6.18.y/arch/arm/boot/dts/overlays/README), so the audio module defaults `snd_bcm2835.enable_hdmi` to `0`.
 For firmware-controlled displays, including FKMS, set `hardware.raspberry-pi.audio.hdmi.enable = true`.
 
-The module selects the firmware-provided device tree.
-Before enabling it, migrate changes that exist only in a generation's `hardware.deviceTree.overlays`.
+Before enabling the module, migrate other `hardware.deviceTree.overlays` to `hardware.raspberry-pi.configtxt`, because the module uses the firmware-provided device tree.
 See "Device tree overlays" above for firmware installation.
-
-### PulseAudio
-
-The audio module supplies a `default.pa` with `tsched=0` for PulseAudio's device-detection module.
-PulseAudio uses this file only when `services.pulseaudio.enable` is `true`.
-Defining the file does not enable PulseAudio or change the sound server.
-An explicit `services.pulseaudio.configFile` overrides this default.
-To use the package's unmodified `default.pa`, set:
-
-```nix
-{ config, lib, ... }:
-
-{
-  services.pulseaudio.configFile =
-    "${lib.getBin config.services.pulseaudio.package}/etc/pulse/default.pa";
-}
-```
 
 ## Current limits
 
