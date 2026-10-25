@@ -4,6 +4,7 @@
     ./config-txt.nix
     ./config-txt-defaults.nix
     ./firmware.nix
+    ./modesetting.nix
   ];
 
   boot.initrd.availableKernelModules = [

@@ -45,6 +45,10 @@ in
 
   assertions = [
     {
+      assertion = !config.hardware.raspberry-pi.fkms-3d.enable;
+      message = "Raspberry Pi 5 does not support FKMS. Use the default KMS configuration instead.";
+    }
+    {
       assertion = (lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.1.54");
       message = "The Raspberry Pi 5 requires a newer kernel version (>=6.1.54). Please upgrade nixpkgs for this system.";
     }
