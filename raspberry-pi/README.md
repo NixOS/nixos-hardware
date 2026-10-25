@@ -171,6 +171,19 @@ Use `board-type=0x0d` for the Pi 3B+ and `board-type=0x11` for the Pi 4B. Replac
 
 To supply your own file, set `configtxt.file`. The module then ignores `settings` and `deviceTreeOverlays`.
 
+## Audio
+
+To enable the headphone jack on Raspberry Pi 2, 3, or 4:
+
+```nix
+{
+  hardware.raspberry-pi.audio.enable = true;
+}
+```
+
+The audio module writes `dtparam=audio=on` to `config.txt` and loads the [`snd_bcm2835` kernel module](https://github.com/raspberrypi/linux/blob/rpi-6.18.y/drivers/staging/vc04_services/bcm2835-audio/bcm2835.c) to enable headphone audio.
+If you use PulseAudio, the module also provides a default configuration to avoid audio glitches.
+
 ## Current limits
 
 - No bootloader module: There's no `boot.loader.raspberry-pi` here. Boards rely on `generic-extlinux-compatible` plus U-Boot. Raspberry Pi OS has the GPU firmware load the kernel directly; we go through U-Boot so it reads `extlinux.conf`, which is what gives you the NixOS boot-generation menu and rollbacks. The firmware install module just stages the boot code and (optionally) U-Boot; it doesn't add a firmware-level direct-boot path. Pi 5 boots from SD via U-Boot, but USB, PCIe, and the RP1 don't come up until Linux takes over, so a USB keyboard at the U-Boot prompt won't work on Pi 5 today.
