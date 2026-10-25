@@ -137,7 +137,7 @@
         # image) to make this a live CD.
         "/nix/.ro-store" = lib.mkImageMediaOverride {
           fsType = "squashfs";
-          device = "${lib.optionalString config.boot.initrd.systemd.enable "/sysroot"}/iso/nix-store.squashfs";
+          device = "/sysroot/iso/nix-store.squashfs";
           options = [
             "loop"
           ]
@@ -171,7 +171,7 @@
             "loop"
             "overlay"
           ];
-          systemd = lib.mkIf config.boot.initrd.systemd.enable {
+          systemd = {
             emergencyAccess = true;
             initrdBin = [ config.boot.initrd.systemd.package.util-linux ];
           };
