@@ -5,7 +5,7 @@
 #
 # Reference: https://www.raspberrypi.com/documentation/computers/config_txt.html
 
-{ lib, ... }:
+{ config, lib, ... }:
 
 {
   hardware.raspberry-pi.configtxt = {
@@ -37,7 +37,10 @@
     };
 
     deviceTreeOverlays = {
-      all = lib.mkDefault [ { vc4-kms-v3d = { }; } ];
+      # FKMS and KMS must not control the same display.
+      all = lib.mkDefault (
+        lib.optional (!(config.hardware.raspberry-pi.fkms-3d.enable or false)) { vc4-kms-v3d = { }; }
+      );
       cm5 = lib.mkDefault [ { dwc2.dr_mode = "host"; } ];
     };
   };
