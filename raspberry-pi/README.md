@@ -170,6 +170,45 @@ Use `board-type=0x0d` for the Pi 3B+ and `board-type=0x11` for the Pi 4B. Replac
 
 To supply your own file, set `configtxt.file`. The module then ignores `settings` and `deviceTreeOverlays`.
 
+## Audio
+
+To enable onboard audio through `snd_bcm2835` on Pi 2, 3, or 4:
+
+```nix
+{
+  hardware.raspberry-pi.audio.enable = true;
+}
+```
+
+The board profiles import this module from `common/audio.nix`.
+It sets `audio=on`, loads `snd_bcm2835`, and adds the headphone and HDMI kernel parameters.
+NixOS [writes the extlinux `APPEND` line](https://github.com/NixOS/nixpkgs/blob/b1b875982b17dabde9b4a37f3e229e74913e6db3/nixos/modules/system/boot/loader/generic-extlinux-compatible/extlinux-conf-builder.sh#L78-L105) from each generation's kernel parameters.
+The [audio driver](https://github.com/raspberrypi/linux/blob/stable_20260911/drivers/staging/vc04_services/bcm2835-audio/bcm2835.c) receives those parameters from this line.
+
+The default KMS overlay [provides HDMI audio](https://github.com/raspberrypi/firmware/blob/1.20260521/boot/overlays/README#L5994-L6014), so the module defaults `snd_bcm2835.enable_hdmi` to `0`.
+For firmware-controlled displays, including FKMS, set `hardware.raspberry-pi.audio.hdmi.enable = true`.
+
+The module selects the firmware-provided device tree.
+Before enabling it, migrate changes that exist only in a generation's `hardware.deviceTree.overlays`.
+See "Device tree overlays" above for firmware installation.
+
+### PulseAudio
+
+The audio module supplies a `default.pa` with `tsched=0` for PulseAudio's device-detection module.
+PulseAudio uses this file only when `services.pulseaudio.enable` is `true`.
+Defining the file does not enable PulseAudio or change the sound server.
+An explicit `services.pulseaudio.configFile` overrides this default.
+To use the package's unmodified `default.pa`, set:
+
+```nix
+{ config, lib, ... }:
+
+{
+  services.pulseaudio.configFile =
+    "${lib.getBin config.services.pulseaudio.package}/etc/pulse/default.pa";
+}
+```
+
 ## Current limits
 
 - No bootloader module: There's no `boot.loader.raspberry-pi` here. Boards rely on `generic-extlinux-compatible` plus U-Boot. Raspberry Pi OS has the GPU firmware load the kernel directly; we go through U-Boot so it reads `extlinux.conf`, which is what gives you the NixOS boot-generation menu and rollbacks. The firmware install module just stages the boot code and (optionally) U-Boot; it doesn't add a firmware-level direct-boot path. Pi 5 boots from SD via U-Boot, but USB, PCIe, and the RP1 don't come up until Linux takes over, so a USB keyboard at the U-Boot prompt won't work on Pi 5 today.
