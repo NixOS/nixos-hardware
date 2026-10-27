@@ -172,7 +172,7 @@ To supply your own file, set `configtxt.file`. The module then ignores `settings
 
 ## Audio
 
-To enable onboard audio through `snd_bcm2835` on Pi 2, 3, or 4:
+To enable the headphone jack on Raspberry Pi 2, 3, or 4:
 
 ```nix
 {
@@ -180,14 +180,26 @@ To enable onboard audio through `snd_bcm2835` on Pi 2, 3, or 4:
 }
 ```
 
-The board profiles import this module from `common/audio.nix`.
-It writes `dtparam=audio=on` to `config.txt`, loads the [`snd_bcm2835` kernel module](https://github.com/raspberrypi/linux/blob/rpi-6.18.y/drivers/staging/vc04_services/bcm2835-audio/bcm2835.c), and configures its headphone and HDMI outputs.
+The board profiles import this helper from `common/audio.nix`.
+It writes `dtparam=audio=on` to `config.txt` and loads the [`snd_bcm2835` kernel module](https://github.com/raspberrypi/linux/blob/rpi-6.18.y/drivers/staging/vc04_services/bcm2835-audio/bcm2835.c) to enable headphone audio.
 
-The board profiles [enable `vc4-kms-v3d` by default](./common/config-txt-defaults.nix).
-This overlay [provides HDMI audio](https://github.com/raspberrypi/linux/blob/rpi-6.18.y/arch/arm/boot/dts/overlays/README), so the audio module defaults `snd_bcm2835.enable_hdmi` to `0`.
-For firmware-controlled displays, including FKMS, set `hardware.raspberry-pi.audio.hdmi.enable = true`.
+The board profiles [configure the `vc4-kms-v3d` firmware overlay by default](./common/config-txt-defaults.nix).
+This overlay enables the Linux display driver, which [also provides HDMI audio](https://github.com/raspberrypi/linux/blob/rpi-6.18.y/arch/arm/boot/dts/overlays/README).
+HDMI audio through this driver, including on Pi 5, does not use `snd_bcm2835`.
 
-Before enabling the module, migrate other `hardware.deviceTree.overlays` to `hardware.raspberry-pi.configtxt`, because the module uses the firmware-provided device tree.
+The helper leaves the `snd_bcm2835` HDMI output disabled because the display driver handles HDMI audio by default.
+If your display is already controlled by the Raspberry Pi firmware, enable both audio options:
+
+```nix
+{
+  hardware.raspberry-pi.audio = {
+    enable = true;
+    hdmi.enable = true;
+  };
+}
+```
+
+Before enabling the helper, migrate other `hardware.deviceTree.overlays` to `hardware.raspberry-pi.configtxt`, because the helper uses the firmware-provided device tree.
 See "Device tree overlays" above for firmware installation.
 
 ## Current limits
