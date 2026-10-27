@@ -198,9 +198,22 @@ in
       (
         config.boot.loader.systemd-boot.enable
         && deviceTree.enable
-        && (lib.versionOlder config.system.stateVersion "24.11")
+        && (lib.versionOlder config.system.nixos.release "24.11")
       )
       {
+        assertions =
+          let
+            dtbParams = lib.filter (lib.hasPrefix "dtb=") config.boot.kernelParams;
+          in
+          [
+            {
+              assertion = lib.length dtbParams == 1;
+              message = ''
+                The kernelParam `dtb=` is now handled by the x13s module. Remove it from your configuration to continue.
+              '';
+            }
+          ];
+
         boot = {
           loader.systemd-boot.extraFiles = {
             "dtbs/${deviceTree.kernelPackage.version}" = "${deviceTree.package}";
@@ -208,6 +221,28 @@ in
 
           kernelParams = [ "dtb=dtbs/${deviceTree.kernelPackage.version}/${deviceTree.name}" ];
         };
+      }
+    )
+
+    (lib.mkIf
+      (
+        config.boot.loader.systemd-boot.enable
+        && deviceTree.enable
+        && (lib.versionAtLeast config.system.nixos.release "24.11")
+      )
+      {
+        assertions =
+          let
+            dtbParams = lib.filter (lib.hasPrefix "dtb=") config.boot.kernelParams;
+          in
+          [
+            {
+              assertion = lib.length dtbParams == 0;
+              message = ''
+                The devicetree is handled by the systemd-boot module. Remove the `dtb=` kernelParam from your configuration to continue.
+              '';
+            }
+          ];
       }
     )
 
