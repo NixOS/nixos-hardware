@@ -184,8 +184,8 @@ in
           "phy_qcom_edp"
           "panel-edp"
         ]
-        ++ lib.optionals (lib.versions.major config.boot.kernelPackages.kernel.version == "6") [ "msm" ]
-        ++ lib.optionals (lib.versions.major config.boot.kernelPackages.kernel.version == "7") [
+        ++ lib.optionals (lib.versionOlder config.boot.kernelPackages.kernel.version "7") [ "msm" ]
+        ++ lib.optionals (lib.versionAtLeast config.boot.kernelPackages.kernel.version "7") [
           "pwrseq-qcom-wcn"
           "pci-pwrctrl-pwrseq"
         ];
