@@ -392,6 +392,7 @@
           msi-gl65-10SDR-492 = import ./msi/gl65/10SDR-492;
           msi-prestige-15-a10sc = import ./msi/prestige/15-a10sc;
           msi-z370-pc-pro = import ./msi/z370-pc-pro;
+          nvidia-dgx-station = import ./nvidia/dgx-station;
           nxp-imx8mp-evk = import ./nxp/imx8mp-evk;
           nxp-imx8mq-evk = import ./nxp/imx8mq-evk;
           nxp-imx8qm-mek = import ./nxp/imx8qm-mek;
