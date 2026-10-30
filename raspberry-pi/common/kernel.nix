@@ -83,6 +83,18 @@ in
       PREEMPT = lib.mkForce no;
       PREEMPT_LAZY = lib.mkForce no;
       PREEMPT_VOLUNTARY = lib.mkForce yes;
+    }
+    # These controllers are absent on Pi 1. Nixpkgs' automatic module selection
+    # enables them, but they use division helpers unavailable to 32-bit modules.
+    # https://github.com/NixOS/nixpkgs/issues/464515
+    // lib.optionalAttrs (rpiVersion == 1) {
+      PWM_RP1 = no;
+      I2C_DESIGNWARE_CORE = no;
+      I2C_DESIGNWARE_SLAVE = no;
+      I2C_DESIGNWARE_PLATFORM = no;
+      I2C_DESIGNWARE_PCI = no;
+      VIDEO_RP1_CFE = no;
+      VIDEO_RP1_CFE_DOWNSTREAM = no;
     };
 
     extraMeta =
