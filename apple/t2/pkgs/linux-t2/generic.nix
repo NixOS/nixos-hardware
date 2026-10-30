@@ -1,13 +1,13 @@
 {
   lib,
   fetchurl, # fetchpatch does unnecessary normalization
+  buildLinux,
+  linuxKernel,
   ...
 }@args:
 
-{
-  kernel,
-  patchesFile,
-}:
+patchesFile:
+
 let
   inherit (builtins) readFile fromJSON;
 
@@ -23,33 +23,58 @@ let
     }
   ) patchset.patches;
 in
-kernel.override (
-  args
-  // {
+buildLinux (
+  {
     pname = "linux-t2";
+    version = patchset.kernel.version;
+
+    src = fetchurl {
+      inherit (patchset.kernel) url hash;
+    };
 
     structuredExtraConfig = with lib.kernel; {
-      APPLE_BCE = module;
+      T2BCE_CORE = module;
+      T2BCE_VHCI = module;
+      T2BCE_AUDIO = module;
+      T2BCE_AVE = module;
       APPLE_GMUX = module;
       APFS_FS = module;
       BRCMFMAC = module;
       BT_BCM = module;
       BT_HCIBCM4377 = module;
-      BT_HCIUART_BCM = yes;
       BT_HCIUART = module;
+      BT_HCIUART_BCM = yes;
+      DRM_APPLETBDRM = module;
+      HID_APPLE = module;
       HID_APPLETB_BL = module;
       HID_APPLETB_KBD = module;
-      HID_APPLE = module;
       HID_MAGICMOUSE = module;
-      DRM_APPLETBDRM = module;
       HID_SENSOR_ALS = module;
+      SENSORS_APPLESMC = module;
       SND_PCM = module;
       STAGING = yes;
+
+      # required for t2bce_ave
+      I2C = yes;
+      MEDIA_SUPPORT = yes;
+      MEDIA_CAMERA_SUPPORT = yes;
+      MEDIA_ANALOG_TV_SUPPORT = yes;
+      MEDIA_DIGITAL_TV_SUPPORT = yes;
+      MEDIA_RADIO_SUPPORT = yes;
+      MEDIA_SDR_SUPPORT = yes;
+      MEDIA_PLATFORM_SUPPORT = yes;
+      MEDIA_TEST_SUPPORT = yes;
     };
 
-    kernelPatches = t2-patches ++ (args.kernelPatches or [ ]);
+    kernelPatches = [
+      # include default patches for good measure
+      linuxKernel.kernelPatches.request_key_helper
+      linuxKernel.kernelPatches.bridge_stp_helper
+    ]
+    ++ t2-patches
+    ++ (args.kernelPatches or [ ]);
 
-    argsOverride.extraMeta = {
+    extraMeta = {
       description = "The Linux kernel (with patches from the T2 Linux project)";
 
       # take responsibility for the downstream kernel
