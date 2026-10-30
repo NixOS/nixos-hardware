@@ -49,3 +49,15 @@ Build the installer image.
 ``` sh
 nix build .#
 ```
+## Hardware video decoding support
+
+To use mpv with hardware video decoding run the following command
+
+``` sh
+mpv --hwdec=v4l2request --vo=dmabuf-wayland ...
+```
+or add the following to `~/.config/mpv/mpv.conf`
+```
+hwdec=v4l2request
+vo=dmabuf-wayland
+```
