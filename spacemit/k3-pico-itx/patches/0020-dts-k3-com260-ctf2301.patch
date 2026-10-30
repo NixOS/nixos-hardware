@@ -1,0 +1,52 @@
+From git@z Thu Jan  1 00:00:00 1970
+Subject: [PATCH v4 6/6] riscv: dts: spacemit: Add CTF2301 on K3 CoM260
+From: Troy Mitchell <troy.mitchell@linux.dev>
+Date: Mon, 31 Aug 2026 21:45:40 +0800
+Message-Id: <20260831-ctl2301-v4-6-b335d52a0570@linux.dev>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Enable I2C6 on the K3 CoM260 module and describe the Sensylink
+CTF2301 temperature sensor and fan controller at address 0x4c.
+
+Override the I2C6 pin power source at board level because the IO rail
+voltage is board-specific.
+
+Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
+---
+ arch/riscv/boot/dts/spacemit/k3-com260.dtsi | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
+index 37627963a649..92dea8639779 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
+@@ -58,6 +58,23 @@ serial-number {
+ 	};
+ };
+ 
++&i2c6_1_cfg {
++	i2c6-1-pins {
++		power-source = <3300>;
++	};
++};
++
++&i2c6 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&i2c6_1_cfg>;
++	status = "okay";
++
++	temperature-sensor@4c {
++		compatible = "sensylink,ctf2301";
++		reg = <0x4c>;
++	};
++};
++
+ &i2c8 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&i2c8_cfg>;
+
+-- 
+2.55.0
+

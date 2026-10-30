@@ -1,0 +1,50 @@
+From git@z Thu Jan  1 00:00:00 1970
+Subject: [PATCH v4 3/6] dt-bindings: hwmon: Add Sensylink CTF2301
+From: Troy Mitchell <troy.mitchell@linux.dev>
+Date: Mon, 31 Aug 2026 21:45:37 +0800
+Message-Id: <20260831-ctl2301-v4-3-b335d52a0570@linux.dev>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Add the Sensylink CTF2301 temperature sensor and fan controller to the
+LM63 family binding. The chip follows the LM63 register model and can
+provide a thermal cooling device when #cooling-cells is present.
+
+Do not provide a national,lm63 fallback because the CTF2301 is not fully
+compatible with LM63. It uses different conversion-rate encodings,
+extended local-temperature registers, additional fan lookup table
+entries, and device-specific PWM and ALERT/TACH configuration. An older
+LM63 driver would therefore not operate the device correctly.
+
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
+---
+ Documentation/devicetree/bindings/hwmon/national,lm63.yaml | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/hwmon/national,lm63.yaml b/Documentation/devicetree/bindings/hwmon/national,lm63.yaml
+index f2e0993cfbef..4c8d0a15fbd1 100644
+--- a/Documentation/devicetree/bindings/hwmon/national,lm63.yaml
++++ b/Documentation/devicetree/bindings/hwmon/national,lm63.yaml
+@@ -12,7 +12,8 @@ maintainers:
+ description: |
+   The LM63 family provides local and remote temperature monitoring together
+   with fan speed monitoring and PWM fan control. Supported devices include
+-  the National Semiconductor LM63, LM64 and LM96163.
++  the National Semiconductor LM63, LM64 and LM96163, and the Sensylink
++  CTF2301.
+ 
+ allOf:
+   - $ref: hwmon-common.yaml#
+@@ -23,6 +24,7 @@ properties:
+       - national,lm63
+       - national,lm64
+       - national,lm96163
++      - sensylink,ctf2301
+ 
+   reg:
+     maxItems: 1
+
+-- 
+2.55.0

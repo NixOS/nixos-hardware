@@ -103,6 +103,7 @@
           asus-zephyrus-gu603h = import ./asus/zephyrus/gu603h;
           asus-zephyrus-gu605cw = import ./asus/zephyrus/gu605cw;
           asus-zephyrus-gu605my = import ./asus/zephyrus/gu605my;
+          bananapi-bpi-sm10 = import ./bananapi/bpi-sm10;
           beagleboard-pocketbeagle = import ./beagleboard/pocketbeagle;
           chuwi-minibook-x = import ./chuwi/minibook-x;
           deciso-dec = import ./deciso/dec;
@@ -325,6 +326,7 @@
           lenovo-thinkpad-x1-yoga = import ./lenovo/thinkpad/x1/yoga;
           lenovo-thinkpad-x1-yoga-7th-gen = import ./lenovo/thinkpad/x1/yoga/7th-gen;
           lenovo-thinkpad-x1-yoga-8th-gen = import ./lenovo/thinkpad/x1/yoga/8th-gen;
+          lenovo-thinkpad-x1-yoga-8th-gen-ipu6 = import ./lenovo/thinkpad/x1/yoga/8th-gen/ipu6;
           lenovo-thinkpad-x1-2nd-gen = import ./lenovo/thinkpad/x1/2nd-gen;
           lenovo-thinkpad-x1-6th-gen = import ./lenovo/thinkpad/x1/6th-gen;
           lenovo-thinkpad-x1-7th-gen = import ./lenovo/thinkpad/x1/7th-gen;
