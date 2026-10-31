@@ -5,6 +5,7 @@
     ../../../common/pc/ssd
     ../../kmod.nix
     ../../framework-tool.nix
+    ../../keylightd.nix
   ];
 
   # For fingerprint support
