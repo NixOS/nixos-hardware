@@ -180,53 +180,12 @@ To enable the headphone jack on Raspberry Pi 2, 3, or 4:
 }
 ```
 
-The board profiles import the `hardware.raspberry-pi.audio` module from `common/audio.nix`.
-It writes `dtparam=audio=on` to `config.txt` and loads the [`snd_bcm2835` kernel module](https://github.com/raspberrypi/linux/blob/rpi-6.18.y/drivers/staging/vc04_services/bcm2835-audio/bcm2835.c) to enable headphone audio.
+The audio module writes `dtparam=audio=on` to `config.txt` and loads the [`snd_bcm2835` kernel module](https://github.com/raspberrypi/linux/blob/rpi-6.18.y/drivers/staging/vc04_services/bcm2835-audio/bcm2835.c) to enable headphone audio.
 
-The default board profiles [configure the `vc4-kms-v3d` firmware overlay](./common/config-txt-defaults.nix).
-This overlay enables KMS, where Linux controls the display and handles HDMI audio independently of `snd_bcm2835`.
-The [`vc4-kms-v3d` reference](https://github.com/raspberrypi/linux/blob/rpi-6.18.y/arch/arm/boot/dts/overlays/README#L6324-L6344) lists its `audio` parameter as enabled by default.
-For HDMI audio with KMS, including on Pi 5, you do not need to enable `hardware.raspberry-pi.audio`.
-Follow [Device tree overlays](#device-tree-overlays) for firmware installation and device-tree selection.
-
-When enabled, the `hardware.raspberry-pi.audio` module leaves its `snd_bcm2835` HDMI output disabled by default because KMS already provides HDMI audio.
-Its firmware-controlled HDMI output requires both `enable` and `hdmi.enable`, as shown below.
+The [default `vc4-kms-v3d` display configuration](./common/config-txt-defaults.nix) handles HDMI audio without this module.
 
 Before enabling the audio module, migrate other `hardware.deviceTree.overlays` to `hardware.raspberry-pi.configtxt`, because the module uses the firmware-provided device tree.
-
-### Legacy firmware-controlled HDMI
-
-FKMS is a legacy Linux display driver that delegates display operations to the Pi firmware.
-This example requires an existing 64-bit Pi 4 installation with the Pi 4 profile imported.
-Pi 5 does not support FKMS.
-If you configured KMS overlays separately, remove them before using this example.
-
-```nix
-{
-  boot.kernelParams = [ "clk_ignore_unused" ];
-
-  hardware.raspberry-pi = {
-    firmware = {
-      enable = true;
-      uboot.enable = true;
-    };
-
-    configtxt.deviceTreeOverlays.all = [
-      { vc4-fkms-v3d = { }; }
-    ];
-
-    audio = {
-      enable = true;
-      hdmi.enable = true;
-    };
-  };
-}
-```
-
-The `all` list replaces the default KMS overlay.
-The `clk_ignore_unused` parameter preserves the vendor overlay's clock setting in the NixOS kernel command line.
-Before rebuilding, mount the firmware partition at `hardware.raspberry-pi.firmware.path` (default `/boot/firmware`), as described in [Firmware install](#firmware-install).
-Reboot after installation.
+See [Device tree overlays](#device-tree-overlays) for firmware installation.
 
 ## Current limits
 

@@ -13,17 +13,15 @@ in
 
   options.hardware.raspberry-pi.audio = {
     enable = lib.mkEnableOption "onboard audio through snd_bcm2835 on Raspberry Pi 2, 3, and 4";
-    hdmi.enable = lib.mkEnableOption "snd_bcm2835 HDMI audio for firmware-controlled displays, including FKMS";
   };
 
   config = lib.mkIf cfg.enable {
     # Omit FDT/FDTDIR so U-Boot keeps the firmware's audio=on change.
     boot.loader.generic-extlinux-compatible.useGenerationDeviceTree = false;
     boot.kernelModules = [ "snd_bcm2835" ];
-    boot.kernelParams = [
-      "snd_bcm2835.enable_headphones=1"
-      "snd_bcm2835.enable_hdmi=${if cfg.hdmi.enable then "1" else "0"}"
-    ];
+    # The board profiles use KMS for HDMI audio. Leave firmware-driven HDMI
+    # kernel parameters to users.
+    boot.kernelParams = [ "snd_bcm2835.enable_headphones=1" ];
 
     hardware.raspberry-pi.configtxt.settings = lib.genAttrs [ "pi2" "pi3" "pi4" ] (_: {
       dtparam = [ "audio=on" ];
