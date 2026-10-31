@@ -217,6 +217,15 @@ It loads `vc4-fkms-v3d`, removes the default KMS overlay, and preserves the X11 
 Remove any manually configured KMS overlays that match the same board.
 Pi 5 does not support FKMS.
 
+With FKMS enabled, use the audio module and this kernel parameter for HDMI audio:
+
+```nix
+{
+  hardware.raspberry-pi.audio.enable = true;
+  boot.kernelParams = [ "snd_bcm2835.enable_hdmi=1" ];
+}
+```
+
 The module selects the firmware-provided device tree.
 Before enabling it, migrate changes that exist only in a generation's `hardware.deviceTree.overlays`.
 See "Device tree overlays" above for firmware installation.
