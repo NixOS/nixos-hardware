@@ -60,12 +60,6 @@ in
           (pkgs.callPackage ./himax.nix { })
         ];
       }
-      (lib.mkIf config.networking.wireless.iwd.enable {
-        firmware = [
-          # Only iwd is supported by the interface
-          ap6275pFirmware
-        ];
-      })
     ];
 
     systemd.services.bluetooth-fydetab = lib.mkIf config.hardware.bluetooth.enable {
