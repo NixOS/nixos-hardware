@@ -26,7 +26,7 @@ in
         initrd.systemd.tpm2.enable = lib.mkDefault false;
         kernelPackages = pkgs.callPackage ./kernel.nix { };
         extraModprobeConfig = ''
-          options bcmdhd firmware_path=${ap6275pFirmware}/lib/firmware/ap6275p/fw_bcm43752a2_pcie_ag.bin nvram_path=${ap6275pFirmware}/lib/firmware/ap6275p/nvram_AP6275P.txt conf_path=${ap6275pFirmware}/lib/firmware/ap6275p/config.txt
+          options bcmdhd firmware_path=${ap6275pFirmware}/lib/firmware/ap6275p/fw_bcm43752a2_pcie_ag.bin nvram_path=${ap6275pFirmware}/lib/firmware/ap6275p/nvram_ap6275p.txt config_path=${ap6275pFirmware}/lib/firmware/ap6275p/config_bcm43752a2_pcie_ag.txt
         '';
         kernelParams = [
           "console=ttyFIQ0"
