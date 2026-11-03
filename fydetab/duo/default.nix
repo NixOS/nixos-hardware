@@ -50,6 +50,13 @@ in
         # ttyFIQ0 is always a console. With a serial console, Plymouth shows only text.
         kernelParams = [ "plymouth.ignore-serial-consoles" ];
       })
+      (lib.mkIf config.hardware.wirelessRegulatoryDatabase {
+        # cfg80211 is built in and reads the database before the root filesystem is mounted.
+        initrd.extraFirmwarePaths = [
+          "regulatory.db"
+          "regulatory.db.p7s"
+        ];
+      })
     ];
 
     hardware = lib.mkMerge [
