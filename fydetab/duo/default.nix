@@ -31,7 +31,6 @@ in
         kernelParams = [
           "console=ttyFIQ0"
           "console=tty1"
-          "console=both"
           "earlycon=uart8250,mmio32,0xfeb50000"
         ];
         kernelModules = [
