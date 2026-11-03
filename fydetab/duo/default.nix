@@ -54,16 +54,13 @@ in
           rk3588.enable = true;
           platformFirmware = pkgs.callPackage ./u-boot.nix { };
         };
+        # Panthor loads the Mali CSF firmware from linux-firmware.
+        enableRedistributableFirmware = lib.mkDefault true;
       }
       (lib.mkIf config.networking.wireless.iwd.enable {
         firmware = [
           # Only iwd is supported by the interface
           ap6275pFirmware
-        ];
-      })
-      (lib.mkIf config.hardware.graphics.enable {
-        firmware = [
-          (pkgs.callPackage ./mali-g610.nix { })
         ];
       })
       (lib.mkIf config.hardware.sensor.iio.enable {
