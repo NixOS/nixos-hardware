@@ -99,6 +99,12 @@ in
       inherit (config.hardware.rockchip) platformFirmware;
     };
 
+    # bcmdhd creates wlan0 only after it loads its firmware. If iwd starts first, it gives up on the busy interface.
+    systemd.services.iwd = lib.mkIf config.networking.wireless.iwd.enable {
+      wants = [ "sys-subsystem-net-devices-wlan0.device" ];
+      after = [ "sys-subsystem-net-devices-wlan0.device" ];
+    };
+
     systemd.services.bluetooth-fydetab = lib.mkIf config.hardware.bluetooth.enable {
       description = "FydeTab Duo Bluetooth fix";
       wantedBy = [ "multi-user.target" ];
