@@ -49,6 +49,7 @@ linuxPackagesFor (buildLinux rec {
     CRYPTO_SHA256 = yes;
     IP_NF_MATCH_RPFILTER = module;
     IP6_NF_MATCH_RPFILTER = module;
+    CGROUP_PIDS = yes;
 
     # The NixOS firewall and Docker use iptables-nft, which needs the nftables families.
     NF_TABLES_INET = yes;
