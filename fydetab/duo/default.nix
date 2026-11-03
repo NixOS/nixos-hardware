@@ -55,6 +55,7 @@ in
         };
         # Panthor loads the Mali CSF firmware from linux-firmware.
         enableRedistributableFirmware = lib.mkDefault true;
+        wirelessRegulatoryDatabase = lib.mkDefault true;
         firmware = [
           # bcmdhd keeps only "ap6275p/<file>" of the module paths and loads it with request_firmware.
           ap6275pFirmware
