@@ -34,6 +34,10 @@ linuxPackagesFor (buildLinux rec {
     MALI = no;
     DRM_PANTHOR = module;
 
+    # NixOS compresses firmware with zstd on kernels 5.19 and newer.
+    FW_LOADER_COMPRESS = yes;
+    FW_LOADER_COMPRESS_ZSTD = yes;
+
     EFI = yes;
     EFI_STUB = yes;
     DMI = yes;
