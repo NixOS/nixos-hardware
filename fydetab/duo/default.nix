@@ -89,6 +89,10 @@ in
       }
     ];
 
+    system.build.ubootResource = pkgs.callPackage ./u-boot-resource.nix {
+      inherit (config.hardware.rockchip) platformFirmware;
+    };
+
     systemd.services.bluetooth-fydetab = lib.mkIf config.hardware.bluetooth.enable {
       description = "FydeTab Duo Bluetooth fix";
       wantedBy = [ "multi-user.target" ];
