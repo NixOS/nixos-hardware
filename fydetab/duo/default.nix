@@ -88,7 +88,7 @@ in
       '';
       extraRules = ''
         SUBSYSTEM=="iio" ATTR{name}=="lis2dw12" ENV{ACCEL_MOUNT_MATRIX}="1,0,0;0,-1,0;0,0,1"
-        SUBSYSTEM=="input", ENV{ID_INPUT_TABLET}=="1", ENV{LIBINPUT_CALIBRATION_MATRIX}="0 1 0 -1 0 1 0 0 1"
+        SUBSYSTEM=="input", ENV{ID_INPUT_TABLET}=="1", ATTRS{id/bustype}=="0018", ATTRS{id/vendor}=="0000", ATTRS{id/product}=="0000", ENV{LIBINPUT_CALIBRATION_MATRIX}="0 1 0 -1 0 1 0 0 1"
       '';
     };
   };
