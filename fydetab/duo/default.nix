@@ -48,7 +48,32 @@ in
 
     hardware = lib.mkMerge [
       {
-        deviceTree.name = "rockchip/rk3588s-fydetab_duo.dtb";
+        deviceTree = {
+          name = "rockchip/rk3588s-fydetab_duo.dtb";
+          overlays = [
+            {
+              # The vendor MPP nodes share VPU121 with the mainline Hantro driver and take its IRQ.
+              # Nixpkgs has no MPP userspace, but Hantro works with V4L2 stateless decoding.
+              name = "fydetab-duo-hantro";
+              dtsText = ''
+                /dts-v1/;
+                /plugin/;
+
+                / {
+                  compatible = "rockchip,rk3588s-tablet-fydetab-linux";
+                };
+
+                &vepu {
+                  status = "disabled";
+                };
+
+                &vdpu {
+                  status = "disabled";
+                };
+              '';
+            }
+          ];
+        };
         rockchip = {
           rk3588.enable = true;
           platformFirmware = pkgs.callPackage ./u-boot.nix { };
