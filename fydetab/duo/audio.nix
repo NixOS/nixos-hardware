@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   ...
@@ -29,4 +30,16 @@ in
       ${amixer} sset 'OUT2' on
     '';
   };
+
+  # The DisplayPort sink has the same priority, and it is the default even with nothing connected.
+  services.pipewire.wireplumber.extraConfig."60-fydetab-es8388" =
+    lib.mkIf config.services.pipewire.wireplumber.enable
+      {
+        "monitor.alsa.rules" = [
+          {
+            matches = [ { "node.name" = "~alsa_output.platform-es8388-sound.*"; } ];
+            actions.update-props."priority.session" = 1100;
+          }
+        ];
+      };
 }
