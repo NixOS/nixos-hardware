@@ -120,7 +120,15 @@ in
     systemd.services.bluetooth-fydetab = lib.mkIf config.hardware.bluetooth.enable {
       description = "FydeTab Duo Bluetooth fix";
       wantedBy = [ "multi-user.target" ];
-      serviceConfig.Type = "simple";
+      bindsTo = [ "dev-ttyS9.device" ];
+      after = [ "dev-ttyS9.device" ];
+      before = [ "bluetooth.service" ];
+      unitConfig.StartLimitIntervalSec = 0;
+      serviceConfig = {
+        Type = "simple";
+        Restart = "on-failure";
+        RestartSec = "3s";
+      };
       script = ''
         ${lib.getExe' pkgs.util-linux "rfkill"} block bluetooth
         sleep 2
