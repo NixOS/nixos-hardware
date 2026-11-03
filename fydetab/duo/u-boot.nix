@@ -72,7 +72,7 @@ buildUBoot {
     CONFIG_SPL_FIT_SIGNATURE=n
     CONFIG_SPL_FIT_ROLLBACK_PROTECT=n
     CONFIG_CMD_FDT=y
-    CONFIG_DEFAULT_FDT_FILE="rk3588s-fydetab-duo.dtb"
+    CONFIG_DEFAULT_FDT_FILE="rk3588s-fydetab_duo.dtb"
     CONFIG_CMD_PXE=y
   '';
   # The default postPatch edits dtc flags which this older tree does not have.
