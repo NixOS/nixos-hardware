@@ -46,6 +46,10 @@ in
           "bluetooth"
         ];
       })
+      (lib.mkIf config.boot.plymouth.enable {
+        # ttyFIQ0 is always a console. With a serial console, Plymouth shows only text.
+        kernelParams = [ "plymouth.ignore-serial-consoles" ];
+      })
     ];
 
     hardware = lib.mkMerge [
