@@ -22,6 +22,8 @@ in
     boot = lib.mkMerge [
       {
         initrd.includeDefaultModules = false;
+        # The rest of the display stack is built in. Stage 1 needs the panel for Plymouth and passphrase prompts.
+        initrd.kernelModules = [ "panel-simple" ];
         # The tablet has no TPM and the kernel has no ACPI for tpm-crb.
         initrd.systemd.tpm2.enable = lib.mkDefault false;
         kernelPackages = pkgs.callPackage ./kernel.nix { };
