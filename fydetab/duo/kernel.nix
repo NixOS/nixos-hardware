@@ -14,6 +14,14 @@ linuxPackagesFor (buildLinux rec {
     hash = "sha256-YnQT5FLv2PbaoYdVOElnUvIlIjOeXpN/htKQ2Gmc5u8=";
   };
 
+  kernelPatches = [
+    {
+      # From fyde-nix. Without it, USB-C role negotiation fails with some chargers and hubs.
+      name = "husb311-drp-role-negotiation";
+      patch = ./husb311-drp-role-negotiation.patch;
+    }
+  ];
+
   defconfig = "fydetabduo_defconfig";
   enableCommonConfig = false;
 
