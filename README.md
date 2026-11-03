@@ -364,6 +364,7 @@ See code for all available configurations.
 | [Lenovo ThinkPad X1 Yoga](lenovo/thinkpad/x1/yoga)                                | `<nixos-hardware/lenovo/thinkpad/x1/yoga>`              | `lenovo-thinkpad-x1-yoga`              |
 | [Lenovo ThinkPad X1 Yoga Gen 7](lenovo/thinkpad/x1/yoga/7th-gen/)                 | `<nixos-hardware/lenovo/thinkpad/x1/yoga/7th-gen>`      | `lenovo-thinkpad-x1-yoga-7th-gen`      |
 | [Lenovo ThinkPad X1 Yoga Gen 8](lenovo/thinkpad/x1/yoga/8th-gen/)                 | `<nixos-hardware/lenovo/thinkpad/x1/yoga/8th-gen>`      | `lenovo-thinkpad-x1-yoga-8th-gen`      |
+| [Lenovo ThinkPad X1 Yoga Gen 8 (IPU6)](lenovo/thinkpad/x1/yoga/8th-gen/ipu6)      | `<nixos-hardware/lenovo/thinkpad/x1/yoga/8th-gen/ipu6>` | `lenovo-thinkpad-x1-yoga-8th-gen-ipu6` |
 | [Lenovo ThinkPad X1 (2nd Gen)](lenovo/thinkpad/x1/2nd-gen)                        | `<nixos-hardware/lenovo/thinkpad/x1/2nd-gen>`           | `lenovo-thinkpad-x1-2nd-gen`           |
 | [Lenovo ThinkPad X1 (6th Gen)](lenovo/thinkpad/x1/6th-gen)                        | `<nixos-hardware/lenovo/thinkpad/x1/6th-gen>`           | `lenovo-thinkpad-x1-6th-gen`           |
 | [Lenovo ThinkPad X1 (7th Gen)](lenovo/thinkpad/x1/7th-gen)                        | `<nixos-hardware/lenovo/thinkpad/x1/7th-gen>`           | `lenovo-thinkpad-x1-7th-gen`           |
@@ -460,6 +461,7 @@ See code for all available configurations.
 | [Radxa ROCK Pi 4](radxa/rock-pi-4)                                                | `<nixos-hardware/radxa/rock-pi-4>`                      | `rock-pi-4`                            |
 | [Radxa ROCK Pi E](radxa/rock-pi-e)                                                | `<nixos-hardware/radxa/rock-pi-e>`                      | `rock-pi-e`                            |
 | [Razer Blade 14 (RZ09-0530)](razer/blade/14/RZ09-0530)                            | `<nixos-hardware/razer/blade/14/RZ09-0530>`             | `razer-blade-14-RZ09-0530`             |
+| [Raspberry Pi 1](raspberry-pi/1)                                                  | `<nixos-hardware/raspberry-pi/1>`                       | `raspberry-pi-1`                       |
 | [Raspberry Pi 2](raspberry-pi/2)                                                  | `<nixos-hardware/raspberry-pi/2>`                       | `raspberry-pi-2`                       |
 | [Raspberry Pi 3](raspberry-pi/3)                                                  | `<nixos-hardware/raspberry-pi/3>`                       | `raspberry-pi-3`                       |
 | [Raspberry Pi 4](raspberry-pi/4)                                                  | `<nixos-hardware/raspberry-pi/4>`                       | `raspberry-pi-4`                       |

@@ -103,6 +103,7 @@
           asus-zephyrus-gu603h = import ./asus/zephyrus/gu603h;
           asus-zephyrus-gu605cw = import ./asus/zephyrus/gu605cw;
           asus-zephyrus-gu605my = import ./asus/zephyrus/gu605my;
+          bananapi-bpi-sm10 = import ./bananapi/bpi-sm10;
           beagleboard-pocketbeagle = import ./beagleboard/pocketbeagle;
           chuwi-minibook-x = import ./chuwi/minibook-x;
           deciso-dec = import ./deciso/dec;
@@ -323,6 +324,7 @@
           lenovo-thinkpad-x1-yoga = import ./lenovo/thinkpad/x1/yoga;
           lenovo-thinkpad-x1-yoga-7th-gen = import ./lenovo/thinkpad/x1/yoga/7th-gen;
           lenovo-thinkpad-x1-yoga-8th-gen = import ./lenovo/thinkpad/x1/yoga/8th-gen;
+          lenovo-thinkpad-x1-yoga-8th-gen-ipu6 = import ./lenovo/thinkpad/x1/yoga/8th-gen/ipu6;
           lenovo-thinkpad-x1-2nd-gen = import ./lenovo/thinkpad/x1/2nd-gen;
           lenovo-thinkpad-x1-6th-gen = import ./lenovo/thinkpad/x1/6th-gen;
           lenovo-thinkpad-x1-7th-gen = import ./lenovo/thinkpad/x1/7th-gen;
@@ -419,6 +421,7 @@
           purism-librem-15v3 = import ./purism/librem/15v3;
           purism-librem-5r4 = import ./purism/librem/5r4;
           razer-blade-14-RZ09-0530 = import ./razer/blade/14/RZ09-0530;
+          raspberry-pi-1 = import ./raspberry-pi/1;
           raspberry-pi-2 = import ./raspberry-pi/2;
           raspberry-pi-3 = import ./raspberry-pi/3;
           raspberry-pi-4 = import ./raspberry-pi/4;

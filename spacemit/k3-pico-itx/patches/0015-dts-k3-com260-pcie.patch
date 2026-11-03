@@ -1,10 +1,12 @@
 From: liberodark <liberodark@gmail.com>
-Subject: [PATCH] riscv: dts: spacemit: k3: enable PCIe/NVMe on CoM260-IFX
+Subject: [PATCH] riscv: dts: spacemit: k3: enable PCIe on CoM260-IFX
 
-The CoM260-IFX (BPI-SM10) boots from an NVMe drive on PCIe port A,
-same x4 comb-phy groups 0/1 wiring as the Pico-ITX. Enable combphy
-and pcie0 on this board. (SD host support is being upstreamed
-separately.)
+The CoM260-IFX (BPI-SM10) boots from an NVMe drive on PCIe port A, with
+the same x4 wiring as the Pico-ITX. Enable the combo PHY and the first
+PCIe root complex on this board.
+
+Rebased on v7.3-rc1: the PHY node and the PCIe host nodes now come from
+upstream, so only the board level enablement is left here.
 
 Signed-off-by: liberodark <liberodark@gmail.com>
 ---
@@ -19,18 +21,24 @@ Signed-off-by: liberodark <liberodark@gmail.com>
  #include "k3-com260.dtsi"
  
  / {
-@@ -19,3 +21,14 @@
- 		stdout-path = "serial0:115200n8";
- 	};
+@@ -52,3 +54,20 @@
+ 	sd-uhs-sdr104;
+ 	status = "okay";
  };
 +
-+&combphy {
++&combophy {
++	spacemit,apmu = <&syscon_apmu 0x11>;
 +	status = "okay";
 +};
 +
-+&pcie0 {
-+	phys = <&combphy 0 PHY_TYPE_PCIE>,
-+	       <&combphy 1 PHY_TYPE_PCIE>;
-+	phy-names = "phy0", "phy1";
++&pcie0_rc {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pcie0_0_cfg>;
++	num-lanes = <4>;
 +	status = "okay";
++
++	pcie@0 {
++		phys = <&combophy 0 PHY_TYPE_PCIE>,
++		       <&combophy 1 PHY_TYPE_PCIE>;
++	};
 +};
