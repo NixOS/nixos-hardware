@@ -56,16 +56,14 @@ in
         };
         # Panthor loads the Mali CSF firmware from linux-firmware.
         enableRedistributableFirmware = lib.mkDefault true;
+        firmware = [
+          (pkgs.callPackage ./himax.nix { })
+        ];
       }
       (lib.mkIf config.networking.wireless.iwd.enable {
         firmware = [
           # Only iwd is supported by the interface
           ap6275pFirmware
-        ];
-      })
-      (lib.mkIf config.hardware.sensor.iio.enable {
-        firmware = [
-          (pkgs.callPackage ./himax.nix { })
         ];
       })
     ];
