@@ -86,6 +86,22 @@ in
                 };
               '';
             }
+            {
+              # The command queue engine needs the sdhci-dwcmshc-cqe kernel patch.
+              name = "fydetab-duo-emmc-cqe";
+              dtsText = ''
+                /dts-v1/;
+                /plugin/;
+
+                / {
+                  compatible = "rockchip,rk3588s-tablet-fydetab-linux";
+                };
+
+                &sdhci {
+                  supports-cqe;
+                };
+              '';
+            }
           ];
         };
         rockchip = {
