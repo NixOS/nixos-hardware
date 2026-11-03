@@ -20,6 +20,10 @@ linuxPackagesFor (buildLinux rec {
       name = "husb311-drp-role-negotiation";
       patch = ./husb311-drp-role-negotiation.patch;
     }
+    {
+      name = "bq25700-charge-thresholds";
+      patch = ./bq25700-charge-thresholds.patch;
+    }
   ];
 
   defconfig = "fydetabduo_defconfig";
