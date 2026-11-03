@@ -10,6 +10,7 @@ in
 {
   imports = [
     ../../rockchip
+    ./audio.nix
     (lib.mkRemovedOptionModule [
       "hardware"
       "fydetab"
