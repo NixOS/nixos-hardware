@@ -81,11 +81,17 @@ in
     };
 
     services.udev = {
+      # Resolution is in units per mm. The panel is 166 x 266 mm, and the stylus range is 10 times the touch range.
       extraHwdb = ''
-        # Fydetab
-        evdev:input:b0018v0000p0000e0000*
-          EVDEV_ABS_00=::265
-          EVDEV_ABS_01=::166
+        evdev:name:himax-touchscreen:*
+          EVDEV_ABS_00=::10
+          EVDEV_ABS_01=::10
+          EVDEV_ABS_35=::10
+          EVDEV_ABS_36=::10
+
+        evdev:name:himax-stylus:*
+          EVDEV_ABS_00=::96
+          EVDEV_ABS_01=::96
       '';
       extraRules = ''
         SUBSYSTEM=="iio" ATTR{name}=="lis2dw12" ENV{ACCEL_MOUNT_MATRIX}="1,0,0;0,-1,0;0,0,1"
