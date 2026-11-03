@@ -12,7 +12,7 @@ The Fydetab Duo is an open source and hackable tablet by FydeOS.
 - Touchscreen: **working**
 - Stylus: **working**, side buttons **not working**
 - WiFi: **working**
-- Cellular: **untested**
+- Cellular: **detected** by ModemManager (Quectel EM05). Data is untested. Some units have the EM05-CE, which only has LTE bands 1, 3, 5, 8 and the China TDD bands.
 - SD card: **untested**
 - Sound: **untested**
 - Fingerprint: **untested**
