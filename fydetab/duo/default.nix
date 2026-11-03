@@ -112,6 +112,11 @@ in
       after = [ "sys-subsystem-net-devices-wlan0.device" ];
     };
 
+    # ModemManager only starts through D-Bus activation, and nothing asks for it, so the built-in LTE modem stays unused.
+    systemd.services.ModemManager.wantedBy = lib.mkIf config.networking.modemmanager.enable [
+      "multi-user.target"
+    ];
+
     systemd.services.bluetooth-fydetab = lib.mkIf config.hardware.bluetooth.enable {
       description = "FydeTab Duo Bluetooth fix";
       wantedBy = [ "multi-user.target" ];
