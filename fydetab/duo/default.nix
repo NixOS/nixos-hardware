@@ -67,10 +67,8 @@ in
       wantedBy = [ "multi-user.target" ];
       serviceConfig.Type = "simple";
       script = ''
-        ${lib.getExe' pkgs.util-linux "rfkill"} block 0
         ${lib.getExe' pkgs.util-linux "rfkill"} block bluetooth
         sleep 2
-        ${lib.getExe' pkgs.util-linux "rfkill"} unblock 0
         ${lib.getExe' pkgs.util-linux "rfkill"} unblock bluetooth
 
         sleep 1
