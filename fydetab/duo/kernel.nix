@@ -24,6 +24,11 @@ linuxPackagesFor (buildLinux rec {
       name = "bq25700-charge-thresholds";
       patch = ./bq25700-charge-thresholds.patch;
     }
+    {
+      # Backport of upstream fda1e0af7c28.
+      name = "sdhci-dwcmshc-cqe";
+      patch = ./sdhci-dwcmshc-cqe.patch;
+    }
   ];
 
   defconfig = "fydetabduo_defconfig";
