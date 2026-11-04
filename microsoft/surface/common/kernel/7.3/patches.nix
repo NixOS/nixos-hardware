@@ -82,12 +82,6 @@
       CONFIG_APDS9960 = module;
 
       ##
-      ## Build-in UFS support (required for some Surface Go devices)
-      ##
-      CONFIG_SCSI_UFSHCD = module;
-      CONFIG_SCSI_UFSHCD_PCI = module;
-
-      ##
       ## Other Drivers
       ##
       CONFIG_INPUT_SOC_BUTTON_ARRAY = module;
