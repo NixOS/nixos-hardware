@@ -10,16 +10,20 @@ in
 {
   imports = [
     ../../rockchip
+    (lib.mkRemovedOptionModule [
+      "hardware"
+      "fydetab"
+      "duo"
+      "enablePanthor"
+    ] "The 6.12 kernel device tree enables Panthor by default.")
   ];
-
-  options.hardware.fydetab.duo = {
-    enablePanthor = lib.mkEnableOption "Panthor GPU driver";
-  };
 
   config = {
     boot = lib.mkMerge [
       {
         initrd.includeDefaultModules = false;
+        # The tablet has no TPM and the kernel has no ACPI for tpm-crb.
+        initrd.systemd.tpm2.enable = lib.mkDefault false;
         kernelPackages = pkgs.callPackage ./kernel.nix { };
         extraModprobeConfig = ''
           options bcmdhd firmware_path=${ap6275pFirmware}/lib/firmware/ap6275p/fw_bcm43752a2_pcie_ag.bin nvram_path=${ap6275pFirmware}/lib/firmware/ap6275p/nvram_AP6275P.txt conf_path=${ap6275pFirmware}/lib/firmware/ap6275p/config.txt
@@ -45,44 +49,7 @@ in
 
     hardware = lib.mkMerge [
       {
-        deviceTree = lib.mkMerge [
-          {
-            name = "rockchip/rk3588s-fydetab-duo.dtb";
-          }
-          (lib.mkIf config.hardware.fydetab.duo.enablePanthor {
-            overlays = [
-              {
-                name = "fydetab-panthor-gpu";
-                dtsText = ''
-                  /dts-v1/;
-                  /plugin/;
-
-                  #include <dt-bindings/clock/rk3588-cru.h>
-                  #include <dt-bindings/interrupt-controller/arm-gic.h>
-                  #include <dt-bindings/power/rk3588-power.h>
-
-                  / {
-                    compatible = "rockchip,rk3588s-tablet-12c-linux";
-                    fragment@0 {
-                      target = <&gpu>;
-                      __overlay__ {
-                        status = "disabled";
-                      };
-                    };
-
-                    fragment@1 {
-                      target = <&gpu_panthor>;
-                      __overlay__ {
-                        status = "okay";
-                        mali-supply = <&vdd_gpu_s0>;
-                      };
-                    };
-                  };
-                '';
-              }
-            ];
-          })
-        ];
+        deviceTree.name = "rockchip/rk3588s-fydetab_duo.dtb";
         rockchip = {
           rk3588.enable = true;
           platformFirmware = pkgs.callPackage ./u-boot.nix { };
