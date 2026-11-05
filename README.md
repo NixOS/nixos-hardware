@@ -164,6 +164,7 @@ See code for all available configurations.
 | [Dell Inspiron 7559](dell/inspiron/7559)                                          | `<nixos-hardware/dell/inspiron/7559>`                   | `dell-inspiron-7559`                   |
 | [Dell Latitude 3340](dell/latitude/3340)                                          | `<nixos-hardware/dell/latitude/3340>`                   | `dell-latitude-3340`                   |
 | [Dell Latitude 3480](dell/latitude/3480)                                          | `<nixos-hardware/dell/latitude/3480>`                   | `dell-latitude-3480`                   |
+| [Dell Latitude 3530](dell/latitude/3530)                                          | `<nixos-hardware/dell/latitude/3530>`                   | `dell-latitude-3530`                   |
 | [Dell Latitude 5490](dell/latitude/5490)                                          | `<nixos-hardware/dell/latitude/5490>`                   | `dell-latitude-5490`                   |
 | [Dell Latitude 5520](dell/latitude/5520)                                          | `<nixos-hardware/dell/latitude/5520>`                   | `dell-latitude-5520`                   |
 | [Dell Latitude 7280](dell/latitude/7280)                                          | `<nixos-hardware/dell/latitude/7280>`                   | `dell-latitude-7280`                   |
@@ -460,6 +461,7 @@ See code for all available configurations.
 | [Radxa ROCK Pi 4](radxa/rock-pi-4)                                                | `<nixos-hardware/radxa/rock-pi-4>`                      | `rock-pi-4`                            |
 | [Radxa ROCK Pi E](radxa/rock-pi-e)                                                | `<nixos-hardware/radxa/rock-pi-e>`                      | `rock-pi-e`                            |
 | [Razer Blade 14 (RZ09-0530)](razer/blade/14/RZ09-0530)                            | `<nixos-hardware/razer/blade/14/RZ09-0530>`             | `razer-blade-14-RZ09-0530`             |
+| [Raspberry Pi 1](raspberry-pi/1)                                                  | `<nixos-hardware/raspberry-pi/1>`                       | `raspberry-pi-1`                       |
 | [Raspberry Pi 2](raspberry-pi/2)                                                  | `<nixos-hardware/raspberry-pi/2>`                       | `raspberry-pi-2`                       |
 | [Raspberry Pi 3](raspberry-pi/3)                                                  | `<nixos-hardware/raspberry-pi/3>`                       | `raspberry-pi-3`                       |
 | [Raspberry Pi 4](raspberry-pi/4)                                                  | `<nixos-hardware/raspberry-pi/4>`                       | `raspberry-pi-4`                       |

@@ -104,6 +104,7 @@
           asus-zephyrus-gu603h = import ./asus/zephyrus/gu603h;
           asus-zephyrus-gu605cw = import ./asus/zephyrus/gu605cw;
           asus-zephyrus-gu605my = import ./asus/zephyrus/gu605my;
+          bananapi-bpi-sm10 = import ./bananapi/bpi-sm10;
           beagleboard-pocketbeagle = import ./beagleboard/pocketbeagle;
           chuwi-minibook-x = import ./chuwi/minibook-x;
           deciso-dec = import ./deciso/dec;
@@ -119,6 +120,7 @@
           dell-inspiron-7559 = import ./dell/inspiron/7559;
           dell-latitude-3340 = import ./dell/latitude/3340;
           dell-latitude-3480 = import ./dell/latitude/3480;
+          dell-latitude-3530 = import ./dell/latitude/3530;
           dell-latitude-5490 = import ./dell/latitude/5490;
           dell-latitude-5520 = import ./dell/latitude/5520;
           dell-latitude-7280 = import ./dell/latitude/7280;
@@ -419,6 +421,7 @@
           purism-librem-15v3 = import ./purism/librem/15v3;
           purism-librem-5r4 = import ./purism/librem/5r4;
           razer-blade-14-RZ09-0530 = import ./razer/blade/14/RZ09-0530;
+          raspberry-pi-1 = import ./raspberry-pi/1;
           raspberry-pi-2 = import ./raspberry-pi/2;
           raspberry-pi-3 = import ./raspberry-pi/3;
           raspberry-pi-4 = import ./raspberry-pi/4;
