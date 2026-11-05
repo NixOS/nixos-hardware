@@ -1,0 +1,154 @@
+--- a/drivers/power/supply/bq25700_charger.c
++++ c/drivers/power/supply/bq25700_charger.c
+@@ -203,10 +203,13 @@
+   bool        ready;
+   struct power_supply *battery;
+   struct delayed_work init_charger_current;
+-  bool delay_charge_current;
++  bool        delay_charge_current;
+   u32 target_current;
+   u32 target_input_current;
+   u32 target_input_vol;
++  int charge_control_limit;
++  int charge_control_start;
++  struct delayed_work charge_control_work;
+ };
+ 
+ struct bq25700_data {
+@@ -1200,6 +1203,8 @@
+ 	POWER_SUPPLY_PROP_CONSTANT_CHARGE_VOLTAGE,
+ 	POWER_SUPPLY_PROP_CONSTANT_CHARGE_VOLTAGE_MAX,
+ 	POWER_SUPPLY_PROP_CHARGE_CONTROL_LIMIT_MAX,
++	POWER_SUPPLY_PROP_CHARGE_CONTROL_END_THRESHOLD,
++	POWER_SUPPLY_PROP_CHARGE_CONTROL_START_THRESHOLD,
+ 	POWER_SUPPLY_PROP_INPUT_CURRENT_LIMIT,
+ 	POWER_SUPPLY_PROP_VOLTAGE_MAX,
+ 	POWER_SUPPLY_PROP_CURRENT_MAX,
+@@ -1279,6 +1284,14 @@
+ 		val->intval = bq25700_tables[TBL_INPUTVOL].rt.max;
+ 		break;
+ 
++	case POWER_SUPPLY_PROP_CHARGE_CONTROL_END_THRESHOLD:
++		val->intval = bq->charge_control_limit;
++		break;
++
++	case POWER_SUPPLY_PROP_CHARGE_CONTROL_START_THRESHOLD:
++		val->intval = bq->charge_control_start;
++		break;
++
+ 	case POWER_SUPPLY_PROP_INPUT_CURRENT_LIMIT:
+ 		val->intval = bq25700_tables[TBL_INPUTCUR].rt.max;
+ 		break;
+@@ -1300,6 +1313,82 @@
+ 	return 0;
+ }
+ 
++static void bq25700_charge_control_work(struct work_struct *work)
++{
++	struct bq25700_device *bq =
++		container_of(work, struct bq25700_device, charge_control_work.work);
++	union power_supply_propval capacity;
++	int ret, limit = bq->charge_control_limit, start = bq->charge_control_start;
++
++	if (limit >= 100 || limit < 0 || IS_ERR_OR_NULL(bq->battery)) {
++		bq25700_field_write(bq, CHRG_INHIBIT, 0);
++		return;
++	}
++
++	if (start == 0 || start >= limit)
++		start = limit - 5;
++	if (start < 0)
++		start = 0;
++
++	ret = bq->battery->desc->get_property(bq->battery,
++					      POWER_SUPPLY_PROP_CAPACITY,
++					      &capacity);
++	if (ret < 0)
++		goto reschedule;
++
++	if (capacity.intval >= limit)
++		bq25700_field_write(bq, CHRG_INHIBIT, 1);
++	else if (capacity.intval < start)
++		bq25700_field_write(bq, CHRG_INHIBIT, 0);
++
++reschedule:
++	schedule_delayed_work(&bq->charge_control_work,
++			      msecs_to_jiffies(60000));
++}
++
++static int bq25700_power_supply_set_property(struct power_supply *psy,
++					     enum power_supply_property psp,
++					     const union power_supply_propval *val)
++{
++	struct bq25700_device *bq = power_supply_get_drvdata(psy);
++
++	switch (psp) {
++	case POWER_SUPPLY_PROP_CHARGE_CONTROL_END_THRESHOLD:
++		if (val->intval < 0 || val->intval > 100)
++			return -EINVAL;
++		bq->charge_control_limit = val->intval;
++		if (bq->charge_control_limit >= 100) {
++			cancel_delayed_work_sync(&bq->charge_control_work);
++			bq25700_field_write(bq, CHRG_INHIBIT, 0);
++		} else {
++			mod_delayed_work(system_wq, &bq->charge_control_work,
++					 msecs_to_jiffies(1000));
++		}
++		break;
++	case POWER_SUPPLY_PROP_CHARGE_CONTROL_START_THRESHOLD:
++		if (val->intval < 0 || val->intval > 100)
++			return -EINVAL;
++		bq->charge_control_start = val->intval;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static int bq25700_power_supply_property_is_writeable(struct power_supply *psy,
++						     enum power_supply_property psp)
++{
++	switch (psp) {
++	case POWER_SUPPLY_PROP_CHARGE_CONTROL_END_THRESHOLD:
++	case POWER_SUPPLY_PROP_CHARGE_CONTROL_START_THRESHOLD:
++		return 1;
++	default:
++		return 0;
++	}
++}
++
+ static char *bq25700_charger_supplied_to[] = {
+ 	"charger",
+ };
+@@ -1310,6 +1399,8 @@
+ 	.properties = bq25700_power_supply_props,
+ 	.num_properties = ARRAY_SIZE(bq25700_power_supply_props),
+ 	.get_property = bq25700_power_supply_get_property,
++	.set_property = bq25700_power_supply_set_property,
++	.property_is_writeable = bq25700_power_supply_property_is_writeable,
+ };
+ 
+ static int bq25700_power_supply_init(struct bq25700_device *charger)
+@@ -2084,7 +2175,10 @@
+ 	}
+ 	dev_info(charger->dev, "Battery found\n");
+   charger->delay_charge_current = true;
+-	charger->ready = true;
++  charger->ready = true;
++  charger->charge_control_limit = 100;
++  charger->charge_control_start = 0;
++  INIT_DELAYED_WORK(&charger->charge_control_work, bq25700_charge_control_work);
+ 	ret = bq25700_hw_init(charger);
+ 	if (ret < 0) {
+ 		dev_err(dev, "Cannot initialize the chip.\n");
+@@ -2129,6 +2223,8 @@
+ 	struct bq25700_device *charger = i2c_get_clientdata(client);
+   if (charger->delay_charge_current)
+     cancel_delayed_work(&charger->init_charger_current);
++  cancel_delayed_work(&charger->charge_control_work);
++  bq25700_field_write(charger, CHRG_INHIBIT, 0);
+ 
+ 	vol_idx = bq25700_find_idx(DEFAULT_INPUTVOL, TBL_INPUTVOL);
+ 	bq25700_field_write(charger, INPUT_VOLTAGE, vol_idx);
