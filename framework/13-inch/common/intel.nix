@@ -7,6 +7,7 @@
 {
   imports = [
     ../../../common/cpu/intel
+    ../../intel-hdmi-audio.nix
   ];
 
   boot.kernelParams = [
