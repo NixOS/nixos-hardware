@@ -1,0 +1,124 @@
+From git@z Thu Jan  1 00:00:00 1970
+Subject: [PATCH v4 5/6] dt-bindings: PCI: spacemit: Introduce Spacemit K3
+ PCIe host controller
+From: Inochi Amaoto <inochiama@gmail.com>
+Date: Thu, 09 Jul 2026 12:00:25 +0800
+Message-Id: <20260709040027.958400-6-inochiama@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Add binding support for the PCIe controller on the SpacemiT K3 SoC.
+This controller is almost a standard Synopsys DesignWare PCIe IP,
+with some extra link and reset state control.
+
+Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+---
+ .../bindings/pci/spacemit,k1-pcie-host.yaml   | 50 ++++++++++++++++---
+ 1 file changed, 43 insertions(+), 7 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/pci/spacemit,k1-pcie-host.yaml b/Documentation/devicetree/bindings/pci/spacemit,k1-pcie-host.yaml
+index c4c00b5fcdc0..54817d6fd9af 100644
+--- a/Documentation/devicetree/bindings/pci/spacemit,k1-pcie-host.yaml
++++ b/Documentation/devicetree/bindings/pci/spacemit,k1-pcie-host.yaml
+@@ -14,26 +14,29 @@ description: >
+   PCIe IP.  The controller uses the DesignWare built-in MSI interrupt
+   controller, and supports 256 MSIs.
+ 
+-allOf:
+-  - $ref: /schemas/pci/snps,dw-pcie.yaml#
+-
+ properties:
+   compatible:
+-    const: spacemit,k1-pcie
++    enum:
++      - spacemit,k1-pcie
++      - spacemit,k3-pcie
+ 
+   reg:
++    minItems: 4
+     items:
+       - description: DesignWare PCIe registers
+       - description: ATU address space
+       - description: PCIe configuration space
+       - description: Link control registers
++      - description: Data Bus Interface (DBI) shadow registers.
+ 
+   reg-names:
++    minItems: 4
+     items:
+       - const: dbi
+       - const: atu
+       - const: config
+       - const: link
++      - const: dbi2
+ 
+   clocks:
+     items:
+@@ -66,6 +69,8 @@ properties:
+   interrupt-names:
+     const: msi
+ 
++  msi-parent: true
++
+   spacemit,apmu:
+     $ref: /schemas/types.yaml#/definitions/phandle-array
+     description:
+@@ -84,7 +89,8 @@ patternProperties:
+ 
+     properties:
+       phys:
+-        maxItems: 1
++        minItems: 1
++        maxItems: 6
+ 
+       vpcie3v3-supply:
+         description:
+@@ -96,13 +102,43 @@ patternProperties:
+ 
+     unevaluatedProperties: false
+ 
++allOf:
++  - $ref: /schemas/pci/snps,dw-pcie.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: spacemit,k1-pcie
++    then:
++      properties:
++        reg:
++          maxItems: 4
++
++        reg-names:
++          maxItems: 4
++
++      patternProperties:
++        '^pcie@':
++          properties:
++            phys:
++              maxItems: 1
++
++      required:
++        - interrupts
++        - interrupt-names
++    else:
++      properties:
++        reg:
++          minItems: 5
++
++        reg-names:
++          minItems: 5
++
+ required:
+   - clocks
+   - clock-names
+   - resets
+   - reset-names
+-  - interrupts
+-  - interrupt-names
+   - spacemit,apmu
+ 
+ unevaluatedProperties: false
+-- 
+2.55.0

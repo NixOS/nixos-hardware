@@ -89,11 +89,11 @@ in
 
       services.udev.packages = [ audioFilesUdevRules ];
 
-      # For audio
+      # For audio and suspend
       boot.kernelParams = [
-        "pcie_ports=compat"
         "intel_iommu=on"
         "iommu=pt"
+        "pm_async=off"
       ];
 
       services.pipewire.package = pipewirePackage;

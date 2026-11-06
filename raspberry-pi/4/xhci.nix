@@ -1,8 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.hardware.raspberry-pi."4".xhci;
 in

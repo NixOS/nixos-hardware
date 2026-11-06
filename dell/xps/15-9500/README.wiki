@@ -1,4 +1,4 @@
-= Dell XPS 15 9550 =
+= Dell XPS 15 9500 =
 
 == Tested Hardware ==
 

@@ -1,16 +1,14 @@
-{
-  lib,
-  pkgs,
-  ...
-}:
+{ lib, pkgs, ... }:
 
 {
+  imports = [
+    ../common/default.nix
+  ];
+
   boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxKernel.packages.linux_rpi3;
-    initrd.availableKernelModules = [
-      "usbhid"
-      "usb-storage"
-    ];
+    kernelPackages = lib.mkDefault (
+      pkgs.linuxPackagesFor (pkgs.callPackage ../common/kernel.nix { rpiVersion = 3; })
+    );
   };
 
   # fix the following error :
@@ -37,4 +35,5 @@
     "console=tty0"
   ];
 
+  hardware.firmware = [ (pkgs.callPackage ../common/raspberry-pi-wireless-firmware.nix { }) ];
 }

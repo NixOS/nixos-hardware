@@ -5,8 +5,11 @@ Create and customize a `flake.nix` file:
 ```nix
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { nixpkgs, nixos-hardware, ... }:

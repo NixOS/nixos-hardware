@@ -12,3 +12,22 @@ $ fwupdmgr update
 ```
 
 - [Latest Update](https://fwupd.org/lvfs/devices/work.frame.Laptop12.RPL.BIOS.firmware)
+
+## Touchscreen support in initrd (for unl0kr)
+
+To unlock your LUKS disk encryption with an onscreen touch keyboard, you can use unl0kr.
+
+This module will automatically included the necessary kernel modules in initrd to make touchpad and touchscreen work when `boot.initrd.unl0kr.enable = true`.
+
+Example configuration:
+
+```nix
+{
+  boot.initrd.systemd.enable = true;
+  boot.initrd.unl0kr.enable = true;
+
+  boot.initrd.luks.devices."cryptroot" = {
+    device = "/dev/disk/by-uuid/YOUR-UUID-HERE";
+  };
+}
+```

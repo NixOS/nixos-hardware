@@ -1,7 +1,5 @@
 {
-  lib,
   stdenvNoCC,
-  fetchFromGitHub,
   callPackage,
   dmg2img,
 }:

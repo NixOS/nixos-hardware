@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 let
   thermald-conf = ./thermald-conf.xml;
 in
@@ -18,6 +18,14 @@ in
   # Thermald doesn't have a default config for the 9500 yet, the one in this repo
   # was generated with dptfxtract-static (https://github.com/intel/dptfxtract)
   services.thermald.configFile = lib.mkDefault thermald-conf;
+
+  # Enable fingerprint reader
+  services.fprintd = {
+    enable = lib.mkDefault true;
+    # Fingerprint sensor will not work without these settings
+    tod.enable = true;
+    tod.driver = pkgs.libfprint-2-tod1-goodix;
+  };
 
   # WiFi speed is slow and crashes by default (https://bugzilla.kernel.org/show_bug.cgi?id=213381)
   # disable_11ax - required until ax driver support is fixed

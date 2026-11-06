@@ -14,9 +14,9 @@ in
 {
   options.hardware = {
     raspberry-pi."4".leds = {
-      eth.disable = mkDisableOption ''ethernet LEDs.'';
-      act.disable = mkDisableOption ''activity LED.'';
-      pwr.disable = mkDisableOption ''power LED.'';
+      eth.disable = mkDisableOption "ethernet LEDs.";
+      act.disable = mkDisableOption "activity LED.";
+      pwr.disable = mkDisableOption "power LED.";
     };
   };
 

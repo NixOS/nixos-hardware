@@ -19,7 +19,5 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    nixpkgs.overlays = [ dt_ao_overlay ];
-  };
+  config = lib.mkIf cfg.enable { nixpkgs.overlays = [ dt_ao_overlay ]; };
 }

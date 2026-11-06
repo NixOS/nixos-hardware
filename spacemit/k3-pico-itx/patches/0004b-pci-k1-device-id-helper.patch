@@ -1,0 +1,70 @@
+From git@z Thu Jan  1 00:00:00 1970
+Subject: [PATCH v4 3/6] PCI: spacemit-k1: Add device id update helper
+From: Inochi Amaoto <inochiama@gmail.com>
+Date: Thu, 09 Jul 2026 12:00:23 +0800
+Message-Id: <20260709040027.958400-4-inochiama@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Both K1 and K3 needs to set vendor id and device id, add a helper function
+to simplify this.
+
+Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+Reviewed-by: Alex Elder <elder@riscstar.com>
+Tested-by: Aurelien Jarno <aurelien@aurel32.net>
+---
+ drivers/pci/controller/dwc/pcie-spacemit-k1.c | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/pci/controller/dwc/pcie-spacemit-k1.c b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
+index e22ecbd09579..31aac056b68e 100644
+--- a/drivers/pci/controller/dwc/pcie-spacemit-k1.c
++++ b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
+@@ -56,6 +56,7 @@ struct k1_pcie_device_data {
+ 	const struct dw_pcie_ops *ops;
+ 	int (*parse_port)(struct k1_pcie *k1);
+ 	unsigned int max_phy_count;
++	unsigned int device_id;
+ };
+ 
+ struct k1_pcie {
+@@ -186,6 +187,16 @@ static void k1_pcie_disable_aspm_l1(struct k1_pcie *k1)
+ 	dw_pcie_dbi_ro_wr_dis(pci);
+ }
+ 
++static void k1_pcie_set_device_id(struct k1_pcie *k1)
++{
++	struct dw_pcie *pci = &k1->pci;
++
++	dw_pcie_dbi_ro_wr_en(pci);
++	dw_pcie_writew_dbi(pci, PCI_VENDOR_ID, PCI_VENDOR_ID_SPACEMIT);
++	dw_pcie_writew_dbi(pci, PCI_DEVICE_ID, k1->data->device_id);
++	dw_pcie_dbi_ro_wr_dis(pci);
++}
++
+ static int k1_pcie_init(struct dw_pcie_rp *pp)
+ {
+ 	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
+@@ -201,10 +212,7 @@ static int k1_pcie_init(struct dw_pcie_rp *pp)
+ 		return ret;
+ 
+ 	/* Set the PCI vendor and device ID */
+-	dw_pcie_dbi_ro_wr_en(pci);
+-	dw_pcie_writew_dbi(pci, PCI_VENDOR_ID, PCI_VENDOR_ID_SPACEMIT);
+-	dw_pcie_writew_dbi(pci, PCI_DEVICE_ID, PCI_DEVICE_ID_SPACEMIT_K1);
+-	dw_pcie_dbi_ro_wr_dis(pci);
++	k1_pcie_set_device_id(k1);
+ 
+ 	/*
+ 	 * Start by asserting fundamental reset (drive PERST# low).  The
+@@ -406,6 +414,7 @@ static const struct k1_pcie_device_data k1_pcie_device_data = {
+ 	.ops		= &k1_pcie_ops,
+ 	.parse_port	= k1_pcie_parse_port,
+ 	.max_phy_count	= 1,
++	.device_id	= PCI_DEVICE_ID_SPACEMIT_K1,
+ };
+ 
+ static const struct of_device_id k1_pcie_of_match_table[] = {
+-- 
+2.55.0

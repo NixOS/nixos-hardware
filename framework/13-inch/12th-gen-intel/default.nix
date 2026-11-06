@@ -25,10 +25,10 @@
         # This enables the brightness and airplane mode keys to work
         # https://community.frame.work/t/12th-gen-not-sending-xf86monbrightnessup-down/20605/11
         "hid-sensor-hub"
-        # This fixes controller crashes during sleep
-        # https://community.frame.work/t/tracking-fn-key-stops-working-on-popos-after-a-while/21208/32
-        (lib.mkIf (config.hardware.framework.enableKmod == false) "cros_ec_lpcs")
-      ];
+      ]
+      # This fixes controller crashes during sleep
+      # https://community.frame.work/t/tracking-fn-key-stops-working-on-popos-after-a-while/21208/32
+      ++ lib.optional (config.hardware.framework.enableKmod == false) "cros_ec_lpcs";
 
       boot.kernelParams = [
         # For Power consumption

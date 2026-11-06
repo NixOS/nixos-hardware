@@ -12,7 +12,7 @@ Configuration for the ScreenPad is unable to be provided here at this time, due 
   inputs = {
 
     nixpkgs = {
-      url = "github:NixOS/nixpkgs/nixos-unstable";
+      url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
     };
 
     screenpad-driver={

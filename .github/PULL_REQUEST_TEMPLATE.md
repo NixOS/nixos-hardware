@@ -1,3 +1,5 @@
+<!-- Please read the CONTRIBUTING.md guidelines before submitting: https://github.com/NixOS/nixos-hardware/blob/master/CONTRIBUTING.md -->
+
 ###### Description of changes
 
 
