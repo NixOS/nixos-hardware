@@ -2,6 +2,7 @@
 {
   imports = [
     ../common
+    ../../intel-hdmi-audio.nix
     ../../../common/cpu/intel
   ];
 
