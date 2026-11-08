@@ -162,8 +162,4 @@
     name = "ms-surface/0016-hid-surface";
     patch = patchSrc + "/0016-hid-surface.patch";
   }
-  {
-    name = "ms-surface/0017-powercap";
-    patch = patchSrc + "/0017-powercap.patch";
-  }
 ]

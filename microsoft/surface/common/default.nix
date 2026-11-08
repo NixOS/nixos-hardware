@@ -20,8 +20,8 @@ let
   supportedKernels =
     let
       lts-kernel = {
-        version = "6.19.8";
-        hash = "sha256-qtpHItuLz6C5cyhRhW1AUIK2pPouOrBnvo2xfN0RWzg=";
+        version = "6.18.60";
+        hash = "sha256-PC9E72rMAhp61ETZoubsHvSI/wk2h5PQAEpggPadYh4=";
       };
       stable-kernel = {
         version = "7.3.1";
