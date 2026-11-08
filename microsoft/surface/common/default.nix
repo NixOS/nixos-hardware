@@ -23,11 +23,15 @@ let
         version = "6.19.8";
         hash = "sha256-qtpHItuLz6C5cyhRhW1AUIK2pPouOrBnvo2xfN0RWzg=";
       };
+      stable-kernel = {
+        version = "7.3.1";
+        hash = "sha256-+llarZNzT4KcljwqkO98NnMiT9f9rntJQG45fN4t4jE=";
+      };
 
     in
     {
       "longterm" = lts-kernel;
-      "stable" = lts-kernel;
+      "stable" = stable-kernel;
     };
 
   # Set the version and hash for the kernel sources
@@ -38,8 +42,8 @@ let
   linux-surface = pkgs.fetchFromGitHub {
     owner = "linux-surface";
     repo = "linux-surface";
-    rev = "bf1921fc63f33d03a007fb38c4f88ff7e7bc1a55";
-    hash = "sha256-AV+J1iKpA4PEsX9oVUTGlzGerTWTermia3aJSZxuu/w=";
+    rev = "668a0208b4a713641f7f04a73631008b1f522257";
+    hash = "sha256-RnlQMpIPTE+QbFlMMwq5Qj95tlVkyRkR8WqaPlivMXM=";
   };
 
   # Fetch and build the kernel
