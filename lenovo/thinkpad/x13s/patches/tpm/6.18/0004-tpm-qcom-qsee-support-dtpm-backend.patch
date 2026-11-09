@@ -1,0 +1,95 @@
+From: deadbeef <deadbeef@localhost>
+Subject: [PATCH] tpm: qcom_qsee: support the dTPM backend
+
+The Qualcomm qcom.tz.tpm QSEE application exists to expose a TPM, but it
+does not always front an fTPM: on the Lenovo ThinkPad X13s (sc8280xp) the
+SCM TPM info call reports QCOM_TPM_TYPE_DTPM (0x6454504d) while still
+exposing the application and its control area normally.
+
+The transport in this driver is backend-neutral. The control area is
+discovered by querying the TA (QCOM_TPM_QSEE_CMD_QUERY_INFO_2) and the
+command/response cycle, TZ memory bridging and TA kick are identical for
+every backend; fTPM and dTPM differ in where the TPM is implemented, not
+in the wire protocol. Only the probe-time type check was fTPM-specific.
+
+Replace the inline fTPM-only test with qcom_tpm_qsee_backend_supported(),
+which accepts fTPM and dTPM and rejects sTPM (not known to present the
+same control area). dTPM is accepted by default so boards that report it
+get a working TPM; `allow_dtpm=0` restores the old fTPM-only behaviour.
+Log the selected backend at probe time so the active type is visible in
+dmesg.
+
+Tested on: Lenovo ThinkPad X13s (sc8280xp) reporting dTPM.
+
+---
+--- a/drivers/char/tpm/tpm_qcom_qsee.c
++++ b/drivers/char/tpm/tpm_qcom_qsee.c
+@@ -33,6 +33,19 @@
+ #define QCOM_TPM_QSEE_CMD_QUERY_INFO_2	(0x4000 | 18)
+ #define QCOM_TPM_QSEE_CMD_SEND_COMMAND	(0x4000 | 8)
+ 
++/*
++ * Some Qualcomm platforms expose a dTPM rather than an fTPM behind the
++ * qcom.tz.tpm application. Both use the same QSEECOM control-area transport,
++ * so allow binding the dTPM backend. Default on: the transport is identical
++ * and refusing the backend leaves the TPM unusable on those boards.
++ *
++ * Set to 0 to restore the previous fTPM-only behaviour.
++ */
++static bool allow_dtpm = true;
++module_param(allow_dtpm, bool, 0444);
++MODULE_PARM_DESC(allow_dtpm,
++		 "Bind the dTPM backend via the qcom.tz.tpm transport (default: on)");
++
+ struct qcom_tpm_qsee_control_area {
+ 	__le32 request;
+ 	__le32 status;
+@@ -115,6 +128,32 @@
+ 	}
+ }
+ 
++/*
++ * Backends this transport can drive.
++ *
++ * The transport itself is backend-neutral: the control area is discovered by
++ * asking the qcom.tz.tpm application (QCOM_TPM_QSEE_CMD_QUERY_INFO_2) and the
++ * command/response cycle is identical for every backend. fTPM and dTPM share
++ * that application and protocol; they differ in where the TPM implementation
++ * executes (TEE vs. a discrete/dedicated implementation behind the same TA),
++ * not in the wire format. sTPM is rejected: it is not known to present the
++ * same control area.
++ *
++ * dTPM is accepted unless qcom_tpm_qsee.allow_dtpm=0 is passed, so a board
++ * that reports dTPM gets a working TPM out of the box.
++ */
++static bool qcom_tpm_qsee_backend_supported(u64 type)
++{
++	switch (type) {
++	case QCOM_TPM_TYPE_FTPM:
++		return true;
++	case QCOM_TPM_TYPE_DTPM:
++		return allow_dtpm;
++	default:
++		return false;
++	}
++}
++
+ static int qcom_tpm_qsee_app_send(struct qcom_tpm_qsee *qtpm, const void *req,
+ 				  size_t req_size, void *rsp, size_t rsp_size)
+ {
+@@ -339,12 +378,14 @@
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "failed to query TPM type\n");
+ 
+-	if (tpm_type != QCOM_TPM_TYPE_FTPM) {
++	if (!qcom_tpm_qsee_backend_supported(tpm_type)) {
+ 		dev_err(dev, "unsupported TPM type %#llx (%s)\n",
+ 			tpm_type, qcom_tpm_type_name(tpm_type));
+ 		return -ENODEV;
+ 	}
+ 
++	dev_info(dev, "using %s TPM backend\n", qcom_tpm_type_name(tpm_type));
++
+ 	ret = qcom_tpm_qsee_query_info(qtpm);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "failed to query TPM app info\n");
