@@ -32,6 +32,7 @@ in
   imports = [
     ../.
     ../../../common/pc/laptop
+    ./patches.nix
   ];
 
   options.hardware.lenovo.x13s = {

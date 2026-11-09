@@ -90,6 +90,11 @@ The MIPI camera does work, however, it's not accelerated by the ISP and therefor
 There appears to be an active issue with the camera's powerup sequence.
 The camera works one time, and will fail to power up and subsequent times.
 
+Enable the camera patches with the following config:
+```nix
+hardware.x13s.patches.camera.enable = true;
+```
+
 ## Keyboard Special Keys
 
 Privacy keys (camera, and microphone) [appear](https://lore.kernel.org/linux-arm-msm/cf17e2ba-0510-4189-a590-00d10760b8d7@oss.qualcomm.com/) to be managed by the embedded controller.
@@ -99,6 +104,11 @@ The embedded controller will also be needed to save and restore keyboard backlig
 Currently TPM does not work on the mainline kernel. Disable in your config to help boot speed.
 
 [esp0xdeadbeef](https://github.com/esp0xdeadbeef) has a set of [kernel patches](https://github.com/esp0xdeadbeef/nixos/blob/72060c0f01456f4f3038fa276c1173dcee123c1d/nixos/laptop/l-portal/hardware/tpm.nix#L24) to get TPM working for the x13s. Make sure to use the same pinned version of nixpkgs as kernel patches do not always apply across kernel updates. Expect building the kernel with the patches to take several hours. Patches may not have been reviewed by kernel maintainers.
+
+Enable the TPM patches with the following config:
+```nix
+hardware.x13s.patches.tpm.enable = true;
+```
 
 ## USB-C DisplayPort Alt Mode
 
