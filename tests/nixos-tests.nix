@@ -28,6 +28,8 @@ let
     "nxp-imx8qm-mek"
     "nxp-imx93-evk"
     "ucm-imx95"
+    "qualcomm-qrb2210"
+    "arduino-uno-q"
   ];
 
   matchArch =
