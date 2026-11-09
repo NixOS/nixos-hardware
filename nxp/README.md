@@ -3,6 +3,7 @@
 ## 1. Supported devices
  - [i.MX8QuadMax Multisensory Enablement Kit](https://www.nxp.com/design/development-boards/i-mx-evaluation-and-development-boards/i-mx-8quadmax-multisensory-enablement-kit-mek:MCIMX8QM-CPU) (**imx8qm-mek**) - device-specific U-boot and Linux kernel, nixos configuration example.
  - [i.MX8QuadXPlus Multisensory Enablement Kit](https://www.nxp.com/design/development-boards/i-mx-evaluation-and-development-boards/i-mx-8quadxplus-multisensory-enablement-kit-mek:MCIMX8QXP-CPU) (**imx8qxp-mek**) - device-specific U-Boot and Linux kernel.
+ - [Avnet MaaXBoard 8ULP](https://www.avnet.com/w/development/avnet-boards-and-kits/maaxboard-8ulp/) (**maaxboard-8ulp**) - Avnet BSP (`linux-imx`, `uboot-imx`, `imx-mkimage`) for A2 silicon; device-specific U-Boot, Linux kernel, and `flash.bin`.
 
 ## 2. How to use
 
@@ -38,7 +39,26 @@ Code snippet example that enables 'imx8mp-evk/imx8mq-evk/imx93-evk' configuratio
 }
 ```
 
-### 2.3 Building Boot Images
+### 2.3 For maaxboard-8ulp
+
+BSP sources track [Avnet maaxboard-build-tools](https://github.com/Avnet/maaxboard-build-tools) branch `maaxboard_lf-6.1.22-2.0.0` (i.MX8ULP A2: AHAB, upower, M33, `REV=A2 flash_singleboot_m33`).
+
+U-Boot boots from a VFAT `/boot` partition (`Image`, `initrd`, DTB, `uEnv.txt`).
+
+Code snippet example that enables `maaxboard-8ulp` configuration:
+
+```
+{ nixos-hardware, }: {
+  system = "aarch64-linux";
+  modules = [
+    nixos-hardware.nixosModules.nxp-maaxboard-8ulp
+  ];
+}
+```
+
+Serial console: `ttyLP1` @ 115200.
+
+### 2.4 Building Boot Images
 
 Boot images for flashing to SD cards can be built directly from the flake:
 
@@ -52,17 +72,23 @@ nix build github:NixOS/nixos-hardware#packages.aarch64-linux.imx8mq-boot
 # Build boot image for i.MX93 EVK
 nix build github:NixOS/nixos-hardware#packages.aarch64-linux.imx93-boot
 
+# Build boot image for Avnet MaaXBoard 8ULP
+nix build github:NixOS/nixos-hardware#packages.aarch64-linux.maaxboard-8ulp-boot
+
 # Or from a local checkout
 nix build .#packages.aarch64-linux.imx8mp-boot
+nix build .#packages.aarch64-linux.maaxboard-8ulp-boot
 ```
 
 The boot image will be available at `./result/image/flash.bin`.
 
 **Note:** These packages target `aarch64-linux`. If you're on a different architecture (e.g., x86_64-linux), you'll need remote builders configured for aarch64-linux.
 
-### 2.4 Flashing to SD Card
+### 2.5 Flashing
 
-Once built, you can flash the boot image to an SD card:
+#### i.MX8MP / i.MX8MQ / i.MX93 (SD card)
+
+Once built, flash the boot image to an SD card:
 
 ```bash
 # For i.MX8MP and i.MX93 (32KB offset):
@@ -73,6 +99,26 @@ sudo dd if=./result/image/flash.bin of=/dev/sdX bs=1k seek=33 conv=fsync
 ```
 
 **Note:** Different i.MX processors require different offsets. i.MX8MP and i.MX93 use 32KB (seek=32), while i.MX8MQ uses 33KB (seek=33).
+
+#### MaaXBoard 8ULP
+
+```bash
+nix build .#packages.aarch64-linux.maaxboard-8ulp-boot
+```
+
+**SD card** (sector 66, Avnet/Yocto layout):
+
+```bash
+sudo dd if=./result/image/flash.bin of=/dev/sdX bs=512 seek=66 conv=fsync
+```
+
+**eMMC** (serial-download mode; `uuu` from nixpkgs `nxpmicro-mfgtools`):
+
+```bash
+sudo uuu -v -b spl ./result/image/flash.bin
+```
+
+**Note:** MaaXBoard 8ULP uses sector 66 at 512 bytes/sector (`33 KiB`), not the 32KB offset used by i.MX8MP/i.MX93.
 
 **Warning:** Double-check the device path to avoid overwriting the wrong disk!
 
@@ -86,4 +132,6 @@ sudo dd if=./result/image/flash.bin of=/dev/sdX bs=1k seek=33 conv=fsync
 
 ### Additional Resources
 - [NXP i.MX 8M Series TF-A Documentation](https://trustedfirmware-a.readthedocs.io/en/latest/plat/imx8m.html)
+- [Avnet maaxboard-build-tools](https://github.com/Avnet/maaxboard-build-tools)
+- [Avnet MaaXBoard 8ULP Linux user manual](https://www.avnet.com/w/development/avnet-boards-and-kits/maaxboard-8ulp/)
 
