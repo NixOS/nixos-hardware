@@ -61,8 +61,6 @@ in
           enable = mkDefault true;
         };
 
-        supergfxd.enable = mkDefault true;
-
         udev = {
           extraHwdb = ''
             # Fixes mic mute button
