@@ -5,27 +5,26 @@
   armTrustedFirmwareRK3588,
   rkbin,
   fetchpatch,
-  fetchurl,
   fetchFromGitHub,
 }:
 buildUBoot {
   defconfig = "rk3588s_fydetab_duo_defconfig";
   extraMeta.platforms = [ "aarch64-linux" ];
-  BL31 = "${armTrustedFirmwareRK3588}/bl31.elf";
-  ROCKCHIP_TPL = rkbin.TPL_RK3588;
-  CROSS_COMPILE_ARM64 = "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}";
-  INI_LOADER = fetchurl {
-    url = "https://github.com/rockchip-linux/rkbin/raw/${rkbin.src.rev}/RKBOOT/RK3588MINIALL.ini";
-    hash = "sha256-87Vt6nXVt+jRrRatOlwGJXYqSj9nJz1LUfQnviIVb7I=";
+  env = {
+    BL31 = "${armTrustedFirmwareRK3588}/bl31.elf";
+    ROCKCHIP_TPL = rkbin.TPL_RK3588;
+    CROSS_COMPILE_ARM64 = "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}";
+    INI_LOADER = "${rkbin.src}/RKBOOT/RK3588MINIALL.ini";
+    NIX_CFLAGS_COMPILE = "-Wno-error";
   };
   version = "5.10.0";
   filesToInstall = [
     "idbloader.img"
     "u-boot.itb"
-    "rk3588_spl_loader_v1.18.113.bin"
+    # The loader name follows the rkbin version.
+    "rk3588*_loader_v*.bin"
     "tools/resource_tool"
   ];
-  NIX_CFLAGS_COMPILE = "-Wno-error=enum-int-mismatch -Wno-error=maybe-uninitialized";
   extraMakeFlags = [
     "CROSS_COMPILE_ARM64=${stdenv.cc.targetPrefix}"
   ];
@@ -75,6 +74,10 @@ buildUBoot {
     CONFIG_CMD_FDT=y
     CONFIG_DEFAULT_FDT_FILE="rk3588s-fydetab-duo.dtb"
     CONFIG_CMD_PXE=y
+  '';
+  # The default postPatch edits dtc flags which this older tree does not have.
+  postPatch = ''
+    patchShebangs tools scripts
   '';
   preBuild = ''
     patchShebangs arch/arm/mach-rockchip/make_fit_atf.sh
