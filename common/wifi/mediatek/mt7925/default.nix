@@ -19,6 +19,7 @@
 # - https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2118755
 # - https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2133863
 {
+  config,
   lib,
   pkgs,
   ...
@@ -60,7 +61,7 @@
   # Suspend/Resume Fix
   # ===========================================================================
   # Restart NetworkManager after suspend to clear stale driver state
-  systemd.services.mediatek-wifi-resume = {
+  systemd.services.mediatek-wifi-resume = lib.mkIf config.networking.networkmanager.enable {
     description = "Restart NetworkManager after suspend to fix MediaTek WiFi";
     wantedBy = [
       "suspend.target"
