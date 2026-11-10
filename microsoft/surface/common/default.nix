@@ -20,12 +20,12 @@ let
   supportedKernels =
     let
       lts-kernel = {
-        version = "6.18.60";
-        hash = "sha256-PC9E72rMAhp61ETZoubsHvSI/wk2h5PQAEpggPadYh4=";
+        version = "6.18.62";
+        hash = "sha256-SQp67fGzVcVl06bAUzPMzLXaggZOyka1kESKcJnX1lE=";
       };
       stable-kernel = {
-        version = "7.3.1";
-        hash = "sha256-+llarZNzT4KcljwqkO98NnMiT9f9rntJQG45fN4t4jE=";
+        version = "7.3.3";
+        hash = "sha256-ecZt3mbNlod/zej302rslGsfQj0rl7WnsXUbdcdk89E=";
       };
 
     in
@@ -42,8 +42,8 @@ let
   linux-surface = pkgs.fetchFromGitHub {
     owner = "linux-surface";
     repo = "linux-surface";
-    rev = "668a0208b4a713641f7f04a73631008b1f522257";
-    hash = "sha256-RnlQMpIPTE+QbFlMMwq5Qj95tlVkyRkR8WqaPlivMXM=";
+    rev = "04bf0852b351f0baec394abc95222dfa8fb37d77";
+    hash = "sha256-c7HSTXZpbryzTxx4M6s8ohcxKGj7f5zV7EpZXpS4VZQ=";
   };
 
   # Fetch and build the kernel
