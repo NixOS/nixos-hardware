@@ -4,6 +4,13 @@ This configuration is tested on my 13" *MacBook Pro (Retina, 13-inch, Late 2013)
 
 The 6.11.5 kernel appears to work well with only minor adjustments on this notebook. Note that my machine has a BCM4360 wireless card (PCI-ID `14e4:43a0`) which appears to only work with the nonfree `wl` driver.
 
+> **Note:** Enabling WiFi and Bluetooth functionality on this hardware requires the proprietary Broadcom driver. Due to outstanding security issues, you need to explicitly opt-in by setting:
+>
+> ```nix
+> hardware.broadcom.wifi.enableLegacyDriverWithKnownVulnerabilities = true;
+> ```
+
+
 ## Additional resources
 
 * Linux Wireless Documentation: [List of hardware](https://wireless.docs.kernel.org/en/latest/en/users/drivers/b43.html#list-of-hardware)
