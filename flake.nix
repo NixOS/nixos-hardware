@@ -106,6 +106,7 @@
           bananapi-bpi-sm10 = import ./bananapi/bpi-sm10;
           beagleboard-pocketbeagle = import ./beagleboard/pocketbeagle;
           chuwi-minibook-x = import ./chuwi/minibook-x;
+          dc-roma-ii = import ./deepcomputing/roma-ii;
           deciso-dec = import ./deciso/dec;
           dell-e7240 = deprecated "1326" "dell-e7240" (import ./dell/e7240);
           dell-g3-3779 = import ./dell/g3/3779;
