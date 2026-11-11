@@ -45,10 +45,16 @@ in
 
     isLTS = true;
 
-    kernelPatches = with pkgs.kernelPatches; [
-      bridge_stp_helper
-      request_key_helper
-    ];
+    kernelPatches =
+      with pkgs.kernelPatches;
+      [
+        bridge_stp_helper
+        request_key_helper
+      ]
+      # Include 128-bit types patch if available
+      # Make it a required patch once https://github.com/NixOS/nixpkgs/pull/581990 is available on a stable channel
+      # Remove it once the Raspberry Pi vendor kernel is 7.3+
+      ++ lib.optional (pkgs.kernelPatches ? tools_128bit_types) tools_128bit_types;
 
     # Override nixpkgs common-config.nix defaults that conflict with the RPi vendor defconfigs.
     # See: https://github.com/raspberrypi/linux/tree/rpi-6.18.y/arch/arm64/configs
