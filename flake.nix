@@ -79,6 +79,7 @@
           asus-flow-gz301vu = import ./asus/flow/gz301vu;
           asus-proart-px13 = import ./asus/proart/px13;
           asus-proart-px13-hn7306eac = import ./asus/proart/px13/hn7306eac;
+          asus-flow-gz302ea = import ./asus/flow/gz302ea;
           asus-pro-ws-x570-ace = import ./asus/pro-ws-x570-ace;
           asus-rog-gl552vw = import ./asus/rog-gl552vw;
           asus-rog-strix-g513im = import ./asus/rog-strix/g513im;
