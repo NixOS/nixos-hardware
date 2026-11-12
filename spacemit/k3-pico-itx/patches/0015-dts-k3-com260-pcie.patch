@@ -2,34 +2,27 @@ From: liberodark <liberodark@gmail.com>
 Subject: [PATCH] riscv: dts: spacemit: k3: enable PCIe on CoM260-IFX
 
 The CoM260-IFX (BPI-SM10) boots from an NVMe drive on PCIe port A, with
-the same x4 wiring as the Pico-ITX. Enable the combo PHY and the first
-PCIe root complex on this board.
+the same x4 wiring as the Pico-ITX. Enable the first PCIe root complex
+on this board.
 
 Rebased on v7.3-rc1: the PHY node and the PCIe host nodes now come from
 upstream, so only the board level enablement is left here.
 
+Rebased on v7.4-rc1: upstream now enables the combo PHY on this board
+with mux 0x14 (PCIe A x4, PCIe C lane 0 in USB mode for the VL817 hub on
+usb3b). Do not override it with the Pico-ITX value 0x11 any more, which
+would take lane 2 away from the USB 3 hub; PCIe A x4 is the same in both.
+
 Signed-off-by: liberodark <liberodark@gmail.com>
 ---
+diff --git a/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts b/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
+index fadcf28389be..6bfd1a9e75b9 100644
 --- a/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
 +++ b/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
-@@ -4,6 +4,8 @@
-  * Copyright (c) 2026 Yixun Lan <dlan@kernel.org>
-  */
- 
-+#include <dt-bindings/phy/phy.h>
-+
- #include "k3-com260.dtsi"
- 
- / {
-@@ -52,3 +54,20 @@
+@@ -129,3 +129,15 @@ &sdhci0 {
  	sd-uhs-sdr104;
  	status = "okay";
  };
-+
-+&combophy {
-+	spacemit,apmu = <&syscon_apmu 0x11>;
-+	status = "okay";
-+};
 +
 +&pcie0_rc {
 +	pinctrl-names = "default";

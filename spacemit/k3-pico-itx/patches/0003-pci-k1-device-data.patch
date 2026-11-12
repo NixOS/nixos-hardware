@@ -19,10 +19,10 @@ Tested-by: Aurelien Jarno <aurelien@aurel32.net>
  1 file changed, 26 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/pci/controller/dwc/pcie-spacemit-k1.c b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-index be20a520255b..f6ae8ff3589a 100644
+index 92a71ea90ac3..18afc03e08e8 100644
 --- a/drivers/pci/controller/dwc/pcie-spacemit-k1.c
 +++ b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-@@ -49,8 +49,17 @@
+@@ -48,8 +48,17 @@
  #define PCIE_CONTROL_LOGIC			0x0004
  #define PCIE_SOFT_RESET			BIT(0)
  
@@ -40,7 +40,7 @@ index be20a520255b..f6ae8ff3589a 100644
  	struct phy *phy;
  	void __iomem *link;
  	struct regmap *pmu;	/* Errors ignored; MMIO-backed regmap */
-@@ -278,14 +287,21 @@ static int k1_pcie_parse_port(struct k1_pcie *k1)
+@@ -277,14 +286,21 @@ static int k1_pcie_parse_port(struct k1_pcie *k1)
  
  static int k1_pcie_probe(struct platform_device *pdev)
  {
@@ -62,7 +62,7 @@ index be20a520255b..f6ae8ff3589a 100644
  	k1->pmu = syscon_regmap_lookup_by_phandle_args(dev_of_node(dev),
  						       SYSCON_APMU, 1,
  						       &k1->pmu_off);
-@@ -299,11 +315,11 @@ static int k1_pcie_probe(struct platform_device *pdev)
+@@ -298,11 +314,11 @@ static int k1_pcie_probe(struct platform_device *pdev)
  				     "failed to map \"link\" registers\n");
  
  	k1->pci.dev = dev;
@@ -76,7 +76,7 @@ index be20a520255b..f6ae8ff3589a 100644
  
  	/* Hold the PHY in reset until we start the link */
  	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CLK_RESET_CONTROL,
-@@ -320,7 +336,7 @@ static int k1_pcie_probe(struct platform_device *pdev)
+@@ -319,7 +335,7 @@ static int k1_pcie_probe(struct platform_device *pdev)
  
  	platform_set_drvdata(pdev, k1);
  
@@ -85,7 +85,7 @@ index be20a520255b..f6ae8ff3589a 100644
  	if (ret)
  		return dev_err_probe(dev, ret, "failed to parse root port\n");
  
-@@ -338,8 +354,14 @@ static void k1_pcie_remove(struct platform_device *pdev)
+@@ -337,8 +353,14 @@ static void k1_pcie_remove(struct platform_device *pdev)
  	dw_pcie_host_deinit(&k1->pci.pp);
  }
  
@@ -100,6 +100,6 @@ index be20a520255b..f6ae8ff3589a 100644
 +	{ .compatible = "spacemit,k1-pcie", .data = &k1_pcie_device_data},
  	{ }
  };
- 
+ MODULE_DEVICE_TABLE(of, k1_pcie_of_match_table);
 -- 
 2.55.0

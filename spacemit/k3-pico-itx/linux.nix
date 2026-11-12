@@ -6,19 +6,19 @@
 }@args:
 
 let
-  modDirVersion = "7.3.0";
+  modDirVersion = "7.4.0-rc1";
 in
 buildLinux (
   args
   // {
     inherit modDirVersion;
-    version = "7.3-spacemit-k3";
+    version = "7.4-rc1-spacemit-k3";
 
     src = fetchFromGitHub {
       owner = "torvalds";
       repo = "linux";
-      tag = "v7.3";
-      hash = "sha256-ca8CMAWKe1yzkQIn8sasUQxMLqdtfvC+wBFtX3819Zk=";
+      tag = "v7.4-rc1";
+      hash = "sha256-OkOggNsjb5JSC5DW2i6Icauj+j4enfwBUjrms9LCVBY=";
     };
 
     defconfig = "defconfig";
@@ -79,30 +79,6 @@ buildLinux (
       {
         name = "k3-15-dts-com260-pcie";
         patch = ./patches/0015-dts-k3-com260-pcie.patch;
-      }
-      {
-        name = "k3-15-dt-bindings-vendor-prefixes-sensylink";
-        patch = ./patches/0015-dt-bindings-vendor-prefixes-sensylink.patch;
-      }
-      {
-        name = "k3-16-dt-bindings-hwmon-lm63-family";
-        patch = ./patches/0016-dt-bindings-hwmon-lm63-family.patch;
-      }
-      {
-        name = "k3-17-dt-bindings-hwmon-ctf2301";
-        patch = ./patches/0017-dt-bindings-hwmon-ctf2301.patch;
-      }
-      {
-        name = "k3-18-hwmon-lm63-ctf2301";
-        patch = ./patches/0018-hwmon-lm63-ctf2301.patch;
-      }
-      {
-        name = "k3-19-dts-i2c6-pinctrl";
-        patch = ./patches/0019-dts-k3-i2c6-pinctrl.patch;
-      }
-      {
-        name = "k3-20-dts-com260-ctf2301";
-        patch = ./patches/0020-dts-k3-com260-ctf2301.patch;
       }
       {
         name = "k3-21-dts-com260-fan-cooling";
@@ -216,7 +192,7 @@ buildLinux (
       DEBUG_INFO_BTF_MODULES = lib.mkForce no;
     };
 
-    extraMeta.branch = "7.3";
+    extraMeta.branch = "7.4-rc1";
   }
   // (args.argsOverride or { })
 )
