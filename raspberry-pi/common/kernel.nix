@@ -54,7 +54,9 @@ in
       # Include 128-bit types patch if available
       # Make it a required patch once https://github.com/NixOS/nixpkgs/pull/581990 is available on a stable channel
       # Remove it once the Raspberry Pi vendor kernel is 7.3+
-      ++ lib.optional (pkgs.kernelPatches ? tools_128bit_types) tools_128bit_types;
+      ++ lib.optional (pkgs.kernelPatches ? tools_128bit_types) tools_128bit_types
+      # Keep patches passed in via kernel.override, e.g. NixOS' boot.kernelPatches
+      ++ (args.kernelPatches or [ ]);
 
     # Override nixpkgs common-config.nix defaults that conflict with the RPi vendor defconfigs.
     # See: https://github.com/raspberrypi/linux/tree/rpi-6.18.y/arch/arm64/configs
