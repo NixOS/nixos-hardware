@@ -1,0 +1,33 @@
+From: Xilin Wu <sophon@radxa.com>
+Source: https://github.com/strongtz/linux-radxa-qcom (branch v7.0.11-qcom)
+Upstream: not submitted; absent from mainline drivers/char/tpm/
+Ported to: linux 6.18 (nixpkgs kernel used by l-portal)
+
+From d47dd2ae7fa8ebb0c127dac5e7027bb337d91d5f Mon Sep 17 00:00:00 2001
+From: Xilin Wu <sophon@radxa.com>
+Date: Tue, 7 Jul 2026 16:28:21 +0800
+Subject: [PATCH] firmware: qcom: qseecom: register qcom.tz.tpm application
+
+Register the qcom.tz.tpm QSEE application with QSEECOM so TPM transport
+drivers can bind to the qcom_qseecom.tpm auxiliary device.
+
+The secure application is expected to be loaded by firmware; Linux only
+looks up the existing app ID.
+
+Signed-off-by: Xilin Wu <sophon@radxa.com>
+---
+ drivers/firmware/qcom/qcom_qseecom.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/firmware/qcom/qcom_qseecom.c b/drivers/firmware/qcom/qcom_qseecom.c
+index 320ec2a77524a..512f12ff1a5b8 100644
+--- a/drivers/firmware/qcom/qcom_qseecom.c
++++ b/drivers/firmware/qcom/qcom_qseecom.c
+@@ -84,6 +84,7 @@ static int qseecom_client_register(struct platform_device *qseecom_dev,
+  * and its ID can be queried successfully.
+  */
+ static const struct qseecom_app_desc qcom_qseecom_apps[] = {
++	{ "qcom.tz.tpm", "tpm" },
+ 	{ "qcom.tz.uefisecapp", "uefisecapp" },
+ };
+ 
