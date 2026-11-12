@@ -35,4 +35,8 @@
       cp ${./initial-asound.state} /var/lib/alsa/asound.state
     fi
   '';
+
+  nixpkgs.overlays = [
+    (import ./overlay.nix)
+  ];
 }
