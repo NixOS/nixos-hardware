@@ -29,7 +29,6 @@ kernel.override (
     pname = "linux-t2";
 
     structuredExtraConfig = with lib.kernel; {
-      APPLE_BCE = module;
       APPLE_GMUX = module;
       APFS_FS = module;
       BRCMFMAC = module;
