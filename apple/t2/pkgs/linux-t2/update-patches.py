@@ -15,21 +15,26 @@ API_BASE = "https://api.github.com"
 PATCH_PATTERN = re.compile(r"^\d{4}-.*\.patch$")
 
 parser = argparse.ArgumentParser(
-    description="Update linux-t2 patches from a GitHub repository."
+    description="Update linux-t2 patches from a GitHub repository.",
+    epilog='''
+    If both --branch and --reference flags are given, the argument of --reference will be used to fetch the Git
+    revision for patches and --branch as the kernel branch.
+
+    If only --branch is given, the argument will be used for both resolving the Git ref and the kernel branch.
+    ''',
 )
 parser.add_argument("filename", help="the output filename")
 parser.add_argument(
     "--repository",
-    help="the source github repository",
+    help="the source github repository (default: %(default)s)",
     default="t2linux/linux-t2-patches",
     nargs="?",
 )
-ref_group = parser.add_mutually_exclusive_group()
-ref_group.add_argument(
+parser.add_argument(
     "--reference", help="the git reference for the patches", default=None, nargs="?"
 )
-ref_group.add_argument(
-    "--branch", help="the git branch to fetch", default=None, nargs="?"
+parser.add_argument(
+    "--branch", help="the kernel branch to fetch (default: latest, example: 6.18)", default=None, nargs="?"
 )
 
 
@@ -62,6 +67,27 @@ def main():
     reference = args.reference
     branch = args.branch
 
+    print("Fetching kernel releases")
+    releases = requests.get("https://kernel.org/releases.json").json()['releases']
+    match = None
+    patched_url = ""
+    if not branch:
+        print("Branch not provided, fetching latest non-mainline kernel version")
+        # if the json schema changes this script would break, hopefully won't happen
+        match = next(filter(lambda x: x["moniker"] != "mainline", releases), None)
+    else:
+        match = next(filter(lambda x: x["version"].startswith(branch), releases), None)
+    if not match:
+        print(f"ERROR: could not find a kernel release for branch {branch}.")
+        return 1
+    patched_url = match['source'].replace('https://cdn.kernel.org/pub', 'mirror://kernel')
+
+    release_hash = subprocess.check_output(["nix-prefetch-url", "--type", "sha256", patched_url]).decode().strip()
+    print(f"    Kernel: {match['version']}")
+    print(f"       URL: {patched_url}")
+    print(f"      Hash: sha256:{release_hash}")
+    kernel = {"version": match["version"], "url": patched_url, "hash": f"sha256:{release_hash}"}
+
     if reference is None:
         if branch is None:
             print("Branch and reference not provided, fetching default branch")
@@ -85,7 +111,7 @@ def main():
         for future in as_completed(futures):
             patches_with_hash.append(future.result())
 
-    result = {"base_url": base_url, "patches": sorted(patches_with_hash, key=lambda p: p["name"])}
+    result = {"base_url": base_url, "kernel": kernel, "patches": sorted(patches_with_hash, key=lambda p: p["name"])}
 
     with open(args.filename, "w+") as f:
         json.dump(result, f, indent=2)
