@@ -1,14 +1,14 @@
 { lib, ... }:
 {
   imports = [
-    ../../../common/pc/laptop
-    ../../../common/pc/ssd
-    ../../../common/cpu/amd
-    ../../../common/cpu/amd/pstate.nix
-    ../../../common/gpu/nvidia/ampere
-    ../../../common/gpu/nvidia/prime.nix
+    ../../../../common/pc/laptop
+    ../../../../common/pc/ssd
+    ../../../../common/cpu/amd
+    ../../../../common/cpu/amd/pstate.nix
+    ../../../../common/gpu/nvidia/ampere
+    ../../../../common/gpu/nvidia/prime.nix
 
-    ../../battery.nix
+    ../../../battery.nix
   ];
 
   hardware.nvidia = {
