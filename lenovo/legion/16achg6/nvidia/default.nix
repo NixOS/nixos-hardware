@@ -5,6 +5,7 @@
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware = {
     nvidia.prime.offload.enable = false;
+    nvidia.powerManagement.finegrained = false;
   }
   // lib.optionalAttrs (options ? amdgpu.opencl.enable) {
     # introduced in https://github.com/NixOS/nixpkgs/pull/319865

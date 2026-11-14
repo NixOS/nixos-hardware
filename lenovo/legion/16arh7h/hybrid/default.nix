@@ -7,24 +7,16 @@
   imports = [
     ../../../../common/cpu/amd
     ../../../../common/cpu/amd/pstate.nix
+    ../../../../common/gpu/amd
     ../../../../common/gpu/nvidia/prime.nix # prime offload
     ../../../../common/gpu/nvidia/ampere # use open drivers
     ../../../../common/pc/laptop
     ../../../../common/pc/ssd
   ];
 
-  boot.kernelModules = [ "amdgpu" ];
-  services.xserver.videoDrivers = [
-    "amdgpu"
-    "nvidia"
-  ];
-
   hardware = {
-    amdgpu.initrd.enable = false;
-
     nvidia = {
       package = config.boot.kernelPackages.nvidiaPackages.latest;
-      modesetting.enable = lib.mkDefault true;
       powerManagement.enable = lib.mkDefault true;
       powerManagement.finegrained = lib.mkDefault true;
       prime = {
