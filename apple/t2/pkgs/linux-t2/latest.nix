@@ -1,4 +1,4 @@
-{ callPackage, linux_7_0, ... }@args:
+{ callPackage, linux_7_3, ... }@args:
 
 callPackage ./generic.nix args {
   kernel = linux_7_3;
