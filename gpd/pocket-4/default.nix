@@ -10,6 +10,7 @@ in
     ../../common/cpu/amd/pstate.nix
     ../../common/gpu/amd
     ../../common/hidpi.nix
+    ../ppt.nix
   ];
 
   boot = {

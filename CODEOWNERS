@@ -8,6 +8,7 @@ pcengines/apu @yegortimoshenko
 pine64/rockpro64 @tomfitzhenry
 pine64/star64 @fgaz
 purism/librem/13v3 @yegortimoshenko
+raspberry-pi @doronbehar
 system76/darp6 @khumba
 framework @emiller88 @johnazoidberg
 tuxedo/pulse/15/gen2 @trueNAHO

@@ -1,0 +1,67 @@
+From: liberodark <liberodark@gmail.com>
+Subject: [PATCH] riscv: dts: spacemit: k3: wire the CoM260 fan to the thermal zones
+
+The CTF2301 comes up in manual mode with a zero duty cycle and an
+auto-temp lookup table still at its reset values, so the fan never spins
+on its own. Register it as a thermal cooling device and let the CPU
+cluster thermal zone drive it.
+
+Signed-off-by: liberodark <liberodark@gmail.com>
+---
+--- a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
+@@ -69,9 +69,10 @@
+ 	pinctrl-0 = <&i2c6_1_cfg>;
+ 	status = "okay";
+ 
+-	temperature-sensor@4c {
++	fan: temperature-sensor@4c {
+ 		compatible = "sensylink,ctf2301";
+ 		reg = <0x4c>;
++		#cooling-cells = <2>;
+ 	};
+ };
+ 
+@@ -237,3 +238,42 @@
+ 	pinctrl-0 = <&uart0_0_cfg>;
+ 	status = "okay";
+ };
++
++&{/thermal-zones/cluster-thermal} {
++	trips {
++		fan_low: fan-low {
++			temperature = <55000>;
++			hysteresis = <5000>;
++			type = "active";
++		};
++
++		fan_mid: fan-mid {
++			temperature = <65000>;
++			hysteresis = <5000>;
++			type = "active";
++		};
++
++		fan_high: fan-high {
++			temperature = <75000>;
++			hysteresis = <5000>;
++			type = "active";
++		};
++	};
++
++	cooling-maps {
++		map0 {
++			trip = <&fan_low>;
++			cooling-device = <&fan 60 120>;
++		};
++
++		map1 {
++			trip = <&fan_mid>;
++			cooling-device = <&fan 120 190>;
++		};
++
++		map2 {
++			trip = <&fan_high>;
++			cooling-device = <&fan 190 255>;
++		};
++	};
++};

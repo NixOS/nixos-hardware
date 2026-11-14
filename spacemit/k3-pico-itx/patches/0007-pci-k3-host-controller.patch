@@ -1,0 +1,210 @@
+From git@z Thu Jan  1 00:00:00 1970
+Subject: [PATCH v4 6/6] PCI: spacemit-k1: Add Spacemit K3 PCIe host
+ controller support
+From: Inochi Amaoto <inochiama@gmail.com>
+Date: Thu, 09 Jul 2026 12:00:26 +0800
+Message-Id: <20260709040027.958400-7-inochiama@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+The PCIe controller on Spacemit K3 is almost a standard Synopsys
+DesignWare PCIe IP with extra link and reset control. Unlike
+the PCIe controller on K1, this controller supports external MSI
+interrupt controller and can use multiple PHYs at the same time.
+
+Add driver to support PCIe controller on Spacemit K3 PCIe.
+
+Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+Tested-by: Aurelien Jarno <aurelien@aurel32.net>
+---
+ drivers/pci/controller/dwc/Kconfig            |   4 +-
+ drivers/pci/controller/dwc/pcie-spacemit-k1.c | 126 ++++++++++++++++++
+ 2 files changed, 128 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/pci/controller/dwc/Kconfig b/drivers/pci/controller/dwc/Kconfig
+index aa0b784c85b4..dacbac5cc35c 100644
+--- a/drivers/pci/controller/dwc/Kconfig
++++ b/drivers/pci/controller/dwc/Kconfig
+@@ -440,7 +440,7 @@ config PCIE_SOPHGO_DW
+ 	  Sophgo SoCs.
+ 
+ config PCIE_SPACEMIT_K1
+-	tristate "SpacemiT K1 PCIe controller (host mode)"
++	tristate "SpacemiT PCIe controller (host mode)"
+ 	depends on ARCH_SPACEMIT || COMPILE_TEST
+ 	depends on HAS_IOMEM
+ 	select PCIE_DW_HOST
+@@ -448,7 +448,7 @@ config PCIE_SPACEMIT_K1
+ 	default ARCH_SPACEMIT
+ 	help
+ 	  Enables support for the DesignWare based PCIe controller in
+-	  the SpacemiT K1 SoC operating in host mode.  Three controllers
++	  the SpacemiT SoC operating in host mode. Three controllers
+ 	  are available on the K1 SoC; the first of these shares a PHY
+ 	  with a USB 3.0 host controller (one or the other can be used).
+ 
+diff --git a/drivers/pci/controller/dwc/pcie-spacemit-k1.c b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
+index 31aac056b68e..680acc93f539 100644
+--- a/drivers/pci/controller/dwc/pcie-spacemit-k1.c
++++ b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
+@@ -32,8 +33,18 @@
+ #define SMLH_LINK_UP			BIT(1)
+ #define RDLH_LINK_UP			BIT(12)
+ 
++#define INTR_STATUS				0x0010
++
+ #define INTR_ENABLE				0x0014
+ #define MSI_CTRL_INT			BIT(11)
++#define RDLH_LINK_UP_INT		BIT(20)
++
++#define K3_PHY_AHB_IRQSTATUS_INTX		0x0008
++
++#define K3_ADDR_INTR_STATUS1			0x0018
++
++#define K3_CACHE_MSTR_AWCACHE_MODE	GENMASK(14, 11)
++#define K3_CACHE_MSTR_AWCACHE_BEHAVIOR	0xf
+ 
+ /* Some controls require APMU regmap access */
+ #define SYSCON_APMU			"spacemit,apmu"
+@@ -48,6 +59,9 @@
+ 
+ #define PCIE_CONTROL_LOGIC			0x0004
+ #define PCIE_SOFT_RESET			BIT(0)
++#define PCIE_PERSTN_OE			BIT(24)
++#define PCIE_PERSTN_OUT			BIT(25)
++#define PCIE_IGNORE_PERSTN		BIT(31)
+ 
+ struct k1_pcie;
+ 
+@@ -340,6 +354,109 @@ static int k1_pcie_parse_port(struct k1_pcie *k1)
+ 	return ret;
+ }
+ 
++static int k3_pcie_init(struct dw_pcie_rp *pp)
++{
++	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
++	struct k1_pcie *k1 = to_k1_pcie(pci);
++	u32 reset_ctrl = k1->pmu_off + PCIE_CLK_RESET_CONTROL;
++	u32 val;
++	int ret;
++
++	regmap_clear_bits(k1->pmu, reset_ctrl, LTSSM_EN);
++
++	k1_pcie_toggle_soft_reset(k1);
++
++	ret = k1_pcie_enable_resources(k1);
++	if (ret)
++		return ret;
++
++	regmap_set_bits(k1->pmu, reset_ctrl, PCIE_AUX_PWR_DET);
++	regmap_clear_bits(k1->pmu, reset_ctrl, APP_HOLD_PHY_RST);
++
++	ret = k1_pcie_enable_phy(k1);
++	if (ret) {
++		k1_pcie_disable_resources(k1);
++		return ret;
++	}
++
++	/* K3: Set IGNORE_PERSTN and drive PERSTN_OE high (assert reset) */
++	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
++			PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE | PCIE_PERSTN_OUT);
++	usleep_range(1000, 2000);
++	regmap_clear_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC, PCIE_PERSTN_OUT);
++
++	msleep(PCIE_T_PVPERL_MS);
++
++	/*
++	 * Put the controller in root complex mode, and indicate that
++	 * Vaux (3.3v) is present.
++	 */
++	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
++			PCIE_PERSTN_OUT | PCIE_PERSTN_OE);
++
++	val = dw_pcie_readl_dbi(pci, GEN3_EQ_CONTROL_OFF);
++	val = u32_replace_bits(val, BIT(7),
++			       GEN3_EQ_CONTROL_OFF_PSET_REQ_VEC);
++	dw_pcie_writel_dbi(pci, GEN3_EQ_CONTROL_OFF, val);
++
++	k1_pcie_set_device_id(k1);
++
++	/* Finally, as a workaround, disable ASPM L1 */
++	k1_pcie_disable_aspm_l1(k1);
++
++	return 0;
++}
++
++static int k3_pcie_msi_host_init(struct dw_pcie_rp *pp)
++{
++	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
++	u32 val;
++
++	dw_pcie_dbi_ro_wr_en(pci);
++
++	val = dw_pcie_readl_dbi(pci, COHERENCY_CONTROL_3_OFF);
++	val = u32_replace_bits(val, K3_CACHE_MSTR_AWCACHE_BEHAVIOR,
++			       K3_CACHE_MSTR_AWCACHE_MODE);
++	dw_pcie_writel_dbi(pci, COHERENCY_CONTROL_3_OFF, val);
++
++	dw_pcie_dbi_ro_wr_dis(pci);
++
++	return 0;
++}
++
++static const struct dw_pcie_host_ops k3_pcie_host_ops = {
++	.init		= k3_pcie_init,
++	.deinit		= k1_pcie_deinit,
++	.msi_init	= k3_pcie_msi_host_init,
++};
++
++static const struct dw_pcie_ops k3_pcie_ops = {
++	.link_up	= k1_pcie_link_up,
++	.start_link	= k1_pcie_start_link,
++	.stop_link	= k1_pcie_stop_link,
++};
++
++static void k3_pcie_clear_irq_status(struct k1_pcie *k1,
++				     u32 *status0, u32 *status1, u32 *status2)
++{
++	*status0 = readl_relaxed(k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
++	*status1 = readl_relaxed(k1->link + INTR_STATUS);
++	*status2 = readl_relaxed(k1->link + K3_ADDR_INTR_STATUS1);
++
++	writel_relaxed(*status0, k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
++	writel_relaxed(*status1, k1->link + INTR_STATUS);
++	writel_relaxed(*status2, k1->link + K3_ADDR_INTR_STATUS1);
++}
++
++static int k3_pcie_parse_port(struct k1_pcie *k1)
++{
++	u32 status0, status1, status2;
++
++	k3_pcie_clear_irq_status(k1, &status0, &status1, &status2);
++
++	return k1_pcie_parse_port(k1);
++}
++
+ static int k1_pcie_probe(struct platform_device *pdev)
+ {
+ 	const struct k1_pcie_device_data *data;
+@@ -417,8 +534,17 @@ static const struct k1_pcie_device_data k1_pcie_device_data = {
+ 	.device_id	= PCI_DEVICE_ID_SPACEMIT_K1,
+ };
+ 
++static const struct k1_pcie_device_data k3_pcie_device_data = {
++	.host_ops	= &k3_pcie_host_ops,
++	.ops		= &k3_pcie_ops,
++	.parse_port	= k3_pcie_parse_port,
++	.max_phy_count	= 6,
++	.device_id	= PCI_DEVICE_ID_SPACEMIT_K3,
++};
++
+ static const struct of_device_id k1_pcie_of_match_table[] = {
+ 	{ .compatible = "spacemit,k1-pcie", .data = &k1_pcie_device_data},
++	{ .compatible = "spacemit,k3-pcie", .data = &k3_pcie_device_data},
+ 	{ }
+ };
+ 
+-- 
+2.55.0
+

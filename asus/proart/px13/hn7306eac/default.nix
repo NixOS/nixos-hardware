@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   lib,
   ...
@@ -7,7 +8,15 @@
 {
   imports = [
     ../default.nix
+    # no effect at Linux 7.2 as patches are merged
     ./tas2783-kernel-patches.nix
+  ];
+
+  assertions = [
+    {
+      assertion = lib.versionAtLeast config.boot.kernelPackages.kernel.version "7.0";
+      message = "ASUS ProArt PX13 (HN7306EAC) hardware requires Linux ≥ 7.0 (current ${config.boot.kernelPackages.kernel.version})";
+    }
   ];
 
   hardware = {

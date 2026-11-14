@@ -10,9 +10,9 @@
 
 let
   # NOTE: raspberryPiWirelessFirmware should be updated with this
-  modDirVersion = "6.18.39";
-  tag = "stable_20260724";
-  hash = "sha256-IT/SkF458oLmnFIPbN76Qp6s8KVxKQOC02XmN7NRdBc=";
+  modDirVersion = "6.18.60";
+  tag = "stable_20261103";
+  hash = "sha256-Qx3D2+K7lkH5P1NI4NKqcHXVGoPqAeEiu+bZqBfSdDs=";
   inherit (lib.kernel) freeform yes no;
 in
 (buildLinux (
@@ -45,10 +45,16 @@ in
 
     isLTS = true;
 
-    kernelPatches = with pkgs.kernelPatches; [
-      bridge_stp_helper
-      request_key_helper
-    ];
+    kernelPatches =
+      with pkgs.kernelPatches;
+      [
+        bridge_stp_helper
+        request_key_helper
+      ]
+      # Include 128-bit types patch if available
+      # Make it a required patch once https://github.com/NixOS/nixpkgs/pull/581990 is available on a stable channel
+      # Remove it once the Raspberry Pi vendor kernel is 7.3+
+      ++ lib.optional (pkgs.kernelPatches ? tools_128bit_types) tools_128bit_types;
 
     # Override nixpkgs common-config.nix defaults that conflict with the RPi vendor defconfigs.
     # See: https://github.com/raspberrypi/linux/tree/rpi-6.18.y/arch/arm64/configs
@@ -83,6 +89,18 @@ in
       PREEMPT = lib.mkForce no;
       PREEMPT_LAZY = lib.mkForce no;
       PREEMPT_VOLUNTARY = lib.mkForce yes;
+    }
+    # These controllers are absent on Pi 1. Nixpkgs' automatic module selection
+    # enables them, but they use division helpers unavailable to 32-bit modules.
+    # https://github.com/NixOS/nixpkgs/issues/464515
+    // lib.optionalAttrs (rpiVersion == 1) {
+      PWM_RP1 = no;
+      I2C_DESIGNWARE_CORE = no;
+      I2C_DESIGNWARE_SLAVE = no;
+      I2C_DESIGNWARE_PLATFORM = no;
+      I2C_DESIGNWARE_PCI = no;
+      VIDEO_RP1_CFE = no;
+      VIDEO_RP1_CFE_DOWNSTREAM = no;
     };
 
     extraMeta =

@@ -95,6 +95,7 @@ See code for all available configurations.
 | --------------------------------------------------------------------------------- | ------------------------------------------------------- | -------------------------------------- |
 | [Acer Aspire 4810T](acer/aspire/4810t)                                            | `<nixos-hardware/acer/aspire/4810t>`                    | `acer-aspire-4810t`                    |
 | [Acer Nitro AN517-41](acer/nitro/an517-41)                                        | `<nixos-hardware/acer/nitro/an517-41>`                  | `acer-nitro-an517-41`                  |
+| [Acer Nitro 5 (AN515-55)](acer/nitro/5/an515-55)                                  | `<nixos-hardware/acer/nitro/5/an515-55>`                | `acer-nitro-5-an515-55`                |
 | [Acer Predator Helios 300 (PH315-51)](acer/predator/helios/300/ph315-51/)         | `<nixos-hardware/acer/predator/helios/300/ph315-51/>`   | `acer-predator-helios-300-ph315-51`    |
 | [Airis N990](airis/n990)                                                          | `<nixos-hardware/airis/n990>`                           | `airis-n990`                           |
 | [Apple iMac 12,2](apple/imac/12-2)                                                | `<nixos-hardware/apple/imac/12-2>`                      | `apple-imac-12-2`                      |
@@ -164,6 +165,7 @@ See code for all available configurations.
 | [Dell Inspiron 7559](dell/inspiron/7559)                                          | `<nixos-hardware/dell/inspiron/7559>`                   | `dell-inspiron-7559`                   |
 | [Dell Latitude 3340](dell/latitude/3340)                                          | `<nixos-hardware/dell/latitude/3340>`                   | `dell-latitude-3340`                   |
 | [Dell Latitude 3480](dell/latitude/3480)                                          | `<nixos-hardware/dell/latitude/3480>`                   | `dell-latitude-3480`                   |
+| [Dell Latitude 3530](dell/latitude/3530)                                          | `<nixos-hardware/dell/latitude/3530>`                   | `dell-latitude-3530`                   |
 | [Dell Latitude 5490](dell/latitude/5490)                                          | `<nixos-hardware/dell/latitude/5490>`                   | `dell-latitude-5490`                   |
 | [Dell Latitude 5520](dell/latitude/5520)                                          | `<nixos-hardware/dell/latitude/5520>`                   | `dell-latitude-5520`                   |
 | [Dell Latitude 7280](dell/latitude/7280)                                          | `<nixos-hardware/dell/latitude/7280>`                   | `dell-latitude-7280`                   |
@@ -233,6 +235,7 @@ See code for all available configurations.
 | [Gigabyte B550](gigabyte/b550)                                                    | `<nixos-hardware/gigabyte/b550>`                        | `gigabyte-b550`                        |
 | [Gigabyte B650](gigabyte/b650)                                                    | `<nixos-hardware/gigabyte/b650>`                        | `gigabyte-b650`                        |
 | [GMKtec NucBox G3 Plus](gmktec/nucbox/g3-plus)                                    | `<nixos-hardware/gmktec/nucbox/g3-plus>`                | `gmktec-nucbox-g3-plus`                |
+| [GPD Duo](gpd/duo)                                                                | `<nixos-hardware/gpd/duo>`                              | `gpd-duo`                         |
 | [GPD MicroPC](gpd/micropc)                                                        | `<nixos-hardware/gpd/micropc>`                          | `gpd-micropc`                          |
 | [GPD P2 Max](gpd/p2-max)                                                          | `<nixos-hardware/gpd/p2-max>`                           | `gpd-p2-max`                           |
 | [GPD Pocket 3](gpd/pocket-3)                                                      | `<nixos-hardware/gpd/pocket-3>`                         | `gpd-pocket-3`                         |
@@ -307,6 +310,8 @@ See code for all available configurations.
 | [Lenovo ThinkPad L14 (Intel)](lenovo/thinkpad/l14/intel)                          | `<nixos-hardware/lenovo/thinkpad/l14/intel>`            | `lenovo-thinkpad-l14-intel`            |
 | [Lenovo ThinkPad L480](lenovo/thinkpad/l480)                                      | `<nixos-hardware/lenovo/thinkpad/l480>`                 | `lenovo-thinkpad-l480`                 |
 | [Lenovo ThinkPad P1 Gen 3](lenovo/thinkpad/p1/3th-gen)                            | `<nixos-hardware/lenovo/thinkpad/p1/3th-gen>`           | `lenovo-thinkpad-p1-gen3`              |
+| [Lenovo ThinkPad P1 Gen 5](lenovo/thinkpad/p1/gen5)                               | `<nixos-hardware/lenovo/thinkpad/p1/gen5>`              | `lenovo-thinkpad-p1-gen5`              |
+| [Lenovo ThinkPad P1 Gen 5 (Nvidia)](lenovo/thinkpad/p1/gen5/nvidia)               | `<nixos-hardware/lenovo/thinkpad/p1/gen5/nvidia>`       | `lenovo-thinkpad-p1-gen5-nvidia`       |
 | [Lenovo ThinkPad P14s AMD Gen 1](lenovo/thinkpad/p14s/amd/gen1)                   | `<nixos-hardware/lenovo/thinkpad/p14s/amd/gen1>`        | `lenovo-thinkpad-p14s-amd-gen1`        |
 | [Lenovo ThinkPad P14s AMD Gen 2](lenovo/thinkpad/p14s/amd/gen2)                   | `<nixos-hardware/lenovo/thinkpad/p14s/amd/gen2>`        | `lenovo-thinkpad-p14s-amd-gen2`        |
 | [Lenovo ThinkPad P14s AMD Gen 3](lenovo/thinkpad/p14s/amd/gen3)                   | `<nixos-hardware/lenovo/thinkpad/p14s/amd/gen3>`        | `lenovo-thinkpad-p14s-amd-gen3`        |
@@ -362,6 +367,7 @@ See code for all available configurations.
 | [Lenovo ThinkPad X1 Yoga](lenovo/thinkpad/x1/yoga)                                | `<nixos-hardware/lenovo/thinkpad/x1/yoga>`              | `lenovo-thinkpad-x1-yoga`              |
 | [Lenovo ThinkPad X1 Yoga Gen 7](lenovo/thinkpad/x1/yoga/7th-gen/)                 | `<nixos-hardware/lenovo/thinkpad/x1/yoga/7th-gen>`      | `lenovo-thinkpad-x1-yoga-7th-gen`      |
 | [Lenovo ThinkPad X1 Yoga Gen 8](lenovo/thinkpad/x1/yoga/8th-gen/)                 | `<nixos-hardware/lenovo/thinkpad/x1/yoga/8th-gen>`      | `lenovo-thinkpad-x1-yoga-8th-gen`      |
+| [Lenovo ThinkPad X1 Yoga Gen 8 (IPU6)](lenovo/thinkpad/x1/yoga/8th-gen/ipu6)      | `<nixos-hardware/lenovo/thinkpad/x1/yoga/8th-gen/ipu6>` | `lenovo-thinkpad-x1-yoga-8th-gen-ipu6` |
 | [Lenovo ThinkPad X1 (2nd Gen)](lenovo/thinkpad/x1/2nd-gen)                        | `<nixos-hardware/lenovo/thinkpad/x1/2nd-gen>`           | `lenovo-thinkpad-x1-2nd-gen`           |
 | [Lenovo ThinkPad X1 (6th Gen)](lenovo/thinkpad/x1/6th-gen)                        | `<nixos-hardware/lenovo/thinkpad/x1/6th-gen>`           | `lenovo-thinkpad-x1-6th-gen`           |
 | [Lenovo ThinkPad X1 (7th Gen)](lenovo/thinkpad/x1/7th-gen)                        | `<nixos-hardware/lenovo/thinkpad/x1/7th-gen>`           | `lenovo-thinkpad-x1-7th-gen`           |
@@ -456,6 +462,7 @@ See code for all available configurations.
 | [Radxa ROCK Pi 4](radxa/rock-pi-4)                                                | `<nixos-hardware/radxa/rock-pi-4>`                      | `rock-pi-4`                            |
 | [Radxa ROCK Pi E](radxa/rock-pi-e)                                                | `<nixos-hardware/radxa/rock-pi-e>`                      | `rock-pi-e`                            |
 | [Razer Blade 14 (RZ09-0530)](razer/blade/14/RZ09-0530)                            | `<nixos-hardware/razer/blade/14/RZ09-0530>`             | `razer-blade-14-RZ09-0530`             |
+| [Raspberry Pi 1](raspberry-pi/1)                                                  | `<nixos-hardware/raspberry-pi/1>`                       | `raspberry-pi-1`                       |
 | [Raspberry Pi 2](raspberry-pi/2)                                                  | `<nixos-hardware/raspberry-pi/2>`                       | `raspberry-pi-2`                       |
 | [Raspberry Pi 3](raspberry-pi/3)                                                  | `<nixos-hardware/raspberry-pi/3>`                       | `raspberry-pi-3`                       |
 | [Raspberry Pi 4](raspberry-pi/4)                                                  | `<nixos-hardware/raspberry-pi/4>`                       | `raspberry-pi-4`                       |

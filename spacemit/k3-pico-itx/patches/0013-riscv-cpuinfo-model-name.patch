@@ -1,0 +1,93 @@
+From: liberodark <liberodark@gmail.com>
+Subject: [PATCH] riscv: cpuinfo: expose DT cpu model as model name
+
+Lets tools like btop show "Spacemit(R) X100".
+
+Signed-off-by: liberodark <liberodark@gmail.com>
+---
+diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
+index 19fc9b4..f776f49 100644
+--- a/arch/riscv/boot/dts/spacemit/k3.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+@@ -23,6 +23,7 @@ cpus: cpus {
+ 
+ 		cpu_0: cpu@0 {
+ 			compatible = "spacemit,x100", "riscv";
++			model = "Spacemit(R) X100";
+ 			device_type = "cpu";
+ 			reg = <0>;
+ 			riscv,isa-base = "rv64i";
+@@ -64,6 +65,7 @@ cpu0_intc: interrupt-controller {
+ 
+ 		cpu_1: cpu@1 {
+ 			compatible = "spacemit,x100", "riscv";
++			model = "Spacemit(R) X100";
+ 			device_type = "cpu";
+ 			reg = <1>;
+ 			riscv,isa-base = "rv64i";
+@@ -105,6 +107,7 @@ cpu1_intc: interrupt-controller {
+ 
+ 		cpu_2: cpu@2 {
+ 			compatible = "spacemit,x100", "riscv";
++			model = "Spacemit(R) X100";
+ 			device_type = "cpu";
+ 			reg = <2>;
+ 			riscv,isa-base = "rv64i";
+@@ -146,6 +149,7 @@ cpu2_intc: interrupt-controller {
+ 
+ 		cpu_3: cpu@3 {
+ 			compatible = "spacemit,x100", "riscv";
++			model = "Spacemit(R) X100";
+ 			device_type = "cpu";
+ 			reg = <3>;
+ 			riscv,isa-base = "rv64i";
+@@ -187,6 +191,7 @@ cpu3_intc: interrupt-controller {
+ 
+ 		cpu_4: cpu@4 {
+ 			compatible = "spacemit,x100", "riscv";
++			model = "Spacemit(R) X100";
+ 			device_type = "cpu";
+ 			reg = <4>;
+ 			riscv,isa-base = "rv64i";
+@@ -228,6 +233,7 @@ cpu4_intc: interrupt-controller {
+ 
+ 		cpu_5: cpu@5 {
+ 			compatible = "spacemit,x100", "riscv";
++			model = "Spacemit(R) X100";
+ 			device_type = "cpu";
+ 			reg = <5>;
+ 			riscv,isa-base = "rv64i";
+@@ -269,6 +275,7 @@ cpu5_intc: interrupt-controller {
+ 
+ 		cpu_6: cpu@6 {
+ 			compatible = "spacemit,x100", "riscv";
++			model = "Spacemit(R) X100";
+ 			device_type = "cpu";
+ 			reg = <6>;
+ 			riscv,isa-base = "rv64i";
+@@ -310,6 +317,7 @@ cpu6_intc: interrupt-controller {
+ 
+ 		cpu_7: cpu@7 {
+ 			compatible = "spacemit,x100", "riscv";
++			model = "Spacemit(R) X100";
+ 			device_type = "cpu";
+ 			reg = <7>;
+ 			riscv,isa-base = "rv64i";
+diff --git a/arch/riscv/kernel/cpu.c b/arch/riscv/kernel/cpu.c
+index 3dbc8cc..ed0a429 100644
+--- a/arch/riscv/kernel/cpu.c
++++ b/arch/riscv/kernel/cpu.c
+@@ -347,8 +347,13 @@ static int c_show(struct seq_file *m, void *v)
+ 	print_mmu(m);
+ 
+ 	if (acpi_disabled) {
++		const char *model;
++
+ 		node = of_get_cpu_node(cpu_id, NULL);
+ 
++		if (!of_property_read_string(node, "model", &model))
++			seq_printf(m, "model name\t: %s\n", model);
++
+ 		if (!of_property_read_string(node, "compatible", &compat) &&
+ 		    strcmp(compat, "riscv"))
+ 			seq_printf(m, "uarch\t\t: %s\n", compat);

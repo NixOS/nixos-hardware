@@ -44,6 +44,7 @@
         {
           acer-aspire-4810t = import ./acer/aspire/4810t;
           acer-nitro-an517-41 = import ./acer/nitro/an517-41;
+          acer-nitro-5-an515-55 = import ./acer/nitro/5/an515-55;
           acer-predator-helios-300-ph315-51 = import ./acer/predator/helios/300/ph315-51;
           airis-n990 = import ./airis/n990;
           aoostar-r1-n100 = import ./aoostar/r1/n100;
@@ -104,6 +105,7 @@
           asus-zephyrus-gu603h = import ./asus/zephyrus/gu603h;
           asus-zephyrus-gu605cw = import ./asus/zephyrus/gu605cw;
           asus-zephyrus-gu605my = import ./asus/zephyrus/gu605my;
+          bananapi-bpi-sm10 = import ./bananapi/bpi-sm10;
           beagleboard-pocketbeagle = import ./beagleboard/pocketbeagle;
           chuwi-minibook-x = import ./chuwi/minibook-x;
           deciso-dec = import ./deciso/dec;
@@ -119,6 +121,7 @@
           dell-inspiron-7559 = import ./dell/inspiron/7559;
           dell-latitude-3340 = import ./dell/latitude/3340;
           dell-latitude-3480 = import ./dell/latitude/3480;
+          dell-latitude-3530 = import ./dell/latitude/3530;
           dell-latitude-5490 = import ./dell/latitude/5490;
           dell-latitude-5520 = import ./dell/latitude/5520;
           dell-latitude-7280 = import ./dell/latitude/7280;
@@ -195,6 +198,7 @@
           google-pixelbook = import ./google/pixelbook;
           google-brya = import ./google/brya;
           google-rex = import ./google/rex;
+          gpd-duo = import ./gpd/duo;
           gpd-micropc = import ./gpd/micropc;
           gpd-p2-max = import ./gpd/p2-max;
           gpd-pocket-3 = import ./gpd/pocket-3;
@@ -266,6 +270,8 @@
           lenovo-thinkpad-l480 = import ./lenovo/thinkpad/l480;
           lenovo-thinkpad-p1 = import ./lenovo/thinkpad/p1;
           lenovo-thinkpad-p1-gen3 = import ./lenovo/thinkpad/p1/3th-gen;
+          lenovo-thinkpad-p1-gen5 = import ./lenovo/thinkpad/p1/gen5;
+          lenovo-thinkpad-p1-gen5-nvidia = import ./lenovo/thinkpad/p1/gen5/nvidia;
           lenovo-thinkpad-p14s-amd-gen1 = import ./lenovo/thinkpad/p14s/amd/gen1;
           lenovo-thinkpad-p14s-amd-gen2 = import ./lenovo/thinkpad/p14s/amd/gen2;
           lenovo-thinkpad-p14s-amd-gen3 = import ./lenovo/thinkpad/p14s/amd/gen3;
@@ -321,6 +327,7 @@
           lenovo-thinkpad-x1-yoga = import ./lenovo/thinkpad/x1/yoga;
           lenovo-thinkpad-x1-yoga-7th-gen = import ./lenovo/thinkpad/x1/yoga/7th-gen;
           lenovo-thinkpad-x1-yoga-8th-gen = import ./lenovo/thinkpad/x1/yoga/8th-gen;
+          lenovo-thinkpad-x1-yoga-8th-gen-ipu6 = import ./lenovo/thinkpad/x1/yoga/8th-gen/ipu6;
           lenovo-thinkpad-x1-2nd-gen = import ./lenovo/thinkpad/x1/2nd-gen;
           lenovo-thinkpad-x1-6th-gen = import ./lenovo/thinkpad/x1/6th-gen;
           lenovo-thinkpad-x1-7th-gen = import ./lenovo/thinkpad/x1/7th-gen;
@@ -415,6 +422,7 @@
           purism-librem-15v3 = import ./purism/librem/15v3;
           purism-librem-5r4 = import ./purism/librem/5r4;
           razer-blade-14-RZ09-0530 = import ./razer/blade/14/RZ09-0530;
+          raspberry-pi-1 = import ./raspberry-pi/1;
           raspberry-pi-2 = import ./raspberry-pi/2;
           raspberry-pi-3 = import ./raspberry-pi/3;
           raspberry-pi-4 = import ./raspberry-pi/4;
@@ -553,6 +561,9 @@
         in
         pkgs.lib.optionalAttrs (self.formatter ? ${system}) {
           formatting = treefmtEval.config.build.check self;
+        }
+        // {
+          raspberry-pi-config-txt = pkgs.callPackage ./tests/config-txt-tests.nix { };
         }
         // nixosTests
       );
