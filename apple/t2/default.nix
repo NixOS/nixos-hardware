@@ -85,7 +85,7 @@ in
           if t2Cfg.kernelChannel == "stable" then ./pkgs/linux-t2 else ./pkgs/linux-t2/latest.nix
         ) { }
       );
-      boot.initrd.kernelModules = [ "apple-bce" ];
+      boot.initrd.kernelModules = [ "t2bce_core" "t2bce_dma" "t2bce_vhci" ];
 
       services.udev.packages = [ audioFilesUdevRules ];
 
