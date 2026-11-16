@@ -1,6 +1,6 @@
 {
   buildUBoot,
-  python3,
+  python3Packages,
   armTrustedFirmwareRK3588,
   fetchFromGitLab,
   fetchFromGitHub,
@@ -20,7 +20,7 @@ let
     hash = "sha256-qXnuZyFNc6gYTkAtPg1t9WHwj8OiTxOLvsHUuvolK/w=";
   };
 in
-buildUBoot rec {
+(buildUBoot rec {
   src = fetchFromGitLab {
     domain = "gitlab.collabora.com";
     owner = "hardware-enablement";
@@ -49,4 +49,9 @@ buildUBoot rec {
     "BL31=${armTrustedFirmwareRK3588}/bl31.elf"
     "ROCKCHIP_TPL=${rkbin}/bin/rk35/rk3588_ddr_lp4_2112MHz_lp5_2400MHz_v1.18.bin"
   ];
-}
+}).overrideAttrs
+  (
+    _final: prev: {
+      nativeBuildInputs = prev.nativeBuildInputs ++ [ python3Packages.setuptools_80 ];
+    }
+  )
