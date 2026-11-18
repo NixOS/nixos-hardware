@@ -104,6 +104,7 @@
           asus-zephyrus-gu603h = import ./asus/zephyrus/gu603h;
           asus-zephyrus-gu605cw = import ./asus/zephyrus/gu605cw;
           asus-zephyrus-gu605my = import ./asus/zephyrus/gu605my;
+          bananapi-bpi-r4-pro = import ./bananapi/bpi-r4-pro;
           bananapi-bpi-sm10 = import ./bananapi/bpi-sm10;
           beagleboard-pocketbeagle = import ./beagleboard/pocketbeagle;
           chuwi-minibook-x = import ./chuwi/minibook-x;

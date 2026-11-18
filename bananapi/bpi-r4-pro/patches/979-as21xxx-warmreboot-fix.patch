@@ -1,0 +1,56 @@
+--- a/drivers/net/phy/as21xxx.c
++++ b/drivers/net/phy/as21xxx.c
+@@ -690,13 +690,28 @@
+  */
+ static int aeon_read_mmd_stable(struct phy_device *phydev, int devad, u32 reg)
+ {
+-	int ret;
++	int prev, cur, i;
+ 
+-	ret = phy_read_mmd(phydev, devad, reg);
+-	if (ret < 0)
+-		return ret;
++	prev = phy_read_mmd(phydev, devad, reg);
++	if (prev < 0)
++		return prev;
++
++	/* A read-twice suffices on a freshly power-booted PHY, but after a
++	 * warm reboot the one-transaction pipeline lag can be deeper, so a
++	 * fixed second read still returns stale data. Read until two
++	 * consecutive reads of the same register agree (bounded) — these
++	 * units converge on repeated same-register reads.
++	 */
++	for (i = 0; i < 7; i++) {
++		cur = phy_read_mmd(phydev, devad, reg);
++		if (cur < 0)
++			return cur;
++		if (cur == prev)
++			return cur;
++		prev = cur;
++	}
+ 
+-	return phy_read_mmd(phydev, devad, reg);
++	return prev;
+ }
+ 
+ static int aeon_read_phy_id_stable(struct phy_device *phydev, u32 *phy_id)
+@@ -1065,6 +1080,19 @@
+ 	if (ret < 0)
+ 		return ret;
+ 
++	/* On this board the DT provides firmware-name and the generic
++	 * "Aeonsemi AS21xxx" entry carries the full pipelined-unit ops
++	 * (config_aneg no-op, pipeline-safe read_status, fixed get_features),
++	 * and its probe handles both fw-not-loaded (generic ID, loads fw) and
++	 * fw-already-running (warm reboot, skips load). Bind that generic entry
++	 * directly, without depending on a clean model-ID read (which the
++	 * warm-reboot pipeline lag can defeat) and without binding a
++	 * model-specific entry that lacks config_aneg (genphy would then
++	 * corrupt the advertisement on these pipelined units).
++	 */
++	if (of_property_present(phydev->mdio.dev.of_node, "firmware-name"))
++		return phydrv->phy_id == PHY_ID_AS21XXX;
++
+ 	/* The model word is transient while the PHY internal CPU boots
+ 	 * from its own flash; retry briefly until the vendor appears.
+ 	 */

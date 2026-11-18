@@ -1,0 +1,181 @@
+--- a/drivers/net/phy/as21xxx.c
++++ b/drivers/net/phy/as21xxx.c
+@@ -351,6 +351,18 @@
+ 			      VEND1_GLB_CPU_CTRL_MASK, AEON_CPU_CTRL_FW_START);
+ }
+ 
++/* fwd decl: defined below, but used by as21xxx_probe above its definition. */
++static int aeon_read_phy_id_stable(struct phy_device *phydev, u32 *phy_id);
++
++/* Max out MDC so the ~290KB firmware transfer over MDIO is quick (ported from
++ * frank-w/BPI-Router-Linux 6.18-r4pro). */
++static void aeon_set_fast_mdc_timing(struct phy_device *phydev)
++{
++	phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x53, 0xFFFF);
++	phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x54, 0xFFFF);
++	phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x55, 0xFFFF);
++}
++
+ static int aeon_firmware_load(struct phy_device *phydev)
+ {
+ 	struct device *dev = &phydev->mdio.dev;
+@@ -605,6 +617,8 @@
+ static int as21xxx_probe(struct phy_device *phydev)
+ {
+ 	struct as21xxx_priv *priv;
++	u32 phy_id;
++	u16 ret_sts;
+ 	int ret;
+ 
+ 	priv = devm_kzalloc(&phydev->mdio.dev,
+@@ -618,27 +632,44 @@
+ 	if (ret)
+ 		return ret;
+ 
+-	/* Detect units whose C45 reads lag one transaction behind
+-	 * (AS21010JB1 with self-booted firmware on BPi-R4 Pro 8X): a
+-	 * single read returns the previously addressed register. Their
+-	 * mapped-C22 window and single-read status registers are
+-	 * unreliable, so read_status uses pipeline-safe reads.
+-	 */
+-	ret = phy_read_mmd(phydev, MDIO_MMD_PCS, MII_PHYSID1);
++	/* If the firmware isn't loaded yet (PHY still reports the generic
++	 * AS21xxx ID), load it now so this probe binds a fully-functional
++	 * as21xxx PHY (with correct get_features) before DSA connects the
++	 * port — instead of the old re-match dance that left it on genphy. */
++	ret = aeon_read_phy_id_stable(phydev, &phy_id);
+ 	if (ret < 0)
+ 		return ret;
+-	if (ret != (PHY_VENDOR_AEONSEMI >> 16)) {
+-		ret = phy_read_mmd(phydev, MDIO_MMD_PCS, MII_PHYSID1);
+-		if (ret == (PHY_VENDOR_AEONSEMI >> 16)) {
+-			priv->pipelined_reads = true;
+-			phydev_info(phydev, "pipelined C45 reads detected, using stable read status\n");
+-		}
++	if (phy_id == PHY_ID_AS21XXX) {
++		aeon_set_fast_mdc_timing(phydev);
++		ret = aeon_firmware_load(phydev);
++		if (ret)
++			return ret;
+ 	}
+ 
++	/* These AS21010JB1 units (self-booted firmware on BPi-R4 Pro 8X) answer
++	 * every C45 read with the value of the previously addressed register
++	 * (a one-transaction pipeline lag), so single reads of the status and
++	 * ability registers return stale data: read_status uses pipeline-safe
++	 * double reads and get_features returns a fixed feature set. Both are
++	 * gated on priv->pipelined_reads. Runtime auto-detection of the lag
++	 * proved unreliable on these units (the prior PHYSID double-read and a
++	 * PHYSID2-primed variant both mis-detected, leaving read_status on the
++	 * single-read path = copper link flapping at the poll rate, and
++	 * get_features returning a stale ~100baseT set that fails usxgmii
++	 * validation -EINVAL). This board only ever binds these pipelined
++	 * units, so force it on unconditionally. */
++	priv->pipelined_reads = true;
++	phydev_info(phydev, "forcing pipelined C45 read handling (stable read status)\n");
++
+ 	ret = aeon_ipc_sync_parity(phydev, priv);
+ 	if (ret)
+ 		return ret;
+ 
++	/* Wait for the firmware to finish loading before the IPC reads. */
++	ret = aeon_ipc_noop(phydev, priv, &ret_sts);
++	if (ret)
++		return ret;
++
+ 	ret = aeon_ipc_get_fw_version(phydev);
+ 	if (ret)
+ 		return ret;
+@@ -1009,8 +1040,6 @@
+ static int as21xxx_match_phy_device(struct phy_device *phydev,
+ 				    const struct phy_driver *phydrv)
+ {
+-	struct as21xxx_priv *priv;
+-	u16 ret_sts;
+ 	u32 phy_id;
+ 	int ret;
+ 
+@@ -1055,47 +1084,30 @@
+ 			return 0;
+ 	}
+ 
+-	/* With PHY ID not the generic AS21xxx one assume
+-	 * the firmware just loaded
++	/* Firmware already loaded: the PHY reports its specific model ID;
++	 * bind the matching model driver entry.
+ 	 */
+ 	if (phy_id != PHY_ID_AS21XXX)
+ 		return phy_id == phydrv->phy_id;
+ 
+-	/* Allocate temp priv and load the firmware */
+-	priv = kzalloc(sizeof(*priv), GFP_KERNEL);
+-	if (!priv)
+-		return -ENOMEM;
+-
+-	mutex_init(&priv->ipc_lock);
+-
+-	ret = aeon_firmware_load(phydev);
+-	if (ret)
+-		goto out;
+-
+-	/* Sync parity... */
+-	ret = aeon_ipc_sync_parity(phydev, priv);
+-	if (ret)
+-		goto out;
+-
+-	/* ...and send a third NOOP cmd to wait for firmware finish loading */
+-	ret = aeon_ipc_noop(phydev, priv, &ret_sts);
+-	if (ret)
+-		goto out;
+-
+-out:
+-	mutex_destroy(&priv->ipc_lock);
+-	kfree(priv);
+-
+-	/* Return can either be 0 or a negative error code.
+-	 * Returning 0 here means THIS is NOT a suitable PHY.
+-	 *
+-	 * For the specific case of the generic Aeonsemi PHY ID that
+-	 * needs the firmware the be loaded first to have a correct PHY ID,
+-	 * this is OK as a matching PHY ID will be found right after.
+-	 * This relies on the driver probe order where the first PHY driver
+-	 * probed is the generic one.
+-	 */
+-	return ret;
++	/* Firmware not loaded yet (generic ID). Bind the GENERIC driver entry
++	 * now (its probe loads the firmware) so the as21xxx driver - with
++	 * correct get_features - is bound by the time DSA connects the port,
++	 * instead of genphy. The link comes up once the firmware is running. */
++	return phydrv->phy_id == PHY_ID_AS21XXX;
++}
++
++static int as21xxx_config_aneg(struct phy_device *phydev)
++{
++	/* The self-booted firmware already configures and runs copper
++	 * autoneg (advertising all supported speeds). The generic
++	 * genphy_c45_config_aneg() that phylib would otherwise call reads the
++	 * ability/advertisement registers with single C45 reads, which return
++	 * the previously addressed register on these pipelined units; it then
++	 * writes that stale value back, corrupting the advertisement and
++	 * dropping the copper link as soon as phylink connects the PHY. Leave
++	 * the firmware's autoneg configuration untouched. */
++	return 0;
+ }
+ 
+ static struct phy_driver as21xxx_drivers[] = {
+@@ -1108,6 +1120,15 @@
+ 		PHY_ID_MATCH_EXACT(PHY_ID_AS21XXX),
+ 		.name		= "Aeonsemi AS21xxx",
+ 		.match_phy_device = as21xxx_match_phy_device,
++		.probe		= as21xxx_probe,
++		.read_status	= as21xxx_read_status,
++		.config_aneg	= as21xxx_config_aneg,
++		.get_features	= as21xxx_get_features,
++		.led_brightness_set = as21xxx_led_brightness_set,
++		.led_hw_is_supported = as21xxx_led_hw_is_supported,
++		.led_hw_control_set = as21xxx_led_hw_control_set,
++		.led_hw_control_get = as21xxx_led_hw_control_get,
++		.led_polarity_set = as21xxx_led_polarity_set,
+ 	},
+ 	{
+ 		PHY_ID_MATCH_EXACT(PHY_ID_AS21011JB1),
