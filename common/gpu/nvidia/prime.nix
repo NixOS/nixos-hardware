@@ -8,6 +8,7 @@
   };
 
   config = {
+    services.switcherooControl.enable = lib.mkDefault true;
 
     hardware.nvidia.prime = {
       offload = {
