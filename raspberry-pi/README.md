@@ -190,28 +190,6 @@ The `cm4` filter matches CM4 only.
 Set `dwc2.dr_mode` to `host`, `peripheral`, or `otg` to override the overlay default.
 The overlay also accepts `g-rx-fifo-size` and `g-np-tx-fifo-size`.
 
-#### PoE HATs
-
-The original [PoE HAT](https://www.raspberrypi.com/products/poe-hat/) and the [PoE+ HAT](https://www.raspberrypi.com/products/poe-plus-hat/) use the stock `rpi-poe` and `rpi-poe-plus` overlays.
-Both HATs support the Pi 3B+ and Pi 4B.
-
-```nix
-{
-  hardware.raspberry-pi.configtxt.deviceTreeOverlays."board-type=0x11" = [
-    {
-      rpi-poe = {
-        poe_fan_temp0 = 50000;
-        poe_fan_temp0_hyst = 2000;
-      };
-    }
-  ];
-}
-```
-
-Use `board-type=0x0d` for the Pi 3B+ and `board-type=0x11` for the Pi 4B.
-Replace `rpi-poe` with `rpi-poe-plus` for the PoE+ HAT.
-All overlay parameters are optional.
-
 To supply your own file, set `configtxt.file`.
 The module then ignores `settings` and `deviceTreeOverlays`.
 
