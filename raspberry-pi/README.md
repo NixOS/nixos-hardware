@@ -97,6 +97,8 @@ Filters like `[EDID=...]`, `[gpio4=1]`, `[tryboot]` and `[bootvar0=42]` also dep
 
 ### Device tree overlays
 
+Before switching to the firmware-provided device tree, migrate other `hardware.deviceTree.overlays` to `hardware.raspberry-pi.configtxt`.
+
 Overlays go in `configtxt.deviceTreeOverlays`, not in a `dtoverlay` key under `settings`.
 Filters nest the same way, and the leaf is an ordered list where each element names one overlay and its parameters:
 
@@ -105,11 +107,16 @@ Filters nest the same way, and the leaf is an ordered list where each element na
   boot.loader.generic-extlinux-compatible.useGenerationDeviceTree = false;
 
   hardware.raspberry-pi.configtxt.deviceTreeOverlays.pi4 = [
-    { dwc2.dr_mode = "host"; }
     {
       gpio-fan = {
-        gpiopin = 14;
+        gpiopin = 12;
         temp = 80000;
+      };
+    }
+    {
+      gpio-led = {
+        gpio = 16;
+        label = "status";
       };
     }
   ];
@@ -121,12 +128,13 @@ This renders after `configtxt.settings` as:
 ```ini
 [all]
 [pi4]
-dtoverlay=dwc2
-dtparam=dr_mode=host
-dtoverlay=
 dtoverlay=gpio-fan
-dtparam=gpiopin=14
+dtparam=gpiopin=12
 dtparam=temp=80000
+dtoverlay=
+dtoverlay=gpio-led
+dtparam=gpio=16
+dtparam=label=status
 dtoverlay=
 ```
 
@@ -149,6 +157,8 @@ Use `null` with `mkForce` to remove a parameter.
 The module concatenates lists from separate modules, but the order is not the order of definition.
 If one overlay must load before another, set the order with `mkBefore` or `mkAfter`.
 
+For overlay names and hardware-specific parameters, use the [Raspberry Pi overlay reference](https://github.com/raspberrypi/linux/blob/rpi-6.18.y/arch/arm/boot/dts/overlays/README).
+
 The Raspberry Pi firmware applies these overlays before U-Boot starts.
 Set `boot.loader.generic-extlinux-compatible.useGenerationDeviceTree = false` so U-Boot keeps that device tree instead of loading one from the NixOS generation.
 Enabling `hardware.raspberry-pi.firmware.uboot.enable` sets this automatically.
@@ -157,23 +167,14 @@ The firmware partition must contain the generated `config.txt` and stock overlay
 SD image builds populate it automatically.
 On a running system, set `hardware.raspberry-pi.firmware.enable = true`.
 
-#### DWC2 USB controller
+To supply your own file, set `configtxt.file`.
+The module then ignores `settings` and `deviceTreeOverlays`.
 
-Use the stock `dwc2` overlay to enable the USB 2.0 controller on the Pi 4B USB-C connector:
+#### Overriding board defaults
 
-```nix
-{
-  hardware.raspberry-pi.configtxt.deviceTreeOverlays."board-type=0x11" = [
-    { dwc2 = { }; }
-  ];
-}
-```
-
-`board-type=0x11` matches the Pi 4B.
-The broader `pi4` filter also matches Pi 400, CM4, and CM4S.
-
-[Raspberry Pi OS sets `otg_mode=1` on CM4](https://github.com/RPi-Distro/pi-gen/blob/master/stage1/00-boot-files/files/config.txt#L39-L43), and [nixos-hardware sets the same default](./common/config-txt-defaults.nix).
-Set it to `null` before loading DWC2:
+The shared board defaults are defined in [`common/config-txt-defaults.nix`](./common/config-txt-defaults.nix) with `lib.mkDefault`.
+Set a `hardware.raspberry-pi.configtxt.settings` value to `null` to omit that default from the generated `config.txt`.
+For example, remove the default `otg_mode` setting before loading `dwc2` on CM4:
 
 ```nix
 {
@@ -185,35 +186,6 @@ Set it to `null` before loading DWC2:
   };
 }
 ```
-
-The `cm4` filter matches CM4 only.
-Set `dwc2.dr_mode` to `host`, `peripheral`, or `otg` to override the overlay default.
-The overlay also accepts `g-rx-fifo-size` and `g-np-tx-fifo-size`.
-
-#### PoE HATs
-
-The original [PoE HAT](https://www.raspberrypi.com/products/poe-hat/) and the [PoE+ HAT](https://www.raspberrypi.com/products/poe-plus-hat/) use the stock `rpi-poe` and `rpi-poe-plus` overlays.
-Both HATs support the Pi 3B+ and Pi 4B.
-
-```nix
-{
-  hardware.raspberry-pi.configtxt.deviceTreeOverlays."board-type=0x11" = [
-    {
-      rpi-poe = {
-        poe_fan_temp0 = 50000;
-        poe_fan_temp0_hyst = 2000;
-      };
-    }
-  ];
-}
-```
-
-Use `board-type=0x0d` for the Pi 3B+ and `board-type=0x11` for the Pi 4B.
-Replace `rpi-poe` with `rpi-poe-plus` for the PoE+ HAT.
-All overlay parameters are optional.
-
-To supply your own file, set `configtxt.file`.
-The module then ignores `settings` and `deviceTreeOverlays`.
 
 ## Audio
 
