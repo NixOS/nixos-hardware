@@ -105,11 +105,16 @@ Filters nest the same way, and the leaf is an ordered list where each element na
   boot.loader.generic-extlinux-compatible.useGenerationDeviceTree = false;
 
   hardware.raspberry-pi.configtxt.deviceTreeOverlays.pi4 = [
-    { dwc2.dr_mode = "host"; }
     {
       gpio-fan = {
-        gpiopin = 14;
+        gpiopin = 12;
         temp = 80000;
+      };
+    }
+    {
+      gpio-led = {
+        gpio = 16;
+        label = "status";
       };
     }
   ];
@@ -121,12 +126,13 @@ This renders after `configtxt.settings` as:
 ```ini
 [all]
 [pi4]
-dtoverlay=dwc2
-dtparam=dr_mode=host
-dtoverlay=
 dtoverlay=gpio-fan
-dtparam=gpiopin=14
+dtparam=gpiopin=12
 dtparam=temp=80000
+dtoverlay=
+dtoverlay=gpio-led
+dtparam=gpio=16
+dtparam=label=status
 dtoverlay=
 ```
 
