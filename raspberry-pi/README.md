@@ -97,6 +97,8 @@ Filters like `[EDID=...]`, `[gpio4=1]`, `[tryboot]` and `[bootvar0=42]` also dep
 
 ### Device tree overlays
 
+Before switching to the firmware-provided device tree, migrate other `hardware.deviceTree.overlays` to `hardware.raspberry-pi.configtxt`.
+
 Overlays go in `configtxt.deviceTreeOverlays`, not in a `dtoverlay` key under `settings`.
 Filters nest the same way, and the leaf is an ordered list where each element names one overlay and its parameters:
 
