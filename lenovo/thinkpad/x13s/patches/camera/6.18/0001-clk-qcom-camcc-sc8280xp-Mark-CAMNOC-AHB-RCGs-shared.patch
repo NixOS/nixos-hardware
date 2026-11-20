@@ -1,0 +1,61 @@
+From: Vahiru <nekovahiru@gmail.com>
+Subject: [PATCH] clk: qcom: camcc-sc8280xp: Mark CAMNOC/AHB RCGs shared
+
+The camnoc_axi, slow_ahb and fast_ahb RCGs use plain clk_rcg2_ops, so
+they keep their last configuration when their branch clocks are turned
+off. After the camera subsystem (camss) has been used once, the CAMNOC
+AXI RCG is left pointing at camcc_pll0_out_even, which is then disabled
+because nothing else references it. The next collapse of titan_top_gdsc
+happens with a dead clock on the CAMNOC interface: the power-down
+completes without the isolation step (CFG_GDSCR bit 19 stays clear) and
+the following power-up never reaches PWR_ON:
+
+  titan_top_gdsc status stuck at 'off'
+  WARNING: drivers/clk/qcom/gdsc.c:185 gdsc_toggle_logic+0x14c/0x160
+  qcom-camss ac5a000.camss: Failed to power up pipeline: -110
+
+Observed on a Huawei MateBook E Go (sc8280xp) with the hi846/ov13b10
+sensors: the first capture works, every later one fails until reboot.
+Reading the RCG through debugfs after one capture shows
+camcc_camnoc_axi_clk_src at 150 MHz with parent camcc_pll0_out_even
+while camcc_pll0 has enable_count 0.
+
+Mark the three RCGs shared so that they are parked on XO when disabled,
+as camcc-sm8150, camcc-sc8180x and camcc-x1e80100 already do for the
+same clocks. With this change the camera power domain collapses and
+powers up cleanly across repeated captures.
+
+Fixes: ff93872a9c61 ("clk: qcom: camcc-sc8280xp: Add sc8280xp CAMCC")
+Signed-off-by: Vahiru <nekovahiru@gmail.com>
+---
+diff --git a/drivers/clk/qcom/camcc-sc8280xp.c b/drivers/clk/qcom/camcc-sc8280xp.c
+index e4ec7e3..5ba6e54 100644
+--- a/drivers/clk/qcom/camcc-sc8280xp.c
++++ b/drivers/clk/qcom/camcc-sc8280xp.c
+@@ -667,7 +667,7 @@ static struct clk_rcg2 camcc_camnoc_axi_clk_src = {
+ 		.name = "camcc_camnoc_axi_clk_src",
+ 		.parent_data = camcc_parent_data_2,
+ 		.num_parents = ARRAY_SIZE(camcc_parent_data_2),
+-		.ops = &clk_rcg2_ops,
++		.ops = &clk_rcg2_shared_ops,
+ 	},
+ };
+ 
+@@ -835,7 +835,7 @@ static struct clk_rcg2 camcc_fast_ahb_clk_src = {
+ 		.name = "camcc_fast_ahb_clk_src",
+ 		.parent_data = camcc_parent_data_0,
+ 		.num_parents = ARRAY_SIZE(camcc_parent_data_0),
+-		.ops = &clk_rcg2_ops,
++		.ops = &clk_rcg2_shared_ops,
+ 	},
+ };
+ 
+@@ -1370,7 +1370,7 @@ static struct clk_rcg2 camcc_slow_ahb_clk_src = {
+ 		.name = "camcc_slow_ahb_clk_src",
+ 		.parent_data = camcc_parent_data_0,
+ 		.num_parents = ARRAY_SIZE(camcc_parent_data_0),
+-		.ops = &clk_rcg2_ops,
++		.ops = &clk_rcg2_shared_ops,
+ 	},
+ };
+ 
