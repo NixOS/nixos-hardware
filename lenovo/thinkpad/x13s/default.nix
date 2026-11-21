@@ -193,6 +193,63 @@ in
       };
     }
 
+    # enable the light on the top cover; showing suspend state
+    ({
+      hardware.deviceTree.overlays = [
+        {
+          name = "x13s-ec-i2c8";
+          filter = "*x13s*.dtb";
+          dtsText = ''
+            	      /dts-v1/;
+            	      /plugin/;
+
+            	      / {
+            		compatible = "lenovo,thinkpad-x13s";
+
+            		fragment@0 {
+            		  target-path = "/soc@0/pinctrl@f100000";
+            		  __overlay__ {
+            		    i2c8_default: i2c8-default-state {
+            		      pins = "gpio43", "gpio44";
+            		      function = "qup8";
+            		      drive-strength = <16>;
+            		      bias-disable;
+            		    };
+            		  };
+            		};
+
+            		fragment@1 {
+            		  target-path = "/soc@0/geniqup@ac0000/i2c@a80000";
+            		  __overlay__ {
+            		    status = "okay";
+            		    clock-frequency = <400000>;
+            		    pinctrl-names = "default";
+            		    pinctrl-0 = <&i2c8_default>;
+            		  };
+            		};
+            	      };
+            	    '';
+        }
+      ];
+
+      powerManagement = {
+        powerDownCommands = ''
+          	    # Modern Standby Lowest Power State Entry: notify EC to pulse/breathe LED
+          	    BUS=$(basename $(ls -d /sys/devices/platform/soc@0/ac0000.geniqup/a80000.i2c/i2c-* 2>/dev/null | head -n 1) | sed "s/i2c-//")
+          	    if [ -n "$BUS" ]; then
+          	      ${pkgs.i2c-tools}/bin/i2ctransfer -y "$BUS" w5@0x28 0x03 0x80 0x00 0x01 0x55 || true
+          	    fi
+          	  '';
+        resumeCommands = ''
+          	    # Modern Standby Lowest Power State Exit: notify EC to restore normal solid LED
+          	    BUS=$(basename $(ls -d /sys/devices/platform/soc@0/ac0000.geniqup/a80000.i2c/i2c-* 2>/dev/null | head -n 1) | sed "s/i2c-//")
+          	    if [ -n "$BUS" ]; then
+          	      ${pkgs.i2c-tools}/bin/i2ctransfer -y "$BUS" w5@0x28 0x03 0x80 0x00 0x01 0xAA || true
+          	    fi
+          	  '';
+      };
+    })
+
     # boot loader needs to know about and handle the dtb for the system. systemd-boot handles this
     # automagically when hardware.deviceTree.enable is true since 24.11
     (lib.mkIf
