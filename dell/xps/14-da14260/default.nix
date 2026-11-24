@@ -71,7 +71,16 @@ in
   ++ lib.optional (
     lib.versionOlder config.boot.kernelPackages.kernel.version "7.2"
     && !config.hardware.dell-xps-14-da14260.irCamera.enable
-  ) (config.boot.kernelPackages.callPackage ./intel-cvs { });
+  ) (config.boot.kernelPackages.callPackage ./intel-cvs { })
+  # Kernels after 7.2 make ipu-bridge describe the IR sensor too, and ISYS then
+  # waits forever for an hm1092 driver nobody loads -- the RGB sensor never gets
+  # its /dev/v4l-subdevN node. Swap in an ipu-bridge without that entry (see
+  # ./ipu-bridge). With irCamera on, the sensor is driven and the stock bridge
+  # is what's wanted.
+  ++ lib.optional (
+    lib.versionAtLeast config.boot.kernelPackages.kernel.version "7.3"
+    && !config.hardware.dell-xps-14-da14260.irCamera.enable
+  ) (config.boot.kernelPackages.callPackage ./ipu-bridge { });
   # v4l2loopback is deliberately not listed here. Only the relay service below
   # needs it, and that unit pulls it in through modprobe@v4l2loopback, so a
   # global entry buys nothing. It also breaks a supported configuration:
