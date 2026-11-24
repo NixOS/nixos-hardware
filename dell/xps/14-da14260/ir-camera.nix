@@ -158,28 +158,29 @@ in
           Enable the HM1092 infrared camera (the Windows Hello sensor), for use
           with a face-authentication stack such as Howdy.
 
-          This is opt-in because it needs a patched kernel: ipu-bridge only
-          learned the sensor's ACPI ID after Linux 7.2, so on anything older the
-          profile adds a single-entry kernel patch, and that means building the
-          kernel locally rather than substituting it from the binary cache.
+          This is opt-in because it adds an out-of-tree sensor driver and, on
+          7.1.x, needs a patched kernel: ipu-bridge only learned the sensor's
+          ACPI ID in 7.3, so on 7.1.x the profile adds a single-entry kernel
+          patch, and that means building the kernel locally rather than
+          substituting it from the binary cache. From 7.3 nothing is patched.
 
-          Enabling it also swaps the vendored intel_cvs bridge module for the
-          fix pack's fork of it (intel-cvs-ir), which exports the
+          On 7.1.x enabling it also swaps the vendored intel_cvs bridge module
+          for the fix pack's fork of it (intel-cvs-ir), which exports the
           cvs_send_mipi_ir_config the sensor driver needs to get CSI-2 port-2
           forwarding configured; the plain intel/vision-drivers build exports
-          no symbols and leaves every IR frame dark.
+          no symbols and leaves every IR frame dark. From 7.3 the in-tree
+          intel_cvs stays, and was found not to need that payload.
 
           The sensor shows up as `/dev/ir-camera`, a stable symlink to whichever
           ISYS capture node it lands on for this boot. Point a face-auth
           configuration at that rather than at a `/dev/videoN` number, which is
           not stable across reboots.
 
-          An assertion restricts this to 7.1.x. Below 7.1 int3472 does not
-          register the illuminator as a LED device, so there is nothing for the
-          udev rule to grant and every frame comes back dark. From 7.2 the
-          in-tree cvs driver routes the sensor graph through its own V4L2 subdev
-          instead of the out-of-tree intel_cvs this was tested against, which is
-          untested rather than known-broken -- see the assertion message.
+          An assertion restricts this to 7.1.x and 7.3 or later. Below 7.1
+          int3472 does not register the illuminator as a LED device, so there
+          is nothing for the udev rule to grant and every frame comes back dark.
+          7.2 falls between the two supported shapes and is untested -- see the
+          assertion message.
         '';
       };
 
@@ -215,10 +216,12 @@ in
         # and skl_int3472_register_led() there (absent at 7.0). Below that the
         # udev rule matches nothing and every frame comes back dark, which
         # looks exactly like broken hardware.
-        assertion = versionAtLeast kernelVersion "7.1" && versionOlder kernelVersion "7.2";
+        assertion =
+          (versionAtLeast kernelVersion "7.1" && versionOlder kernelVersion "7.2")
+          || versionAtLeast kernelVersion "7.3";
         message = ''
           hardware.dell-xps-14-da14260.irCamera is enabled, but the configured
-          kernel is ${kernelVersion}. The supported window is 7.1.x.
+          kernel is ${kernelVersion}. The supported window is 7.1.x and 7.3 or later.
 
           Below 7.1: int3472 has no INT3472_GPIO_TYPE_STROBE -> "ir_flood"
           mapping and does not call skl_int3472_register_led(), so the
@@ -226,28 +229,20 @@ in
           matches nothing, the illuminator never fires, and every frame comes
           back too dark to find a face in.
 
-          From 7.2: the in-tree drivers/media/i2c/cvs driver replaces the
-          out-of-tree intel_cvs this was verified against, and routes the sensor
-          graph through its own V4L2 subdev -- the same topology change that
-          broke the RGB camera HAL until it was made CVS-aware.
+          7.2 is refused because it falls between the two supported shapes: it
+          has the in-tree drivers/media/i2c/cvs driver, which the out-of-tree
+          intel-cvs-ir fork this was first verified against would shadow (the
+          RGB camera needs the in-tree one), but it lacks the HIMX1092
+          ipu-bridge entry that 7.3 carries, so it also needs the backport.
+          Nobody has tried that combination.
 
-          This is untested, not known-broken: the in-tree driver sends
-          HOST_SET_MIPI_CONFIG itself from csi_set_link_cfg(), taking the link
-          frequency from the sensor's own control, and 06CB:0701 is not quirked
-          out of that path -- so the bridge configuration hm1092 used to request
-          via cvs_send_mipi_ir_config may simply happen anyway.
+          7.3 and later use the in-tree CVS driver as it is, the stock
+          ipu-bridge, and only the out-of-tree hm1092 sensor driver. The
+          fork's cvs_send_mipi_ir_config is not available there, so hm1092
+          logs "port-2 forwarding NOT configured"; the fix pack's own findings
+          say that payload was not what made IR work.
 
-          The one mechanism that might genuinely block it: ipu-bridge finishes
-          ipu_bridge_instantiate_ivsc() with set_secondary_fwnode() on the
-          shared csi_dev, once per sensor and overwriting unconditionally, while
-          the in-tree cvs models exactly one remote. Both sensors sit behind the
-          same INTC10E1:00, so only one can own that fwnode. Whether that
-          affects the IR sensor depends on its ACPI _DEP, which has not been
-          read off a DSDT yet.
-
-          Pin a kernel older than 7.2, or disable this option. If you want to
-          help settle it, say so upstream rather than editing this assertion out
-          blind -- the failure mode to watch for is the RGB camera regressing.
+          Pin a kernel in the window, or disable this option.
         '';
       }
     ];
@@ -259,13 +254,13 @@ in
     # it against, so it probes and then never joins the media graph. The entry
     # is in mainline master but landed after 7.2, so it has to be backported on
     # anything older, including 7.2 itself. This rebuilds the kernel, which is
-    # why the whole option is opt-in.
-    boot.kernelPatches = [
-      {
-        name = "ipu-bridge-himx1092";
-        patch = ./himx1092-ipu-bridge.patch;
-      }
-    ];
+    # why the whole option is opt-in on those kernels. 7.3 and later carry the
+    # entry themselves, where the patch would not even apply, so nothing is
+    # patched and the kernel comes from the binary cache.
+    boot.kernelPatches = lib.optional (versionOlder kernelVersion "7.3") {
+      name = "ipu-bridge-himx1092";
+      patch = ./himx1092-ipu-bridge.patch;
+    };
 
     # The sensor driver. It has no in-tree counterpart, so unlike the packages
     # vendored from nixpkgs #542085 this one has no upstream to defer to.
@@ -280,10 +275,18 @@ in
     # is also why the base profile's `< 7.2` intel-cvs gate genuinely bounds
     # this option: the IR path needs an out-of-tree intel_cvs, and from 7.2
     # the in-tree cvs driver owns the device instead (see the assertion).
+    #
+    # The fork is only for kernels without the in-tree CVS driver (< 7.2). From
+    # 7.2 an out-of-tree intel_cvs would shadow the in-tree one, which is what
+    # registers the V4L2 subdev the RGB camera's media graph runs through, so
+    # there hm1092 runs with its weak cvs_send_mipi_ir_config reference
+    # unresolved.
     boot.extraModulePackages = [
       (config.boot.kernelPackages.callPackage ./hm1092 { })
-      (config.boot.kernelPackages.callPackage ./hm1092/intel-cvs-ir { })
-    ];
+    ]
+    ++ lib.optional (versionOlder kernelVersion "7.2") (
+      config.boot.kernelPackages.callPackage ./hm1092/intel-cvs-ir { }
+    );
 
     # hm1092 autoloads off the i2c adapter via its ACPI modalias, on a different
     # trigger from the softdep in default.nix -- which orders the bridge stack
