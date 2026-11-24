@@ -24,6 +24,28 @@ stdenv.mkDerivation {
     hash = "sha256-a2hIJ4wMCHQeDb4gp+5pjLizJ/CCfA0JivVDWeqB4vY=";
   };
 
+  # This repo's own ipu7-bus.h (used to build PSys, via psys/Makefile's
+  # `-I$(src)/../`) appends acquire_fw_task_buffer_lock and
+  # get_running_fw_task_count to struct ipu7_bus_device. The in-tree staging
+  # driver that actually allocates the struct (kernel >= 6.17) doesn't have
+  # them, so PSys writes a function pointer 8 bytes past the end of the
+  # kmalloc-1k slab object, corrupting whatever neighbour lives there — on
+  # shutdown this reliably/intermittently (depending on the slab neighbour)
+  # trips list_del corruption in device_shutdown() on reboot. See
+  # https://github.com/intel/ipu7-drivers/issues/93 (still open upstream).
+  #
+  # Fix: drop the two fields from the patch (they only pair with this repo's
+  # own out-of-tree MMU code, which isn't loaded alongside the in-tree core),
+  # and overwrite this repo's copies of the staging headers with the running
+  # kernel's own, so PSys is compiled against the exact ABI the in-tree
+  # core/ISys actually allocate.
+  patches = [ ./ipu7-psys-in-tree-abi.patch ];
+
+  postPatch = ''
+    tar -xf ${kernel.src} --strip-components=5 \
+      -C drivers/media/pci/intel/ipu7 --wildcards '*/drivers/staging/media/ipu7/*.h'
+  '';
+
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
   # kernelModuleMakeFlags carries nixpkgs' `cmd_sign=kmodigest` override, which

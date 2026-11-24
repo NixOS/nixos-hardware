@@ -1,0 +1,57 @@
+--- a/drivers/media/pci/intel/ipu7/psys/ipu-psys.c
++++ b/drivers/media/pci/intel/ipu7/psys/ipu-psys.c
+@@ -1005,27 +1005,6 @@
+ 	return NULL;
+ }
+
+-static unsigned int ipu7_psys_get_running_fw_task_count(
+-					      struct ipu7_bus_device *adev)
+-{
+-	struct ipu7_psys *psys = ipu7_bus_get_drvdata(adev);
+-	struct ipu7_psys_fh *fh;
+-	unsigned int count = 0;
+-
+-	if (!psys)
+-		return 0;
+-
+-	mutex_lock(&psys->mutex);
+-	list_for_each_entry(fh, &psys->fhs, list) {
+-		mutex_lock(&fh->ip->task_mutex);
+-		count += list_count_nodes(&fh->ip->tq_running_list);
+-		mutex_unlock(&fh->ip->task_mutex);
+-	}
+-	mutex_unlock(&psys->mutex);
+-
+-	return count;
+-}
+-
+ static long ipu_psys_task_request(struct ipu_psys_task_request *task,
+ 				  struct ipu7_psys_fh *fh)
+ {
+@@ -1038,9 +1017,7 @@
+ 		return -EINVAL;
+ 	}
+
+-	mutex_lock(&psys->adev->acquire_fw_task_buffer_lock);
+ 	tq = ipu7_psys_get_task_queue(fh->ip, task);
+-	mutex_unlock(&psys->adev->acquire_fw_task_buffer_lock);
+ 	if (!tq) {
+ 		dev_err(&psys->dev, "Failed to get task queue\n");
+ 		return -EINVAL;
+@@ -1466,8 +1443,6 @@
+ 	}
+
+ 	dev_set_drvdata(dev, psys);
+-	adev->get_running_fw_task_count =
+-		ipu7_psys_get_running_fw_task_count;
+ 	mutex_unlock(&ipu7_psys_mutex);
+ #ifdef CONFIG_DEBUG_FS
+ 	psys_fw_log_init(psys);
+@@ -1503,7 +1478,6 @@
+ 	struct ipu7_psys *psys = dev_get_drvdata(&auxdev->dev);
+ 	struct device *dev = &auxdev->dev;
+
+-	psys->adev->get_running_fw_task_count = NULL;
+ #ifdef CONFIG_DEBUG_FS
+ 	if (psys->debugfsdir)
+ 		debugfs_remove_recursive(psys->debugfsdir);
