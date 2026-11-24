@@ -2,6 +2,7 @@
   stdenv,
   lib,
   kernel,
+  kernelModuleMakeFlags,
   fetchFromGitHub,
 }:
 
@@ -25,7 +26,11 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  makeFlags = [
+  # kernelModuleMakeFlags carries nixpkgs' `cmd_sign=kmodigest` override, which
+  # gives each module the deterministic .ko.cer the kernel-modules aggregator
+  # cats; without it intel-ipu7-psys.ko has none and the whole system build
+  # fails. Same as the sibling ipu6-drivers.
+  makeFlags = kernelModuleMakeFlags ++ [
     "KERNELRELEASE=${kernel.modDirVersion}"
     "KERNEL_SRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
   ];
