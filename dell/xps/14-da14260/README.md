@@ -473,6 +473,116 @@ since it would remove both caveats above.
 **Off by default**, per the repo's rule that profiles do not configure sound unless the hardware
 needs it to work at all. The speakers work untuned; this is a taste layer.
 
+## Speakers: no sound card — `intel_cvs` held the speaker-ID pin (2026-11-24)
+
+**Symptom:** no ALSA card at all (`aplay -l`: "no soundcards found"), so PipeWire had no sink and
+only the speaker-tuning filter-chain showed up, with nothing behind it. The kernel log has the same
+four lines for the four Cirrus amps (`sdw:0:2:…:2`, `…:3`, `sdw:0:3:…:0`, `…:1`):
+
+```
+cs35l56 sdw:0:2:01fa:3557:01:2: error -EBUSY: Failed to get spk-id-gpios
+cs35l56 sdw:0:2:01fa:3557:01:2: probe with driver cs35l56 failed with error -16
+```
+
+Without the amps SOF has no speaker codec to build a card from.
+
+**Root cause:** Dell wires **one physical pin to two jobs**. In the DSDT each amp's `_DSD` has
+`spk-id-gpios = (AF01, 0, 0, 0)`, and `AF01`'s `_CRS` is a `GpioIo (Shared, PullNone, …,
+IoRestrictionInputOnly, "\_SB.GPI1")` on pin `0x0014`. `\_SB.GPI1` is `INTC10BC:01`, i.e.
+`gpiochip2`, so the speaker-ID strap is **gpiochip2 gpio-20**. The CVS bridge's wake IRQ is the same
+pin: `/proc/interrupts` shows `intel-gpio 20 cvs_wake` and debugfs has `gpio-20 (|wake) in lo IRQ
+ACTIVE LOW`. `intel_cvs` keeps that line for as long as it is loaded. `cs35l56` only reads the
+strap once, at probe, and releases it. If `intel_cvs` binds first, that request finds the line
+already taken and fails with `-EBUSY` (gpiolib returns it when a line's `GPIOD_FLAG_REQUESTED` is
+already set; read from current mainline, not diffed against the 7.3 tree).
+
+The profile used to force `intel_cvs` in through `boot.kernelModules`; it bound about two seconds
+before SOF finished booting. Re-binding the amps by hand one at a time still failed, so this is a
+steady claim, not a probe race.
+
+**Fix:** `intel_cvs` is no longer in `boot.kernelModules`, and a modprobe rule
+`install intel_cvs <script> $CMDLINE_OPTS` holds it back until `/proc/asound/cards` lists a card
+(30 s at most, so the camera still comes up if audio never does), then runs
+`modprobe --ignore-install intel_cvs`. It is deliberately not a `systemd-modules-load` entry, which
+would block early boot for the whole wait; udev (the ACPI modalias, or the `intel_ipu7` softdep)
+only stalls one worker. Once the amps have probed they never need the pin again.
+
+**If audio disappears after a change:** `journalctl -k -b | grep spk-id` and
+`grep cvs_wake /proc/interrupts`. Anything that loads `intel_cvs` early (a `kernelModules` entry, a
+new `softdep`, a systemd unit) brings it back.
+
+## Kernel ≥ 7.3: the RGB camera needs an ipu-bridge without the IR entry (2026-11-24)
+
+**Symptom:** with everything else in place (modules load, `intel_cvs → ov08x40 → CSI2 0` graph is
+correct) the HAL logged `Failed to find DevName for cameraId: 0, get video node: ov08x40 14-0036`,
+`readlink sysName /sys/dev/char/0:0 failed`, then `VIDIOC_STREAMON … Broken pipe`. In `media-ctl -p`
+the `ov08x40` entity had **no device node**, though the driver sets `V4L2_SUBDEV_FL_HAS_DEVNODE`.
+The kernel never logged `All sensor registration completed.`
+
+**Root cause:** `intel_ipu7_isys` adds one async connection per port that has an endpoint, and its
+notifier's `complete` callback — the one that calls `v4l2_device_register_subdev_nodes()`, and the
+only place the 7.3 sources create the sensor's node (the in-tree CVS driver's `bound` callback only
+makes the media link; the node registration there was added after 7.3) — runs once **all** of them are
+bound. Kernel 7.3 lists `HIMX1092` in `ipu-bridge` (`4fdb0342f05e`, merged after 7.2), so the bridge
+logs `Found supported sensor HIMX1092:00` and builds a software node and endpoint for the IR camera.
+With `irCamera` off nothing binds to it (`i2c-HIMX1092:00` has no driver), the notifier waits
+forever, and the RGB sensor is left without its node. On 7.2 the entry did not exist, which is why
+this worked there.
+
+**Fix:** `ipu-bridge/` builds the kernel's own `drivers/media/pci/intel/ipu-bridge.c`, extracted from
+`kernel.src`, with that single table entry deleted, and installs it under `updates/` so depmod
+prefers it over the in-tree module. The vermagic, module name and `INTEL_IPU_BRIDGE` symbol
+namespace match the in-tree module's, and `modules.dep` in the built system lists
+`updates/ipu-bridge.ko.xz` as the dependency of `intel_cvs`, `ivsc-csi` and `ipu3-cio2`. A `grep`
+after the `sed` fails the build if a kernel drops or renames the entry, rather than shipping an
+unmodified copy. It is only added for kernels ≥ 7.3 **and** `irCamera` off; with the IR camera on
+the sensor is driven and the stock bridge is wanted.
+
+This is the out-of-tree-`ipu-bridge` shape that Next Steps item 8 below describes, taken for the
+opposite purpose (removing the entry rather than adding it).
+
+## PSys module: signing and the in-tree ABI (2026-11-24)
+
+Two separate problems with the vendored `ipu7-drivers`:
+
+- **Signing.** It did not pass `kernelModuleMakeFlags` to `makeFlags`, unlike nixpkgs'
+  `ipu6-drivers`. That flag set carries the `cmd_sign=kmodigest` override that gives each module its
+  deterministic `.ko.cer` (nixpkgs has no persistent signing key). Without it
+  `intel-ipu7-psys.ko` had no `.ko.cer`, the kernel-modules aggregator, which `cat`s it, failed the
+  whole system build, and a user config had to force `boot.extraModulePackages` down to
+  `v4l2loopback` alone. That left the hardware ISP with no PSys module:
+  `PSysDevice: Failed to open psys device`. Fixed by passing the flags through; a downstream
+  override of `extraModulePackages` is no longer needed.
+- **ABI.** PSys is built against this repo's own `ipu7-bus.h`, which appends
+  `acquire_fw_task_buffer_lock` and `get_running_fw_task_count` to `struct ipu7_bus_device`. The
+  in-tree staging core (kernel ≥ 6.17) allocates the struct without them, so PSys wrote a function
+  pointer 8 bytes past the end of a `kmalloc-1k` object, intermittently tripping `list_del`
+  corruption in `device_shutdown()` on reboot
+  ([`intel/ipu7-drivers#93`](https://github.com/intel/ipu7-drivers/issues/93), still open).
+  `ipu7-psys-in-tree-abi.patch` drops the two fields, and `postPatch` overwrites the repo's copies
+  of the staging headers with the kernel's own. It builds and PSys probes; the shutdown corruption
+  is intermittent and was not independently reproduced here.
+
+## Image tuning and the move to 1080p (2026-11-24)
+
+- **`fps-range`, `gain-range`, `color-range=reduced` on `icamerasrc`.** Three patches are vendored
+  from Omarchy's `intel-ipu7-camera` pkgbuild (`omacom/omarchy-pkgs` @ `97925fb`): `0009`
+  (`icamerasrc`) adds `fps-range`, so auto exposure can lengthen frame time in low light instead of
+  only raising gain (the caps frame rate used to be passed as a fixed `[fps, fps]` range); `0008`
+  (HAL) makes the ISP honour `color-range=reduced` (it always emitted full-range YUV, which limited-range
+  consumers clipped); `0010` (HAL, re-diffed against this fork's revision) scales AIQ analog-gain
+  codes to the in-tree `ov08x40` driver's units (AIQ gives the register value, 1× = 256; the driver
+  takes half, 1× = 128, so gain ran at roughly double what AE believed). Their `0011` is left out:
+  on the 1080p pipe it visibly adds motion trails.
+- **1080p instead of 4K.** At the sensor's full 3856×2176 the ISP output has a fixed, strictly
+  periodic 4-pixel grid in flat and shadowed areas (confirmed by FFT, so not sensor noise); viewers
+  that scale the loopback down only turn it into a 2-pixel period. The same sensor data is clean
+  when the ISP itself scales to 1080p. 1080p also avoids stale-frame motion trails that Omarchy saw
+  at 4K ([`omacom/omarchy-pkgs#723`](https://github.com/omacom/omarchy-pkgs/issues/723)) and that
+  reproduce here. The benchmark below still holds: resolution costs nothing in frame rate.
+  A browser webcam test reported 1920×1080 at ~24 fps, which fits `fps-range=15~30` letting
+  auto exposure lengthen frame time in dim light.
+
 ## Resolution/fps benchmark — 4K is free (2026-08-22)
 
 With the hardware ISP working, `icamerasrc ! caps ! fpsdisplaysink video-sink=fakesink` was
@@ -492,9 +602,13 @@ loopback therefore now advertises **3840×2160 NV12 @ 30/1** (real cadence ~28.6
 icamerasrc's native output, making both `videoconvert` stages passthrough. Lower the
 width/height in the relay `output` caps if some consumer app struggles with 4K input.
 
+**Superseded (2026-11-24):** the relay now advertises 1920×1080 — the full-resolution output has a
+periodic pixel-grid artifact, see "Image tuning and the move to 1080p" above. The frame-rate
+conclusion is unchanged.
+
 ## Status
 
-RGB camera **working** end-to-end through the **hardware ISP**: 3840×2160 (4K) at ~28.6 fps,
+RGB camera **working** end-to-end through the **hardware ISP**: 1920×1080 at up to ~28.6 fps,
 upright/mirrored, low-latency, properly colour-corrected (AIQ tuning), usable by any V4L2 app
 (cheese / Firefox / Chrome / conferencing). Requires allowing the unfree `ipu7-camera-bins`
 blobs (see above).
@@ -549,7 +663,8 @@ been re-confirmed since the recorder landed here.
    the in-tree cvs appears to send the bridge configuration itself, so IR may need nothing beyond
    dropping the gate. Watch for the RGB camera regressing (`set_secondary_fwnode` on the shared
    `csi_dev`), and read the DSDT for `HIMX1092`'s `_DEP` to know whether that risk is real.
-6. Once the kernel carries the ipu-bridge entry itself (the release after 7.2), drop
+6. Once the kernel carries the ipu-bridge entry itself (the release after 7.2 — **7.3 does**, which is
+   also what makes the RGB camera need the `ipu-bridge/` override above), drop
    `himx1092-ipu-bridge.patch` — the IR option would then no longer force a kernel rebuild. Only
    reachable after item 5, since the assertion currently prevents ever running that kernel with
    IR enabled.
@@ -562,6 +677,8 @@ been re-confirmed since the recorder landed here.
    an in-tree driver source that way. Not taken here because `ipu-bridge` is shared with the
    working RGB path and a lost module priority would fail silently, where a patch that stops
    applying fails at build. Worth revisiting if a stable backport to 7.1.y does not happen.
+   (The `ipu-bridge/` package now exists for the opposite purpose; depmod priority was checked in the
+   built system's `modules.dep`, so the silent-failure worry above did not materialise there.)
 9. Re-test the WirePlumber smart-filter shape for the speaker tuning (`node.software-dsp` +
    `hide-parent`, as `framework/13-inch/common/classic-audio.nix` uses). If it processes audio on
    1.6.8/0.5.15 after all, the second sink and the compounding volumes both go away.
