@@ -1,0 +1,110 @@
+From 2d2f5f56e4f4033df3bd1e51fdc519c59ddb6f09 Mon Sep 17 00:00:00 2001
+From: Spencer Bull <spencer@omarchy.org>
+Date: Tue, 29 Sep 2026 00:19:50 -0500
+Subject: [PATCH] Add an fps-range property for auto exposure
+
+icamerasrc passes the caps frame rate to the HAL with setFrameRate(), and
+the HAL turns that into an AE frame-time range of exactly [fps, fps]. At
+30 fps auto exposure can never expose longer than 33 ms, so in dim rooms
+all extra brightness comes from analog plus digital gain, which is where
+the grain comes from.
+
+The HAL already supports an AE frame rate range (setFpsRange); expose it
+as "fps-range" (e.g. "15~30") so AE may stretch the frame time in low
+light and return to the full rate when there is enough light.
+---
+ src/gstcamerasrc.cpp | 25 +++++++++++++++++++++++++
+ src/gstcamerasrc.h   |  2 ++
+ 2 files changed, 27 insertions(+)
+
+diff --git a/src/gstcamerasrc.cpp b/src/gstcamerasrc.cpp
+index 61683e5..f392fc1 100644
+--- a/src/gstcamerasrc.cpp
++++ b/src/gstcamerasrc.cpp
+@@ -120,6 +120,7 @@ enum
+   PROP_AF_REGION,
+   PROP_EXPOSURE_TIME_RANGE,
+   PROP_GAIN_RANGE,
++  PROP_FPS_RANGE,
+   PROP_CONVERGE_SPEED,
+   PROP_CONVERGE_SPEED_MODE,
+   /* Backlight Settings*/
+@@ -902,6 +903,9 @@ gst_camerasrc_finalize (Gstcamerasrc *camerasrc)
+   delete camerasrc->isp_control_tags;
+   camerasrc->isp_control_tags = NULL;
+ 
++  g_free(camerasrc->man_ctl.fps_range);
++  camerasrc->man_ctl.fps_range = NULL;
++
+   for (int i = 0; i < GST_CAMERASRC_MAX_STREAM_NUM; i++) {
+     camerasrc->streams[i].activated = FALSE;
+   }
+@@ -1137,6 +1141,11 @@ gst_camerasrc_class_init (GstcamerasrcClass * klass)
+       g_param_spec_string("gain-range","AE gain range","AE gain range",
+         DEFAULT_PROP_GAIN_RANGE, (GParamFlags)(G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS)));
+ 
++  g_object_class_install_property(gobject_class,PROP_FPS_RANGE,
++      g_param_spec_string("fps-range","AE frame rate range",
++        "Frame rate range AE may use, e.g. 15~30: lets auto exposure lengthen frames in low light",
++        DEFAULT_PROP_FPS_RANGE, (GParamFlags)(G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS)));
++
+   g_object_class_install_property (gobject_class, PROP_CUSTOM_AIC_PARAMETER,
+       g_param_spec_string("custom-aic-param","Custom Aic Parameter","Custom Aic Parameter",
+         DEFAULT_PROP_CUSTOM_AIC_PARAMETER, (GParamFlags)(G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS)));
+@@ -1884,6 +1893,7 @@ gst_camerasrc_set_property (GObject * object, guint prop_id,
+   camera_range_t cct_range;
+   camera_range_t exposure_time_range;
+   camera_range_t gain_range;
++  camera_range_t fps_range;
+   camera_coordinate_t white_point;
+   unsigned int custom_aic_param_len = 0;
+   camera_crop_region_t crop_region;
+@@ -2150,6 +2160,18 @@ gst_camerasrc_set_property (GObject * object, guint prop_id,
+       if (ret == 0)
+         src->param->setSensitivityGainRange(gain_range);
+       break;
++    case PROP_FPS_RANGE:
++      g_free(src->man_ctl.fps_range);
++      src->man_ctl.fps_range = g_strdup(g_value_get_string(value));
++      // NULL is the default; the HAL has no way to drop a range once set.
++      if (src->man_ctl.fps_range == NULL)
++        break;
++      ret = gst_camerasrc_parse_range(src->man_ctl.fps_range,
++              fps_range.min,
++              fps_range.max);
++      if (ret == 0)
++        src->param->setFpsRange(fps_range);
++      break;
+     case PROP_AWB_COLOR_TRANSFORM:
+       ret = gst_camerasrc_parse_string_to_matrix(g_value_get_string (value),
+                                     (float**)(transform.color_transform), 3, 3);
+@@ -2380,6 +2402,9 @@ gst_camerasrc_get_property (GObject * object, guint prop_id,
+     case PROP_GAIN_RANGE:
+       g_value_set_string (value, src->man_ctl.gain_range);
+       break;
++    case PROP_FPS_RANGE:
++      g_value_set_string (value, src->man_ctl.fps_range);
++      break;
+     case PROP_AWB_COLOR_TRANSFORM:
+       g_value_set_string(value, src->man_ctl.color_transform);
+       break;
+diff --git a/src/gstcamerasrc.h b/src/gstcamerasrc.h
+index 508a405..ec8a64f 100644
+--- a/src/gstcamerasrc.h
++++ b/src/gstcamerasrc.h
+@@ -143,6 +143,7 @@ using namespace std;
+ #define DEFAULT_PROP_AF_REGION NULL
+ #define DEFAULT_PROP_EXPOSURE_TIME_RANGE NULL
+ #define DEFAULT_PROP_GAIN_RANGE NULL
++#define DEFAULT_PROP_FPS_RANGE NULL
+ #define DEFAULT_PROP_CCT_RANGE NULL
+ #define DEFAULT_PROP_COLOR_TRANSFORM NULL
+ #define DEFAULT_PROP_CUSTOM_AIC_PARAMETER NULL
+@@ -407,6 +408,7 @@ struct _Gst3AManualControl
+   int converge_speed_mode;
+   gchar *exp_time_range;
+   gchar *gain_range;
++  gchar *fps_range;
+   /* Backlight Settings*/
+   int blc_area_mode;
+   guint wdr_level;

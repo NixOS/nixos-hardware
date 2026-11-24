@@ -51,10 +51,31 @@ stdenv.mkDerivation {
     hash = "sha256-NSZVVOZKa3xhwitdKw4EZpukf5B/ObQC4GEDwHMmZ6s=";
   };
 
-  # PR #59 only converted the ipu8 sensor config to the CVS-routed topology;
-  # apply the same change (Intel CVS pad formats + sensor->CVS->CSI2 links)
-  # to the ipu75xa ov08x40 config this laptop uses.
-  patches = [ ./ipu75xa-ov08x40-cvs.patch ];
+  patches = [
+    # PR #59 only converted the ipu8 sensor config to the CVS-routed topology;
+    # apply the same change (Intel CVS pad formats + sensor->CVS->CSI2 links)
+    # to the ipu75xa ov08x40 config this laptop uses.
+    ./ipu75xa-ov08x40-cvs.patch
+    # Vendored from Omarchy's intel-ipu7-camera pkgbuild (omacom/omarchy-pkgs,
+    # pkgbuilds/intel-ipu7-camera @ 97925fb), minus their 0011: it falls back
+    # to the default ISP tuning when a pipe asks for a missing tuning mode,
+    # but on this profile's 1080p relay pipe it visibly adds motion trails
+    # (presumably by enabling temporal noise reduction), so it's skipped here.
+    #
+    # ISP always emitted full-range YUV regardless of what icamerasrc's
+    # color-range property asked for; without this, limited-range consumers
+    # (the NV12 loopback) clip shadows/highlights.
+    ./0008-camhal-honor-the-reduced-YUV-color-range.patch
+    # Re-diffed against this fork's HAL revision: upstream's hunk assumed
+    # setAnalogGains() writes V4L2_CID_ANALOGUE_GAIN right after the empty
+    # check, but this revision has an intervening multi-gain-sensor branch
+    # (CRL_MODULE_S/E) the original patch doesn't expect. Same end result:
+    # the ov08x40's AIQ tuning produces gain codes in the sensor register's
+    # units (1x = 256), but the in-tree driver takes V4L2_CID_ANALOGUE_GAIN
+    # at half that (1x = 128), so every analog gain request ran at roughly
+    # double what AE/the noise model believed.
+    ./0010-camhal-scale-analog-gain-codes-to-the-ov08x40-driver-units.patch
+  ];
 
   __structuredAttrs = true;
   strictDeps = true;

@@ -27,6 +27,15 @@ stdenv.mkDerivation {
     hash = "sha256-BYURJfNz4D8bXbSeuWyUYnoifozFOq6rSfG9GBKVoHo=";
   };
 
+  # Vendored from Omarchy's intel-ipu7-camera pkgbuild (omacom/omarchy-pkgs,
+  # pkgbuilds/intel-ipu7-camera @ 97925fb). icamerasrc passes the caps frame
+  # rate to the HAL as a fixed AE frame-time range ([fps, fps]), so auto
+  # exposure can never expose longer than one frame and all extra brightness
+  # in dim rooms comes from gain (grain). This adds an "fps-range" property
+  # (e.g. "15~30") exposing the HAL's existing AE frame-rate-range support, so
+  # AE can stretch frame time in low light instead.
+  patches = [ ./0009-icamerasrc-add-an-fps-range-property-for-auto-exposure.patch ];
+
   nativeBuildInputs = [
     autoreconfHook
     pkg-config

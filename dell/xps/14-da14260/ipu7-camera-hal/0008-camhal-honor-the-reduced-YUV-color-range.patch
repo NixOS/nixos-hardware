@@ -1,0 +1,35 @@
+From d358e3b1bcf9f26638ae326e979661d0f2c740e2 Mon Sep 17 00:00:00 2001
+From: Spencer Bull <spencer@omarchy.org>
+Date: Tue, 29 Sep 2026 00:19:50 -0500
+Subject: [PATCH] IpuPacAdaptor: honor the reduced YUV color range
+
+applyMediaFormat() always hands the PAL media_format_legacy, so the ISP
+emits full-range (0-255) YUV no matter what the application asks for
+through setYuvColorRangeMode() (icamerasrc color-range=reduced).
+Consumers of an NV12 webcam assume limited range (16-235), so full-range
+frames are shown with crushed shadows and clipped highlights.
+
+Select media_format_legacy_narrow when the reduced range is requested.
+The full-range default is unchanged.
+---
+ src/core/IpuPacAdaptor.cpp | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/src/core/IpuPacAdaptor.cpp b/src/core/IpuPacAdaptor.cpp
+index a8aad3f..cbcd8eb 100644
+--- a/src/core/IpuPacAdaptor.cpp
++++ b/src/core/IpuPacAdaptor.cpp
+@@ -285,7 +285,12 @@ void IpuPacAdaptor::applyMediaFormat(const AiqResult* aiqResult,
+     auto cameraContext = CameraContext::getInstance(mCameraId);
+     auto dataContext = cameraContext->getDataContextBySeq(sequence);
+ 
+-    *mediaFormat = media_format_legacy;
++    // Honor the requested YUV range: reduced range needs the narrow variant,
++    // otherwise the ISP always emits full-range data.
++    *mediaFormat =
++        (dataContext->mAiqParams.yuvColorRangeMode == CAMERA_REDUCED_MODE_YUV_COLOR_RANGE)
++            ? media_format_legacy_narrow
++            : media_format_legacy;
+     if (dataContext->mAiqParams.tonemapMode == TONEMAP_MODE_GAMMA_VALUE) {
+         const float gamma = dataContext->mAiqParams.tonemapGamma;
+         if (std::fabs(gamma - 1.0F) < std::numeric_limits<float>::epsilon()) {

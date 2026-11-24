@@ -200,13 +200,22 @@ in
       # mounts the sensor upside down (needs rotate-180 = H+V to make it
       # upright); a `vertical-flip` instead gives upright + left-right MIRROR, i.e.
       # the usual selfie view (rotate-180 then a horizontal mirror reduces to V).
+      #
+      # fps-range lets auto exposure stretch frame time in low light instead of
+      # only pushing gain (less grain indoors); gain-range caps how far it's
+      # allowed to push that gain. color-range=reduced makes the ISP emit
+      # limited-range (16-235) YUV, matching what the NV12 loopback advertises
+      # and consumers assume — without it the HAL emits full range and viewers
+      # clip it, crushing shadows/highlights. Same settings Omarchy's relay
+      # uses (these properties need the 0008-0010 patches in icamerasrc/ and
+      # ipu7-camera-hal/).
       # Do NOT append a bare caps filter (e.g. `! video/x-raw,format=YUY2,...`):
       # v4l2-relayd parses this with the single-string gst_parse_launch, which
       # mis-tokenizes bare caps ("no element video", treats `/x-raw...` as a URI)
       # so the input pipeline fails to build and only the black splash is shown.
       # v4l2-relayd applies the caps (copied from the output appsrc below) to its
       # internal appsink instead.
-      input = "icamerasrc ! videoconvert ! videoscale ! videoflip method=vertical-flip";
+      input = "icamerasrc fps-range=15~30 gain-range=0~27 color-range=reduced ! videoconvert ! videoscale ! videoflip method=vertical-flip";
 
       # A leaky queue (drops old frames) + sync=false keep latency low so the
       # viewer sees the latest frame instead of a backlog; the -b 4 buffers in
