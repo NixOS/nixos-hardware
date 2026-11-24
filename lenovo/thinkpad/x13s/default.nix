@@ -145,6 +145,19 @@ in
       '';
     }
 
+    # USB runtime PM
+    {
+      # dwc3 forbids runtime PM at probe and leaves the policy to userspace.
+      # Left forbidden, each idle controller keeps its GDSC at nominal on CX
+      # and a 1 GB/s (avg) / 2.5 GB/s (peak) DDR vote, awake and across
+      # s2idle. Allowing it lets idle controllers suspend; remote wakeup
+      # stays enabled. "bind" because probe resets power/control; "add" for
+      # coldplug, as the glue binds before udev starts.
+      services.udev.extraRules = ''
+        ACTION=="add|bind", SUBSYSTEM=="platform", DRIVER=="dwc3-qcom|dwc3-qcom-legacy|dwc3|xhci-hcd", TEST=="power/control", ATTR{power/control}="auto"
+      '';
+    }
+
     # Minimum requirements for a running system
     {
       hardware = {
