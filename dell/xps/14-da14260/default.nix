@@ -221,15 +221,26 @@ in
       # viewer sees the latest frame instead of a backlog; the -b 4 buffers in
       # preStart are enough to sustain full framerate without adding lag.
       #
-      # 3840x2160 NV12: the sensor has a single native mode (3856x2176 @
-      # 28.57 fps) and the hardware ISP scales, so 4K costs nothing over 720p —
-      # benchmarked ~28.6 fps with zero drops at 720p/1080p/4K, flip included
-      # (higher framerates are not possible: the sensor ignores 60/1 caps and
-      # keeps its native cadence). NV12 is icamerasrc's native output, so the
-      # videoconvert stages are passthrough instead of per-frame conversions.
-      # Lower width/height here if a consumer struggles with 4K input.
+      # 1920x1080, not the sensor's full 3856x2176 scaled to 4K: at full
+      # resolution the ISP's output has a fixed, strictly periodic 4-pixel grid
+      # in flat/shadowed areas (confirmed by FFT — not sensor noise), visible
+      # in e.g. Google Meet even though Meet reports "1080p" (it scales the 4K
+      # loopback down, which only turns the 4-px period into a 2-px one). The
+      # same sensor data comes out clean — only random grain — when the ISP
+      # itself scales to 1080p. 1080p also avoids stale-frame motion trails:
+      # Omarchy found the HAL's parameter adaptation sometimes fails at 4K and
+      # serves an ~6-frame-old image (10/10 runs at 4K vs 0/9 at 1080p in their
+      # testing — see omacom/omarchy-pkgs#723); confirmed here too. The sensor
+      # has a single native mode (3856x2176 @ 28.57 fps) and the hardware ISP
+      # scales, so resolution costs nothing above 720p — benchmarked ~28.6 fps
+      # with zero drops at 720p/1080p/4K, flip included (higher framerates are
+      # not possible: the sensor ignores 60/1 caps and keeps its native
+      # cadence). NV12 is icamerasrc's native output, so the videoconvert
+      # stages are passthrough instead of per-frame conversions. Raise
+      # width/height back up if a consumer needs more than 1080p and the grid
+      # artifact doesn't bother you.
       output =
-        "appsrc name=appsrc caps=video/x-raw,format=NV12,width=3840,height=2160,framerate=30/1"
+        "appsrc name=appsrc caps=video/x-raw,format=NV12,width=1920,height=1080,framerate=30/1"
         + " ! queue leaky=downstream max-size-buffers=3 ! videoconvert ! v4l2sink name=v4l2sink device=$(cat ${deviceFile}) sync=false";
     in
     {
