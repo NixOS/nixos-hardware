@@ -335,26 +335,52 @@ Enable with `hardware.dell-xps-14-da14260.irCamera.enable = true;`. Pieces:
 | Piece | Why |
 |---|---|
 | `hm1092/` module | Sensor driver with the corrected `LINK_FREQ`. No in-tree counterpart — `drivers/media/i2c/hm1092.c` does not exist in mainline, so this stays vendored |
-| `hm1092/intel-cvs-ir/` module | The fix pack's fork of `intel_cvs`, **replacing** the profile's plain `intel-cvs` (same `intel_cvs.ko`; the base profile drops its entry when this option is on). It exports `cvs_send_mipi_ir_config`, which hm1092 calls through a weak reference at stream start to get CSI-2 port-2 forwarding configured — the plain `intel/vision-drivers` build exports no symbols, so the weak reference resolves NULL and every IR frame stays dark. Pinned at a rev whose exact build was boot-tested on a DA14260; its bring-up diagnostics compile out by default (`make DEBUG_CVS=1` restores them) |
-| `himx1092-ipu-bridge.patch` | Adds the sensor's ACPI HID to `ipu_supported_sensors[]`. The i2c client enumerates without it, but with no software node the ISYS async notifier has nothing to match, so the sensor never joins the media graph. Backported verbatim from mainline `4fdb0342f05e` |
+| `hm1092/intel-cvs-ir/` module | The fix pack's fork of `intel_cvs`, **replacing** the profile's plain `intel-cvs` (same `intel_cvs.ko`; the base profile drops its entry when this option is on). It exports `cvs_send_mipi_ir_config`, which hm1092 calls through a weak reference at stream start to get CSI-2 port-2 forwarding configured — the plain `intel/vision-drivers` build exports no symbols, so the weak reference resolves NULL and every IR frame stays dark. Pinned at a rev whose exact build was boot-tested on a DA14260; its bring-up diagnostics compile out by default (`make DEBUG_CVS=1` restores them). **Only installed below 7.2**: from 7.2 an out-of-tree `intel_cvs` would shadow the in-tree driver the RGB camera needs |
+| `himx1092-ipu-bridge.patch` | Adds the sensor's ACPI HID to `ipu_supported_sensors[]`. The i2c client enumerates without it, but with no software node the ISYS async notifier has nothing to match, so the sensor never joins the media graph. Backported verbatim from mainline `4fdb0342f05e`. **Only applied below 7.3**, which carries the entry itself |
 | IR-LED udev rule + `/dev/ir-camera` symlink | Grants group `video` write on the illuminator's `brightness`, and pins a stable path to the capture node (the `/dev/videoN` number is not stable across boots) |
 | `ir-camera-pipeline.service` | A boot-time oneshot that sets the CSI-2 port-2 pad formats to `SGRBG10_1X10/648x368` and pre-sets the capture node, so a bare `v4l2-ctl --stream` / `ffmpeg -f v4l2` on `/dev/ir-camera` works without manual `media-ctl`. Howdy's recorder does this itself; the unit is for other consumers and for diagnosis |
 | `howdy-ir/` + `irCamera.howdy.enable` | Opt-in on top of `irCamera.enable`: builds `services.howdy` with a raw-V4L2 `recording_plugin = "ir"` recorder (from the fix pack) that reads the node as greyscale and drives the illuminator. Stock Howdy's recorders either can't decode the raw Bayer-tagged mono frames or would debayer them, and none light the emitter. Gated on the `services.howdy` module existing (added to nixpkgs in early 2026) |
 
-**Off by default** because the ipu-bridge entry landed in mainline only after 7.2,
-so below that it has to be patched in — which means building the kernel locally
-instead of substituting it. Nobody who does not want IR should pay that.
+**Off by default.** On 7.1.x the ipu-bridge entry has to be patched in, which means building the
+kernel locally instead of substituting it; nobody who does not want IR should pay that. From 7.3
+nothing is patched or rebuilt, but it still pulls in an out-of-tree sensor driver, a boot-time
+pipeline unit and an illuminator rule, so it stays opt-in.
 
-**Refused on kernel >= 7.2**, and the bound is structural, not just caution: the
-IR path needs the out-of-tree `intel_cvs` fork above, and from 7.2 the in-tree
-`drivers/media/i2c/cvs` owns the device instead — an out-of-tree `intel_cvs`
-would shadow it (same module name, depmod `updates/` priority) and take the
-working RGB path down with it. Whether IR works on the in-tree driver is
-untested rather than known-broken — it looks like it sends the same bridge
-configuration itself, so IR may need nothing but a port of this option. The one
-thing that might genuinely block it is `ipu_bridge_instantiate_ivsc()`
-overwriting `set_secondary_fwnode()` on the `csi_dev` both sensors share. If
-you test it, watch for the **RGB** camera regressing.
+**Supported kernels: 7.1.x and 7.3 or later; 7.2 is refused** by an assertion.
+
+- **7.1.x:** the kernel patch above plus the `intel-cvs-ir` fork, as originally verified.
+- **7.3 and later (verified 2026-11-24):** the kernel already lists `HIMX1092`, so nothing is patched;
+  the in-tree `drivers/media/i2c/cvs` driver stays (the RGB camera's graph runs through it); only
+  `hm1092` is added. The fork is deliberately absent, because an out-of-tree `intel_cvs` would shadow
+  the in-tree one and take the RGB path down. `hm1092` runs with its weak `cvs_send_mipi_ir_config`
+  reference unresolved.
+- **7.2:** has the in-tree CVS driver but not the bridge entry, so it would need the backport on top
+  of the in-tree driver. Nobody has tried that combination.
+
+### IR on kernel ≥ 7.3 — results (2026-11-24)
+
+On a DA14260 booted into this profile with `irCamera.enable = true` (kernel 7.3.0, same kernel image
+as without the option):
+
+- Boot log: `hm1092 … HM1092 chip ID confirmed: 0x1091`, `ir_led=found`; ISYS then logs
+  `bind hm1092 14-0024 nlanes is 1 port is 2`, `bind Intel CVS nlanes is 2 port is 0` and
+  `All sensor registration completed.` Both sensors get `/dev/v4l-subdevN` nodes, and
+  `/dev/ir-camera` points at the port-2 capture node.
+- `v4l2-ctl -d /dev/ir-camera --stream-mmap --stream-count=30` returned 30 frames of 648×368
+  `BA10` (1344-byte stride). Pixel values span the sensor's black-level pedestal (~28) to ~900 of
+  1023, with no near-black pixels, and a rendered frame shows a clearly lit, well-framed face. The
+  driver logged `intel_cvs symbol unavailable; port-2 forwarding NOT configured` while doing so, so
+  the fork's port-2 payload is **not** required here, matching the fix pack's own finding that the
+  `LINK_FREQ` correction was what mattered.
+- The RGB camera did not regress: the same boot streamed 20 full 1080p NV12 frames from the loopback
+  with no relay errors, and audio was unaffected.
+- The assertion's worry about `ipu_bridge_instantiate_ivsc()` overwriting the shared
+  `set_secondary_fwnode()` did not materialise: the bridge builds a CVS (`INTC10E1-0`) node only for
+  the RGB sensor, and describes the IR sensor as a plain port with no CVS companion, so there is
+  nothing to overwrite.
+
+Not covered: `irCamera.howdy.enable` end to end on 7.3 (a full `pam_howdy` pass), a long-running
+stability test (the bridge wedging after idle was the original `intel_cvs` bug), and 7.2.
 
 **Two traps worth knowing.** The illuminator is a LED class device, because
 INT3472 claims the GPIO and registers it itself — the sensor driver gets NULL from
@@ -627,15 +653,15 @@ preference. The magnitude fit is upstream's measurement against its own referenc
 judgement that the reference suits these drivers, and nothing here has been A/B'd blind. Treat
 the voicing as unvalidated taste and the plumbing as tested.
 
-IR camera **opt-in** on kernel < 7.2, via
-`hardware.dell-xps-14-da14260.irCamera.enable = true;` — that pulls in an
-ipu-bridge patch and so rebuilds the kernel, which is why it is not on by default.
-Enabling it on 7.2 or later is refused by an assertion; see above for what is and
-is not known there. `irCamera.howdy.enable = true;` on top of that configures
+IR camera **opt-in** on kernels 7.1.x and ≥ 7.3, via
+`hardware.dell-xps-14-da14260.irCamera.enable = true;`. On 7.1.x that pulls in an
+ipu-bridge patch and so rebuilds the kernel; on 7.3+ it patches nothing and was verified
+streaming lit IR frames (see "IR on kernel ≥ 7.3" above). 7.2 is refused by an
+assertion. `irCamera.howdy.enable = true;` on top of that configures
 `services.howdy` end-to-end against `/dev/ir-camera` (needs a nixpkgs new enough
 to have the `services.howdy` module).
 
-Scope of the evidence: the sensor, the bridge entry and the illuminator are
+Scope of the evidence (7.1.x): the sensor, the bridge entry and the illuminator are
 confirmed working on this DA14260 (kernel 7.1.8) and, by the fix pack's author, on
 an XPS 16 DA16260 — but both of those were **DKMS installs on Arch**, not this
 profile. The `intel-cvs-ir` pin is the exact code that was boot-tested: the same
@@ -659,15 +685,12 @@ been re-confirmed since the recorder landed here.
 3. (Optional) Improve the `services.v4l2-relayd` NixOS module upstream so it can set loopback
    buffers and always include a `queue` — then this profile could drop the hand-rolled service.
 4. Track upstream: [`intel/vision-drivers#37`](https://github.com/intel/vision-drivers/issues/37)
-5. **Test IR on kernel ≥ 7.2** and lift the assertion if it works. This is the blocking unknown:
-   the in-tree cvs appears to send the bridge configuration itself, so IR may need nothing beyond
-   dropping the gate. Watch for the RGB camera regressing (`set_secondary_fwnode` on the shared
-   `csi_dev`), and read the DSDT for `HIMX1092`'s `_DEP` to know whether that risk is real.
-6. Once the kernel carries the ipu-bridge entry itself (the release after 7.2 — **7.3 does**, which is
-   also what makes the RGB camera need the `ipu-bridge/` override above), drop
-   `himx1092-ipu-bridge.patch` — the IR option would then no longer force a kernel rebuild. Only
-   reachable after item 5, since the assertion currently prevents ever running that kernel with
-   IR enabled.
+5. ~~Test IR on kernel ≥ 7.2~~ Done for 7.3 (2026-11-24): it works with the in-tree CVS driver and
+   the stock bridge, and the RGB camera did not regress. Still open: 7.2, a full Howdy/`pam_howdy`
+   pass on 7.3, and a long-running stability check.
+6. ~~Drop `himx1092-ipu-bridge.patch` once the kernel carries the entry~~ Done as far as it goes: it is
+   no longer applied from 7.3 (the kernel has the entry), and stays only for 7.1.x. Delete it, and
+   the `< 7.3` branches in `ir-camera.nix`, when 7.1.x support is dropped.
 7. Upstream `dkms/hm1092-1.0` to mainline — there is no in-tree HM1092 driver, so this profile
    will carry a vendored copy indefinitely otherwise.
 8. If the kernel rebuild that `himx1092-ipu-bridge.patch` forces is unwelcome, the entry can be
