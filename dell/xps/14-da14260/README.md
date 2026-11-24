@@ -379,8 +379,28 @@ as without the option):
   the RGB sensor, and describes the IR sensor as a plain port with no CVS companion, so there is
   nothing to overwrite.
 
-Not covered: `irCamera.howdy.enable` end to end on 7.3 (a full `pam_howdy` pass), a long-running
-stability test (the bridge wedging after idle was the original `intel_cvs` bug), and 7.2.
+`irCamera.howdy.enable` was then enabled on the same machine and the owner confirmed face unlock
+works (enrolment, test and the PAM paths below; no per-path log was kept).
+
+Not covered: a long-running stability test (the bridge wedging after idle was the original
+`intel_cvs` bug), and 7.2.
+
+**Scope Howdy's PAM services.** nixpkgs' `services.howdy` turns Howdy on for *every* PAM service
+by default (`security.pam.howdy.enable` follows `services.howdy.enable`). With the `sufficient`
+control this profile sets, that lets a face match replace the password on `doas`, `su`, `polkit-1`,
+`sshd`, `passwd` and the user/group tools. This profile does not change it, because which services
+accept a face is a security decision for the user. A scoped setup:
+
+```nix
+hardware.dell-xps-14-da14260.irCamera.howdy.enable = true;
+security.pam.howdy.enable = false;                 # no service gets Howdy by default
+security.pam.services.login.howdy.enable = true;   # TTY, and most lock screens
+```
+
+`gdm-password` is just `auth substack login`, so enabling `login` already covers the GDM greeter;
+lock screens differ in which service they authenticate against (noctalia uses `login`). `pam_howdy`
+runs before `pam_unix` and `pam_gnome_keyring`, so a failed scan delays a password login by up to
+the 6 s `timeout`, and a face unlock does not unlock the GNOME keyring.
 
 **Two traps worth knowing.** The illuminator is a LED class device, because
 INT3472 claims the GPIO and registers it itself — the sensor driver gets NULL from
@@ -686,8 +706,8 @@ been re-confirmed since the recorder landed here.
    buffers and always include a `queue` — then this profile could drop the hand-rolled service.
 4. Track upstream: [`intel/vision-drivers#37`](https://github.com/intel/vision-drivers/issues/37)
 5. ~~Test IR on kernel ≥ 7.2~~ Done for 7.3 (2026-11-24): it works with the in-tree CVS driver and
-   the stock bridge, and the RGB camera did not regress. Still open: 7.2, a full Howdy/`pam_howdy`
-   pass on 7.3, and a long-running stability check.
+   the stock bridge, the RGB camera did not regress, and Howdy face unlock works. Still open: 7.2
+   and a long-running stability check.
 6. ~~Drop `himx1092-ipu-bridge.patch` once the kernel carries the entry~~ Done as far as it goes: it is
    no longer applied from 7.3 (the kernel has the entry), and stays only for 7.1.x. Delete it, and
    the `< 7.3` branches in `ir-camera.nix`, when 7.1.x support is dropped.
