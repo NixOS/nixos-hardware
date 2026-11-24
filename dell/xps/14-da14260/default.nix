@@ -14,6 +14,16 @@ let
   ipu7-camera-bins = pkgs.callPackage ./ipu7-camera-bins { };
   ipu7-camera-hal = pkgs.callPackage ./ipu7-camera-hal { inherit ipu7-camera-bins; };
   icamerasrc = pkgs.callPackage ./icamerasrc { inherit ipu7-camera-hal; };
+
+  # Loads intel_cvs once a sound card exists (see boot.kernelModules below),
+  # or after 30 s so the camera still comes up if audio never does.
+  cvsAfterAudio = pkgs.writeShellScript "intel-cvs-after-audio" ''
+    for _ in {1..60}; do
+      ${pkgs.gnugrep}/bin/grep -q '^ *[0-9]' /proc/asound/cards 2>/dev/null && break
+      ${pkgs.coreutils}/bin/sleep 0.5
+    done
+    exec ${pkgs.kmod}/bin/modprobe --ignore-install intel_cvs "$@"
+  '';
 in
 {
   imports = [
@@ -69,7 +79,19 @@ in
   # from boot.kernelModules, so listing it makes this profile and
   # services.howdy.enable mutually unevaluatable -- which matters here, because
   # the IR camera this profile can enable exists to drive Howdy.
-  boot.kernelModules = [ "intel_cvs" ];
+  #
+  # intel_cvs is NOT in boot.kernelModules, and its modprobe `install` rule
+  # below holds it back until the sound card exists. Dell wires one physical
+  # pin (\_SB.GPI1 pin 20) to two things: the speaker-ID strap the four
+  # cs35l56 amps read once at probe (spk-id-gpios), and the CVS bridge's wake
+  # IRQ (cvs_wake), which intel_cvs holds for as long as it is loaded. If
+  # intel_cvs binds first -- it does, SOF only boots ~2 s later -- every amp
+  # fails with "-EBUSY: Failed to get spk-id-gpios", no card is created and
+  # PipeWire has no sink. Once the amps have probed they release the pin for
+  # good, so ordering is all it takes. A systemd-modules-load entry would
+  # block early boot for the whole timeout; udev (ACPI modalias or the
+  # intel_ipu7 softdep below) only stalls one worker.
+  boot.kernelModules = [ ];
   # Don't let v4l2loopback auto-create a device at load time — an unconfigured
   # device has a degenerate framerate range that breaks GStreamer caps
   # negotiation. The relay service below creates a configured device at runtime.
@@ -86,6 +108,7 @@ in
   # down on every cycle. This affects the RGB path too, not just IR.
   boot.extraModprobeConfig = ''
     options v4l2loopback devices=0
+    install intel_cvs ${cvsAfterAudio} $CMDLINE_OPTS
     softdep intel_ipu7 pre: usbio gpio_usbio i2c_usbio intel_cvs intel_skl_int3472_discrete
   '';
 
