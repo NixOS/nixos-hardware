@@ -1,0 +1,54 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Date: Thu, 19 Nov 2026 16:24:16 +0800
+Subject: [PATCH 23/38] drm/msm/dpu: pass msm_display_info to
+ dpu_encoder_get_intf()
+
+Derive the controller ID from disp_info->h_tile_instance[index] instead
+of passing it separately to dpu_encoder_get_intf().
+
+This removes a redundant argument and keeps all interface selection
+parameters in msm_display_info.
+
+No functional change.
+
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 0a6be69a3..5e1c98371 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -1435,15 +1435,16 @@ static void dpu_encoder_virt_atomic_disable(struct drm_encoder *drm_enc,
+ 
+ static struct dpu_hw_intf *dpu_encoder_get_intf(const struct dpu_mdss_cfg *catalog,
+ 		struct dpu_rm *dpu_rm,
+-		enum dpu_intf_type type, u32 controller_id)
++		struct msm_display_info *disp_info, int index)
+ {
+ 	int i = 0;
++	u32 controller_id = disp_info->h_tile_instance[index];
+ 
+-	if (type == INTF_WB)
++	if (disp_info->intf_type == INTF_WB)
+ 		return NULL;
+ 
+ 	for (i = 0; i < catalog->intf_count; i++) {
+-		if (catalog->intf[i].type == type
++		if (catalog->intf[i].type == disp_info->intf_type
+ 		    && catalog->intf[i].controller_id == controller_id) {
+ 			return dpu_rm_get_intf(dpu_rm, catalog->intf[i].id);
+ 		}
+@@ -2672,8 +2673,7 @@ static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
+ 				i, controller_id, phys_params.split_role);
+ 
+ 		phys_params.hw_intf = dpu_encoder_get_intf(dpu_kms->catalog, &dpu_kms->rm,
+-							   disp_info->intf_type,
+-							   controller_id);
++							   disp_info, i);
+ 
+ 		if (disp_info->intf_type == INTF_WB && controller_id < WB_MAX)
+ 			phys_params.hw_wb = dpu_rm_get_wb(&dpu_kms->rm, controller_id);

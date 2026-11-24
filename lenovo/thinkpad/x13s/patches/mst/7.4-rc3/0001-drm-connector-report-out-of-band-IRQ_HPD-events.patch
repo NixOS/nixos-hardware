@@ -1,0 +1,166 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Sat, 24 Oct 2026 03:35:17 +0300
+Subject: [PATCH 01/38] drm/connector: report out-of-band IRQ_HPD events
+
+The DisplayPort standard defines a special kind of events called IRQ.
+These events are used to notify DP Source about the events on the Sink
+side. It is extremely important for DP MST handling, where the MST
+events are reported through this IRQ.
+
+In case of the USB-C DP AltMode there is no actual HPD pulse, but the
+events are reported through the bits in the AltMode VDOs.
+
+Rename drm_connector_oob_hotplug_event() to drm_connector_dp_oob_status()
+and extend its interface to report IRQ events to the DisplayPort Sink
+drivers.
+
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+ drivers/gpu/drm/drm_connector.c          | 20 +++++++++++--------
+ drivers/usb/typec/altmodes/displayport.c | 25 +++++++++++++++---------
+ include/drm/drm_connector.h              | 21 ++++++++++++++++++--
+ 3 files changed, 47 insertions(+), 19 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index 893716a9e..e3c8181df 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -3821,20 +3821,24 @@ struct drm_connector *drm_connector_find_by_fwnode(struct fwnode_handle *fwnode)
+ }
+ 
+ /**
+- * drm_connector_oob_hotplug_event - Report out-of-band hotplug event to connector
++ * drm_connector_dp_oob_status - Report out-of-band hotplug event to DisplayPort connector
+  * @connector_fwnode: fwnode_handle to report the event on
+  * @status: hot plug detect logical state
++ * @event: additional event reported by the sink without changing the HPD state
++ * (or in addition to such a change).
+  *
+- * On some hardware a hotplug event notification may come from outside the display
+- * driver / device. An example of this is some USB Type-C setups where the hardware
+- * muxes the DisplayPort data and aux-lines but does not pass the altmode HPD
+- * status bit to the GPU's DP HPD pin.
++ * In some cases when DisplayPort signals are being routed through the USB
++ * Type-C port the hotplug event notifications come from outside of the display
++ * driver / device. In this case hardware muxes the DisplayPort data and
++ * AUX-lines but does not pass the altmode HPD status bit to the GPU's DP HPD
++ * pin.
+  *
+  * This function can be used to report these out-of-band events after obtaining
+  * a drm_connector reference through calling drm_connector_find_by_fwnode().
+  */
+-void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode,
+-				     enum drm_connector_status status)
++void drm_connector_dp_oob_status(struct fwnode_handle *connector_fwnode,
++				 enum drm_connector_status status,
++				 enum drm_connector_dp_event event)
+ {
+ 	struct drm_connector *connector;
+ 
+@@ -3847,7 +3851,7 @@ void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode,
+ 
+ 	drm_connector_put(connector);
+ }
+-EXPORT_SYMBOL(drm_connector_oob_hotplug_event);
++EXPORT_SYMBOL(drm_connector_dp_oob_status);
+ 
+ /**
+  * drm_connector_get_color_format - Return connector color format of @conn_state
+diff --git a/drivers/usb/typec/altmodes/displayport.c b/drivers/usb/typec/altmodes/displayport.c
+index 4a566388b..0c7dde824 100644
+--- a/drivers/usb/typec/altmodes/displayport.c
++++ b/drivers/usb/typec/altmodes/displayport.c
+@@ -187,9 +187,11 @@ static int dp_altmode_status_update(struct dp_altmode *dp)
+ 				dp->pending_irq_hpd = true;
+ 		}
+ 	} else {
+-		drm_connector_oob_hotplug_event(dp->connector_fwnode,
+-						hpd ? connector_status_connected :
+-						      connector_status_disconnected);
++		drm_connector_dp_oob_status(dp->connector_fwnode,
++					    hpd ? connector_status_connected :
++						  connector_status_disconnected,
++					    (hpd && irq_hpd) ? DRM_CONNECTOR_DP_IRQ_HPD :
++							       DRM_CONNECTOR_NO_EXTRA_STATUS);
+ 		dp->hpd = hpd;
+ 		sysfs_notify(&dp->alt->dev.kobj, "displayport", "hpd");
+ 		if (hpd && irq_hpd) {
+@@ -211,8 +213,11 @@ static int dp_altmode_configured(struct dp_altmode *dp)
+ 	 * configuration is complete to signal HPD.
+ 	 */
+ 	if (dp->pending_hpd) {
+-		drm_connector_oob_hotplug_event(dp->connector_fwnode,
+-						connector_status_connected);
++		drm_connector_dp_oob_status(dp->connector_fwnode,
++					    connector_status_connected,
++						dp->pending_irq_hpd ?
++						DRM_CONNECTOR_DP_IRQ_HPD :
++						DRM_CONNECTOR_NO_EXTRA_STATUS);
+ 		sysfs_notify(&dp->alt->dev.kobj, "displayport", "hpd");
+ 		dp->pending_hpd = false;
+ 		if (dp->pending_irq_hpd) {
+@@ -396,8 +401,9 @@ static int dp_altmode_vdm(struct typec_altmode *alt,
+ 			dp->data.status = 0;
+ 			dp->data.conf = 0;
+ 			if (dp->hpd) {
+-				drm_connector_oob_hotplug_event(dp->connector_fwnode,
+-								connector_status_disconnected);
++				drm_connector_dp_oob_status(dp->connector_fwnode,
++							    connector_status_disconnected,
++							    DRM_CONNECTOR_NO_EXTRA_STATUS);
+ 				dp->hpd = false;
+ 				sysfs_notify(&dp->alt->dev.kobj, "displayport", "hpd");
+ 			}
+@@ -844,8 +850,9 @@ void dp_altmode_remove(struct typec_altmode *alt)
+ 	typec_altmode_put_plug(dp->plug_prime);
+ 
+ 	if (dp->connector_fwnode) {
+-		drm_connector_oob_hotplug_event(dp->connector_fwnode,
+-						connector_status_disconnected);
++		drm_connector_dp_oob_status(dp->connector_fwnode,
++					    connector_status_disconnected,
++					    DRM_CONNECTOR_NO_EXTRA_STATUS);
+ 
+ 		fwnode_handle_put(dp->connector_fwnode);
+ 	}
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 2ee7c5932..4f65c97a8 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -92,6 +92,22 @@ enum drm_connector_status {
+ 	connector_status_unknown = 3,
+ };
+ 
++/**
++ * enum drm_connector_dp_event - additional events sent by the sink /
++ * display together or in replacement of the HPD status changes.
++ */
++enum drm_connector_dp_event {
++	/**
++	 * @DRM_CONNECTOR_NO_EXTRA_STATUS: No additional status reported.
++	 */
++	DRM_CONNECTOR_NO_EXTRA_STATUS,
++	/**
++	 * @DRM_CONNECTOR_DP_IRQ_HPD: DisplayPort Sink has sent the
++	 * IRQ_HPD (either by the HPD short pulse or via the AltMode event).
++	 */
++	DRM_CONNECTOR_DP_IRQ_HPD,
++};
++
+ /**
+  * enum drm_connector_registration_state - userspace registration status for
+  * a &drm_connector
+@@ -2848,8 +2864,9 @@ drm_connector_hdmi_scrambler_supported(const struct drm_connector *connector)
+ 		connector->hdmi.funcs->supported_hdmi_ver >= HDMI_VERSION_2_0;
+ }
+ 
+-void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode,
+-				     enum drm_connector_status status);
++void drm_connector_dp_oob_status(struct fwnode_handle *connector_fwnode,
++				 enum drm_connector_status status,
++				 enum drm_connector_dp_event event);
+ enum drm_connector_color_format
+ drm_connector_get_color_format(const struct drm_connector_state *conn_state);
+ const char *drm_get_connector_type_name(unsigned int connector_type);

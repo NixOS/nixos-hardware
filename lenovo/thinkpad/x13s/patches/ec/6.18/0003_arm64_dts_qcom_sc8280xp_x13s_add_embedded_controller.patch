@@ -1,6 +1,7 @@
+From 07866b3c7d97711c2fb5e98ea196351b12adbba2 Mon Sep 17 00:00:00 2001
 From: Alex Robinson <alex@ironrobin.net>
-Subject: arm64: dts: qcom: sc8280xp-x13s: Add embedded controller
 Date: Sat, 10 Oct 2026 14:55:56 +0000
+Subject: [PATCH] arm64: dts: qcom: sc8280xp-x13s: Add embedded controller
 
 Enable the ThinkPad X13s embedded controller so its driver can provide
 keyboard backlight support when booting with Device Tree.
@@ -11,15 +12,14 @@ configuration measured before Linux configured the pin.
 Assisted-by: LLM
 Signed-off-by: Alex Robinson <alex@ironrobin.net>
 ---
-Review note: GPIO103 was measured at pinctrl probe before Linux
-claimed/configured the pin. TLMM CTL offset 0x67000 read 0x00000003;
-the pull field value of 3 decodes to pull-up on SC8280XP.
+ .../qcom/sc8280xp-lenovo-thinkpad-x13s.dts    | 40 +++++++++++++++++++
+ 1 file changed, 40 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-index 218573a97785b04528854b03a99c837558a33c1e..1e29bab37de6d192ec49dc407e24e1a3bc9496bd 100644
+index a7559eb41..7441cb4d9 100644
 --- a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
 +++ b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-@@ -806,6 +806,25 @@ &i2c4 {
+@@ -811,6 +811,25 @@ touchscreen@10 {
  	};
  };
  
@@ -45,7 +45,7 @@ index 218573a97785b04528854b03a99c837558a33c1e..1e29bab37de6d192ec49dc407e24e1a3
  &i2c11 {
  	clock-frequency = <400000>;
  
-@@ -1571,6 +1590,20 @@ cam_rgb_default: cam-rgb-default-state {
+@@ -1573,6 +1592,20 @@ sc-rgb-xshut-n-pins {
  		};
  	};
  
@@ -66,7 +66,7 @@ index 218573a97785b04528854b03a99c837558a33c1e..1e29bab37de6d192ec49dc407e24e1a3
  	edp_reg_en: edp-reg-en-state {
  		pins = "gpio25";
  		function = "gpio";
-@@ -1591,6 +1624,13 @@ i2c4_default: i2c4-default-state {
+@@ -1593,6 +1626,13 @@ i2c4_default: i2c4-default-state {
  		bias-disable;
  	};
  

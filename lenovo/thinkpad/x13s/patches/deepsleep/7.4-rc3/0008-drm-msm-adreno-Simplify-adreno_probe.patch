@@ -1,0 +1,55 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Date: Fri, 30 Oct 2026 22:39:25 +0530
+Subject: [PATCH 08/12] drm/msm/adreno: Simplify adreno_probe()
+
+Now that it is possible to auto detect and create separate drm device
+for a "GPU + no display" case, drop the special check for "amd,imageon"
+compatible string in adreno_probe().
+
+Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/adreno/adreno_device.c | 8 ++++----
+ drivers/gpu/drm/msm/msm_drv.c              | 6 +++---
+ 2 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+index cdf26b38b..34718adef 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_device.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+@@ -271,12 +271,12 @@ static const struct component_ops a3xx_ops = {
+ 
+ static int adreno_probe(struct platform_device *pdev)
+ {
+-	struct device_node *node = pdev->dev.of_node;
+-
+-	if (of_device_is_compatible(node, "amd,imageon") ||
+-	    (msm_separate_gpu_kms_components() && adreno_has_gpu(node)))
++	if (msm_separate_gpu_kms_components())
+ 		return msm_gpu_probe(pdev, &a3xx_ops);
+ 
++	if (!adreno_has_gpu(pdev->dev.of_node))
++		return -ENODEV;
++
+ 	return component_add(&pdev->dev, &a3xx_ops);
+ }
+ 
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index e25ef578d..e0c0f1248 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -115,11 +115,11 @@ static bool msm_separate_gpu_kms_auto(void)
+ 	int gpus = msm_count_gpus();
+ 	int display_subsystems = msm_count_mdss() + msm_count_mdp4();
+ 
+-	if (gpus <= 0 || display_subsystems <= 0)
++	/* Single card if there is exactly one GPU and one display subsystem */
++	if (gpus == 1 && display_subsystems == 1)
+ 		return false;
+ 
+-	/* Single card if there is exactly one GPU and one display subsystem */
+-	return gpus > 1 || display_subsystems > 1;
++	return true;
+ }
+ 
+ bool msm_separate_gpu_kms_components(void)

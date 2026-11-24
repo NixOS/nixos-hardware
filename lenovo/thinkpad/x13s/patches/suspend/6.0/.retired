@@ -1,0 +1,4 @@
+Not needed before v7.3. The s2idle reset this series fixes was introduced by
+d4c79b63d82d ("PCI: Allow D3 for native hotplug-capable Root Ports on non-x86
+platforms"), merged in v7.3. Older kernels keep the pcie-mem ICC path voted
+through suspend, so BCM PCI0 never drops to zero.

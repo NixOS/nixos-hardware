@@ -1,0 +1,312 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Date: Mon, 23 Nov 2026 06:48:34 -0500
+Subject: [PATCH 9/9] drm/msm: Attach a driver to the GMU
+
+With the introduction of sync_state in the genpd framework, any consumer
+device of GCC and GPUCC which is not bound to a driver will result in
+bootup warnings like below:
+
+[   24.362666] gcc-kaanapali 100000.clock-controller: sync_state() pending due to 3d37000.gmu
+[   24.371210] gxclkctl-kaanapali 3d64000.clock-controller: sync_state() pending due to 3d37000.gmu
+[   24.380268] gpucc-kaanapali 3d90000.clock-controller: sync_state() pending due to 3d37000.gmu
+
+To silence these warnings and also to have a proper state in driver core,
+attach a driver to the GMU and set it up as a component device for the drm
+master device.
+
+Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+
+[Backported to v7.3: a6xx_gpu_init() holds the GMU node with
+ __free(device_node), so the explicit of_node_put() is dropped.]
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c      | 70 +++++++++++++++++++++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 28 ++++-----
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h      |  3 -
+ drivers/gpu/drm/msm/adreno/adreno_device.c |  2 +
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  3 +-
+ drivers/gpu/drm/msm/msm_drv.c              | 17 +++---
+ 6 files changed, 91 insertions(+), 32 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 5c2df4e..87e6255 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -2113,7 +2113,7 @@ void a6xx_gmu_sysprof_setup(struct msm_gpu *gpu, bool force_on)
+ 	pm_runtime_put(&gpu->pdev->dev);
+ }
+ 
+-void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu)
++static void a6xx_gmu_destroy(struct a6xx_gpu *a6xx_gpu)
+ {
+ 	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+ 	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
+@@ -2193,7 +2193,7 @@ static void __iomem *a6xx_gmu_get_mmio(struct platform_device *pdev, resource_si
+ 	return ret;
+ }
+ 
+-int a6xx_gmu_wrapper_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
++static int a6xx_gmu_wrapper_pdev_bind(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+ {
+ 	struct platform_device *pdev = of_find_device_by_node(node);
+ 	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+@@ -2263,6 +2263,8 @@ int a6xx_gmu_wrapper_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+ 		goto err_mmio;
+ 	}
+ 
++	mutex_init(&gmu->lock);
++
+ 	gmu->initialized = true;
+ 
+ 	return 0;
+@@ -2280,7 +2282,7 @@ err_clk:
+ 	return ret;
+ }
+ 
+-int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
++static int a6xx_gmu_pdev_bind(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+ {
+ 	struct platform_device *pdev = of_find_device_by_node(node);
+ 	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+@@ -2470,6 +2472,7 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+ 	/* Initialize RPMh */
+ 	a6xx_gmu_rpmh_init(gmu);
+ 
++	mutex_init(&gmu->lock);
+ 	gmu->initialized = true;
+ 
+ 	return 0;
+@@ -2499,3 +2502,64 @@ err_put_device:
+ 
+ 	return ret;
+ }
++
++static int a6xx_gmu_bind(struct device *dev, struct device *master, void *data)
++{
++	int (*bind)(struct a6xx_gpu *gpu, struct device_node *node) = of_device_get_match_data(dev);
++	struct a6xx_gpu *a6xx_gpu = dev_get_drvdata(dev);
++
++	if (WARN_ON(!a6xx_gpu))
++		return -ENODEV;
++
++	return bind(a6xx_gpu, dev->of_node);
++}
++
++static void a6xx_gmu_unbind(struct device *dev, struct device *master, void *data)
++{
++	struct a6xx_gpu *a6xx_gpu = dev_get_drvdata(dev);
++
++	a6xx_gmu_destroy(a6xx_gpu);
++	dev_set_drvdata(dev, NULL);
++}
++
++static const struct component_ops a6xx_gmu_bind_ops = {
++	.bind   = a6xx_gmu_bind,
++	.unbind = a6xx_gmu_unbind,
++};
++
++static int a6xx_gmu_probe(struct platform_device *pdev)
++{
++	return component_add(&pdev->dev, &a6xx_gmu_bind_ops);
++}
++
++static void a6xx_gmu_remove(struct platform_device *pdev)
++{
++	component_del(&pdev->dev, &a6xx_gmu_bind_ops);
++}
++
++static const struct of_device_id a6xx_gmu_dt_match[] = {
++	{ .compatible = "qcom,adreno-gmu", .data = a6xx_gmu_pdev_bind },
++	{ .compatible = "qcom,adreno-rgmu", .data = a6xx_gmu_wrapper_pdev_bind },
++	{ .compatible = "qcom,adreno-gmu-wrapper", .data = a6xx_gmu_wrapper_pdev_bind },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, a6xx_gmu_dt_match);
++
++static struct platform_driver adreno_gmu_driver = {
++	.probe = a6xx_gmu_probe,
++	.remove = a6xx_gmu_remove,
++	.driver = {
++		.name = "adreno_gmu",
++		.of_match_table = a6xx_gmu_dt_match,
++	},
++};
++
++void __init adreno_gmu_register(void)
++{
++	platform_driver_register(&adreno_gmu_driver);
++}
++
++void __exit adreno_gmu_unregister(void)
++{
++	platform_driver_unregister(&adreno_gmu_driver);
++}
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 081e79e..8e6b502 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -11,6 +11,7 @@
+ 
+ #include <linux/bitfield.h>
+ #include <linux/devfreq.h>
++#include <linux/of_platform.h>
+ #include <linux/pm_domain.h>
+ #include <linux/soc/qcom/llcc-qcom.h>
+ 
+@@ -2323,8 +2324,6 @@ static void a6xx_destroy(struct msm_gpu *gpu)
+ 
+ 	a6xx_llc_slices_destroy(a6xx_gpu);
+ 
+-	a6xx_gmu_remove(a6xx_gpu);
+-
+ 	adreno_gpu_cleanup(adreno_gpu);
+ 
+ 	kfree(a6xx_gpu);
+@@ -2672,6 +2671,7 @@ static struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+ 	struct adreno_platform_config *config = pdev->dev.platform_data;
+ 	const struct adreno_info *info = config->info;
+ 	struct device_node *phandle;
++	struct platform_device *gmu_pdev;
+ 	struct a6xx_gpu *a6xx_gpu;
+ 	struct adreno_gpu *adreno_gpu;
+ 	struct msm_gpu *gpu;
+@@ -2701,18 +2701,15 @@ static struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+ 		gpu->num_perfcntr_groups = a8xx_num_perfcntr_groups;
+ 	}
+ 
+-	mutex_init(&a6xx_gpu->gmu.lock);
+ 	spin_lock_init(&a6xx_gpu->aperture_lock);
+ 
+ 	adreno_gpu->registers = NULL;
+ 
+-	/* Check if there is a GMU phandle and set it up */
+ 	struct device_node *node __free(device_node) =
+ 		of_parse_phandle(pdev->dev.of_node, "qcom,gmu", 0);
+-	/* FIXME: How do we gracefully handle this? */
+-	BUG_ON(!node);
+-
+-	adreno_gpu->gmu_is_wrapper = of_device_is_compatible(node, "qcom,adreno-gmu-wrapper");
++	WARN_ON(!node);
++	adreno_gpu->gmu_is_wrapper = of_device_is_compatible(node,
++							     "qcom,adreno-gmu-wrapper");
+ 
+ 	adreno_gpu->base.hw_apriv =
+ 		!!(info->quirks & ADRENO_QUIRK_HAS_HW_APRIV);
+@@ -2765,15 +2762,6 @@ static struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+ 	if (adreno_is_a618(adreno_gpu) || adreno_is_7c3(adreno_gpu))
+ 		priv->gpu_clamp_to_idle = true;
+ 
+-	if (adreno_has_gmu_wrapper(adreno_gpu) || adreno_has_rgmu(adreno_gpu))
+-		ret = a6xx_gmu_wrapper_init(a6xx_gpu, node);
+-	else
+-		ret = a6xx_gmu_init(a6xx_gpu, node);
+-	if (ret) {
+-		a6xx_destroy(&(a6xx_gpu->base.base));
+-		return ERR_PTR(ret);
+-	}
+-
+ 	adreno_gpu->uche_trap_base = 0x1fffffffff000ull;
+ 
+ 	msm_mmu_set_fault_handler(to_msm_vm(gpu->vm)->mmu, gpu,
+@@ -2789,6 +2777,12 @@ static struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+ 	/* Set up the preemption specific bits and pieces for each ringbuffer */
+ 	a6xx_preempt_init(gpu);
+ 
++	gmu_pdev = of_find_device_by_node(node);
++	if (gmu_pdev) {
++		platform_set_drvdata(gmu_pdev, a6xx_gpu);
++		put_device(&gmu_pdev->dev);
++	}
++
+ 	return gpu;
+ }
+ 
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+index b50c57f..cb53de2 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+@@ -278,9 +278,6 @@ bool a6xx_gmu_isidle(struct a6xx_gmu *gmu);
+ int a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state);
+ void a6xx_gmu_clear_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state);
+ 
+-int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node);
+-int a6xx_gmu_wrapper_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node);
+-void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu);
+ void a6xx_gmu_sysprof_setup(struct msm_gpu *gpu, bool force_on);
+ 
+ void a6xx_preempt_init(struct msm_gpu *gpu);
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+index a0386a2..9c1816d 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_device.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+@@ -427,6 +427,7 @@ void __init adreno_register(void)
+ 		return;
+ 
+ 	platform_driver_register(&adreno_driver);
++	adreno_gmu_register();
+ }
+ 
+ void __exit adreno_unregister(void)
+@@ -434,5 +435,6 @@ void __exit adreno_unregister(void)
+ 	if (skip_gpu)
+ 		return;
+ 
++	adreno_gmu_unregister();
+ 	platform_driver_unregister(&adreno_driver);
+ }
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+index 114a40f..81712cb 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -647,7 +647,8 @@ int adreno_gpu_state_get(struct msm_gpu *gpu, struct msm_gpu_state *state);
+ int adreno_gpu_state_put(struct msm_gpu_state *state);
+ void adreno_show_object(struct drm_printer *p, void **ptr, int len,
+ 		bool *encoded);
+-
++void adreno_gmu_register(void);
++void adreno_gmu_unregister(void);
+ /*
+  * Common helper function to initialize the default address space for arm-smmu
+  * attached targets
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 66b3839..d55615c 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -1026,7 +1026,7 @@ static const struct of_device_id msm_gpu_match[] = {
+ static int add_gpu_components(struct device *dev,
+ 			      struct component_match **matchptr)
+ {
+-	struct device_node *np;
++	struct device_node *np, *gmu_np;
+ 
+ 	np = of_find_matching_node(NULL, msm_gpu_match);
+ 	if (!np)
+@@ -1035,6 +1035,11 @@ static int add_gpu_components(struct device *dev,
+ 	if (of_device_is_available(np) && adreno_has_gpu(np))
+ 		drm_of_component_match_add(dev, matchptr, component_compare_of, np);
+ 
++	gmu_np = of_parse_phandle(np, "qcom,gmu", 0);
++	if (of_device_is_available(gmu_np))
++		drm_of_component_match_add(dev, matchptr, component_compare_of, gmu_np);
++
++	of_node_put(gmu_np);
+ 	of_node_put(np);
+ 
+ 	return 0;
+@@ -1136,13 +1141,9 @@ int msm_gpu_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	/*
+-	 * The GPU pdev acts as both the component master and the sole
+-	 * component (added by adreno_probe()). Future patches add the
+-	 * GMU node as a second component on this same master.
+-	 */
+-	drm_of_component_match_add(&pdev->dev, &match,
+-				   component_compare_of, pdev->dev.of_node);
++	ret = add_gpu_components(&pdev->dev, &match);
++	if (ret)
++		return ret;
+ 
+ 	return component_master_add_with_match(&pdev->dev, &msm_gpu_drm_ops,
+ 					       match);

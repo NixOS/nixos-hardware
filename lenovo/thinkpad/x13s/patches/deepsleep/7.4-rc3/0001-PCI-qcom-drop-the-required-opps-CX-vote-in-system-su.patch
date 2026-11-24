@@ -1,0 +1,125 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Cody McGinnis <brainwart@gmail.com>
+Date: Mon, 23 Nov 2026 16:22:24 -0500
+Subject: [PATCH 01/12] PCI: qcom: drop the required-opps CX vote in system
+ suspend
+
+qcom_pcie_suspend_noirq() only drops the controller's performance vote
+when an OPP table is present (use_pm_opp). SC8280XP has no OPP table for
+its PCIe controllers. Their vote comes from "required-opps" (nominal on
+CX), which genpd applies at attach and only drops on runtime suspend. The
+controllers stay runtime active across system suspend. Even after the
+D3cold path has turned off the link, PHY, clocks and supplies, CX stays
+voted at nominal through s2idle and the SoC never reaches CX collapse.
+
+On a ThinkPad X13s, an rpmh trace across s2idle showed no CX (cx.lvl)
+request at all while the controllers held 256 on the cx domain.
+
+Drop the vote with dev_pm_genpd_set_performance_state() when there is no
+OPP table. Restore the "required-opps" level on resume before the
+controller is powered up again.
+---
+ drivers/pci/controller/dwc/pcie-qcom.c | 55 ++++++++++++++++++--------
+ 1 file changed, 39 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/pci/controller/dwc/pcie-qcom.c b/drivers/pci/controller/dwc/pcie-qcom.c
+index efad7c8d1..d076be1d7 100644
+--- a/drivers/pci/controller/dwc/pcie-qcom.c
++++ b/drivers/pci/controller/dwc/pcie-qcom.c
+@@ -26,6 +26,7 @@
+ #include <linux/pci.h>
+ #include <linux/pci-ecam.h>
+ #include <linux/pci-pwrctrl.h>
++#include <linux/pm_domain.h>
+ #include <linux/pm_opp.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/platform_device.h>
+@@ -2451,6 +2452,34 @@ static int qcom_pcie_probe(struct platform_device *pdev)
+ 	return ret;
+ }
+ 
++/*
++ * Without an OPP table the CX vote comes from the "required-opps" of the
++ * controller node, which genpd applies at attach and only drops on runtime
++ * suspend. The controller stays runtime active across system suspend, so
++ * drop and restore that vote here, like the OPP case does.
++ */
++static void qcom_pcie_drop_perf_state(struct qcom_pcie *pcie, struct device *dev)
++{
++	if (pcie->use_pm_opp)
++		dev_pm_opp_set_opp(dev, NULL);
++	else
++		dev_pm_genpd_set_performance_state(dev, 0);
++}
++
++static int qcom_pcie_restore_perf_state(struct qcom_pcie *pcie, struct device *dev)
++{
++	int pstate;
++
++	if (pcie->use_pm_opp)
++		return qcom_pcie_set_max_opp(dev);
++
++	pstate = of_get_required_opp_performance_state(dev->of_node, 0);
++	if (pstate <= 0)
++		return 0;
++
++	return dev_pm_genpd_set_performance_state(dev, pstate);
++}
++
+ static int qcom_pcie_suspend_noirq(struct device *dev)
+ {
+ 	struct qcom_pcie *pcie;
+@@ -2477,8 +2506,7 @@ static int qcom_pcie_suspend_noirq(struct device *dev)
+ 		if (ret)
+ 			dev_err(dev, "Failed to disable CPU-PCIe interconnect path: %d\n", ret);
+ 
+-		if (pcie->use_pm_opp)
+-			dev_pm_opp_set_opp(pcie->pci->dev, NULL);
++		qcom_pcie_drop_perf_state(pcie, dev);
+ 	} else {
+ 		/*
+ 		 * Set minimum bandwidth required to keep data path
+@@ -2506,8 +2534,7 @@ static int qcom_pcie_suspend_noirq(struct device *dev)
+ 				dev_err(dev, "Failed to disable CPU-PCIe interconnect path: %d\n",
+ 					ret);
+ 
+-			if (pcie->use_pm_opp)
+-				dev_pm_opp_set_opp(pcie->pci->dev, NULL);
++			qcom_pcie_drop_perf_state(pcie, dev);
+ 		}
+ 	}
+ 	return ret;
+@@ -2527,12 +2554,10 @@ static int qcom_pcie_resume_noirq(struct device *dev)
+ 		return 0;
+ 
+ 	if (pcie->pci->suspended) {
+-		if (pcie->use_pm_opp) {
+-			ret = qcom_pcie_set_max_opp(dev);
+-			if (ret) {
+-				dev_err(dev, "Failed to set max OPP: %d\n", ret);
+-				return ret;
+-			}
++		ret = qcom_pcie_restore_perf_state(pcie, dev);
++		if (ret) {
++			dev_err(dev, "Failed to restore performance state: %d\n", ret);
++			return ret;
+ 		}
+ 
+ 		ret = icc_enable(pcie->icc_cpu);
+@@ -2556,12 +2581,10 @@ static int qcom_pcie_resume_noirq(struct device *dev)
+ 			goto disable_icc_mem;
+ 	} else {
+ 		if (pm_suspend_target_state != PM_SUSPEND_MEM) {
+-			if (pcie->use_pm_opp) {
+-				ret = qcom_pcie_set_max_opp(dev);
+-				if (ret) {
+-					dev_err(dev, "Failed to set max OPP: %d\n", ret);
+-					return ret;
+-				}
++			ret = qcom_pcie_restore_perf_state(pcie, dev);
++			if (ret) {
++				dev_err(dev, "Failed to restore performance state: %d\n", ret);
++				return ret;
+ 			}
+ 
+ 			ret = icc_enable(pcie->icc_cpu);

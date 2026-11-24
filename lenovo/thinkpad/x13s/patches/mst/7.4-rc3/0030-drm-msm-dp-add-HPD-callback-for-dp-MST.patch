@@ -1,0 +1,188 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Thu, 19 Nov 2026 16:24:23 +0800
+Subject: [PATCH 30/38] drm/msm/dp: add HPD callback for dp MST
+
+Add HPD callback for the MST module which shall be invoked from the
+dp_display's HPD handler to perform MST specific operations in case
+of HPD. In MST case, route the HPD messages to MST module.
+
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 21 ++++++++++---
+ drivers/gpu/drm/msm/dp/dp_mst_drm.c | 48 +++++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/dp/dp_mst_drm.h |  1 +
+ 3 files changed, 65 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 9d49877c8..544bc9a0f 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -529,6 +529,11 @@ static int msm_dp_irq_hpd_handle(struct msm_dp_display_private *dp)
+ 			dp->msm_dp_display.connector_type,
+ 			dp->link->sink_count);
+ 
++	if (dp->msm_dp_display.mst_active) {
++		msm_dp_mst_display_hpd_irq(&dp->msm_dp_display);
++		return 0;
++	}
++
+ 	/* check for any test request issued by sink */
+ 	rc = msm_dp_link_process_request(dp->link);
+ 	if (!rc) {
+@@ -1078,10 +1083,10 @@ static irqreturn_t msm_dp_display_irq_thread(int irq, void *dev_id)
+ 		drm_bridge_hpd_notify(dp->msm_dp_display.bridge,
+ 				      connector_status_connected);
+ 
+-	/* Send HPD as connected and distinguish it in the notifier */
+ 	if (hpd_isr_status & DP_DP_IRQ_HPD_INT_MASK)
+-		drm_bridge_hpd_notify(dp->msm_dp_display.bridge,
+-				      connector_status_connected);
++		drm_bridge_hpd_notify_extra(dp->msm_dp_display.bridge,
++					    connector_status_connected,
++					    DRM_CONNECTOR_DP_IRQ_HPD);
+ 
+ 	ret = IRQ_HANDLED;
+ 
+@@ -1318,9 +1323,15 @@ int msm_dp_mst_register(struct msm_dp *msm_dp_display)
+ 
+ void msm_dp_mst_unregister(struct msm_dp *msm_dp_display)
+ {
++	struct msm_dp_display_private *dp;
++
+ 	if (!msm_dp_display->msm_dp_mst)
+ 		return;
+ 
++	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
++
++	/* HPD is disabled by drm_kms_helper_poll_fini() before KMS teardown. */
++	synchronize_irq(dp->irq);
+ 	msm_dp_mst_mgr_destroy(msm_dp_display);
+ }
+ 
+@@ -1755,7 +1766,7 @@ void msm_dp_bridge_hpd_notify(struct drm_bridge *bridge,
+ 	struct msm_dp_bridge *msm_dp_bridge = to_dp_bridge(bridge);
+ 	struct msm_dp *msm_dp_display = msm_dp_bridge->msm_dp_display;
+ 	struct msm_dp_display_private *dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
+-	u32 hpd_link_status = 0;
++	u32 hpd_link_status;
+ 
+ 	if (pm_runtime_resume_and_get(&msm_dp_display->pdev->dev)) {
+ 		DRM_ERROR("failed to pm_runtime_resume\n");
+@@ -1778,7 +1789,7 @@ void msm_dp_bridge_hpd_notify(struct drm_bridge *bridge,
+ 		if (hpd_link_status == ISR_IRQ_HPD_PULSE_COUNT ||
+ 		    event == DRM_CONNECTOR_DP_IRQ_HPD)
+ 			msm_dp_irq_hpd_handle(dp);
+-	} else {
++	} else if (status == connector_status_disconnected) {
+ 		msm_dp_hpd_unplug_handle(dp);
+ 	}
+ 
+diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.c b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+index eae82e857..154050801 100644
+--- a/drivers/gpu/drm/msm/dp/dp_mst_drm.c
++++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+@@ -15,6 +15,8 @@
+ #define to_dp_mst_connector(x) \
+ 		container_of((x), struct msm_dp_mst_connector, connector)
+ 
++#define MSM_DP_MST_HPD_IRQ_MAX_TRIES 30
++
+ struct msm_dp_mst_connector {
+ 	struct drm_connector connector;
+ 	struct drm_dp_mst_port *mst_port;
+@@ -36,6 +38,8 @@ struct msm_dp_mst {
+ 	u32 max_streams;
+ 	/* Serializes concurrent stream link-state access across streams. */
+ 	struct mutex mst_lock;
++	/* Serializes HPD IRQ handling between IRQ handler and poll_hpd_irq. */
++	struct mutex hpd_irq_lock;
+ };
+ 
+ static void dp_mst_connector_destroy(struct drm_connector *connector)
+@@ -358,6 +362,40 @@ int msm_dp_mst_attach_encoder(struct msm_dp *dp_display, unsigned int stream_id,
+ 	return 0;
+ }
+ 
++void msm_dp_mst_display_hpd_irq(struct msm_dp *dp_display)
++{
++	int rc;
++	struct msm_dp_mst *mst = dp_display->msm_dp_mst;
++	unsigned int esi_res = DP_SINK_COUNT_ESI + 1;
++	int i;
++
++	guard(mutex)(&mst->hpd_irq_lock);
++
++	for (i = 0; i < MSM_DP_MST_HPD_IRQ_MAX_TRIES; i++) {
++		u8 ack[8] = {};
++		u8 esi[4];
++		bool handled;
++
++		rc = drm_dp_dpcd_read_data(mst->dp_aux, DP_SINK_COUNT_ESI, esi, 4);
++		if (rc < 0) {
++			DRM_ERROR("DPCD sink status read failed, rlen=%d\n", rc);
++			return;
++		}
++
++		rc = drm_dp_mst_hpd_irq_handle_event(&mst->mst_mgr, esi, ack, &handled);
++		if (!handled)
++			break;
++
++		rc = drm_dp_dpcd_write_byte(mst->dp_aux, esi_res, ack[1]);
++		if (rc < 0) {
++			DRM_ERROR("DPCD esi_res failed. rc=%d\n", rc);
++			return;
++		}
++
++		drm_dp_mst_hpd_irq_send_new_request(&mst->mst_mgr);
++	}
++}
++
+ static struct drm_encoder *
+ msm_dp_mst_atomic_best_encoder(struct drm_connector *connector, struct drm_atomic_commit *state)
+ {
+@@ -473,8 +511,16 @@ msm_dp_mst_add_connector(struct drm_dp_mst_topology_mgr *mgr,
+ 	return NULL;
+ }
+ 
++static void msm_dp_mst_poll_hpd_irq(struct drm_dp_mst_topology_mgr *mgr)
++{
++	struct msm_dp_mst *mst = container_of(mgr, struct msm_dp_mst, mst_mgr);
++
++	msm_dp_mst_display_hpd_irq(mst->msm_dp);
++}
++
+ static const struct drm_dp_mst_topology_cbs msm_dp_mst_drm_cbs = {
+ 	.add_connector = msm_dp_mst_add_connector,
++	.poll_hpd_irq  = msm_dp_mst_poll_hpd_irq,
+ };
+ 
+ int msm_dp_mst_mgr_init(struct msm_dp *dp_display, struct msm_dp_link *link,
+@@ -506,6 +552,7 @@ int msm_dp_mst_mgr_init(struct msm_dp *dp_display, struct msm_dp_link *link,
+ 	}
+ 
+ 	mutex_init(&mst->mst_lock);
++	mutex_init(&mst->hpd_irq_lock);
+ 	dp_display->msm_dp_mst = mst;
+ 	return 0;
+ }
+@@ -518,6 +565,7 @@ void msm_dp_mst_mgr_destroy(struct msm_dp *dp_display)
+ 		return;
+ 
+ 	drm_dp_mst_topology_mgr_destroy(&mst->mst_mgr);
++	mutex_destroy(&mst->hpd_irq_lock);
+ 	mutex_destroy(&mst->mst_lock);
+ 	dp_display->msm_dp_mst = NULL;
+ 	kfree(mst);
+diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.h b/drivers/gpu/drm/msm/dp/dp_mst_drm.h
+index 822d34cd6..3bd3e66b4 100644
+--- a/drivers/gpu/drm/msm/dp/dp_mst_drm.h
++++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.h
+@@ -12,5 +12,6 @@ int msm_dp_mst_mgr_init(struct msm_dp *dp_display, struct msm_dp_link *link,
+ void msm_dp_mst_mgr_destroy(struct msm_dp *dp_display);
+ int msm_dp_mst_attach_encoder(struct msm_dp *dp_display, unsigned int stream_id,
+ 			      struct drm_encoder *encoder);
++void msm_dp_mst_display_hpd_irq(struct msm_dp *dp_display);
+ 
+ #endif /* _DP_MST_DRM_H_ */

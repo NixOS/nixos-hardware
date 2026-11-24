@@ -1,0 +1,38 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Thu, 19 Nov 2026 16:24:27 +0800
+Subject: [PATCH 34/38] drm/msm/dp: mark the SST bridge disconnected when an
+ MST-capable sink is present
+
+When a DP cable is already attached at boot, msm_dp_bridge_detect()
+runs from the connector notify path before MST has been activated on
+the sink. The DPCD capability read at that point already indicates
+that the sink supports MST.
+
+Return connector_status_disconnected from the SST bridge whenever the
+controller supports multi-stream (stream_cnt > 1) and the sink reports
+MST capability, so that connector detection is handled by MST
+connectors instead of the SST bridge.
+
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index ea5bda691..60aef9061 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -1063,6 +1063,11 @@ enum drm_connector_status msm_dp_bridge_detect(struct drm_bridge *bridge,
+ 			status = connector_status_disconnected;
+ 	}
+ 
++	/* Mark SST connector as disconnected in DP boot-up case */
++	if (msm_dp_ctrl_get_stream_cnt(priv->ctrl) > 1 &&
++	    drm_dp_read_mst_cap(priv->aux, dpcd) == DRM_DP_MST)
++		status = connector_status_disconnected;
++
+ end:
+ 	/*
+ 	 * If we detected the DPRX, leave the controller on so that it doesn't

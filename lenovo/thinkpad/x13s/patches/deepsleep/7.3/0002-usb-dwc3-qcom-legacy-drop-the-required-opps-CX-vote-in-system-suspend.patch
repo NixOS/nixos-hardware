@@ -1,0 +1,56 @@
+From: Cody McGinnis <brainwart@gmail.com>
+Subject: [PATCH] usb: dwc3: qcom-legacy: drop the required-opps CX vote in system suspend
+
+The glue's "required-opps" (nominal on CX) is applied by genpd at attach
+and only dropped on runtime suspend. xhci-plat runtime resumes the
+controller for system suspend, which resumes the glue too, so the glue
+enters s2idle holding CX at nominal even though its clocks and
+interconnect votes are off. On SC8280XP that keeps CX from collapsing.
+
+Drop the vote in the system suspend callback and restore the
+"required-opps" level on resume, before the clocks come back. Wakeup
+interrupts go through the PDC and do not need the CX vote.
+---
+--- a/drivers/usb/dwc3/dwc3-qcom-legacy.c
++++ b/drivers/usb/dwc3/dwc3-qcom-legacy.c
+@@ -16,6 +16,8 @@
+ #include <linux/interconnect.h>
+ #include <linux/of_platform.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_domain.h>
++#include <linux/pm_opp.h>
+ #include <linux/phy/phy.h>
+ #include <linux/usb/of.h>
+ #include <linux/reset.h>
+@@ -873,6 +875,14 @@
+ 	if (ret)
+ 		return ret;
+ 
++	/*
++	 * The "required-opps" vote on the GDSC's parent (CX) is applied at
++	 * attach and only dropped by genpd on runtime suspend. The controller
++	 * is runtime resumed for system suspend (xhci-plat), so drop it here;
++	 * wakeup detection does not need it.
++	 */
++	dev_pm_genpd_set_performance_state(dev, 0);
++
+ 	qcom->pm_suspended = true;
+ 
+ 	return 0;
+@@ -882,8 +892,16 @@
+ {
+ 	struct dwc3_qcom *qcom = dev_get_drvdata(dev);
+ 	bool wakeup = device_may_wakeup(dev);
++	int pstate;
+ 	int ret;
+ 
++	pstate = of_get_required_opp_performance_state(dev->of_node, 0);
++	if (pstate > 0) {
++		ret = dev_pm_genpd_set_performance_state(dev, pstate);
++		if (ret)
++			return ret;
++	}
++
+ 	ret = dwc3_qcom_resume(qcom, wakeup);
+ 	if (ret)
+ 		return ret;

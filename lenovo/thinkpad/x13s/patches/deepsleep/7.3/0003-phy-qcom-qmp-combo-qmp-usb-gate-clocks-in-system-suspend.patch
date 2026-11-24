@@ -1,0 +1,45 @@
+From: Cody McGinnis <brainwart@gmail.com>
+Subject: [PATCH] phy: qcom: qmp-combo, qmp-usb: gate clocks in system suspend
+
+The QMP USB PHYs only gate their aux, ref and pipe clocks, and only enter
+autonomous (wakeup detection) mode, from their runtime suspend callbacks.
+They have no system sleep callbacks.
+
+During system suspend the PHYs stay runtime active: the PM core holds a
+usage reference from prepare, the controllers are runtime-resumed by
+usb_suspend() to switch root hub wakeup, and the xHCI roothub keeps its
+own phy_power_on() reference until bus suspend. The aux clocks hang off
+the RPMh XO clock (bi_tcxo), so the APPS XO vote stays on through s2idle
+and the SoC never reaches XO shutdown (AOSD) or DDR self-refresh.
+
+On a ThinkPad X13s, tracing clk_prepare/clk_unprepare up to
+machine_suspend showed gcc_usb3_{prim,sec,mp}_phy_aux_clk_src as the only
+users of bi_tcxo left prepared.
+
+Force the runtime suspend path in the late system suspend phase, after
+the controllers have suspended, and undo it in the early resume phase.
+This is the same state the PHYs are in when the controller is runtime
+suspended with remote wakeup armed.
+---
+--- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
++++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+@@ -4466,6 +4466,8 @@
+ static const struct dev_pm_ops qmp_combo_pm_ops = {
+ 	SET_RUNTIME_PM_OPS(qmp_combo_runtime_suspend,
+ 			   qmp_combo_runtime_resume, NULL)
++	SET_LATE_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
++				     pm_runtime_force_resume)
+ };
+ 
+ static int qmp_combo_reset_init(struct qmp_combo *qmp)
+--- a/drivers/phy/qualcomm/phy-qcom-qmp-usb.c
++++ b/drivers/phy/qualcomm/phy-qcom-qmp-usb.c
+@@ -2153,6 +2153,8 @@
+ static const struct dev_pm_ops qmp_usb_pm_ops = {
+ 	SET_RUNTIME_PM_OPS(qmp_usb_runtime_suspend,
+ 			   qmp_usb_runtime_resume, NULL)
++	SET_LATE_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
++				     pm_runtime_force_resume)
+ };
+ 
+ static int qmp_usb_reset_init(struct qmp_usb *qmp,

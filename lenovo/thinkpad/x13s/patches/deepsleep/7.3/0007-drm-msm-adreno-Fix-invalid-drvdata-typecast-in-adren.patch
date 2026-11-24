@@ -1,0 +1,40 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Date: Wed, 13 May 2026 02:22:58 +0530
+Subject: [PATCH 7/9] drm/msm/adreno: Fix invalid drvdata typecast in
+ adreno_remove()
+
+adreno_remove() decides between component_del() and msm_gpu_remove()
+based on platform_get_drvdata(pdev), interpreted as a struct
+msm_drm_private *. That dereference is wrong because msm_gpu_init()
+overwrites the GPU pdev's drvdata with adreno_smmu_priv pointer.
+
+Fix this by using msm_gpu_use_separate_drm_dev() instead of relying on
+drvdata.
+
+Fixes: 643515a9cd09 ("drm/msm: rework binding of Imageon GPUs")
+Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/adreno/adreno_device.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+index 84bdc33..f048972 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_device.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+@@ -279,12 +279,10 @@ static int adreno_probe(struct platform_device *pdev)
+ 
+ static void adreno_remove(struct platform_device *pdev)
+ {
+-	struct msm_drm_private *priv = platform_get_drvdata(pdev);
+-
+-	if (priv->kms_init)
+-		component_del(&pdev->dev, &a3xx_ops);
+-	else
++	if (msm_gpu_use_separate_drm_dev(pdev))
+ 		msm_gpu_remove(pdev, &a3xx_ops);
++	else
++		component_del(&pdev->dev, &a3xx_ops);
+ }
+ 
+ static void adreno_shutdown(struct platform_device *pdev)

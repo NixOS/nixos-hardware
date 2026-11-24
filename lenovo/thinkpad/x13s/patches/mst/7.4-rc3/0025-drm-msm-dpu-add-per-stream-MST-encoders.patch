@@ -1,0 +1,161 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Date: Thu, 19 Nov 2026 16:24:18 +0800
+Subject: [PATCH 25/38] drm/msm/dpu: add per-stream MST encoders
+
+Unlike SST, where a DP controller is represented by a single encoder,
+MST requires an encoder instance for each stream.
+
+Create one DRM encoder per MST stream, associate it with a stream ID,
+and initialize it with MST-specific encoder helper callbacks.
+
+This establishes the per-stream encoder infrastructure required for DP
+MST support.
+
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 23 ++++++++++++++++++++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 15 ++++++++++++++
+ drivers/gpu/drm/msm/dp/dp_mst_drm.c         | 20 ++++++++++++++++++
+ drivers/gpu/drm/msm/dp/dp_mst_drm.h         |  2 ++
+ drivers/gpu/drm/msm/msm_drv.h               |  9 ++++++++
+ 5 files changed, 68 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index a8dcc8c68..802cb62fc 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -2742,6 +2742,24 @@ static const struct drm_encoder_helper_funcs dpu_encoder_helper_funcs = {
+ 	.atomic_enable = dpu_encoder_virt_atomic_enable,
+ };
+ 
++static void dpu_encoder_mst_atomic_enable(struct drm_encoder *enc,
++				      struct drm_atomic_commit *state)
++{
++	dpu_encoder_virt_atomic_enable(enc, state);
++}
++
++static void dpu_encoder_mst_atomic_disable(struct drm_encoder *enc,
++				       struct drm_atomic_commit *state)
++{
++	dpu_encoder_virt_atomic_disable(enc, state);
++}
++
++static const struct drm_encoder_helper_funcs dpu_mst_encoder_helper_funcs = {
++	.atomic_mode_set = dpu_encoder_virt_atomic_mode_set,
++	.atomic_enable   = dpu_encoder_mst_atomic_enable,
++	.atomic_disable  = dpu_encoder_mst_atomic_disable,
++};
++
+ static const struct drm_encoder_funcs dpu_encoder_funcs = {
+ 	.debugfs_init = dpu_encoder_debugfs_init,
+ };
+@@ -2767,7 +2785,10 @@ struct drm_encoder *dpu_encoder_init(struct drm_device *dev,
+ 	if (IS_ERR(dpu_enc))
+ 		return ERR_CAST(dpu_enc);
+ 
+-	drm_encoder_helper_add(&dpu_enc->base, &dpu_encoder_helper_funcs);
++	if (drm_enc_mode == DRM_MODE_ENCODER_DPMST)
++		drm_encoder_helper_add(&dpu_enc->base, &dpu_mst_encoder_helper_funcs);
++	else
++		drm_encoder_helper_add(&dpu_enc->base, &dpu_encoder_helper_funcs);
+ 
+ 	spin_lock_init(&dpu_enc->enc_spinlock);
+ 	dpu_enc->enabled = false;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 4b092c8b1..3be34baad 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -688,6 +688,21 @@ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
+ 				return rc;
+ 			}
+ 		}
++
++		for (int stream_id = 0; stream_cnt > 1 && stream_id < stream_cnt; stream_id++) {
++			info.stream_id = stream_id;
++			encoder = dpu_encoder_init(dev, DRM_MODE_ENCODER_DPMST, &info);
++			if (IS_ERR(encoder)) {
++				DPU_ERROR("encoder init failed for dp mst display\n");
++				return PTR_ERR(encoder);
++			}
++
++			rc = msm_dp_mst_attach_encoder(priv->kms->dp[i], stream_id, encoder);
++			if (rc) {
++				DPU_ERROR("dp_mst attach_encoder failed, rc = %d\n", rc);
++				return rc;
++			}
++		}
+ 	}
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.c b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+index a2900ff3b..ef5fb7086 100644
+--- a/drivers/gpu/drm/msm/dp/dp_mst_drm.c
++++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+@@ -147,6 +147,26 @@ static int msm_dp_mst_encoder_stream_id(struct msm_dp_mst *mst,
+ 	return -1;
+ }
+ 
++int msm_dp_mst_attach_encoder(struct msm_dp *dp_display, unsigned int stream_id,
++			      struct drm_encoder *encoder)
++{
++	struct msm_dp_mst *mst = dp_display->msm_dp_mst;
++	struct msm_dp_panel *dp_panel;
++
++	dp_panel = msm_dp_display_get_panel(dp_display, stream_id);
++	if (!dp_panel) {
++		drm_err(dp_display->drm_dev,
++			"[MST] failed to allocate panel for stream %d\n", stream_id);
++		return -ENOMEM;
++	}
++
++	mst->mst_encoders[stream_id].enc = encoder;
++	mst->mst_encoders[stream_id].stream_id = stream_id;
++	mst->mst_encoders[stream_id].dp_panel = dp_panel;
++
++	return 0;
++}
++
+ static struct drm_encoder *
+ msm_dp_mst_atomic_best_encoder(struct drm_connector *connector, struct drm_atomic_commit *state)
+ {
+diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.h b/drivers/gpu/drm/msm/dp/dp_mst_drm.h
+index 7f35e7524..3cbd2a674 100644
+--- a/drivers/gpu/drm/msm/dp/dp_mst_drm.h
++++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.h
+@@ -9,5 +9,7 @@
+ 
+ int msm_dp_mst_mgr_init(struct msm_dp *dp_display, u32 max_streams, struct drm_dp_aux *drm_aux);
+ void msm_dp_mst_mgr_destroy(struct msm_dp *dp_display);
++int msm_dp_mst_attach_encoder(struct msm_dp *dp_display, unsigned int stream_id,
++			      struct drm_encoder *encoder);
+ 
+ #endif /* _DP_MST_DRM_H_ */
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index fc838bb0c..eccd4c3c5 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -360,6 +360,8 @@ bool msm_dp_wide_bus_available(const struct msm_dp *dp_display);
+ int msm_dp_get_mst_max_stream(struct msm_dp *dp_display);
+ int msm_dp_mst_register(struct msm_dp *dp_display);
+ void msm_dp_mst_unregister(struct msm_dp *dp_display);
++int msm_dp_mst_attach_encoder(struct msm_dp *dp_display, unsigned int stream_id,
++			      struct drm_encoder *encoder);
+ 
+ #else
+ static inline int __init msm_dp_register(void)
+@@ -406,6 +408,13 @@ static inline void msm_dp_mst_unregister(struct msm_dp *dp_display)
+ {
+ }
+ 
++static inline int msm_dp_mst_attach_encoder(struct msm_dp *dp_display,
++					    unsigned int stream_id,
++					    struct drm_encoder *encoder)
++{
++	return -EINVAL;
++}
++
+ #endif
+ 
+ #ifdef CONFIG_DRM_MSM_MDP4

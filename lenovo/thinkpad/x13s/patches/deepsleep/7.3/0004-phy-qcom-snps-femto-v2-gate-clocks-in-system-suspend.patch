@@ -1,0 +1,66 @@
+From: Cody McGinnis <brainwart@gmail.com>
+Subject: [PATCH] phy: qcom: snps-femto-v2: gate clocks in system suspend
+
+The HS PHY clocks are enabled from phy_init() until phy_exit(). The PHY
+suspend callbacks only set auto-resume, so when the controller keeps the
+PHY initialized across system suspend for remote wakeup, the clocks stay
+on through system sleep.
+
+On SC8280XP the HS PHYs of both Type-C controllers take "ref" from
+RPMH_CXO_CLK, the RPMh XO clock that also votes in the sleep set. With
+it prepared, the APPS XO vote never drops and the SoC cannot reach XO
+shutdown (AOSD) or DDR self-refresh in s2idle. On a ThinkPad X13s these
+two PHYs were the last direct users of bi_tcxo at machine_suspend.
+
+Gate the clocks in the late suspend phase, after the controller has
+suspended, and re-enable them in the early resume phase. Line state
+wakeup is detected by the controller glue (dp/dm HS PHY interrupts), not
+by the PHY.
+---
+--- a/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
++++ b/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
+@@ -226,6 +226,35 @@
+ 	return qcom_snps_hsphy_resume(hsphy);
+ }
+ 
++/*
++ * The clocks are enabled from phy_init() until phy_exit(). When the
++ * controller stays initialized across system suspend (remote wakeup), gate
++ * them once the controller has suspended: the "ref" clock may be the RPMh
++ * CXO clock, which otherwise keeps XO on through system sleep. Line state
++ * wakeup is detected by the controller glue, not by the PHY.
++ */
++static int __maybe_unused qcom_snps_hsphy_suspend_late(struct device *dev)
++{
++	struct qcom_snps_hsphy *hsphy = dev_get_drvdata(dev);
++
++	if (!hsphy->phy_initialized)
++		return 0;
++
++	clk_bulk_disable_unprepare(hsphy->num_clks, hsphy->clks);
++
++	return 0;
++}
++
++static int __maybe_unused qcom_snps_hsphy_resume_early(struct device *dev)
++{
++	struct qcom_snps_hsphy *hsphy = dev_get_drvdata(dev);
++
++	if (!hsphy->phy_initialized)
++		return 0;
++
++	return clk_bulk_prepare_enable(hsphy->num_clks, hsphy->clks);
++}
++
+ static int qcom_snps_hsphy_set_mode(struct phy *phy, enum phy_mode mode,
+ 				    int submode)
+ {
+@@ -510,6 +539,8 @@
+ static const struct dev_pm_ops qcom_snps_hsphy_pm_ops = {
+ 	SET_RUNTIME_PM_OPS(qcom_snps_hsphy_runtime_suspend,
+ 			   qcom_snps_hsphy_runtime_resume, NULL)
++	SET_LATE_SYSTEM_SLEEP_PM_OPS(qcom_snps_hsphy_suspend_late,
++				     qcom_snps_hsphy_resume_early)
+ };
+ 
+ static void qcom_snps_hsphy_override_param_update_val(

@@ -1,0 +1,246 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Thu, 19 Nov 2026 16:24:11 +0800
+Subject: [PATCH 18/38] drm/msm/dp: factor out _helper variants of bridge ops
+ accepting a panel
+
+The atomic bridge callbacks (set_mode / enable / disable /
+post_disable) on dp_display currently hard-code dp->panel. For
+DP MST every stream has its own msm_dp_panel that the MST
+encoder owns, so the same enable/disable sequence needs to be
+invokable against an arbitrary panel.
+
+Introduce *_helper variants that take struct msm_dp_panel * and
+reduce the existing atomic_* callbacks to thin wrappers that
+pass dp->panel. No SST-path behaviour change.
+
+Also drop the static qualifier from msm_dp_display_prepare_link()
+and msm_dp_display_unprepare() and change them to take
+struct msm_dp * so the upcoming MST encoder code can drive
+link-level prepare/unprepare uniformly through the public API.
+
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 111 +++++++++++++++++++---------
+ drivers/gpu/drm/msm/dp/dp_display.h |  14 ++++
+ 2 files changed, 91 insertions(+), 34 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 0a88df2bc..27811304b 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -632,12 +632,14 @@ static int msm_dp_display_set_mode(struct msm_dp *msm_dp_display,
+ 	return 0;
+ }
+ 
+-static int msm_dp_display_prepare_link(struct msm_dp_display_private *dp)
++int msm_dp_display_prepare_link(struct msm_dp *msm_dp_display)
+ {
+-	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
++	struct msm_dp_display_private *dp;
+ 	int rc = 0;
+ 	bool force_link_train = false;
+ 
++	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
++
+ 	drm_dbg_dp(dp->drm_dev, "sink_count=%d\n", dp->link->sink_count);
+ 
+ 	if (msm_dp_display->is_edp)
+@@ -1457,60 +1459,81 @@ int msm_dp_modeset_init(struct msm_dp *msm_dp_display, struct drm_device *dev,
+ 	return 0;
+ }
+ 
+-void msm_dp_display_atomic_pre_enable(struct msm_dp *msm_dp_display,
+-				      struct drm_atomic_commit *state)
++int msm_dp_display_set_mode_helper(struct msm_dp *msm_dp_display,
++				   struct drm_atomic_commit *state,
++				   struct drm_encoder *drm_encoder,
++				   struct msm_dp_panel *msm_dp_panel)
+ {
+-	struct msm_dp_display_private *dp;
+ 	struct drm_crtc *crtc;
+ 	struct drm_crtc_state *crtc_state;
+ 
+-	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
+-
+-	crtc = drm_atomic_get_new_crtc_for_encoder(state, msm_dp_display->bridge->encoder);
++	crtc = drm_atomic_get_new_crtc_for_encoder(state, drm_encoder);
+ 	if (!crtc)
+-		return;
++		return 0;
+ 	crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
+ 
+-	/*
+-	 * The DPU encoder's .atomic_enable() reads the mode's YUV420 / wide bus
+-	 * state and runs before the bridge's .atomic_enable(), so the mode must
+-	 * be programmed here, in .atomic_pre_enable().
+-	 */
+-	msm_dp_display_set_mode(msm_dp_display, &crtc_state->adjusted_mode, dp->panel);
++	return msm_dp_display_set_mode(msm_dp_display, &crtc_state->adjusted_mode, msm_dp_panel);
+ }
+ 
+-void msm_dp_display_atomic_enable(struct msm_dp *msm_dp_display,
+-				  struct drm_atomic_commit *state)
++void msm_dp_display_atomic_pre_enable(struct msm_dp *msm_dp_display,
++				      struct drm_atomic_commit *state)
+ {
+ 	int rc = 0;
+ 	struct msm_dp_display_private *dp;
+ 
+ 	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
+ 
+-	rc = msm_dp_display_prepare_link(dp);
++	rc = msm_dp_display_set_mode_helper(msm_dp_display, state,
++					    msm_dp_display->bridge->encoder, dp->panel);
+ 	if (rc) {
+-		DRM_ERROR("DP display prepare failed, rc=%d\n", rc);
++		DRM_ERROR("Failed to perform a mode set, rc=%d\n", rc);
+ 		return;
+ 	}
+ 
+-	rc = msm_dp_display_enable(dp, dp->panel, NULL);
++	rc = msm_dp_display_prepare_link(msm_dp_display);
++	if (rc)
++		DRM_ERROR("DP display prepare failed, rc=%d\n", rc);
++}
++
++void msm_dp_display_enable_helper(struct msm_dp *msm_dp_display,
++				  struct msm_dp_panel *msm_dp_panel,
++				  const struct msm_dp_mst_slot_info *slots)
++{
++	int rc = 0;
++	struct msm_dp_display_private *dp;
++
++	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
++
++	rc = msm_dp_display_enable(dp, msm_dp_panel, slots);
+ 	if (rc)
+ 		DRM_ERROR("DP display enable failed, rc=%d\n", rc);
+ 
+ 	rc = msm_dp_display_post_enable(msm_dp_display);
+ 	if (rc) {
+ 		DRM_ERROR("DP display post enable failed, rc=%d\n", rc);
+-		msm_dp_display_disable(dp, dp->panel);
++		msm_dp_display_disable(dp, msm_dp_panel);
+ 	}
+ 
+ 	drm_dbg_dp(msm_dp_display->drm_dev, "type=%d Done\n", msm_dp_display->connector_type);
+ }
+ 
+-void msm_dp_display_atomic_disable(struct msm_dp *dp)
++void msm_dp_display_atomic_enable(struct msm_dp *msm_dp_display,
++				  struct drm_atomic_commit *state)
+ {
+-	struct msm_dp_display_private *msm_dp_display;
++	struct msm_dp_display_private *dp;
+ 
+-	msm_dp_display = container_of(dp, struct msm_dp_display_private, msm_dp_display);
++	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
++
++	msm_dp_display_enable_helper(msm_dp_display, dp->panel, NULL);
++}
++
++void msm_dp_display_disable_helper(struct msm_dp *msm_dp_display,
++				   struct msm_dp_panel *msm_dp_panel,
++				   const struct msm_dp_mst_slot_info *slots)
++{
++	struct msm_dp_display_private *dp;
++
++	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
+ 
+ 	/*
+ 	 * If .atomic_enable() bailed out - link training failure is the common
+@@ -1524,17 +1547,28 @@ void msm_dp_display_atomic_disable(struct msm_dp *dp)
+ 	 * TrustZone-level SOCCP/ADSP force-stop and a silent SoC reset.
+ 	 * There is nothing to push idle, so leave it alone.
+ 	 */
+-	if (!dp->active_stream_mask)
++	if (!(msm_dp_display->active_stream_mask & BIT(msm_dp_panel->stream_id)))
+ 		return;
+ 
+-	msm_dp_ctrl_push_vcpf(msm_dp_display->ctrl, msm_dp_display->panel);
+-	msm_dp_ctrl_mst_timeslot_setup(msm_dp_display->ctrl, NULL);
+-	msm_dp_ctrl_mst_send_act(msm_dp_display->ctrl, msm_dp_display->panel);
++	msm_dp_ctrl_push_vcpf(dp->ctrl, msm_dp_panel);
++	msm_dp_ctrl_mst_timeslot_setup(dp->ctrl, slots);
++	msm_dp_ctrl_mst_send_act(dp->ctrl, msm_dp_panel);
+ }
+ 
+-static void msm_dp_display_unprepare(struct msm_dp_display_private *dp)
++void msm_dp_display_atomic_disable(struct msm_dp *dp)
+ {
+-	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
++	struct msm_dp_display_private *msm_dp_display;
++
++	msm_dp_display = container_of(dp, struct msm_dp_display_private, msm_dp_display);
++
++	msm_dp_display_disable_helper(dp, msm_dp_display->panel, NULL);
++}
++
++void msm_dp_display_unprepare(struct msm_dp *msm_dp_display)
++{
++	struct msm_dp_display_private *dp;
++
++	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
+ 
+ 	if (msm_dp_display->active_stream_mask) {
+ 		drm_dbg_dp(dp->drm_dev, "stream still active, return\n");
+@@ -1554,11 +1588,9 @@ static void msm_dp_display_unprepare(struct msm_dp_display_private *dp)
+ 		msm_dp_display_host_phy_exit(dp);
+ 
+ 	pm_runtime_put_sync(&msm_dp_display->pdev->dev);
+-
+-	drm_dbg_dp(dp->drm_dev, "type=%d Done\n", msm_dp_display->connector_type);
+ }
+ 
+-void msm_dp_display_atomic_post_disable(struct msm_dp *dp)
++void msm_dp_display_atomic_post_disable_helper(struct msm_dp *dp, struct msm_dp_panel *msm_dp_panel)
+ {
+ 	struct msm_dp_display_private *msm_dp_display;
+ 
+@@ -1569,7 +1601,18 @@ void msm_dp_display_atomic_post_disable(struct msm_dp *dp)
+ 
+ 	msm_dp_display_audio_notify_disable(msm_dp_display);
+ 
+-	msm_dp_display_disable(msm_dp_display, msm_dp_display->panel);
++	msm_dp_display_disable(msm_dp_display, msm_dp_panel);
++
++	drm_dbg_dp(dp->drm_dev, "type=%d Done\n", dp->connector_type);
++}
++
++void msm_dp_display_atomic_post_disable(struct msm_dp *msm_dp_display)
++{
++	struct msm_dp_display_private *dp;
++
++	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
++
++	msm_dp_display_atomic_post_disable_helper(msm_dp_display, dp->panel);
+ 
+ 	msm_dp_display_unprepare(msm_dp_display);
+ }
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
+index b163954de..f6ebb3d40 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.h
++++ b/drivers/gpu/drm/msm/dp/dp_display.h
+@@ -43,5 +43,19 @@ void msm_dp_display_atomic_enable(struct msm_dp *dp_display,
+ enum drm_mode_status msm_dp_display_mode_valid(struct msm_dp *dp,
+ 					       const struct drm_display_info *info,
+ 					       const struct drm_display_mode *mode);
++void msm_dp_display_enable_helper(struct msm_dp *msm_dp_display,
++				  struct msm_dp_panel *msm_dp_panel,
++				  const struct msm_dp_mst_slot_info *slots);
++void msm_dp_display_disable_helper(struct msm_dp *msm_dp_display,
++				   struct msm_dp_panel *msm_dp_panel,
++				   const struct msm_dp_mst_slot_info *slots);
++void msm_dp_display_atomic_post_disable_helper(struct msm_dp *msm_dp_display,
++					       struct msm_dp_panel *msm_dp_panel);
++int msm_dp_display_set_mode_helper(struct msm_dp *msm_dp_display,
++				   struct drm_atomic_commit *state,
++				   struct drm_encoder *drm_encoder,
++				   struct msm_dp_panel *msm_dp_panel);
++int msm_dp_display_prepare_link(struct msm_dp *msm_dp_display);
++void msm_dp_display_unprepare(struct msm_dp *dp);
+ 
+ #endif /* _DP_DISPLAY_H_ */

@@ -1,0 +1,30 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Sat, 24 Oct 2026 03:35:22 +0300
+Subject: [PATCH 06/38] drm/msm/dp: don't take extra references on multiple
+ plug events
+
+The upper layers might signal multiple sequential HPD plug events. Don't
+take extra references and skip all further HPD plug events until we
+receive the unplug event.
+
+Fixes: 3ea2d1c3d154 ("drm/msm/dp: turn link_ready into plugged")
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index f78ef7505..0349bc547 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -418,6 +418,9 @@ static int msm_dp_hpd_plug_handle(struct msm_dp_display_private *dp)
+ 
+ 	guard(mutex)(&dp->plugged_lock);
+ 
++	if (dp->plugged)
++		return 0;
++
+ 	ret = pm_runtime_resume_and_get(&pdev->dev);
+ 	if (ret) {
+ 		DRM_ERROR("failed to pm_runtime_resume\n");

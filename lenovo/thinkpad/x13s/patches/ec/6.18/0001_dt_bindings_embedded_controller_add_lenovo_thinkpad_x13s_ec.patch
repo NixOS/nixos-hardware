@@ -1,6 +1,7 @@
+From 93dbdb99b900109774820bdc0d44070aae3c8226 Mon Sep 17 00:00:00 2001
 From: Alex Robinson <alex@ironrobin.net>
-Subject: dt-bindings: embedded-controller: Add Lenovo ThinkPad X13s EC
 Date: Sat, 10 Oct 2026 14:55:43 +0000
+Subject: [PATCH] dt-bindings: embedded-controller: Add Lenovo ThinkPad X13s EC
 
 The ThinkPad X13s EC uses a command transport similar to the T14s EC,
 but has different keyboard-backlight, event and power-management
@@ -11,9 +12,14 @@ Add a separate binding to describe the X13s EC.
 Assisted-by: LLM
 Signed-off-by: Alex Robinson <alex@ironrobin.net>
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ .../lenovo,thinkpad-x13s-ec.yaml              | 65 +++++++++++++++++++
+ 1 file changed, 65 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-x13s-ec.yaml
 
 diff --git a/Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-x13s-ec.yaml b/Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-x13s-ec.yaml
 new file mode 100644
+index 000000000..f2c22ee88
 --- /dev/null
 +++ b/Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-x13s-ec.yaml
 @@ -0,0 +1,65 @@

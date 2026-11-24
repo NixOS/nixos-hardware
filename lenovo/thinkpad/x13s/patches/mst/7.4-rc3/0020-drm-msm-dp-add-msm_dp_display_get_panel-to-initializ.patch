@@ -1,0 +1,101 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Thu, 19 Nov 2026 16:24:13 +0800
+Subject: [PATCH 20/38] drm/msm/dp: add msm_dp_display_get_panel() to
+ initialize DP panel
+
+Add an API msm_dp_display_get_panel() to initialize and return a DP
+panel to be used by DP MST module. Since some of the fields of
+DP panel are private, dp_display module needs to initialize these
+parts and return the panel back.
+
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    |  9 +++++++++
+ drivers/gpu/drm/msm/dp/dp_ctrl.h    |  1 +
+ drivers/gpu/drm/msm/dp/dp_display.c | 27 +++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/dp/dp_display.h |  2 ++
+ 4 files changed, 39 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index 8919e7211..969ed095a 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -3131,6 +3131,15 @@ bool msm_dp_ctrl_stream_clks_on(struct msm_dp_ctrl *msm_dp_ctrl,
+ 	return ctrl->stream_clks_on[stream_id];
+ }
+ 
++int msm_dp_ctrl_get_stream_cnt(struct msm_dp_ctrl *msm_dp_ctrl)
++{
++	struct msm_dp_ctrl_private *ctrl;
++
++	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
++
++	return ctrl->num_pixel_clks;
++}
++
+ struct msm_dp_ctrl *msm_dp_ctrl_get(struct device *dev, struct msm_dp_link *link,
+ 			struct drm_dp_aux *aux,
+ 			struct phy *phy,
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.h b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+index 9478f127c..8db5f7145 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.h
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+@@ -61,6 +61,7 @@ void msm_dp_ctrl_disable_irq(struct msm_dp_ctrl *msm_dp_ctrl);
+ void msm_dp_ctrl_reinit_phy(struct msm_dp_ctrl *msm_dp_ctrl);
+ bool msm_dp_ctrl_stream_clks_on(struct msm_dp_ctrl *dp_ctrl,
+ 				enum msm_dp_stream_id stream_id);
++int msm_dp_ctrl_get_stream_cnt(struct msm_dp_ctrl *dp_ctrl);
+ int msm_dp_ctrl_mst_send_act(struct msm_dp_ctrl *msm_dp_ctrl,
+ 			     struct msm_dp_panel *panel);
+ void msm_dp_ctrl_mst_timeslot_setup(struct msm_dp_ctrl *msm_dp_ctrl,
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index e60927d26..36294e0e9 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -536,6 +536,33 @@ static int msm_dp_irq_hpd_handle(struct msm_dp_display_private *dp)
+ 	return rc;
+ }
+ 
++struct msm_dp_panel *msm_dp_display_get_panel(struct msm_dp *msm_dp_display,
++					      enum msm_dp_stream_id stream_id)
++{
++	struct msm_dp_display_private *dp;
++	struct msm_dp_panel *dp_panel;
++
++	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
++
++	if (stream_id >= msm_dp_ctrl_get_stream_cnt(dp->ctrl)) {
++		DRM_ERROR("invalid stream_id %d\n", stream_id);
++		return NULL;
++	}
++
++	dp_panel = msm_dp_panel_get(&dp->msm_dp_display.pdev->dev, dp->aux, dp->link,
++				    dp->link_base, dp->mst2link_base, dp->mst3link_base,
++				    dp->pixel_base[stream_id]);
++
++	if (IS_ERR(dp_panel)) {
++		DRM_ERROR("failed to initialize panel\n");
++		return NULL;
++	}
++
++	dp_panel->stream_id = stream_id;
++
++	return dp_panel;
++}
++
+ static void msm_dp_display_deinit_sub_modules(struct msm_dp_display_private *dp)
+ {
+ 	msm_dp_audio_put(dp->audio);
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
+index b0b7570cb..96be45c3d 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.h
++++ b/drivers/gpu/drm/msm/dp/dp_display.h
+@@ -59,4 +59,6 @@ int msm_dp_display_set_mode_helper(struct msm_dp *msm_dp_display,
+ int msm_dp_display_prepare_link(struct msm_dp *msm_dp_display);
+ void msm_dp_display_unprepare(struct msm_dp *dp);
+ 
++struct msm_dp_panel *msm_dp_display_get_panel(struct msm_dp *msm_dp_display,
++					      enum msm_dp_stream_id stream_id);
+ #endif /* _DP_DISPLAY_H_ */

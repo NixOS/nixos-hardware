@@ -1,0 +1,73 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Thu, 19 Nov 2026 16:24:05 +0800
+Subject: [PATCH 12/38] drm/msm/dp: add support to enable MST in mainlink
+ control
+
+Add support to program the MST enable bit in the mainlink control
+register when an MST session is active or being disabled.
+
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/dp/dp_ctrl.c | 16 ++++++++++++++++
+ drivers/gpu/drm/msm/dp/dp_reg.h  |  4 ++++
+ 2 files changed, 20 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index 86b6e7991..9b8332c16 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -276,6 +276,19 @@ int msm_dp_ctrl_mst_send_act(struct msm_dp_ctrl *msm_dp_ctrl,
+ 	return 0;
+ }
+ 
++static void msm_dp_ctrl_mst_config(struct msm_dp_ctrl_private *ctrl, bool enable)
++{
++	u32 mainlink_ctrl;
++
++	mainlink_ctrl = msm_dp_read_link(ctrl, REG_DP_MAINLINK_CTRL);
++	if (enable)
++		mainlink_ctrl |= DP_MAINLINK_CTRL_MST_EN;
++	else
++		mainlink_ctrl &= ~DP_MAINLINK_CTRL_MST_EN;
++
++	msm_dp_write_link(ctrl, REG_DP_MAINLINK_CTRL, mainlink_ctrl);
++}
++
+ /*
+  * NOTE: resetting DP controller will also clear any pending HPD related interrupts
+  */
+@@ -2689,6 +2702,8 @@ int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *
+ 
+ 	msm_dp_ctrl_lane_mapping(ctrl);
+ 	msm_dp_setup_peripheral_flush(ctrl);
++	if (ctrl->mst_mode)
++		msm_dp_ctrl_mst_config(ctrl, true);
+ 
+ 	msm_dp_ctrl_configure_source_params(ctrl, panel);
+ 
+@@ -2743,6 +2758,7 @@ void msm_dp_ctrl_off_link(struct msm_dp_ctrl *msm_dp_ctrl,
+ 	phy = ctrl->phy;
+ 
+ 	msm_dp_ctrl_mainlink_disable(ctrl);
++	msm_dp_ctrl_mst_config(ctrl, false);
+ 
+ 	msm_dp_ctrl_reset(&ctrl->msm_dp_ctrl, panel);
+ 
+diff --git a/drivers/gpu/drm/msm/dp/dp_reg.h b/drivers/gpu/drm/msm/dp/dp_reg.h
+index 9263e61c7..cc74b1ed6 100644
+--- a/drivers/gpu/drm/msm/dp/dp_reg.h
++++ b/drivers/gpu/drm/msm/dp/dp_reg.h
+@@ -128,6 +128,10 @@
+ #define DP_MAINLINK_FLUSH_MODE_UPDATE_SDP	FIELD_PREP(DP_MAINLINK_CTRL_FLUSH_MODE_MASK, 1)
+ #define DP_MAINLINK_FLUSH_MODE_SDE_PERIPH_UPDATE	FIELD_PREP(DP_MAINLINK_CTRL_FLUSH_MODE_MASK, 3)
+ #define DP_MAINLINK_FB_BOUNDARY_SEL		(0x02000000)
++#define DP_MAINLINK_CTRL_ECF_MODE		BIT(26)
++#define DP_MAINLINK_CTRL_MST_ACTIVE		BIT(8)
++#define DP_MAINLINK_CTRL_MST_EN			(DP_MAINLINK_CTRL_ECF_MODE | \
++						DP_MAINLINK_CTRL_MST_ACTIVE)
+ 
+ #define REG_DP_STATE_CTRL			(0x00000004)
+ #define DP_STATE_CTRL_LINK_TRAINING_PATTERN1	(0x00000001)

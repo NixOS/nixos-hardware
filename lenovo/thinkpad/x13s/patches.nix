@@ -30,8 +30,14 @@ let
   );
 
   # <numeric> optionally suffixed -rcN; compareVersions orders rc9 < rc10 by
-  # maximal digit runs, and "rc" sorts below both "" and "0".
+  # maximal digit runs. "rc" sorts below "0" but above a missing component,
+  # so 7.4-rc3 > 7.4 while 7.4-rc3 < 7.4.0.
   baselineRe = "[0-9]+(\\.[0-9]+)*(-rc[0-9]+)?";
+
+  # Compare a release as x.y.0 so its own -rcN baselines stay eligible: nixpkgs
+  # names the first release of a series "7.4", which would otherwise sort
+  # below "7.4-rc3" and skip every 7.4-rcN baseline.
+  versionForBaseline = if lib.hasInfix "-rc" version then version else "${version}.0";
 
   evalFeature =
     name: feature:
@@ -45,7 +51,7 @@ let
         lib.filter (n: isDir n && builtins.match baselineRe n != null) (lib.attrNames entries)
       );
 
-      eligible = lib.filter (b: lib.versions.compareVersions b version <= 0) baselines;
+      eligible = lib.filter (b: lib.versions.compareVersions b versionForBaseline <= 0) baselines;
       baseline = if eligible == [ ] then null else lib.last eligible;
 
       dir = if baseline == null then root else root + "/${baseline}";

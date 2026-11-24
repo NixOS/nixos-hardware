@@ -1,0 +1,68 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Thu, 19 Nov 2026 16:24:07 +0800
+Subject: [PATCH 14/38] drm/msm/dp: always program MST_FIFO_CONSTANT_FILL for
+ MST use cases
+
+As per the hardware programming guide, MST_FIFO_CONSTANT_FILL must
+always be programmed when operating in MST mode. Ensure the register
+is configured accordingly.
+
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/dp/dp_ctrl.c  |  2 ++
+ drivers/gpu/drm/msm/dp/dp_panel.c | 12 ++++++++++++
+ drivers/gpu/drm/msm/dp/dp_panel.h |  2 ++
+ 3 files changed, 16 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index 9946d48b0..33645eceb 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -584,6 +584,8 @@ static void msm_dp_ctrl_configure_source_params(struct msm_dp_ctrl_private *ctrl
+ 	msm_dp_ctrl_config_misc1_misc0(ctrl, panel);
+ 
+ 	msm_dp_panel_timing_cfg(panel, ctrl->msm_dp_ctrl.wide_bus_en);
++
++	msm_dp_panel_mst_async_fifo(panel, ctrl->mst_mode);
+ }
+ 
+ /*
+diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+index 7f89532a3..859216657 100644
+--- a/drivers/gpu/drm/msm/dp/dp_panel.c
++++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+@@ -741,6 +741,18 @@ int msm_dp_panel_timing_cfg(struct msm_dp_panel *msm_dp_panel, bool wide_bus_en)
+ 	return 0;
+ }
+ 
++void msm_dp_panel_mst_async_fifo(struct msm_dp_panel *msm_dp_panel, bool mst_en)
++{
++	struct msm_dp_panel_private *panel;
++
++	panel = container_of(msm_dp_panel, struct msm_dp_panel_private, msm_dp_panel);
++
++	if (mst_en)
++		msm_dp_write_pn(panel, MMSS_DP_ASYNC_FIFO_CONFIG, 0x01);
++	else
++		msm_dp_write_pn(panel, MMSS_DP_ASYNC_FIFO_CONFIG, 0x00);
++}
++
+ int msm_dp_panel_init_panel_info(struct msm_dp_panel *msm_dp_panel,
+ 				 const struct drm_display_mode *adjusted_mode,
+ 				 u32 bpp)
+diff --git a/drivers/gpu/drm/msm/dp/dp_panel.h b/drivers/gpu/drm/msm/dp/dp_panel.h
+index dc046fec2..04938b9d2 100644
+--- a/drivers/gpu/drm/msm/dp/dp_panel.h
++++ b/drivers/gpu/drm/msm/dp/dp_panel.h
+@@ -72,6 +72,8 @@ void msm_dp_panel_clear_dsc_dto(struct msm_dp_panel *msm_dp_panel);
+ void msm_dp_panel_enable_vsc_sdp(struct msm_dp_panel *msm_dp_panel, struct dp_sdp *vsc_sdp);
+ void msm_dp_panel_disable_vsc_sdp(struct msm_dp_panel *msm_dp_panel);
+ 
++void msm_dp_panel_mst_async_fifo(struct msm_dp_panel *msm_dp_panel, bool mst_en);
++
+ /**
+  * is_link_rate_valid() - validates the link rate
+  * @bw_code: link rate requested by the sink

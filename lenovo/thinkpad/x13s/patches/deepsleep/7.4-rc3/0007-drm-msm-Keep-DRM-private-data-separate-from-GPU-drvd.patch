@@ -1,0 +1,319 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Date: Fri, 30 Oct 2026 22:39:24 +0530
+Subject: [PATCH 07/12] drm/msm: Keep DRM private data separate from GPU
+ drvdata
+
+In separate GPU/KMS mode, the GPU device is also the DRM component
+master. msm_drv_probe() stores priv in its drvdata, but msm_gpu_init()
+overwrites it with &gpu->adreno_smmu. So, it is better to avoid using
+drm priv data in the master's dev->drvdata.
+
+As an alternative, store priv in a devres entry of the drm master and
+retrieve it from there during component bind. Update all component
+drivers to use the new helpers.
+
+Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+[Backported to v7.4: context adjusted for the tree-wide devm_kzalloc() ->
+ devm_kzalloc_obj() conversion.]
+---
+ drivers/gpu/drm/msm/adreno/adreno_device.c |  6 +++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c    |  6 ++----
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c   |  6 ++----
+ drivers/gpu/drm/msm/dp/dp_display.c        |  4 ++--
+ drivers/gpu/drm/msm/dsi/dsi.c              |  4 ++--
+ drivers/gpu/drm/msm/hdmi/hdmi.c            |  4 ++--
+ drivers/gpu/drm/msm/msm_drv.c              | 24 +++++++++++++++-------
+ drivers/gpu/drm/msm/msm_drv.h              |  2 ++
+ drivers/gpu/drm/msm/msm_kms.c              | 17 +++++++--------
+ 9 files changed, 39 insertions(+), 34 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+index 1798bb128..cdf26b38b 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_device.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+@@ -209,10 +209,10 @@ bool adreno_has_gpu(struct device_node *node)
+ 
+ static int adreno_bind(struct device *dev, struct device *master, void *data)
+ {
++	struct msm_drm_private *priv = msm_drm_get_priv(master);
+ 	static struct adreno_platform_config config = {};
+-	const struct adreno_info *info;
+-	struct msm_drm_private *priv = dev_get_drvdata(master);
+ 	struct drm_device *drm = priv->dev;
++	const struct adreno_info *info;
+ 	struct msm_gpu *gpu;
+ 	int ret;
+ 
+@@ -254,7 +254,7 @@ static int adreno_system_suspend(struct device *dev);
+ static void adreno_unbind(struct device *dev, struct device *master,
+ 		void *data)
+ {
+-	struct msm_drm_private *priv = dev_get_drvdata(master);
++	struct msm_drm_private *priv = msm_drm_get_priv(master);
+ 	struct msm_gpu *gpu = dev_to_gpu(dev);
+ 
+ 	if (pm_runtime_enabled(dev))
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 1b6286dcc..6cac2d9c9 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -1434,8 +1434,7 @@ static void dpu_dev_remove(struct platform_device *pdev)
+ static int __maybe_unused dpu_runtime_suspend(struct device *dev)
+ {
+ 	int i;
+-	struct platform_device *pdev = to_platform_device(dev);
+-	struct msm_drm_private *priv = platform_get_drvdata(pdev);
++	struct msm_drm_private *priv = msm_drm_get_priv(dev);
+ 	struct dpu_kms *dpu_kms = to_dpu_kms(priv->kms);
+ 
+ 	clk_bulk_disable_unprepare(dpu_kms->num_clocks, dpu_kms->clocks);
+@@ -1449,8 +1448,7 @@ static int __maybe_unused dpu_runtime_suspend(struct device *dev)
+ static int __maybe_unused dpu_runtime_resume(struct device *dev)
+ {
+ 	int rc = -1;
+-	struct platform_device *pdev = to_platform_device(dev);
+-	struct msm_drm_private *priv = platform_get_drvdata(pdev);
++	struct msm_drm_private *priv = msm_drm_get_priv(dev);
+ 	struct dpu_kms *dpu_kms = to_dpu_kms(priv->kms);
+ 	struct drm_encoder *encoder;
+ 	struct drm_device *ddev;
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+index ff6751b2a..e06b9b8b3 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+@@ -869,8 +869,7 @@ static void mdp5_dev_remove(struct platform_device *pdev)
+ 
+ static __maybe_unused int mdp5_runtime_suspend(struct device *dev)
+ {
+-	struct platform_device *pdev = to_platform_device(dev);
+-	struct msm_drm_private *priv = platform_get_drvdata(pdev);
++	struct msm_drm_private *priv = msm_drm_get_priv(dev);
+ 	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
+ 
+ 	DBG("");
+@@ -880,8 +879,7 @@ static __maybe_unused int mdp5_runtime_suspend(struct device *dev)
+ 
+ static __maybe_unused int mdp5_runtime_resume(struct device *dev)
+ {
+-	struct platform_device *pdev = to_platform_device(dev);
+-	struct msm_drm_private *priv = platform_get_drvdata(pdev);
++	struct msm_drm_private *priv = msm_drm_get_priv(dev);
+ 	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
+ 
+ 	DBG("");
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index c0c150e2c..674dbdca1 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -214,7 +214,7 @@ static int msm_dp_display_bind(struct device *dev, struct device *master,
+ {
+ 	int rc = 0;
+ 	struct msm_dp_display_private *dp = dev_get_dp_display_private(dev);
+-	struct msm_drm_private *priv = dev_get_drvdata(master);
++	struct msm_drm_private *priv = msm_drm_get_priv(master);
+ 	struct drm_device *drm = priv->dev;
+ 
+ 	dp->msm_dp_display.drm_dev = drm;
+@@ -237,7 +237,7 @@ static void msm_dp_display_unbind(struct device *dev, struct device *master,
+ 			      void *data)
+ {
+ 	struct msm_dp_display_private *dp = dev_get_dp_display_private(dev);
+-	struct msm_drm_private *priv = dev_get_drvdata(master);
++	struct msm_drm_private *priv = msm_drm_get_priv(master);
+ 
+ 	of_dp_aux_depopulate_bus(dp->aux);
+ 
+diff --git a/drivers/gpu/drm/msm/dsi/dsi.c b/drivers/gpu/drm/msm/dsi/dsi.c
+index 090726be5..f736ad2bf 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi.c
++++ b/drivers/gpu/drm/msm/dsi/dsi.c
+@@ -119,7 +119,7 @@ static struct msm_dsi *dsi_init(struct platform_device *pdev)
+ 
+ static int dsi_bind(struct device *dev, struct device *master, void *data)
+ {
+-	struct msm_drm_private *priv = dev_get_drvdata(master);
++	struct msm_drm_private *priv = msm_drm_get_priv(master);
+ 	struct msm_dsi *msm_dsi = dev_get_drvdata(dev);
+ 
+ 	/*
+@@ -146,7 +146,7 @@ static int dsi_bind(struct device *dev, struct device *master, void *data)
+ static void dsi_unbind(struct device *dev, struct device *master,
+ 		void *data)
+ {
+-	struct msm_drm_private *priv = dev_get_drvdata(master);
++	struct msm_drm_private *priv = msm_drm_get_priv(master);
+ 	struct msm_dsi *msm_dsi = dev_get_drvdata(dev);
+ 
+ 	msm_dsi_tx_buf_free(msm_dsi->host);
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
+index 133b4b1f1..6c41d064b 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi.c
++++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
+@@ -236,7 +236,7 @@ static const struct hdmi_platform_config hdmi_tx_8974_config = {
+ 
+ static int msm_hdmi_bind(struct device *dev, struct device *master, void *data)
+ {
+-	struct msm_drm_private *priv = dev_get_drvdata(master);
++	struct msm_drm_private *priv = msm_drm_get_priv(master);
+ 	struct hdmi *hdmi = dev_get_drvdata(dev);
+ 	int err;
+ 
+@@ -251,7 +251,7 @@ static int msm_hdmi_bind(struct device *dev, struct device *master, void *data)
+ static void msm_hdmi_unbind(struct device *dev, struct device *master,
+ 		void *data)
+ {
+-	struct msm_drm_private *priv = dev_get_drvdata(master);
++	struct msm_drm_private *priv = msm_drm_get_priv(master);
+ 
+ 	if (priv->kms->hdmi) {
+ 		msm_hdmi_destroy(priv->kms->hdmi);
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index c3111deaa..e25ef578d 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -137,10 +137,19 @@ bool msm_separate_gpu_kms_components(void)
+ 	}
+ }
+ 
++static void msm_drm_priv_release(struct device *dev, void *res)
++{
++	/* The devres core frees the allocation after this callback. */
++}
++
++struct msm_drm_private *msm_drm_get_priv(struct device *dev)
++{
++	return devres_find(dev, msm_drm_priv_release, NULL, NULL);
++}
++
+ static int msm_drm_uninit(struct device *dev, const struct component_ops *gpu_ops)
+ {
+-	struct platform_device *pdev = to_platform_device(dev);
+-	struct msm_drm_private *priv = platform_get_drvdata(pdev);
++	struct msm_drm_private *priv = msm_drm_get_priv(dev);
+ 	struct drm_device *ddev = priv->dev;
+ 
+ 	/*
+@@ -177,7 +186,7 @@ static int msm_drm_uninit(struct device *dev, const struct component_ops *gpu_op
+ static int msm_drm_init(struct device *dev, const struct drm_driver *drv,
+ 			const struct component_ops *gpu_ops)
+ {
+-	struct msm_drm_private *priv = dev_get_drvdata(dev);
++	struct msm_drm_private *priv = msm_drm_get_priv(dev);
+ 	struct drm_device *ddev;
+ 	int ret;
+ 
+@@ -1137,13 +1146,14 @@ int msm_drv_probe(struct device *master_dev,
+ 	struct component_match *match = NULL;
+ 	int ret;
+ 
+-	priv = devm_kzalloc_obj(master_dev, *priv);
++	priv = devres_alloc(msm_drm_priv_release, sizeof(*priv), GFP_KERNEL);
+ 	if (!priv)
+ 		return -ENOMEM;
+ 
+ 	priv->kms = kms;
+ 	priv->kms_init = kms_init;
+-	dev_set_drvdata(master_dev, priv);
++	/* Register before component binding so priv survives unbind/rebind. */
++	devres_add(master_dev, priv);
+ 
+ 	/* Add mdp components if we have KMS. */
+ 	if (kms_init) {
+@@ -1178,11 +1188,11 @@ int msm_gpu_probe(struct platform_device *pdev,
+ 	struct msm_drm_private *priv;
+ 	int ret;
+ 
+-	priv = devm_kzalloc_obj(&pdev->dev, *priv);
++	priv = devres_alloc(msm_drm_priv_release, sizeof(*priv), GFP_KERNEL);
+ 	if (!priv)
+ 		return -ENOMEM;
+ 
+-	platform_set_drvdata(pdev, priv);
++	devres_add(&pdev->dev, priv);
+ 
+ 	/* on all devices that I am aware of, iommu's which can map
+ 	 * any address the cpu can see are used:
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index 2840e8a50..107d0efb6 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -524,6 +524,8 @@ static inline unsigned long timeout_to_jiffies(const ktime_t *timeout)
+ 
+ extern const struct component_master_ops msm_drm_ops;
+ 
++struct msm_drm_private *msm_drm_get_priv(struct device *dev);
++
+ int msm_kms_pm_prepare(struct device *dev);
+ void msm_kms_pm_complete(struct device *dev);
+ 
+diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
+index e5d0ea629..3597dc276 100644
+--- a/drivers/gpu/drm/msm/msm_kms.c
++++ b/drivers/gpu/drm/msm/msm_kms.c
+@@ -218,8 +218,7 @@ struct drm_gpuvm *msm_kms_init_vm(struct drm_device *dev, struct device *mdss_de
+ 
+ void msm_drm_kms_unregister(struct device *dev)
+ {
+-	struct platform_device *pdev = to_platform_device(dev);
+-	struct msm_drm_private *priv = platform_get_drvdata(pdev);
++	struct msm_drm_private *priv = msm_drm_get_priv(dev);
+ 	struct drm_device *ddev = priv->dev;
+ 
+ 	drm_atomic_helper_shutdown(ddev);
+@@ -227,8 +226,7 @@ void msm_drm_kms_unregister(struct device *dev)
+ 
+ void msm_drm_kms_uninit(struct device *dev)
+ {
+-	struct platform_device *pdev = to_platform_device(dev);
+-	struct msm_drm_private *priv = platform_get_drvdata(pdev);
++	struct msm_drm_private *priv = msm_drm_get_priv(dev);
+ 	struct drm_device *ddev = priv->dev;
+ 	struct msm_kms *kms = priv->kms;
+ 	int i;
+@@ -262,7 +260,7 @@ void msm_drm_kms_uninit(struct device *dev)
+ 
+ int msm_drm_kms_init(struct device *dev, const struct drm_driver *drv)
+ {
+-	struct msm_drm_private *priv = dev_get_drvdata(dev);
++	struct msm_drm_private *priv = msm_drm_get_priv(dev);
+ 	struct drm_device *ddev = priv->dev;
+ 	struct msm_kms *kms = priv->kms;
+ 	struct drm_crtc *crtc;
+@@ -341,7 +339,7 @@ int msm_drm_kms_init(struct device *dev, const struct drm_driver *drv)
+ 
+ int msm_kms_pm_prepare(struct device *dev)
+ {
+-	struct msm_drm_private *priv = dev_get_drvdata(dev);
++	struct msm_drm_private *priv = msm_drm_get_priv(dev);
+ 	struct drm_device *ddev = priv ? priv->dev : NULL;
+ 
+ 	if (!priv || !priv->kms)
+@@ -352,7 +350,7 @@ int msm_kms_pm_prepare(struct device *dev)
+ 
+ void msm_kms_pm_complete(struct device *dev)
+ {
+-	struct msm_drm_private *priv = dev_get_drvdata(dev);
++	struct msm_drm_private *priv = msm_drm_get_priv(dev);
+ 	struct drm_device *ddev = priv ? priv->dev : NULL;
+ 
+ 	if (!priv || !priv->kms)
+@@ -363,7 +361,7 @@ void msm_kms_pm_complete(struct device *dev)
+ 
+ void msm_kms_shutdown(struct platform_device *pdev)
+ {
+-	struct msm_drm_private *priv = platform_get_drvdata(pdev);
++	struct msm_drm_private *priv = msm_drm_get_priv(&pdev->dev);
+ 	struct drm_device *drm = priv ? priv->dev : NULL;
+ 
+ 	/*
+@@ -379,8 +377,7 @@ void msm_kms_shutdown(struct platform_device *pdev)
+ 
+ void msm_drm_kms_post_init(struct device *dev)
+ {
+-	struct platform_device *pdev = to_platform_device(dev);
+-	struct msm_drm_private *priv = platform_get_drvdata(pdev);
++	struct msm_drm_private *priv = msm_drm_get_priv(dev);
+ 	struct drm_device *ddev = priv->dev;
+ 
+ 	drm_kms_helper_poll_init(ddev);

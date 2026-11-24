@@ -1,0 +1,224 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Thu, 19 Nov 2026 16:24:08 +0800
+Subject: [PATCH 15/38] drm/msm/dp: add support for sending VCPF packets in DP
+ controller
+
+The VC Payload Fill (VCPF) sequence is inserted by the DP controller
+when stream symbols are absent, typically before a stream is disabled.
+Add support for triggering the VCPF sequence in the MSM DP controller.
+
+VCPF completion events for streams 2 and 3 are reported in STATUS7,
+while streams 0 and 1 use STATUS5.
+
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 86 +++++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/dp/dp_ctrl.h    |  1 +
+ drivers/gpu/drm/msm/dp/dp_display.c |  2 +-
+ drivers/gpu/drm/msm/dp/dp_reg.h     | 12 ++++
+ 4 files changed, 100 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index 33645eceb..dc89df73a 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -65,6 +65,16 @@
+ 	(PSR_UPDATE_MASK | PSR_CAPTURE_MASK | PSR_EXIT_MASK | \
+ 	PSR_UPDATE_ERROR_MASK | PSR_WAKE_ERROR_MASK)
+ 
++#define DP_INTERRUPT_STATUS5 \
++	(DP_INTR_MST_DP0_VCPF_SENT | DP_INTR_MST_DP1_VCPF_SENT)
++#define DP_INTERRUPT_STATUS5_MASK \
++	(DP_INTERRUPT_STATUS5 << DP_INTERRUPT_STATUS_MASK_SHIFT)
++
++#define DP_INTERRUPT_STATUS7 \
++	(DP_INTR_MST_DP2_VCPF_SENT | DP_INTR_MST_DP3_VCPF_SENT)
++#define DP_INTERRUPT_STATUS7_MASK \
++	(DP_INTERRUPT_STATUS7 << DP_INTERRUPT_STATUS_MASK_SHIFT)
++
+ #define DP_CTRL_INTR_READY_FOR_VIDEO     BIT(0)
+ #define DP_CTRL_INTR_IDLE_PATTERN_SENT  BIT(3)
+ 
+@@ -351,6 +361,12 @@ void msm_dp_ctrl_enable_irq(struct msm_dp_ctrl *msm_dp_ctrl)
+ 			DP_INTERRUPT_STATUS1_MASK);
+ 	msm_dp_write_ahb(ctrl, REG_DP_INTR_STATUS2,
+ 			DP_INTERRUPT_STATUS2_MASK);
++	msm_dp_write_ahb(ctrl, REG_DP_INTR_STATUS5,
++			 DP_INTERRUPT_STATUS5_MASK);
++	if (ctrl->num_pixel_clks > DP_STREAM_2) {
++		msm_dp_write_ahb(ctrl, REG_DP_INTR_STATUS7,
++				 DP_INTERRUPT_STATUS7_MASK);
++	}
+ }
+ 
+ void msm_dp_ctrl_disable_irq(struct msm_dp_ctrl *msm_dp_ctrl)
+@@ -360,6 +376,9 @@ void msm_dp_ctrl_disable_irq(struct msm_dp_ctrl *msm_dp_ctrl)
+ 
+ 	msm_dp_write_ahb(ctrl, REG_DP_INTR_STATUS, 0x00);
+ 	msm_dp_write_ahb(ctrl, REG_DP_INTR_STATUS2, 0x00);
++	msm_dp_write_ahb(ctrl, REG_DP_INTR_STATUS5, 0x00);
++	if (ctrl->num_pixel_clks > DP_STREAM_2)
++		msm_dp_write_ahb(ctrl, REG_DP_INTR_STATUS7, 0x00);
+ }
+ 
+ static u32 msm_dp_ctrl_get_psr_interrupt(struct msm_dp_ctrl_private *ctrl)
+@@ -379,6 +398,34 @@ static void msm_dp_ctrl_config_psr_interrupt(struct msm_dp_ctrl_private *ctrl)
+ 	msm_dp_write_ahb(ctrl, REG_DP_INTR_MASK4, DP_INTERRUPT_MASK4);
+ }
+ 
++static u32 msm_dp_ctrl_get_mst_vcpf_interrupt_0_1(struct msm_dp_ctrl_private *ctrl)
++{
++	u32 intr, intr_ack;
++
++	intr = msm_dp_read_ahb(ctrl, REG_DP_INTR_STATUS5);
++	intr &= ~DP_INTERRUPT_STATUS5_MASK;
++	intr_ack = (intr & DP_INTERRUPT_STATUS5)
++			<< DP_INTERRUPT_STATUS_ACK_SHIFT;
++	msm_dp_write_ahb(ctrl, REG_DP_INTR_STATUS5,
++			 intr_ack | DP_INTERRUPT_STATUS5_MASK);
++
++	return intr & DP_INTERRUPT_STATUS5;
++}
++
++static u32 msm_dp_ctrl_get_mst_vcpf_interrupt_2_3(struct msm_dp_ctrl_private *ctrl)
++{
++	u32 intr, intr_ack;
++
++	intr = msm_dp_read_ahb(ctrl, REG_DP_INTR_STATUS7);
++	intr &= ~DP_INTERRUPT_STATUS7_MASK;
++	intr_ack = (intr & DP_INTERRUPT_STATUS7)
++			<< DP_INTERRUPT_STATUS_ACK_SHIFT;
++	msm_dp_write_ahb(ctrl, REG_DP_INTR_STATUS7,
++			 intr_ack | DP_INTERRUPT_STATUS7_MASK);
++
++	return intr & DP_INTERRUPT_STATUS7;
++}
++
+ static void msm_dp_ctrl_psr_mainlink_enable(struct msm_dp_ctrl_private *ctrl)
+ {
+ 	u32 val;
+@@ -478,6 +525,35 @@ void msm_dp_ctrl_push_idle(struct msm_dp_ctrl *msm_dp_ctrl)
+ 	drm_dbg_dp(ctrl->drm_dev, "mainlink off\n");
+ }
+ 
++/* Must be called with msm_dp_mst::mst_lock held */
++void msm_dp_ctrl_push_vcpf(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *msm_dp_panel)
++{
++	struct msm_dp_ctrl_private *ctrl;
++	u32 state = 0x0;
++
++	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
++
++	if (!ctrl->mst_mode) {
++		msm_dp_ctrl_push_idle(msm_dp_ctrl);
++		return;
++	}
++
++	if (msm_dp_panel->stream_id == DP_STREAM_0)
++		state |= DP_STATE_CTRL_DP0_PUSH_VCPF;
++	else if (msm_dp_panel->stream_id == DP_STREAM_1)
++		state |= DP_STATE_CTRL_DP1_PUSH_VCPF;
++	else
++		state |= DP_MSTLINK_PUSH_VCPF;
++
++	reinit_completion(&ctrl->idle_comp);
++
++	msm_dp_write_stream_link(ctrl, msm_dp_panel->stream_id, REG_DP_STATE_CTRL, state);
++
++	if (!wait_for_completion_timeout(&ctrl->idle_comp,
++			IDLE_PATTERN_COMPLETION_TIMEOUT_JIFFIES))
++		pr_warn("PUSH_VCPF pattern timedout\n");
++}
++
+ static void msm_dp_ctrl_config_ctrl_streams(struct msm_dp_ctrl_private *ctrl,
+ 					    struct msm_dp_panel *msm_dp_panel)
+ {
+@@ -2814,6 +2890,16 @@ irqreturn_t msm_dp_ctrl_isr(struct msm_dp_ctrl *msm_dp_ctrl,
+ 		ret = IRQ_HANDLED;
+ 	}
+ 
++	isr = msm_dp_ctrl_get_mst_vcpf_interrupt_0_1(ctrl);
++	if (ctrl->num_pixel_clks > DP_STREAM_2)
++		isr |= msm_dp_ctrl_get_mst_vcpf_interrupt_2_3(ctrl);
++
++	if (isr & (DP_INTR_MST_DP0_VCPF_SENT | DP_INTR_MST_DP1_VCPF_SENT |
++		   DP_INTR_MST_DP2_VCPF_SENT | DP_INTR_MST_DP3_VCPF_SENT)) {
++		complete(&ctrl->idle_comp);
++		ret = IRQ_HANDLED;
++	}
++
+ 	/* DP aux isr */
+ 	isr = msm_dp_ctrl_get_aux_interrupt(ctrl);
+ 	if (isr)
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.h b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+index 41a694470..84ea37d8d 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.h
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+@@ -27,6 +27,7 @@ void msm_dp_ctrl_off_link(struct msm_dp_ctrl *msm_dp_ctrl,
+ 			  struct msm_dp_panel *panel);
+ void msm_dp_ctrl_off_pixel_clk(struct msm_dp_ctrl *msm_dp_ctrl, enum msm_dp_stream_id stream_id);
+ void msm_dp_ctrl_push_idle(struct msm_dp_ctrl *msm_dp_ctrl);
++void msm_dp_ctrl_push_vcpf(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *panel);
+ irqreturn_t msm_dp_ctrl_isr(struct msm_dp_ctrl *msm_dp_ctrl,
+ 			    struct msm_dp_panel *panel);
+ void msm_dp_ctrl_handle_sink_request(struct msm_dp_ctrl *msm_dp_ctrl,
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 15fdd4180..000a5d1e3 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -1524,7 +1524,7 @@ void msm_dp_display_atomic_disable(struct msm_dp *dp)
+ 	if (!dp->power_on)
+ 		return;
+ 
+-	msm_dp_ctrl_push_idle(msm_dp_display->ctrl);
++	msm_dp_ctrl_push_vcpf(msm_dp_display->ctrl, msm_dp_display->panel);
+ 	msm_dp_ctrl_mst_send_act(msm_dp_display->ctrl, msm_dp_display->panel);
+ }
+ 
+diff --git a/drivers/gpu/drm/msm/dp/dp_reg.h b/drivers/gpu/drm/msm/dp/dp_reg.h
+index cc74b1ed6..36cfd94ac 100644
+--- a/drivers/gpu/drm/msm/dp/dp_reg.h
++++ b/drivers/gpu/drm/msm/dp/dp_reg.h
+@@ -42,6 +42,9 @@
+ #define DP_INTR_FRAME_END		BIT(6)
+ #define DP_INTR_CRC_UPDATED		BIT(9)
+ 
++#define DP_INTR_MST_DP0_VCPF_SENT	BIT(0)
++#define DP_INTR_MST_DP1_VCPF_SENT	BIT(3)
++
+ #define REG_DP_INTR_STATUS3			(0x00000028)
+ 
+ #define REG_DP_INTR_STATUS4			(0x0000002C)
+@@ -58,6 +61,12 @@
+ #define PSR_UPDATE_ERROR_MASK			(0x00000008)
+ #define PSR_WAKE_ERROR_MASK			(0x00000010)
+ 
++#define REG_DP_INTR_STATUS5			(0x00000034)
++
++#define REG_DP_INTR_STATUS7			(0x000000FC)
++#define DP_INTR_MST_DP2_VCPF_SENT	BIT(18)
++#define DP_INTR_MST_DP3_VCPF_SENT	BIT(21)
++
+ #define REG_DP_DP_HPD_CTRL			(0x00000000)
+ #define DP_DP_HPD_CTRL_HPD_EN			(0x00000001)
+ 
+@@ -143,6 +152,8 @@
+ #define DP_STATE_CTRL_LINK_TEST_CUSTOM_PATTERN	(0x00000040)
+ #define DP_STATE_CTRL_SEND_VIDEO		(0x00000080)
+ #define DP_STATE_CTRL_PUSH_IDLE			(0x00000100)
++#define DP_STATE_CTRL_DP0_PUSH_VCPF		BIT(12)
++#define DP_STATE_CTRL_DP1_PUSH_VCPF		BIT(14)
+ 
+ #define REG_DP_CONFIGURATION_CTRL		(0x00000008)
+ #define DP_CONFIGURATION_CTRL_SYNC_ASYNC_CLK	(0x00000001)
+@@ -370,6 +381,7 @@
+ 
+ /* Streams 2/3 registers, relative to mst2link_base / mst3link_base. */
+ #define REG_DP_MSTLINK_STATE_CTRL		(0x00000000)
++#define DP_MSTLINK_PUSH_VCPF			BIT(12)
+ #define REG_DP_MSTLINK_CONFIGURATION_CTRL	(0x00000034)
+ #define REG_DP_MSTLINK_TIMESLOT_1_32		(0x00000038)
+ #define REG_DP_MSTLINK_TIMESLOT_33_63		(0x0000003c)

@@ -1,6 +1,7 @@
+From 9e692ef1f21fd1ed6cc10e2dd085daf7fb7aeae7 Mon Sep 17 00:00:00 2001
 From: Alex Robinson <alex@ironrobin.net>
-Subject: platform: arm64: Add Lenovo ThinkPad X13s EC driver
 Date: Sat, 10 Oct 2026 14:55:50 +0000
+Subject: [PATCH] platform: arm64: Add Lenovo ThinkPad X13s EC driver
 
 Add support for the ThinkPad X13s embedded controller to expose keyboard
 backlight control and firmware-driven brightness changes when booting
@@ -28,24 +29,18 @@ This follows earlier X13s EC work by Konrad Dybcio and Steev Klimaszewski.
 Assisted-by: LLM
 Signed-off-by: Alex Robinson <alex@ironrobin.net>
 ---
-Changes in v6:
-- Include irq.h explicitly for the IRQ trigger validation.
-- Retry failed low-power entry and exit writes once, matching the X13s
-  ECWS(..., 3) loop without changing ordinary EC writes or GPIO sequencing.
-
-Changes in v5:
-- Include dev_printk.h directly for device logging helpers.
-- Replace the private suspended/access-blocked flag and event deferral with
-  disable_irq()/enable_irq() and LED class suspend/resume helpers.
-- Flush the LED resume work before re-enabling the event IRQ.
-- Preserve the EC lid-restore brightness across PM blanking/restoration.
-- Restore lid-open brightness without a spurious hardware-change notification.
+ MAINTAINERS                                   |   6 +
+ drivers/platform/arm64/Kconfig                |  16 +
+ drivers/platform/arm64/Makefile               |   1 +
+ drivers/platform/arm64/lenovo-thinkpad-x13s.c | 424 ++++++++++++++++++
+ 4 files changed, 447 insertions(+)
+ create mode 100644 drivers/platform/arm64/lenovo-thinkpad-x13s.c
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index cc3cae2e378b34aeb705cef654c720ca9f2ba223..86ae65ac93e7575815f34dbc7a690042ad9ca3b0 100644
+index 5821d97ae..71307a975 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -27177,6 +27177,12 @@ S:	Maintained
+@@ -25583,6 +25583,12 @@ S:	Maintained
  F:	Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-t14s-ec.yaml
  F:	drivers/platform/arm64/lenovo-thinkpad-t14s.c
  
@@ -59,10 +54,10 @@ index cc3cae2e378b34aeb705cef654c720ca9f2ba223..86ae65ac93e7575815f34dbc7a690042
  M:	Mark Pearson <mpearson-lenovo@squebb.ca>
  L:	platform-driver-x86@vger.kernel.org
 diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kconfig
-index e32e01b2a9bdd970d6f2b2bf6b051472c9a16103..eb0b84e5a93733ca16fc871ea94eda30f5760b3c 100644
+index 10f905d7d..c279e4666 100644
 --- a/drivers/platform/arm64/Kconfig
 +++ b/drivers/platform/arm64/Kconfig
-@@ -90,6 +90,22 @@ config EC_LENOVO_THINKPAD_T14S
+@@ -90,4 +90,20 @@ config EC_LENOVO_THINKPAD_T14S
  
  	  Say M or Y here to include this support.
  
@@ -82,22 +77,19 @@ index e32e01b2a9bdd970d6f2b2bf6b051472c9a16103..eb0b84e5a93733ca16fc871ea94eda30
 +	  To compile this driver as a module, choose M here: the module will
 +	  be called lenovo-thinkpad-x13s.
 +
- config EC_QCOM_HAMOA
- 	tristate "Embedded Controller driver for Qualcomm Hamoa/Glymur reference devices"
- 	depends on ARCH_QCOM || COMPILE_TEST
+ endif # ARM64_PLATFORM_DEVICES
 diff --git a/drivers/platform/arm64/Makefile b/drivers/platform/arm64/Makefile
-index 7681be4a46e94e7cb80e50bcc5b724cb0961357b..23ed6eef7ce41a5f45d48f5f83b281ebbca94cbb 100644
+index 60c131cff..49941761f 100644
 --- a/drivers/platform/arm64/Makefile
 +++ b/drivers/platform/arm64/Makefile
-@@ -9,4 +9,5 @@ obj-$(CONFIG_EC_ACER_ASPIRE1)	+= acer-aspire1-ec.o
+@@ -9,3 +9,4 @@ obj-$(CONFIG_EC_ACER_ASPIRE1)	+= acer-aspire1-ec.o
  obj-$(CONFIG_EC_HUAWEI_GAOKUN)	+= huawei-gaokun-ec.o
  obj-$(CONFIG_EC_LENOVO_YOGA_C630) += lenovo-yoga-c630.o
  obj-$(CONFIG_EC_LENOVO_THINKPAD_T14S) += lenovo-thinkpad-t14s.o
 +obj-$(CONFIG_EC_LENOVO_THINKPAD_X13S) += lenovo-thinkpad-x13s.o
- obj-$(CONFIG_EC_QCOM_HAMOA) += qcom-hamoa-ec.o
 diff --git a/drivers/platform/arm64/lenovo-thinkpad-x13s.c b/drivers/platform/arm64/lenovo-thinkpad-x13s.c
 new file mode 100644
-index 0000000000000000000000000000000000000000..4447e9e49e705650a65d9a49ef9802b40de9368b
+index 000000000..4447e9e49
 --- /dev/null
 +++ b/drivers/platform/arm64/lenovo-thinkpad-x13s.c
 @@ -0,0 +1,424 @@

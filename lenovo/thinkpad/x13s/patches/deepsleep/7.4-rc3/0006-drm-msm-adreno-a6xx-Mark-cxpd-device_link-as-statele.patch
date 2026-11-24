@@ -1,0 +1,87 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Date: Fri, 30 Oct 2026 22:39:23 +0530
+Subject: [PATCH 06/12] drm/msm/adreno/a6xx: Mark cxpd device_link as stateless
+
+Since the cxpd virtual device is a driverless device, it has no real
+struct device_driver bound to it the way a normal platform device does. So,
+the managed lifecycle doesn't map cleanly onto it. Since the lifecycle of
+this device_link is managed by the msm driver, pass DL_FLAG_STATELESS
+together with the existing DL_FLAG_PM_RUNTIME flag.
+
+This fix is required to avoid the below splat when a driver is attached to
+the GMU:
+
+[    9.624509] WARNING: drivers/base/core.c:1383 at dvice_links_driver_bound+0x178/0x330, CPU#6: (udev-worker)/354e
+[    9.781167] pc : device_links_driver_bound+0x178/0x330
+[    9.786456] lr : device_links_driver_bound+0x158/0x330
+[    9.798622] sp : ffff8000827bb820
+[    9.802042] x29: ffff8000827bb820 x28: ffff000808915800 x27: 0000000000000044
+[    9.809573] x26: ffffb7caf3f983d0 x25: 0000000000000003 x24: ffffb7caf41645a0
+[    9.816920] x23: ffffb7caf3f982d8 x22: ffff000801239cb8 x21: ffff000801239c10
+[    9.816921] x20: ffff00080b3a8c00 x19: ffff000801239c98 x18: 00000000ffffffff
+[    9.816922] x17: 736d5b2073706f5f x16: ffffb7caf1eb5940 x15: ffff8001027bb3b7
+[    9.816922] x14: 0000000000000026 x13: ffff00080084c110 x12: 0000000000000000
+[    9.816923] x11: ffff0008004a5828 x10: ffff0008004a56d0 x9 : ffffb7caf2227870
+[    9.816924] x8 : ffff0008004a56f8 x7 : 0000000000000001 x6 : 0000000000001000ocket.
+[    9.816925] x5 : 00000000001a7fbf x4 : ffff0008004a56e8 x3 : ffff000801238cc8
+[    9.816926] x2 : ffffb7caf4164000 x1 : ffff000801239c10 x0 : 0000000000000000
+[    9.816927] Call trace:
+[    9.816927]  device_links_driver_bound+0x178/0x330 (P)
+[    9.893492]  driver_bound+0x7c/0xd0
+[    9.893493]  really_probe+0x208/0x2a8
+[    9.893495]  __driver_probe_device+0x88/0x170
+[    9.893496]  driver_probe_device+0x44/0x178
+[    9.909639]  __driver_attach+0x9c/0x1b8
+[    9.913592]  bus_for_each_dev+0x7c/0xe8System Message Bus Socket.
+[    9.925839]  driver_attach+0x2c/0x40
+[    9.929733]  bus_add_driver+0xec/0x218
+[    9.933609]  driver_register+0x68/0x138
+[    9.937555]  __platform_driver_register+0x2c/0x40
+[    9.937556]  adreno_gmu_register+0x2c/0x40 [msm]
+[    9.947141]  adreno_register+0x3c/0x50 [msm]
+[    9.951544]  msm_drm_register+0x50/0x78 [msm]for the API...
+[    9.962813]  do_one_initcall+0x4c/0x3e0
+[    9.966975]  do_init_module+0x60/0x280
+[    9.970849]  load_module+0x1c70/0x1fa0
+[    9.974708]  init_module_from_file+0xdc/0x100
+[    9.979188]  __arm64_sys_finit_module+0x1c0/0x2e0
+[    9.984026]  invoke_syscall+0x5c/0x120
+[    9.987882]  el0_svc_common.constprop.0+0xd0/0xf8
+[    9.992715]  do_el0_svc+0x28/0x40
+[    9.995243] qcom_q6v5_pas 6800000.remoteproc: Handover signaled, but it already happened
+[    9.996128]  el0_svc+0x38/0x148
+[   10.007672]  el0t_64_sync_handler+0xa0/0xe8
+[   10.011975]  el0t_64_sync+0x198/0x1a0
+
+Fixes: ead5d3e5eb37 ("drm/msm/a6xx: Vote for cx gdsc from gpu driver")
+Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 662f09bec..5d96b55a6 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -2291,7 +2291,8 @@ int a6xx_gmu_wrapper_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+ 		goto err_mmio;
+ 	}
+ 
+-	if (!device_link_add(gmu->dev, gmu->cxpd, DL_FLAG_PM_RUNTIME)) {
++	if (!device_link_add(gmu->dev, gmu->cxpd,
++			     DL_FLAG_PM_RUNTIME | DL_FLAG_STATELESS)) {
+ 		ret = -ENODEV;
+ 		goto detach_cxpd;
+ 	}
+@@ -2478,7 +2479,8 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+ 		goto err_mmio;
+ 	}
+ 
+-	cx_link = device_link_add(gmu->dev, gmu->cxpd, DL_FLAG_PM_RUNTIME);
++	cx_link = device_link_add(gmu->dev, gmu->cxpd,
++				  DL_FLAG_PM_RUNTIME | DL_FLAG_STATELESS);
+ 	if (!cx_link) {
+ 		ret = -ENODEV;
+ 		goto detach_cxpd;
