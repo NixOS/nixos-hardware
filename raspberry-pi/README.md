@@ -202,8 +202,7 @@ If you use PulseAudio, the module also provides a default configuration to avoid
 
 ## FKMS
 
-The default KMS configuration lets the kernel control the display.
-For firmware-assisted display control (FKMS) on Pi 2, 3, or 4:
+To use firmware-assisted display control (FKMS) instead of the default KMS driver on Pi 2, 3, or 4:
 
 ```nix
 {
@@ -211,24 +210,11 @@ For firmware-assisted display control (FKMS) on Pi 2, 3, or 4:
 }
 ```
 
-The board profiles import this module from `common/modesetting.nix`.
-It loads `vc4-fkms-v3d`, removes the default KMS overlay, and preserves the X11 driver order.
-`hardware.raspberry-pi.fkms-3d.cma` uses MiB and defaults to `512`.
-Remove any manually configured KMS overlays that match the same board.
+On a running system, also enable [firmware installation](#firmware-install).
+`hardware.raspberry-pi.fkms-3d.cma` sets the amount of contiguous memory in MiB and defaults to `512`.
 Pi 5 does not support FKMS.
 
-With FKMS enabled, use the audio module and this kernel parameter for HDMI audio:
-
-```nix
-{
-  hardware.raspberry-pi.audio.enable = true;
-  boot.kernelParams = [ "snd_bcm2835.enable_hdmi=1" ];
-}
-```
-
-The module selects the firmware-provided device tree.
-Before enabling it, migrate changes that exist only in a generation's `hardware.deviceTree.overlays`.
-See "Device tree overlays" above for firmware installation.
+For HDMI audio with FKMS, set `hardware.raspberry-pi.audio.enable = true` and add `"snd_bcm2835.enable_hdmi=1"` to `boot.kernelParams`.
 
 ## Current limits
 
