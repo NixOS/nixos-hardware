@@ -1,0 +1,113 @@
+diff --git a/config/linux/ipu75xa/sensors/ov08x40-uf.json b/config/linux/ipu75xa/sensors/ov08x40-uf.json
+index ff31df5..e9cd2a4 100644
+--- a/config/linux/ipu75xa/sensors/ov08x40-uf.json
++++ b/config/linux/ipu75xa/sensors/ov08x40-uf.json
+@@ -186,6 +186,9 @@
+         "initialSkipFrame": 0,
+         "exposureLag":  2,
+         "gainLag": 2,
++        // AIQ codes are the 0x3508 register value (1x = 256); the in-tree
++        // ov08x40 driver takes V4L2_CID_ANALOGUE_GAIN as register / 2 (1x = 128).
++        "analogGainCodeShift": 1,
+         "digitalGainLag": 0,
+         "ltmGainLag": 1,
+         // There are 2 yuv color range mode, like full, reduced.
+diff --git a/config/linux/ipu7x/sensors/ov08x40-uf.json b/config/linux/ipu7x/sensors/ov08x40-uf.json
+index 7123d45..ae96393 100644
+--- a/config/linux/ipu7x/sensors/ov08x40-uf.json
++++ b/config/linux/ipu7x/sensors/ov08x40-uf.json
+@@ -186,6 +186,9 @@
+         "initialSkipFrame": 0,
+         "exposureLag":  2,
+         "gainLag": 2,
++        // AIQ codes are the 0x3508 register value (1x = 256); the in-tree
++        // ov08x40 driver takes V4L2_CID_ANALOGUE_GAIN as register / 2 (1x = 128).
++        "analogGainCodeShift": 1,
+         "digitalGainLag": 0,
+         "ltmGainLag": 1,
+         // There are 2 yuv color range mode, like full, reduced.
+diff --git a/src/core/SensorHwCtrl.cpp b/src/core/SensorHwCtrl.cpp
+index 65d26b7..6fe740e 100644
+--- a/src/core/SensorHwCtrl.cpp
++++ b/src/core/SensorHwCtrl.cpp
+@@ -242,9 +242,12 @@ int SensorHwCtrl::setAnalogGains(const vector<int>& analogGains) {
+     }
+     // CRL_MODULE_E
+ 
+-    LOG2("%s analogGain=%d", __func__, analogGains[0]);
+-    int status = mPixelArraySubdev->SetControl(V4L2_CID_ANALOGUE_GAIN, analogGains[0]);
+-    CheckAndLogError((status != 0), status, "failed to set analog gain %d.", analogGains[0]);
++    // AIQ produces the sensor's register code; some drivers expose the gain in
++    // coarser units (e.g. ov08x40 takes code / 2), so scale it down to match.
++    const int analogGain = analogGains[0] >> PlatformData::getAnalogGainCodeShift(mCameraId);
++    LOG2("%s analogGain=%d", __func__, analogGain);
++    int status = mPixelArraySubdev->SetControl(V4L2_CID_ANALOGUE_GAIN, analogGain);
++    CheckAndLogError((status != 0), status, "failed to set analog gain %d.", analogGain);
+ 
+     return OK;
+ }
+diff --git a/src/platformdata/CameraSensorsParser.cpp b/src/platformdata/CameraSensorsParser.cpp
+index 4212ae4..4144909 100644
+--- a/src/platformdata/CameraSensorsParser.cpp
++++ b/src/platformdata/CameraSensorsParser.cpp
+@@ -815,6 +815,9 @@ void CameraSensorsParser::parseSensorSection(const Json::Value& node) {
+     if (node.isMember("gainLag")) {
+         mCurCam->mAnalogGainLag = node["gainLag"].asInt();
+     }
++    if (node.isMember("analogGainCodeShift")) {
++        mCurCam->mAnalogGainCodeShift = node["analogGainCodeShift"].asInt();
++    }
+     if (node.isMember("digitalGainLag")) {
+         mCurCam->mDigitalGainLag = node["digitalGainLag"].asInt();
+     }
+diff --git a/src/platformdata/PlatformData.cpp b/src/platformdata/PlatformData.cpp
+index 7e25e61..d4b7cd3 100644
+--- a/src/platformdata/PlatformData.cpp
++++ b/src/platformdata/PlatformData.cpp
+@@ -379,6 +379,10 @@ int PlatformData::getDigitalGainLag(int cameraId) {
+     return getInstance()->mStaticCfg.mCameras[cameraId].mDigitalGainLag;
+ }
+ 
++int PlatformData::getAnalogGainCodeShift(int cameraId) {
++    return getInstance()->mStaticCfg.mCameras[cameraId].mAnalogGainCodeShift;
++}
++
+ int PlatformData::getExposureLag(int cameraId) {
+     return getInstance()->mStaticCfg.mCameras[cameraId].mExposureLag;
+ }
+diff --git a/src/platformdata/PlatformData.h b/src/platformdata/PlatformData.h
+index 8f1f84d..bfc8e6e 100644
+--- a/src/platformdata/PlatformData.h
++++ b/src/platformdata/PlatformData.h
+@@ -211,6 +211,7 @@ class PlatformData {
+                       mDigitalGainLag(-1),
+                       mExposureLag(MAX_BUFFER_COUNT),
+                       mAnalogGainLag(0),
++                      mAnalogGainCodeShift(0),
+                       mMaxSensorDigitalGain(0),
+                       mSensorDgType(SensorDgType::SENSOR_DG_TYPE_NONE),
+                       mISysFourcc(V4L2_PIX_FMT_SGRBG8),
+@@ -296,6 +297,7 @@ class PlatformData {
+             int mDigitalGainLag;
+             int mExposureLag;
+             int mAnalogGainLag;
++            int mAnalogGainCodeShift;
+             int mMaxSensorDigitalGain;
+             SensorDgType mSensorDgType;
+             std::string mCustomAicLibraryName;
+@@ -843,6 +845,15 @@ class PlatformData {
+      * \return the value of digital gain lag
+      */
+     static int getDigitalGainLag(int cameraId);
++
++    /**
++     * Get the right shift from AIQ analog gain codes to the sensor driver's
++     * V4L2_CID_ANALOGUE_GAIN units
++     *
++     * \param cameraId: [0, MAX_CAMERA_NUMBER - 1]
++     * \return the shift, 0 when the driver takes AIQ codes as they are
++     */
++    static int getAnalogGainCodeShift(int cameraId);
+     /**
+      * Get sensor's exposure lag
+      *
