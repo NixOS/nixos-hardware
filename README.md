@@ -375,6 +375,7 @@ See code for all available configurations.
 | [Lenovo ThinkPad X1 (11th Gen)](lenovo/thinkpad/x1/11th-gen)                      | `<nixos-hardware/lenovo/thinkpad/x1/11th-gen>`          | `lenovo-thinkpad-x1-11th-gen`          |
 | [Lenovo ThinkPad X1 (12th Gen)](lenovo/thinkpad/x1/12th-gen)                      | `<nixos-hardware/lenovo/thinkpad/x1/12th-gen>`          | `lenovo-thinkpad-x1-12th-gen`          |
 | [Lenovo ThinkPad X1 (13th Gen)](lenovo/thinkpad/x1/13th-gen)                      | `<nixos-hardware/lenovo/thinkpad/x1/13th-gen>`          | `lenovo-thinkpad-x1-13th-gen`          |
+| [Lenovo ThinkPad X1 (14th Gen)](lenovo/thinkpad/x1/14th-gen)                      | `<nixos-hardware/lenovo/thinkpad/x1/14th-gen>`          | `lenovo-thinkpad-x1-14th-gen`          |
 | [Lenovo ThinkPad X1 Extreme Gen 2](lenovo/thinkpad/x1-extreme/gen2)               | `<nixos-hardware/lenovo/thinkpad/x1-extreme/gen2>`      | `lenovo-thinkpad-x1-extreme-gen2`      |
 | [Lenovo ThinkPad X1 Extreme Gen 3](lenovo/thinkpad/x1-extreme/gen3)               | `<nixos-hardware/lenovo/thinkpad/x1-extreme/gen3>`      | `lenovo-thinkpad-x1-extreme-gen3`      |
 | [Lenovo ThinkPad X1 Extreme Gen 4](lenovo/thinkpad/x1-extreme/gen4)               | `<nixos-hardware/lenovo/thinkpad/x1-extreme/gen4>`      | `lenovo-thinkpad-x1-extreme-gen4`      |
