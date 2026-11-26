@@ -17,10 +17,10 @@ Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
  3 files changed, 266 insertions(+)
 
 diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-index 2a6d35a64d5c..1eb5abbc61f9 100644
+index dda420900aa2..316550687de5 100644
 --- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
 +++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-@@ -205,6 +205,44 @@ phy0: phy@1 {
+@@ -315,6 +315,44 @@ uboot@210000 {
  	};
  };
  
@@ -66,11 +66,11 @@ index 2a6d35a64d5c..1eb5abbc61f9 100644
  	pinctrl-names = "default";
  	pinctrl-0 = <&uart0_0_cfg>;
 diff --git a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-index 3ee1471f3798..68aa21a5279f 100644
+index cb4f4f4e33af..1b19979f150c 100644
 --- a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
 +++ b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-@@ -689,4 +689,37 @@ uart0-0-pins {
- 			drive-strength = <25>;
+@@ -788,4 +788,37 @@ mmc1-uhs-clk-pins {
+ 			power-source = <1800>;
  		};
  	};
 +
@@ -108,12 +108,12 @@ index 3ee1471f3798..68aa21a5279f 100644
 +	};
  };
 diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
-index 7863ab7dd308..314dea88b4a4 100644
+index 11c7e8744bfd..88a967bbcf04 100644
 --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
 +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-@@ -439,6 +439,201 @@ soc: soc {
- 		dma-noncoherent;
- 		ranges;
+@@ -501,6 +501,201 @@ usb3c_u2phy: phy@81800000 {
+ 			status = "disabled";
+ 		};
  
 +		pcie0_rc: pcie@80000000 {
 +			compatible = "spacemit,k3-pcie";
