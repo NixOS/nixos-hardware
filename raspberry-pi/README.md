@@ -200,6 +200,22 @@ To enable the headphone jack on Raspberry Pi 2, 3, or 4:
 The audio module loads the [`snd_bcm2835` kernel module](https://github.com/raspberrypi/linux/blob/rpi-6.18.y/drivers/staging/vc04_services/bcm2835-audio/bcm2835.c) to enable headphone audio.
 If you use PulseAudio, the module also provides a default configuration to avoid audio glitches.
 
+## FKMS
+
+To use firmware-assisted display control (FKMS) instead of the default KMS driver on Pi 2, 3, or 4:
+
+```nix
+{
+  hardware.raspberry-pi.fkms-3d.enable = true;
+}
+```
+
+On a running system, also enable [firmware installation](#firmware-install).
+`hardware.raspberry-pi.fkms-3d.cma` sets the amount of contiguous memory in MiB and defaults to `512`.
+Pi 5 does not support FKMS.
+
+For HDMI audio with FKMS, set `hardware.raspberry-pi.audio.enable = true` and add `"snd_bcm2835.enable_hdmi=1"` to `boot.kernelParams`.
+
 ## Current limits
 
 - No bootloader module: There's no `boot.loader.raspberry-pi` here.
