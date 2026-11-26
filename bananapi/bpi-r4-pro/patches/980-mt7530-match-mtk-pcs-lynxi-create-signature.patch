@@ -1,0 +1,30 @@
+mt7530: update mtk_pcs_lynxi_create() call to the reworked signature
+
+The curated OpenWrt MT7988 net delta (openwrt-mt7988-net.patch) reworks
+pcs-mtk-lynxi: mtk_pcs_lynxi_create() gained a `struct fwnode_handle *fwnode`
+2nd parameter and dropped the trailing arg, becoming
+
+    mtk_pcs_lynxi_create(struct device *dev, struct fwnode_handle *fwnode,
+                         struct regmap *regmap, u32 ana_rgc3)
+
+but the mainline mt7530-mdio.c caller (not part of that delta) still used the
+old 4-arg form `(dev, regmap, ana_rgc3, 0)`. That mismatch compiles only with
+-Wno-error=incompatible-pointer-types -Wno-error=int-conversion (regmap passed
+where fwnode is expected; the integer ana_rgc3 passed where regmap is expected
+-> a real latent type bug on the mt7530/lan5 SerDes PCS path). Update the call
+to the new signature (matching frank-w/OpenWrt's mt7530-mdio.c) so it builds
+clean and we can drop those KCFLAGS downgrades.
+
+--- a/drivers/net/dsa/mt7530-mdio.c
++++ b/drivers/net/dsa/mt7530-mdio.c
+@@ -113,8 +113,8 @@ static int mt7531_create_sgmii(struct mt7530_priv *priv)
+ 			ret = PTR_ERR(regmap);
+ 			break;
+ 		}
+-		pcs = mtk_pcs_lynxi_create(priv->dev, regmap,
+-					   MT7531_PHYA_CTRL_SIGNAL3, 0);
++		pcs = mtk_pcs_lynxi_create(priv->dev, NULL, regmap,
++					   MT7531_PHYA_CTRL_SIGNAL3);
+ 		if (!pcs) {
+ 			ret = -ENXIO;
+ 			break;

@@ -1,0 +1,71 @@
+--- a/drivers/net/pcs/pcs-mtk-usxgmii.c
++++ b/drivers/net/pcs/pcs-mtk-usxgmii.c
+@@ -89,6 +89,8 @@
+ 	struct fwnode_handle		*fwnode;
+ 	phy_interface_t			interface;
+ 	unsigned int			neg_mode;
++	bool				seen_link;
++	bool				link_up_done;
+ 	struct list_head		node;
+ };
+ 
+@@ -214,6 +216,9 @@
+ 		link_timer);
+ 
+ 	mpcs->neg_mode = neg_mode;
++	/* A reconfig resets the line side; require a fresh link-up before the
++	 * get_state path is again allowed to kick a stuck AN (see there). */
++	mpcs->seen_link = false;
+ 
+ 	/* Gated MAC CK */
+ 	mtk_m32(mpcs, RG_PHY_TOP_SPEED_CTRL1,
+@@ -334,12 +339,22 @@
+ 	state->link = FIELD_GET(RG_PCS_RX_LINK_STATUS,
+ 				mtk_r32(mpcs, RG_PCS_RX_STATUS0));
+ 
+-	/* Continuously repeat re-configuration sequence until link comes up */
++	/* Re-run the configuration sequence to kick a stuck AN, but ONLY during
++	 * initial bring-up (before the link has come up since the last config).
++	 * Once the link has been up, a transient down-read must NOT trigger a
++	 * full PCS reset: on the AS21010 USXGMII link a marginal AN status
++	 * occasionally reads down after link-up, and resetting here turns that
++	 * into a self-sustaining flap (Link Up 1Gbps -> Down at the poll rate,
++	 * while the copper side stays solidly up). Report the down without
++	 * resetting and let the next poll recover.
++	 */
+ 	if (!state->link) {
+-		mtk_usxgmii_pcs_config(pcs, mpcs->neg_mode,
+-				       state->interface, NULL, false);
++		if (!mpcs->seen_link)
++			mtk_usxgmii_pcs_config(pcs, mpcs->neg_mode,
++					       state->interface, NULL, false);
+ 		return;
+ 	}
++	mpcs->seen_link = true;
+ 
+ 	if (FIELD_GET(USXGMII_AN_ENABLE, mtk_r32(mpcs, RG_PCS_AN_CTRL0)))
+ 		mtk_usxgmii_pcs_get_an_state(mpcs, state);
+@@ -361,11 +376,22 @@
+ 	struct mtk_usxgmii_pcs *mpcs = pcs_to_mtk_usxgmii_pcs(pcs);
+ 
+ 	/* Reconfiguring USXGMII to ensure the quality of the RX signal
+-	 * after the line side link up.
++	 * after the line side link up — but do it only ONCE. phylink calls
++	 * pcs_link_up on EVERY link-up event; the reset (pcs_config + phy_reset)
++	 * tears the line down again, so on the AS21010 USXGMII link (whose AN
++	 * re-negotiates after a reset) doing it every time is a self-sustaining
++	 * flap: reset -> Link Down -> AN relocks -> Link Up -> reset (exactly one
++	 * poll, ~1s, of "up" per cycle while the copper side stays solidly up).
++	 * link_up_done is NOT cleared by pcs_config(), so a genuine mac_config
++	 * (which does its own full reset) is unaffected.
+ 	 */
++	if (mpcs->link_up_done)
++		return;
++
+ 	mtk_usxgmii_pcs_config(pcs, neg_mode, interface, NULL, false);
+ 	phy_reset(mpcs->xfi_tphy);
+ 	phy_set_mode_ext(mpcs->xfi_tphy, PHY_MODE_ETHERNET, interface);
++	mpcs->link_up_done = true;
+ }
+ 
+ static int mtk_usxgmii_pcs_enable(struct phylink_pcs *pcs)

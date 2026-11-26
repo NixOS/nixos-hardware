@@ -1,0 +1,96 @@
+diff --git a/drivers/net/ethernet/mediatek/mtk_eth_soc.c b/drivers/net/ethernet/mediatek/mtk_eth_soc.c
+index e18a7a8df..504468de8 100644
+--- a/drivers/net/ethernet/mediatek/mtk_eth_soc.c
++++ b/drivers/net/ethernet/mediatek/mtk_eth_soc.c
+@@ -3622,11 +3622,33 @@ static void mtk_tx_timeout(struct net_device *dev, unsigned int txqueue)
+ 	if (test_bit(MTK_RESETTING, &eth->state))
+ 		return;
+ 
+-	if (!mtk_hw_reset_check(eth))
+-		return;
+-
++	/* Record the timeout unconditionally.
++	 *
++	 * A single QDMA ring can stall without the FE raising any of the
++	 * error interrupts that mtk_hw_reset_check() looks at.  The previous
++	 * early return on !mtk_hw_reset_check() therefore left the ring
++	 * stopped forever: the netdev watchdog kept firing, the queue's BQL
++	 * limit stayed pinned above zero, and nothing ever reset it, so the
++	 * port silently stopped transmitting until the next cold boot.
++	 */
+ 	eth->netdev[mac->id]->stats.tx_errors++;
+-	netif_err(eth, tx_err, dev, "transmit timed out\n");
++	netif_err(eth, tx_err, dev, "transmit timed out (queue %u)\n", txqueue);
++
++	/* Without an FE error there is no evidence the hardware is wedged,
++	 * only that one queue made no progress.  Recover the queue rather
++	 * than resetting the whole "ethernet" device (which would also bounce
++	 * the WAN MAC and every other netdev on this instance): stop and
++	 * restart just this netdev, which reinitialises its rings while the
++	 * other MACs keep forwarding.
++	 */
++	if (!mtk_hw_reset_check(eth)) {
++		netif_warn(eth, tx_err, dev,
++			   "queue %u stalled with no FE error; restarting %s only\n",
++			   txqueue, dev->name);
++		eth->reset.single_dev = mac->id;
++	} else {
++		eth->reset.single_dev = -1;
++	}
+ 
+ 	schedule_work(&eth->pending_work);
+ }
+@@ -4810,6 +4832,29 @@ static void mtk_pending_work(struct work_struct *work)
+ 	 */
+ 	mtk_prepare_for_reset(eth);
+ 
++	/* A per-netdev recovery (see mtk_tx_timeout) must not touch the FE or
++	 * the other MACs: the hardware is not known to be wedged, only one
++	 * queue stopped making progress.  Stop/start the affected netdev so
++	 * its rings are reallocated, then resume everyone else untouched.
++	 */
++	if (eth->reset.single_dev >= 0) {
++		struct net_device *sdev = eth->netdev[eth->reset.single_dev];
++
++		if (sdev && netif_running(sdev)) {
++			mtk_stop(sdev);
++			usleep_range(15000, 16000);
++			if (mtk_open(sdev))
++				netif_alert(eth, ifup, sdev,
++					    "Driver up/down cycle failed\n");
++		}
++
++		eth->reset.single_dev = -1;
++		clear_bit(MTK_RESETTING, &eth->state);
++		mtk_wed_fe_reset_complete();
++		rtnl_unlock();
++		return;
++	}
++
+ 	/* stop all devices to make sure that dma is properly shut down */
+ 	for (i = 0; i < MTK_MAX_DEVS; i++) {
+ 		if (!eth->netdev[i] || !netif_running(eth->netdev[i]))
+@@ -5610,6 +5655,10 @@ static int mtk_probe(struct platform_device *pdev)
+ 	eth->soc = of_device_get_match_data(&pdev->dev);
+ 
+ 	eth->dev = &pdev->dev;
++	/* devm_kzalloc() zeroes the struct, and 0 is a valid netdev index;
++	 * -1 means "no per-netdev recovery pending".
++	 */
++	eth->reset.single_dev = -1;
+ 	eth->dma_dev = &pdev->dev;
+ 	eth->base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(eth->base))
+diff --git a/drivers/net/ethernet/mediatek/mtk_eth_soc.h b/drivers/net/ethernet/mediatek/mtk_eth_soc.h
+index accf48499..afadb2832 100644
+--- a/drivers/net/ethernet/mediatek/mtk_eth_soc.h
++++ b/drivers/net/ethernet/mediatek/mtk_eth_soc.h
+@@ -1441,6 +1441,8 @@ struct mtk_eth {
+ 		u8 wdma_hang_count;
+ 		u8 qdma_hang_count;
+ 		u8 adma_hang_count;
++		/* netdev index to recover alone, or -1 for a full FE reset */
++		int single_dev;
+ 	} reset;
+ };
+ 

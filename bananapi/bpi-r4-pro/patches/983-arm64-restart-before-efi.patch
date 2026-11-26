@@ -1,0 +1,46 @@
+From: nixos-hardware <nixos-hardware@example.invalid>
+Subject: [PATCH] arm64: machine_restart: try the restart handlers before EFI
+
+On the MT7988 (Banana Pi BPI-R4 Pro) the EFI runtime that U-Boot installs
+advertises EFI_RT_SUPPORTED_RESET_SYSTEM, so efi_reboot() is called and the
+PSCI restart handler in the restart chain is never reached.  U-Boot's
+ResetSystem then fails to reset the SoC, and because do_kernel_restart() sits
+behind it the machine prints "Reboot failed -- System halted" and hangs until
+the power is cut.
+
+The restart chain is the architecture's own recovery path and should take
+precedence over a firmware-provided one; EFI belongs as a fallback for when
+nothing else can do it.  Order the two the other way round, so a firmware
+ResetSystem that does not work cannot prevent the working handler running.
+Capsule-update resets still reach ResetSystem, since the PSCI handler does not
+return.
+
+Signed-off-by: nixos-hardware <nixos-hardware@example.invalid>
+---
+diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
+index fba7ca1..cb94833 100644
+--- a/arch/arm64/kernel/process.c
++++ b/arch/arm64/kernel/process.c
+@@ -131,16 +131,18 @@ void machine_restart(char *cmd)
+ 	local_irq_disable();
+ 	smp_send_stop();
+ 
++	/* Now call the architecture specific reboot code. */
++	do_kernel_restart(cmd);
++
+ 	/*
+ 	 * UpdateCapsule() depends on the system being reset via
+-	 * ResetSystem().
++	 * ResetSystem().  Only fall back to it if the restart handlers above
++	 * declined -- otherwise firmware that implements ResetSystem badly
++	 * prevents the working handler from ever running.
+ 	 */
+ 	if (efi_enabled(EFI_RUNTIME_SERVICES))
+ 		efi_reboot(reboot_mode, NULL);
+ 
+-	/* Now call the architecture specific reboot code. */
+-	do_kernel_restart(cmd);
+-
+ 	/*
+ 	 * Whoops - the architecture was unable to reboot.
+ 	 */

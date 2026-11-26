@@ -1,0 +1,34 @@
+mtk_eth_soc: fix warm reset on MT7988 (poll for deasserted FE, not asserted)
+
+The nixos delta's mtk_hw_warm_reset() asserts RSTCTRL_FE and polls for the
+asserted bit to read back set. On MT7988 the FE clears the reset condition
+asynchronously, so the readback is already clear while the write is in
+flight: every poll times out, every recovery attempt falls into the cold
+ethsys-reset fallback, and the MACs stay down (no link re-train) until the
+next cold boot.
+
+Observed on s-nodus (BPI-R4 Pro 4E): "warm reset failed" twice in 22s
+followed by total network outage (WAN DHCP dead) until reboot.
+
+Fix per the OpenWrt mtk_eth_soc form: assert, settle, deassert, then poll
+for the deasserted state to be visible, with a 100ms timeout. Keep the cold
+reset fallback for the genuinely wedged case, with an explicit log line.
+diff --git a/drivers/net/ethernet/mediatek/mtk_eth_soc.c b/drivers/net/ethernet/mediatek/mtk_eth_soc.c
+index 504468de8..51f670630 100644
+--- a/drivers/net/ethernet/mediatek/mtk_eth_soc.c
++++ b/drivers/net/ethernet/mediatek/mtk_eth_soc.c
+@@ -4376,9 +4376,12 @@ static void mtk_hw_warm_reset(struct mtk_eth *eth)
+ 
+ 	regmap_update_bits(eth->ethsys, ETHSYS_RSTCTRL, RSTCTRL_FE,
+ 			   RSTCTRL_FE);
++	udelay(1);
++	regmap_update_bits(eth->ethsys, ETHSYS_RSTCTRL, RSTCTRL_FE, 0);
+ 	if (readx_poll_timeout_atomic(mtk_hw_reset_read, eth, val,
+-				      val & RSTCTRL_FE, 1, 1000)) {
+-		dev_err(eth->dev, "warm reset failed\n");
++				      !(val & RSTCTRL_FE), 1, 100000)) {
++		dev_err(eth->dev,
++			"warm reset failed; falling back to cold ethsys reset\n");
+ 		mtk_hw_reset(eth);
+ 		return;
+ 	}

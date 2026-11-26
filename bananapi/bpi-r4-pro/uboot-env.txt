@@ -1,0 +1,77 @@
+# U-Boot environment for s-nodus (BPI-R4 Pro 4E).
+#
+# WHY THIS FILE EXISTS
+# --------------------
+# U-Boot's image_setup_libfdt() ALWAYS overwrites /chosen/bootargs with
+# env_get("bootargs") -- the FIT's own bootargs are ignored.  The vendor
+# built-in default is
+#
+#   bootargs=console=ttyS0,115200n1 pci=pcie_bus_perf root=/dev/fit0 rootwait
+#
+# and `root=/dev/fit0` is OpenWrt's device, which does not exist for NixOS.
+# Stage-1 consequently has no usable root= and no init=, and the boot dies
+# right after "Run /init as init process".
+#
+# So we write a real environment into the `ubootenv` partition whose bootargs
+# point at the NixOS btrfs subvolume and the toplevel init.  Writing an env
+# REPLACES the built-in one, so every variable the SD boot path needs is
+# reproduced here verbatim from the vendor FIP (only `bootargs` differs).
+#
+# Format: mkenvimage -s 0x40000 -r (redundant: two 0x40000 copies).
+# `init=` is MANDATORY: the systemd initrd discovers the system closure ONLY
+# from this parameter (initrd-find-nixos-closure scans /proc/cmdline, calls
+# resolve-in-root on the value, and execs the dirname's prepare-root).
+#
+# It points at the STABLE profile symlink, not a pinned /nix/store path, so a
+# rebuild that moves /nix/var/nix/profiles/system is picked up on the next
+# boot without rewriting this env.  A pinned store path would silently go
+# stale after any on-board `nixos-rebuild` (the FIT's /chosen/bootargs is
+# ignored -- U-Boot always uses this env -- so the env is the only lever).
+# resolve-in-root resolves the symlink inside the mounted root.
+# `root=fstab` (NOT root=PARTLABEL=nixos-root): with the systemd initrd,
+# fileSystems."/" already carries `x-initrd.mount` (filesystems.nix adds it for
+# anything fsNeededForBoot, and "/" always is), so systemd-fstab-generator
+# creates sysroot.mount from that entry.  Passing a root= *device* as well
+# makes it try to create sysroot.mount a second time:
+#
+#   systemd-fstab-generator: Failed to create unit file
+#     '/run/systemd/generator/sysroot.mount', as it already exists.
+#
+# It then bails out of generating the rest, so /persist never mounts -- and
+# sops-nix runs in the initrd and reads its age key from
+# /persist/root/.ssh/id_ed25519, which is why secrets failed to decrypt.
+# `root=fstab` resolves the root from the fstab entry instead of the cmdline
+# and leaves a single sysroot.mount.  (This is what the working s-gamma does.)
+bootargs=console=ttyS0,115200n1 pci=pcie_bus_perf clk_ignore_unused pd_ignore_unused root=fstab rootwait rw init=/nix/var/nix/profiles/system/init
+bootdelay=2
+
+# --- SD boot path (verbatim from the vendor env) -----------------------------
+loadaddr=0x50000000
+part_default=production
+part_recovery=recovery
+bootconf=config-mt7988a-bananapi-bpi-r4-pro-4e
+bootconf_sd=mt7988a-bananapi-bpi-r4-pro-4e-sd
+bootconf_emmc=mt7988a-bananapi-bpi-r4-pro-4e-emmc
+bootconf_extra=mt7988a-bananapi-bpi-r4-pro-4e-iphy
+mmc_read_vol=mmc read $loadaddr $part_addr 0x100 && imszb $loadaddr image_size && test 0x$image_size -le 0x$part_size && mmc read $loadaddr 0x$part_addr 0x$image_size && setexpr filesize $image_size * 0x200
+sdmmc_read_production=part start mmc 0 $part_default part_addr && part size mmc 0 $part_default part_size && run mmc_read_vol
+sdmmc_read_recovery=part start mmc 0 $part_recovery part_addr && part size mmc 0 $part_recovery part_size && run mmc_read_vol
+boot_production=led $bootled_pwr on ; run sdmmc_read_production && bootm $loadaddr#$bootconf#$bootconf_sd#$bootconf_extra ; led $bootled_pwr off
+boot_recovery=led $bootled_rec on ; run sdmmc_read_recovery && bootm $loadaddr#$bootconf#$bootconf_emmc#$bootconf_extra ; led $bootled_rec off
+boot_sdmmc=run boot_production ; run boot_recovery
+# pstore/ramoops survives warm reboots; a stale panic would otherwise send us
+# to `boot_recovery` (which needs a `recovery` partition we do not ship).
+bootcmd=run boot_sdmmc
+
+# --- LEDs / menu (kept so the menu still works) ------------------------------
+bootled_pwr=green:status
+bootled_rec=blue:status
+bootmenu_default=0
+bootmenu_delay=0
+bootmenu_title=      ( ( ( OpenWrt ) ) )  [SD card]
+bootmenu_confirm_return=askenv - Press ENTER to return to menu ; bootmenu 60
+bootmenu_0=Run default boot command.=run bootcmd ; run bootmenu_confirm_return
+bootmenu_1=Boot production system from SD card.=run boot_production ; run bootmenu_confirm_return
+bootmenu_2=Reboot.=reset
+boot_first=bootmenu
+boot_default=run bootcmd
