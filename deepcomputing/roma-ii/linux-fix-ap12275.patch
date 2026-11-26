@@ -1,0 +1,13 @@
+diff --git a/drivers/net/wireless/ap12275/Makefile b/drivers/net/wireless/ap12275/Makefile
+index 9379c7f122b7..ed0bf8aa7438 100644
+--- a/drivers/net/wireless/ap12275/Makefile
++++ b/drivers/net/wireless/ap12275/Makefile
+@@ -460,7 +460,7 @@ endif
+ endif
+ 
+ ARCH ?= riscv
+-BCMDHD_ROOT = $(src)
++BCMDHD_ROOT = $(srctree)/drivers/net/wireless/ap12275
+ #$(warning "BCMDHD_ROOT=$(BCMDHD_ROOT)")
+ EXTRA_CFLAGS = $(DHDCFLAGS)
+ EXTRA_CFLAGS += -DDHD_COMPILED=\"$(BCMDHD_ROOT)\"
