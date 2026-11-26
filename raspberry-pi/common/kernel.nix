@@ -51,6 +51,8 @@ in
         bridge_stp_helper
         request_key_helper
       ]
+      # Keep patches passed in via kernel.override, e.g. NixOS' boot.kernelPatches
+      ++ (args.kernelPatches or [ ])
       # Include 128-bit types patch if available
       # Make it a required patch once https://github.com/NixOS/nixpkgs/pull/581990 is available on a stable channel
       # Remove it once the Raspberry Pi vendor kernel is 7.3+
