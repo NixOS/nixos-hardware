@@ -1,0 +1,79 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Date: Thu, 19 Nov 2026 16:24:28 +0800
+Subject: [PATCH 35/38] drm/msm/dp: wake threaded handler for HPD IRQs
+
+The primary IRQ handler latches HPD status for the threaded handler
+before servicing DP controller interrupts.
+
+When an HPD interrupt was pending, the handler set its return value to
+IRQ_WAKE_THREAD and then ORed it with msm_dp_ctrl_isr()'s return value.
+If the controller ISR returned IRQ_HANDLED, the primary handler returned
+IRQ_HANDLED | IRQ_WAKE_THREAD instead.
+
+The IRQ core wakes an action's thread only when its primary handler
+returns IRQ_WAKE_THREAD exactly. In that case, the HPD status was latched
+for the threaded handler, but the handler itself was not woken.
+
+Return IRQ_WAKE_THREAD directly whenever an unmasked HPD interrupt is
+pending, after servicing controller interrupts in hardirq context, while
+retaining the existing IRQ_HANDLED fallback for non-HPD interrupts.
+
+Also report STATUS2 interrupts as handled. msm_dp_ctrl_get_interrupt()
+acknowledges every pending STATUS2 source, including sources that need no
+additional action, so they must not be reported as IRQ_NONE.
+
+Fixes: 5043357e75ba ("drm/msm/dp: rework HPD handling")
+Cc: stable@vger.kernel.org # v7.2+
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 3 +++
+ drivers/gpu/drm/msm/dp/dp_display.c | 7 ++++---
+ 2 files changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index e301e54e8..198900059 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -3021,6 +3021,9 @@ irqreturn_t msm_dp_ctrl_isr(struct msm_dp_ctrl *msm_dp_ctrl,
+ 	}
+ 
+ 	isr = msm_dp_ctrl_get_interrupt(ctrl);
++	/* All status2 sources are ACKed by msm_dp_ctrl_get_interrupt(). */
++	if (isr & DP_INTERRUPT_STATUS2)
++		ret = IRQ_HANDLED;
+ 
+ 	if (isr & DP_CTRL_INTR_READY_FOR_VIDEO) {
+ 		drm_dbg_dp(ctrl->drm_dev, "dp_video_ready\n");
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 60aef9061..e3e4b73b4 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -1091,23 +1091,24 @@ static irqreturn_t msm_dp_display_irq_handler(int irq, void *dev_id)
+ 	u32 hpd_isr_status;
+ 	unsigned long flags;
+ 	irqreturn_t ret = IRQ_HANDLED;
++	bool hpd_irq_pending;
+ 
+ 	hpd_isr_status = msm_dp_aux_get_hpd_intr_status(dp->aux);
++	hpd_irq_pending = hpd_isr_status & DP_DP_HPD_INT_MASK;
+ 
+-	if (hpd_isr_status & 0x0F) {
++	if (hpd_irq_pending) {
+ 		drm_dbg_dp(dp->drm_dev, "type=%d isr=0x%x\n",
+ 			dp->msm_dp_display.connector_type, hpd_isr_status);
+ 
+ 		spin_lock_irqsave(&dp->irq_thread_lock, flags);
+ 		dp->hpd_isr_status |= hpd_isr_status;
+-		ret = IRQ_WAKE_THREAD;
+ 		spin_unlock_irqrestore(&dp->irq_thread_lock, flags);
+ 	}
+ 
+ 	/* DP controller isr */
+ 	ret |= msm_dp_ctrl_isr(dp->ctrl, dp->panel);
+ 
+-	return ret;
++	return hpd_irq_pending ? IRQ_WAKE_THREAD : ret;
+ }
+ 
+ static irqreturn_t msm_dp_display_irq_thread(int irq, void *dev_id)

@@ -1,0 +1,41 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Date: Thu, 19 Nov 2026 16:24:22 +0800
+Subject: [PATCH 29/38] drm/bridge_connector: avoid detect-based HPD
+ notifications for DisplayPort
+
+When MST is active, the SST connector reports disconnected even though
+the physical DP link is still connected. drm_bridge_connector_detect()
+forwards this result to the bridge chain as an HPD notification.
+
+On MSM DP, this notification invokes unplug handling and tears down the
+active link and MST topology while the cable is still plugged in.
+
+For DisplayPort connectors with an HPD source, stop notifying the bridge
+chain from the detect path. Plug, unplug and IRQ_HPD notifications remain
+handled through the existing HPD event path.
+
+Preserve detect-based notifications for other connector types and for
+DisplayPort connectors without an HPD source.
+
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+---
+ drivers/gpu/drm/display/drm_bridge_connector.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+index 1d4502126..dbe874d26 100644
+--- a/drivers/gpu/drm/display/drm_bridge_connector.c
++++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+@@ -315,7 +315,10 @@ static int drm_bridge_connector_detect_ctx(struct drm_connector *connector,
+ 				return ret;
+ 		}
+ 
+-		drm_bridge_connector_hpd_notify(connector, status, DRM_CONNECTOR_NO_EXTRA_STATUS);
++		if (connector->connector_type != DRM_MODE_CONNECTOR_DisplayPort ||
++		    !bridge_connector->bridge_hpd)
++			drm_bridge_connector_hpd_notify(connector, status,
++							DRM_CONNECTOR_NO_EXTRA_STATUS);
+ 	} else {
+ 		switch (connector->connector_type) {
+ 		case DRM_MODE_CONNECTOR_DPI:

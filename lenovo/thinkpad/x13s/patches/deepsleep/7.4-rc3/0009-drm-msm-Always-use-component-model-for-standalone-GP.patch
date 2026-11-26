@@ -1,0 +1,136 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Date: Fri, 30 Oct 2026 22:39:26 +0530
+Subject: [PATCH 09/12] drm/msm: Always use component model for standalone GPU
+
+To prepare for adding the GMU as a peer component, turn the GPU pdev into
+both a component master and the sole component of itself in this path.
+A follow up patch will introduce GMU as a component device.
+
+Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/adreno/adreno_device.c | 26 +++++++++-------
+ drivers/gpu/drm/msm/msm_drv.c              | 35 ++++++++++++++++++----
+ drivers/gpu/drm/msm/msm_drv.h              |  6 ++--
+ 3 files changed, 47 insertions(+), 20 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+index 34718adef..6b694b8bf 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_device.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+@@ -271,24 +271,30 @@ static const struct component_ops a3xx_ops = {
+ 
+ static int adreno_probe(struct platform_device *pdev)
+ {
+-	if (msm_separate_gpu_kms_components())
+-		return msm_gpu_probe(pdev, &a3xx_ops);
++	int ret;
++
++	if (!msm_separate_gpu_kms_components())
++		return component_add(&pdev->dev, &a3xx_ops);
+ 
+ 	if (!adreno_has_gpu(pdev->dev.of_node))
+ 		return -ENODEV;
+ 
+-	return component_add(&pdev->dev, &a3xx_ops);
++	ret = msm_gpu_probe(pdev);
++	if (ret)
++		return ret;
++
++	ret = component_add(&pdev->dev, &a3xx_ops);
++	if (ret)
++		msm_gpu_remove(pdev);
++
++	return ret;
+ }
+ 
+ static void adreno_remove(struct platform_device *pdev)
+ {
+-	struct device_node *node = pdev->dev.of_node;
+-
+-	if (of_device_is_compatible(node, "amd,imageon") ||
+-	    (msm_separate_gpu_kms_components() && adreno_has_gpu(node)))
+-		msm_gpu_remove(pdev, &a3xx_ops);
+-	else
+-		component_del(&pdev->dev, &a3xx_ops);
++	component_del(&pdev->dev, &a3xx_ops);
++	if (msm_separate_gpu_kms_components())
++		msm_gpu_remove(pdev);
+ }
+ 
+ static void adreno_shutdown(struct platform_device *pdev)
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index e0c0f1248..dbb6c7047 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -1182,10 +1182,25 @@ int msm_drv_probe(struct device *master_dev,
+ 	return 0;
+ }
+ 
+-int msm_gpu_probe(struct platform_device *pdev,
+-		  const struct component_ops *ops)
++static int msm_gpu_drm_bind(struct device *dev)
++{
++	return msm_drm_init(dev, &msm_gpu_driver, NULL);
++}
++
++static void msm_gpu_drm_unbind(struct device *dev)
++{
++	msm_drm_uninit(dev, NULL);
++}
++
++static const struct component_master_ops msm_gpu_drm_ops = {
++	.bind = msm_gpu_drm_bind,
++	.unbind = msm_gpu_drm_unbind,
++};
++
++int msm_gpu_probe(struct platform_device *pdev)
+ {
+ 	struct msm_drm_private *priv;
++	struct component_match *match = NULL;
+ 	int ret;
+ 
+ 	priv = devres_alloc(msm_drm_priv_release, sizeof(*priv), GFP_KERNEL);
+@@ -1201,13 +1216,21 @@ int msm_gpu_probe(struct platform_device *pdev,
+ 	if (ret)
+ 		return ret;
+ 
+-	return msm_drm_init(&pdev->dev, &msm_gpu_driver, ops);
++	/*
++	 * The GPU pdev acts as both the component master and the sole
++	 * component (added by adreno_probe()). Future patches add the
++	 * GMU node as a second component on this same master.
++	 */
++	drm_of_component_match_add(&pdev->dev, &match,
++				   component_compare_of, pdev->dev.of_node);
++
++	return component_master_add_with_match(&pdev->dev, &msm_gpu_drm_ops,
++					       match);
+ }
+ 
+-void msm_gpu_remove(struct platform_device *pdev,
+-		    const struct component_ops *ops)
++void msm_gpu_remove(struct platform_device *pdev)
+ {
+-	msm_drm_uninit(&pdev->dev, ops);
++	component_master_del(&pdev->dev, &msm_gpu_drm_ops);
+ }
+ 
+ static int __init msm_drm_register(void)
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index 107d0efb6..e70fd617f 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -529,10 +529,8 @@ struct msm_drm_private *msm_drm_get_priv(struct device *dev);
+ int msm_kms_pm_prepare(struct device *dev);
+ void msm_kms_pm_complete(struct device *dev);
+ 
+-int msm_gpu_probe(struct platform_device *pdev,
+-		  const struct component_ops *ops);
+-void msm_gpu_remove(struct platform_device *pdev,
+-		    const struct component_ops *ops);
++int msm_gpu_probe(struct platform_device *pdev);
++void msm_gpu_remove(struct platform_device *pdev);
+ int msm_drv_probe(struct device *dev,
+ 	int (*kms_init)(struct drm_device *dev),
+ 	struct msm_kms *kms);

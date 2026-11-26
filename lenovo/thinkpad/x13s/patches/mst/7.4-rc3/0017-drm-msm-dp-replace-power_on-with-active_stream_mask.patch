@@ -1,0 +1,181 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Thu, 19 Nov 2026 16:24:10 +0800
+Subject: [PATCH 17/38] drm/msm/dp: replace power_on with active_stream_mask
+
+The power_on boolean cannot represent DP MST, where multiple streams
+share a single link and its associated resources.
+
+Replace power_on with active_stream_mask, a bitmask of the streams that
+have been successfully enabled, and use it to track the lifetime of the
+shared link. Link initialization is performed when enabling the first
+stream, while link teardown is deferred until the last stream is
+disabled.
+
+A per-stream bit rather than a count is needed because two callers ask
+whether one specific stream is up: msm_dp_display_disable() uses it to
+stay idempotent, and msm_dp_display_disable_helper() uses it to tell
+whether that stream ever made it through .atomic_enable().
+
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/dp/dp_audio.c   |  2 +-
+ drivers/gpu/drm/msm/dp/dp_display.c | 56 +++++++++++++++--------------
+ drivers/gpu/drm/msm/dp/dp_display.h |  2 +-
+ 3 files changed, 32 insertions(+), 28 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_audio.c b/drivers/gpu/drm/msm/dp/dp_audio.c
+index 8960f0156..4828b4399 100644
+--- a/drivers/gpu/drm/msm/dp/dp_audio.c
++++ b/drivers/gpu/drm/msm/dp/dp_audio.c
+@@ -284,7 +284,7 @@ int msm_dp_audio_prepare(struct drm_bridge *bridge,
+ 	 * such cases check for connection status and bail out if not
+ 	 * connected.
+ 	 */
+-	if (!msm_dp_display->power_on)
++	if (!msm_dp_display->active_stream_mask)
+ 		goto end;
+ 
+ 	audio = msm_dp_audio_get_data(msm_dp_display);
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 0c02c2f81..0a88df2bc 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -652,16 +652,16 @@ static int msm_dp_display_prepare_link(struct msm_dp_display_private *dp)
+ 	if (dp->link->sink_count == 0)
+ 		return -ENOTCONN;
+ 
+-	if (!msm_dp_display->power_on) {
++	if (!msm_dp_display->active_stream_mask) {
+ 		msm_dp_display_host_phy_init(dp);
+ 		force_link_train = true;
+-	}
+ 
+-	rc = msm_dp_ctrl_on_link(dp->ctrl, dp->panel);
+-	if (rc) {
+-		DRM_ERROR("Failed link training (rc=%d)\n", rc);
+-		// TODO: schedule drm_connector_set_link_status_property()
+-		return rc;
++		rc = msm_dp_ctrl_on_link(dp->ctrl, dp->panel);
++		if (rc) {
++			DRM_ERROR("Failed link training (rc=%d)\n", rc);
++			// TODO: schedule drm_connector_set_link_status_property()
++			return rc;
++		}
+ 	}
+ 
+ 	return msm_dp_ctrl_prepare_stream_on(dp->ctrl, dp->panel, force_link_train);
+@@ -671,21 +671,19 @@ static int msm_dp_display_enable(struct msm_dp_display_private *dp,
+ 				 struct msm_dp_panel *msm_dp_panel,
+ 				 const struct msm_dp_mst_slot_info *slots)
+ {
+-	int rc = 0;
++	int rc;
+ 	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
+ 
+ 	drm_dbg_dp(dp->drm_dev, "sink_count=%d\n", dp->link->sink_count);
+-	if (msm_dp_display->power_on) {
+-		drm_dbg_dp(dp->drm_dev, "Link already setup, return\n");
+-		return 0;
+-	}
+ 
+ 	rc = msm_dp_ctrl_on_stream(dp->ctrl, msm_dp_panel, msm_dp_display->mst_active,
+ 				   slots);
+-	if (!rc)
+-		msm_dp_display->power_on = true;
++	if (rc)
++		return rc;
+ 
+-	return rc;
++	msm_dp_display->active_stream_mask |= BIT(msm_dp_panel->stream_id);
++
++	return 0;
+ }
+ 
+ static int msm_dp_display_post_enable(struct msm_dp *msm_dp_display)
+@@ -732,9 +730,11 @@ static int msm_dp_display_disable(struct msm_dp_display_private *dp,
+ {
+ 	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
+ 
+-	if (!msm_dp_display->power_on)
++	if (!(msm_dp_display->active_stream_mask & BIT(msm_dp_panel->stream_id)))
+ 		return 0;
+ 
++	msm_dp_display->active_stream_mask &= ~BIT(msm_dp_panel->stream_id);
++
+ 	msm_dp_panel_disable_vsc_sdp(msm_dp_panel);
+ 
+ 	msm_dp_ctrl_off_pixel_clk(dp->ctrl, msm_dp_panel->stream_id);
+@@ -851,10 +851,10 @@ void msm_dp_snapshot(struct msm_disp_state *disp_state, struct msm_dp *dp)
+ 	 * if we are reading registers we need the link clocks to be on
+ 	 * however till DP cable is connected this will not happen as we
+ 	 * do not know the resolution to power up with. Hence check the
+-	 * power_on status before dumping DP registers to avoid crash due
++	 * active stream state before dumping DP registers to avoid crash due
+ 	 * to unclocked access
+ 	 */
+-	if (!dp->power_on)
++	if (!dp->active_stream_mask)
+ 		return;
+ 
+ 	msm_disp_snapshot_add_block(disp_state, msm_dp_display->ahb_len,
+@@ -1514,16 +1514,17 @@ void msm_dp_display_atomic_disable(struct msm_dp *dp)
+ 
+ 	/*
+ 	 * If .atomic_enable() bailed out - link training failure is the common
+-	 * case - the mainlink was never brought up and ->power_on stayed false.
+-	 * Driving the PUSH_IDLE pattern into a controller that was never
+-	 * enabled times out, and .atomic_post_disable() then drops the
+-	 * controller's runtime-PM reference without tearing the PHY back down,
+-	 * because msm_dp_display_disable() returns early on !power_on.  On
++	 * case - the mainlink was never brought up and the stream was never
++	 * marked active in ->active_stream_mask.  Driving the PUSH_IDLE pattern
++	 * into a controller that was never enabled times out, and
++	 * .atomic_post_disable() then drops the controller's runtime-PM
++	 * reference without tearing the PHY back down, because
++	 * msm_dp_display_disable() returns early for an inactive stream.  On
+ 	 * glymur (Snapdragon X2 Elite) that combination is answered by a
+ 	 * TrustZone-level SOCCP/ADSP force-stop and a silent SoC reset.
+ 	 * There is nothing to push idle, so leave it alone.
+ 	 */
+-	if (!dp->power_on)
++	if (!dp->active_stream_mask)
+ 		return;
+ 
+ 	msm_dp_ctrl_push_vcpf(msm_dp_display->ctrl, msm_dp_display->panel);
+@@ -1535,6 +1536,11 @@ static void msm_dp_display_unprepare(struct msm_dp_display_private *dp)
+ {
+ 	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
+ 
++	if (msm_dp_display->active_stream_mask) {
++		drm_dbg_dp(dp->drm_dev, "stream still active, return\n");
++		return;
++	}
++
+ 	/* dongle is still connected but sinks are disconnected */
+ 	if (dp->link->sink_count == 0)
+ 		msm_dp_link_psm_config(dp->link, &dp->panel->link_info, true);
+@@ -1547,8 +1553,6 @@ static void msm_dp_display_unprepare(struct msm_dp_display_private *dp)
+ 	else
+ 		msm_dp_display_host_phy_exit(dp);
+ 
+-	msm_dp_display->power_on = false;
+-
+ 	pm_runtime_put_sync(&msm_dp_display->pdev->dev);
+ 
+ 	drm_dbg_dp(dp->drm_dev, "type=%d Done\n", msm_dp_display->connector_type);
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
+index 472429d09..b163954de 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.h
++++ b/drivers/gpu/drm/msm/dp/dp_display.h
+@@ -18,7 +18,7 @@ struct msm_dp {
+ 	struct drm_bridge *next_bridge;
+ 	struct drm_bridge *bridge;
+ 	bool audio_enabled;
+-	bool power_on;
++	u32 active_stream_mask;
+ 	bool mst_active;
+ 	unsigned int connector_type;
+ 	bool is_edp;

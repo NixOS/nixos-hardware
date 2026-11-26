@@ -1,0 +1,117 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Date: Thu, 19 Nov 2026 16:24:31 +0800
+Subject: [PATCH 38/38] soc: qcom: pmic-glink-altmode: skip retimer reset on DP
+ IRQ
+
+A DP HPD IRQ reports a sink-side event and does not imply a Type-C
+routing change. Reprogramming the retimer for every IRQ can reset or
+disturb its datapath while link training or video transmission is in
+progress, causing intermittent DisplayPort link failures.
+
+Cache the successfully programmed DP retimer mode, HPD level, and
+orientation. When an IRQ arrives with the same state, leave the retimer
+untouched while continuing to notify DRM so MST sink IRQ handling is
+preserved. Invalidate the cache on non-DP modes and after a failed retimer
+update so later DP transitions are always configured.
+
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+---
+ drivers/soc/qcom/pmic_glink_altmode.c | 38 ++++++++++++++++++++++++++-
+ 1 file changed, 37 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/soc/qcom/pmic_glink_altmode.c b/drivers/soc/qcom/pmic_glink_altmode.c
+index 33215442f..79d3bb170 100644
+--- a/drivers/soc/qcom/pmic_glink_altmode.c
++++ b/drivers/soc/qcom/pmic_glink_altmode.c
+@@ -121,6 +121,12 @@ struct pmic_glink_altmode_port {
+ 	u8 hpd_state;
+ 	u8 hpd_irq;
+ 	u8 mux_ctrl;
++
++	/* Last DP state successfully programmed into the retimer. */
++	bool retimer_dp_valid;
++	u8 retimer_dp_mode;
++	bool retimer_dp_hpd_state;
++	enum typec_orientation retimer_dp_orientation;
+ };
+ 
+ #define work_to_altmode(w) container_of((w), struct pmic_glink_altmode, enable_work)
+@@ -180,6 +186,7 @@ static void pmic_glink_altmode_enable_dp(struct pmic_glink_altmode *altmode,
+ 					 bool hpd_irq)
+ {
+ 	struct typec_displayport_data dp_data = {};
++	bool retimer_state_unchanged;
+ 	int ret;
+ 
+ 	dp_data.status = DP_STATUS_ENABLED;
+@@ -200,10 +207,31 @@ static void pmic_glink_altmode_enable_dp(struct pmic_glink_altmode *altmode,
+ 	port->retimer_state.alt = &port->dp_alt;
+ 	port->retimer_state.data = &dp_data;
+ 	port->retimer_state.mode = TYPEC_MODAL_STATE(mode);
++	retimer_state_unchanged = port->retimer_dp_valid &&
++		port->retimer_dp_mode == mode &&
++		port->retimer_dp_hpd_state == hpd_state &&
++		port->retimer_dp_orientation == port->orientation;
++
++	/*
++	 * An HPD IRQ is a sink-side DP interrupt, not a Type-C routing change.
++	 * Avoid rewriting an already configured retimer while DP link training or
++	 * video transmission is in progress. The DRM HPD IRQ notification below
++	 * is deliberately still delivered.
++	 */
++	if (hpd_irq && retimer_state_unchanged)
++		return;
+ 
+ 	ret = typec_retimer_set(port->typec_retimer, &port->retimer_state);
+-	if (ret)
++	if (ret) {
++		/* A failed write may have left the retimer only partly configured. */
++		port->retimer_dp_valid = false;
+ 		dev_err(altmode->dev, "failed to setup retimer to DP: %d\n", ret);
++	} else {
++		port->retimer_dp_valid = true;
++		port->retimer_dp_mode = mode;
++		port->retimer_dp_hpd_state = hpd_state;
++		port->retimer_dp_orientation = port->orientation;
++	}
+ }
+ 
+ static void pmic_glink_altmode_enable_tbt(struct pmic_glink_altmode *altmode,
+@@ -214,6 +242,8 @@ static void pmic_glink_altmode_enable_tbt(struct pmic_glink_altmode *altmode,
+ 	u32 cable_speed;
+ 	int ret;
+ 
++	port->retimer_dp_valid = false;
++
+ 	/* Device Discover Mode VDO */
+ 	tbt_data.device_mode = TBT_MODE;
+ 	tbt_data.device_mode |= TBT_SET_ADAPTER(TBT_ADAPTER_TBT3);
+@@ -271,6 +301,8 @@ static void pmic_glink_altmode_enable_usb4(struct pmic_glink_altmode *altmode,
+ 	struct enter_usb_data data = {};
+ 	int ret;
+ 
++	port->retimer_dp_valid = false;
++
+ 	data.eudo = FIELD_PREP(EUDO_USB_MODE_MASK, EUDO_USB_MODE_USB4);
+ 
+ 	if (tbt->usb_speed == 0) {
+@@ -307,6 +339,8 @@ static void pmic_glink_altmode_enable_usb(struct pmic_glink_altmode *altmode,
+ {
+ 	int ret;
+ 
++	port->retimer_dp_valid = false;
++
+ 	port->state.alt = NULL;
+ 	port->state.data = NULL;
+ 	port->state.mode = TYPEC_STATE_USB;
+@@ -329,6 +363,8 @@ static void pmic_glink_altmode_safe(struct pmic_glink_altmode *altmode,
+ {
+ 	int ret;
+ 
++	port->retimer_dp_valid = false;
++
+ 	port->state.alt = NULL;
+ 	port->state.data = NULL;
+ 	port->state.mode = TYPEC_STATE_SAFE;

@@ -1,0 +1,291 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Date: Thu, 19 Nov 2026 16:24:14 +0800
+Subject: [PATCH 21/38] drm/msm/dp: introduce dp_mst_drm module
+
+Add the dp_mst_drm module and the core MST manager data structures.
+
+Introduce the MST manager object, per-stream encoder state and the
+initialization path for creating a DRM MST topology manager associated
+with a DP controller.
+
+Also add the registration hooks used to initialize the MST manager
+during DP device setup.
+
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/Makefile            |  3 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 22 +++++++-
+ drivers/gpu/drm/msm/dp/dp_display.c     | 27 ++++++++++
+ drivers/gpu/drm/msm/dp/dp_display.h     |  5 ++
+ drivers/gpu/drm/msm/dp/dp_mst_drm.c     | 67 +++++++++++++++++++++++++
+ drivers/gpu/drm/msm/dp/dp_mst_drm.h     | 13 +++++
+ drivers/gpu/drm/msm/msm_drv.h           | 17 +++++++
+ 7 files changed, 152 insertions(+), 2 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_mst_drm.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_mst_drm.h
+
+diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+index 1e246616f..48640d9bf 100644
+--- a/drivers/gpu/drm/msm/Makefile
++++ b/drivers/gpu/drm/msm/Makefile
+@@ -147,7 +147,8 @@ msm-display-$(CONFIG_DRM_MSM_DP)+= dp/dp_aux.o \
+ 	dp/dp_link.o \
+ 	dp/dp_panel.o \
+ 	dp/dp_audio.o \
+-	dp/dp_utils.o
++	dp/dp_utils.o \
++	dp/dp_mst_drm.o
+ 
+ msm-display-$(CONFIG_DRM_MSM_HDMI_HDCP) += hdmi/hdmi_hdcp.o
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index cc86e0679..4b092c8b1 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -655,7 +655,7 @@ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
+ 	struct msm_display_info info;
+ 	bool yuv_supported;
+ 	int rc;
+-	int i;
++	int i, stream_cnt;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(priv->kms->dp); i++) {
+ 		if (!priv->kms->dp[i])
+@@ -678,6 +678,16 @@ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
+ 			DPU_ERROR("modeset_init failed for DP, rc = %d\n", rc);
+ 			return rc;
+ 		}
++
++		stream_cnt = msm_dp_get_mst_max_stream(priv->kms->dp[i]);
++
++		if (stream_cnt > 1) {
++			rc = msm_dp_mst_register(priv->kms->dp[i]);
++			if (rc) {
++				DPU_ERROR("dp_mst_init failed for DP, rc = %d\n", rc);
++				return rc;
++			}
++		}
+ 	}
+ 
+ 	return 0;
+@@ -905,6 +915,8 @@ static void _dpu_kms_hw_destroy(struct dpu_kms *dpu_kms)
+ static void dpu_kms_destroy(struct msm_kms *kms)
+ {
+ 	struct dpu_kms *dpu_kms;
++	struct msm_drm_private *priv;
++	int i;
+ 
+ 	if (!kms) {
+ 		DPU_ERROR("invalid kms\n");
+@@ -913,6 +925,14 @@ static void dpu_kms_destroy(struct msm_kms *kms)
+ 
+ 	dpu_kms = to_dpu_kms(kms);
+ 
++	if (dpu_kms->dev) {
++		priv = dpu_kms->dev->dev_private;
++
++		for (i = 0; i < ARRAY_SIZE(priv->kms->dp); i++)
++			if (priv->kms->dp[i])
++				msm_dp_mst_unregister(priv->kms->dp[i]);
++	}
++
+ 	_dpu_kms_hw_destroy(dpu_kms);
+ 
+ 	msm_kms_destroy(&dpu_kms->base);
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 36294e0e9..a8a11ac0d 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -28,6 +28,7 @@
+ #include "dp_drm.h"
+ #include "dp_audio.h"
+ #include "dp_debug.h"
++#include "dp_mst_drm.h"
+ 
+ static bool psr_enabled = false;
+ module_param(psr_enabled, bool, 0);
+@@ -1286,6 +1287,32 @@ static int msm_dp_display_get_io(struct msm_dp_display_private *display)
+ 	return 0;
+ }
+ 
++int msm_dp_get_mst_max_stream(struct msm_dp *msm_dp_display)
++{
++	struct msm_dp_display_private *dp;
++
++	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
++
++	return msm_dp_ctrl_get_stream_cnt(dp->ctrl);
++}
++
++int msm_dp_mst_register(struct msm_dp *msm_dp_display)
++{
++	struct msm_dp_display_private *dp;
++
++	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
++
++	return msm_dp_mst_mgr_init(msm_dp_display, msm_dp_ctrl_get_stream_cnt(dp->ctrl), dp->aux);
++}
++
++void msm_dp_mst_unregister(struct msm_dp *msm_dp_display)
++{
++	if (!msm_dp_display->msm_dp_mst)
++		return;
++
++	msm_dp_mst_mgr_destroy(msm_dp_display);
++}
++
+ static int msm_dp_display_probe(struct platform_device *pdev)
+ {
+ 	int rc = 0;
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
+index 96be45c3d..7b6d76f33 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.h
++++ b/drivers/gpu/drm/msm/dp/dp_display.h
+@@ -24,6 +24,8 @@ struct msm_dp {
+ 	unsigned int connector_type;
+ 	bool is_edp;
+ 
++	void *msm_dp_mst;
++
+ 	struct msm_dp_audio *msm_dp_audio;
+ 	bool psr_supported;
+ };
+@@ -59,6 +61,9 @@ int msm_dp_display_set_mode_helper(struct msm_dp *msm_dp_display,
+ int msm_dp_display_prepare_link(struct msm_dp *msm_dp_display);
+ void msm_dp_display_unprepare(struct msm_dp *dp);
+ 
++int msm_dp_get_mst_max_stream(struct msm_dp *msm_dp_display);
++int msm_dp_mst_register(struct msm_dp *msm_dp_display);
++void msm_dp_mst_unregister(struct msm_dp *msm_dp_display);
+ struct msm_dp_panel *msm_dp_display_get_panel(struct msm_dp *msm_dp_display,
+ 					      enum msm_dp_stream_id stream_id);
+ #endif /* _DP_DISPLAY_H_ */
+diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.c b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+new file mode 100644
+index 000000000..5d22aa34c
+--- /dev/null
++++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+@@ -0,0 +1,67 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) 2025 Qualcomm Innovation Center, Inc. All rights reserved.
++ */
++
++#include <drm/drm_edid.h>
++#include <drm/drm_fixed.h>
++#include <drm/drm_atomic_helper.h>
++#include <drm/display/drm_dp_mst_helper.h>
++
++#include "dp_mst_drm.h"
++#include "dp_panel.h"
++
++struct msm_dp_mst_encoder {
++	struct drm_encoder *enc;
++	int stream_id;
++	struct msm_dp_panel *dp_panel;
++};
++
++struct msm_dp_mst {
++	struct drm_dp_mst_topology_mgr mst_mgr;
++	struct msm_dp_mst_encoder mst_encoders[DP_STREAM_MAX];
++	struct msm_dp *msm_dp;
++	struct drm_dp_aux *dp_aux;
++	u32 max_streams;
++};
++
++int msm_dp_mst_mgr_init(struct msm_dp *dp_display, u32 max_streams, struct drm_dp_aux *drm_aux)
++{
++	struct drm_device *dev = dp_display->drm_dev;
++	struct msm_dp_mst *mst;
++	int ret;
++
++	mst = kzalloc_obj(*mst);
++	if (!mst)
++		return -ENOMEM;
++
++	mst->msm_dp = dp_display;
++	mst->max_streams = max_streams;
++	mst->dp_aux = drm_aux;
++
++	ret = drm_dp_mst_topology_mgr_init(&mst->mst_mgr, dev,
++					   drm_aux,
++					   16,
++					   max_streams,
++					   dp_display->connector->base.id);
++	if (ret) {
++		drm_err(dev, "[MST] topology manager init failed\n");
++		kfree(mst);
++		return ret;
++	}
++
++	dp_display->msm_dp_mst = mst;
++	return 0;
++}
++
++void msm_dp_mst_mgr_destroy(struct msm_dp *dp_display)
++{
++	struct msm_dp_mst *mst = dp_display->msm_dp_mst;
++
++	if (!mst)
++		return;
++
++	drm_dp_mst_topology_mgr_destroy(&mst->mst_mgr);
++	dp_display->msm_dp_mst = NULL;
++	kfree(mst);
++}
+diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.h b/drivers/gpu/drm/msm/dp/dp_mst_drm.h
+new file mode 100644
+index 000000000..7f35e7524
+--- /dev/null
++++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.h
+@@ -0,0 +1,13 @@
++/* SPDX-License-Identifier: GPL-2.0-only
++ * Copyright (c) 2025 Qualcomm Innovation Center, Inc. All rights reserved.
++ */
++
++#ifndef _DP_MST_DRM_H_
++#define _DP_MST_DRM_H_
++
++#include "dp_display.h"
++
++int msm_dp_mst_mgr_init(struct msm_dp *dp_display, u32 max_streams, struct drm_dp_aux *drm_aux);
++void msm_dp_mst_mgr_destroy(struct msm_dp *dp_display);
++
++#endif /* _DP_MST_DRM_H_ */
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index b65702ac0..fc838bb0c 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -357,6 +357,9 @@ void msm_dp_snapshot(struct msm_disp_state *disp_state, struct msm_dp *dp_displa
+ bool msm_dp_needs_periph_flush(const struct msm_dp *dp_display,
+ 			       const struct drm_display_mode *mode);
+ bool msm_dp_wide_bus_available(const struct msm_dp *dp_display);
++int msm_dp_get_mst_max_stream(struct msm_dp *dp_display);
++int msm_dp_mst_register(struct msm_dp *dp_display);
++void msm_dp_mst_unregister(struct msm_dp *dp_display);
+ 
+ #else
+ static inline int __init msm_dp_register(void)
+@@ -389,6 +392,20 @@ static inline bool msm_dp_wide_bus_available(const struct msm_dp *dp_display)
+ 	return false;
+ }
+ 
++static inline int msm_dp_get_mst_max_stream(struct msm_dp *dp_display)
++{
++	return -EINVAL;
++}
++
++static inline int msm_dp_mst_register(struct msm_dp *dp_display)
++{
++	return -EINVAL;
++}
++
++static inline void msm_dp_mst_unregister(struct msm_dp *dp_display)
++{
++}
++
+ #endif
+ 
+ #ifdef CONFIG_DRM_MSM_MDP4

@@ -1,0 +1,81 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Date: Wed, 13 May 2026 02:22:57 +0530
+Subject: [PATCH 6/9] drm/msm: Centralize the standalone drm device check for
+ GPU
+
+Replace msm_gpu_no_components() with msm_gpu_use_separate_drm_dev() and
+move the platform-specific check for "amd,imageon" into the helper so the
+policy is centralized and reused by both the core driver and adreno probe
+path. No functional change intended.
+
+Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/adreno/adreno_device.c |  3 +--
+ drivers/gpu/drm/msm/msm_drv.c              | 11 +++++++----
+ drivers/gpu/drm/msm/msm_drv.h              |  2 +-
+ 3 files changed, 9 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+index 05c77fe..84bdc33 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_device.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+@@ -271,8 +271,7 @@ static const struct component_ops a3xx_ops = {
+ 
+ static int adreno_probe(struct platform_device *pdev)
+ {
+-	if (of_device_is_compatible(pdev->dev.of_node, "amd,imageon") ||
+-	    msm_gpu_no_components())
++	if (msm_gpu_use_separate_drm_dev(pdev))
+ 		return msm_gpu_probe(pdev, &a3xx_ops);
+ 
+ 	return component_add(&pdev->dev, &a3xx_ops);
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index f3d2eaa..8e0f4a8 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -61,9 +61,12 @@ module_param(separate_gpu_kms, bool, 0400);
+ DECLARE_FAULT_ATTR(fail_gem_alloc);
+ DECLARE_FAULT_ATTR(fail_gem_iova);
+ 
+-bool msm_gpu_no_components(void)
++bool msm_gpu_use_separate_drm_dev(struct platform_device *pdev)
+ {
+-	return separate_gpu_kms;
++	if (!pdev)
++		return separate_gpu_kms;
++
++	return of_device_is_compatible(pdev->dev.of_node, "amd,imageon") || separate_gpu_kms;
+ }
+ 
+ static int msm_drm_uninit(struct device *dev, const struct component_ops *gpu_ops)
+@@ -1040,7 +1043,7 @@ static int add_gpu_components(struct device *dev,
+ static int msm_drm_bind(struct device *dev)
+ {
+ 	return msm_drm_init(dev,
+-			    msm_gpu_no_components() ?
++			    msm_gpu_use_separate_drm_dev(NULL) ?
+ 				    &msm_kms_driver :
+ 				    &msm_driver,
+ 			    NULL);
+@@ -1079,7 +1082,7 @@ int msm_drv_probe(struct device *master_dev,
+ 			return ret;
+ 	}
+ 
+-	if (!msm_gpu_no_components()) {
++	if (!msm_gpu_use_separate_drm_dev(NULL)) {
+ 		ret = add_gpu_components(master_dev, &match);
+ 		if (ret)
+ 			return ret;
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index eb4bbae..9e0d3a8 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -534,6 +534,6 @@ void msm_kms_shutdown(struct platform_device *pdev);
+ 
+ bool msm_disp_drv_should_bind(struct device *dev, bool dpu_driver);
+ 
+-bool msm_gpu_no_components(void);
++bool msm_gpu_use_separate_drm_dev(struct platform_device *pdev);
+ 
+ #endif /* __MSM_DRV_H__ */

@@ -1,0 +1,84 @@
+From: Alex Robinson <alex@ironrobin.net>
+Subject: dt-bindings: embedded-controller: Add Lenovo ThinkPad X13s EC
+Date: Sat, 10 Oct 2026 14:55:43 +0000
+
+The ThinkPad X13s EC uses a command transport similar to the T14s EC,
+but has different keyboard-backlight, event and power-management
+interfaces.
+
+Add a separate binding to describe the X13s EC.
+
+Assisted-by: LLM
+Signed-off-by: Alex Robinson <alex@ironrobin.net>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+diff --git a/Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-x13s-ec.yaml b/Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-x13s-ec.yaml
+new file mode 100644
+--- /dev/null
++++ b/Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-x13s-ec.yaml
+@@ -0,0 +1,65 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/embedded-controller/lenovo,thinkpad-x13s-ec.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Lenovo ThinkPad X13s Embedded Controller
++
++maintainers:
++  - Alex Robinson <alex@ironrobin.net>
++
++description:
++  The Lenovo ThinkPad X13s has an I2C-connected embedded controller (EC)
++  providing keyboard backlight control and event notifications. In addition
++  to its event interrupt, the EC has a separate host-controlled power-state
++  input used during transitions between normal operation and low power.
++
++properties:
++  compatible:
++    const: lenovo,thinkpad-x13s-ec
++
++  reg:
++    const: 0x28
++
++  interrupts:
++    maxItems: 1
++
++  power-state-gpios:
++    maxItems: 1
++    description:
++      GPIO connected to the EC power-state input, driven by the host.
++      The signal is high during normal operation and low in the low-power
++      state. It is used together with I2C power-state commands, rather than
++      as a power-supply enable or reset signal. The GPIO is active high.
++
++  wakeup-source: true
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - power-state-gpios
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        embedded-controller@28 {
++            compatible = "lenovo,thinkpad-x13s-ec";
++            reg = <0x28>;
++            interrupts-extended = <&gpio 1 IRQ_TYPE_EDGE_FALLING>;
++            power-state-gpios = <&gpio 2 GPIO_ACTIVE_HIGH>;
++            pinctrl-0 = <&ec_int_n>, <&ec_power_state>;
++            pinctrl-names = "default";
++            wakeup-source;
++        };
++    };
++...

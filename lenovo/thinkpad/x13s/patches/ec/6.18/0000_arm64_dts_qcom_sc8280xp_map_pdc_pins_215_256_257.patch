@@ -1,0 +1,35 @@
+From: Cody McGinnis <brainwart@gmail.com>
+Subject: [PATCH] arm64: dts: qcom: sc8280xp: map PDC pins 215, 256 and 257
+
+The 6.18 sc8280xp PDC ranges leave out PDC pins 215 (GPIO 103) and
+256-257, which Linux 7.3 maps (<214 643 2> and <255 454 3>).
+
+The X13s embedded controller interrupt is GPIO 103. Without a GIC parent
+for PDC pin 215 the PDC level is kept with a disconnected parent, and
+requesting the interrupt dereferences NULL in irq_chip_set_type_parent()
+from qcom_pdc_gic_set_type(), leaving modprobe holding locks and udev
+soft-locked.
+
+Use the 7.3 ranges for these pins.
+
+---
+--- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
+@@ -5110,7 +5110,7 @@
+ 					  <211 699 1>,
+ 					  <212 705 1>,
+ 					  <213 450 1>,
+-					  <214 643 1>,
++					  <214 643 2>,
+ 					  <216 646 5>,
+ 					  <221 390 5>,
+ 					  <226 700 3>,
+@@ -5133,7 +5133,7 @@
+ 					  <252 798 1>,
+ 					  <253 765 1>,
+ 					  <254 763 1>,
+-					  <255 454 1>,
++					  <255 454 3>,
+ 					  <258 139 1>,
+ 					  <259 786 2>,
+ 					  <261 370 2>,

@@ -1,0 +1,154 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Cody McGinnis <brainwart@gmail.com>
+Date: Mon, 23 Nov 2026 17:21:10 -0500
+Subject: [PATCH] drm/msm/dp: restore MST streams after system suspend
+
+With MST active, an s2idle cycle leaves the MST streams dead. On resume
+msm_kms_pm_complete() restores the display state, the stream encoders
+never see a vblank ("vblank timeout", "frame done timeout"), and the next
+modeset blocks for good when the interfaces fail to disable.
+
+Two things are missing across system suspend:
+
+- msm_dp_mst_stream_post_disable() keeps the link up after the last
+  stream while MST is active, so streams can come and go without link
+  training. The controller and PHY are powered off across suspend, but
+  link_ready survives, so msm_dp_display_prepare_link() skips PHY init
+  and link training when the streams are restored. They start on a dead
+  link, without a pixel clock.
+
+- The topology manager is never suspended or resumed, so the branch
+  device comes back with MST and up requests disabled while the manager
+  keeps its pre-suspend state.
+
+Suspend the topology manager and take the idle link down before the
+controller is forced off. On resume, bring the link back first (AUX goes
+through the DP PHY), then resume the topology manager, before the display
+state is restored. A topology that went away while suspended is left to
+the HPD that follows.
+
+Seen on a ThinkPad X13s (sc8280xp) driving two monitors through a
+ThinkPad USB-C dock.
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 28 +++++++++++++--
+ drivers/gpu/drm/msm/dp/dp_mst_drm.c | 56 +++++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/dp/dp_mst_drm.h |  2 ++
+ 3 files changed, 84 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 5ed63a896..8960309ef 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -1507,10 +1507,34 @@ static int msm_dp_pm_runtime_resume(struct device *dev)
+ 	return 0;
+ }
+ 
++static int msm_dp_pm_suspend(struct device *dev)
++{
++	struct msm_dp_display_private *dp = dev_get_dp_display_private(dev);
++
++	/* Needs AUX, so before the controller is forced off. */
++	msm_dp_mst_suspend(&dp->msm_dp_display);
++
++	return pm_runtime_force_suspend(dev);
++}
++
++static int msm_dp_pm_resume(struct device *dev)
++{
++	struct msm_dp_display_private *dp = dev_get_dp_display_private(dev);
++	int ret;
++
++	ret = pm_runtime_force_resume(dev);
++	if (ret)
++		return ret;
++
++	/* Before msm_kms_pm_complete() restores the display state. */
++	msm_dp_mst_resume(&dp->msm_dp_display);
++
++	return 0;
++}
++
+ static const struct dev_pm_ops msm_dp_pm_ops = {
+ 	SET_RUNTIME_PM_OPS(msm_dp_pm_runtime_suspend, msm_dp_pm_runtime_resume, NULL)
+-	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
+-				pm_runtime_force_resume)
++	SET_SYSTEM_SLEEP_PM_OPS(msm_dp_pm_suspend, msm_dp_pm_resume)
+ };
+ 
+ static struct platform_driver msm_dp_display_driver = {
+diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.c b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+index a452b3d2b..6fff89b6b 100644
+--- a/drivers/gpu/drm/msm/dp/dp_mst_drm.c
++++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+@@ -677,3 +677,59 @@ void msm_dp_mst_mgr_destroy(struct msm_dp *dp_display)
+ 	dp_display->msm_dp_mst = NULL;
+ 	kfree(mst);
+ }
++
++void msm_dp_mst_suspend(struct msm_dp *dp_display)
++{
++	struct msm_dp_mst *mst = dp_display->msm_dp_mst;
++
++	if (!mst || !dp_display->mst_active)
++		return;
++
++	drm_dp_mst_topology_mgr_suspend(&mst->mst_mgr);
++
++	/*
++	 * With MST active, msm_dp_mst_stream_post_disable() keeps the link
++	 * up after the last stream so streams can come and go without link
++	 * training. The controller and PHY are powered off across system
++	 * suspend, so take the link down here. Otherwise link_ready survives,
++	 * msm_dp_display_prepare_link() skips PHY init and link training when
++	 * the streams are restored, and they start on a dead link: no pixel
++	 * clock, vblank timeouts, and a stuck disable on the next modeset.
++	 */
++	scoped_guard(mutex, &mst->mst_lock) {
++		if (!dp_display->active_stream_mask)
++			msm_dp_display_unprepare(dp_display);
++	}
++}
++
++void msm_dp_mst_resume(struct msm_dp *dp_display)
++{
++	struct msm_dp_mst *mst = dp_display->msm_dp_mst;
++	int rc = 0;
++
++	if (!mst || !dp_display->mst_active)
++		return;
++
++	/*
++	 * AUX goes through the DP PHY, which suspend took down with the link.
++	 * Bring the link back first, as stream enable would.
++	 */
++	scoped_guard(mutex, &mst->mst_lock)
++		rc = msm_dp_display_prepare_link(dp_display);
++	if (rc) {
++		drm_dbg_kms(dp_display->drm_dev,
++			    "[MST] link not restored after resume rc:%d\n", rc);
++		return;
++	}
++
++	/*
++	 * Re-enable MST and up requests in the branch device and re-probe
++	 * the topology before the DRM state is restored, so the restored
++	 * streams find their payloads. A topology that went away while
++	 * suspended is reported by the following HPD.
++	 */
++	rc = drm_dp_mst_topology_mgr_resume(&mst->mst_mgr, true);
++	if (rc < 0)
++		drm_dbg_kms(dp_display->drm_dev,
++			    "[MST] topology not restored after resume rc:%d\n", rc);
++}
+diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.h b/drivers/gpu/drm/msm/dp/dp_mst_drm.h
+index 84de7ca0c..4ef3d85f1 100644
+--- a/drivers/gpu/drm/msm/dp/dp_mst_drm.h
++++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.h
+@@ -14,5 +14,7 @@ int msm_dp_mst_attach_encoder(struct msm_dp *dp_display, unsigned int stream_id,
+ 			      struct drm_encoder *encoder);
+ int msm_dp_mst_display_set_mgr_state(struct msm_dp *dp_display, bool state);
+ void msm_dp_mst_display_hpd_irq(struct msm_dp *dp_display);
++void msm_dp_mst_suspend(struct msm_dp *dp_display);
++void msm_dp_mst_resume(struct msm_dp *dp_display);
+ 
+ #endif /* _DP_MST_DRM_H_ */

@@ -1,0 +1,40 @@
+From: Cody McGinnis <brainwart@gmail.com>
+Subject: [PATCH] interconnect: qcom: sc8280xp: keep the PCI0 BCM alive
+
+Since commit d4c79b63d82d ("PCI: Allow D3 for native hotplug-capable Root
+Ports on non-x86 platforms") the hotplug-capable Root Ports on SC8280XP
+are put into D3 during system suspend. That makes
+pci_host_common_d3cold_possible() true, so qcom_pcie_suspend_noirq() takes
+the D3cold path and icc_disable()s the "pcie-mem" path of every
+controller.
+
+PCI0 (qns_pcie_gem_noc) is only voted by those paths. Once all of them
+are disabled, its AMC/WAKE vote drops to zero and RPMh switches the
+bridge off while the application processor is still running. The
+platform then takes a firmware warm reset during s2idle, before any PCIe
+resume_noirq callback runs.
+
+This was confirmed on a ThinkPad X13s with breadcrumbs in PMIC SDAM that
+survive the reset. All three controllers completed the D3cold suspend
+sequence, and none reached resume. Toggling keepalive on bcm_pci0 at
+runtime turned the reset off (5/5 s2idle cycles) and back on (reset on
+the first cycle) within the same boot. The CPU-to-PCIe path was not
+involved; its BCM, CN0, is already keepalive.
+
+Mark PCI0 keepalive, as CN0, SN0, SH0 and MC0 already are. keepalive only
+affects the AMC and WAKE buckets, so the BCM can still be dropped in the
+sleep set and SoC low-power states are not affected. Cluster power-down
+was still reached on every cycle.
+
+Fixes: d4c79b63d82d ("PCI: Allow D3 for native hotplug-capable Root Ports on non-x86 platforms")
+---
+--- a/drivers/interconnect/qcom/sc8280xp.c
++++ b/drivers/interconnect/qcom/sc8280xp.c
+@@ -2141,6 +2141,7 @@
+ 
+ static struct qcom_icc_bcm bcm_pci0 = {
+ 	.name = "PCI0",
++	.keepalive = true,
+ 	.num_nodes = 1,
+ 	.nodes = { &qns_pcie_gem_noc },
+ };

@@ -1,0 +1,82 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Alex Robinson <alex@ironrobin.net>
+Date: Sat, 10 Oct 2026 14:55:56 +0000
+Subject: [PATCH 3/3] arm64: dts: qcom: sc8280xp-x13s: Add embedded controller
+
+Enable the ThinkPad X13s embedded controller so its driver can provide
+keyboard backlight support when booting with Device Tree.
+
+Use a pull-up on the EC interrupt line to match the firmware-inherited
+configuration measured before Linux configured the pin.
+
+Assisted-by: LLM
+Signed-off-by: Alex Robinson <alex@ironrobin.net>
+---
+ .../qcom/sc8280xp-lenovo-thinkpad-x13s.dts    | 40 +++++++++++++++++++
+ 1 file changed, 40 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
+index ee0928721..58d9ae420 100644
+--- a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
++++ b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
+@@ -812,6 +812,25 @@ touchscreen@10 {
+ 	};
+ };
+ 
++&i2c8 {
++	clock-frequency = <400000>;
++
++	pinctrl-0 = <&i2c8_default>;
++	pinctrl-names = "default";
++
++	status = "okay";
++
++	embedded-controller@28 {
++		compatible = "lenovo,thinkpad-x13s-ec";
++		reg = <0x28>;
++		interrupts-extended = <&tlmm 103 IRQ_TYPE_EDGE_FALLING>;
++		power-state-gpios = <&tlmm 176 GPIO_ACTIVE_HIGH>;
++		pinctrl-0 = <&ec_int_n>, <&ec_power_state>;
++		pinctrl-names = "default";
++		wakeup-source;
++	};
++};
++
+ &i2c11 {
+ 	clock-frequency = <400000>;
+ 
+@@ -1609,6 +1628,20 @@ sc-rgb-xshut-n-pins {
+ 		};
+ 	};
+ 
++	ec_int_n: ec-int-n-state {
++		pins = "gpio103";
++		function = "gpio";
++		input-enable;
++		bias-pull-up;
++	};
++
++	ec_power_state: ec-power-state {
++		pins = "gpio176";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
+ 	edp_reg_en: edp-reg-en-state {
+ 		pins = "gpio25";
+ 		function = "gpio";
+@@ -1629,6 +1662,13 @@ i2c4_default: i2c4-default-state {
+ 		bias-disable;
+ 	};
+ 
++	i2c8_default: i2c8-default-state {
++		pins = "gpio43", "gpio44";
++		function = "qup8";
++		drive-strength = <2>;
++		bias-pull-up;
++	};
++
+ 	i2c11_default: i2c11-default-state {
+ 		pins = "gpio18", "gpio19";
+ 		function = "qup11";

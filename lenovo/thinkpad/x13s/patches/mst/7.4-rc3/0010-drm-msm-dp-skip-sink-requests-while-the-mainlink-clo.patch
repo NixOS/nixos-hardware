@@ -1,0 +1,72 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Date: Thu, 19 Nov 2026 16:24:03 +0800
+Subject: [PATCH 10/38] drm/msm/dp: skip sink requests while the mainlink
+ clocks are off
+
+msm_dp_ctrl_handle_sink_request() programs REG_DP_STATE_CTRL from all
+three of its branches:
+
+  DP_TEST_LINK_PHY_TEST_PATTERN -> msm_dp_ctrl_process_phy_test_request()
+                                   -> msm_dp_ctrl_off_link()
+  DP_LINK_STATUS_UPDATED        -> msm_dp_ctrl_link_maintenance()
+                                   -> msm_dp_ctrl_push_idle()
+  DP_TEST_LINK_TRAINING         -> msm_dp_ctrl_link_maintenance()
+                                   -> msm_dp_ctrl_push_idle()
+
+That register lives in the mainlink clock domain, and nothing on the
+IRQ_HPD path guarantees those clocks are running. Disabling the
+boot-time mode for the first modeset from userspace turns the link
+clocks off. The sink answers the link going down with an IRQ_HPD
+carrying DP_LINK_STATUS_UPDATED (DPCD 0x204 = 0x80), and handling it
+walks straight into a write to an unclocked register block:
+
+  [    4.572532] [drm:msm_dp_ctrl_off_link] disable
+  [    4.573756] [drm:msm_dp_ctrl_link_clk_disable] disabled link clocks
+  [    4.823194] [drm:msm_dp_link_process_request] sink request=0x80
+  [    4.823199] [drm:msm_dp_bridge_hpd_notify] 128
+
+The board hung on 3 of 3 boots with a 5120x2160 SST sink attached over
+USB-C. On the hung boot captured with drm.debug=0x100 the printk ring
+ends at that last line, the drm_dbg_dp() immediately before
+msm_dp_ctrl_handle_sink_request(). In the RAM dumps CPU0 is still
+running pmic_glink_altmode_worker, holding the bridge chain mutex taken
+by drm_bridge_connector_hpd_notify(), and ctrl->link_clks_on is false.
+
+Bail out when the mainlink clocks are off. All three branches need them
+running to do anything useful, so gating the function entry costs
+nothing: the first one resets the controller, which its own comment
+notes "will need DP link related clocks to be running", and the other
+two retrain the link.
+
+Everything else reachable from the IRQ_HPD path - the MST ESI handling,
+msm_dp_display_process_hpd_high() and the video pattern test response -
+only talks to the sink over AUX and keeps working as before.
+
+Reported-by: Joonhoe Kim <26rote@gmail.com>
+Closes: https://lore.kernel.org/all/20261108011501.4466-1-26rote@gmail.com/
+Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
+Cc: stable@vger.kernel.org
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/dp/dp_ctrl.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index 47647fdec..185d2dd55 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -2321,6 +2321,12 @@ void msm_dp_ctrl_handle_sink_request(struct msm_dp_ctrl *msm_dp_ctrl,
+ 	}
+ 
+ 	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
++
++	if (!ctrl->link_clks_on) {
++		drm_dbg_dp(ctrl->drm_dev, "link clocks off, skipping sink request\n");
++		return;
++	}
++
+ 	sink_request = ctrl->link->sink_request;
+ 
+ 	if (sink_request & DP_TEST_LINK_PHY_TEST_PATTERN) {

@@ -1,0 +1,93 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Date: Thu, 19 Nov 2026 16:24:24 +0800
+Subject: [PATCH 31/38] drm/msm/dp: wire MST helpers into atomic check and
+ commit paths
+
+Call drm_dp_mst_atomic_check() from msm_atomic_check() so MST-specific
+state, such as connector and topology changes, is validated as part of
+the atomic check.
+
+Hook the MST helpers into atomic_commit_setup() and
+atomic_commit_tail() to support non-blocking atomic commits for
+DisplayPort MST, and ensure MST commits properly wait for dependencies.
+
+For SST, non-blocking commits are already handled via commit_tail(),
+which waits for dependencies in the DRM core.
+
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/msm_atomic.c | 14 +++++++++++++-
+ drivers/gpu/drm/msm/msm_drv.h    |  1 +
+ drivers/gpu/drm/msm/msm_kms.c    |  1 +
+ 3 files changed, 15 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
+index a8babf1db..e70e5088c 100644
+--- a/drivers/gpu/drm/msm/msm_atomic.c
++++ b/drivers/gpu/drm/msm/msm_atomic.c
+@@ -4,6 +4,7 @@
+  * Author: Rob Clark <robdclark@gmail.com>
+  */
+ 
++#include <drm/display/drm_dp_mst_helper.h>
+ #include <drm/drm_atomic_uapi.h>
+ #include <drm/drm_vblank.h>
+ 
+@@ -207,7 +208,11 @@ int msm_atomic_check(struct drm_device *dev, struct drm_atomic_commit *state)
+ 	if (ret)
+ 		return ret;
+ 
+-	return drm_atomic_helper_check(dev, state);
++	ret = drm_atomic_helper_check(dev, state);
++	if (ret)
++		return ret;
++
++	return drm_dp_mst_atomic_check(state);
+ }
+ 
+ void msm_atomic_commit_tail(struct drm_atomic_commit *state)
+@@ -221,6 +226,8 @@ void msm_atomic_commit_tail(struct drm_atomic_commit *state)
+ 
+ 	trace_msm_atomic_commit_tail_start(async, crtc_mask);
+ 
++	drm_dp_mst_atomic_wait_for_dependencies(state);
++
+ 	kms->funcs->enable_commit(kms);
+ 
+ 	/*
+@@ -322,3 +329,8 @@ void msm_atomic_commit_tail(struct drm_atomic_commit *state)
+ 
+ 	trace_msm_atomic_commit_tail_finish(async, crtc_mask);
+ }
++
++int msm_atomic_commit_setup(struct drm_atomic_commit *state)
++{
++	return drm_dp_mst_atomic_setup_commit(state);
++}
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index 153d82ee6..28ba6b623 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -211,6 +211,7 @@ int msm_atomic_init_pending_timer(struct msm_pending_timer *timer,
+ 		struct msm_kms *kms, int crtc_idx);
+ void msm_atomic_destroy_pending_timer(struct msm_pending_timer *timer);
+ void msm_atomic_commit_tail(struct drm_atomic_commit *state);
++int msm_atomic_commit_setup(struct drm_atomic_commit *state);
+ int msm_atomic_check(struct drm_device *dev, struct drm_atomic_commit *state);
+ struct drm_atomic_commit *msm_atomic_state_alloc(struct drm_device *dev);
+ 
+diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
+index 3597dc276..265db83a6 100644
+--- a/drivers/gpu/drm/msm/msm_kms.c
++++ b/drivers/gpu/drm/msm/msm_kms.c
+@@ -29,6 +29,7 @@ static const struct drm_mode_config_funcs mode_config_funcs = {
+ 
+ static const struct drm_mode_config_helper_funcs mode_config_helper_funcs = {
+ 	.atomic_commit_tail = msm_atomic_commit_tail,
++	.atomic_commit_setup = msm_atomic_commit_setup,
+ };
+ 
+ static irqreturn_t msm_irq(int irq, void *arg)

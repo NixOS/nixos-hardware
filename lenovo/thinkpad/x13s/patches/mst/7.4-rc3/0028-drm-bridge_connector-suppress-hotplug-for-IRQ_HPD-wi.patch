@@ -1,0 +1,71 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Date: Thu, 19 Nov 2026 16:24:21 +0800
+Subject: [PATCH 28/38] drm/bridge_connector: suppress hotplug for IRQ_HPD
+ without status changes
+
+DP IRQ_HPD does not necessarily indicate a display connection change.
+It can also signal link status changes or pending MST messages, which
+need bridge-side handling but do not necessarily require userspace to
+reprobe the connector.
+
+Currently, the HPD handler sends a hotplug event for every notification,
+without distinguishing ordinary HPD from IRQ_HPD. This causes IRQ_HPD
+notifications with no connection change to trigger unnecessary connector
+reprobes.
+
+However, filtering out all IRQ_HPD notifications would also discard
+hotplug events for downstream display connection changes on a DP branch,
+where upstream HPD can remain asserted. The decision therefore needs to
+use the actual connector status after handling the notification, rather
+than the raw HPD status reported by the event.
+
+Pass the event to the bridge chain first, then call the bridge .detect()
+callback to update connector->status. Fall back to the reported status
+when no .detect() callback is available. For IRQ_HPD, send a hotplug event
+only when the connector status changes, suppressing IRQ-only notifications
+while preserving notifications for downstream connection changes.
+
+Keep hotplug events unconditional for ordinary HPD notifications. An
+earlier detect may already have updated the connection status before
+subsequent plug handling reads the EDID, so a reprobe is still needed.
+
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+---
+ drivers/gpu/drm/display/drm_bridge_connector.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+index 4ade63306..1d4502126 100644
+--- a/drivers/gpu/drm/display/drm_bridge_connector.c
++++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+@@ -160,15 +160,25 @@ static void drm_bridge_connector_handle_hpd(struct drm_bridge_connector *drm_bri
+ 					    enum drm_connector_dp_event event)
+ {
+ 	struct drm_connector *connector = &drm_bridge_connector->base;
++	struct drm_bridge *detect = drm_bridge_connector->bridge_detect;
+ 	struct drm_device *dev = connector->dev;
++	enum drm_connector_status old_status, new_status;
++	bool level_hpd;
++	bool changed;
+ 
+-	mutex_lock(&dev->mode_config.mutex);
+-	connector->status = status;
+-	mutex_unlock(&dev->mode_config.mutex);
++	level_hpd = event == DRM_CONNECTOR_NO_EXTRA_STATUS;
+ 
+ 	drm_bridge_connector_hpd_notify(connector, status, event);
+ 
+-	drm_kms_helper_connector_hotplug_event(connector);
++	mutex_lock(&dev->mode_config.mutex);
++	old_status = connector->status;
++	new_status = detect ? detect->funcs->detect(detect, connector) : status;
++	connector->status = new_status;
++	changed = new_status != old_status;
++	mutex_unlock(&dev->mode_config.mutex);
++
++	if (changed || level_hpd)
++		drm_kms_helper_connector_hotplug_event(connector);
+ }
+ 
+ static void drm_bridge_connector_hpd_cb(void *cb_data,

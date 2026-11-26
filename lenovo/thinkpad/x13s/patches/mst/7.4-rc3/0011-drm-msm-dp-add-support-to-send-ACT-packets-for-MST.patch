@@ -1,0 +1,201 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Thu, 19 Nov 2026 16:24:04 +0800
+Subject: [PATCH 11/38] drm/msm/dp: add support to send ACT packets for MST
+
+Whenever virtual channel slot allocation changes, the DP
+source must send the action control trigger sequence to notify
+the sink about the same. This would be applicable during the
+start and stop of the pixel stream. Add the infrastructure
+to be able to send ACT packets for the DP controller when
+operating in MST mode.
+
+Add REG_DP_MST_ACT, the ACT trigger register used by this sequence.
+
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 50 +++++++++++++++++++++++++++--
+ drivers/gpu/drm/msm/dp/dp_ctrl.h    |  5 ++-
+ drivers/gpu/drm/msm/dp/dp_display.c |  3 +-
+ drivers/gpu/drm/msm/dp/dp_display.h |  1 +
+ drivers/gpu/drm/msm/dp/dp_reg.h     |  1 +
+ 5 files changed, 56 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index 185d2dd55..86b6e7991 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -142,6 +142,7 @@ struct msm_dp_ctrl_private {
+ 	bool core_clks_on;
+ 	bool link_clks_on;
+ 	bool stream_clks_on[DP_STREAM_MAX];
++	bool mst_mode;
+ };
+ 
+ static inline u32 msm_dp_read_ahb(const struct msm_dp_ctrl_private *ctrl, u32 offset)
+@@ -244,6 +245,37 @@ static int msm_dp_aux_link_configure(struct drm_dp_aux *aux,
+ 	return err;
+ }
+ 
++int msm_dp_ctrl_mst_send_act(struct msm_dp_ctrl *msm_dp_ctrl,
++			     struct msm_dp_panel *panel)
++{
++	struct msm_dp_ctrl_private *ctrl;
++	const struct drm_display_mode *mode;
++	u32 frame_time_ms;
++
++	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
++
++	if (!ctrl->mst_mode)
++		return 0;
++
++	mode = &panel->msm_dp_mode.drm_mode;
++	frame_time_ms = DIV_ROUND_UP_ULL((u64)mode->htotal * mode->vtotal,
++					 mode->clock) + 1;
++
++	msm_dp_write_link(ctrl, REG_DP_MST_ACT, 0x1);
++	/* make sure ACT signal is performed */
++	wmb();
++
++	msleep(frame_time_ms);
++
++	/* Hardware clears this bit after sending 4 ACT headers */
++	if (msm_dp_read_link(ctrl, REG_DP_MST_ACT)) {
++		drm_dbg_dp(ctrl->drm_dev, "MST ACT trigger complete failed\n");
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
+ /*
+  * NOTE: resetting DP controller will also clear any pending HPD related interrupts
+  */
+@@ -2623,7 +2655,8 @@ int msm_dp_ctrl_prepare_stream_on(struct msm_dp_ctrl *msm_dp_ctrl,
+ 	return ret;
+ }
+ 
+-int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *panel)
++int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *panel,
++			  bool mst_active)
+ {
+ 	int ret = 0;
+ 	bool mainlink_ready = false;
+@@ -2635,6 +2668,8 @@ int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *
+ 
+ 	ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_ctrl);
+ 
++	ctrl->mst_mode = mst_active;
++
+ 	pixel_rate = panel->msm_dp_mode.drm_mode.clock;
+ 
+ 	if (msm_dp_ctrl->wide_bus_en || panel->msm_dp_mode.out_fmt_is_yuv_420)
+@@ -2666,15 +2701,23 @@ int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *
+ 
+ 	msm_dp_write_link(ctrl, REG_DP_STATE_CTRL, DP_STATE_CTRL_SEND_VIDEO);
+ 
++	ret = msm_dp_ctrl_mst_send_act(msm_dp_ctrl, panel);
++	if (ret)
++		goto err_pclk;
++
+ 	ret = msm_dp_ctrl_wait4video_ready(ctrl);
+ 	if (ret)
+-		return ret;
++		goto err_pclk;
+ 
+ 	mainlink_ready = msm_dp_ctrl_mainlink_ready(ctrl);
+ 	drm_dbg_dp(ctrl->drm_dev,
+ 		"mainlink %s\n", mainlink_ready ? "READY" : "NOT READY");
+ 
+ 	return ret;
++
++err_pclk:
++	msm_dp_ctrl_off_pixel_clk(msm_dp_ctrl, panel->stream_id);
++	return ret;
+ }
+ 
+ void msm_dp_ctrl_reinit_phy(struct msm_dp_ctrl *msm_dp_ctrl)
+@@ -2703,6 +2746,8 @@ void msm_dp_ctrl_off_link(struct msm_dp_ctrl *msm_dp_ctrl,
+ 
+ 	msm_dp_ctrl_reset(&ctrl->msm_dp_ctrl, panel);
+ 
++	ctrl->mst_mode = false;
++
+ 	msm_dp_ctrl_link_clk_disable(&ctrl->msm_dp_ctrl);
+ 
+ 	phy_power_off(phy);
+@@ -2884,6 +2929,7 @@ struct msm_dp_ctrl *msm_dp_ctrl_get(struct device *dev, struct msm_dp_link *link
+ 	ctrl->link_base = link_base;
+ 	ctrl->mst2link_base = mst2link_base;
+ 	ctrl->mst3link_base = mst3link_base;
++	ctrl->mst_mode = false;
+ 
+ 	ret = msm_dp_ctrl_clk_init(&ctrl->msm_dp_ctrl);
+ 	if (ret) {
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.h b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+index 80d925850..41a694470 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.h
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+@@ -18,7 +18,8 @@ struct phy;
+ 
+ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl,
+ 			struct msm_dp_panel *panel);
+-int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *panel);
++int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *panel,
++			  bool mst_active);
+ int msm_dp_ctrl_prepare_stream_on(struct msm_dp_ctrl *msm_dp_ctrl,
+ 				  struct msm_dp_panel *panel,
+ 				  bool force_link_train);
+@@ -59,4 +60,6 @@ void msm_dp_ctrl_disable_irq(struct msm_dp_ctrl *msm_dp_ctrl);
+ void msm_dp_ctrl_reinit_phy(struct msm_dp_ctrl *msm_dp_ctrl);
+ bool msm_dp_ctrl_stream_clks_on(struct msm_dp_ctrl *dp_ctrl,
+ 				enum msm_dp_stream_id stream_id);
++int msm_dp_ctrl_mst_send_act(struct msm_dp_ctrl *msm_dp_ctrl,
++			     struct msm_dp_panel *panel);
+ #endif /* _DP_CTRL_H_ */
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index ce96e6904..15fdd4180 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -679,7 +679,7 @@ static int msm_dp_display_enable(struct msm_dp_display_private *dp,
+ 		return 0;
+ 	}
+ 
+-	rc = msm_dp_ctrl_on_stream(dp->ctrl, msm_dp_panel);
++	rc = msm_dp_ctrl_on_stream(dp->ctrl, msm_dp_panel, msm_dp_display->mst_active);
+ 	if (!rc)
+ 		msm_dp_display->power_on = true;
+ 
+@@ -1525,6 +1525,7 @@ void msm_dp_display_atomic_disable(struct msm_dp *dp)
+ 		return;
+ 
+ 	msm_dp_ctrl_push_idle(msm_dp_display->ctrl);
++	msm_dp_ctrl_mst_send_act(msm_dp_display->ctrl, msm_dp_display->panel);
+ }
+ 
+ static void msm_dp_display_unprepare(struct msm_dp_display_private *dp)
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
+index 83117e761..472429d09 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.h
++++ b/drivers/gpu/drm/msm/dp/dp_display.h
+@@ -19,6 +19,7 @@ struct msm_dp {
+ 	struct drm_bridge *bridge;
+ 	bool audio_enabled;
+ 	bool power_on;
++	bool mst_active;
+ 	unsigned int connector_type;
+ 	bool is_edp;
+ 
+diff --git a/drivers/gpu/drm/msm/dp/dp_reg.h b/drivers/gpu/drm/msm/dp/dp_reg.h
+index 265da58e0..9263e61c7 100644
+--- a/drivers/gpu/drm/msm/dp/dp_reg.h
++++ b/drivers/gpu/drm/msm/dp/dp_reg.h
+@@ -330,6 +330,7 @@
+ #define MMSS_DP1_SDP_CFG3			(0x000004e8)
+ #define REG_DP_DP0_RG				(0x000004f8)
+ #define REG_DP_DP1_RG				(0x000004fc)
++#define REG_DP_MST_ACT				(0x00000500)
+ 
+ #define MMSS_DP_BIST_ENABLE			(0x00000000)
+ #define DP_BIST_ENABLE_DPBIST_EN		(0x00000001)

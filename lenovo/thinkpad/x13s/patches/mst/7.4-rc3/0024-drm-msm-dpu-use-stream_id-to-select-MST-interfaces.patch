@@ -1,0 +1,68 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Date: Thu, 19 Nov 2026 16:24:17 +0800
+Subject: [PATCH 24/38] drm/msm/dpu: use stream_id to select MST interfaces
+
+For MST, multiple streams can share the same DP controller, making
+(controller_id, intf_type) insufficient to uniquely identify a DPU
+interface.
+
+Add stream_id to msm_display_info and use it to select the matching
+interface for a stream.
+
+For DSI, eDP and SST configurations, stream_id remains zero and
+behavior is unchanged.
+
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 7 ++++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h | 2 ++
+ 2 files changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 5e1c98371..a8dcc8c68 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -1437,17 +1437,18 @@ static struct dpu_hw_intf *dpu_encoder_get_intf(const struct dpu_mdss_cfg *catal
+ 		struct dpu_rm *dpu_rm,
+ 		struct msm_display_info *disp_info, int index)
+ {
+-	int i = 0;
++	int i = 0, cnt = 0;
+ 	u32 controller_id = disp_info->h_tile_instance[index];
++	int stream_id = disp_info->stream_id;
+ 
+ 	if (disp_info->intf_type == INTF_WB)
+ 		return NULL;
+ 
+ 	for (i = 0; i < catalog->intf_count; i++) {
+ 		if (catalog->intf[i].type == disp_info->intf_type
+-		    && catalog->intf[i].controller_id == controller_id) {
++		    && catalog->intf[i].controller_id == controller_id
++		    && cnt++ == stream_id)
+ 			return dpu_rm_get_intf(dpu_rm, catalog->intf[i].id);
+-		}
+ 	}
+ 
+ 	return NULL;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+index 4942097e7..9972e209b 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+@@ -28,6 +28,7 @@
+  * @h_tile_instance:    Controller instance used per tile. Number of elements is
+  *                      based on num_of_h_tiles
+  * @is_cmd_mode		Boolean to indicate if the CMD mode is requested
++ * @stream_id		stream id for which the interface needs to be acquired
+  * @vsync_source:	Source of the TE signal for DSI CMD devices
+  */
+ struct msm_display_info {
+@@ -35,6 +36,7 @@ struct msm_display_info {
+ 	uint32_t num_of_h_tiles;
+ 	uint32_t h_tile_instance[MAX_H_TILES_PER_DISPLAY];
+ 	bool is_cmd_mode;
++	int stream_id;
+ 	enum dpu_vsync_source vsync_source;
+ };
+ 

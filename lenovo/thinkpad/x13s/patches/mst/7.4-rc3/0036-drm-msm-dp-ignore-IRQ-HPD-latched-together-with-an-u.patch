@@ -1,0 +1,32 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Date: Thu, 19 Nov 2026 16:24:29 +0800
+Subject: [PATCH 36/38] drm/msm/dp: ignore IRQ HPD latched together with an
+ unplug
+
+IRQ HPD can be reported with a plug or unplug event.
+
+For unplug + IRQ HPD, ignore the IRQ because the link is being torn
+down and the IRQ may be stale.
+
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index e3e4b73b4..4ed920f43 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -1131,7 +1131,10 @@ static irqreturn_t msm_dp_display_irq_thread(int irq, void *dev_id)
+ 		drm_bridge_hpd_notify(dp->msm_dp_display.bridge,
+ 				      connector_status_connected);
+ 
+-	if (hpd_isr_status & DP_DP_IRQ_HPD_INT_MASK)
++	/* Do not access a link torn down by an unplug latched after an IRQ. */
++	if ((hpd_isr_status & DP_DP_IRQ_HPD_INT_MASK) &&
++	    (!(hpd_isr_status & DP_DP_HPD_UNPLUG_INT_MASK) ||
++	     (hpd_isr_status & DP_DP_HPD_PLUG_INT_MASK)))
+ 		drm_bridge_hpd_notify_extra(dp->msm_dp_display.bridge,
+ 					    connector_status_connected,
+ 					    DRM_CONNECTOR_DP_IRQ_HPD);

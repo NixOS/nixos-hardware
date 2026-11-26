@@ -1,0 +1,34 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Thu, 19 Nov 2026 16:24:25 +0800
+Subject: [PATCH 32/38] drm/msm/dp: mark the SST bridge disconnected when mst
+ is active
+
+The bridge detect function is only applicable for SST. In MST mode,
+connector detection is handled by MST bridges. Skip detection for the
+SST bridge when MST is active, matching the behavior of other DP MST
+implementations.
+
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 544bc9a0f..1468c67ad 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -976,7 +976,11 @@ enum drm_connector_status msm_dp_bridge_detect(struct drm_bridge *bridge,
+ 
+ 	priv = container_of(dp, struct msm_dp_display_private, msm_dp_display);
+ 
++	if (dp->mst_active)
++		return status;
++
+ 	guard(mutex)(&priv->plugged_lock);
++
+ 	ret = pm_runtime_resume_and_get(&dp->pdev->dev);
+ 	if (ret) {
+ 		DRM_ERROR("failed to pm_runtime_resume\n");
