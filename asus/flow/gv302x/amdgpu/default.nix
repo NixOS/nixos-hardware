@@ -18,7 +18,7 @@ in
     recovery.enable = (mkEnableOption "Enable amdgpu.gpu_recovery kernel boot param") // {
       default = false;
     };
-    sg_display.enable = (mkEnableOption "Enable amdgpu.gpu_recovery kernel boot param") // {
+    sg_display.enable = (mkEnableOption "Enable amdgpu.sg_display kernel boot param") // {
       default = true;
     };
     psr.enable = (mkEnableOption "Enable amdgpu.dcdebugmask=0x10 kernel boot param") // {
