@@ -8,6 +8,8 @@
 
   hardware.enableRedistributableFirmware = lib.mkDefault true;
 
+  security.tpm2.enable = lib.mkDefault true;
+
   # If the wireless card is not replaced
   # boot.initrd.availableKernelModules = [ "r8169" ];
 }
