@@ -1,62 +1,86 @@
 {
-  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/65fdd4d492d7e219a05742ce4768f16e5ba4f976/",
+  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/e401a6fd2c1ccb5e3ca4d5cdece6b4ec073fb902/",
   "kernel": {
-    "version": "7.2.9",
-    "url": "mirror://kernel/linux/kernel/v7.x/linux-7.2.9.tar.xz",
-    "hash": "sha256:1fnqp28vrikz9gqhb42k0dsggqf8i07j0s9qy33scr53a6zdzidl"
+    "version": "7.3.6",
+    "url": "mirror://kernel/linux/kernel/v7.x/linux-7.3.6.tar.xz",
+    "hash": "sha256:08spsh8mx1xvc080y2ihs3gqkx91yh551kfnjbxay3valxsx90w1"
   },
   "patches": [
     {
       "name": "1001-Add-t2bce-driver-stack.patch",
-      "hash": "sha256-QeAffMClzGsGdHC5Qce744X2WUcx6PI0CJ5BQ8txxQ8="
+      "hash": "sha256-TVeLxY1A0sUh+Q6Kqes9lB4K0zOejfWE83lc02ri+mw="
     },
     {
       "name": "1002-Integrate-t2bce-driver-stack.patch",
-      "hash": "sha256-nPAPGV9IROyxSQzSztwNS1fY0ziGQJ7evKBs1ZSHwiE="
+      "hash": "sha256-w4wSO+3tHlFM+AW2TukSd1oWWFr79HfY6TWCXhvWOec="
     },
     {
       "name": "2008-i915-4-lane-quirk-for-mbp15-1.patch",
-      "hash": "sha256-gTYP7WHV/Qulobdi1nNdYsv1CWgkM8pGvsCFQ+rvhrw="
+      "hash": "sha256-EypFyUnQvJjLMT2/eiZq/L313k6y0UiQrGRucoBY28g="
     },
     {
       "name": "2009-apple-gmux-allow-switching-to-igpu-at-probe.patch",
       "hash": "sha256-OczfcYSvkw2lBZQzZjCV4LHSe6CnaJ1J8GBkgEbiOXk="
     },
     {
-      "name": "3001-applesmc-convert-static-structures-to-drvdata.patch",
-      "hash": "sha256-FVtOCXInI5OUqpTVDVsZ1taMwj3z+d3PeRgjnQQljG4="
+      "name": "3001-treewide-Add-backend-for-macsmc.patch",
+      "hash": "sha256-VfZdp6fEmc5jKAkWZkOCM1TkHyUB7gV6X0UdmhGw54o="
     },
     {
-      "name": "3002-applesmc-make-io-port-base-addr-dynamic.patch",
-      "hash": "sha256-1fnmMP/3WSy2JqjdCvxu8tWoshCPr8eiG6ttYK/N9WA="
+      "name": "3002-platform-x86-add-backend-for-macsmc-in-intel-macs.patch",
+      "hash": "sha256-pWY9QRvYw4ilAZCWZiAPpr32ikn94caaj0G71J/XEK8="
     },
     {
-      "name": "3003-applesmc-switch-to-acpi_device-from-platform.patch",
-      "hash": "sha256-3S6BzyoPLoirfyAu4yDyE9aYjUYr/7etmAvN3uKSDLE="
+      "name": "3003-watchdog-add-driver-for-apple-smc.patch",
+      "hash": "sha256-vFJDIspIF0GLfhf8VTGLS6ez7bPbDbdc4JoJvMx6NiI="
     },
     {
-      "name": "3004-applesmc-key-interface-wrappers.patch",
-      "hash": "sha256-9Bq28WcqiOnef0br6bATOudr1ViSpajQs7fv7o8Tg0I="
+      "name": "3004-iio-light-add-new-driver-for-macsmc.patch",
+      "hash": "sha256-uvPgid/zsc/yZdaOKYaIYc9gAOSUEJ7h6YdBtN5FayQ="
     },
     {
-      "name": "3005-applesmc-basic-mmio-interface-implementation.patch",
-      "hash": "sha256-tnpfmZQw9KQNylpLfGZ+X0IVP79AgeDoTVYF6yUhCRI="
+      "name": "3005-iio-accel-add-driver-for-apple-SMS.patch",
+      "hash": "sha256-s1FUKkYJRMUHqVw34QRqEaSED8EDyNKtWaOgxIpGdwY="
     },
     {
-      "name": "3006-applesmc-fan-support-on-T2-Macs.patch",
-      "hash": "sha256-D5IQHE8QFo49mnUawSau7xUsMFkHKayyhnHW4hi+fWE="
+      "name": "3006-leds-add-support-for-macsmc-kbl.patch",
+      "hash": "sha256-ySSCNXxo5y9tDH3FIU9jBLFwsRIreoJNZuLkcYSiCag="
     },
     {
-      "name": "3007-applesmc-Add-iMacPro-to-applesmc_whitelist.patch",
-      "hash": "sha256-rLDuyQYzAaWuu/u6nRRVvGdwyfpLvkGPu1OoD8KS0os="
+      "name": "3007-rtc-add-support-for-x86-macs-in-macsmc-rtc.patch",
+      "hash": "sha256-bYpUcJVyZ8o5FMl/eN57I5CXyViY9Z7XWWwTaywQ9SI="
     },
     {
-      "name": "3008-applesmc-make-applesmc_remove-void.patch",
-      "hash": "sha256-j2Rj1PW/bFEYh9IkGkkG9b+G27IAPCInyd828z4WE1s="
+      "name": "3008-treewide-Add-a-flag-to-detect-the-Apple-T2-chip.patch",
+      "hash": "sha256-VS4610Prh+gmw3DDqeMzg+Ef+ZVyHupwg126AEVk1M0="
     },
     {
-      "name": "3009-applesmc-battery-charge-limiter.patch",
-      "hash": "sha256-skYKmLsJ6O42/wINLccZWoKS0XhVlC1Nfxi1Ekloxns="
+      "name": "3009-treewide-disable-other-rtc-s-in-t2-macs.patch",
+      "hash": "sha256-StWq9onhNCqL/3lkwA1/Zje5NMdA8kRXaG5rMbHPBks="
+    },
+    {
+      "name": "3010-power-supply-add-support-for-x86-macs-in-macsmc-powe.patch",
+      "hash": "sha256-fr5iHH4Z+skmapgUO8qVoObhRxW1zkMUP2UlHArUwyY="
+    },
+    {
+      "name": "3011-acpi-disable-battery-and-adapter-for-x86-apple-machi.patch",
+      "hash": "sha256-b98uPKHTycAJzYesnNTii0uXEDRN0cDkUuA7ZZ9z1Qc="
+    },
+    {
+      "name": "3012-hwmon-macsmc-add-more-types.patch",
+      "hash": "sha256-YpYTdgt/k/qXaZ3q9m5UeUhlFpHfl8CPrh5TApglxd8="
+    },
+    {
+      "name": "3013-hwmon-add-support-for-x86-macs-in-macsmc-hwmon.patch",
+      "hash": "sha256-7+UmhQEJCHhOxEslRanW72tX5tFZ/k9JWXvUbV/j8ck="
+    },
+    {
+      "name": "3014-mfd-macsmc-add-ioctl-to-access-smc-keys.patch",
+      "hash": "sha256-Vpo0W16og791SkueKfAtMH0nU1bCHaJDTysdmToHGaI="
+    },
+    {
+      "name": "3015-hwmon-Remove-applesmc.patch",
+      "hash": "sha256-mzLAfvci3e7mk9zVwDdGC9TSRC0RBtp7nz+Uol+M/yA="
     },
     {
       "name": "4001-asahi-trackpad.patch",
@@ -75,32 +99,28 @@
       "hash": "sha256-KV5DTjALzNugs92Jum6VUt0wgblK/6PG1KorovHcIX0="
     },
     {
-      "name": "5002-drm-appletbdrm-Add-suspend-and-resume-support.patch",
-      "hash": "sha256-NFa5ZpNguUC9ELfphvCrVHEh59tN/ZA9vQl6YD1avbI="
-    },
-    {
-      "name": "6001-drm-amd-pm-Fix-boot-problems-in-5300.patch",
-      "hash": "sha256-l6pyVkpumURgoQ/f1kGfw47YhMuuMjpiHgjP6QN8dNE="
-    },
-    {
       "name": "7001-drm-i915-fbdev-Discard-BIOS-framebuffers-exceeding-h.patch",
-      "hash": "sha256-/EKN7JsAxcpAgfJFtPp2NLYaGqQ0kl8wjJEXifSzJpY="
+      "hash": "sha256-Z7mNx5AQob0GKWxqB+jQ6vogdohWEmnAjfjbLEAMzE4="
     },
     {
-      "name": "7002-drm-amdgpu-reset-VI-ASIC-on-MacBookPro15-1.patch",
-      "hash": "sha256-lLruG4lJAI6fI94w2LzHmrbspXArrq+rbI/SJmhwXqo="
+      "name": "7002-SMU-Add-Lower-power-limits-to-NAVI14-Apple-macs.patch",
+      "hash": "sha256-uxU/iVBRvxz0hFpfVhvUdgco4yY0q5nN5kG7ExxNyT8="
     },
     {
       "name": "7003-amdgpu-add-support-for-5K.patch",
-      "hash": "sha256-RX3tiju4gNFlrrYWOMdUr0HAdSN5RliliiPAQw5I6/M="
+      "hash": "sha256-x4xMki224lEG1DzPOZfLrYSlZwjmAYqUw9k2qq7A4XE="
+    },
+    {
+      "name": "7004-drm-amd-pm-use-the-VBIOS-trained-UCLK-levels-on-the-MacBookPro16-1.patch",
+      "hash": "sha256-1ytV5Pjhw4dNkB91bA5fObPa6mXGtGusfavqcsKZykc="
     },
     {
       "name": "8001-Add-APFS-driver.patch",
-      "hash": "sha256-DU/jX8wuM6Y/5iZztg05GjWlzVlo8DfVpCJ3BxFoTJo="
+      "hash": "sha256-WMc94TNEyZjq4AK2bxdNyHe2+sJpmwqJQhnYkAs5fRk="
     },
     {
       "name": "8002-Necessary-modifications-to-build-APFS-with-the-kerne.patch",
-      "hash": "sha256-zCTetF2NPhMH2BknPumhPz2sf26X9Lcra7xCA3R2WMY="
+      "hash": "sha256-LUElP+1xbYbwbd4cZrhcjdTsjEUMa21vPK0JaF3d8sE="
     },
     {
       "name": "9001-ACPI-x86-Apple-T2-systems-need-early-CPU-offlining.patch",
@@ -109,6 +129,26 @@
     {
       "name": "9002-Bluetooth-hci_event-strip-Broadcom-vendor-bits-from-adv-type.patch",
       "hash": "sha256-oikMBjD4gyqTs351q7nTz6lI6rJqOe1/LfxpHAieEOs="
+    },
+    {
+      "name": "9003-Bluetooth-Enable-internal-controller-on-MacPro7-1.patch",
+      "hash": "sha256-/OGk0ekPG9/BWUCEKTegx2W3Lre34T5Sh+6dGHhdPgg="
+    },
+    {
+      "name": "9003-PATCH-wireless-next-v2-wifi-brcmfmac-Improve-D3-substate-entering-timeout-handling.patch",
+      "hash": "sha256-mvk8p5hEWN3CL1Ye/i9BcTFA3mcb6jBxOLJhLat1ccg="
+    },
+    {
+      "name": "9004-t2fanrd.patch",
+      "hash": "sha256-Kz9Skw/kCk+GB7++N9Euy6GlKzZk7vmHOOJjFgT6wW8="
+    },
+    {
+      "name": "9006-wifi-brcmfmac-keep-ND-offload-off-on-the-BCM4355-and.patch",
+      "hash": "sha256-fOuZ5Fht2dqMcq/vQA7QZsMSz6WQjfCWQ4mVg2R/K4M="
+    },
+    {
+      "name": "9007-wifi-brcmfmac-pcie-make-the-antenna-SKU-check-optional-on-BCM4364-3.patch",
+      "hash": "sha256-oITte+wyInhpJ5K7YKXFh/A5K0HJO203njHeeyFjx0s="
     }
   ]
 }

@@ -22,6 +22,10 @@ let
       };
     }
   ) patchset.patches;
+
+  # Newer patch sets replace applesmc with the macsmc driver stack ported from
+  # Asahi, and drop SENSORS_APPLESMC.
+  hasMacsmc = builtins.any (p: p.name == "3015-hwmon-Remove-applesmc.patch") patchset.patches;
 in
 buildLinux (
   {
@@ -50,7 +54,7 @@ buildLinux (
       HID_APPLETB_KBD = module;
       HID_MAGICMOUSE = module;
       HID_SENSOR_ALS = module;
-      SENSORS_APPLESMC = module;
+      SENSORS_APPLESMC = lib.mkIf (!hasMacsmc) module;
       SND_PCM = module;
       STAGING = yes;
 
@@ -64,6 +68,17 @@ buildLinux (
       MEDIA_SDR_SUPPORT = yes;
       MEDIA_PLATFORM_SUPPORT = yes;
       MEDIA_TEST_SUPPORT = yes;
+
+      # macsmc: fans, battery, charge limit, ambient light, keyboard backlight
+      MFD_MACSMC_CORE = lib.mkIf hasMacsmc module;
+      MACSMC_ACPI = lib.mkIf hasMacsmc module;
+      MACSMC_WDT = lib.mkIf hasMacsmc module;
+      MACSMC_LIGHT = lib.mkIf hasMacsmc module;
+      MACSMC_ACCEL = lib.mkIf hasMacsmc module;
+      MACSMC_POWER = lib.mkIf hasMacsmc module;
+      LEDS_MACSMC = lib.mkIf hasMacsmc module;
+      RTC_DRV_MACSMC = lib.mkIf hasMacsmc module;
+      SENSORS_MACSMC_HWMON = lib.mkIf hasMacsmc module;
     };
 
     kernelPatches = [

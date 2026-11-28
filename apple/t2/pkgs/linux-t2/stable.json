@@ -1,18 +1,18 @@
 {
-  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/2eed0f6c812e8f36cb7a7f7bcde69f6f87074bdf/",
+  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/687111a56753cc259ec2d0ef80f8a063848d8136/",
   "kernel": {
-    "version": "6.18.55",
-    "url": "mirror://kernel/linux/kernel/v6.x/linux-6.18.55.tar.xz",
-    "hash": "sha256:1yadaa2gz74nh3pawpwv6lamalnd7wpiv1xb88pw2rd1c606647l"
+    "version": "6.18.65",
+    "url": "mirror://kernel/linux/kernel/v6.x/linux-6.18.65.tar.xz",
+    "hash": "sha256:07c0jpy8rb6iz2bxwiqnv9xf5z33czlgjahfb85wb7ghavwhc9n9"
   },
   "patches": [
     {
       "name": "1001-Add-t2bce-driver-stack.patch",
-      "hash": "sha256-OG4Y7cN75pHWF7huV+2Fqtq0ik2aITMWtF43mD+RFCU="
+      "hash": "sha256-1AGUdSByD7SNxNGWBR5437asBViYRmdNcEvTb1V04kk="
     },
     {
       "name": "1002-Integrate-t2bce-driver-stack.patch",
-      "hash": "sha256-z3g3IOAL+Nze88oKDSYpLHVtFnhz2kP1Udap5J64WmM="
+      "hash": "sha256-H1ajEtVNxxWoaoh4ZGwRfUJbUJnjNa2Avz3vhSb34ys="
     },
     {
       "name": "1003-Fix-for-6.18.patch",
@@ -79,24 +79,24 @@
       "hash": "sha256-KV5DTjALzNugs92Jum6VUt0wgblK/6PG1KorovHcIX0="
     },
     {
-      "name": "5002-drm-appletbdrm-Add-suspend-and-resume-support.patch",
-      "hash": "sha256-NFa5ZpNguUC9ELfphvCrVHEh59tN/ZA9vQl6YD1avbI="
-    },
-    {
       "name": "7001-drm-i915-fbdev-Discard-BIOS-framebuffers-exceeding-h.patch",
       "hash": "sha256-/EKN7JsAxcpAgfJFtPp2NLYaGqQ0kl8wjJEXifSzJpY="
     },
     {
-      "name": "7002-drm-amdgpu-reset-VI-ASIC-on-MacBookPro15-1.patch",
-      "hash": "sha256-lLruG4lJAI6fI94w2LzHmrbspXArrq+rbI/SJmhwXqo="
-    },
-    {
       "name": "8001-Add-APFS-driver.patch",
-      "hash": "sha256-fL9TftzTd5PurxIDrzaPsysGExrMySGOsm6H8NFd7JY="
+      "hash": "sha256-w8wisTsiA1kLOhnMA+GJc+KC6lx1m/KMQkTcED+U+ms="
     },
     {
       "name": "8002-Necessary-modifications-to-build-APFS-with-the-kerne.patch",
       "hash": "sha256-zCTetF2NPhMH2BknPumhPz2sf26X9Lcra7xCA3R2WMY="
+    },
+    {
+      "name": "9003-PATCH-wireless-next-v2-wifi-brcmfmac-Improve-D3-substate-entering-timeout-handling.patch",
+      "hash": "sha256-mvk8p5hEWN3CL1Ye/i9BcTFA3mcb6jBxOLJhLat1ccg="
+    },
+    {
+      "name": "9006-wifi-brcmfmac-keep-ND-offload-off-on-the-BCM4355-and.patch",
+      "hash": "sha256-fOuZ5Fht2dqMcq/vQA7QZsMSz6WQjfCWQ4mVg2R/K4M="
     }
   ]
 }
